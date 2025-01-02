@@ -1,5 +1,5 @@
 ---  
-title: "Part 4: ROS 2 Services"  
+title: "Part 4: Services"  
 description: Learn how ROS Services can be combined with standard publisher/subscriber principles to enhance robot control for specific operations and gain the ability to create custom msgs and srv for tailored communication
 ---
 
@@ -92,7 +92,8 @@ These are different to messages in that *"Service calls"* (that is, the process 
 * Another node (a Service **Server**) processes that request, performs an action and then sends back a **Response**.
 
 <figure markdown>
-  ![The difference between topic-based messaging and the ROS Service protocol](../../images/part4/Service-SingleServiceClient.gif)
+  ![The ROS Service protocol with a Single Service Client](https://docs.ros.org/en/humble/_images/Service-SingleServiceClient.gif){ width=600px }
+  <figcaption>"<a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html#background">Understanding services: Single Service Client</a>".<br />Taken from the ROS 2 Documentation (Humble)<br />&copy; Copyright 2025, Open Robotics licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></figcaption>
 </figure>
 
 Services are *Synchronous* (or *sequential*): When a ROS node sends a request to a service (as a Service *Client*) it can't do anything else until the service has been completed and the Service *Server* has sent a response back. This can be useful for a few reasons:
@@ -111,7 +112,8 @@ Services are *Synchronous* (or *sequential*): When a ROS node sends a request to
 It's also worth noting that any number of ROS Client nodes can call a service, but you can only have a *single* Server providing that particular service at any one time.
 
 <figure markdown>
-  ![](../../images/part4/Service-MultipleServiceClient.gif)
+  ![The ROS Service protocol with Multiple Service Clients](https://docs.ros.org/en/humble/_images/Service-MultipleServiceClient.gif){ width=600px }
+  <figcaption>"<a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html#background">Understanding services: Multiple Service Clients</a>".<br />Taken from the ROS 2 Documentation (Humble)<br />&copy; Copyright 2025, Open Robotics licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></figcaption>
 </figure>
 
 !!! question

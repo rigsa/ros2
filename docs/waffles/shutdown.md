@@ -10,17 +10,17 @@ Therefore, once you've finished working with a robot during a lab session, follo
 
 1. Open a **new** terminal instance on the laptop (++ctrl+alt+t++), and enter the following:
 
-    ***
-    ```bash
+    ``` { .bash .no-copy }
     waffle X off
     ```
     ... replacing `X` with the number of the robot that you have been working with.
-    ***
-
+    
 1. You'll be asked to confirm that you want to shut the robot down: 
 
-        [INPUT] Are you sure you want to shutdown dia-waffleX? [y/n] >> 
-    
+    ``` { .bash .no-copy }
+    [INPUT] Are you sure you want to shutdown dia-waffleX? [y/n] >> 
+    ```
+
     Enter `y` and hit ++enter++ and the robot's SBC will be shut down. 
 
 1. Once the blue light on the corner of the SBC goes out, it's then safe to slide the power button to the **left** to completely turn off the device. 

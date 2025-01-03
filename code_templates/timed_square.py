@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# TODO: shutdown hook
+
 import rclpy
 from rclpy.node import Node # (1)!
 

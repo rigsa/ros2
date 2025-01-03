@@ -410,6 +410,8 @@ In reality, robots need to be able to navigate complex environments autonomously
 
     Click on the :material-plus-circle: icons above to expand the code annotations. Read these carefully to ensure that you understand what's going on and how this code works.
 
+1. TODO: package depends...
+
 1. Having programmed our node and defined it as an executable in our package, we're now ready to build the package so that we can run it. We use a tool called "Colcon" to do this, but this **MUST** be run from the root of the ROS Workspace (i.e.: `~/ros2_ws/`), so let's navigate there now using `cd`:
 
     ***

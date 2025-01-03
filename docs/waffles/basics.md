@@ -458,13 +458,11 @@ In reality, robots need to be able to navigate complex environments autonomously
     
     We want the robot to follow a **0.5m x 0.5m square** motion path.  In order to properly achieve this you'll need to adjust the timings, or the robot's velocity, or both. Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
 
-
-
 ## SLAM
 
-Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is built into ROS. Using data from the robot's LiDAR sensor, plus knowledge of how far the robot has moved[^odom] the robot is able to create a map of its environment *and* keep track of its location within that environment at the same time. IN the exercise that follows you'll see easy it is to implement SLAM on the real robot.  
+Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is built into ROS. Using data from the robot's LiDAR sensor, plus knowledge of how far the robot has moved[^odom] a robot is able to create a map of its environment *and* keep track of its location within that environment at the same time. In the exercise that follows you'll see how easy it is to implement SLAM with the Waffle.  
 
-[^odom]: You'll learn much more about "Robot Odometry" in [Assignment #1 Part 2](../com2009/assignment1/part2.md), and in the COM2009 Lectures.
+[^odom]: You'll learn much more about "Robot Odometry" in the lab course.
 
 #### :material-pen: Exercise 6: Using SLAM to create a map of the environment {#exSlam}
 
@@ -473,38 +471,39 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
     ***
     **TERMINAL 1:**
     ```bash
-    roslaunch turtlebot3_slam turtlebot3_slam.launch
+    ros2 launch turtlebot3_cartographer cartographer.launch.py
     ```
     
-    ??? tip "Robotics Laptop Tip"
-        This command is also available as an alias: `tb3_slam`!
+    ??? tip
+        On the laptop, this command is also available as an alias: `tb3_slam`!
 
     ***
 
-    This will launch RViz once again, where you should now be able to see a model of the Waffle from a top-down view surrounded by green dots representing the real-time LiDAR data. The SLAM tools will already have begun processing this data to start building a map of the boundaries that are currently visible to the Waffle based on its location in the environment.
+    This will launch a new RViz instance, showing a top-down view of the environment, and dots of various colours representing the real-time LiDAR data. Rather than a robot *model*, the robot is now represented in the environment as a series of links denoted by 3-dimensional red/green/blue crosses (you can turn these off by unchecking the `TF` option in the left-hand "Displays" menu, if you want to). 
+    
+    <figure markdown>
+        TODO: SLAM on startup
+    </figure>
 
-    !!! note
-        To begin with your robot may just appear as a white shadow (similar to the left-hand image below). It may take some time for the robot to render correctly (like the right-hand image) as the SLAM processes and data communications catch up with one another. 
-        
-        <figure markdown>
-          ![](../images/waffle/slam.png){width=600px}
-        </figure>
-        
-        This can sometimes take up to a minute or so, so please be patient! If (after a minute) nothing has happened, then speak to a member of the teaching team.
+    SLAM will already have begun processing this data to start building a map of the boundaries that are currently visible to the Waffle based on its location in the environment.
 
-1. Return to **TERMINAL 2** and launch the `turtlebot3_teleop_keyboard` node again. Start to drive the robot around *slowly* and *carefully* to build up a complete map of the area.
+1. Return to **TERMINAL 2** and launch the `teleop_keyboard` node. Start to drive the robot around *slowly* and *carefully* to build up a complete map of the area.
     
     !!! tip
-        It's best to do this slowly and perform multiple circuits of the whole area to build up a more accurate map.
+        It's best to do this slowly and perform multiple circuits of the area to build up a more accurate map.
 
-1. Once you're happy that your robot has built up a good map of its environment, you can save this map using a node called `map_saver` from a package called `map_server`:
+    <figure markdown>
+        TODO: 1 or 2 stages of map generation
+    </figure>
 
-    1. First, create a new directory within your team's ROS package on the laptop. We'll use this to save maps in. Open up a new terminal instance (**TERMINAL 3**) and navigate to the root of your team's ROS package with `roscd` again:
+1. Once you're happy that your robot has built up a good map of its environment, you can save this map using the `map_saver_cli` node from a package called `nav2_map_server`:
+
+    1. First, create a new directory within your ROS package on the laptop. Return to **TERMINAL 3** and navigate to the root of the `waffle_demo` package that you created earlier. We can use the `colcon_cd` tool to do this now:
 
         ***
         **TERMINAL 3:**
-        ``` { .bash .no-copy }
-        roscd com2009_team999
+        ```bash
+        colcon_cd waffle_demo
         ```
         ***
 
@@ -513,7 +512,7 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
         ***
         **TERMINAL 3:**
         ```bash
-        mkdir maps/
+        mkdir maps
         ```
         ***
 
@@ -526,18 +525,18 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
         ```
         ***
 
-    2. Then, use `rosrun` to run the `map_saver` node from the `map_server` package to save a copy of your map:
+    2. Then, use `ros2 run` to run the `map_saver_cli` node and save a copy of your robot's map:
 
         ***
         **TERMINAL 3:**
         ``` { .bash .no-copy }
-        rosrun map_server map_saver -f {map_name}
+        ros2 run nav2_map_server map_saver_cli -f MAP_NAME
         ```
         
-        Replacing `{map_name}` with an appropriate name for your map. This will create two files: 
+        Replacing `MAP_NAME` with an appropriate name for your map. This will create two files: 
         
-        1. a `{map_name}.pgm` 
-        2. a `{map_name}.yaml` file
+        1. a `MAP_NAME.pgm` 
+        2. a `MAP_NAME.yaml` file
         
         ...both of which contain data related to the map that you have just created.
 
@@ -548,13 +547,13 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
         ***
         **TERMINAL 3:**
         ``` { .bash .no-copy }
-        eog {map_name}.pgm
+        eog MAP_NAME.pgm
         ```
         ***
 
 1. Return to **TERMINAL 1** and close down SLAM by pressing ++ctrl+c++. The process should stop and RViz should close down.
 
-1. Close down the Keyboard Teleop node in **TERMINAL 2** as well if that's still running.
+1. Close down the `teleop_keyboard` node in **TERMINAL 2** as well, if that's still running.
 
 ## Wrapping Up
 

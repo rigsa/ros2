@@ -14,7 +14,7 @@ On this page you'll work through a series of exercises with the Waffle **in your
 * [Exercise 2: Seeing the Sensors in Action](#exViz)
 * [Exercise 3: Visualising the ROS Network](#exNet)
 * [Exercise 4: Exploring ROS Topics and Interfaces](#exTopicMsg)
-* [Exercise 5: Creating Your First Python ROS Node](#exSimpleVelCtrl)
+* [Exercise 5: Creating A Velocity Control Node (with Python)](#exSimpleVelCtrl)
 * [Exercise 6: Using SLAM to create a map of the environment](#exSlam)
 
 ## Prerequisite: Robot-Laptop 'Bridging'
@@ -269,97 +269,169 @@ Our TurtleBot3 robot only has two motors, so it doesn't actually have six DOFs! 
 
 It can therefore only move **linearly** in the **x-axis** (*Forwards/Backwards*) and **angularly** in the **z-axis** (*Yaw*). 
 
-#### :material-pen: Exercise 5: Creating Your First Python ROS Node {#exSimpleVelCtrl}
+#### :material-pen: Exercise 5: Creating A Velocity Control Node (with Python) {#exSimpleVelCtrl}
 
 !!! important
     Before you start this, close down RViz (click the "Close without saving" button, if asked) and stop the `teleop_keyboard` node by entering ++ctrl+c++ in **TERMINAL 2**.
 
-Making a robot move with ROS is simply a case of publishing the right ROS Message (`Twist`) to the right ROS Topic (`/cmd_vel`). In some of the previous exercises above you used the Keyboard Teleop node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the Teleop node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic.
+As we've seen, making a robot move with ROS is simply a case of publishing the right ROS Interface (`geometry_msgs/msg/Twist`) to the right ROS Topic (`/cmd_vel`). In some previous exercises above we used the `teleop_keyboard` node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic.
 
-In reality, robots need to be able to navigate complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this now by building a simple node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex applications that you will learn about in [Assignment #1](../com2009/assignment1/README.md) and implement in [Assignment #2](../com2009/assignment2/README.md) to bring a real robot to life!
+In reality, robots need to be able to navigate complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this now by building a simple node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex applications that you will learn about in the lab course!
 
-1. You will create your first ROS node inside your team's `com2009_team999` ROS package, which you should have cloned to the laptop earlier on. This package should now correctly reside within the Catkin Workspace on the laptop's filesystem. Navigate to this from **TERMINAL 1** using the `roscd` command:
+1. Above we talked about how ROS Nodes should be contained within packages, so let's create one now using a helper script that we've already put together. (This is covered in more detail in the ROS course, but for the purposes of this exercise let's just go ahead and run the script without worrying too much about it!)
+
+    In **TERMINAL 1**, navigate to the `tuos_ros` Course Repo, which is located in the ROS2 Workspace on the laptop:
 
     ***
-    **TERMINAL 1:**
-    ``` { .bash .no-copy }
-    roscd com2009_team999/ 
+    ```bash
+    cd ~/ros2_ws/src/tuos_ros/
     ```
-    Replacing `com2009_team999` accordingly.
+    
+    Here you'll find the `create_pkg.sh` helper script. Run this now using the following command to create a new ROS package called `waffle_demo`:
+
+    ```bash
+    ./create_pkg.sh waffle_demo
+    ```
     ***
 
-1. Then, use the `cd` command to move into the `src` directory that should already exist within your package:
+1. Navigate into this new package directory (using `cd`):
 
     ***
     **TERMINAL 1:**
     ```bash
-    cd src/ 
+    cd ../waffle_demo/scripts/ 
     ```
+    !!! info
+        `..` means "go back one directory," so that command above is telling `cd` to navigate out of the `tuos_ros` directory (and therefore back to `~/ros2_ws/src/`), and then go *into* the `waffle_demo` package directory from there (and then into the `scripts` directory within that).
+
     ***
 
-1. In here, create a Python file called `simple_move_square.py` using the `touch` command:
+1. Here, create a Python file called `square.py` using the `touch` command:
 
     ***
     **TERMINAL 1:**
     ```bash
-    touch simple_move_square.py
+    touch square.py
     ```
     ***
 
-1. You'll need to change the *execution permissions* for this file in order to be able to run it later on. You'll learn more about this in Assignment #1 but, for now, simply run the following command:
+1. You'll need to change the *execution permissions* for this file in order to be able to run it later on. This is also covered in more depth in the ROS course but, for now, simply run the following command:
 
     ***
     **TERMINAL 1:**
     ```bash
-    chmod +x simple_move_square.py
+    chmod +x square.py
     ```
     ***
 
-2. Now we want to edit this file, and we'll do that using *Visual Studio Code* (VS Code):
+1. Now we need to start editing files in our package, and we'll do that using *Visual Studio Code* (VS Code). 
+
+    First, use `cd` to navigate back one directory, to get us back to the root of our package:
 
     ***
     **TERMINAL 1:** 
     ```bash
+    cd ..
+    ```
+
+    Verify that you're in the right place by using the `pwd` command, which should provide the following output:
+
+    ``` { .bash .no-copy }
+    $ pwd
+    /home/student/ros2_ws/src/waffle_demo
+    ```
+
+    Having confirmed that you're in the right place, open up VS Code in this directory:
+    
+    ```bash
     code .
     ```
-    ***
 
     !!! note
         Don't forget to include the `.` at the end there, it's important!!
+
+    ***
+
+1. Next, we need to add our `square.py` file as an executable to our package's `CMakeLists.txt`. 
     
-3. Once VS Code launches, open up the `simple_move_square.py` file, which should be visible in the file explorer on the left-hand side of the VS Code window. Paste the following content into it:
+    In VS Code, open the `CMakeLists.txt` file that is at the root of the `waffle_demo` package directory (`/home/student/ros2_ws/src/waffle_demo/CMakeLists.txt`). 
+    
+    Locate the lines (near the bottom of the file) that read:
 
-    ```py title="simple_move_square.py"
-    #!/usr/bin/env python3
-
-    --8<-- "snippets/move_square_timed.py"
+    ``` {.txt .no-copy }
+    # Install Python executables
+    install(PROGRAMS
+      scripts/minimal_node.py
+      DESTINATION lib/${PROJECT_NAME}
+    )
     ```
 
-    1. `rospy` is the ROS client library for Python. We need this so that our Python node can interact with ROS.
-    2. We know from earlier that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses `Twist` messages from the `geometry_msgs` package. This is how we import that message, from that package, in order to create velocity commands in Python (which we'll get to shortly...)
-    3. Before we do anything we need to initialise our node to register it on the ROS network with a name. We're calling it "move_waffle" in this case, and we're using `anonymous=True` to ensure that there are no other nodes of the same name already registered on the network.
-    4. We want our main `while` loop (when we get to that bit) to execute 10 times per second (10 Hz), so we create a `rate` object here which will be used to control the rate of the main loop later...
-    5. Here we are setting up a publisher to the `/cmd_vel` topic so that the node can write `Twist` messages to make the robot move.
-    6. We're instantiating a `Twist` message here and calling it `vel` (we'll assign velocity values to this in the `while` loop later on). A `Twist` message contains six different components that we can assign values to. Any idea [what these six values might represent](#velocity-control)?  
-    7. What time is it right now? (This will be useful to compare against in the while loop.)
-    8. We're entering the main `while` loop now. This `rospy.is_shutdown()` function will read `False` unless we request for the node to be stopped (by pressing ++ctrl+c++ in the terminal). Once it turns `True` the `while` loop stops.
-    9. Here we're comparing the time now to the time the last time we checked, to tell us how much time has elapsed (in seconds) since then. We'll use that information to decide what to do...  
-    10. The "transition" state is used to stop the robot (if necessary), and check the time again.
-    11. In "state1" we set velocities that will make the robot move forwards (linear-X velocity only). If the elapsed time is greater than **2 seconds** however, we move on to "state2".
-    12. In "state2" we set velocities that will make the robot turn on the spot (angular-Z velocity only). In this case, if the elapsed time is greater than **4 seconds**, we move back to "state1".
-    13. Regardless of what happens in the `if` statements above, we always publish a velocity command to the `/cmd_vel` topic here (i.e. every loop iteration).
-    14. We created a `rate` object earlier, and we use this now to make sure that each iteration of this `while` loop takes exactly the right amount of time to maintain the rate of execution that we specified earlier (10 Hz).
-    15. Here we're importing some mathematical operators that might be useful... 
+    Replace `minimal_node.py` with `square.py` to define this as an executable of your package:
 
-        | Mathematical Operation | Python Implementation |
+    ``` {.txt .no-copy }
+    # Install Python executables
+    install(PROGRAMS
+      scripts/square.py
+      DESTINATION lib/${PROJECT_NAME}
+    )
+    ```
+
+1. Next, in the VS Code file explorer, open up the `scripts` directory and click on the `square.py` file to open it up in the editor.
+
+1. Paste the following content into the `square.py` file:
+
+    ```py title="square.py"
+    --8<-- "code_templates/timed_square.py"
+    ```
+
+    1. `rclpy` is the ROS client library for Python. We need this (and the `Node` class from it) in order to build and run Python ROS nodes.
+    2. We know from earlier that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses the `geometry_msgs/msg/Twist` interface messages. This is how we import that message into the node, in order to create velocity commands in Python (which we'll get to shortly...)
+    3. Here we're importing some mathematical operators that could be useful... 
+
+        | Mathematical Operation | Python Syntax |
         | :---: | :---: |
         | $\sqrt{a+b}$ | `#!python sqrt(a+b)` |
         | $a^{2}+(bc)^{3}$ | `#!python pow(a, 2) + pow(b*c, 3)` |
         | $\pi r^2$ | `#!python pi * pow(r, 2)` |
 
+    4. All the functionality of our Python node is contained within a Class called `Circle`.    
+    5. When we initialise this class, we provide a name for our node, which is the name that is used to register it on the ROS network. We're calling this one "square".
+    6. Here we are setting up a publisher to the `/cmd_vel` topic so that the node can write `Twist` messages to this topic to make the robot move.
+    7. We're instantiating a `Twist` message here and calling it `vel` (we'll assign velocity values to this later on). A `Twist` message contains six different components that we can assign values to. Any idea [what these six values might represent](#velocity-control)?  
+    8. We want our node to run at a rate of 10 times per second (10 Hz), so we create a timer object here, set the timer period (`timer_period_sec`) and then point the object to a *"callback function"* that is defined later on in the code. This callback function will execute at the rate that we specify with `timer_period_sec`...
+    9. What time is it right now? (This will help us to keep track of elapsed time in our main timer callback...)
+    10. Here we're difining our timer callback function. Everything here will execute at the rate that we specified earlier, so we can encapsulate our main control code in here and be confident that it will execute repeatedly (and indefinitely) at our desired rate.
+    11. Here we're comparing the time *now* to the time the last time we checked, to tell us how much time has elapsed (in seconds) since then. We'll use that information to decide what the robot should do...
+    12. This variable is used to stop the robot (if necessary), check the time again, and then move into a new state.
+    13. In state `1` we set velocities that will make the robot move forwards (linear-X velocity only). If the elapsed time is greater than **2 seconds** however, we move on to state `2`.
+    14. In state `2` we set velocities that will make the robot turn on the spot (angular-Z velocity only). In this case, if the elapsed time is greater than **4 seconds**, we move back to state `1`.
+    15. Regardless of what happens in the `if` statements above, we *always* publish a velocity command to the `/cmd_vel` topic here (i.e. every time this timer callback executes).
+    16. The rest of the code here is *"boilerplate"*: a standard approach that we'll use to instantiate our nodes and execute them. 
+
     Click on the :material-plus-circle: icons above to expand the code annotations. Read these carefully to ensure that you understand what's going on and how this code works.
 
-4. Now, go back to **TERMINAL 1** and run the code.
+1. Having programmed our node and defined it as an executable in our package, we're now ready to build the package so that we can run it. We use a tool called "Colcon" to do this, but this **MUST** be run from the root of the ROS Workspace (i.e.: `~/ros2_ws/`), so let's navigate there now using `cd`:
+
+    ***
+    **TERMINAL 1:** 
+    ```bash
+    cd ~/ros2_ws/ 
+    ```
+
+    Then, use the `colcon build` command to build your package:
+
+    ```bash
+    colcon build --packages-select waffle_demo --symlink-install
+    ```
+    
+    And finally, "re-source" the environment:
+
+    ```bash
+    source ~/.bashrc
+    ```
+    ***
+
+1. Now, run the code.
 
     !!! note
         Make sure the robot is on the floor and has enough room to roam around before you do this!
@@ -367,19 +439,24 @@ In reality, robots need to be able to navigate complex environments autonomously
     ***
     **TERMINAL 1:**
     ``` { .bash .no-copy }
-    rosrun com2009_team999 simple_move_square.py
+    ros2 run waffle_demo square.py
     ```
     ***
     
     Observe what the robot does. When you've seen enough, enter ++ctrl+c++ in **TERMINAL 1** to stop the node from running, which should also stop the robot from moving.
     
-5. As the name may suggest, the aim here is to make the robot follow a square motion path. What you may have observed when you actually ran the code is that the robot doesn't actually do that! We're using a time-based approach to make the robot switch between two different states continuously:
+5. Now it's time to **adapt the code**:
+    
+    The aim here is to make the robot follow a square motion path. What you may have observed when you actually ran the code is that the robot doesn't actually do that! We're using a time-based approach to make the robot switch between two different states continuously:
+    
     1. Moving forwards
     2. Turning on the spot
     
     Have a look at the code to work out how much time the robot will currently spend in each state.
     
-6.  The aim here is to make the robot follow a **0.5m x 0.5m square** motion path.  In order to properly achieve this you'll need to adjust the timings, or the robot's velocity, or both. Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
+    We want the robot to follow a **0.5m x 0.5m square** motion path.  In order to properly achieve this you'll need to adjust the timings, or the robot's velocity, or both. Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
+
+
 
 ## SLAM
 

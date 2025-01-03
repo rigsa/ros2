@@ -394,7 +394,7 @@ In reality, robots need to be able to navigate complex environments autonomously
         | $a^{2}+(bc)^{3}$ | `#!python pow(a, 2) + pow(b*c, 3)` |
         | $\pi r^2$ | `#!python pi * pow(r, 2)` |
 
-    4. All the functionality of our Python node is contained within a Class called `Circle`.    
+    4. All the functionality of our Python node is contained within a Class called `Square`.    
     5. When we initialise this class, we provide a name for our node, which is the name that is used to register it on the ROS network. We're calling this one "square".
     6. Here we are setting up a publisher to the `/cmd_vel` topic so that the node can write `Twist` messages to this topic to make the robot move.
     7. We're instantiating a `Twist` message here and calling it `vel` (we'll assign velocity values to this later on). A `Twist` message contains six different components that we can assign values to. Any idea [what these six values might represent](#velocity-control)?  

@@ -255,9 +255,9 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
     **TERMINAL 2:**
     ``` { .txt .no-copy }
     [INFO] [#####] [camera_sweep_action_server]: camera_sweep_action_server completed successfully:
-      - Angular sweep = X degrees
-      - Images captured = Y
-      - Time taken = Z seconds
+      - Angular sweep = # degrees
+      - Images captured = #
+      - Time taken = # seconds
     ```
     ***
 
@@ -292,7 +292,7 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
 
 ## What is a ROS Action?
 
-In this Exercise we launched an action server and then called it from the command-line using the `ros2 action send_goal` sub-command. Using the `-f` flag we were able to ask the server to provide us with *real-time feedback* on how it was getting on (in **TERMINAL 3**). In the same way as a ROS Service, it also provided us with a **result** once the task had been completed. **Feedback** is one of the key features that differentiates a ROS Action from a ROS Service: An Action Server provides **feedback** messages at regular intervals whilst performing an action and working towards its **goal**. Another feature of ROS Actions is that they can be *cancelled* part-way through (which we'll play around with shortly).
+In this Exercise we launched an action server and then called it from the command-line using the `ros2 action send_goal` sub-command. Using the `-f` flag we were able to ask the server to provide us with *real-time feedback* on how it was getting on (in **TERMINAL 3**). In the same way as a ROS Service, the action also provided us with a **result** once the task had been completed. **Feedback** is one of the key features that differentiates a ROS Action from a ROS Service: An Action Server provides **feedback** messages at regular intervals whilst performing an action and working towards its **goal**. Another feature of ROS Actions is that they can be *cancelled* part-way through (which we'll play around with shortly).
 
 Ultimately, Actions use a combination of both Topic- *and* Service-based communication, to create a more advanced messaging protocol. Due to the provision of *feedback* and the ability to *cancel* a process part-way through, Actions are designed to be used for **longer running tasks**. You can read more about Actions in [the official ROS 2 documentation here](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html) (which also includes a nice animation to explain how they work).
 
@@ -317,7 +317,7 @@ int32 current_image    # the number of images taken
 float32 current_angle  # the current angular position of the robot (in degrees)
 ```
 
-As we know from Exercise 1, in order to call this action server, we need to send a **goal**, and (as we know) there are **two** goal parameters that must be provided:
+As we know from Exercise 1, in order to call this action server, we need to send a **goal**, and (as we know from Exercise 1) there are **two** goal parameters that must be provided:
 
 1. `sweep_angle`: a 32-bit floating-point value
 1. `image_count`: a 32-bit integer
@@ -334,7 +334,29 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
 #### :material-pen: Exercise 2: Building a Python Action Client Node {#ex2}
 
-1. In **TERMINAL 1** create a new package called `part5_actions` using the `create_pkg.sh` helper script from the `tuos_ros` course repo ([return here for a reminder on how to do this](part1.md#ex4)).
+1. In **TERMINAL 1** launch the *mystery world* simulation again, but this time with an additional argument:
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
+    ```
+    ***
+
+    Which will launch Gazebo in full now, with the GUI attached.
+
+1. Then, in **TERMINAL 2**, launch the Camera Sweep Action Server again: 
+
+    ***
+    **TERMINAL 2:**
+    ```bash
+    ros2 run tuos_examples camera_sweep_action_server.py
+    ```
+    ***
+
+##### Part 1: A Minimal Action Client
+
+1. Now, in **TERMINAL 3**, create a new package called `part5_actions` using the `create_pkg.sh` helper script from the `tuos_ros` course repo ([return here for a reminder on how to do this](part1.md#ex4)).
 
 1. Navigate into the `scripts` folder of your package using the `cd` command:
 
@@ -344,9 +366,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
 1. In here, create a new Python file called `camera_sweep_action_client.py` (using the `touch` command) and make it executable ([using `chmod`](./part1.md#chmod)). 
 
-1. Review [the code provided here](./part5/action_client.md), and the annotations, then copy and paste the code into your newly created `camera_sweep_action_client.py` file. <a name="ex2_ret"></a>
-    
-1. Then, declare the `camera_sweep_action_client.py` node as an executable in your package's `CMakeLists.txt`:
+1. Then, declare this as an executable in the package's `CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -356,104 +376,272 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     )
     ```
 
-1. (TODO) You'll need to add a new dependency to your package's `package.xml` file now. Below the `#!xml <exec_depend>rclpy</exec_depend>` line, add an execution dependency for `nav_msgs`:
+1. At an *absolute minimum*, the Action Client can be constructed as follows:
 
-    ```xml title="package.xml"
-    <exec_depend>rclpy</exec_depend>
-    <exec_depend>nav_msgs</exec_depend>
+    ```py title="camera_sweep_action_client.py"
+    --8<-- "code_templates/camera_sweep_action_client.py"
     ```
 
-1. Then, head back to the terminal and use Colcon to build the package:
+    1. As you know by now, in order to develop ROS nodes using Python we need to import the `rclpy` client library, and the `Node` class to base our node upon. In addition, here we're also importing an `ActionClient` class too.  
+
+    2. We know that the `/camera_sweep` Action server uses the `CameraSweep` `action` interface from the `tuos_interfaces` package, so we import that here too (which we use to make a call to the server). 
+
+    3. Standard practice when we initialise ROS nodes: *we must give them a name*
+    
+    4. Here, we instantiate an `ActionClient` class object. In doing this we define the `node` to add the action client too (in our case `self`, i.e. our `CameraSweepActionClient` class). We then also define the interface type used by the server (`CameraSweep`), and the name of the action that we want to call (`action_name="camera_sweep"`).
+
+    5. Here we define a class method to construct and deliver a goal to the server. 
+
+        As we know from earlier, a `CameraSweep.Goal()` contains two parameters that we can assign values to: `sweep_angle` and `image_count`.
+
+        The goal is sent to the server using the `send_goal_async()` method, which returns a *future*: i.e. something that will happen in the future, that we can wait on.
+
+        !!! tip
+            Both goal parameters are set to `0` by default!
+
+    6. In our `main` method we initialise `rclpy` and our `CameraSweepActionClient` class (nothing new here), but then we call the `send_goal()` method of our class (as discussed above), which returns a *future*. We can then use the `rclpy.spin_until_future_complete()` method to spin up our node *only* until this future object has finished.
+
+        !!! warning 
+            When the `send_goal()` method is called, no additional arguments are provided, which means *default values* will be applied... which were defined above!
+
+1. Let's build the Node now, so that we can run it. Head back to **TERMINAL 3** and use Colcon to build the package: <a name="colcon"></a>
 
     ```bash
     cd ~/ros2_ws/ && colcon build --packages-select part5_actions --symlink-install
     ```
 
-1. Finally, re-source the `.bashrc`:
+1. Re-source the `.bashrc`:
 
     ```bash
     source ~/.bashrc
     ```
 
-1. Then, in **TERMINAL 2**, execute the same launch file as before but this time with a couple of additional arguments:
+1. Run your node with `ros2 run`...
+
+    As you have hopefully just observed, the node that we've created here makes a call to the action server, waits for the action to take place and then stops. The only way that you'd know what was happening however, is if you keep an eye on **TERMINAL 2**, to see the action *server* respond to the goal that it was sent... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...
+
+##### Part 2: Handling a Result
+
+1. Go back to the `camera_sweep_action_client.py` file in VS Code.
+
+1. In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends to the goal itself.
+
+    Within the `send_goal()` method of the `CameraSweepActionClient()` class, find the line that reads:
+
+    ```py
+    return self.actionclient.send_goal_async(goal)
+    ```
+
+    and change this to:
+
+    ```py
+    self.send_goal_future = self.actionclient.send_goal_async(goal)
+    self.send_goal_future.add_done_callback(self.goal_response_callback)
+    ```
+
+    This method is no longer returning the *future* that is sent from `send_goal_async()`, but is now handling this and adding a callback to it: `goal_response_callback`. This callback will be executed to inform the client of whether the server has *accepted* the goal or not.
+
+1. Define this as a *new* class method of the `CameraSweepActionClient()` class (i.e. underneath the `send_goal()` class method that has already been defined)...
+
+    ```py
+    def goal_response_callback(self, future):
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().warn("The goal was rejected by the server.")
+            return
+
+        self.get_logger().info("The goal was accepted by the server.")
+
+        self.get_result_future = goal_handle.get_result_async()
+        self.get_result_future.add_done_callback(self.get_result_callback)
+    ```
+
+    The *input* to this method will be the *future* that is created by the `send_goal_async()` call. We assign this to `goal_handle` here, and can then use this for two purposes:
+
+        1. To check whether the goal that we sent was accepted by the server
+        1. If it *was* accepted, then we can get the result (using `get_result_async()`) and we can attach another callback to this to actually process that result: `get_result_callback`.
+
+1. Now, define *this* as another new method of the `CameraSweepActionClient()` class (i.e. underneath the `goal_response_callback()` class method that we have just defined)...
+
+    ```py
+    def get_result_callback(self, future):
+        result = future.result().result
+        self.get_logger().info(
+            f"The action has completed.\n"
+            f"Result:\n"
+            f"  - Image Path = {result.image_path}"
+        )
+        rclpy.shutdown()
+    ``` 
+
+    The input to *this* class method is another future object which contains the actual result sent from the server. We assign this to `result` and use a `get_logger().info()` call to print this to the terminal when the action has finished.
+
+    As we know from our work earlier, the `CameraSweep` interface contains one `result` parameter called `image_path`.
+
+1. Finally, in the `main` method, change this:
+
+    ```py
+    rclpy.spin_until_future_complete(action_client, future)
+    ```
+
+    to this:
+
+    ```py
+    rclpy.spin(action_client)
+    ```
+
+1. Save all your changes!
+
+1. Run this node again now (with the `ros2 run` command) and observe the changes in action.
+
+    Our client node now presents us with the *result* that is sent by the server on completion of the action, but wouldn't it be nice if we could see the real-time *feedback* as the action takes place? Let's add this in now...
+
+##### Part 3: Handling Feedback
+
+1. Go back to the `camera_sweep_action_client.py` file in VS Code.
+
+1. In order to be able to handle the feedback that is sent from an action server, we need to add yet another callback! Go back to the `send_goal()` method and the line where we are actually sending the goal to the server:
+
+    ```py
+    self.send_goal_future = self.actionclient.send_goal_async(goal)
+    ```
+
+    As it stands, all we're doing here is sending the goal, but we can also add a *feedback callback* to this too:
+
+    ```py
+    self.send_goal_future = self.actionclient.send_goal_async(
+            goal=goal, 
+            feedback_callback=self.feedback_callback
+        )
+    ```
+
+    The `feedback_callback` will be executed every time a new feedback message is received from the server.
+
+1. In order to define what we want to do with these feedback messages we need to define this *yet another* new method of the `CameraSweepActionClient()` class. Underneath the `get_result_callback()` class method that we defined earlier, add this new one as well:
+
+    ```py
+    def feedback_callback(self, feedback_msg):
+        feedback = feedback_msg.feedback
+        fdbk_current_angle = feedback.current_angle
+        fdbk_current_image = feedback.current_image
+        self.get_logger().info(
+            f"\nFEEDBACK:\n"
+            f"  - Current angular position = {fdbk_current_angle:.1f} degrees.\n"
+            f"  - Image(s) captured so far = {fdbk_current_image}."
+        )
+    ``` 
+
+    As we know from our work earlier, the `CameraSweep` interface contains two *feedback* parameters: `fdbk_current_angle` and `fdbk_current_image`.
+
+1. Save all your changes once again, run the node again with the `ros2 run` command and observe the changes in action.
+
+    The node we've now built can send a *goal* to an action server, process the *feedback* sent form the server as the action is in progress, and present the *result* to us once everything is complete.
+    
+    As discussed earlier though, the *other* key feature of Actions is the ability to *cancel* them part-way through. So let's look at how to incorporate this now as well.
+
+##### Part 4: Cancelling an Action
+
+1. First, create a copy of your `camera_sweep_action_client.py` node and call it `camera_sweep_action_client_cancel.py` (make sure you're still in the `scripts` directory of your `part5_actions` package before you run this command):
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    roslaunch tuos_simulations mystery_world.launch gui:=true camera_search:=true
-    ```
-    
-    ... which will launch the Gazebo simulation in GUI mode this time, as well as the `/camera_sweep_action_server` too.
-
-    ***
-
-1. In **TERMINAL 1**, use `rosrun` to call the action server with the `action_client.py` node that you have just created...
-
-    !!! warning "Something not right?"
-        You may need to change the values that have been assigned to the goal parameters, in order for the client to successfully make a call to the server!
-
-    The node we have just created, in its current form, uses a *feedback callback function* to perform some operations while the action server is working. In this case, it simply prints the feedback data that is coming from the Action Server.  That's it though, and the `client.wait_for_result()` line still essentially just makes the client node wait until the action server has finished doing its job before it can do anything else. This still therefore looks a lot like a service, so let's modify this now to really build *concurrency* into the client node.
-
-1. First, create a copy of your `action_client.py` node and call it `concurrent_action_client.py` (you will need to make sure you are still in the `src` directory of your `part5_actions` package before you run this command):
-
-    ***
-    **TERMINAL 1:**
-    ```bash
-    cp action_client.py concurrent_action_client.py
+    cp camera_sweep_action_client.py camera_sweep_action_client_cancel.py
     ```
     ***
 
-1. We want to use the **status** message from the action server now, and we can find out a bit more about this as follows:
-    
-    1. Use `rostopic info camera_sweep_action_server/status` to find the message type.
-    1. Then, use `rosmsg info` (using the message type you have just identified) to tell you all the status codes that could be returned by the action server.
+1. Don't forget to declare this as an *additional* executable in the package's `CMakeLists.txt`. You'll then also need to re-build the package with `colcon build` ([go back for a reminder](#colcon)).
 
-    You should have identified the following states, listed in the `status_list` portion of the message:
+1. Open the `camera_sweep_action_client_cancel.py` file in VS Code.
 
-    ``` { .txt .no-copy }
-    PENDING=0
-    ACTIVE=1
-    PREEMPTED=2
-    SUCCEEDED=3
-    ABORTED=4
-    REJECTED=5
-    ...
+1. We want this client to be able to cancel the goal under two different circumstances:
+
+    1. The client itself is shutdown by the user (via a ++ctrl+c++ in the terminal)
+    1. A conditional event that happens as the action is underway.
+
+    In order to address item 1 first, we need to draw upon some of the work we did in Part 2 in [the implementation of *safe shutdown procedures*](part2.md#ex5)...
+
+1. As you hopefully recall, we first need to import `SignalHandlerOptions` into our node, so add this as an additional import at the start of the code:
+
+    ```py
+    from rclpy.signals import SignalHandlerOptions
     ```
 
-    We can set up our action client to monitor these status codes in a `while` loop, and then perform other operations inside this loop until the action has completed (or has been stopped for another reason).
+    Then, in the `main()` node function, modify the `#!py rclpy.init()` call:
 
-1. To do this, replace the `client.wait_for_result()` line in the `concurrent_action_client.py` file with the following code:
-
-    ```python
-    rate = rospy.Rate(1)
-    i = 1
-    print("While we're waiting, let's do our seven-times tables...")
-    while client.get_state() < 2:
-        print(f"STATE: Current state code is {client.get_state()}")
-        print(f"TIMES TABLES: {i} times 7 is {i*7}")
-        i += 1
-        rate.sleep()
+    ```py
+    rclpy.init(
+        args=args,
+        signal_handler_options=SignalHandlerOptions.NO
+    )
     ```
 
-1. Run the `concurrent_action_client.py` node and see what happens this time.  Essentially, we know that we can carry on doing other things as long as the status code is less than 2 (either `PENDING` or `ACTIVE`), otherwise either our goal has been achieved, or something else has happened...
+1. Inside the `#!py __init__()` method of our `CameraSweepActionClient()` class we now need to add some additional flags:
 
-### Cancelling (or *Preempting*) an Action {#preemptive_client}
+    ```py
+    self.goal_succeeded = False
+    self.goal_cancelled = False
+    self.stop = False
+    ```
 
-Actions are extremely useful for controlling robotic tasks or processes that might take a while to complete, but what if something goes wrong, or if we just change our mind and want to stop an action before the goal has been reached? The ability to *preempt* an action is one of the things that makes them so useful.
+    In the `get_result_callback()` class method, we can then ensure that the `self.goal_succeeded` flag is sent to `True` when a result is received. In this class methods, locate the `#!py rclpy.shutdown()` line and add the following *additional* line just above it:
 
-#### :material-pen: Exercise 3: Building a Preemptive Python Action Client Node {#ex3}
+    ```py
+    self.goal_succeeded = True
+    ```
 
-1. In **TERMINAL 1** you should still be located within the `src` folder of your `part5_actions` package. If not, then go back there now! Create a new file called `preemptive_action_client.py` and make this executable.
-1. Have a look at the code [here](./part5/preemptive_action_client.md), then copy and paste it into the `preemptive_action_client.py` node that you have just created.<a name="ex3_ret"></a>
+1. Actions can be cancelled using a `cancel_goal_async()` method of the `goal_handle` that is obtained from the `goal_response_callback()`. As such, we need to make this accessible across our entire `CameraSweepActionClient()` class. Locate the `goal_response_callback()` class method, and add this line at the bottom as the last line of the `goal_response_callback()` method:
 
-    Here, we've built an action client that will cancel the call to the action server if we enter ++ctrl+c++ into the terminal.  This is useful, because otherwise the action server would continue to run, even when we terminate the client.  A lot of the code is similar to the Action Client from the previous exercise, but we've built a class structure around this now for more flexibility.  Have a look at [the code annotations](./part5/preemptive_action_client.md) and make sure that you understand how it all works.
+    ```py
+    self._goal_handle = goal_handle
+    ```
 
-1. Run this using `rosrun`, let the server take a couple of images and then enter ++ctrl+c++ to observe the goal cancelling in action.
+    This makes `goal_handle` accessible across the entire `CameraSweepActionClient()` class as `#!py self._goal_handle`. 
 
-    !!! warning
-        You'll need to set some values for the goal parameters again!
+1. We can only attempt to cancel an Action when it's in progress, therefore the *feedback callback* is the best place to trigger this. Locate the `feedback_callback()` class method and place the following at the end of it:
+
+    ```py
+    if self.stop:
+        future = self._goal_handle.cancel_goal_async()
+        future.add_done_callback(self.cancel_goal)
+    ```
+
+    Here, we call the `cancel_goal_async()` method from `self._goal_handle`, and add another new callback (`cancel_goal()`) to it (i.e. to encapsulate what we want to happen when the action is cancelled).
+
+1. Now, let's define this as another new (and final!) class method:
+
+    ```py
+    def cancel_goal(self, future):
+        cancel_response = future.result()
+        if len(cancel_response.goals_canceling) > 0:
+            self.get_logger().info('Goal successfully canceled')
+            self.goal_cancelled = True
+        else:
+            self.get_logger().info('Goal failed to cancel')
+    ```
+
+    The input to this callback is another *future*, which we can use to determine if the goal has been cancelled (as shown above). If it *has*, then we set our `self.goal_cancelled` flag to `True`.
+
+1. **Finally**, go back the `main()` function of the node. We're going to replace the `#!py rclpy.spin(action_client)` line now, with a `#!py rclpy.spin_once()`, wrapped inside a `#!py try` - `#!py except`, wrapped inside a `#!py while` loop!
     
-1. We can also cancel a goal conditionally, which may also be useful if, say, too much time has elapsed since the call was made, or the caller has been made aware of something else that has happened in the meantime (perhaps we're running out of storage space on the robot and can't save any more images!) This is all achieved using the `cancel_goal()` method.
+    ```py
+    while not action_client.goal_succeeded:
+        try:
+            rclpy.spin_once(action_client)
+            if action_client.goal_cancelled:
+                break
+        except KeyboardInterrupt:
+            print("Ctrl+C")
+            action_client.stop = True
+    ```
+
+    The `#!py while` loop will execute until the action completes successfully, *or* until the goal is *cancelled*, *or* we shutdown the node with a ++ctrl+c++ interrupt.
+
+    Look back through the node to see how all this will flow through your class.
+
+1. We may wish to cancel a goal *conditionally* if - say - too much time has elapsed since the call was made, or the caller has been made aware of something else that has happened in the meantime (perhaps we're running out of storage space on the robot and can't save any more images!). 
+
+    For the purposes of this exercise, we want to modify our node so that the action is always cancelled after a total of **5 images** have been captured. This can be done by making a fairly small modification to the `feedback_callback()`. **Have a go at implementing this now**. 
 
     * Have a go now at introducing a conditional call to the `cancel_goal()` method once a total of **5 images** have been captured.
     * You could use the `captured_images` attribute from the `CameraSweepFeedback` message to trigger this.
@@ -462,15 +650,10 @@ Actions are extremely useful for controlling robotic tasks or processes that mig
 
 ROS Actions work a lot like ROS Services, but they have the following key differences:
 
-1. They are **asynchronous**: a client can do other things while it waits for an action to complete.
-1. They can be **cancelled** (or *preempted*): If something is taking too long, or if something else has happened, then an Action Client can cancel an Action whenever it needs to.
-1. They provide **feedback**: so that a client can monitor what is happening and act accordingly (i.e. preempt an action, if necessary).
+1. They can be **cancelled**: If something is taking too long, or if something else has happened, then an Action Client can cancel an Action whenever it needs to.
+1. They provide **feedback**: so that a client can monitor what is happening and act accordingly (i.e. cancel the action, if necessary).
 
-<figure markdown>
-  ![](part5/action_msgs.png)
-</figure>
-
-This mechanism is therefore useful for robotic operations that may take a long time to execute, or where intervention might be necessary.
+This mechanism is therefore useful for operations that may take a long time to execute, and where intervention might be necessary.
 
 ## Creating Action Servers in Python {#cam_swp_act_srv}
 

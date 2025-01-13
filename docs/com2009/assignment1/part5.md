@@ -233,7 +233,7 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
     ```
     ***
 
-    Having called the action, you should then be presented with a message (in **TERMINAL 3**) that the `Goal was rejected.` In **TERMINAL 2** (where the action server is running), we should see some additional information about why this was the case. Read this, and then head back to **TERMINAL: 3** and have another go at sending a goal to the action server, by supplying valid inputs this time!
+    Having called the action, you should then be presented with a message (in **TERMINAL 3**) that the `Goal was rejected.` In **TERMINAL 2** (where the action server is running), we should see some additional information about why this was the case. Read this, and then head back to **TERMINAL 3** and have another go at sending a goal to the action server, by supplying valid inputs this time!
 
     Once valid goal parameters have been supplied, the action server (in **TERMINAL 2**), will respond to inform you of what it's going to do. You'll then need to wait for it to do its job...
 
@@ -458,8 +458,8 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
     The *input* to this method will be the *future* that is created by the `send_goal_async()` call. We assign this to `goal_handle` here, and can then use this for two purposes:
 
-        1. To check whether the goal that we sent was accepted by the server
-        1. If it *was* accepted, then we can get the result (using `get_result_async()`) and we can attach another callback to this to actually process that result: `get_result_callback`.
+    1. To check whether the goal that we sent was accepted by the server
+    1. If it *was* accepted, then we can get the result (using `get_result_async()`) and we can attach another callback to this to actually process that result: `get_result_callback`.
 
 1. Now, define *this* as another new method of the `CameraSweepActionClient()` class (i.e. underneath the `goal_response_callback()` class method that we have just defined)...
 

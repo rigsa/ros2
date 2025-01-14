@@ -274,7 +274,7 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
         ```
         ***
 
-1. Let's do this one more time. Close down the `eog` window, head back to **TERMINAL 3** and issue the `ros2 action send_goal` command again, but this time use the optional `-f` flag:
+1. Let's do this one more time. Close down the `eog` window, head back to **TERMINAL 3** and issue the `ros2 action send_goal` command again, but this time use the optional `-f` flag: <a name="send_goal_cli"></a>
 
     ***
     **TERMINAL 3:**
@@ -328,7 +328,7 @@ As we know from Exercise 1, in order to call this action server, we need to send
 
 You'll learn how we use this information to develop Python Action Server & Client nodes in the following exercises.
 
-### Creating Python Action Clients
+## Creating Python Action Clients
 
 In the previous exercise we *called* a pre-existing Action Server from the command-line, by sending a goal to it. Let's look at how we can do this from within a Python ROS node now.
 
@@ -376,6 +376,12 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     )
     ```
 
+1. Also modify the `package.xml` file (below the `#!xml <test_depend>ament_lint_common</test_depend>` line) to include following `msg` dependency:
+
+    ```xml title="package.xml"
+    <depend>action_msgs</depend>
+    ```
+
 1. At an *absolute minimum*, the Action Client can be constructed as follows:
 
     ```py title="camera_sweep_action_client.py"
@@ -418,7 +424,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
 1. Run your node with `ros2 run`...
 
-    As you have hopefully just observed, the node that we've created here makes a call to the action server, waits for the action to take place and then stops. The only way that you'd know what was happening however, is if you keep an eye on **TERMINAL 2**, to see the action *server* respond to the goal that it was sent... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...
+    As you have hopefully just observed, the node that we've created here makes a call to the action server, waits for the action to take place and then stops. The only way that you'd know what was happening however, is if you were to keep an eye on **TERMINAL 2**, to see the action *server* respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...
 
 ##### Part 2: Handling a Result
 
@@ -458,10 +464,10 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
     The *input* to this method will be the *future* that is created by the `send_goal_async()` call. We assign this to `goal_handle` here, and can then use this for two purposes:
 
-    1. To check whether the goal that we sent was accepted by the server
+    1. To check if the goal that we sent was accepted by the server
     1. If it *was* accepted, then we can get the result (using `get_result_async()`) and we can attach another callback to this to actually process that result: `get_result_callback`.
 
-1. Now, define *this* as another new method of the `CameraSweepActionClient()` class (i.e. underneath the `goal_response_callback()` class method that we have just defined)...
+1. Now, define `get_result_callback` as another new method of the `CameraSweepActionClient()` class (i.e. underneath the `goal_response_callback()` class method that we have just defined)...
 
     ```py
     def get_result_callback(self, future):
@@ -510,9 +516,9 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
     ```py
     self.send_goal_future = self.actionclient.send_goal_async(
-            goal=goal, 
-            feedback_callback=self.feedback_callback
-        )
+        goal=goal, 
+        feedback_callback=self.feedback_callback
+    )
     ```
 
     The `feedback_callback` will be executed every time a new feedback message is received from the server.
@@ -546,13 +552,13 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     ***
     **TERMINAL 3:**
     ```bash
-    cp camera_sweep_action_client.py camera_sweep_action_client_cancel.py
+    cp camera_sweep_action_client.py camera_sweep_cancel_client.py
     ```
     ***
 
 1. Don't forget to declare this as an *additional* executable in the package's `CMakeLists.txt`. You'll then also need to re-build the package with `colcon build` ([go back for a reminder](#colcon)).
 
-1. Open the `camera_sweep_action_client_cancel.py` file in VS Code.
+1. Open the `camera_sweep_cancel_client.py` file in VS Code.
 
 1. We want this client to be able to cancel the goal under two different circumstances:
 
@@ -655,180 +661,323 @@ ROS Actions work a lot like ROS Services, but they have the following key differ
 
 This mechanism is therefore useful for operations that may take a long time to execute, and where intervention might be necessary.
 
-## Creating Action Servers in Python {#cam_swp_act_srv}
+## Creating Your Own Action Servers, Clients and Interfaces
 
 !!! info "Important"
     Cancel *all* active processes that you may have running before moving on.
 
-So far we have looked at how to call an action server, but what about if we actually want to set up our own? We've been working with a pre-made action server in the previous exercises, but so far we haven't really considered how it actually works. First, let's do some detective work... We launched the Action Server using `roslaunch` in Exercise 1:
+So far we have looked at how to call a pre-existing action server, but what about if we actually want to set up our own, and use our own custom Action Interfaces too? 
 
-```bash
-roslaunch tuos_examples camera_sweep.launch
+To start with, have a look at the Action Server that you've been working with in the previous exercises. You've been launching this with the following command:
+
+``` { .bash .no-copy }
+ros2 run tuos_examples camera_sweep_action_server.py
 ```
 
 !!! question "Questions"
-    * What does this tell us about the *package* that the action server node belongs to?
-    * Where, in the package directory, is this node likely to be located?
-    * How might we find out the name of the Python node from the `camera_sweep.launch` file?
+    * Which *package* does the action server node belong to?
+    * Where (in that package directory) is this node likely to be located?
 
-Once you've identified the name and the location of the source code, open it up in VS Code and have a look through it to see how it all works.
+Once you've identified the name and the location of the source code, open it up in VS Code and have a look through it to see how it all works. Don't worry too much about all the content associated with obtaining and manipulating camera images in there, we'll learn more about this in the next Part of this course. Instead, focus on the general overall structure of the code and the way that the action server is implemented.
 
-Don't worry too much about all the content associated with obtaining and manipulating camera images in there, we'll learn more about this in the next session. Instead, focus on the general overall structure of the code and the way that the action server is implemented.
+Some things to review:
 
-1. As a starting point, consider the way in which the action server is initialised and the way a callback function is defined to encapsulate all the code that will be executed when the action is called:
-
-    ``` { .python .no-copy }
-    self.actionserver = actionlib.SimpleActionServer(self.server_name, 
-        CameraSweepAction, self.action_server_launcher, auto_start=False)
-    self.actionserver.start()
+1. The way the server is initialised and the numerous callbacks that are attached to it:
+    
+    ```py
+    self.actionserver = ActionServer(
+        node=self, 
+        action_type=CameraSweep,
+        action_name="camera_sweep",
+        execute_callback=self.server_execution_callback, # (1)!
+        callback_group=ReentrantCallbackGroup(), # (2)!
+        goal_callback=self.goal_callback, # (3)!
+        cancel_callback=self.cancel_callback # (4)!
+    )
     ```
 
-1. Look at how a `/cmd_vel` publisher and an `/odom` subscriber are defined in external classes:<a name="tb3_module" ></a>
+    1. This callback contains all the code that will be executed by the server once a valid goal is sent to it (i.e. the core functionality of the Action)
+    2. This server node is set up as a *Multi-threaded Executor* (see the setup in `main()`), to control the execution of the various callbacks that we need. Here, we're assigning the Action Server to a *Reentrant Callback Group*, allowing all its callbacks to run in parallel, as well as other subscriber callbacks too. 
+    3. This callback is used to check the goal parameters that have been sent to the server, to decide whether to accept or reject a request. 
+    4. This callback contains everything that needs to happen in the event that the Action is *cancelled* part-way through.
 
-    ``` { .python .no-copy }
-    self.robot_controller = Tb3Move()
-    self.robot_odom = Tb3Odometry()
+
+1. Take a look at the various Action callbacks to see what's happening in each:
+
+    1. How are goal parameters checked, and subsequently accepted or rejected
+    1. How cancellations are implemented and how this is monitored in the main `server_execution_callback()`
+    1. How feedback is handled and published
+    1. How a **result** is handled and published too
+
+1. Finally, consider the shutdown operations.
+
+### Implementing an "Exploration" strategy using the Action Framework
+
+An exploration strategy allows a robot to autonomously navigate an unknown environment while simultaneously avoiding crashing into things! One way to achieve this is to utilise two distinct motion states: moving forwards and turning on the spot, and repeatedly switching between them. *Brownian Motion* and *Levy Flight* are examples of this kind of approach. Randomising the time spent in either, or both, of these two states will result in a navigation strategy that allows a robot to slowly and randomly explore an environment. Forward motion could be performed until - say - a certain distance has been travelled, a set time has elapsed or something gets in the way. Likewise, the direction, speed and/or duration of turning could also be randomised to achieve this.
+
+Over the next few exercises we'll construct our own Action Interface, Server and Client nodes with the aim of creating the *basis* for a basic exploration behaviour. Having completed these exercises you'll have something that - with further development - could be turned into an exploration type behaviour such as the above.
+
+#### :material-pen: Exercise 3: Creating an Action Interface {#ex4}
+
+In Exercise 2 we created the `part5_actions` package. Inside this package we will now define an Action *Interface* to be used by the subsequent Action Server and Client that we will create in the later exercises. 
+
+1. Action interfaces must be defined within an `action` folder at the root of the package directory, so let's create this now in **TERMINAL 1**:
+
+    1. First, navigate into your package:
+
+        ```bash
+        cd ~/ros2_ws/src/part5_actions
+        ```
+    
+    1. Then use `mkdir` to make a new directory:
+
+        ```bash
+        mkdir action
+        ```
+
+1. In here we'll now define an Action Interface called `ExploreForward`:
+
+    ```bash
+    touch action/ExploreForward.action
     ```
 
-    These are imported (at the start of the code) from an external `tb3.py` module that also lives in the same directory as the action server itself:
+1. Open this up in VS Code and define the data structure of the Interface as follows:
 
-    ``` { .python .no-copy }
-    from tb3 import Tb3Move, Tb3Odometry
+    ```txt title="ExploreForward.action"
+    #goal
+    float32 fwd_velocity               # The speed at which the robot should move forwards (m/s)
+    float32 stopping_distance          # Minimum distance of an approaching obstacle before the robot stops (meters) 
+    ---
+    #result
+    float32 total_distance_travelled   # Total distance travelled during the action (meters)
+    float32 closest_obstacle           # LaserScan distance to the closest detected obstacle up ahead (meters)
+    ---
+    #feedback
+    float32 current_distance_travelled # Distance travelled so far during the action (meters)
     ```
 
-    We do this to simplify the process of obtaining odometry data and controlling the robot, whilst keeping the actual action server code itself more concise. Have a look at the `tb3.py` module to discover exactly how these Python classes work.
+    This interface therefore has **two** goal parameters, **one** feedback parameter, and **two** result parameters:
 
-1. Look inside the action server callback function to see how the camera sweep operation is performed once the action has been called:
+    **Goal**:
 
-    ``` { .python .no-copy }
-    def action_server_launcher(self, goal):
-        ...
+    1. `fwd_velocity`: The speed (in m/s) at which the robot should move forwards when the action server is called. 
+    1. `stopping_distance`: The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it (this data will come from `LaserScan` data from the robot's LiDAR sensor).
+    
+    **Feedback**:
+
+    1. `current_distance_travelled`: The distance travelled (in meters) since the current action was initiated (based on `Odometry` data).
+
+    **Result**:
+
+    1. `total_distance_travelled`: The *total* distance travelled (in meters) over the course of the action (based on `Odometry` data).
+    1. `closest_obstacle`: The distance to the closest obstacle up ahead of the robot when the action completes.
+
+1. Now, declare this interface in the package's `CMakeLists.txt` file, so that the necessary Python code can be created:
+
+    ```txt title="CMakeLists.txt"
+    find_package(rosidl_default_generators REQUIRED)
+    rosidl_generate_interfaces(${PROJECT_NAME}
+      "action/ExploreForward.action" 
+    )
     ```
 
-    1. Consider the error checking that is performed on the `goal` input variables, and how the call to the action server is aborted should any of these goal requests be invalid:
+1. Also modify the `package.xml` file (above the `#!xml <export>` line) to include the necessary `rosidl` dependencies:
 
-        ``` { .python .no-copy }
-        success = True
-        if goal.sweep_angle <= 0 or goal.sweep_angle > 180:
-            print("Invalid sweep_angle! Select a value between 1 and 180 degrees.")
-            success = False
-            ...
+    ```xml title="package.xml"
+    <buildtool_depend>rosidl_default_generators</buildtool_depend>
+    <exec_depend>rosidl_default_runtime</exec_depend>
+    <member_of_group>rosidl_interface_packages</member_of_group>
+    ```
 
-        if not success:
-            self.result.image_path = "None [ABORTED]"
-            self.actionserver.set_aborted(self.result)
-            return
+    Also, add the following `msg` dependencies too (below the `#!xml <depend>action_msgs</depend>` line):
+
+    ```xml title="package.xml"
+    <depend>geometry_msgs</depend>
+    <depend>nav_msgs</depend>
+    <depend>sensor_msgs</depend>
+    ```
+
+1. Now run `colcon` to generate the necessary source code for this new interface:
+
+    1. First, **always** make sure you're in the root of the Workspace:
+        
+        ```bash
+        cd ~/ros2_ws/
+        ```
+    
+    1. Then run `colcon build`:
+
+        ```bash
+        colcon build --packages-select part5_actions --symlink-install 
+        ```
+    
+    1. And finally re-source the `.bashrc`:
+
+        ```bash
+        source ~/.bashrc
         ```
 
-    1. Consider how preemption is implemented in the server, and how the Action is stopped on receipt of a preempt request:
+1. We can now verify that it worked. 
 
-        ``` { .python .no-copy }    
-        if self.actionserver.is_preempt_requested():
-            ...
+    1. Use `ros2 interface` to list all available interface types, but use the `-a` option to display only action-type interfaces:
+
+        ```bash
+        ros2 interface list -a
         ```
 
-    1. Also have a look at the way a `feedback` message is constructed and published by the server:
+        Look for a message with the prefix "`part5_actions`".
 
-        ``` { .python .no-copy }
-        self.feedback.current_image = i
-        self.feedback.current_angle = abs(self.robot_odom.yaw)
-        self.actionserver.publish_feedback(self.feedback)
+    1. Next, *show* the data structure of the interface:
+
+        ```bash
+        ros2 interface show part5_actions/action/ExploreForward
         ```
 
-    1. Finally, consider how we tell the server that the action has been completed successfully, how the `result` message is published to the caller, and how we make the robot stop moving:
-
-        ``` { .python .no-copy }
-        if success:
-            rospy.loginfo("Camera sweep completed successfully.")
-            self.actionserver.set_succeeded(self.result)
-            self.robot_controller.stop()
-        ```
-
-#### :material-pen: Exercise 4: Developing an "Obstacle Avoidance" behaviour using an Action Server {#ex4}
+        This should match the content of the `part5_actions/action/ExploreForward.action` file that we created above.
 
 Knowing what you now do about ROS Actions, do you think the Service Server/Client systems that we developed in Part 4 were actually appropriate use cases for ROS Services?  Probably not!  In fact, *Action* Server/Client methods would have probably been more appropriate! 
 
-You are now going to construct your own Action Server and Client nodes to implement a more effective obstacle avoidance behaviour that could form the basis of an effective search strategy. For this, you're going to need to build your own Search Server and Client.
+#### :material-pen: Exercise 4: Building the "ExploreForward" Action Server
 
-**Step 1: Launch a simulation**
+1. In **TERMINAL 1** navigate to the `scripts` folder of your `part5_actions` package then:
+    
+    1. Create a Python script called `explore_server.py`
+    1. Make it executable
+    1. Declare it as an executable in `CMakeLists.txt`
 
-There's a simulation environment that you can use as you're developing your action server/client nodes for this exercise. Launch the simulation in **TERMINAL 1**, with the following `roslaunch` command: 
+1. Open up the file in VS Code.
+
+1. The job of the Server node is as follows:
+
+    * The action server should make the robot move forwards until it detects an obstacle up ahead.
+    * It should use the `ExploreForward.action` Interface that we created in the previous exercise. 
+    * The Server will therefore need to be configured to accept two **goal** parameters:
+        
+        1. The speed (in m/s) at which the robot should move forwards when the action server is called. 
+        1. The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it.
+        
+            To do this you'll need to subscribe to the `/scan` topic. Be aware that an object won't necessarily be directly in front of the robot, so you may need to monitor a range of `LaserScan` data points (within the `ranges` array) to make the collision avoidance effective (recall the [LaserScan callback example from Part 3 (TODO)]()).
+    
+    * Be sure to do some error checking on the goal parameters to ensure that a valid request is made. This is done by attaching a `goal_callback` to the Action Server. 
+
+        * `fwd_velocity`: Should be a velocity that is moderate, and within [the robot's velocity limits](./part2.md#velocity_limits).
+        * `stopping_distance`: Should be greater than the [minimum detectable limit of the LiDAR Sensor (TODO)](), large enough to safely avoid collisions. 
+
+    * Whilst your server performs its task it should provide the following **feedback** to a Client:
+
+        1. The distance travelled (in meters) since the current action was initiated.
+
+            To do this you'll need to subscribe to the `/odom` topic. Remember the work that you did in Part 2 on this. 
+            
+            !!! tip "Tips" 
+            
+                * The robot's orientation shouldn't change over the course of a single action call, only its `linear.x` and `linear.y` positions should vary.
+                * Bear in mind however that the robot won't necessarily be moving along the `X` or `Y` axis, so you will need to consider the total distance travelled in the `X-Y` plane.
+                * We did this in the [Part 2 `move_square` exercise](./part2.md#ex6), so refer to this if you need a reminder.
+
+    * Finally, on completion of the action, your server should be configured to provide the following **two** *result* parameters:
+        1. The *total* distance travelled (in meters) over the course of the action.
+        1. The distance to the obstacle that made the robot stop (if the action server has done its job properly, then this should be very similar to the `stopping_distance` that was provided by the Action Client in the **goal**).
+
+<!-- 1. We've put together [some template code](./part5/search_server.md) to help you with this.  -->
+
+1. You should refer to the `camera_sweep_action_server.py` code from the earlier Exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).
+
+**Testing**
+
+There's a good simulation environment that you can use as you're developing your action server here. When you want to test things out, launch the simulation with the following command: 
 
 ***
 **TERMINAL 1:**
 ```bash
-roslaunch turtlebot3_gazebo turtlebot3_stage_4.launch
+ros2 launch turtlebot3_gazebo turtlebot3_dqn_stage4.launch.py
 ```
 ***
 
-**Step 2: Build the Action Server**
+Don't forget, that in order to launch the server, you'll need to have built everything with `colcon`:
 
-1. In **TERMINAL 2** navigate to the `src` folder of your `part5_actions` package, create a Python script called `search_server.py`, and make it executable.
-
-1. The job of the Action Server node is as follows:
-
-    * The action server should make the robot move forwards until it detects an obstacle up ahead.
-    * Similarly to the *Service* Server that you created last part, your *Action* Server here should be configured to accept two **goal** parameters:
-        1. The speed (in m/s) at which the robot should move forwards when the action server is called. Consider doing some error checking on this to make sure a velocity request is less than the maximum speed that the robot can actually achieve (0.26 m/s)!
-        1. The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it. To do this you'll need to subscribe to the `/scan` topic. Be aware that an object won't necessarily be directly in front of the robot, so you may need to monitor a range of `LaserScan` data points (within the `ranges` array) to make the collision avoidance effective (recall the [LaserScan callback example](./part4/scan_callback.md) and also have a look at the `Tb3LaserScan` class within the `tuos_examples/tb3.py` module that might help you with this).
-    * Whilst your server performs its task it should provide the following **feedback** to the Action Caller:
-        1. The distance travelled (in meters) since the current action was initiated.
-
-            To do this you'll need to subscribe to the `/odom` topic. Remember that there's a `Tb3Odometry` class within [the `tuos_examples/tb3.py` module](#tb3_module) that might help you with obtaining this data.
-            
-            Remember also that your robot's orientation shouldn't change over the course of a single action call, only its `linear.x` and `linear.y` positions should vary.  Bear in mind however that the robot won't necessarily be moving along the `X` or `Y` axis, so you will need to consider the total distance travelled in the `X-Y` plane.  You should have done this in the [Part 2 `move_square` exercise](./part2.md#ex5), so refer to this if you need a reminder.
-
-    * Finally, on completion of the action, your server should provide the following *three* **result** parameters:
-        1. The *total* distance travelled (in meters) over the course of the action.
-        1. The distance to the obstacle that made the robot stop (this should match, or very close to, the distance that was provided by the Action Client in the **goal**).
-        1. The angle (in degrees) at which this obstacle is located in front of the robot (`Tb3LaserScan` class within the `tuos_examples/tb3.py` module, which may already provide this).
-
-1. An action message has been created for you to use for this exercise: `tuos_msgs/Search.action`.  Navigate to the `action` folder of the `tuos_msgs` package directory (or use `rosmsg info ...` in the terminal) to find out everything you need to know about this action message in order to develop your Action Server (and Client) nodes appropriately.
-
-1. We've put together [some template code](./part5/search_server.md) to help you with this. For further guidance though, you should also refer to the code for `/camera_sweep_action_server` node, which [we talked about earlier](#cam_swp_act_srv): a lot of the techniques used by `/camera_sweep_action_server` node will be similar to what you'll need to do in this exercise. <a name="ex4_ret"></a>
-
-1. Whenever you're ready you can launch your action server from **TERMINAL 2**, using `rosrun`, as below:
-
+1. In **TERMINAL 2**, make sure you're in the root of the Workspace:
+    
     ***
     **TERMINAL 2:**
     ```bash
-    rosrun part5_actions search_server.py
+    cd ~/ros2_ws/
+    ```
+
+1. Run `colcon build`:
+
+    ```bash
+    colcon build --packages-select part5_actions --symlink-install 
+    ```
+
+1. And finally re-source the `.bashrc`:
+
+    ```bash
+    source ~/.bashrc
     ```
     ***
 
-**Step 3: Build the Action Client**
+Once you've done this, you'll then be able to run it:
 
-1. In **TERMINAL 3** navigate to the `src` folder of your `part5_actions` package, create a Python script called `search_client.py`, and make it executable.
+***
+**TERMINAL 2:**
+```bash
+ros2 run part5_actions explore_server.py
+```
+***
 
-1. The job of the Action Client node is as follows:
+Don't forget that **you don't need to have developed a Python Client Node in order to test the server**. Use the `ros2 action send_goal` CLI tool to make calls to the server (like we did in [Exercise 1](#send_goal_cli)).
 
-    * The client needs to issue a correctly formatted **goal** to the server.
-    * The client should be programmed to monitor the **feedback** data from the Server.  If it detects (from the feedback) that the robot has travelled a distance *greater than 2 meters* without detecting an obstacle, then it should cancel the current action call using the `cancel_goal()` `actionlib` method.
+#### :material-pen: Exercise 5: Building a Basic "ExploreForward" Client 
 
-1. Use the techniques that we used in the Client node from [Exercise 3](#ex3) as a guide to help you with this. There's also [a code template here](./part5/search_client.md) to help you get started. <a name="ex4c_ret"></a>
+1. In **TERMINAL 3** navigate to the `scripts` folder of your `part5_actions` package, create a Python script called `explore_client.py`, make it executable, and add this to your `CMakeLists.txt`.
 
-1. Once you have everything in place launch the action client with `rosrun` as below:
+1. Run `colcon build` on it now, so you don't have to worry about it later:
 
     ***
     **TERMINAL 3:**
     ```bash
-    rosrun part5_actions search_client.py
+    cd ~/ros2_ws
+    ```
+
+    ```bash
+    colcon build --packages-select part5_actions --symlink-install
+    ```
+
+    ```bash
+    source ~/.bashrc
     ```
     ***
 
-    If all is good, then this client node should call the action server, which will - in turn - make the robot move forwards until it reaches a certain distance from an obstacle up ahead, at which point the robot will stop, and your client node will stop too. Once this happens, reorient your robot (using the `turtlebot3_teleop` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
+1. Open up the `explore_client.py` file in VS Code.
 
-    !!! info "Important"
-        Make sure that your preemption functionality works correctly too, so that the robot never moves any further than 2 meters during a given action call!
+1. The job of the Action Client is as follows:
 
-## Some advanced exercises (if you're feeling adventurous!) {#advanced}
+    * The client needs to issue a correctly formatted **goal** to the server.
+    * The client should be programmed to monitor the **feedback** data from the Server.  If it detects (from the feedback) that the robot has travelled a distance *greater than 2 meters* without detecting an obstacle, then it should **cancel** the current action call.
 
-Want to do more with the ROS skills that you have now developed?! Consider the following advanced exercises that you could try out now that you know how to use ROS Actions!
+1. Use the techniques that we used in the Client node from [Exercise 2](#ex2) as a guide to help you with this. 
+    
+    <!-- There's also [a code template here](./part5/search_client.md) to help you get started. <a name="ex4c_ret"></a> -->
 
-!!! note
-    We've covered a lot already in this session, and the next exercises are really just suggestions for more advanced things that you may want to explore to push your knowledge further (it may also help with the further work that you will do in Assignment #2...)
+1. Once you have everything in place, launch the action client with `ros2 run` as below:
 
-#### :material-pen: Advanced Exercise 1: Implementing a Search strategy {#adv_ex1}
+    ***
+    **TERMINAL 3:**
+    ```bash
+    ros2 run part5_actions explore_client.py
+    ```
+    ***
+
+    If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it reaches a certain distance from an obstacle up ahead, at which point the robot will stop, and your client node will stop too. Once this happens, reorient your robot (using the `turtlebot3_teleop` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
+
+    !!! warning "Important"
+        Make sure that your cancellation functionality works correctly too, ensuring that:
+            
+            1. The robot never moves any further than 2 meters during a given action call
+            1. An action is aborted mid-way through if the client node is shut down with ++ctrl+c++
+
+#### :material-pen: Exercise 6 (Advanced): Implementing a Search strategy {#ex6}
 
 What you developed in [the previous exercise](#ex4) could be used as the basis for an effective robot search strategy.  Up to now, your Action Client node should have the capability to call your `Search.action` server to make the robot move forwards by 2 meters, or until it reaches an obstacle (whichever occurs first), but you could enhance this further:
 
@@ -836,28 +985,26 @@ What you developed in [the previous exercise](#ex4) could be used as the basis f
 * The turning process could be done at random, or it could be informed by the **result** of the last action call, i.e.: if (on completion) the server has informed the client that it detected an object at an angle of, say, 10&deg; *anti-clockwise* from the front of the robot, then the client might then decide to turn the robot *clockwise* in an attempt to turn away from the object before issuing its next action call to make the robot move forwards again.
 * By programming your client node to repeat this process over and over again, the robot would (somewhat randomly) travel around its environment safely, stopping before it crashes into any obstacles and reorienting itself every time it stops moving forwards. *This is effectively an implementation of a basic robotic search strategy!* 
 
-    !!! tip "Enhancing this further..."
-        Imagine SLAM was running at the same time too... your robot could be building up a map of its environment in the background as it slowly explored every part of it!
+<!-- !!! success "Assignment #2 Checkpoint"
+    Having completed Assignment #1 up to this point, you should have everything you need to tackle [Assignment #2 Task 2](../assignment2/parta/task2.md). -->
 
-!!! success "Assignment #2 Checkpoint"
-    Having completed Assignment #1 up to this point, you should have everything you need to tackle [Assignment #2 Task 2](../assignment2/parta/task2.md).
-
-#### :material-pen: Advanced Exercise 2: Autonomous Navigation using waypoint markers {#adv_ex2}
+<!-- #### :material-pen: Advanced Exercise 2: Autonomous Navigation using waypoint markers {#adv_ex2}
 
 In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./part3.md#ex2)) and then issued navigation requests to the `move_base` action server, via the command-line, ([Exercise 3](./part3.md#ex3)) to make your robot move to a zone marker, based on coordinates that you had established beforehand. Now that you know how to build Action Client Nodes in Python you could return to your `part2_navigation` package and build a new node that makes the robot move sequentially between each zone marker programmatically.
 
 * Your node could cycle through the coordinates of all four of the zone markers (or "waypoints") that you established whilst using SLAM to build a map of the environment ([as per Exercise 2](./part3.md#ex2)).
 * Your node could monitor the status of the `move_base_simple` action call to know when the robot has reached a zone marker, so that it knows when to issue a further action call to move on to the next one.
-* You could refer to [the launch file that you created in Part 3](./part3.md#launch_file) to launch all the navigation processes that need to be running in order to enable and configure the ROS Navigation Stack appropriately for the TurtleBot3 robot.
+* You could refer to [the launch file that you created in Part 3](./part3.md#launch_file) to launch all the navigation processes that need to be running in order to enable and configure the ROS Navigation Stack appropriately for the TurtleBot3 robot. -->
 
 ## Wrapping Up
 
 In Part 5 of this course you've learnt:
 
 * How ROS Actions work and why they might be useful.
-* How to develop Action Client Nodes in Python which can perform other tasks *concurrently* to the action they have requested, and which can also *cancel* the requested action, if required.
-* How to use standard ROS tools to interrogate the topic messages used by an action server, allowing you to build clients to call them, and to also allow you to build standalone action servers yourself using bespoke Action messages.
-* How to harness this communication method to implement a behaviour that could be used as the basis for a genuine robotic *search strategy*. 
+* How to develop Action Client Nodes in Python which can monitor the action in real-time (via *feedback*), and which can also *cancel* the requested action, if required.
+* How to use standard ROS tools to interrogate action interfaces, thus allowing us to build clients to call them
+* How to build custom Action servers, clients and interfaces.
+* How to harness this framework to implement an *exploration strategy*. 
 
 ### Topics, Services or Actions: *Which to Choose?*
 
@@ -869,11 +1016,11 @@ You should now have developed a good understanding of the three communication me
 
 Through this course you've gained some practical experience using all three of these, but you may still be wondering how to select the appropriate one for a certain robot task... 
 
-[This ROS.org webpage](https://wiki.ros.org/ROS/Patterns/Communication#Communication_via_Topics_vs_Services_vs_X) summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:
+[This ROS.org webpage](https://docs.ros.org/en/humble/How-To-Guides/Topics-Services-Actions.html) summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:
 
 * **Topics**: Are most appropriate for broadcasting continuous data-streams such as sensor data and robot state information, and for publishing data that is likely to be required by a range of Nodes across a ROS network.
 * **Services**: Are most appropriate for very short procedures like *quick* calculations (inverse kinematics etc.) and performing short discrete actions that are unlikely to go wrong or will not need intervention (e.g. turning on a warning LED when a battery is low).
-* **Actions**: Are most appropriate for longer running tasks (like moving a robot), for longer processing calculations (processing the data from a camera stream) or for operations where we *might* need to change our mind and do something different or cancel an invoked behaviour part way through.
+* **Actions**: Are most appropriate for longer running tasks (like moving a robot), or for operations where we *might* need to change our mind and do something different or cancel an invoked behaviour part way through.
     
 ### WSL-ROS Managed Desktop Users: Save your work! {#backup}
 

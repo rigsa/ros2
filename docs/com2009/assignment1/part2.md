@@ -179,6 +179,8 @@ When issuing Velocity Commands therefore, only two (of the six) velocity command
 
 </center>
 
+<a name="velocity_limits"></a>
+
 !!! note "Maximum Velocity Limits"
     Keep in mind (while we're on the subject of velocity) that our TurtleBot3 Waffles have **maximum velocity limits**:
 

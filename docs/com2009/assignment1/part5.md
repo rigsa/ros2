@@ -25,8 +25,8 @@ set -g mouse
 
 ## Introduction
 
-:material-pen: **Exercises**: 4 essential (plus 2 *advanced* exercises)  
-:material-timer: **Estimated Completion Time**: 3 hours (for the essential exercises only)
+:material-pen: **Exercises**: 6 (5 *core*, 1 *advanced*)  
+:material-timer: **Estimated Completion Time**: 3 hours (core exercises only)
 
 ### Aims
 
@@ -43,17 +43,16 @@ By the end of this session you will be able to:
 
 ### Quick Links
 
-<!-- * [Exercise 1: Launching an Action Server and calling it from the command-line](#ex1)
-* [Exercise 2: Building a Python Action Client Node with concurrency](#ex2)
-* [Exercise 3: Building a Preemptive Python Action Client Node](#ex3)
-* [Exercise 4: Developing an "Obstacle Avoidance" behaviour using an Action Server](#ex4)
-* **Advanced (optional) exercises**:
-    * [Advanced Exercise 1: Implementing a Search strategy](#adv_ex1)
-    * [Advanced Exercise 2: Autonomous Navigation using waypoint markers](#adv_ex2) -->
+* [Exercise 1: Launching an Action Server and calling it from the command-line](#ex1)
+* [Exercise 2: Building a Python Action Client Node](#ex2)
+* [Exercise 3: Creating an Action Interface](#ex3)
+* [Exercise 4: Building the "ExploreForward" Action Server](#ex4)
+* [Exercise 5: Building a Basic "ExploreForward" Client](#ex5)
+* [Exercise 6 (Advanced): Implementing an Exploration Strategy](#ex6)
 
-### Additional Resources
+<!-- ### Additional Resources
 
-<!-- * [The Action Client Code (for Exercise 2)](./part5/action_client.md)
+* [The Action Client Code (for Exercise 2)](./part5/action_client.md)
 * [The Preemptive Action Client Code (for Exercise 3)](./part5/preemptive_action_client.md) -->
 
 ## Getting Started
@@ -717,7 +716,7 @@ An exploration strategy allows a robot to autonomously navigate an unknown envir
 
 Over the next few exercises we'll construct our own Action Interface, Server and Client nodes with the aim of creating the *basis* for a basic exploration behaviour. Having completed these exercises you'll have something that - with further development - could be turned into an exploration type behaviour such as the above.
 
-#### :material-pen: Exercise 3: Creating an Action Interface {#ex4}
+#### :material-pen: Exercise 3: Creating an Action Interface {#ex3}
 
 In Exercise 2 we created the `part5_actions` package. Inside this package we will now define an Action *Interface* to be used by the subsequent Action Server and Client that we will create in the later exercises. 
 
@@ -835,9 +834,7 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
 
         This should match the content of the `part5_actions/action/ExploreForward.action` file that we created above.
 
-Knowing what you now do about ROS Actions, do you think the Service Server/Client systems that we developed in Part 4 were actually appropriate use cases for ROS Services?  Probably not!  In fact, *Action* Server/Client methods would have probably been more appropriate! 
-
-#### :material-pen: Exercise 4: Building the "ExploreForward" Action Server
+#### :material-pen: Exercise 4: Building the "ExploreForward" Action Server {#ex4}
 
 1. In **TERMINAL 1** navigate to the `scripts` folder of your `part5_actions` package then:
     
@@ -879,9 +876,9 @@ Knowing what you now do about ROS Actions, do you think the Service Server/Clien
         1. The *total* distance travelled (in meters) over the course of the action.
         1. The distance to the obstacle that made the robot stop (if the action server has done its job properly, then this should be very similar to the `stopping_distance` that was provided by the Action Client in the **goal**).
 
-<!-- 1. We've put together [some template code](./part5/search_server.md) to help you with this.  -->
+1. You should refer to the `camera_sweep_action_server.py` code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).
 
-1. You should refer to the `camera_sweep_action_server.py` code from the earlier Exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).
+<!-- 1. We've put together [some template code](./part5/search_server.md) to help you with this.  -->
 
 **Testing**
 
@@ -928,7 +925,7 @@ ros2 run part5_actions explore_server.py
 
 Don't forget that **you don't need to have developed a Python Client Node in order to test the server**. Use the `ros2 action send_goal` CLI tool to make calls to the server (like we did in [Exercise 1](#send_goal_cli)).
 
-#### :material-pen: Exercise 5: Building a Basic "ExploreForward" Client 
+#### :material-pen: Exercise 5: Building a Basic "ExploreForward" Client {#ex5}
 
 1. In **TERMINAL 3** navigate to the `scripts` folder of your `part5_actions` package, create a Python script called `explore_client.py`, make it executable, and add this to your `CMakeLists.txt`.
 
@@ -969,21 +966,21 @@ Don't forget that **you don't need to have developed a Python Client Node in ord
     ```
     ***
 
-    If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it reaches a certain distance from an obstacle up ahead, at which point the robot will stop, and your client node will stop too. Once this happens, reorient your robot (using the `turtlebot3_teleop` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
+    If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it reaches a certain distance from an obstacle up ahead, at which point the robot will stop, and your client node will stop too. Once this happens, reorient your robot (using the `teleop_keyboard` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
 
     !!! warning "Important"
         Make sure that your cancellation functionality works correctly too, ensuring that:
             
-            1. The robot never moves any further than 2 meters during a given action call
-            1. An action is aborted mid-way through if the client node is shut down with ++ctrl+c++
+        1. The robot never moves any further than 2 meters during a given action call
+        1. An action is aborted mid-way through if the client node is shut down with ++ctrl+c++
 
-#### :material-pen: Exercise 6 (Advanced): Implementing a Search strategy {#ex6}
+#### :material-pen: Exercise 6 (Advanced): Implementing an Exploration Strategy {#ex6}
 
-What you developed in [the previous exercise](#ex4) could be used as the basis for an effective robot search strategy.  Up to now, your Action Client node should have the capability to call your `Search.action` server to make the robot move forwards by 2 meters, or until it reaches an obstacle (whichever occurs first), but you could enhance this further:
+Up to now, your Action Client node should have the capability to call the `ExploreForward.action` server to make the robot move forwards by 2 meters, or until it reaches an obstacle (whichever occurs first), but you *could* build on this now and turn it into a full exploration behaviour:
 
 * Between action calls, your *client* node could make the robot turn on the spot to face a different direction and then issue a further action call to make the robot move forwards once again.
-* The turning process could be done at random, or it could be informed by the **result** of the last action call, i.e.: if (on completion) the server has informed the client that it detected an object at an angle of, say, 10&deg; *anti-clockwise* from the front of the robot, then the client might then decide to turn the robot *clockwise* in an attempt to turn away from the object before issuing its next action call to make the robot move forwards again.
-* By programming your client node to repeat this process over and over again, the robot would (somewhat randomly) travel around its environment safely, stopping before it crashes into any obstacles and reorienting itself every time it stops moving forwards. *This is effectively an implementation of a basic robotic search strategy!* 
+* The turning process could be done at random (*ideally*), or by a fixed amount every time.
+* By programming your client node to repeat this process over and over again, the robot would (somewhat randomly) travel around its environment safely, stopping before it crashes into any obstacles and reorienting itself every time it stops moving forwards. 
 
 <!-- !!! success "Assignment #2 Checkpoint"
     Having completed Assignment #1 up to this point, you should have everything you need to tackle [Assignment #2 Task 2](../assignment2/parta/task2.md). -->

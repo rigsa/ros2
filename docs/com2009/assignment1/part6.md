@@ -26,14 +26,14 @@ By the end of this session you will be able to:
 
 * [Exercise 1: Using the `rqt_image_view` node whilst changing the robot's viewpoint](#ex1)
 * [Exercise 2: Object Detection](#ex2)
-* [Exercise 3: Locating image features using *Image Moments*](#ex3)
+* [Exercise 3: Using Image Moments for Robot Control](#ex3)
 * [Exercise 4: Line following](#ex4)
 
 ### Additional Resources
-<!-- 
+
 * [The Initial Object Detection Code (for Exercise 2)](./part6/object_detection.md)
 * [A Complete Worked Example of the `object_detection.py` Node](./part6/object_detection_complete.md)
-* [A `line_follower` Template (for Exercise 4)](./part6/line_follower.md) -->
+* [The `line_follower` Template (for Exercise 4)](./part6/line_follower.md)
 
 ## Getting Started
 
@@ -67,7 +67,7 @@ ros2 launch tuos_simulations coloured_pillars.launch.py
 ...and then wait for the Gazebo window to open:
 
 <figure markdown>
-  ![](../../images/gazebo/colloured_pillars.png){width=800px}
+  ![](../../images/gz/colloured_pillars.png){width=700px}
 </figure>
 
 ## Working with Cameras and Images in ROS
@@ -104,7 +104,7 @@ The main item that we're interested in here is the *raw image data*, and the key
 
 Run `ros2 topic info` on this to identify the interface used by this topic.
 
-Now, run `ros2 interface show` on this interface to learn about the format of the data. You should end up with an output that like this (simplified slightly here):
+Then, run `ros2 interface show` on the *interface* to learn about the data format. You should end up with an output that looks like this (simplified slightly here):
 
 ``` { .txt .no-copy }
 # This message contains an uncompressed image
@@ -198,19 +198,21 @@ One common job that we often want a robot to perform is *object detection*, and 
 
 In this exercise you will learn how to use OpenCV to capture images, filter them and perform other analysis to confirm the presence and location of features that we might be interested in.
 
-**Step 1**
+##### Step 1: Getting Started
 
 1. First create a new package called `part6_vision` using the `create_pkg.sh` helper script (from the `tuos_ros` course repo). 
 
-1. Navigate into the `scripts` directory (using `cd`), create a new file called `object_detection.py` (using `touch`), make this executable (`chmod`) and declare this as an executable in the package's `CMakeLists.txt` (you've done all this lots of times now, but check back through previous parts of the course if you need a reminder on how to do any of it).
+1. Navigate into the `scripts` directory of this new package (using `cd`), create a new file called `object_detection.py` (using `touch`), make this executable (`chmod`) and declare this as an executable in the package's `CMakeLists.txt` (you've done all this lots of times now, but check back through previous parts of the course if you need a reminder on how to do any of it).
 
-1. Modify the `package.xml` file (below the `#!xml <test_depend>ament_lint_common</test_depend>` line) to include following dependencies:
+1. Modify the `package.xml` file (below the `#!xml <buildtool_depend>ament_cmake_python</buildtool_depend>` line) to include following dependencies:
 
     ```xml title="package.xml"
+    <depend>opencv2</depend>
     <depend>cv_bridge</depend>
     <depend>sensor_msgs</depend>
     <depend>geometry_msgs</depend>
     ```
+
 1. Build the package with `colcon`:
 
     1. In **TERMINAL 2**, make sure you're in the root of the Workspace:
@@ -236,34 +238,36 @@ In this exercise you will learn how to use OpenCV to capture images, filter them
 
 1. Open up the `object_detection.py` Python file in VS Code.
 
-1. Copy [the code here](./part6/object_detection.md) into it, save the file, then read the annotations so that you understand how the node works and what should happen when you run it. <a name="ex2_ret"></a>
+1. Copy [the code here](./part6/object_detection.md) into the empty `object_detection.py` file, save it, then read the annotations so that you understand how the node works and what should happen when you run it. <a name="ex2_ret"></a>
 
-1. Run the node using `rosrun`.
+1. Run the node using `ros2 run`.
 
     !!! warning
-        This node will capture an image and display it in a pop-up window. Once you've viewed the image in this pop-up window **MAKE SURE YOU CLOSE THE POP-UP WINDOW DOWN** so that the node can complete its execution!
+        This node will capture an image and display it in a pop-up window. Once you've viewed the image in this pop-up window **MAKE SURE YOU CLOSE THE POP-UP WINDOW DOWN** so that execution can complete!
     
 1. As you should know from reading the explainer, the node has just obtained an image and saved it to a location on the filesystem.  Navigate to this filesystem location and view the image using `eog`.
 
-What you may have noticed from the terminal output when you ran the `object_detection.py` node is that the robot's camera captures images at a native size of 1080x1920 pixels (you should already know this from interrogating the `/camera/rgb/image_raw/width` and `/height` messages using `rostopic echo` earlier, right?!).  That's over 2 million pixels in total in a single image (2,073,600 pixels per image, to be exact), each pixel having a blue, green and red value associated with it - so that's a lot of data in a single image file! 
+    What you may have noticed from the terminal output when you ran the `object_detection.py` node is that the robot's camera captures images at a native size of 1080x1920 pixels (you should already know this from interrogating the `/camera/rgb/image_raw/width` and `/height` messages using `rostopic echo` earlier, right?!).  That's over 2 million pixels in total in a single image (2,073,600 pixels per image, to be exact), each pixel having a blue, green and red value associated with it - so that's a lot of data in a single image file! 
 
-!!! question
-    The size of the image file (in bytes) was actually printed to the terminal when you ran the `object_detection.py` node. Did you notice how big it was exactly?
+    !!! question
+        The size of the image file (in bytes) was actually printed to the terminal when you ran the `object_detection.py` node. Did you notice how big it was exactly?
 
 Processing an image of this size is therefore hard work for a robot: any analysis we do will be slow and any raw images that we capture will occupy a considerable amount of storage space. The next step then is to reduce this down by cropping the image to a more manageable size.
 
-**Step 2**
+##### Step 2: Cropping
 
 We're going to modify the `object_detection.py` node now to:
 
 * Capture a new image in its native size
 * Crop it down to focus in on a particular area of interest
-* Save both of the images (the cropped one should be much smaller than the original).
+* Save both of the images (the cropped one should be much smaller than the original)  
+
+<a name="step2"></a>
 
 1. In your `object_detection.py` node locate the line:
 
     ``` { .python .no-copy}
-    show_and_save_image(cv_img, img_name = "step1_original")
+    self.show_image(img=cv_img, img_name="step1_original")
     ```
 
 1. **Underneath this**, add the following additional lines of code:
@@ -275,7 +279,7 @@ We're going to modify the `object_detection.py` node now to:
     crop_z0 = int((height / 2) - (crop_height / 2))
     cropped_img = cv_img[crop_z0:crop_z0+crop_height, crop_y0:crop_y0+crop_width]
 
-    show_and_save_image(cropped_img, img_name = "step2_cropping")
+    self.show_image(img=cropped_img, img_name="step2_cropping")
     ```
 
 1. Run the node again.  
@@ -286,7 +290,7 @@ We're going to modify the `object_detection.py` node now to:
     The code that you have just added here has created a new image object called `cropped_img`, from a subset of the original by specifying a desired `crop_height` and `crop_width` relative to the original image dimensions.  Additionally, we have also specified *where* in the original image (in terms of pixel coordinates) we want this subset to start, using `crop_y0` and `crop_z0`. This process is illustrated in the figure below:
 
     <figure markdown>
-      ![](part6/od1_cropping.png)
+      ![](part6/ex2/od1_cropping.png)
     </figure>
     
     <a name="img_cropping" ></a>The original image (`cv_img`) is cropped using a process called *"slicing"*:
@@ -295,21 +299,21 @@ We're going to modify the `object_detection.py` node now to:
     cropped_img = cv_img[
         crop_z0:crop_z0+crop_height,
         crop_y0:crop_y0+crop_width
-        ]
+    ]
     ```
     This may seem quite confusing, but hopefully the figure below illustrates what's going on here:
 
     <figure markdown>
-      ![](part6/img_slicing.png)
+      ![](part6/ex2/img_slicing.png)
     </figure>
 
-**Step 3**
+##### Step 3: Masking
 
-As discussed above, an image is essentially a series of pixels each with a blue, green and red value associated with it to represent the actual image colours.  From the original image that we have just obtained and cropped, we *then* want to get rid of any colours other than those associated with the pillar that we want the robot to detect.  We therefore need to apply a *filter* to the pixels, which we will ultimately use to discard any pixel data that isn't related to the coloured pillar, whilst retaining data that is.  
+As discussed above, an image is essentially a series of pixels each with a blue, green and red value associated with it to represent the actual image colours. From the original image that we have just obtained and cropped, we *then* want to get rid of any colours other than those associated with the pillar that we want the robot to detect.  We therefore need to apply a *filter* to the pixels, which we will ultimately use to discard any pixel data that isn't related to the coloured pillar, whilst retaining data that is.  
 
 This process is called *masking* and, to achieve this, we need to set some colour thresholds. This can be difficult to do in a standard Blue-Green-Red (BGR) or Red-Green-Blue (RGB) colour space, and you can see a good example of this in [this article from RealPython.com](https://realpython.com/python-opencv-color-spaces/).  We will apply some steps discussed in this article to convert our cropped image into a [Hue-Saturation-Value (HSV)](https://en.wikipedia.org/wiki/HSL_and_HSV) colour space instead, which makes the process of colour masking a bit easier.
 
-1. First, analyse the *Hue* and *Saturation* values of the cropped image. To do this, first navigate to the "myrosdata/object_detection" directory, where the raw image has been saved:
+1. First, analyse the *Hue* and *Saturation* values of the cropped image. To do this, first navigate to the `~/myrosdata/object_detection` directory, where the raw image has been saved:
 
     ***
     **TERMINAL 2:**
@@ -320,20 +324,20 @@ This process is called *masking* and, to achieve this, we need to set some colou
     Then, run the following ROS Node (from the `tuos_examples` package), supplying the name of the cropped image as an additional argument:<a name="img_cols_node"></a>
     
     ```bash
-    rosrun tuos_examples image_colours.py step2_cropping.jpg
+    ros2 run tuos_examples image_colours.py step2_cropping.jpg
     ```
     ***
 
 1. The node should produce a scatter plot, illustrating the Hue and Saturation values of each of the pixels in the image. Each data point in the plot represents a single image pixel and each is coloured to match its RGB value:
 
     <figure markdown>
-      ![](part6/od2_hs_scatter.png)
+      ![](part6/ex2/od2_hs_scatter.png){width=600px}
     </figure>
 
 1. You should see from the image that all the pixels related to the coloured pillar that we want to detect are clustered together.  We can use this information to specify a range of Hue and Saturation values that can be used to mask our image: filtering out any colours that sit outside this range and thus allowing us to isolate the pillar itself. The pixels also have a *Value* (or *"Brightness"*), which isn't shown in this plot. As a rule of thumb, a range of brightness values between 100 and 255 generally works quite well.
 
     <figure markdown>
-      ![](part6/od3_hs_thresholds.png)
+      ![](part6/ex2/od3_hs_thresholds.png){width=600px}
     </figure>
 
     In this case then, we select upper and lower HSV thresholds as follows:
@@ -343,14 +347,14 @@ This process is called *masking* and, to achieve this, we need to set some colou
     upper_threshold = (130, 255, 255)
     ```
 
-    Use the plot that has been generated here to determine your own upper and lower thresholds. <a name="bw_and"></a>
+    Use the plot that you have generated yourself to determine *your own* upper and lower thresholds. <a name="bw_and"></a>
 
     OpenCV contains a built-in function to detect which pixels of an image fall within a specified HSV range: `cv2.inRange()`.  This outputs a matrix, the same size and shape as the number of pixels in the image, but containing only `True` (`1`) or `False` (`0`) values, illustrating which pixels *do* have a value within the specified range and which don't.  This is known as a *Boolean Mask* (essentially, a series of ones or zeroes).  We can then apply this mask to the image, using a [Bitwise AND](https://en.wikipedia.org/wiki/Bitwise_operation#AND) operation, to get rid of any image pixels whose mask value is `False` and keep any flagged as `True` (or *in range*).
 
 1. To do this, first locate the following line in your `object_detection.py` node:
 
     ``` { .python .no-copy }
-    show_and_save_image(cropped_img, img_name = "step2_cropping")
+    self.show_image(img=cropped_img, img_name="step2_cropping")
     ```
 
 1. Underneath this, add the following:
@@ -361,23 +365,27 @@ This process is called *masking* and, to achieve this, we need to set some colou
     upper_threshold = (130, 255, 255)
     img_mask = cv2.inRange(hsv_img, lower_threshold, upper_threshold)
 
-    show_and_save_image(img_mask, img_name = "step3_image_mask")
+    self.show_image(img=img_mask, img_name="step3_image_mask")
     ```
 
-1. Now, run the node again. *Three* images should be generated and saved now.  As shown in the figure below, the third image should simply be a black and white representation of the cropped image, where the white regions should indicate the areas of the image where pixel values fall within the HSV range specified earlier.  Notice (from the text printed to the terminal) that the cropped image and the image mask have the same dimensions, but the image mask file has a significantly smaller file size.  While the mask contains the same *number* of pixels, these pixels only have a value of `1` or `0`, whereas - in the cropped image of the same pixel size - each pixel has a Red, Green and Blue value: each ranging between `0` and `255`, which represents significantly more data.
+1. Now, run the node again. A *third* image should also be generated now. 
+    
+    As shown in the figure below, the third image should simply be a black and white representation of the cropped image, where the white regions should indicate the areas of the image where pixel values fall within the HSV range specified earlier. 
+    
+    Notice (from the text printed to the terminal) that the cropped image and the image mask have the same dimensions, but the image mask file has a significantly smaller file size.  While the mask contains the same *number* of pixels, these pixels only have a value of `1` or `0`, whereas - in the cropped image of the same pixel size - each pixel has a Red, Green and Blue value: each ranging between `0` and `255`, which represents significantly more data.
 
     <figure markdown>
-      ![](part6/od4_masking.png)
+      ![](part6/ex2/od4_masking.png){width=600px}
     </figure>
 
-**Step 4** <a name="bitwise_and"></a>
+##### Step 4: Filtering {#bitwise_and}
 
 Finally, we can apply this mask to the cropped image, generating a final version of it where only pixels marked as `True` in the mask retain their RGB values, and the rest are simply removed.  [As discussed earlier](#bw_and), we use a *Bitwise AND* operation to do this and, once again, OpenCV has a built-in function to do this: `cv2.bitwise_and()`.
 
 1. Locate the following line in your `object_detection.py` node:
 
     ``` { .python .no-copy }
-    show_and_save_image(img_mask, img_name = "step3_image_mask")
+    self.show_image(img=img_mask, img_name="step3_image_mask")
     ```
 
 1. And, underneath this, add the following:
@@ -385,13 +393,13 @@ Finally, we can apply this mask to the cropped image, generating a final version
     ```python
     filtered_img = cv2.bitwise_and(cropped_img, cropped_img, mask = img_mask)
 
-    show_and_save_image(filtered_img, img_name = "step4_filtered_image")
+    self.show_image(img=filtered_img, img_name="step4_filtered_image")
     ```
 
 1. Run this node again, and a fourth image should also be generated now, this time showing the cropped image taken from the robot's camera, but only containing data related to coloured pillar, with all other background image data removed (and rendered black):
 
     <figure markdown>
-      ![](part6/od5_filtering.png)
+      ![](part6/ex2/od5_filtering.png){width=600px}
     </figure>
 
 ### Image Moments
@@ -400,9 +408,9 @@ You have now successfully isolated an object of interest within your robot's fie
 
 The work we have just done above led to us obtaining what is referred to as a *colour blob*.  OpenCV also has built-in tools to allow us to calculate the *centroid* of a colour blob like this, allowing us to determine where exactly within an image the object of interest is located (in terms of pixels).  This is done using the principle of *image moments*: essentially statistical parameters related to an image, telling us how a collection of pixels (i.e. the blob of colour that we have just isolated) are distributed within it.  [You can read more about Image Moments here](https://theailearner.com/tag/image-moments-opencv-python/), which tells us that the central coordinates of a colour blob can be obtained by considering some key moments of the *image mask* that we obtained from thresholding earlier:
 
-* <code>M<sub>00</sub></code>: the sum of all non-zero pixels in the image mask (i.e. the size of the colour blob, in pixels)
-* <code>M<sub>10</sub></code>: the sum of all the non-zero pixels in the horizontal (y) axis, weighted by *row* number
-* <code>M<sub>01</sub></code>: the sum of all the non-zero pixels in the vertical (z) axis, weighted by *column* number
+* $M_{00}$: the sum of all non-zero pixels in the image mask (i.e. the size of the colour blob, in pixels)
+* $M_{10}$: the sum of all the non-zero pixels in the horizontal (y) axis, weighted by *row* number
+* $M_{01}$: the sum of all the non-zero pixels in the vertical (z) axis, weighted by *column* number
 
 !!! info "Remember"
     We refer to the *horizontal* as the *y-axis* and the *vertical* as the *z-axis* here, to match the terminology that we have used previously to define [our robot's principal axes](./part2.md#principal-axes).
@@ -421,26 +429,26 @@ cz = m['m01']/(m['m00']+1e-5)
 ```
 
 !!! question
-    We're adding a very small number to the <code>M<sub>00</sub></code> moment here to make sure that the divisor in the above equations is never zero and thus ensuring that we never get caught out by any "divide-by-zero" errors. Why might this be necessary?
+    We're adding a very small number to the $M_{00}$ moment here to make sure that the divisor in the above equations is never zero and thus ensuring that we never get caught out by any "divide-by-zero" errors. Why might this be necessary?
 
 <figure markdown>
-  ![](part6/od6_centroid.png)
+  ![](part6/ex2/od6_centroid.png){width=600px}
 </figure>
 
 Once again, there is a built-in OpenCV tool that we can use to add a circle onto an image to illustrate the centroid location within the robot's viewpoint: `cv2.circle()`.  This is how we produced the red circle that you can see in the figure above.  You can see how this is implemented in [a complete worked example of the `object_detection.py` node](./part6/object_detection_complete.md) from the previous exercise. <a name="ex2b_ret"></a>
 
 In our case, we can't actually change the position of our robot in the z axis, so the `cz` centroid component here might not be that important to us for navigation purposes.  We may however want to use the centroid coordinate `cy` to understand where a feature is located *horizontally* in our robot's field of vision, and use this information to turn towards it (or away from it, depending on what we are trying to achieve).  We can then use this as the basis for some real **closed-loop** control.
 
-#### :material-pen: Exercise 3: Locating image features using *Image Moments* {#ex3}
+#### :material-pen: Exercise 3: Using Image Moments for Robot Control {#ex3}
 
 Inside the `tuos_examples` package there is a node that has been developed to illustrate how all the OpenCV tools that you have explored so far could be used to search an environment and stop a robot when it is looking directly at an object of interest. All the tools that are used in this node should be familiar to you by now, and in this exercise you're going to make a copy of this node and modify it to enhance its functionality.
 
-1. The node is called `colour_search.py`, and it is located in the `src` folder of the `tuos_examples` package. Copy this into the `src` folder of your own `part6_vision` package by first ensuring that you are located in the desired destination folder:
+1. The node is called `colour_search.py`, and it is located in the `scripts` folder of the `tuos_examples` package. Copy this into the `scripts` folder of your own `part6_vision` package by first ensuring that you are located in the desired destination folder:
 
     ***
     **TERMINAL 2:**
     ```bash
-    roscd part6_vision/src
+    cd ~/ros2_ws/src/part6_vision/scripts
     ```
     ***
 
@@ -449,21 +457,12 @@ Inside the `tuos_examples` package there is a node that has been developed to il
     ***
     **TERMINAL 2:**
     ```bash
-    cp ~/catkin_ws/src/tuos_ros/tuos_examples/src/colour_search.py ./
+    cp ~/ros2_ws/src/tuos_ros/tuos_examples/scripts/colour_search.py ./
     ```
     ***
 
-1. You'll need to copy the `tb3.py` module across from the `tuos_examples` package, as this is used by the `colour_search.py` node to make the robot move:
-
-    ***
-    **TERMINAL 2:**
-    ```bash
-    cp ~/catkin_ws/src/tuos_ros/tuos_examples/src/tb3.py ./
-    ```
-    ***
-
-1. Open up the `colour_search.py` file in VS Code to view the content.  Have a look through it and see if you can make sense of how it works.  The overall structure should be fairly familiar to you by now: we have a Python class structure, a Subscriber with a callback function, a main loop where all the robot control takes place and a lot of the OpenCV tools that you have explored so far in this session.  Essentially this node functions as follows:
-    1. The robot turns on the spot whilst obtaining images from its camera (by subscribing to the `/camera/rgb/image_raw` topic).
+1. Open up the `colour_search.py` file in VS Code to view the content.  Have a look through it and see if you can make sense of how it works.  The overall structure should be fairly familiar to you by now: we have a Python class structure, a Subscriber with a callback function, a timer with a callback containing all the robot control code, and a lot of the OpenCV tools that you have explored so far in this part of the course.  Essentially this node functions as follows:
+    1. The robot turns on the spot whilst obtaining images from its camera (by subscribing to the `/camera/image_raw` topic).
     1. Camera images are obtained, cropped, then a threshold is applied to the cropped images to detect the blue pillar in the simulated environment.
     1. If the robot can't see a blue pillar then it turns on the spot **quickly**.
     1. Once detected, the centroid of the blue blob representing the pillar is calculated to obtain its current *location* in the robot's viewpoint.
@@ -471,10 +470,10 @@ Inside the `tuos_examples` package there is a node that has been developed to il
     1. The robot **stops** turning as soon as it determines that the pillar is situated directly in front of it (determined using the `cy` component of the blue blob centroid).
     1. The robot then **waits** for a while and then starts to turn again.
     1. The whole process repeats until it finds the blue pillar once again.
-1. Run the node as it is to see this in action.  Observe the messages that are printed to the terminal throughout execution.
-1. **Your task** is to then modify the node so that it stops in front of *every coloured pillar* in the arena (there are four in total). For this, you may need to use some of the methods that you have explored in the previous exercises.
+1. Run the node as it is to see this in action.  Observe the log messages as they are printed to the terminal throughout execution.
+1. **Your task** is to then modify the node so that it stops in front of *every coloured pillar* in the arena (there are four in total, each of a different colour, as you know). For this, you may need to use some of the methods that you have explored in the previous exercises.
     1. You might first want to use some of the methods that we used to obtain and analyse some images from the robot's camera:
-        1. Use the `turtlebot3_teleop` node to manually move the robot, making it look at every coloured pillar in the arena individually.
+        1. Use the `teleop_keyboard` node to manually move the robot, making it look at every coloured pillar in the arena individually.
         1. Run the `object_detection.py` node that you developed in the previous exercise to capture an image, crop it, save it to the filesystem and then feed this cropped image into the `image_colours.py` node from the `tuos_examples` package ([as you did earlier](#img_cols_node))
         1. From the plot that is generated by the `image_colours.py` node, determine some appropriate HSV thresholds to apply for each coloured pillar in the arena.
     1. Once you have the right thresholds, then you can add these to your `colour_search.py` node so that it has the ability to detect *every* pillar in the same way that it currently detects the blue one.
@@ -490,10 +489,10 @@ At the heart of this is the principle of *Negative-Feedback* control, which cons
 <a name="neg_fdbck_ctrl"></a>
 
 <figure markdown>
-  ![](part6/negative_feedback_control.png){width=500}
+  ![](part6/pid/negative_feedback_control.png){width=500}
   <figcaption>
     Negative-Feedback Control<br />
-    Adapted from <a href="https://commons.wikimedia.org/wiki/File:PID_en.svg">Arturo Urquizo (via Wikimedia Commons)</a>
+    Adapted from <a href="https://commons.wikimedia.org/wiki/File:PID_en.svg">Arturo Urquizo</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>, via Wikimedia Commons</a>
   </figcaption>
 </figure>
 
@@ -506,7 +505,7 @@ The difference between these two things is the **Error**, and the PID control al
 <a name="pid_terms"></a>
 
 <figure markdown>
-  ![](part6/pid_terms.png)
+  ![](part6/pid/terms.png){width=700px}
 </figure>
 
 <a name="pid_eqn"></a>
@@ -529,26 +528,26 @@ Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrat
     ***
     **TERMINAL 1:**
     ```bash
-    roslaunch tuos_simulations line_following_setup.launch
+    ros2 launch tuos_simulations line_following_setup.launch.py
     ```
     ***
     
     Your robot should be launched onto a long thin track with a straight pink line painted down the middle of the floor:
 
     <figure markdown>
-      ![](part6/line_following_setup.png){width=800px}
+      ![](part6/line_following/setup.jpg){width=800px}
     </figure>
 
-1. In **TERMINAL 2** you should still be located in your `part6_vision/src` directory, but if not then go there now:
+1. In **TERMINAL 2** you should still be located in your `part6_vision/scripts` directory, but if not then go there now:
 
     ***
     **TERMINAL 2:**
     ```bash
-    roscd part6_vision/src
+    cd ~/ros2_ws/src/part6_vision/scripts
     ```
     ***
 
-1. Perform the necessary steps to create a new empty Python file called `line_follower.py` and prepare it for execution.
+1. Perform the necessary steps to create a new empty Python file called `line_follower.py` and prepare it for execution as a node within your package.
 1. Once that's done open up the empty file in VS Code.
 
     <a name="ex4a_ret"></a>
@@ -558,7 +557,7 @@ Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrat
     Your aim here is to get the code to generate a cropped image, with the coloured line isolated and located within it, like this:
 
     <figure markdown>
-      ![](part6/line_follower_setup_complete.jpg)
+      ![](part6/line_following/setup_complete.jpg)
     </figure> 
 
 ##### Part B: Implementing and Tuning a Proportional Controller {#ex4b}
@@ -589,12 +588,14 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 
     ```python
     kp = 0.01
-    reference_input = {BLANK}
+    reference_input = ?
     feedback_signal = cy
     error = feedback_signal - reference_input 
 
     ang_vel = kp * error
-    print(f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s")
+    self.get_logger().info(
+        f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s"
+    )
     ```
 
     <a name="blank-1"></a>
@@ -607,7 +608,7 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 1. Run the code as it is, and consider the following:
 
     1. What proportional gain ($K_{P}$) are we applying?
-    1. What is [the maximum angular velocity that can be applied to our robot](../../about/robots.md#max_vels)? Is the angular velocity that has been calculated actually appropriate?
+    1. What is [the maximum angular velocity that can be applied to our robot](../../about.md#max_vels)? Is the angular velocity that has been calculated actually appropriate?
     1. Is the angular velocity that has been calculated positive or negative? Will this make the robot turn in the right direction and move towards the line?  
 
 1. Let's address the third question (**c**) first...
@@ -620,11 +621,13 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 
 1. Next, let's address the second of the above questions (**b**)...
 
-    The maximum angular velocity that can be applied to our robot is &plusmn;1.82 rad/s. If our proportional controller is calculating a value for the **Control Signal** that is greater than 1.82, or less than -1.82 then this needs to be limited. In between the following two lines of code:
+    The maximum angular velocity that can be applied to our robot is &plusmn;1.82 rad/s. If our proportional controller is calculating a value for the **Control Signal** that is greater than 1.82, or less than -1.82 then this needs to be limited. **In between** the following two lines of code:
 
     ``` { .python .no-copy }
     ang_vel = kp * error
-    print(f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s")
+    self.get_logger().info(
+        f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s"
+    )
     ```
 
     Insert the following:
@@ -640,27 +643,25 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     Return to your `line_follower.py` file. Underneath the line that reads:
 
     ``` { .python .no-copy }
-    print(f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s")
+    self.get_logger().info(
+        f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s"
+    )
     ```
 
     Paste the following:
 
     ```python
-    self.robot_controller.set_move_cmd(linear = 0.1, angular = ang_vel)
-    self.robot_controller.{BLANK}
+    self.vel_cmd.linear.x = 0.1
+    self.vel_cmd.angular.z = ang_vel
+    self.vel_pub.publish(self.vel_cmd)
     ```
 
-    <a name="blank-2"></a>
-
-    !!! warning "Fill in the Blank!"
-        There is a method within the `Tb3Move()` class which allows us to publish a velocity command to the `/cmd_vel` topic. What is it? (Have a look at [the `tb3.py` source code](https://github.com/tom-howard/tuos_ros/blob/main/tuos_examples/src/tb3.py), or the `colour_search.py` file from Exercise 3 if you need a reminder).
-    
-    Having filled in the `{BLANK}`, the code will now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter `kp`.
+    The code *should* now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter `kp`.
 
     The figure below illustrates the effects different values of proportional gain can have on a system.
 
     <figure markdown>
-      ![](part6/kp.png){width=600}
+      ![](part6/pid/kp.png){width=600}
       <figcaption>
         Courtesy of <a href="https://www.sheffield.ac.uk/dcs/people/academic/roger-k-moore">Prof. Roger Moore</a><br />
         Taken from COM2009 Lecture 6: PID Control
@@ -686,13 +687,13 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     ***
     **TERMINAL 1:**
     ```bash
-    roslaunch tuos_simulations line_following.launch
+    ros2 launch tuos_simulations line_following.launch.py
     ```
     
     Your robot should be launched into an environment with a more interesting line to follow:
 
     <figure markdown>
-      ![](part6/line_following.png){width=800px}
+      ![](part6/line_following/advanced.jpg){width=800px}
     </figure>
 
 1. In **TERMINAL 2**, run your `line_follower.py` node and see how it performs. Does your proportional gain need to be adjusted further to optimise the performance?
@@ -704,7 +705,7 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     ***
     **TERMINAL 1:**
     ```bash
-    roslaunch tuos_simulations line_following.launch x_pos:=3 y_pos:=-3 yaw:=0
+    ros2 launch tuos_simulations line_following.launch.py x_pos:=3 y_pos:=-3 yaw:=0
     ```
     ***
 

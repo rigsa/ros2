@@ -7,7 +7,7 @@ title: "Part 6 Object Detection Node (Complete)"
 Here's a full example of the `object_detection.py` node that you should have developed during [Part 6 Exercise 2](../part6.md#ex2).  Also included here is an illustration of how to use the `cv2.circle()` method to create a marker on an image illustrating the centroid of the detected feature, as discussed [here](../part6.md#image-moments).
 
 ```py title="object_detection_complete.py"
---8<-- "snippets/object_detection_complete.py"
+--8<-- "code_templates/object_detection_complete.py"
 ```
 
 1. Everything here should be familiar to you from earlier in this exercise, except for this section...

@@ -82,9 +82,9 @@ source ~/.bashrc
 
 ## Laser Displacement Data and The LiDAR Sensor {#lidar}
 
-As you'll know from Part 2, odometry is really important for robot navigation, but it can be subject to drift and accumulated error over time. You may have observed this in simulation during [Part 2 Exercise 5](./part2.md#ex5), and you would most certainly notice it if you were to do the same on a real robot. Fortunately, our robots have another sensor on-board which provides even richer information about the environment, and we can use this to supplement the odometry information and enhance the robot's navigation capabilities.
+As you'll know from Part 2, odometry is really important for robot navigation, but it can be subject to drift and accumulated error over time. You may have observed this in simulation during [Part 2 Exercise 5](./part2.md#ex5), and you would most certainly notice it if you were to do the same on a real robot. Fortunately, The Waffles have another sensor on-board which provides even richer information about the environment, and we can use this to supplement the odometry information and enhance the robot's navigation capabilities.
 
-#### :material-pen: Exercise 1: Using RViz to Visualise Robot Data {#ex1}
+#### :material-pen: Exercise 1: Using RViz to Visualise LaserScan Data {#ex1}
 
 <a name="rviz"></a>We're now going to place the robot in a more interesting environment than the "empty world" we've used in the previous parts of this course so far...
 
@@ -193,7 +193,7 @@ The `LaserScan` interface is a standardised ROS message interface (from the `sen
   ![](../../images/rviz/lidar_illustrated.png)
 </figure>
 
-<a name="echo_scan_variables"></a>As illustrated in the figure, we can associate each data-point of the `ranges` array to an *angular position* by using the `angle_min`, `angle_max` and `angle_increment` values that are also provided within the `LaserScan` message.  We can use the `ros2 topic echo` command to drill down into these elements of the message specifically and find out what their values are:
+<a name="echo_scan_variables"></a>As illustrated in the figure, we can associate each data-point of the `ranges` array to an *angular position* by using the `angle_min`, `angle_max` and `angle_increment` values that are also provided within the `LaserScan` message.  We can use the `ros2 topic echo` command to find out what their values are:
 
 ```{ .txt .no-copy }
 $ ros2 topic echo /scan --field angle_min --once
@@ -215,9 +215,9 @@ $ ros2 topic echo /scan --field angle_increment --once
     * What do these values represent? (Compare them with [the figure above](#fig_lidar))
 
 !!! tip 
-    Notice how we were able to access *specific variables* within the `/scan` data using the `--field` flag and as the command to only provide us with a single message by using `--once`?
+    Notice how we were able to access *specific variables* within the `/scan` data using the `--field` flag, and ask the command to only provide us with a single message by using `--once`?
 
-The `ranges` array contains 360 values in total, i.e. a distance measurement at every 1&deg; (an `angle_increment` of 0.0175 radians) around the robot. The first value in the `ranges` array (`ranges[0]`) is the distance to the nearest object directly in front of the robot (i.e. at &theta; = 0 radians, or `angle_min`). The last value in the `ranges` array (`ranges[359]`) is the distance to the nearest object at 359&deg; (i.e. &theta; = 6.283 radians, or `angle_max`) from the front of the robot. `ranges[65]`, for example, would represent the distance to the closest object at an angle of 65&deg; (1.138 radians) from the front of the robot (anti-clockwise), as shown in [the figure](#fig_lidar).
+The `ranges` array contains 360 values in total, i.e. a distance measurement at every 1&deg; (an `angle_increment` of 0.0175 radians) around the robot. The first value in the `ranges` array (`ranges[0]`) is the distance to the nearest object directly in front of the robot (i.e. at &theta; = 0 radians, or `angle_min`). The last value in the `ranges` array (`ranges[359]`) is the distance to the nearest object at 359&deg; (i.e. &theta; = 6.283 radians, or `angle_max`) from the front of the robot, i.e.: 1 degree to the *right* of the X-axis. `ranges[65]`, for example, would represent the distance to the closest object at an angle of 65&deg; (1.138 radians) from the front of the robot (*anti-clockwise*), as shown in [the figure](#fig_lidar).
 
 <a name="range_max_min"></a>The `LaserScan` message also contains the parameters `range_min` and `range_max`, which represent the *minimum* and *maximum* distance (in meters) that the LiDAR sensor can detect, respectively. Use the `ros2 topic echo` command to report these directly too.  
 
@@ -265,16 +265,16 @@ We'll need to create a new package again, so let's do this first (in **TERMINAL 
     cd ~/ros2_ws/src/tuos_ros/
     ```
 
-1. Use the `create_pkg.sh` helper script to create a new package called `part3_lidar`:
+1. Use the `create_pkg.sh` helper script to create a new package called `part3_lidar_etc`:
 
     ```bash
-    ./create_pkg.sh part3_lidar
+    ./create_pkg.sh part3_lidar_etc
     ```
 
 1. Then navigate into the `scripts` folder of the new package using the `cd` command again:
 
     ```bash
-    cd ../part3_lidar/scripts/
+    cd ../part3_lidar_etc/scripts/
     ```
 
 1. This will once again be a subscriber node at it's core, building on the same basic structure that we've used for similar nodes in Parts 1 and 2. 
@@ -312,7 +312,7 @@ We'll need to create a new package again, so let's do this first (in **TERMINAL 
 1. Head back to the terminal and use Colcon to build this new package, along with the `lidar_subscriber.py` node (even though it's still just an empty file at this stage):
 
     ```bash
-    cd ~/ros2_ws/ && colcon build --packages-select part3_lidar --symlink-install
+    cd ~/ros2_ws/ && colcon build --packages-select part3_lidar_etc --symlink-install
     ```
 
     And after that, re-source your `.bashrc`:
@@ -326,10 +326,10 @@ We'll need to create a new package again, so let's do this first (in **TERMINAL 
 1. Once you're happy with what's going on with this, run the node using `ros2 run`:
 
     ```bash
-    ros2 run part3_lidar lidar_subscriber.py
+    ros2 run part3_lidar_etc lidar_subscriber.py
     ```
 
-1. Open another terminal (but so you can still the outputs from your `lidar_subscriber.py` node). Launch the `teleop_keyboard` node, and drive the robot around, noting how theoutput fomr your `lidar_subscriber.py` node changes as you do so.
+1. Open another terminal (but so you can still the outputs from your `lidar_subscriber.py` node). Launch the `teleop_keyboard` node, and drive the robot around, noting how the output from your `lidar_subscriber.py` node changes as you do so.
 
 1. Close everything down now (including the simulation running in **TERMINAL 1**). Then (in **TERMINAL 1**) launch the "empty world" simulation again:
 
@@ -345,13 +345,25 @@ We'll need to create a new package again, so let's do this first (in **TERMINAL 
     ***
     **TERMINAL 2:**
     ```bash
-    ros2 run part3_lidar lidar_subscriber.py
+    ros2 run part3_lidar_etc lidar_subscriber.py
     ```
     ***
 
     What output do you see from this now?
 
-#### :material-pen: Exercise 3: Manipulating the Environment in Gazebo {#ex3}
+#### :material-pen: Exercise 3: Enhancing the LaserScan Callback {#ex3}
+
+In the previous exercise we performed some processing on the LiDAR `ranges` array, specifically:
+
+1. Grab 40 data points to represent all distance readings from a 40&deg; arc ahead of the robot
+1. Remove any "out-of-range" values (`inf`)
+1. Return the average value from the data points that remain.
+
+As such, we've condensed a LiDAR array subset of 40 data points into a *single* point to represent (approximately) how far away an object is ahead of our robot. 
+
+We could take this approach with other subsets of the `ranges` array too, to observe what's happening in different points around the robot, while still maintaining a manageable number of data points to monitor overall.
+
+Consider the following ...
 
 We can modify this "Empty World" environment with some basic objects, and we can move these around to further investigate how the `lidar_subscriber.py` outputs change under different conditions. 
 

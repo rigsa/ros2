@@ -25,7 +25,7 @@ class LidarSubscriber(Node):
     def lidar_callback(self, scan_data: LaserScan): 
         left = scan_data.ranges[0:21] 
         right = scan_data.ranges[-20:] # (5)!
-        front = np.array(left[::-1] + right[::-1]) # (6)!
+        front = np.array(right + left) # (6)!
         
         valid_data = front[front != float("inf")] # (7)!
         if np.shape(valid_data)[0] > 0: # (8)!

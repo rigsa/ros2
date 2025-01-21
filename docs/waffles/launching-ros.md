@@ -52,7 +52,7 @@ Robots are named as follows:
     
 1. The pairing process will take a minute, but once it's finished you should see a message saying `pairing complete`, displayed in blue in the terminal. 
 
-1. Then, in the same terminal, enter the following command:
+1. Then, in the same terminal, enter the following command: <a name="tmux"></a>
 
     ***
     ```bash
@@ -96,7 +96,7 @@ Battery: 12.40V [100%]
 
     **The robot's battery won't last a full 2-hour lab session!!**
 
-    When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do it at this point, rather than waiting until it runs completely flat.)
+    When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)
 
 ## Shutting Down (at the end of a Lab Session)
 

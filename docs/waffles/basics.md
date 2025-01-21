@@ -4,9 +4,9 @@ title: "Waffle (& ROS) Basics"
 
 # Waffle (& ROS) Basics
 
-Having completed the steps on [the previous page](./launching-ros.md), your robot and laptop should now be paired, and ROS should be up and running (on the robot). The next thing to do is bring the robot to life! 
+Having completed the steps on [the previous page](./launching-ros.md), your robot and laptop should now be paired, and ROS should be up and running (on the robot). You're ready to bring the robot to life! 
 
-On this page you'll work through a series of exercises with the Waffle **in your teams**, exploring how the robot works. We'll also talk through some core ROS concepts and use some key ROS tools, in case you haven't had a chance to explore these in simulation already.
+On this page are a series of exercises for you to work through **in your teams**, to explore how the robots work. We'll also talk through some core ROS concepts and use some key ROS tools, in case you haven't had a chance to explore these in simulation yet.
 
 ### Quick Links
 
@@ -28,8 +28,8 @@ waffle X bridge
 ```
 You should now have two terminals active: 
 
-1. A *robot* terminal where you ran the `tb3_bringup` command[^term_recover]
-1. The *laptop* terminal where you've just run the `bridge` command
+1. [The *robot* terminal where you ran the `tb3_bringup` command](./launching-ros.md#tmux)[^term_recover]
+1. The *laptop* terminal where you just ran the `bridge` command (above)
 
 [^term_recover]: If you happen to have closed down the *robot* terminal, you can return to it by entering `waffle X term` from a new terminal instance on the laptop.
 
@@ -39,9 +39,9 @@ Leave both of these terminals alone, but **keep them running in the background a
 
 #### :material-pen: Exercise 1: Making the Robot Move {#exMove}
 
-There's a very useful ready-made ROS application called `turtlebot3_teleop/teleop_keyboard` that we will use to drive a Waffle around. This node works in exactly the same way in both simulation and in the real-world!
+There's a very useful ready-made ROS application called `teleop_keyboard` (from the `turtlebot3_teleop` package) that we will use to drive a Waffle around. This node works in exactly the same way in both simulation and in the real-world!
 
-1. Open up a new terminal instance on the laptop either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon, we'll refer to this as **TERMINAL 1**. In this terminal enter the following `ros2 run` command to launch `turtlebot3_teleop_keyboard`:
+1. Open up a new terminal instance on the laptop either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon, we'll refer to this as **TERMINAL 1**. In this terminal enter the following `ros2 run` command to launch the `teleop_keyboard` node:
 
     ***
     **TERMINAL 1:**
@@ -106,13 +106,20 @@ Our Waffles have some pretty sophisticated sensors on them, allowing them to "se
     This will launch an application called *RViz*, which is a handy tool that allows us to *visualise* the data from all the sensors on-board our robots. When RViz opens, you should see something similar to the following:
 
     <figure markdown>
-      TODO
+      ![](../images/waffle/rviz.png){width=600px}
     </figure>
 
     In the bottom left-hand corner of the RViz screen there should be a Camera panel, displaying a live image feed from the robot's camera.
     
-    !!! bug "No camera images?"
-        TODO
+    ??? bug "No camera images?"
+
+        1. In the top-left "Displays" panel, scroll down to the "Camera" item.
+        1. Under "Topic", find the "Reliability Policy" option.
+        1. From the Drop-down box, change this from "Best Effort" to "Reliable".
+
+        <figure markdown>
+          ![](../images/waffle/rviz_cam_relpol.svg){width=400px}
+        </figure> 
     
     In the main RViz panel you should see a digital render of the robot, surrounded by lots of green dots. This is a representation of the *laser displacement data* coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.
     
@@ -162,7 +169,7 @@ Using `ros2 run` and `ros2 launch`, as we have done so far, it's easy to end up 
     
     Items that have a rectangular border are *ROS Topics*. ROS Topics are essentially communication channels, and ROS Nodes can read (*subscribe*) or write (*publish*) to these topics to access sensor data, pass information around the network and make things happen.
 
-    If the `teleop_keyboard` Node is still active (in **TERMINAL 2**) then this graph should show us that the node is publishing messages to a topic called `/cmd_vel`, which in turn is being subscribed to by the `zenoh_bridge_ros2dds` Node. The Zenoh Bridge node is what handles all communication between the robot and the laptop, so this node is tunnelling the data from `/cmd_vel` to the robot to make it move.
+    If the `teleop_keyboard` Node is still active (in **TERMINAL 2**) then this graph should show us that the node is publishing messages to a topic called `/cmd_vel`, which in turn is being subscribed to by the `zenoh_bridge_ros2dds` Node. The Zenoh Bridge node handles all communication between the robot and the laptop, so this node is tunnelling the data from `/cmd_vel` to the robot to make it move.
 
 A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses *ROS communication methods* to communicate and share data with the other nodes on the ROS Network.
 
@@ -208,13 +215,13 @@ Much like the `ros2 node list` command, we can use `ros2 topic list` to list all
 
     This tells us that the *type* of data being communicated on the `/cmd_vel` topic is called: `geometry_msgs/msg/Twist`. 
     
-    The message type has three parts:
+    The interface description has three parts:
 
     1. `geometry_msgs`: The name of the ROS package that this interface belongs to.
     1. `msg`: The type of interface. In this case *message*, but there are other types too. 
     1. `Twist`: The name of the message interface. 
 
-    We have just learnt then, that if we want to make the robot move we need to publish `Twist` messages to the `/cmd_vel` topic. 
+    We have just learnt then, that if we want to make the robot move we need to publish `Twist` *messages* to the `/cmd_vel` topic. 
 
 1. We can use the `ros2 interface` command to find out more about the `Twist` message:
 
@@ -274,7 +281,7 @@ It can therefore only move **linearly** in the **x-axis** (*Forwards/Backwards*)
 !!! important
     Before you start this, close down RViz (click the "Close without saving" button, if asked) and stop the `teleop_keyboard` node by entering ++ctrl+c++ in **TERMINAL 2**.
 
-As we've seen, making a robot move with ROS is simply a case of publishing the right ROS Interface (`geometry_msgs/msg/Twist`) to the right ROS Topic (`/cmd_vel`). In some previous exercises above we used the `teleop_keyboard` node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic.
+As we've seen, making a robot move with ROS is simply a case of publishing the right ROS Interface (`geometry_msgs/msg/Twist`) to the right ROS Topic (`/cmd_vel`). Earlier we used the `teleop_keyboard` node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic.
 
 In reality, robots need to be able to navigate complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this now by building a simple node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex applications that you will learn about in the lab course!
 
@@ -378,7 +385,7 @@ In reality, robots need to be able to navigate complex environments autonomously
 
 1. Next, in the VS Code file explorer, open up the `scripts` directory and click on the `square.py` file to open it up in the editor.
 
-1. Paste the following content into the `square.py` file:
+1. Paste the following content into the `square.py` file: <a name="timedSquareCode"></a>
 
     ```py title="square.py"
     --8<-- "code_templates/timed_square.py"
@@ -400,17 +407,16 @@ In reality, robots need to be able to navigate complex environments autonomously
     7. We're instantiating a `Twist` message here and calling it `vel` (we'll assign velocity values to this later on). A `Twist` message contains six different components that we can assign values to. Any idea [what these six values might represent](#velocity-control)?  
     8. We want our node to run at a rate of 10 times per second (10 Hz), so we create a timer object here, set the timer period (`timer_period_sec`) and then point the object to a *"callback function"* that is defined later on in the code. This callback function will execute at the rate that we specify with `timer_period_sec`...
     9. What time is it right now? (This will help us to keep track of elapsed time in our main timer callback...)
-    10. Here we're difining our timer callback function. Everything here will execute at the rate that we specified earlier, so we can encapsulate our main control code in here and be confident that it will execute repeatedly (and indefinitely) at our desired rate.
-    11. Here we're comparing the time *now* to the time the last time we checked, to tell us how much time has elapsed (in seconds) since then. We'll use that information to decide what the robot should do...
+    10. Here we're defining our timer callback function. Everything here will execute at the rate that we specified earlier, so we can encapsulate our main control code in here and be confident that it will execute repeatedly (and indefinitely) at our desired rate.
+    11. Here we're comparing the time *now* to the time the last time we checked, to tell us how much time has elapsed since then (converting from nanoseconds to seconds by multiplying by `1e-9`). We'll use that information to decide what the robot should do...
     12. This variable is used to stop the robot (if necessary), check the time again, and then move into a new state.
     13. In state `1` we set velocities that will make the robot move forwards (linear-X velocity only). If the elapsed time is greater than **2 seconds** however, we move on to state `2`.
     14. In state `2` we set velocities that will make the robot turn on the spot (angular-Z velocity only). In this case, if the elapsed time is greater than **4 seconds**, we move back to state `1`.
     15. Regardless of what happens in the `if` statements above, we *always* publish a velocity command to the `/cmd_vel` topic here (i.e. every time this timer callback executes).
-    16. The rest of the code here is *"boilerplate"*: a standard approach that we'll use to instantiate our nodes and execute them. 
+    16. The rest of the code here is *"boilerplate"*: a standard approach that we'll use to instantiate our nodes and execute them. You'll learn about all of this throughout the lab course.
+    17. We're defining a class method here that we can call when our node needs to shut down. We're controlling a robot here, so it's important to make sure the robot stops moving when this happens.
 
     Click on the :material-plus-circle: icons above to expand the code annotations. Read these carefully to ensure that you understand what's going on and how this code works.
-
-1. TODO: package depends...
 
 1. Having programmed our node and defined it as an executable in our package, we're now ready to build the package so that we can run it. We use a tool called "Colcon" to do this, but this **MUST** be run from the root of the ROS Workspace (i.e.: `~/ros2_ws/`), so let's navigate there now using `cd`:
 
@@ -482,7 +488,7 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
     This will launch a new RViz instance, showing a top-down view of the environment, and dots of various colours representing the real-time LiDAR data. Rather than a robot *model*, the robot is now represented in the environment as a series of links denoted by 3-dimensional red/green/blue crosses (you can turn these off by unchecking the `TF` option in the left-hand "Displays" menu, if you want to). 
     
     <figure markdown>
-        TODO: SLAM on startup
+        ![](../images/waffle/slam_step0.png){width=600px}
     </figure>
 
     SLAM will already have begun processing this data to start building a map of the boundaries that are currently visible to the Waffle based on its location in the environment.
@@ -493,7 +499,9 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
         It's best to do this slowly and perform multiple circuits of the area to build up a more accurate map.
 
     <figure markdown>
-        TODO: 1 or 2 stages of map generation
+      ![](../images/waffle/slam_step1.png){width=500px}
+      ![](../images/waffle/slam_step2.png){width=500px}
+      ![](../images/waffle/slam_step3.png){width=500px}
     </figure>
 
 1. Once you're happy that your robot has built up a good map of its environment, you can save this map using the `map_saver_cli` node from a package called `nav2_map_server`:
@@ -555,6 +563,8 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
 
 1. Close down the `teleop_keyboard` node in **TERMINAL 2** as well, if that's still running.
 
-## Wrapping Up
+## Next Steps
 
-Continue onto the next page now for the shutdown procedures that you need to follow at the end of each lab session...
+"**Pro Tips**": There are some important things to consider when working with the Real Waffles. [Move onto the next page to find out more](./tips.md)...
+
+... and when you've done that, don't forget to [power off your robot properly](./shutdown.md). 

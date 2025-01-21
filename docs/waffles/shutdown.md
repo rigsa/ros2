@@ -2,7 +2,7 @@
 title: Shutdown Procedures 
 ---
 
-## Shutdown Procedures
+## Robots
 
 The Waffles are powered by [a Single Board Computer (SBC)](../about.md#robots), which runs a full-blown operating system. As with any operating system, it's important to **shut it down properly**, rather than simply disconnecting the power, to avoid any data loss or other issues. 
 
@@ -21,7 +21,7 @@ Therefore, once you've finished working with a robot during a lab session, follo
     [INPUT] Are you sure you want to shutdown dia-waffleX? [y/n] >> 
     ```
 
-    Enter `y` and hit ++enter++ and the robot's SBC will be shut down. 
+    Enter ++y++ and hit ++enter++ and the robot's SBC will be shut down. 
 
 1. Once the blue light on the corner of the SBC goes out, it's then safe to slide the power button to the **left** to completely turn off the device. 
 
@@ -29,14 +29,16 @@ Therefore, once you've finished working with a robot during a lab session, follo
       ![](../images/waffle/sbc.png){width=600px}
     </figure>
 
-1. Once you've turned off the robot, remember to shut down the laptop too! Do this by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
+## Laptops
 
-    <figure markdown>
-      ![](../images/laptops/ubuntu_poweroff.svg){width=300px}
-    </figure>
+Once you've turned off the robot, **remember to shut down the laptop too**! Do this by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
+
+<figure markdown>
+  ![](../images/laptops/ubuntu_poweroff.svg){width=300px}
+</figure>
 
 <center>
-  <strong>
-    Hand your robot and laptop back to a member of the teaching team who will put it away for you!
-  </strong>
+
+  **Hand your robot and laptop back to a member of the teaching team who will put it away for you!**
+
 </center>

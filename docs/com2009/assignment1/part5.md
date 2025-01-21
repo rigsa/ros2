@@ -1,5 +1,5 @@
 ---  
-title: "Part 5: ROS Actions"  
+title: "Part 5: Actions"  
 description: Building on what we understand about ROS Services now, here we will look at ROS Actions, which are similar to Services, but with a few key benefits.
 ---
 

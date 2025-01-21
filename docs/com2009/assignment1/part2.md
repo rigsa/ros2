@@ -756,7 +756,6 @@ After following a square motion path a few times, your robot *should* return to 
 !!! tip "Advanced feature"
     Adapt the node to make the robot automatically stop once it has performed two complete loops.
 
-
 ## Wrapping Up
 
 In this session we've learnt how to control the velocity and position of a robot from both the command-line (using ROS command-line tools) and from ROS Nodes by publishing correctly formatted messages to the `/cmd_vel` topic.  
@@ -778,3 +777,13 @@ In the final exercise we explored the development of odometry-based control to m
 Be aware that we did all this in simulation here too. In fact, in a real world environment, this type of navigation might be *less effective*, since things such as measurement noise and calibration errors can also have considerable impact. You will have the opportunity to experience this first hand in the labs.
 
 Ultimately then, we've seen a requirement here for additional information to provide more confidence of a robot's location in its environment, in order to enhance its ability to navigate effectively and avoid crashing into things! We'll explore this further later in this course.
+
+### WSL-ROS Managed Desktop Users: Save your work! {#backup}
+
+Remember, the work you have done in the WSL-ROS environment during this session **will not be preserved** for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS Terminal Instance:
+
+```bash
+wsl_ros backup
+```
+
+This will export your home directory to your University `U:\` Drive, allowing you to restore it on another managed desktop machine the next time you fire up WSL-ROS.  

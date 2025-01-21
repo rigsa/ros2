@@ -84,7 +84,7 @@ ROS2 uses interface as a communication structure that allow different nodes to e
 2. Services
 3. Actions
 
-We have already learned how to use `Messages` in [part 2](./part2.md#ros-velocity-commands) and now we will learn in detail about `ROS2 Services`.   
+<!-- We have already learned how to use `Messages` in [part 2](./part2.md#ros-velocity-commands) and now we will learn in detail about `ROS2 Services`.    -->
 
 These are different to messages in that *"Service calls"* (that is, the process of requesting a service) occur *only* between one node and another:
 
@@ -302,7 +302,7 @@ string message   <-- Response (Parameter 2 of 2)
 ```
 ***
 
-In order to *Call* a service, we need to provide data to it in the format specified in the **Request** section. A service *Server* (like the [Python node we created above](./part4/move_server.md#code)) will then send data back to the caller in the format specified in the **Response** section.
+In order to *Call* a service, we need to provide data to it in the format specified in the **Request** section. A service *Server* (like the [Python node we created above](./part4/move_server.md)) will then send data back to the caller in the format specified in the **Response** section.
 
 The `std_srvs/srv/SetBool` service that we're working with here has **one** request parameter:
 

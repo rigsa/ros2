@@ -404,7 +404,7 @@ and make a new directory `srv` by running the following command:
 
 1. Next, navigate to the `scripts` folder of the `part4_services` package and create an empty file called `MoveToPosition.py`. 
 
-1. Open the newly created file in VS Code. Copy and paste the code provided [here](./part4/MoveToPosition.md). 
+1. Open the newly created file in VS Code. Copy and paste the code provided [here](). 
 1. Now modify the code as follow:
 
     1. Change the imports to utilise the service we just created 

@@ -369,18 +369,21 @@ We can modify this "Empty World" environment with some basic objects, and we can
 
 In the Gazebo simulation window, use the "Box" tool in the top toolbar to place a box in front of the robot:
 
+<!-- 
 <figure markdown>
   ![](../../images/gz/box.png){width=700px}
-</figure>
+</figure> -->
 
 Use the "Scale Mode" button to resize the box and use the "Translation Mode" button to reposition it.
 
+<!-- 
 <figure markdown>
   ![](../../images/gz/toolbar_buttons.png)
-</figure>
+</figure> -->
 
 Once you are happy with this, right-click on the object and select "Delete" to remove it from the world. 
 
+<!-- 
 <figure markdown>
   ![](../../images/gz/delete.png)
-</figure>
+</figure> -->

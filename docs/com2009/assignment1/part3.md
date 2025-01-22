@@ -80,6 +80,205 @@ source ~/.bashrc
 !!! warning "Remember"
     If you have any other terminal instances open, then you'll need run `source ~/.bashrc` in these too, in order for the changes to propagate through to these as well!
 
+## Launch Files
+
+So far (in Parts 1 & 2) we've used the `ros2 run` command to execute a variety of ROS nodes, such as `teleop_keyboard`, as well as a number of nodes that we've created of our own. You may also have noticed that we've used a `ros2 launch` command now and again too, mainly to launch Gazebo Simulations of our robot, but why do we have these two commands, and what's the difference between them?
+
+Complex ROS applications typically require the execution of multiple nodes at the same time. The `ros2 run` command only allows us to execute a single node, and so this isn't that convenient for such complex applications, where we'd have to open multiple terminals, use `ros2 run` multiple times *and* make sure that we ran everything in the correct order without forgetting anything! `ros2 launch`, on the other hand, provides a means to launch multiple ROS nodes *simultaneously* by defining exactly what we want to launch within *launch files*. This makes the execution of complex applications more reliable, repeatable and easier for others to launch these applications correctly. 
+
+#### :material-pen: Exercise 1: Creating a Launch File {#ex1}
+
+In order to see how launch files work, let's create some of our own!
+
+In Part 1 we created `publisher.py` and `subscriber.py` nodes that could talk to one another via a topic called `/my_topic`. We launched these independently using the `ros2 run` command in two separate terminals. Wouldn't it be nice if we could have launched them both at the same time, from the *same terminal* instead?
+
+To start with, let's create another new package, this time called `part3_beyond_basics`. 
+
+1. In **TERMINAL 1**...
+    
+    1. Head to the `src` folder of your ROS workspace, and into the `tuos_ros` Course Repo from there:
+
+        ***
+        **TERMINAL 1:**
+        ```bash
+        cd ~/ros2_ws/src/tuos_ros/
+        ```
+       
+    1. Use the `create_pkg.sh` helper script to create a new package once again:
+
+        ```bash
+        ./create_pkg.sh part3_beyond_basics
+        ```
+    
+    1. And navigate into the *root* of this new package, using `cd`:
+
+        ```bash
+        cd ../part3_beyond_basics/
+        ```
+        ***
+
+1. Launch files should be located in a `launch` directory at the root of the package directory, so use `mkdir` to do this:
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    mkdir launch
+    ```
+    ***
+
+1. Use the `cd` command to enter the `launch` folder that you just created, then use the `touch` command to create a new empty file called `pubsub.launch.py`.
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    cd launch && touch pubsub.launch.py
+    ```
+
+1. Open this launch file in VS Code and enter the following:
+
+    ```py
+    from launch import LaunchDescription
+    from launch_ros.actions import Node
+
+    def generate_launch_description():
+        return LaunchDescription([
+            Node(
+                package='part1_pubsub',
+                executable='publisher.py',
+                name='my_publisher'
+            )
+        ])
+    ```
+
+1. We need to make sure we tell `colcon` about our new `launch` directory, so that it can build the launch files within it when we run `colcon build`. To do this, we need to add a *directory* install instruction to our package's `CMakeLists.txt`:
+
+    Open up the `CMakeLists.txt` file and add the following text **just above** the `ament_package()` line at the very bottom:
+
+    ```txt title="part3_beyond_basics/CMakeLists.txt"
+    install(DIRECTORY
+      launch
+      DESTINATION share/${PROJECT_NAME}
+    )
+    ```
+
+1. Now, let's build the package... <a name="colcon-build"></a>
+
+    1. Navigate back to the root of the ROS workspace:
+
+        ***
+        **TERMINAL 1:**
+        ```bash
+        cd ~/ros2_ws/
+        ```
+    
+    1. Run `colcon build` on your new package *only*:
+
+        ```bash
+        colcon build --packages-select part3_beyond_basics
+        ``` 
+
+    1. And finally, re-source the `.bashrc`:
+
+        ```bash
+        source ~/.bashrc
+        ```
+        ***
+
+1. Use `ros2 launch` to launch this file and test it out as it is:
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    ros2 launch part3_beyond_basics pubsub.launch.py
+    ```
+    ***
+    
+1. The code that we've given you above will launch the `publisher.py` node from the `part1_pubsub` package, but not the `subscriber.py` node.  We therefore need to add another `Node()` object to our `LaunchDescription`:
+
+    ```py
+    from launch import LaunchDescription
+    from launch_ros.actions import Node
+
+    def generate_launch_description():
+        return LaunchDescription([
+            Node(
+                package='part1_pubsub',
+                executable='publisher.py',
+                name='my_publisher'
+            ),
+            Node(
+                # TODO
+            )
+        ])
+    ```
+
+    Using the same methods as above, and the necessary definitions for the `subscriber.py` node into your launch file.
+
+1. Once you've made these changes [you'll need to run `colcon build` again](#colcon-build).
+
+    !!! warning
+
+        You'll need to run `colcon build` *every time* you make changes to a launch file, even if you use the `--symlink-install` option (as this only applies to nodes in the `scripts` directory)
+        
+1. Once you've completed this, it should be possible to launch both the publisher and subscriber nodes with `ros2 launch` and the `pubsub.launch.py` file. Verify this in **TERMINAL 1** by executing the launch file. Soon after launching this, you should see the following messages to indicate that both nodes are alive:
+
+    ``` { .txt .no-copy }
+    [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node is initialised.
+    [publisher.py-1] [INFO] [###] [my_publisher]: The 'my_publisher' node is initialised.
+    ```
+
+    ... and following this, the outputs of both nodes should be printed to the screen continually:
+
+    ``` { .txt .no-copy }
+    [publisher.py-1] [INFO] [###] [my_publisher]: Publishing: 'The ROS time is 1737545960 (seconds).'
+    [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node heard:
+    [subscriber.py-2] [INFO] [###] [my_subscriber]: 'The ROS time is 1737545960 (seconds).' 
+    ```
+
+1. We can further verify this in a new terminal (**TERMINAL 2**), using commands that we've use in Parts 1 & 2 to *list* all nodes and topics that are active on our ROS network:
+
+    ***
+    **TERMINAL 2:**
+
+    ```bash
+    ros2 node list
+    ```
+    ```bash
+    ros2 topic list
+    ```
+
+    Do you see what you'd expect to see in the output of these two commands?
+
+    ***
+
+    
+
+The attributes here have the following meaning:
+
+* `pkg`: The name of the *ROS package* containing the functionality that we want to launch.
+* `type`: The full name of the script (i.e. *ROS Node*) that we want to execute within that package (including the file extension, if it has one).
+* `name`: A descriptive name that we want to give to the ROS node, which will be used to register it on the ROS Network.
+* `output`: The place where any output from the node will be printed (either *screen* where the output will be printed to our terminal window, or *log* where the output will be printed to a log file).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Laser Displacement Data and The LiDAR Sensor {#lidar}
 
 As you'll know from Part 2, odometry is really important for robot navigation, but it can be subject to drift and accumulated error over time. You may have observed this in simulation during [Part 2 Exercise 5](./part2.md#ex5), and you would most certainly notice it if you were to do the same on a real robot. Fortunately, The Waffles have another sensor on-board which provides even richer information about the environment, and we can use this to supplement the odometry information and enhance the robot's navigation capabilities.
@@ -257,7 +456,7 @@ Stop the `ros2 topic echo` command from running in the terminal window by enteri
 
 LaserScan data presents us with a new challenge: processing reasonably large datasets. In this exercise we'll look at some basic approaches that can be taken to deal with this data, and get something meaningful out of it that can be used in your robot applications.
 
-We'll need to create a new package again, so let's do this first (in **TERMINAL 2**).
+<!-- We'll need to create a new package again, so let's do this first (in **TERMINAL 2**).
 
 1. Head to the `src` folder of your ROS workspace into the `tuos_ros` Course Repo from there:
 
@@ -269,7 +468,7 @@ We'll need to create a new package again, so let's do this first (in **TERMINAL 
 
     ```bash
     ./create_pkg.sh part3_lidar_etc
-    ```
+    ``` -->
 
 1. Then navigate into the `scripts` folder of the new package using the `cd` command again:
 

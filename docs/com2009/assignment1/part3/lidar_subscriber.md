@@ -50,5 +50,5 @@ The data processing is illustrated in the figure below:
 </figure>
 
 <p align="center">
-  <a href="../../part3#ex2_ret">&#8592; Back to Part 3 Exercise 2</a>
+  <a href="../../part3#ex4_ret">&#8592; Back to Part 3</a>
 </p>

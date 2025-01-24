@@ -34,7 +34,7 @@ The Robots and Laptops must be able to connect to one another over an internet c
 
 1. A wired (ethernet) connection (**Recommended**)
 
-    * *(subject to provision of network sockets in CR5, 2025)*
+    * *(subject to provision of network sockets in CR5 by February 2025)*
     
 1. The *eduroam* WiFi SSID
 1. The *DIA-LAB* WiFi SSID (**no internet access**!)

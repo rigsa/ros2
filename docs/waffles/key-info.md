@@ -1,8 +1,8 @@
 ---  
-title: Pro Tips  
+title: Essential Information 
 ---
 
-# Pro Tips
+# Essential Information
 
 By working through the additional short exercises below, you will become aware of the key differences in how our TurtleBot3 Waffles work in the real world, compared to how they work in simulation. Be mindful of the differences that we are trying to highlight here and the implications that they will have on the applications that you develop. 
 

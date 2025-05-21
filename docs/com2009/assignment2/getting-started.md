@@ -1,5 +1,5 @@
 ---  
-title: Getting Started (Week 1)
+title: "Week 1: Getting Started"
 ---  
 
 Before you get started on Assignment #2 (as detailed in the pages that follow), you should work through the following tasks in your teams during the first lab in Week 1. 
@@ -15,15 +15,15 @@ As discussed on [the Assignment #2 Overview](./README.md), everything that your 
 
 The first step however is to create your team's ROS Package.
 
-Your team's package will need to be hosted on GitHub, so each team member will need a GitHub account. Head to [GitHub](https://github.com) and set up an account if you don't already have one. Use your Sheffield email address (ending in `@sheffield.ac.uk`) to register[^github-pro].
+Your team's package will need to be hosted on GitHub, so each team member will need a GitHub account. Head to [GitHub](https://github.com){target="_blank"} and set up an account if you don't already have one[^github-pro].
 
-[^github-pro]: As a University of Sheffield student, you can apply for the [GitHub Student Developer Pack](https://education.github.com/pack), which gives you access to a range of developer tools including *GitHub Pro*. GitHub Pro allows you to have unlimited collaborators on your repositories, which might help you to collaborate on your ROS package with your team.
+[^github-pro]: As a University of Sheffield student, you can apply for the [GitHub Student Developer Pack](https://education.github.com/pack){target="_blank"}, which gives you access to a range of developer tools including *GitHub Pro*. GitHub Pro allows you to have unlimited collaborators on your repositories, which might help you to collaborate on your ROS package with your team.
 
 ### Creating Your Team's Package Repo (on GitHub)
 
 Nominate **only one member of your team** to do this bit.
 
-1. Ensure that you are signed in to your account on GitHub, then go to [the `ros2_pkg_template` Repo](https://github.com/tom-howard/ros2_pkg_template). 
+1. Ensure that you are signed in to your account on GitHub, then go to [the `ros2_pkg_template` Repo](https://github.com/tom-howard/ros2_pkg_template){target="_blank"}. 
 1. Click on the green `Use this template` button, and then select `Create a new repository` from the dropdown menu. 
 
     <figure markdown>
@@ -32,13 +32,28 @@ Nominate **only one member of your team** to do this bit.
 
     You should then be presented with a **Create a new repository** screen.
 
-1. In the `Repository name` box enter `com2009_teamXX_2025`, replacing `XX` with your COM2009 Assignment #2 Team Number.
+1. The name for your repository **must** be as follows:
 
-    **If your team number is less than 10**: put a zero before the number, so that it's 2 digits long
+    ``` { .txt .no-copy }
+    com2009_teamXX_2025
+    ```
+
+    ... where `XX` should be replaced with *your* COM2009 Assignment #2 Team Number. Enter this in the `Repository name` box.
+
+    **If your team number is less than 10**: put a zero before the number, so that the team number is **always** 2 digits long, e.g.: 
     
-    e.g.: `com2009_team08_2025` for **Team 8**.
+    * `com2009_team03_2025` for **Team 3**
+    * `com2009_team08_2025` for **Team 8**
+    * `com2009_team15_2025` for **Team 15**
 
-1. Select the option to **make the repository private**, then click the green `Create repository` button. 
+    !!! warning "Important"
+        Your repository name should match the above format **exactly**:
+            
+        * The name should be **19 characters long** in total.
+        * All characters should be **lower case** (e.g. `com2009`, **NOT** `COM2009`)
+
+
+1. Select `Private` to **make the repository private**, then click the green `Create repository` button. 
 
     <figure markdown>
       ![](./getting-started/create_repo.png){width=500px}
@@ -64,10 +79,16 @@ Nominate **only one member of your team** to do this bit.
 
 Having created your package, you'll need to tell us your GitHub username and the URL to your team's GitHub repository, so that we can access it and pull download your work when the submissions are due.
 
-There is a form available on Blackboard that **you must complete** (as a team), to register your ROS package with us for Assignment #2. The team member who created the Repo (in the step above) should now head to Blackboard and fill in this form.
+There is a form that **you must complete** (as a team), to register your ROS package with us for Assignment #2. 
+
+[Access the form here](https://forms.gle/p75DDXkLcnFDB2A59){target="_blank"} (also available on Blackboard). You **must** be signed in to your university email account (`...@sheffield.ac.uk`) to access this. 
+
+The team member who created the Repo (in the step above) should fill in this form **now**.
 
 !!! warning
     Failure to do this (and do it properly) could result in you receiving **0 marks** for the assignment tasks!
+
+At some point within the first few weeks of the course a `hello.md` file will be pushed to your repo (by Tom) to confirm that it has been registered correctly.
 
 ### Initialising Your Team's ROS Package (Locally)
 
@@ -77,7 +98,7 @@ You should do this from within your own ROS installation (or WSL-ROS2), rather t
 
 1. On GitHub, go back to your repository's main page by clicking the `<> Code` tab at the top-left.
 
-1. Click the green `Code` button and then, from the dropdown menu, click the :material-clipboard-outline: button to copy the remote **HTTPS** URL of your repo. 
+1. Click the green `Code` button and then, from the dropdown menu, click the :octicons-copy-16: button to copy the remote **HTTPS** URL of your repo. 
 
     <figure markdown>
       ![](./getting-started/code-copy-url.png){width=600px}
@@ -89,11 +110,18 @@ You should do this from within your own ROS installation (or WSL-ROS2), rather t
     cd ~/ros2_ws/src
     ```
 
+    <!-- Note for 2026: Use ssh instead?  -->
+
 1. Clone your repo here using the remote HTTPS URL:
 
     ```bash
     git clone REMOTE_HTTPS_URL
     ```
+
+    You'll then be asked to enter your GitHub username, followed by a password. **This password is not your GitHub account password**!  
+
+    !!! warning
+        **Your GitHub account password won't work here!** You'll need to [generate a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic){target="_blank"} and use this instead!
 
 1. Navigate into the package directory using the `cd` command:
 
@@ -165,10 +193,10 @@ Having initialised your team's ROS package, it's now ready for you to start popu
     git push origin main
     ```
 
-    You'll then be asked to enter your GitHub username, followed by a password. **This password is not your GitHub account password**!  
-
-    !!! warning
-        **Your GitHub account password won't work here!** You'll need to [generate a personal access token (classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic) and use this instead!
+    You'll then be asked to enter your GitHub username and password again. 
+    
+    !!! warning "Remember" 
+        This is **not** your GitHub account password... Use the personal access token that you created earlier.  
 
 1. All team members should then be able to pull the remote repo into their own ROS Workspaces (`#!bash cd ~/ros2_ws/src/ && git clone REMOTE_HTTPS_URL`), make contributions and push these back to the remote repo as required (using their own GitHub account credentials and personal access tokens).
 
@@ -178,14 +206,12 @@ You'll need to copy your ROS package onto the Robot Laptops when working on the 
 
 Assignment #2 involves extensive work with our real robots, and you'll therefore have access to the robots for every lab session so that you can work on these tasks as you wish. All the details on how the robots work, how to get them up and running and start programming them can be found in the "Waffles" section of this course site. You should proceed now as follows (**in your teams**):
 
-1. Everyone **must** complete a health and safety quiz (on Blackboard) before you (or your team) work with the real robots for the first time. Head to Blackboard and do this now, if you haven't already.
 1. Each team has been assigned a specific robot (there's a list on Blackboard). When you're ready, speak to a member of the teaching team who will provide you with the robot that has been assigned to you.
 1. Work through each page of [the "Waffles" section of this site](../../waffles/README.md) (**in order**):
    
     * [ ] Read about [the hardware](../../waffles/intro.md).
     * [ ] Learn how to [launch ROS and get the robots up and running](../../waffles/launching-ros.md).
     * [ ] Work through the [Waffle (& ROS) Basics](../../waffles/basics.md), which will help to get you started and understand how ROS and the robots work.
-    * [ ] There is also some [Essential Information](../../waffles/key-info.md) that you must all be aware of when working with the real robots. Work through the further exercises on this page now.
-
-    * [ ] Finally, review the [Shutdown Procedures](../../waffles/shutdown.md) and follow the steps here to shut down the robot and power off the robotics laptop at the end of each lab session.
+    * [ ] There is also some further *Essential Information* that you must all be aware of when working with the real robots. Work through [the further exercises here](../../waffles/essentials.md) now.
+    * [ ] Finally, review the [Shutdown Procedures](../../waffles/shutdown.md). Follow these steps to shut down the robot and power off the robotics laptop at the end of each lab session.
     

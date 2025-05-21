@@ -1,5 +1,6 @@
 ---
 title: "Assignment #2: Team Robotics Project"
+description: Apply your ROS2 knowledge to real TurtleBot3 Waffles in the lab.
 --- 
 
 ## Overview
@@ -16,8 +17,8 @@ Assignment #2 is split into two parts: **Part A** and **Part B**. You will compl
 
 | Part | Tasks | Marks<br />(/100) | Submission |
 | :---: | :---  | :---: | :---: |
-| **A** | **Task 1**: [Velocity Control]()<br />**Task 2**: [Avoiding Obstacles]() | 20<br />20 | Week 6 |
-| **B** | **Tasks 3 & 4**:<br />More Details Coming Soon... | 60 | Week 12 |
+| **A** | **Task 1**: [Velocity Control](./part-a/task1.md)<br />**Task 2**: [Avoiding Obstacles](./part-a/task2.md) | 20<br />20 | Friday of Week 6 at 10pm (GMT) |
+| **B** | **Task 3**: [Exploration & Search](./part-b/task3.md)<br />**Task 4**: [Documentation](./part-b/task4.md) | 40<br />20 | Friday of Week 12 at 10pm (BST) |
 
 </center>
 
@@ -27,17 +28,23 @@ Tasks **1**, **2** & **3** are *programming tasks*, requiring you to develop ROS
 
 ## Assessment
 
-This assignment is worth 30% of the overall mark for COM2009. As a team you will be assessed on a ROS package that you develop to satisfy the above tasks.
+This assignment is **worth 30%** of the overall mark for COM2009. As a team you will be assessed on a ROS package that you develop to satisfy the above tasks.
 
-**For Tasks 1, 2 & 3**:  
+Your ROS package will be assessed by the teaching team *off-line* in the weeks following the submission deadlines (as above). You will receive your marks, plus video recordings of the assessment within 3 weeks of submission[^holiday].
+
+[^holiday]: If this falls over a holiday period (i.e. Easter), then the deadline for marking and the return of marks extends to 5 weeks (as per standard University policy).
+
+### Tasks 1, 2 & 3
+
 Each submission will be assessed by deploying your ROS package on one of the *robotics laptops* used extensively throughout the lab sessions. Nodes within your package will then be executed on the laptop to control a real robot in the Diamond Computer Room 5 Robot Arena.
 
-**For Task 4**:  
-Your package must contain a `README.md` file in the root of the package directory. Further details on the structure of this, and the marking criteria will be made available in due course... 
+### Task 4 
+
+Your package must contain a `README.md` file in the root of your package directory. This README file must document the application that you have developed for Task 3. [Further details can be found on the Task 4 page](./part-b/task4.md). 
 
 ### Submissions
 
-Before you get started on any of the tasks, **as a team** you'll need to create a single ROS package and host this on GitHub (further details on the next page). You can then add all the necessary functionality for each task as you go along. On each of the submission deadlines (as summarised above and detailed on Blackboard) we will clone your teams GitHub repo. 
+Before you get started on any of the tasks, **as a team** you'll need to create a single ROS package and host this on GitHub (which you'll do in [the Week 1 Lab Session](./getting-started.md)). You can then add all the necessary functionality for each task as you go along. On each of the submission deadlines (as summarised above and detailed on Blackboard) we will pull your team's work from your GitHub repo. [See here for further details](./assessment.md).
 
 !!! note
     You should work on each task **as a team**, and create only **one** ROS package/GitHub repo **per team** for this assignment.
@@ -48,43 +55,12 @@ Before you get started on any of the tasks, **as a team** you'll need to create 
 
 In order to launch the necessary functionality within your package for a given task you will need to include correctly named *launch files*: `task1.launch.py`, `task2.launch.py`, etc. This will allow you to ensure that all the required functionality is executed when your submission is assessed, and also ensures that we know exactly how to launch this functionality in order to assess it. Full details of the requirements for each launch file are provided on the associated task page.
 
-!!! warning 
-    It's up to **you** to ensure that your code launches as intended for a given task. If it doesn't, then you'll be awarded zero marks, so **make sure you test it all out prior to submission**!
-
 For more information on how to create `.launch.py` files, refer to the following resources:
 
 1. [Assignment #1 Part 3](../assignment1/part3.md)
-2. The [**Launch Files** *Extras*](../extras/launch-files.md) page 
+2. [Launch File Arguments](../extras/launch-file-args.md) (Additional Resources) 
 
-### Key Requirements (Penalties...)
+### Preparing for the Deadlines
 
-In order to be awarded any marks for any task outlined in the table above, you **must** ensure that the following key requirements are met in regard to the ROS package that you create:
+You can find all the Key Information regarding assessment of the *programming* tasks on [this page](./assessment.md). It's extremely important that you follow all the *Key Requirements* outlined here regarding the structure, content and configuration of your ROS package, so please be sure to **read this page in full** at your earliest convenience!
 
-TODO
-
-<!-- submit (as well as any additional requirements specific to a given task):
-
-1. Your package must be submitted to Blackboard as a `.tar` file with the following naming convention:
-
-        com2009_team{}.tar
-  
-    Where the `{}` is replaced with your own team number. [See here for how to create a `.tar` archive of your package](submission.md).
-  
-1. Your ROS package directory, when extracted, must be named:
-
-        com2009_team{}/
-
-    Again, replacing the `{}` with your own team number!
-
-1. Your ROS **package name** must also be the same, so that the following would work (for example):
-
-    ```bash
-    roslaunch com2009_team100 task1.launch
-    ```
-
-    (assuming you are Team 100!)
-
-1. Finally (and most importantly), your ROS package must work *"out-of-the-box,"* i.e. the Teaching Team won't make any modifications or fix any errors for you!  -->
-
-!!! warning
-    Failure to follow these requirements could result in you being awarded **zero marks**!

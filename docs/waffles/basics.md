@@ -17,24 +17,6 @@ On this page are a series of exercises for you to work through **in your teams**
 * [Exercise 5: Creating A Velocity Control Node (with Python)](#exSimpleVelCtrl)
 * [Exercise 6: Using SLAM to create a map of the environment](#exSlam)
 
-## Prerequisite: Robot-Laptop 'Bridging'
-
-The robot and laptop both communicate over the University network via [a Zenoh Bridge](https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds). The bridge should already be running on the robot after having run the `tb3_bringup` command on the robot earlier. The next step is to establish a connection to this bridge from the laptop, so that all ROS nodes, topics etc. can communicate as necessary. 
-
-Open up a new terminal instance on the laptop (either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:
-
-```bash
-waffle X bridge
-```
-You should now have two terminals active: 
-
-1. [The *robot* terminal where you ran the `tb3_bringup` command](./launching-ros.md#tmux)[^term_recover]
-1. The *laptop* terminal where you just ran the `bridge` command (above)
-
-[^term_recover]: If you happen to have closed down the *robot* terminal, you can return to it by entering `waffle X term` from a new terminal instance on the laptop.
-
-Leave both of these terminals alone, but **keep them running in the background at all times** while working with your robot.
-
 ## Manual Control
 
 #### :material-pen: Exercise 1: Making the Robot Move {#exMove}
@@ -498,6 +480,8 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
     !!! tip
         It's best to do this slowly and perform multiple circuits of the area to build up a more accurate map.
 
+    <a name="slam-steps"></a>
+
     <figure markdown>
       ![](../images/waffle/slam_step1.png){width=500px}
       ![](../images/waffle/slam_step2.png){width=500px}
@@ -565,6 +549,6 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
 
 ## Next Steps
 
-"**Pro Tips**": There are some important things to consider when working with the Real Waffles. [Move onto the next page to find out more](./key-info.md)...
+"**Pro Tips**": There are some important things to consider when working with the Real Waffles. [Move onto the next page to find out more](./essentials.md)...
 
 ... and when you've done that, don't forget to [power off your robot properly](./shutdown.md). 

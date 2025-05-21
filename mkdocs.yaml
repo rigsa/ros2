@@ -1,6 +1,6 @@
-site_name: "ROS2 Labs by Tom Howard"
+site_name: "ROS2 Courses in The Diamond"
 site_url: https://tom-howard.github.io/ros2/
-site_description: Practical Robotics Courses at the University of Sheffield with ROS2 and the TurtleBot3 Waffle. 
+site_description: Practical Robotics Course Assignments with ROS2 and the TurtleBot3 Waffle.  
 theme:
   name: material
   icon:
@@ -31,7 +31,7 @@ theme:
   features:
     - navigation.tracking
     - navigation.tabs
-    - navigation.expand
+    # - navigation.expand
     - navigation.top
     - navigation.footer
     - navigation.indexes
@@ -43,7 +43,7 @@ theme:
 
 copyright: >
   <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /> 
-  &copy; <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2024.
+  &copy; <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2025.
 repo_url: https://github.com/tom-howard/ros2
 repo_name: tom-howard/ros2
 edit_uri: ./edit/main/docs
@@ -61,22 +61,21 @@ plugins:
       enabled: !ENV [CI, false]
       cards_layout_options:
         font_family: Noto Sans
+  - glightbox
 
 markdown_extensions:
-  - admonition                   # https://squidfunk.github.io/mkdocs-material/reference/admonitions/
-  - pymdownx.highlight:          # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#highlight
-                                 # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#inlinehilite
-      anchor_linenums: true      # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#highlight
-  - pymdownx.inlinehilite        # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#inlinehilite
-  - pymdownx.snippets            # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#snippets
-  - pymdownx.details             # https://squidfunk.github.io/mkdocs-material/reference/admonitions/
-  - pymdownx.superfences         # https://squidfunk.github.io/mkdocs-material/reference/admonitions/
-                                 # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#highlight
-  - pymdownx.emoji:              # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#emoji
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - toc:
-      permalink: true            # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#+toc.permalink
+      permalink: true
   - attr_list
   - md_in_html
   - footnotes

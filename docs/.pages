@@ -1,7 +1,6 @@
 nav:
-  - "About": about.md
-  - "Software": software
-  - "COM2009": com2009
+  - "About": about
+  - "Installing ROS": software
+  - "The ROS 2 Course": course
   - "The Waffles": waffles
-  # - "ROS Extras": extras
-  # - "Other Courses": others
+  - "COM2009": com2009

@@ -1,8 +1,9 @@
 ---
-title: The COM2009 Lab Course
+title: COM2009 Course Assignments
+description: "Course Material for Assignments #1 and #2"
 ---
 
-# The COM2009 Lab Course
+# COM2009 Course Assignments
 
 For the COM2009 Robotics course you must complete two lab assignments:
 

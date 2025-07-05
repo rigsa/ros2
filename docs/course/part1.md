@@ -1,6 +1,6 @@
 ---
 title: "Part 1: Getting Started with ROS 2" 
-description: Learn the basics of ROS 2 and become familiar with some key tools and principles, allowing you to program robots and work with ROS2 applications effectively. 
+description: Learn the basics of ROS 2 and become familiar with some key tools and principles, allowing you to program robots and work with ROS 2 applications effectively. 
 ---
 
 ## Introduction
@@ -11,7 +11,7 @@ description: Learn the basics of ROS 2 and become familiar with some key tools a
 
 ### Aims
 
-In the first part of this lab course you will learn the basics of ROS and become familiar with some key tools and principles of the framework which will allow you to program robots and work with ROS applications effectively.  For the most part, you will interact with ROS using the *Linux command line* and so you will also become familiar with some key Linux command line tools that will help you.  Finally, you will learn how to create some basic ROS Nodes using Python and get a taste of how ROS topics and messages work.
+In the first part of this lab course you will learn the basics of ROS and become familiar with some key tools and principles of the framework which will allow you to program robots and work with ROS applications effectively.  For the most part, you will interact with ROS using the *Linux command line* and so you will also become familiar with some key Linux command line tools that will help you.  Finally, you will learn how to create some basic ROS Nodes using Python and get a taste of how communications work via ROS Topics and Interfaces.
 
 ### Intended Learning Outcomes
 
@@ -39,34 +39,34 @@ By the end of this session you will be able to:
 
 #### Additional Resources
 
-* [A Simple Python Publisher](./part1/publisher.md)
-* [A Simple Python Subscriber](./part1/subscriber.md)
+* [A Simple Python Publisher (for Exercise 5)](./part1/publisher.md)
+* [A Simple Python Subscriber (for Exercise 6)](./part1/subscriber.md)
 
 ## First Steps
 
-**Step 1: Accessing a ROS2 Environment for this Course**
+### Step 1: Accessing a ROS 2 Environment for this Course
 
-If you haven't done so already, see here for all the details on [how to install or access a ROS environment for this course](../../ros/README.md).
+If you haven't done so already, see here for all the details on [how to install or access a ROS environment for this course](../software/README.md).
 
-**Step 2: Launch ROS**
+### Step 2: Launch ROS
 
 Launch your ROS environment.
 
-1. If you're using WSL-ROS2 on a university managed desktop machine then follow [the instructions here to launch it](../../ros/using-wsl-ros/man-win.md).
-1. If you're [running WSL-ROS2 on your own machine](../../ros/wsl-ros/install.md), then you'll need to launch the Windows Terminal to access a WSL-ROS2 terminal instance.
-1. If you're using another installation option, then follow the instructions on [the relevant page here](../../ros/other-options/README.md). 
+1. If you're using WSL-ROS2 on a university managed desktop machine then follow [the instructions here to launch it](../software/using-wsl-ros/man-win.md).
+1. If you're [running WSL-ROS2 on your own machine](../software/wsl-ros/install.md), then you'll need to launch the Windows Terminal to access a WSL-ROS2 terminal instance.
+1. If you're using another installation option, then follow the instructions on [the relevant page here](../software/other-options/README.md). 
 
-Either way, you should now have access to ROS2 via a Linux terminal instance, and we'll refer to this terminal instance as **TERMINAL 1**.
+Either way, you should now have access to ROS 2 via a Linux terminal instance, and we'll refer to this terminal instance as **TERMINAL 1**.
 
-**Step 3: Download The Course Repo**
+### Step 3: Download The Course Repo
 
 <a name="course-repo"></a>
 
-We've put together a few ROS packages specifically for this course. These all live within [this GitHub repo](https://github.com/tom-howard/tuos_ros/tree/humble){target="_blank"}, and you'll need to download and install this into your ROS environment now, before going any further.
+We've put together a few ROS packages specifically for this course. These all live within [this GitHub repo](https://github.com/tom-howard/tuos_ros/tree/jazzy){target="_blank"}, and you'll need to download and install this into your ROS environment now, before going any further.
 
 1. In **TERMINAL 1**, Navigate into the *"ROS Workspace"* using the `cd` command[^ros2_ws]:
 
-    [^ros2_ws]: What is a ROS2 Workspace? [You can find out more here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
+    [^ros2_ws]: What is a ROS 2 Workspace? [You can find out more here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
 
     ```bash
     cd ~/ros2_ws/src/
@@ -77,13 +77,13 @@ We've put together a few ROS packages specifically for this course. These all li
     ***
     **TERMINAL 1:**
     ```bash
-    git clone https://github.com/tom-howard/tuos_ros.git -b humble
+    git clone https://github.com/tom-howard/tuos_ros.git -b jazzy
     ```
     ***
 
 1. Once this is done, you'll need to build this using a tool called *"Colcon"*[^colcon]:
 
-    [^colcon]: What is **Colcon**? [Find out more here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#background){target="_blank"}.
+    [^colcon]: What is **Colcon**? [Find out more here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#background){target="_blank"}.
 
     ***
     **TERMINAL 1:**
@@ -92,9 +92,9 @@ We've put together a few ROS packages specifically for this course. These all li
     ```
     ***
 
-Don't worry too much about what you just did, for now. We'll cover this in more detail throughout the course. That's it for now though, we'll start using some of the packages that we've just installed a bit later on.
+Don't worry too much about what you just did right now. We'll cover this in more detail throughout the course. That's it for now though, we'll start using some of the packages that we've just installed a bit later on.
 
-#### :material-pen: Exercise 1: Launching a simulation and making a robot move {#ex1}
+## :material-pen: Exercise 1: Launching a simulation and making a robot move {#ex1}
 
 Now that you're all up and running, let's launch ROS and fire up a simulation of our TurtleBot3 Waffle robot... 
 
@@ -107,7 +107,7 @@ Now that you're all up and running, let's launch ROS and fire up a simulation of
     ```    
     ***
 
-1. A *Gazebo simulation* window should open:
+1. A *Gazebo Sim* window should open:
 
     <figure markdown>
       ![](../../images/gz/tb3_empty_world_top.png){width=800}
@@ -116,10 +116,10 @@ Now that you're all up and running, let's launch ROS and fire up a simulation of
     1. **Zoom in and out** using the scroll wheel on your mouse.  
     1. **Rotate the camera view** by simultaneously pressing and holding the left mouse button and the ++shift++ key on your keyboard, and then moving your mouse around.
     
-    Using both of these methods you should be able to get a better view of the robot, which will be sat under a lot of blue LiDAR rays (more about this in Part 3), and will appear as a simplified representation of [the real thing](../../about/robots.md#our-waffles).
+    Using both of these methods you should be able to get a better view of the robot, which is an approximate representation of [our real ones](../about/robots.md#our-waffles).
 
     <figure markdown>
-      ![](../../images/gz/tb3_empty_world_close.jpg){width=700px}
+      ![](../../images/gz/tb3_empty_world_close.png){width=700px}
     </figure> 
 
 1. With the Gazebo simulation up and running, return to your terminal and open up a *second* terminal instance (**TERMINAL 2**)
@@ -139,9 +139,9 @@ Now that you're all up and running, let's launch ROS and fire up a simulation of
       ![](../../images/waffle/teleop_keymap.svg)
     </figure>
 
-##### Summary
+### Summary
 
-You have just launched a number of different applications on a ROS Network using two different ROS commands - `ros2 launch` and `ros2 run`: 
+You just launched a number of different applications on a ROS Network using two different ROS commands - `ros2 launch` and `ros2 run`: 
 
 1. `ros2 launch turtlebot3_gazebo empty_world.launch.py`
 1. `ros2 run turtlebot3_teleop teleop_keyboard`
@@ -154,7 +154,7 @@ The first command you used was a `launch` command, which has the following two p
 ros2 launch {[1] Package name} {[2] Launch file}
 ```
 
-**Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute. **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. We can launch multiple nodes at the same time from a single launch file.
+**Part [1]** is the name of the *ROS package* containing the functionality that we want to execute. **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. *We can launch multiple nodes at the same time from a single launch file*.
 
 The second command was a `run` command, which has a structure similar to `launch`:
 
@@ -168,16 +168,16 @@ Here, **Part [1]** is the same as the `launch` command, but **Part [2]** is slig
 
 ### Packages
 
-ROS applications are organised into *packages*. Packages are basically folders containing scripts, configurations and launch files (ways to launch those scripts and configurations), all of which relate to some common robot functionality. ROS uses packages as a way to organise all the programs running on a robot. 
+ROS applications are organised into *packages*. Packages are basically collections containing scripts, configurations and launch files (ways to launch those scripts and configurations), all of which relate to some common robot functionality. ROS uses packages as a way to organise all the programs running on a robot. 
 
 !!! info  
     The package system is a fundamental concept in ROS and all ROS programs are organised in this way.
 
-You will create a number of packages throughout this course, each containing different nodes, launch files and other things too. We'll start to explore this later on in this part of the course.
+You will create a number of packages throughout this course, each containing different nodes, launch files and other things too. We'll start to explore this later on.
 
 ### Nodes
 
-ROS *Nodes* are executables that perform specific robot tasks and operations. Earlier on we used `ros2 run` to execute a node called `teleop_keyboard`, which allowed us to remotely control (or *"teleoperate"*) the robot, for example. 
+ROS *Nodes* are executables that perform specific robot tasks and operations. Earlier on (for example) we used `ros2 run` to execute a node called `teleop_keyboard`, which allowed us to remotely control (or *"teleoperate"*) the robot. 
 
 !!! question
     What was the name of the ROS *package* that contained the `teleop_keyboard` node? (Remember: `ros2 run {[1] Package name} {[2] Node name}`)
@@ -205,13 +205,10 @@ You should currently have two terminal instances active: the first in which you 
     Only a handful of nodes should be listed:
 
     ``` { .bash .no-copy }
-    /camera_driver
-    /gazebo
+    /robot_state_publisher
+    /ros_gz_bridge
+    /ros_gz_image
     /teleop_keyboard
-    /turtlebot3_diff_drive
-    /turtlebot3_imu
-    /turtlebot3_joint_state
-    /turtlebot3_laserscan
     ```
 
 1. We can visualise the connections between the active nodes by using an application called *RQT*. RQT is a collection of graphical tools that allow us to interact with and interrogate the ROS network. Launch the main RQT application by entering `rqt` in **TERMINAL 3** (you might see some warnings in the terminal when you do this, but don't worry about them):
@@ -235,11 +232,12 @@ You should currently have two terminal instances active: the first in which you 
 
     <figure markdown>
       ![](../../images/rqt/node_graph.png){width=600}
+      <figcaption>(Click on the image to enlarge it.)</figcaption>
     </figure>
 
     Here, *nodes* are represented by ellipses and *topics* by rectangles (hover over a region of the graph to enable colour highlighting).
 
-    This tool shows us that (amongst other things) the `/teleop_keyboard` and `/turtlebot3_diff_drive` nodes are communicating with one another. The direction of the arrow tells us that `/teleop_keyboard` is a *Publisher* and `/turtlebot3_diff_drive` is a *Subscriber*. The two nodes communicate via a **ROS Topic** called `/cmd_vel`. 
+    This tool shows us that (amongst other things) the `/teleop_keyboard` node is communicating with another node called `/ros_gz_bridge`. The direction of the arrow tells us that `/teleop_keyboard` is a *Publisher* and `/turtlebot3_diff_drive` is a *Subscriber*. The two nodes communicate via a **ROS Topic** called `/cmd_vel`. 
 
 ## Publishers and Subscribers: A *ROS Communication Method* 
 
@@ -265,13 +263,16 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
     ``` { .txt .no-copy }
     /camera/camera_info
     /camera/image_raw
+    /camera/image_raw/compressed
+    /camera/image_raw/compressedDepth
+    /camera/image_raw/theora
+    /camera/image_raw/zstd
     /clock
     /cmd_vel
     /imu
     /joint_states
     /odom
     /parameter_events
-    /performance_metrics
     /robot_description
     /rosout
     /scan
@@ -293,7 +294,7 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
     This should provide the following output:
     
     ``` { .txt .no-copy }
-    Type: geometry_msgs/msg/Twist
+    Type: geometry_msgs/msg/TwistStamped
     Publisher count: 1
     Subscription count: 1
     ```
@@ -304,41 +305,44 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
     1. The topic also has 1 subscriber *reading* this data
     1. From RQT Node Graph we know that the `/teleop_keyboard` node is the publisher (i.e. the node writing data to the topic)
     1. The `/turtlebot3_diff_drive` node is receiving this data (and acting upon it). This node therefore monitors (i.e. *subscribes* to) the `/cmd_vel` topic and makes the robot move in the simulator whenever a velocity command is published.
-    1. Data is transmitted on the `/cmd_vel` topic using an [Interface](https://docs.ros.org/en/humble/Concepts/Basic/About-Interfaces.html){target="_blank"}. This particular interface is defined as: `geometry_msgs/msg/Twist`. 
+    1. Data is transmitted on the `/cmd_vel` topic using an [Interface](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html){target="_blank"}. This particular interface is defined as: `geometry_msgs/msg/TwistStamped`. 
     
         The interface definition has three parts to it:
         
         1. `geometry_msgs`: the name of the ROS package that this interface belongs to.
         1. `msg`: that this is a *topic message* rather than another type of interface (there are **three** types of interface, and we'll learn about the other two later in this course).
-        1. `Twist`: the actual interface name
+        1. `TwistStamped`: the actual interface name
 
         Interfaces define the *structure of the data* that is broadcast on the ROS network, so that any node can deal with this data appropriately. 
 
-        In summary then, we've established that if we want to make the robot move we need to publish `Twist` messages to the `/cmd_vel` topic.
+        In summary then, we've established that if we want to make the robot move we need to publish `TwistStamped` messages to the `/cmd_vel` topic.
 
 1. We can use the `ros2 interface` command to provide further information about the message structure:
 
     ***
     **TERMINAL 4:**
     ```bash
-    ros2 interface show geometry_msgs/msg/Twist
+    ros2 interface show geometry_msgs/msg/TwistStamped
     ```
     ***
 
     From this, we obtain the following:
 
     ``` { .txt .no-copy }
-    # This expresses velocity in free space 
-      broken into its linear and angular parts.
-
-    Vector3  linear
-            float64 x
-            float64 y
-            float64 z
-    Vector3  angular
-            float64 x
-            float64 y
-            float64 z
+    std_msgs/Header header
+        builtin_interfaces/Time stamp
+                int32 sec
+                uint32 nanosec
+        string frame_id
+    Twist twist
+        Vector3  linear
+                float64 x
+                float64 y
+                float64 z
+        Vector3  angular
+                float64 x
+                float64 y
+                float64 z
     ```
 
     We'll learn more about what this means in Part 2.
@@ -350,7 +354,7 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
 
 ## Creating Your First ROS Applications
 
-Shortly you will create some simple publisher and subscriber nodes in Python and send simple ROS messages between them. As we learnt earlier though, ROS applications must be contained within *packages*, and so we need to create a package first in order to start creating our own ROS nodes. 
+Shortly we'll create some simple publisher and subscriber nodes in Python and send simple data between them. As we learnt earlier though, ROS applications must be contained within *packages*, and so we need to create a package first in order to start creating our own ROS nodes. 
 
 It's important to work in a specific filesystem location when we create and work on our own ROS packages. These are called *"Workspaces"* and you should already have one ready to go within your local ROS environment[^workspaces]:
 
@@ -365,78 +369,73 @@ It's important to work in a specific filesystem location when we create and work
     All new packages **must** be located in the `src` folder of the workspace!!
 
 
-[^workspaces]: [You can learn more about ROS2 Workspaces here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
+[^workspaces]: [You can learn more about ROS 2 Workspaces here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
 
 #### :material-pen: Exercise 4: Creating your own ROS Package {#ex4}
 
-The `ros2` Command Line Interface (CLI) includes a tool to create a new ROS packages: `ros2 pkg create`. This tool supports two different *"build types:"*
+The `ros2` Command Line Interface (CLI) that we've been using so far includes a tool to create new ROS packages: `ros2 pkg create`[^ros2-pkg-create]. We'll actually take a slightly different approach to package creation for this course however[^cpp-py-pkg], to provide us with a little more flexibility and ease of use (particularly for things we'll do later on). We've therefore created our own [ROS 2 Package Template](https://github.com/tom-howard/ros2_pkg_template){target="_blank"}, and we'll walk through how to use this to create new packages now...
 
-1. **CMake** (for packages containing nodes written in *C++*):
-    
-    `ros2 pkg create --build-type ament_cmake`
-    
-2. **Python** (for packages containing nodes written in well, er, *Python*!):
-    
-    `ros2 pkg create --build-type ament_python`
+[^ros2-pkg-create]: You can learn more about all this from the [Official ROS 2 Tutorials](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html){target="_blank"} (if you're interested).
 
-    Packages are structured slightly differently in each case.
+[^cpp-py-pkg]: The approach we take is based on [this tutorial (courtesy of the Robotics Backend)](https://roboticsbackend.com/ros2-package-for-both-python-and-cpp-nodes/){target="_blank"}, so feel free to look at this if you'd like to find out more.
 
-You can learn more about all this from the [Official ROS2 Tutorials](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html){target="_blank"} (if you're interested).
-
-We'll be using Python throughout this course, but we'll actually take a slightly different approach to package creation that will provide us with a little more flexibility and ease of use (particularly for things we'll do later on in the Assignment #1 course and in Assignment #2). We've therefore created a helper script (inside the `tuos_ros` Course Repo) to help you create packages without using *either* of the above two commands. The approach we'll take is based on [this tutorial (courtesy of the Robotics Backend)](https://roboticsbackend.com/ros2-package-for-both-python-and-cpp-nodes/){target="_blank"}, so feel free to look at this if you'd like to find out more. Then, simply follow the steps below to create your first ROS package for this course, using the `create_pkg.sh` helper tool.
-
-1. Navigate into the `tuos_ros` Course Repo that you downloaded earlier by using the Linux `cd` command (**c**hange **d**irectory). In **TERMINAL 1** enter the following:
+1. Navigate into the `ros2_ws/src` directory using the Linux `cd` command (**c**hange **d**irectory). In **TERMINAL 1** enter the following:
 
     ***
     **TERMINAL 1:**
     ```bash
-    cd ~/ros2_ws/src/tuos_ros/
+    cd ~/ros2_ws/src/
     ```
     ***
 
-1. Here you'll find the `create_pkg.sh` helper script. Run this now using the following command to create a new package called `part1_pubsub`:
+1. From here, use `git` to *clone* the ROS2 Package Template from GitHub:
 
     ***
     **TERMINAL 1:**
     ```bash
-    ./create_pkg.sh part1_pubsub
+    git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
     ***
     
-1. Navigate into this new package directory (using `cd`):
+1. This package template contains a script called `init_pkg.sh`, which we'll use to turn the template into our first ROS 2 package. Run the script as follows, to convert the template into a ROS 2 package called `part1_pubsub`:
 
     ***
     **TERMINAL 1:**
     ```bash
-    cd ../part1_pubsub/
+    ./ros2_pkg_template/init_pkg.sh part1_pubsub
     ```
     ***
 
-    !!! info
-        `..` means "go back one directory," so that command above is telling `cd` to navigate *out* of the `tuos_ros` directory (and therefore back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there.
+1. Now, navigate into your package directory (using `cd`):
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    cd part1_pubsub/
+    ```
+    ***  
+
+    <!-- !!! info
+        `..` means "go back one directory," so that command above is telling `cd` to navigate *out* of the `tuos_ros` directory (and therefore back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there. -->
 
 1. `tree` is a **Linux command** which shows us the content of the current directory in a nice tree-like format. Use `tree` now to show the current content of the `part1_pubsub` directory:
 
     ``` { .txt .no-copy }
-    ~/ros2_ws/src/part1_pubsub$ tree
+    ~/ros2_ws/src/part1_pubsub 
+    > tree
     .
     ├── CMakeLists.txt
-    ├── include
-    │   └── part1_pubsub
-    │       └── minimal_header.hpp
     ├── package.xml
     ├── part1_pubsub_modules
     │   ├── __init__.py
     │   └── tb3_tools.py
-    ├── scripts
-    │   └── minimal_node.py
     └── src
-        └── minimal_node.cpp
+        └── minimal_node.py
 
-    5 directories, 7 files
+    2 directories, 5 files
     ```
 
-    * `scripts`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a `minimal_node.py` already exists in there).
+    * `src`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a `minimal_node.py` already exists in there).
     * `part1_pubsub_modules`: is a *directory* that we can use to store Python *modules*, that we can then import into our main Python nodes
         
         (`#!py from part1_pubsub_modules.tb3_tools import ...`, for example)
@@ -445,12 +444,12 @@ We'll be using Python throughout this course, but we'll actually take a slightly
 
 #### :material-pen: Exercise 5: Creating a publisher node {#ex5}
 
-1. From the root of your `part1_pubsub` package, navigate to the `scripts` folder using the `cd` command.
+1. From the root of your `part1_pubsub` package, navigate to the `src` folder using the `cd` command.
 
     ***
     **TERMINAL 1:**
     ```bash
-    cd scripts
+    cd src
     ```
     ***
 
@@ -472,10 +471,11 @@ We'll be using Python throughout this course, but we'll actually take a slightly
     ```
     ***
 
-    This should output something similar to the following:
+    This should output something similar to the following: <a name="no-exec-perms"></a>
 
     ``` { .txt .no-copy }
-    ~/ros2_ws/src/part1_pubsub/scripts$ ls -l
+    ~/ros2_ws/src/part1_pubsub/src
+    > ls -l
     total 4
     -rwxr-xr-x 1 student student 339 MMM DD HH:MM minimal_node.py
     -rw-r--r-- 1 student student   0 MMM DD HH:MM publisher.py
@@ -483,30 +483,28 @@ We'll be using Python throughout this course, but we'll actually take a slightly
 
     This confirms that the file exists, and the `0` in the middle of the bottom line there indicates that the file is empty (i.e. its current size is 0 bytes), which is what we'd expect.
 
-1. We therefore now need to open the file and add content to it. We'd recommend using Visual Studio Code (VS Code) as an IDE for this course, which can be launched with the following command in **TERMINAL 1**:
+1. We therefore now need to open the file and add content to it. We'd recommend using Visual Studio Code (VS Code) as an IDE for this course. Launch VS Code and access your ROS 2 environment (how you do this will vary based on how you have ROS installed on your machine).
 
-    ***
-    **TERMINAL 1:**
-    ```bash
-    code ~
-    ```
-    ***
+1. Using the VS Code File Explorer, locate the empty `publisher.py` file that you have just created (`~/ros2_ws/src/part1_pubsub/src/`) and click on the file to open it in the main editor. 
 
-1. Using the VS Code File Explorer, locate the `publisher.py` file that you have just created (`ros2_ws/src/part1_pubsub/scripts/`) and click on the file to open it in the main editor. 
+1. The `publisher.py` code is provided here:
 
-1. Once opened, **[copy ^^the code provided here^^ into the empty file and save it](./part1/publisher.md)**. <a name="pub_ret"></a>
-    
-    !!! note
-        It's important that you understand how this code works, so make sure that you **read the annotations**!
-    
-1. Next, we need to add our `publisher.py` file as an executable to our package's `CMakeLists.txt`. This will ensure that it then gets built when we run `colcon build` (in the next step).
+    <center>[:material-file-code-outline: The `publisher.py` code](./part1/publisher.md){ .md-button target="_blank"}</center>
+
+    Take a look at this and click on the :material-plus-circle: icons to expand the annotations in the code. **It's important that you understand how the code works, so make sure you read them all!**
+
+    <a name="pub_ret"></a>
+
+1. Once you've reviewed the code take a copy of it, paste it into your `publisher.py` file and save it. 
+
+1. Now, we need to add our `publisher.py` file as an executable to our package's `CMakeLists.txt`. This will ensure that it then gets built when we run `colcon build` (in the next step).
 
     In VS Code, open the `CMakeLists.txt` file that is at the root of your `part1_pubsub` package directory (`ros2_ws/src/part1_pubsub/CMakeLists.txt`). Locate the lines (near the bottom of the file) that read:
 
     ``` { .txt .no-copy}
     # Install Python executables
     install(PROGRAMS
-      scripts/minimal_node.py
+      src/minimal_node.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
@@ -516,7 +514,7 @@ We'll be using Python throughout this course, but we'll actually take a slightly
     ``` { .txt .no-copy }
     # Install Python executables
     install(PROGRAMS
-      scripts/publisher.py
+      src/publisher.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
@@ -562,17 +560,34 @@ We'll be using Python throughout this course, but we'll actually take a slightly
     ... Hmm, something not quite right? If you typed the command exactly as above and then tried to run it, you probably just received the following error:
 
     ``` { .txt .no-copy }
-    $ ros2 run part1_pubsub publisher.py
+    > ros2 run part1_pubsub publisher.py
     No executable found
     ``` 
 
     <a name="chmod"></a>
 
-    When we create a file using `touch` it is given certain *permissions* by default. Run `ls -l` again (making sure that your terminal is in the right location: `~/ros2_ws/src/part1_pubsub/scripts/`).
-        
-    The first bit tells us about the permissions that are currently set: `-rw-r--r--`. This tells us *who* has permission to do *what* with this file and (currently) the first bit: `-rw-`, tells us that we have permission to **r**ead or **w**rite to it. There is a *third* option we can set too though, which is the *execute* permission, and we can set this using the `chmod` **Linux command**...
+    When we create a file using `touch` it is given certain *permissions* by default. Recall the output of the `ls -l` command that we ran before ([click here to go back to this for a reminder](#no-exec-perms)):
 
-1. Run the `chmod` command as follows:
+    ``` { .txt .no-copy }
+    -rw-r--r-- 1 student student   0 MMM DD HH:MM publisher.py
+    ```
+        
+    The first bit tells us about the permissions that are currently assigned to the `publisher.py` file:  
+    
+    <center>`-rw-r--r--`</center>  
+    
+    This tells us *who* has permission to do *what* with this file and (currently) the first bit: `-rw-`, tells us that we have permission to **r**ead or **w**rite to it. There is a *third* option we can set too though, which is the *execute* permission, and we can set this using the `chmod` **Linux command**...
+
+1. Use `cd` to navigate back to our package's `src` directory (where the `publisher.py` file is located):
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    cd ~/ros2_ws/src/part1_pubsub/src/
+    ```
+    ***
+
+    Then run the `chmod` command as follows to give the `publisher.py` file *execute* permissions:
 
     ***
     **TERMINAL 1:**
@@ -601,14 +616,14 @@ We'll be using Python throughout this course, but we'll actually take a slightly
     If you see a message in the terminal similar to the following then the node has been launched successfully:
         
     ``` { .txt .no-copy }
-    [INFO] [#####] [simple_publisher]: The 'simple_publisher' node is inisialised.
+    [INFO] [#####] [simple_publisher]: The 'simple_publisher' node is initialised.
     ```
 
     Phew!
 
 1. We can further verify that our publisher node is running using a number of different tools. Try running the following commands in **TERMINAL 2**:
 
-    1. `ros2 node list`: This will provide a list of all the *nodes* that are currently active on the system. Verify that the name of our publisher node is visible in this list (it's probably the only item in the list at the moment!)
+    1. `ros2 node list`: This will provide a list of all the *nodes* that are currently active on the system. Verify that the name of our publisher node is visible in this list (it's probably the *only* item in the list at the moment!)
     1. `ros2 topic list`: This will provide a list of the *topics* that are currently being used by nodes on the system. Verify that the name of the topic that our publisher is publishing messages to (`/my_topic`) is present within this list.
 
 ### Interrogating ROS Topics {#rostopic}
@@ -678,17 +693,24 @@ Let's talk about a few of these:
 
 To illustrate how information can be passed from one node to another (via topics and messages) we'll now create another node to *subscribe* to the topic that our publisher node is broadcasting messages to.
 
-1. In **TERMINAL 2** use the filesystem commands that were introduced earlier (`cd`, `ls`, etc.) to navigate to the `scripts` folder of your `part1_pubsub` package.
+1. In **TERMINAL 2** use the filesystem commands that were introduced earlier (`cd`, `ls`, etc.) to navigate to the `src` folder of your `part1_pubsub` package.
 
 1. Use the same procedure as before to create a new empty Python file called `subscriber.py` and remember to make it executable! <a name="sub_ret"></a>
 
-1. Then, open the newly created `subscriber.py` file in VS Code, **[paste in ^^the code here^^ and save it](./part1/subscriber.md)**. 
+1. Then, open this newly created `subscriber.py` file in VS Code.
+
+1. The code for the `subscriber.py` file is provided here:
+
+    <center>[:material-file-code-outline: The `subscriber.py` code](./part1/subscriber.md){ .md-button target="_blank"}</center>
     
     Once again, it's important that you understand how this code works, so **make sure you read the code annotations**! 
 
-1. Next, we need to add this as an additional executable for our package. 
+    !!! warning "Fill in the `{BLANK}`!"
+        This code won't work *out-of-the-box*! Look out for a `{BLANK}`, which is a prompt for you to change this part of the code! 
 
-    Open up the `CMakeLists.txt` file at the root of your `part1_pubsub` package directory again, head back to the `# Install Python executables` section and add the `subscriber.py` file:
+1. We now need to add this as an *additional* package executable. 
+
+    Open up the `CMakeLists.txt` file at the root of your `part1_pubsub` package directory again, head back to the `# Install Python executables` section and add the `subscriber.py` file as illustrated below:
 
     ``` { .txt .no-copy }
     # Install Python executables
@@ -703,21 +725,30 @@ To illustrate how information can be passed from one node to another (via topics
     
     1. Make sure you're at the **root** of the Colcon Workspace:
 
+        ***
+        **TERMINAL 2:**
         ```bash
         cd ~/ros2_ws/
         ```
+        ***
 
     1. Run `colcon build` on *only* the `part1_pubsub` package:
 
+        ***
+        **TERMINAL 2:**
         ```bash
         colcon build --packages-select part1_pubsub --symlink-install
         ```
+        ***
 
     1. And then re-source the `bashrc`:
 
+        ***
+        **TERMINAL 2:**
         ```bash
         source ~/.bashrc
         ```
+        ***
 
 1. Use `ros2 run` to execute your newly created `subscriber.py` node (remember: `ros2 run {package name} {script name}`). If your publisher and subscriber nodes are working correctly you should see an output like this:
     
@@ -739,12 +770,26 @@ To illustrate how information can be passed from one node to another (via topics
 
 #### :material-pen: Exercise 7: Defining our own message {#ex7}
 
-We've just created a publisher and subscriber that were able to communicate with one another via a topic. The data that the publisher was sending to the topic was very simple: a `example_interfaces/msg/String` type message.
+We've just created a publisher and subscriber that were able to communicate with one another via a topic. 
+
+<figure markdown>
+  ![](./part1/pub_sub_rosgraph.png)
+</figure>
+
+The data that the publisher was sending to the topic was very simple: a `example_interfaces/msg/String` type message.
+
+``` { .txt .no-copy }
+> ros2 topic info /my_topic
+Type: example_interfaces/msg/String
+Publisher count: 1
+Subscription count: 1
+```
+
 
 This message just has one *field* called `data` of the type `string`:
 
 ``` { .txt .no-copy }
-$ ros2 interface show example_interfaces/msg/String
+> ros2 interface show ros2 topic info -t /my_topic
 
 string data
 ```
@@ -789,7 +834,7 @@ ROS messages will generally be more complex than this, typically containing seve
 
     </center>
 
-    We can give our fields any name that we want, but the data types must be either [built-in-types](https://docs.ros.org/en/humble/Concepts/Basic/About-Interfaces.html#field-types){target="_blank"} or other pre-existing ROS interfaces.
+    We can give our fields any name that we want, but the data types must be either [built-in-types](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html#field-types){target="_blank"} or other pre-existing ROS interfaces.
 
 1. We now need to declare this message in our package's `CMakeLists.txt` file, so that the necessary Python code can be created (by `colcon build`) to allow us to import this message into our own Python files.
 
@@ -812,7 +857,7 @@ ROS messages will generally be more complex than this, typically containing seve
 
 1. We can now use Colcon to generate the necessary source code for the message:
 
-    1. First, make sure you're in the root of the ROS2 Workspace:
+    1. First, make sure you're in the root of the ROS 2 Workspace:
         
         ```bash
         cd ~/ros2_ws/
@@ -852,10 +897,10 @@ ROS messages will generally be more complex than this, typically containing seve
 
 1. Create a copy of the `publisher.py` file from [Exercise 5](#ex5). Let's do this from the command line too:
 
-    1. Navigate into your package's `scripts` folder:
+    1. Navigate into your package's `src` folder:
 
         ```bash
-        cd ~/ros2_ws/src/part1_pubsub/scripts
+        cd ~/ros2_ws/src/part1_pubsub/src
         ```
     
     1. And use the `cp` command to make a copy of the `publisher.py` file and call this new file `custom_msg_publisher.py`:
@@ -875,10 +920,10 @@ ROS messages will generally be more complex than this, typically containing seve
     ```txt title="CMakeLists.txt"
     # Install Python executables
     install(PROGRAMS
-      scripts/publisher.py
-      scripts/subscriber.py
-      scripts/custom_msg_publisher.py  # ADD THIS 
-      scripts/custom_msg_subscriber.py # AND THIS
+      src/publisher.py
+      src/subscriber.py
+      src/custom_msg_publisher.py  # ADD THIS 
+      src/custom_msg_subscriber.py # AND THIS
     DESTINATION lib/${PROJECT_NAME}
     )
     ```
@@ -936,7 +981,7 @@ We have also learnt how to work in the Linux Terminal and navigate a Linux files
 * `chmod`: modify file permissions (i.e. to add execute permissions to a file for all users: `chmod +x {file}`).
 * `touch`: create a file without any content.
 
-In addition to this we've also learnt how to create a ROS2 package, and how to create simple Python nodes that can *publish* and *subscribe* to topics on a ROS network. 
+In addition to this we've also learnt how to create a ROS 2 package, and how to create simple Python nodes that can *publish* and *subscribe* to topics on a ROS network. 
 
 We've worked with pre-made ROS messages to do this and also created our own custom message interface to offer more advanced functionality.
 

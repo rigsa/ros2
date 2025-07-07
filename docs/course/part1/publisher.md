@@ -6,8 +6,17 @@ title: "A Simple Publisher Node"
 
 Copy **all** the code below into your `publisher.py` file and **review the annotations** to understand how it all works.
 
-!!! tip
-    **Don't forget the Shebang!** See [below](#shebang) for further details...
+<a name="shebang"></a>
+
+!!! tip "Don't forget the Shebang!"
+    The very first line of code looks like a comment, but it is actually a very crucial part of the script:
+
+    ```python
+    #!/usr/bin/env python3
+    ```
+
+    This is called the *Shebang*, and it tells the operating system which interpreter to use to execute the code. In our case here, it tells the operating system where to find the right *Python interpreter* that should be used to actually execute the code.
+
 
 ```python title="publisher.py"
 --8<-- "code_templates/publisher.py"
@@ -101,17 +110,3 @@ Its good practice to add these dependencies to your `package.xml` file. Locate t
 ```
 
 Job done. Save the file and close it.
-
-## The Shebang {#shebang}
-
-The very first line of code looks like a comment, but it is actually a very crucial part of the script:
-
-```python
-#!/usr/bin/env python3
-```
-
-This is called the *Shebang*, and it tells the operating system which interpreter to use to execute the code. In our case here, it tells the operating system where to find the right *Python interpreter* that should be used to actually run the code.
-    
-<p align="center">
-  <a href="../../part1#pub_ret">&#8592; Back to Part 1</a>
-</p>

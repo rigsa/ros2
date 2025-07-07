@@ -56,7 +56,3 @@ Remember: **don't forget the shebang**, it's very important!
 ```python
 #!/usr/bin/env python3
 ```
-
-<p align="center">
-  <a href="../../part1#sub_ret">&#8592; Back to Part 1</a>
-</p>

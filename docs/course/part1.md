@@ -241,7 +241,7 @@ You should currently have two terminal instances active: the first in which you 
 
 ## Publishers and Subscribers: A *ROS Communication Method* 
 
-ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics using *ROS Messages*. As we've just learnt, the `teleop_keyboard` node was publishing messages to a topic (`/cmd_vel`) to make the robot move earlier.
+ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics using *ROS Messages*. As we've just learnt, the `teleop_keyboard` node was publishing messages to a topic (`/cmd_vel`) to make the robot move.
 
 Let's have a look at this in a bit more detail...
 
@@ -301,23 +301,19 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
 
     We've now established the following information about `/cmd_vel`: <a name="msg-interface-struct"></a>
     
-    1. The topic has 1 publisher *writing* data to it
-    1. The topic also has 1 subscriber *reading* this data
-    1. From RQT Node Graph we know that the `/teleop_keyboard` node is the publisher (i.e. the node writing data to the topic)
-    1. The `/turtlebot3_diff_drive` node is receiving this data (and acting upon it). This node therefore monitors (i.e. *subscribes* to) the `/cmd_vel` topic and makes the robot move in the simulator whenever a velocity command is published.
+    1. The topic has 1 publisher *writing* data to it (the `/teleop_keyboard` node, as established from the RQT Graph)
+    1. The topic also has 1 subscriber *reading* this data (the `ros_gz_bridge` node)
     1. Data is transmitted on the `/cmd_vel` topic using an [Interface](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html){target="_blank"}. This particular interface is defined as: `geometry_msgs/msg/TwistStamped`. 
     
-        The interface definition has three parts to it:
+        **Interfaces** are *standardised data structures* that are used to broadcast data across the ROS network. The interface definition above (and, indeed, *every* interface definition) has three parts to it:
         
         1. `geometry_msgs`: the name of the ROS package that this interface belongs to.
         1. `msg`: that this is a *topic message* rather than another type of interface (there are **three** types of interface, and we'll learn about the other two later in this course).
         1. `TwistStamped`: the actual interface name
 
-        Interfaces define the *structure of the data* that is broadcast on the ROS network, so that any node can deal with this data appropriately. 
-
         In summary then, we've established that if we want to make the robot move we need to publish `TwistStamped` messages to the `/cmd_vel` topic.
 
-1. We can use the `ros2 interface` command to provide further information about the message structure:
+1. We can use the `ros2 interface` command to show us the (standardised) data structure used by the `TwistStamped` Interface:
 
     ***
     **TERMINAL 4:**
@@ -354,26 +350,24 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
 
 ## Creating Your First ROS Applications
 
-Shortly we'll create some simple publisher and subscriber nodes in Python and send simple data between them. As we learnt earlier though, ROS applications must be contained within *packages*, and so we need to create a package first in order to start creating our own ROS nodes. 
+Shortly we'll create some simple publisher and subscriber nodes in Python and send simple data between them. As we learnt earlier though, ROS nodes must always live within *packages*, and so we need to create a package first in order to start creating our own ROS nodes. 
 
-It's important to work in a specific filesystem location when we create and work on our own ROS packages. These are called *"Workspaces"* and you should already have one ready to go within your local ROS environment[^workspaces]:
+It's important to work in a specific filesystem location when we create and work on our own ROS packages. These are called *"Workspaces"* and you should already have one ready to go within your local ROS environment called `ros2_ws`[^workspaces], with a subdirectory within it called `src`:
 
 ``` { .bash .no-copy }
 ~/ros2_ws/src/
 ```
 
+**All new packages ^^MUST^^ be located inside the `src` folder of the workspace!!**
+
 !!! note 
     `~` is an alias for your home directory. So `cd ~/ros2_ws/src/` is the same as typing `cd /home/{your username}/ros2_ws/src/`.
 
-!!! warning "Important"
-    All new packages **must** be located in the `src` folder of the workspace!!
-
-
-[^workspaces]: [You can learn more about ROS 2 Workspaces here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
+[^workspaces]: `ros2_ws` is a common name used for a ROS 2 workspace in many online tutorials, the name doesn't really matter, it could be called anything. [You can learn more about ROS 2 Workspaces here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
 
 #### :material-pen: Exercise 4: Creating your own ROS Package {#ex4}
 
-The `ros2` Command Line Interface (CLI) that we've been using so far includes a tool to create new ROS packages: `ros2 pkg create`[^ros2-pkg-create]. We'll actually take a slightly different approach to package creation for this course however[^cpp-py-pkg], to provide us with a little more flexibility and ease of use (particularly for things we'll do later on). We've therefore created our own [ROS 2 Package Template](https://github.com/tom-howard/ros2_pkg_template){target="_blank"}, and we'll walk through how to use this to create new packages now...
+The `ros2` Command Line Interface (CLI) that we've been using so far includes a tool to create new ROS packages: `ros2 pkg create`[^ros2-pkg-create]. We'll actually take a slightly different approach to package creation for this course however, to provide us with a little more flexibility and ease of use (particularly for things we'll do later on)[^cpp-py-pkg]. We've therefore created our own [ROS 2 Package Template](https://github.com/tom-howard/ros2_pkg_template){target="_blank"} (on GitHub), and we'll walk through how to use this to create new packages now...
 
 [^ros2-pkg-create]: You can learn more about all this from the [Official ROS 2 Tutorials](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html){target="_blank"} (if you're interested).
 
@@ -406,7 +400,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ```
     ***
 
-1. Now, navigate into your package directory (using `cd`):
+1. Now, navigate into this package (using `cd`):
 
     ***
     **TERMINAL 1:**
@@ -420,22 +414,29 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
 
 1. `tree` is a **Linux command** which shows us the content of the current directory in a nice tree-like format. Use `tree` now to show the current content of the `part1_pubsub` directory:
 
+    ***
+    **TERMINAL 1:**
+    ```bash
+    tree
+    ```
+
+    ...which should yield:
+
     ``` { .txt .no-copy }
-    ~/ros2_ws/src/part1_pubsub 
-    > tree
     .
     ├── CMakeLists.txt
     ├── package.xml
     ├── part1_pubsub_modules
     │   ├── __init__.py
     │   └── tb3_tools.py
-    └── src
+    └── scripts
         └── minimal_node.py
 
     2 directories, 5 files
     ```
+    ***
 
-    * `src`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a `minimal_node.py` already exists in there).
+    * `scripts`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a `minimal_node.py` already exists in there).
     * `part1_pubsub_modules`: is a *directory* that we can use to store Python *modules*, that we can then import into our main Python nodes
         
         (`#!py from part1_pubsub_modules.tb3_tools import ...`, for example)
@@ -444,12 +445,12 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
 
 #### :material-pen: Exercise 5: Creating a publisher node {#ex5}
 
-1. From the root of your `part1_pubsub` package, navigate to the `src` folder using the `cd` command.
+1. From the root of your `part1_pubsub` package, navigate to the `scripts` folder using the `cd` command.
 
     ***
     **TERMINAL 1:**
     ```bash
-    cd src
+    cd scripts
     ```
     ***
 
@@ -469,31 +470,32 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ```bash
     ls -l
     ```
-    ***
 
     This should output something similar to the following: <a name="no-exec-perms"></a>
 
     ``` { .txt .no-copy }
-    ~/ros2_ws/src/part1_pubsub/src
+    ~/ros2_ws/src/part1_pubsub/scripts
     > ls -l
     total 4
     -rwxr-xr-x 1 student student 339 MMM DD HH:MM minimal_node.py
     -rw-r--r-- 1 student student   0 MMM DD HH:MM publisher.py
     ```
+    ***
 
     This confirms that the file exists, and the `0` in the middle of the bottom line there indicates that the file is empty (i.e. its current size is 0 bytes), which is what we'd expect.
 
 1. We therefore now need to open the file and add content to it. We'd recommend using Visual Studio Code (VS Code) as an IDE for this course. Launch VS Code and access your ROS 2 environment (how you do this will vary based on how you have ROS installed on your machine).
 
-1. Using the VS Code File Explorer, locate the empty `publisher.py` file that you have just created (`~/ros2_ws/src/part1_pubsub/src/`) and click on the file to open it in the main editor. 
+1. Using the VS Code File Explorer, locate the empty `publisher.py` file that you have just created (`~/ros2_ws/src/part1_pubsub/scripts/`) and click on the file to open it in the main editor. 
 
 1. The `publisher.py` code is provided here:
 
-    <center>[:material-file-code-outline: The `publisher.py` code](./part1/publisher.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: The `publisher.py` code](./part1/publisher.md){ .md-button target="_blank"}</center><a name="pub_ret"></a>
 
-    Take a look at this and click on the :material-plus-circle: icons to expand the annotations in the code. **It's important that you understand how the code works, so make sure you read them all!**
-
-    <a name="pub_ret"></a>
+    Take a look at this and be aware of the following additional content on this page too:
+    
+    * Click on the :material-plus-circle: icons to expand the annotations in the code. **It's important that you understand how the code works, so make sure you read these annotations!**
+    * There's a further section underneath the code called **"Defining Package Dependencies"**. Make sure you follow the steps outlined here too!
 
 1. Once you've reviewed the code take a copy of it, paste it into your `publisher.py` file and save it. 
 
@@ -504,7 +506,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ``` { .txt .no-copy}
     # Install Python executables
     install(PROGRAMS
-      src/minimal_node.py
+      scripts/minimal_node.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
@@ -514,7 +516,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ``` { .txt .no-copy }
     # Install Python executables
     install(PROGRAMS
-      src/publisher.py
+      scripts/publisher.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
@@ -560,7 +562,6 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ... Hmm, something not quite right? If you typed the command exactly as above and then tried to run it, you probably just received the following error:
 
     ``` { .txt .no-copy }
-    > ros2 run part1_pubsub publisher.py
     No executable found
     ``` 
 
@@ -578,12 +579,12 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     
     This tells us *who* has permission to do *what* with this file and (currently) the first bit: `-rw-`, tells us that we have permission to **r**ead or **w**rite to it. There is a *third* option we can set too though, which is the *execute* permission, and we can set this using the `chmod` **Linux command**...
 
-1. Use `cd` to navigate back to our package's `src` directory (where the `publisher.py` file is located):
+1. Use `cd` to navigate back to our package's `scripts` directory (where the `publisher.py` file is located):
 
     ***
     **TERMINAL 1:**
     ```bash
-    cd ~/ros2_ws/src/part1_pubsub/src/
+    cd ~/ros2_ws/src/part1_pubsub/scripts/
     ```
     ***
 
@@ -693,7 +694,7 @@ Let's talk about a few of these:
 
 To illustrate how information can be passed from one node to another (via topics and messages) we'll now create another node to *subscribe* to the topic that our publisher node is broadcasting messages to.
 
-1. In **TERMINAL 2** use the filesystem commands that were introduced earlier (`cd`, `ls`, etc.) to navigate to the `src` folder of your `part1_pubsub` package.
+1. In **TERMINAL 2** use the filesystem commands that were introduced earlier (`cd`, `ls`, etc.) to navigate to the `scripts` folder of your `part1_pubsub` package.
 
 1. Use the same procedure as before to create a new empty Python file called `subscriber.py` and remember to make it executable! <a name="sub_ret"></a>
 
@@ -706,7 +707,7 @@ To illustrate how information can be passed from one node to another (via topics
     Once again, it's important that you understand how this code works, so **make sure you read the code annotations**! 
 
     !!! warning "Fill in the `{BLANK}`!"
-        This code won't work *out-of-the-box*! Look out for a `{BLANK}`, which is a prompt for you to change this part of the code! 
+        This code won't work *out-of-the-box*! Look out for a `{BLANK}`, which is a prompt for you to replace this text with something else! 
 
 1. We now need to add this as an *additional* package executable. 
 
@@ -780,6 +781,7 @@ The data that the publisher was sending to the topic was very simple: a `example
 
 ``` { .txt .no-copy }
 > ros2 topic info /my_topic
+
 Type: example_interfaces/msg/String
 Publisher count: 1
 Subscription count: 1
@@ -794,7 +796,7 @@ This message just has one *field* called `data` of the type `string`:
 string data
 ```
 
-ROS messages will generally be more complex than this, typically containing several fields in a single message. We'll define our own custom message now, this time with two fields, so you can see how things work with *slightly* more complex data types. 
+ROS messages will generally be more complex than this, typically containing several fields in a single message. We'll define our own custom message now, this time with two fields, so you can see how things work with *slightly* more complex data structures. 
 
 1. Message interfaces must be defined within a `msg` folder at the root of our package directory, so let's create this folder now in **TERMINAL 1**:
 
@@ -834,7 +836,7 @@ ROS messages will generally be more complex than this, typically containing seve
 
     </center>
 
-    We can give our fields any name that we want, but the data types must be either [built-in-types](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html#field-types){target="_blank"} or other pre-existing ROS interfaces.
+    We can give our fields any names that we want, but the data types must be either [built-in-types](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html#field-types){target="_blank"} or other pre-existing ROS interfaces.
 
 1. We now need to declare this message in our package's `CMakeLists.txt` file, so that the necessary Python code can be created (by `colcon build`) to allow us to import this message into our own Python files.
 
@@ -897,10 +899,10 @@ ROS messages will generally be more complex than this, typically containing seve
 
 1. Create a copy of the `publisher.py` file from [Exercise 5](#ex5). Let's do this from the command line too:
 
-    1. Navigate into your package's `src` folder:
+    1. Navigate into your package's `scripts` folder:
 
         ```bash
-        cd ~/ros2_ws/src/part1_pubsub/src
+        cd ~/ros2_ws/src/part1_pubsub/scripts
         ```
     
     1. And use the `cp` command to make a copy of the `publisher.py` file and call this new file `custom_msg_publisher.py`:
@@ -920,10 +922,10 @@ ROS messages will generally be more complex than this, typically containing seve
     ```txt title="CMakeLists.txt"
     # Install Python executables
     install(PROGRAMS
-      src/publisher.py
-      src/subscriber.py
-      src/custom_msg_publisher.py  # ADD THIS 
-      src/custom_msg_subscriber.py # AND THIS
+      scripts/publisher.py
+      scripts/subscriber.py
+      scripts/custom_msg_publisher.py  # ADD THIS 
+      scripts/custom_msg_subscriber.py # AND THIS
     DESTINATION lib/${PROJECT_NAME}
     )
     ```
@@ -943,23 +945,13 @@ ROS messages will generally be more complex than this, typically containing seve
         source ~/.bashrc
         ```
 
-1. Now modify your `custom_msg_publisher.py` file as follows:
+1. Now modify your `custom_msg_publisher.py` file according to the code provided below:
 
-    ```py title="custom_msg_publisher.py"
-    --8<-- "code_templates/custom_msg_publisher.py"
-    ```
-
-    1. We're now importing the `Example` message from our own `part1_pubsub` package.
-
-    2. We're also now declaring that `"my_topic"` will use the `Example` message data structure to send messages.
-
-    3. We need to deal with the topic messages differently now, to account for the more complex structure.
-
-        We now populate our messages with two fields: `info` (a `string`) and `time` (an `int`). Identify what has changed here...
-
+    <center>[:material-file-code-outline: The `custom_msg_publisher.py` code](./part1/custom_msg_pub.md){ .md-button target="_blank"}</center>
+    
 1. **Final Task**:
 
-    Modify the `custom_msg_subscriber.py` node now to accommodate the new message type that is being published to `/my_topic`. 
+    Modify the `custom_msg_subscriber.py` node now to accommodate the new interface messages that are being published to `/my_topic`. 
 
 ## Wrapping Up
 

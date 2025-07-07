@@ -11,14 +11,14 @@ description: Learn about Odometry, which informs us of a robot's position and or
 
 ### Aims
 
-In Part 2 you will learn how to control a ROS robot's **position** and **velocity** from both the command line and through ROS Nodes. You will also learn how to interpret the data that allows us to monitor a robot's position in its physical environment (odometry).  The things you will learn here form the basis for all robot navigation in ROS, from simple open-loop methods to more advanced closed-loop control (both of which you will explore).
+In Part 2 we'll learn how to control a ROS robot's **position** and **velocity** from both the command line and through ROS Nodes. We'll also learn how to interpret the data that allows us to monitor a robot's position in its physical environment (odometry).  The things covered here form the basis of robot navigation in ROS, from simple open-loop methods to more advanced closed-loop control (both of which we will explore).
 
 ### Intended Learning Outcomes
 
 By the end of this session you will be able to:
 
-1. Interpret the Odometry data published by a ROS Robot and identify the parts of these messages that are relevant to a 2-wheeled differential drive robot (such as the TurtleBot3).
-1. Develop Python nodes to obtain Odometry messages from an active ROS network and *translate* them to provide useful information about a robot's *pose* in a convenient, human-readable way.
+1. Interpret the Odometry data published by a ROS Robot and identify the parts of these interface messages that are relevant to a 2-wheeled differential drive robot (such as the TurtleBot3 Waffle).
+1. Develop Python nodes to obtain Odometry data from an active ROS network and *translate* this into useful information about a robot's *pose* in a convenient, human-readable way.
 1. Implement *open-loop velocity control* of a robot using ROS command-line tools.
 1. Develop Python nodes that use open-loop velocity control methods to make a robot follow a pre-defined motion path.
 1. Combine both publisher *&* subscriber communication methods into a single Python node to implement closed-loop (odometry-based) velocity control of a robot.
@@ -43,19 +43,19 @@ By the end of this session you will be able to:
 
 ## Getting Started
 
-**Step 1: Launch your ROS Environment**
+**Step 1: Launch your ROS 2 Environment**
 
 If you haven't done so already, launch your ROS environment now:
 
-1. **WSL-ROS2 on a university managed desktop**: follow [the instructions here to launch it](../../ros/using-wsl-ros/man-win.md).
-1. **[Running WSL-ROS2 on your own machine](../../ros/wsl-ros/install.md)**: launch the Windows Terminal to access a WSL-ROS2 terminal instance.
-1. **Other Users**: follow [the relevant instructions](../../ros/other-options/README.md).
+1. **WSL-ROS2 on a university managed desktop**: follow [the instructions here to launch it](../software/using-wsl-ros/man-win.md).
+1. **[Running WSL-ROS2 on your own machine](../software/wsl-ros/install.md)**: launch the Windows Terminal to access a WSL-ROS2 terminal instance.
+1. **Other Users**: follow [the relevant instructions](../software/other-options/README.md).
 
-You should now have access to ROS via a Linux terminal instance. We'll refer to this terminal instance as **TERMINAL 1**.
+You should now have access to ROS 2 via a Linux terminal instance. We'll refer to this terminal instance as **TERMINAL 1**.
 
-**Step 2: Restore your work (WSL-ROS Managed Desktop Users ONLY)**
+**Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)**
 
-Remember that [any work that you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers](../../ros/using-wsl-ros/man-win.md#backing-up-and-restoring-your-data). At [the end of Part 1](./part1.md#backup) you should have run the `wsl_ros` tool to back up your home directory to your University `U:\` Drive. Once WSL-ROS2 is up and running, you should be prompted to restore this:
+Remember that [any work that you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers](../software/using-wsl-ros/man-win.md#backing-up-and-restoring-your-data). At [the end of Part 1](./part1.md#backup) you should have run the `wsl_ros` tool to back up your home directory to your University `U:\` Drive. Once WSL-ROS2 is up and running, you should be prompted to restore this:
 
 ``` { .txt .no-copy }
 It looks like you already have a backup from a previous session:
@@ -138,20 +138,54 @@ In Part 1 we learnt about ROS Topics, and about how the `teleop_keyboard` node c
 
 We also learnt how to find out more about this particular interface (using the `ros2 interface show` command): 
 
-``` { .txt .no-copy }
-Vector3  linear
-        float64 x
-        float64 y
-        float64 z
-Vector3  angular
-        float64 x
-        float64 y
-        float64 z
+```bash
+ros2 interface show geometry_msgs/msg/TwistStamped
 ```
+
+``` { .txt .no-copy }
+std_msgs/Header header
+        builtin_interfaces/Time stamp
+                int32 sec
+                uint32 nanosec
+        string frame_id
+Twist twist
+        Vector3  linear
+                float64 x
+                float64 y
+                float64 z
+        Vector3  angular
+                float64 x
+                float64 y
+                float64 z
+```
+
+There are two base fields in this data structure:
+
+<center>
+
+| # | Field Name | Data Type |
+| :---: | :---: | :---: |
+| 1 | `header` | `std_msgs/Header` |
+| 2 | `twist` | `Twist` |
+
+</center>
+
+Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us to begin with, which comprises two further subfields:
+
+<center>
+
+| # | Field Name | Data Type |
+| :---: | :---: | :---: |
+| 1 | `linear` | `Vector3` |
+| 2 | `angular` | `Vector3` |
+
+</center>
+
+Each of these contain 3 values: `x`, `y` and `z`.
 
 ### Velocity Commands
 
-When defining velocity commands for a ROS robot, there are **six** *"fields"* that we can assign values to: **two** velocity *types*, each with **three** velocity *components*: 
+There are therefore **six** *fields* that we can assign values to when sending velocity commands to a ROS robot: **two** velocity *types*, each with **three** velocity *components*: 
 
 <center>
 
@@ -162,7 +196,7 @@ When defining velocity commands for a ROS robot, there are **six** *"fields"* th
 
 </center>
 
-These relate to a robot's **six degrees of freedom**, and the topic messages are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
+These relate to a robot's **six degrees of freedom** (DOFs), and the topic messages are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
 
 <center>
 
@@ -174,7 +208,7 @@ These relate to a robot's **six degrees of freedom**, and the topic messages are
 
 </center>
 
-### The Degrees of Freedom of a Waffle
+### The Degrees of Freedom of our Waffles
 
 The three "axes" in the table above are termed the *"Principal Axes."* In the context of our TurtleBot3 Waffle, these axes and the motion about them are defined as follows:
 
@@ -213,8 +247,8 @@ When issuing Velocity Commands therefore, only two (of the six) velocity command
 
     | Velocity Component | Upper Limit | Units |
     | :--- | :---: | :--- |
-    | *Linear (X)* | 0.26 | m/s |
-    | *Angular (Z)* | 1.82 | rad/s |
+    | *Linear (in the X axis)* | 0.26 | m/s |
+    | *Angular (about the Z axis)* | 1.82 | rad/s |
 
     </center>
 
@@ -247,7 +281,7 @@ Let's explore this further now, using `rqt`.
 
     *Topic Monitor* should then present you with a list of active topics which matches the topic list from the `ros2 topic list` command that you ran earlier.
 
-1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal four *base fields*.
+1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal *four* base fields.
 
 1. Expand the `pose` > `pose` > **`position`** and **`orientation`** fields to reveal the data being published to the *three* position and *four* orientation values of this message.
 

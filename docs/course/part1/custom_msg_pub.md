@@ -1,6 +1,8 @@
 ---  
-title: "A Simple Publisher Node"
+title: "The `Example` Message Publisher"
 ---
+
+# The `Example` Message Publisher
 
 ## The Code
 

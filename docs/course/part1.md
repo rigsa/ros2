@@ -41,6 +41,7 @@ By the end of this session you will be able to:
 
 * [A Simple Python Publisher (for Exercise 5)](./part1/publisher.md)
 * [A Simple Python Subscriber (for Exercise 6)](./part1/subscriber.md)
+* [The `Example` Message Publisher (for Exercise 8)](./part1/custom_msg_pub.md)
 
 ## First Steps
 

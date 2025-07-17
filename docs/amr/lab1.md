@@ -7,34 +7,36 @@ title: "Lab 1: Mobile Robotics"
 
 ## Introduction
 
-In this first AMR31001 *'Industry 4.0'* ROS Lab you will learn how to use ROS ([the Robot Operating System](https://www.ros.org/)) to control a robot's motion.
+In this first AMR31001 *'Industry 4.0'* Lab you will learn how to use ROS 2 (the latest version of [the Robot Operating System](https://www.ros.org/){target="_blank"}) to control a robot's motion.
 
-ROS is an open-source, industry-standard robot programming framework, used in a range of industries such as agriculture, warehouse and factory automation and advanced manufacturing (the robot arms at the AMRC, for instance, are programmed and controlled using ROS!) 
+ROS 2 is an open-source, industry-standard robot programming framework, used in a range of industries such as agriculture, warehouse and factory automation and advanced manufacturing. 
 
-ROS allows us to programme robots using a range of different programming languages (including C++, Java, MATLAB etc.), but we'll be using Python for these labs. In addition to this, ROS runs on top of a Linux operating system called *'Ubuntu'*, and so we'll also learn a bit about how to use this too.
+ROS 2 allows us to programme robots using a range of different programming languages (including C++, Java, MATLAB etc.), but we'll be using Python for these labs. In addition to this, ROS 2 runs on top of a Linux operating system called *'Ubuntu'*, and so we'll also learn a bit about how to use this too.
 
-We'll be working with robots called *'TurtleBot3 Waffles'*, which you can [find out a bit more about here](../../about/robots.md). 
+We'll be working with robots called *'TurtleBot3 Waffles'*, which you can [find out a bit more about here](../about/robots.md). 
 
 !!! warning "Pre-Lab Work"
     You **must** have completed the Pre-Lab Test before you can make a start on this lab. This is available on the AMR31001 Blackboard Course Page.
 
 ### Aims
 
-In this lab you'll learn how to use ROS to make a robot move, and we'll also look at how to create our own basic ROS application (or *'Node'*), using Python.
+In this lab you'll learn how to use ROS 2 to make a robot move, and we'll also look at how to create our own basic ROS 2 script (or *'Node'*), using Python.
+
+From here on, we'll refer to ROS 2 as *"ROS"* (for convenience!)
 
 ### Intended Learning Outcomes
 
 By the end of this session you will be able to:
 
 1. Control a TurtleBot3 Waffle Robot, from a laptop, using ROS.
-1. Launch ROS applications on the laptop and the robot using `roslaunch` and `rosrun`.
+1. Launch ROS applications on the laptop and the robot using `ros2 launch` and `ros2 run`.
 1. Interrogate a ROS network using *ROS command-line tools*.
 1. Use ROS Communication Methods to publish messages.
 1. Use a Linux operating system and work within a Linux Terminal.
 
 ### Quick Links
 
-* [Exercise 1: Launching ROS and Making the Robot Move](#ex1)
+* [Exercise 1: Launching ROS and Making your Robot Move](#ex1)
 * [Exercise 2: Seeing the Waffle's Sensors in Action!](#ex2)
 * [Exercise 3: Visualising the ROS Network](#ex3)
 * [Exercise 4: Exploring ROS Topics and Messages](#ex4)
@@ -48,7 +50,7 @@ By the end of this session you will be able to:
 
 Before you do anything, you'll need to get your robot up and running, and make sure ROS is launched.
 
-#### :material-pen: Exercise 1: Launching ROS and Making the Robot Move {#ex1}
+#### :material-pen: Exercise 1: Launching ROS and Making your Robot Move {#ex1}
 
 You should have already been provided with a Robot and a Laptop (in fact, you're probably already reading this on the laptop!) 
 
@@ -57,7 +59,7 @@ You should have already been provided with a Robot and a Laptop (in fact, you're
 1. Open up a terminal instance on the laptop, either by pressing the ++ctrl+alt+t++ buttons on your keyboard all at the same time, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:
     
     <figure markdown>
-      ![](../../images/laptops/bash_terminal_icon.svg?width=60px)
+      ![](../images/laptops/terminal_icon.svg?width=60px)
     </figure>
         
     We'll refer to this terminal as **TERMINAL 1**.
@@ -79,7 +81,7 @@ You should have already been provided with a Robot and a Laptop (in fact, you're
     You *may* see a message like this early on in the pairing process:
 
     <figure markdown>
-      ![](../../images/laptops/ssh_auth.svg?width=14cm)
+      ![](../images/laptops/ssh_auth.svg){width=600px}
     </figure>
 
     If so, just type `yes` and then hit ++enter++ to confirm that you want to continue.
@@ -100,7 +102,7 @@ You should have already been provided with a Robot and a Laptop (in fact, you're
     Any text that was in the terminal should now disappear, and a green banner should appear across the bottom of the terminal window:
     
     <figure markdown>
-      ![](../../images/laptops/tmux.svg?width=14cm)
+      ![](../images/laptops/tmux.svg){width=600px}
     </figure>
 
     This is a terminal instance running **on the robot**, and any commands that you enter here will be **executed on the robot** (not the laptop!)
@@ -110,7 +112,7 @@ You should have already been provided with a Robot and a Laptop (in fact, you're
     ***
     **TERMINAL 1:**
     ```bash
-    roslaunch tuos_tb3_tools ros.launch
+    ros2 launch tuos_tb3_tools ros.launch.py enable_depth:=true
     ```
 
     !!! tip
@@ -118,35 +120,62 @@ You should have already been provided with a Robot and a Laptop (in fact, you're
 
     ***
 
-    After a short while, you should see a message like this:
+    If all is well then the robot will play a nice *"do-re-me"* sound and a message like this should appear (amongst all the other text):
 
     ``` { .txt .no-copy }
-    [INFO] [#####] Calibration End
-    dia-waffleX is up and running!
+    [tb3_status.py-#] ######################################
+    [tb3_status.py-#] ### dia-waffleX is up and running! ###
+    [tb3_status.py-#] ######################################
     ```
+
+    You shouldn't need to interact with this terminal instance any more now, but the screen will provide you with some regular real-time info related to the status of the robot. As such, keep this terminal open in the background and check on the `Battery` indicator every now and then:
+
+    ``` { .txt .no-copy } 
+    Battery: 12.40V [100%]
+    ```
+
+    !!! info "Low Battery :material-battery-low:"
+
+        **The robot's battery won't last a full 2-hour lab session!!**
+
+        When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)
 
     ROS is now up and running on the robot, and we're ready to go!
 
     You should leave **TERMINAL 1** alone now, just leave it running in the background for the rest of the lab.
 
-1. Next, open up a *new terminal instance* on the laptop (by pressing ++ctrl+alt+t++ or clicking the Terminal App desktop icon, as you did before). We'll call this one **TERMINAL 2**.
+1. The next **crucial step** is to connect the laptop to the ROS network that we've just established on the robot. The two devices will communicate with one another via the University Wireless network, but there's one more step required to link them together. 
 
-1. In **TERMINAL 2** enter the following command:
-    
+    Open up **a new terminal instance** on the laptop (either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:
+
     ***
     **TERMINAL 2:**
+
     ```bash
-    rosrun turtlebot3_teleop turtlebot3_teleop_key
+    ros2 run rmw_zenoh_cpp rmw_zenohd
+    ```
+    ***
+
+    Leave both of these terminals alone, but **keep them running in the background at all times** while working with your robot.
+
+1. Next, open up a *new terminal instance* on the laptop (by pressing ++ctrl+alt+t++ or clicking the Terminal App desktop icon, as you did before). We'll call this one **TERMINAL 3**.
+
+1. In **TERMINAL 3** enter the following command:
+    
+    ***
+    **TERMINAL 3:**
+    ```bash
+    ros2 run turtlebot3_teleop teleop_keyboard
     ```
     ***
 
 1. Follow the instructions provided in the terminal to drive the robot around using specific buttons on the keyboard:
 
     <figure markdown>
-      ![](../../images/ros-cli/teleop_keymap.svg)
+      ![](../images/cli/teleop_keymap.svg)
     </figure>
 
-1. Enter ++ctrl+c++ in **TERMINAL 2** to stop the Teleop node when you've had enough fun.
+1. Enter ++ctrl+c++ in **TERMINAL 3** to stop the Teleop node when you've had enough fun.
     
 ### Packages and Nodes
 
@@ -154,26 +183,26 @@ ROS applications are organised into *packages*. Packages are basically folders c
 
 *Scripts* tell the robot what to do and how to act. In ROS, these scripts are called *nodes*. *ROS Nodes* are executable programs that perform specific robot tasks and operations. These are typically written in C++ or Python, but it's possible to write ROS Nodes using other programming languages too.
 
-In Exercise 1 you actually launched a whole range of different nodes on the ROS Network (the wireless link between your robot and laptop) using the following two commands: 
+In Exercise 1 you launched a whole range of different nodes on the ROS Network using the following two commands: 
 
-1. `roslaunch tuos_tb3_tools ros.launch` (on the *robot*, in **TERMINAL 1**).
-2. `rosrun turtlebot3_teleop turtlebot3_teleop_key` (on the *laptop*, in **TERMINAL 2**).
+1. `ros2 launch tuos_tb3_tools ros.launch ...` (on the *robot*, in **TERMINAL 1**).
+2. `ros2 run turtlebot3_teleop teleop_keyboard` (on the *laptop*, in **TERMINAL 3**).
 
-The first of the above was a `roslaunch` command, which has the following two parts to it (after the `roslaunch` bit):
+The first of the above was a `ros2 launch` command, which has the following two key parts to it (after the `ros2 launch` bit):
 
 ``` { .bash .no-copy }
-roslaunch {[1] Package name} {[2] Launch file}
+ros2 launch {[1] Package name} {[2] Launch file}
 ```
 
 **Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute. **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. We can launch multiple nodes at the same time from a single launch file.
 
-The second command was a `rosrun` command, which has a structure similar to `roslaunch`:
+The second command was a `ros2 run` command, which has a structure similar to `ros2 launch`:
 
 ``` { .bash .no-copy }
-rosrun {[1] Package name} {[2] Node name}
+ros2 run {[1] Package name} {[2] Node name}
 ```    
 
-Here, **Part [1]** is the same as the `roslaunch` command, but **Part [2]** is slightly different: `{[2] Node name}`. Here we are directly specifying a single script that we want to execute. We therefore use `rosrun` if we only want to launch a **single node** on the ROS network (`turtlebot3_teleop_key` in this case, which is a Python script).
+Here, **Part [1]** is the same as the `ros2 launch` command, but **Part [2]** is slightly different: `{[2] Node name}`. Here we are directly specifying a single script that we want to execute. We therefore use `ros2 run` if we only want to launch a **single node** on the ROS network (`teleop_keyboard` in this case, which is a Python script).
 
 !!! info "Post-lab Quiz"
     What were the names of the two packages that we invoked in Exercise 1?
@@ -184,123 +213,146 @@ Our Waffles have some pretty sophisticated sensors on them, allowing them to "se
 
 ##### Part 1: The Camera
 
-1. There shouldn't be anything running in **TERMINAL 2** now, after you closed down the Teleop node at the end of the previous exercise (++ctrl+c++). Return to this terminal and launch the `rqt_image_view` node:
+1. There shouldn't be anything running in **TERMINAL 3** now, after you closed down the `teleop_keyboard` node at the end of the previous exercise (++ctrl+c++). Return to this terminal and launch the `rqt_image_view` node:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    rosrun rqt_image_view rqt_image_view
+    ros2 run rqt_image_view rqt_image_view
     ```
     ***
 
     !!! info "Post-lab Quiz"
-        1. We're using `rosrun` here again, what does this mean?
+        1. We're using `ros2 run` here again, what does this mean?
         1. Why did we have to type `rqt_image_view` twice?
     
 1. A new window should open. Maximise this (if it isn't already) and then select `/camera/color/image_raw` from the dropdown menu at the top-left of the application window.
 1. Live images from the robot's camera should now be visible! Stick your face in front of the camera and see yourself appear on the laptop screen!
-1. Close down the window once you've had enough. This should release **TERMINAL 2** so that you can enter commands in it again.
+1. Close down the window once you've had enough (enter ++ctrl+c++ in **TERMINAL 3**). This should release **TERMINAL 3** so that you can enter commands in it again.
 
     The camera on the robot is quite a clever device. Inside the unit is two separate image sensors, giving it - effectively - both a left and right eye. The device then combines the data from both of these sensors and uses the combined information to infer depth from the images as well. Let's have a look at that in action now...
 
-1. In **TERMINAL 2** enter the following command:
+1. In **TERMINAL 3** enter the following command:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    roslaunch tuos_tb3_tools rviz.launch
+    ros2 launch tuos_tb3_tools rviz.launch.py
     ```
     ***
     
     This will launch an application called *RViz*, which is a handy tool that allows us to *visualise* the data from all the sensors on-board our robots. When RViz opens, you should see something similar to the following:
 
     <figure markdown>
-      ![](../../images/laptops/waffle_rviz.png?width=20cm)
+      ![](../images/laptops/waffle_rviz.png){width=700px}
     </figure>
 
-    The strange wobbly sheet of colours in front of the robot is the live image stream from the camera with depth applied to it at the same time. The camera is able to determine how far away each image pixel is from the camera lens, and then uses that to generate this 3-dimensional representation. Nice eh!
+    In the "Displays" menu on the left-hand side, click on the tick box next to the "DepthCloud" item. 
+
+    <figure markdown>
+      ![](../images/laptops/waffle_rviz_depth_cloud.png){width=600px}
+    </figure>
+
+    The strange wobbly sheet of colour in front of the robot is the live image stream from the camera with depth applied to it at the same time. The camera is able to determine how far away each image pixel is from the camera lens, and then uses that to generate this 3-dimensional representation. 
 
 1. Again, place your hand or your face in front of the camera and hold steady for a few seconds (there may be a bit of a lag as all of this data is transmitted over the WiFi network). You should see yourself rendered in 3D in front of the robot! 
 
 ##### Part 2: The LiDAR Sensor
 
-In RViz you may have also noticed a lot of red dots scattered around the robot. This is a representation of the *laser displacement data* coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.
+In RViz you may have also noticed a lot of green dots scattered around the robot. This is a representation of the *laser displacement data* coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.
     
 The LiDAR sensor spins and performs this process continuously, so a full 360&deg; scan of the environment can be generated. This data is therefore really useful for things like *obstacle avoidance* and *mapping*. We'll have a quick look at the latter now.
 
 1. Close down RViz (click the "Close without saving" button, if asked).
 
-1. Head back to **TERMINAL 2** and run the following command:
-
-    ***
-    **TERMINAL 2:**
-    ```bash
-    roslaunch turtlebot3_slam turtlebot3_slam.launch
-    ```
-    ***
-
-    A new RViz screen will open up, this time showing the robot from a top-down view, and with the LiDAR data represented by green dots instead.
-
-    <figure markdown>
-      ![](../../images/laptops/waffle_slam.png?width=20cm)
-    </figure>
-
-    Underneath the green dots you should notice black lines forming. ROS is using a process called *SLAM* (Simultaneous Localisation and Mapping) to generate a map of the environment, using the data from the LiDAR sensor.
-
-1. Open up a new terminal instance now, we'll call this one **TERMINAL 3**. Launch the Teleop node in this one, as you did earlier:
+1. Head back to **TERMINAL 3** and run the following command:
 
     ***
     **TERMINAL 3:**
     ```bash
-    rosrun turtlebot3_teleop turtlebot3_teleop_key
+    ros2 launch tuos_tb3_tools slam.launch.py
+    ```
+    ***
+
+    A new RViz screen will open up, this time showing the robot from a top-down view, and with the LiDAR data represented by multi-coloured dots this time instead.
+
+    <figure markdown>
+      ![](../images/laptops/waffle_slam.png){width=700px}
+    </figure>
+
+    Underneath the LiDAR dots you should notice a map starting to form, with black lines representing fixed objects in the environment and white areas representing free space that the robot could travel around. ROS is using a process called *SLAM* (Simultaneous Localisation and Mapping) to generate a map of the environment, using the data from the LiDAR sensor.
+
+1. Open up a new terminal instance now, we'll call this one **TERMINAL 4**. Launch the `teleop_keyboard` node in this one, in the same way that you did earlier:
+
+    ***
+    **TERMINAL 4:**
+    ```bash
+    ros2 run turtlebot3_teleop teleop_keyboard
     ```
     ***
 
 1. Drive the robot around a bit and watch how the map in RViz is updated as the robot explores new parts of the environment.
 
-1. Enter ++ctrl+c++ in **TERMINAL 3** and then close down this terminal window, we won't need it any more.
+1. Enter ++ctrl+c++ in **TERMINAL 4** and then close down this terminal window, we won't need it any more.
 
-1. Close down the RViz window, but keep **TERMINAL 2** open for the next exercise...
+1. Close down the RViz window, but keep **TERMINAL 3** open for the next exercise...
 
-We've now used both `roslaunch` and `rosrun` to launch ROS applications. These are both *ROS command-line tools*, and there are many others at our disposal as robotics engineers as well. 
+We've now used both `ros2 launch` and `ros2 run` to launch ROS applications. These are both ROS *command-line tools*, and there are many others at our disposal. 
 
-Using `rosrun` and `roslaunch`, as we have done so far, it's easy to end up with a lot of different processes or *ROS Nodes* running on the network, some of which we will interact with, but others may just be running in the background. It is often useful to know exactly what *is* running on the ROS network, and there are a number of ways to do this.
+Using `ros2 run` and `ros2 launch`, as we have done so far, it's easy to end up with a lot of different processes or *ROS Nodes* running on the network, some of which we will interact with, but others may just be running in the background. It is often useful to know exactly what *is* running on the ROS network, and there are a number of ways to do this.
 
 #### :material-pen: Exercise 3: Visualising the ROS Network {#ex3}
 
-1. There shouldn't be anything running in **TERMINAL 2** now, so return to this terminal and use the `rosnode` command to *list* the nodes that are currently running on the robot:
+1. There shouldn't be anything running in **TERMINAL 3** now, so return to this terminal and use the `ros2 node` command to *list* the nodes that are currently running on the robot:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    rosnode list
+    ros2 node list
     ```
     ***
 
-    You should see a list of 7 items.
+    You should see a list of 6 items.
 
 1. We can visualise the connections between the active nodes by using a ROS node called `rqt_graph`. Launch this as follows:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    rosrun rqt_graph rqt_graph
+    ros2 run rqt_graph rqt_graph
     ```
     ***
     
 1. In the window that opens, select `Nodes/Topics (active)` from the dropdown menu in the top left. 
 
     What you should then see is a map of all the nodes in the list from above (as ovals), and arrows to illustrate the flow of information between them. This is a visual representation of the ROS network!
+
+    <figure markdown>
+      ![](../images/rqt/graph_waffle.png){width=600px}
+    </figure>
     
     Items that have a rectangular border are *ROS Topics*. ROS Topics are essentially communication channels, and ROS nodes can read (*subscribe*) or write (*publish*) to these topics to access sensor data, pass information around the network and make things happen.
+
+1. Return to **TERMINAL 4** and launch the `teleop_keyboard` node again:
+
+    ***
+    **TERMINAL 4:**
+    ```bash
+    ros2 run turtlebot3_teleop teleop_keyboard
+    ```
+    ***
+
+1. Go back to the RQT Graph window now and hit the refresh icon (to the left of the `Nodes/Topics (active)` dropdown menu). Observe what has now changed.
+
+    <figure markdown>
+      ![](../images/rqt/graph_waffle_teleop.png){width=600px}
+    </figure>
 
 A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses *ROS communication methods* to communicate and share data with the other nodes on the ROS Network.
 
 ### Publishers and Subscribers: A *ROS Communication Method* 
 
-ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics using *ROS Messages*. We were actually publishing messages to a topic when we made the robot move using the Teleop node in the previous exercises.
-
-Let's have a look at this in a bit more detail...
+ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics using *ROS Messages*. We were actually publishing messages to a topic when we made the robot move using the `teleop_keyboard` node earlier on. Let's have a look at this in a bit more detail...
 
 #### :material-pen: Exercise 4: Exploring ROS Topics and Messages {#ex4}
 

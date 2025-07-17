@@ -12,7 +12,7 @@ Let's look at what we need to change now.
 
 ### Imports
 
-We will generally rely on `rclpy` and the `Node` class from the `rclpy.node` library, for most nodes that we will create, so our first two imports will remain the same. 
+We will generally rely on `rclpy` and the `Node` class from the `rclpy.node` library for most nodes that we will create, so our first two imports will remain the same. 
 
 We won't be working with `String` type messages any more however, so we need to replace this line in order to import the correct message type. As we know from [earlier in Part 2](../part2.md#odometry-explained), the `/odom` topic uses messages of the type `nav_msgs/msg/Odometry`:
 
@@ -28,7 +28,7 @@ This tells us everything we need to know to construct the Python import statemen
 from nav_msgs.msg import Odometry
 ```
 
-We'll also need to import a handy function that should already exist as an importable module in your `part2_navigation` package called `tb3_tools`:
+<!-- We'll also need to import a handy function that should already exist as an importable module in your `part2_navigation` package called `tb3_tools`:
 
 ```py
 from part2_navigation_modules.tb3_tools import quaternion_to_euler
@@ -37,7 +37,7 @@ from part2_navigation_modules.tb3_tools import quaternion_to_euler
 As the name suggests, we'll use this to convert the raw orientation values from `/odom` into their Euler Angle representation.
 
 ??? info
-    This module can be found here: `part2_navigation/part2_navigation_modules/tb3_tools.py`, if you want to have a look.
+    This module can be found here: `part2_navigation/part2_navigation_modules/tb3_tools.py`, if you want to have a look. -->
 
 ### Change the Class Name
 
@@ -93,12 +93,12 @@ def msg_callback(self, topic_message: Odometry): # (1)!
     pos_y = pose.position.y
     pos_z = pose.position.z
     
-    roll, pitch, yaw = quaternion_to_euler(pose.orientation) # (4)!
+    yaw = self.quaternion_to_euler(pose.orientation) # (4)!
 
     if self.counter > 10: # (5)!
         self.counter = 0
         self.get_logger().info(
-            f"x = {pos_x:.3f} (m), y = ? (m), theta_z = ? (radians)"
+            f"x = {pos_x:.3f} (m), y = ? (m), yaw = ? (radians)"
         ) # (6)!
     else:
         self.counter += 1
@@ -114,13 +114,7 @@ def msg_callback(self, topic_message: Odometry): # (1)!
     
     Position data is provided in meters, so we don't need to do any conversion on this and can use the data directly.
 
-4. Orientation data is in quaternions, so we convert this by passing it to the `quaternion_to_euler` function that we imported from `tb3_tools` earlier.
-
-    This function provides us with the orientation of the robot about its 3 principal axes:
-
-    * <code>&theta;<sub>x</sub></code>: "Roll"
-    * <code>&theta;<sub>y</sub></code>: "Pitch"
-    * <code>&theta;<sub>z</sub></code>: "Yaw"
+4. Orientation data is in quaternions, so we need to convert this to a Euler angle representation. We're calling a class method called `self.quaternion_to_euler()` to handle this conversion, and you'll define the content of this class method shortly...
 
 5. Here we print out the values that we're interested in to the terminal.
 
@@ -139,10 +133,49 @@ def msg_callback(self, topic_message: Odometry): # (1)!
 
 6. **Task**: Continue formatting the `print` message to display the three odometry values that are relevant to our robot!  
 
+### Defining the `quaternion_to_euler()` Class Method
+
+Underneath the "`msg_callback`" class method define *another* class method now:
+
+```py
+def quaternion_to_euler(self, orientation):
+    x = orientation.x
+    y = orientation.y
+    z = orientation.z
+    w = orientation.w
+
+    yaw = # TODO: calculate yaw...
+
+    return yaw # (in radians)
+```
+
+This function receives the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process. [See here for the process](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}. Implement the calculation so that your `quaternion_to_euler()` actually outputs a correct yaw angle (in radians) for the robot. 
+
 ### Updating "Main"
 
 The only thing left to do now is update any relevant parts of the `main` function to ensure that you are instantiating, spinning and shutting down your node correctly.
 
-<p align="center">
-  <a href="../../part2#odom_sub_ret">&#8592; Back to Part 2</a>
-</p>
+## Package Dependencies
+
+Once again, we're importing a couple of Python libraries into our node here, which means that our package has two *dependencies*: `rclpy` and `example_interfaces`:
+
+```py
+import rclpy 
+from rclpy.node import Node
+
+from nav_msgs.msg import Odometry
+```
+
+We should therefore add these dependencies to our `package.xml` file (`part2_navigation/package.xml`). Open it up and find the following line:
+
+```xml
+<exec_depend>rclpy</exec_depend>
+```
+
+The package template already includes a dependency for `rclpy`, since this is pretty fundamental to our work here, but we do need to add `nav_msgs` as well, so add the following additional line underneath:
+
+```xml
+<exec_depend>nav_msgs</exec_depend>
+```
+
+Save the file and close it.

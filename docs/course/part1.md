@@ -305,7 +305,9 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
     1. The topic has 1 publisher *writing* data to it (the `/teleop_keyboard` node, as established from the RQT Graph)
     1. The topic also has 1 subscriber *reading* this data (the `ros_gz_bridge` node)
     1. Data is transmitted on the `/cmd_vel` topic using an [Interface](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html){target="_blank"}. This particular interface is defined as: `geometry_msgs/msg/TwistStamped`. 
-    
+
+        **Interface Definitions**
+
         **Interfaces** are *standardised data structures* that are used to broadcast data across the ROS network. The interface definition above (and, indeed, *every* interface definition) has three parts to it:
         
         1. `geometry_msgs`: the name of the ROS package that this interface belongs to.
@@ -409,9 +411,6 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     cd part1_pubsub/
     ```
     ***  
-
-    <!-- !!! info
-        `..` means "go back one directory," so that command above is telling `cd` to navigate *out* of the `tuos_ros` directory (and therefore back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there. -->
 
 1. `tree` is a **Linux command** which shows us the content of the current directory in a nice tree-like format. Use `tree` now to show the current content of the `part1_pubsub` directory:
 

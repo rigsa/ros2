@@ -123,7 +123,7 @@ ros2 launch turtlebot3_gazebo empty_world.launch.py
 A Gazebo simulation window should open and within this you should see a TurtleBot3 Waffle in empty space:
 
 <figure markdown>
-  ![](../../images/gz/tb3_empty_world_top.png){width=700px}
+  ![](../../images/gz/tb3_empty_world_mid.png){width=700px}
 </figure>
 
 ## Velocity (Motion) {#velocity}
@@ -159,7 +159,7 @@ Twist twist
                 float64 z
 ```
 
-There are two base fields in this data structure:
+There are two base fields in this data structure (i.e. the two lines that are not indented):
 
 <center>
 
@@ -170,7 +170,7 @@ There are two base fields in this data structure:
 
 </center>
 
-Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us to begin with, which comprises two further subfields:
+Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us at this stage, which comprises two further subfields:
 
 <center>
 
@@ -181,11 +181,11 @@ Each of these base fields are comprised of further subfields. It's the `twist` f
 
 </center>
 
-Each of these contain 3 values: `x`, `y` and `z`.
+Each of *these* contains 3 *further* subfields: `x`, `y` and `z`.
 
 ### Velocity Commands
 
-There are therefore **six** *fields* that we can assign values to when sending velocity commands to a ROS robot: **two** velocity *types*, each with **three** velocity *components*: 
+There are therefore **six** velocity *fields* that we can assign values to when sending velocity commands to a ROS robot: **two** velocity *types*, each with **three** velocity *components*: 
 
 <center>
 
@@ -210,7 +210,7 @@ These relate to a robot's **six degrees of freedom** (DOFs), and the topic messa
 
 ### The Degrees of Freedom of our Waffles
 
-The three "axes" in the table above are termed the *"Principal Axes."* In the context of our TurtleBot3 Waffle, these axes and the motion about them are defined as follows:
+The three "axes" in the table above are termed the *"Principal Axes."* In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:
 
 <a name="principal-axes"></a>
 
@@ -218,15 +218,15 @@ The three "axes" in the table above are termed the *"Principal Axes."* In the co
   ![](../../images/waffle/principal_axes.svg){width=800}
 </figure>
 
-As discussed above, a mobile robot can have up to six degrees of freedom *in total*, but this depends upon the robot's design and the actuators it is equipped with. 
+As discussed above, a mobile robot can have up to six degrees of freedom *in total*, but this is dictated by the robot's design and the actuators it is equipped with. 
 
-Our TurtleBot3 Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as illustrated below.
+Our TurtleBot3 Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
 
 <figure markdown>
   ![](../../images/waffle/velocities.svg){width=800}
 </figure>
 
-When issuing Velocity Commands therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
+When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
 
 <center>
 
@@ -264,7 +264,26 @@ ros2 topic list
 
 Another topic of interest here is `/odom`. This topic contains *Odometry data*, which is also essential for robot navigation, giving us an approximation of a robot's location in its environment.
 
-Let's explore this further now, using `rqt`.
+Run the `ros2 topic` command again, but this time with an additional `-t` option:
+
+```bash
+ros2 topic list -t
+```
+
+Look for `/odom` again in the list, and you will *now* notice that the interface definition is provided in square brackets alongside the topic name:
+
+``` { .txt .no-copy }
+/odom [nav_msgs/msg/Odometry]
+```
+
+!!! question "Questions"
+    1. What package does this interface belong to?
+    1. What *type* of interface is it?
+    1. What is its name?
+
+    [See here for a reminder on how to interpret an interface definition](./part1.md#msg-interface-struct).
+
+Having established the data structure, let's explore the actual data now, using `rqt`.
 
 #### :material-pen: Exercise 1: Exploring Odometry Data {#ex1}
 
@@ -283,15 +302,17 @@ Let's explore this further now, using `rqt`.
 
 1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal *four* base fields.
 
-1. Expand the `pose` > `pose` > **`position`** and **`orientation`** fields to reveal the data being published to the *three* position and *four* orientation values of this message.
+1. Expand the `pose` field, and then the further `pose` field within that. This should reveal two further fields: **`position`** and **`orientation`**. 
 
-1. Also expand the `twist` > `twist`, **`linear`** and **`angular`** fields to reveal the *six* values being published here too.
+    Expand both of these to reveal the data being published to the *three* position (`x`, `y` and `z`) and *four* orientation (`x`, `y`, `z` and `w`) values.
+
+1. Also expand the `twist` base field, and the further `twist` subfield within that, followed by the **`linear`** and **`angular`** children of this to reveal the *three* values being published to each of these too (these might look familiar from earlier).
 
     <figure markdown>
       ![](../../images/rqt/topic_monitor.png){width=600}
     </figure>
 
-1. Next, launch a new terminal instance, we'll call this one **TERMINAL 3**. Arrange this next to the `rqt` window, so that you can see them both simultaneously.
+1. Next, launch a new terminal instance, we'll call this one **TERMINAL 3**. Arrange this next to the `rqt` window, so that you can see them both side-by-side.
 
 1. In **TERMINAL 3** launch the `teleop_keyboard` node [as you did in Part 1](./part1.md#teleop): <a name="teleop"></a>
 
@@ -306,19 +327,19 @@ Let's explore this further now, using `rqt`.
 
     !!! question "Questions"
         1. Which `pose` fields are changing?
-        1. Is there anything in the `twist` part of the message that corresponds to the *angular* velocity that is being published by the `teleop_keyboard` node in **TERMINAL 3**? 
+        1. Is there anything in `twist` that corresponds to the *angular* velocity that is being published by the `teleop_keyboard` node in **TERMINAL 3**? 
 
 1. Now press the ++s++ key to halt the robot, then press ++w++ a couple of times to make the robot drive forwards.
 
     !!! question "Questions"
         1. Which `pose` fields are changing *now*? How does this relate to the position of the robot in the simulated world?
-        1. How does the `twist` part of the message now correspond with the *linear* velocity setting in **TERMINAL 3**?
+        1. How does `twist` now correspond with the *linear* velocity setting in **TERMINAL 3**?
 
 1. Now press ++d++ a couple of times and your robot should start to move in a circle.
 
     !!! question "Questions"
         1. What linear and angular velocities are you requesting in **TERMINAL 3**, and how are these represented in the `twist` part of the `/odom` message?
-        1. What about the `pose` part of the message? How is this data changing as your robot moves in a circular path.
+        1. What about `pose`? How is this data changing as your robot moves in a circular path.
         1. **What are `twist` and `pose` actually telling us?**
     
 1. Press ++s++ in **TERMINAL 3** to stop the robot (but leave the `teleop_keyboard` node running).  Then, press ++ctrl+c++ in **TERMINAL 2** to close down `rqt`. 
@@ -367,7 +388,7 @@ ros2 interface show nav_msgs/msg/Odometry
 ```
 ***
 
-Look down the far left-hand side to identify the four *base fields* of the interface (i.e. the fields that are not indented):
+Look down the far left-hand side to identify the four *base fields* of the interface (the fields that are not indented):
 
 <a name="odom-base-fields"></a>
 
@@ -404,8 +425,13 @@ geometry_msgs/PoseWithCovariance pose
 
 As you can see above, there are two key components to Pose:
 
-1. `position`: Tells us where our robot is located in 3-dimensional space. This is expressed in units of **meters**.
-1. `orientation`: Tells us which way our robot is pointing in its environment. This is expressed in units of **Quaternions**, which is a mathematically convenient way to store data related to a robot's orientation (it's a bit hard for us humans to understand and visualise this though, so we'll talk about how to convert it to a different format later).
+1. `position`
+    
+    Tells us where our robot is located in 3-dimensional space. This is expressed in units of **meters**.
+
+1. `orientation`
+
+    Tells us which way our robot is pointing in its environment. This is expressed in units of **Quaternions**, which is a mathematically convenient way to store data related to a robot's orientation (it's a bit hard for us humans to understand and visualise this though, so we'll talk about how to convert it to a different format later).
 
 Pose is defined relative to an arbitrary reference point (typically where the robot was when it was turned on), and is determined from:
 
@@ -431,9 +457,9 @@ Quaternion orientation
 
 For us, it's easier to think about the orientation of our robot in a *"Euler Angle"* representation, which tell us the degree of rotation about the *three principal axes* ([as discussed above](#principal-axes)):
 
-* $\theta_{x}$, aka: **"Roll"**
-* $\theta_{y}$, aka: **"Pitch"**
-* $\theta_{z}$, aka: **"Yaw"**
+* $\theta_{x}$ (`angular.x`), aka: **"Roll"**
+* $\theta_{y}$ (`angular.y`), aka: **"Pitch"**
+* $\theta_{z}$ (`angular.z`), aka: **"Yaw"**
 
 Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward ([see here](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}).
 
@@ -471,42 +497,57 @@ Odometry data can be really useful for robot navigation, allowing us to keep tra
 
 In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic (called `/my_topic`). In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the `/odom` topic that we've been talking about above. We'll also create a new package called `part2_navigation` for this node to live in!
 
-1. First, head to the `src` folder of your ROS2 workspace in your terminal and into the `tuos_ros` Course Repo:
+1. First, head to the `src` directory of your ROS2 workspace in your terminal:
 
     ```bash
-    cd ~/ros2_ws/src/tuos_ros/
+    cd ~/ros2_ws/src/
     ```
 
-1. Then, use the `create_pkg.sh` helper script to create your new package:
+1. Clone the ROS 2 Package Template:
 
     ```bash
-    ./create_pkg.sh part2_navigation
+    git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
 
-1. Then navigate into the `scripts` folder of the new package using the `cd` command again:
+1. Run the `init_pkg.sh` script within this to initalise that package with the name `part2_navigation`:
 
     ```bash
-    cd ../part2_navigation/scripts/
+    ./ros2_pkg_template/init_pkg.sh part2_navigation
     ```
 
-1. The subscriber that we will build here will be structured in much the same way as the subscriber that we built in Part 1. 
-    
-    As a starting point, copy across the `subscriber.py` file from your `part1_pubsub` package:
+1. Then navigate into the new package using `cd`:
 
     ```bash
-    cp ~/ros2_ws/src/part1_pubsub/scripts/subscriber.py ./odom_subscriber.py
+    cd ./part2_navigation/
     ```
 
-1. Next, follow **[the steps for converting this into an Odometry subscriber](./part2/odom_subscriber.md)**. <a name="odom_sub_ret"></a>
+1. The subscriber that we will build here have a similar structure to the subscriber that we built in Part 1. As a starting point, copy across the `subscriber.py` file from your `part1_pubsub` package using the `cp` command (i.e. **c**o**p**y)
 
-1. You'll need to add a new dependency to your package's `package.xml` file now. Below the `#!xml <exec_depend>rclpy</exec_depend>` line, add an execution dependency for `nav_msgs`:
-
-    ```xml title="package.xml"
-    <exec_depend>rclpy</exec_depend>
-    <exec_depend>nav_msgs</exec_depend>
+    ```bash
+    cp ../part1_pubsub/scripts/subscriber.py ./scripts/odom_subscriber.py
     ```
 
-1. Next, declare the `odom_subscriber.py` node as an executable. Replace `minimal_node.py` with `odom_subscriber.py` in the `CMakeLists.txt`:
+    !!! info
+        When using the `cp` command to copy things, we need to provide two key bits of information (at least): 
+
+        ``` { .txt .no-copy }
+        cp SOURCE DEST
+        ```
+
+        ... copy the file `SOURCE` to the destination `DEST`.
+        
+        Remember that we are located in our `part2_navigation` package root folder when we run this, and the file paths that we are using here are all *relative* to that location.
+
+        As such, `..` means "go back one directory," so when defineign the `SOURCE` that we want to copy, we are telling `cp` to go *out* of the `part2_navigation` directory (back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there (and onwards in to `scripts`).
+
+        `.` means "this current directory," so when defining where we want the `subscriber.py` to be copied *to* (`DEST`), we're telling `cp` to start from where we currently are in the filesystem (i.e. `~/ros2_ws/src/part2_navigation/`) and copy it into the `scripts` directory from there (whilst also renaming it to `odom_subscriber.py`).
+
+1. Next, head to the following page for step-by-step instructions on how to build the odometry subscriber:
+
+
+    <center>[:material-file-code-outline: Building the `odom_subscriber.py` node](./part2/odom_subscriber.md){ .md-button target="_blank"}</center> 
+
+1. Now, declare the `odom_subscriber.py` node as an executable. Replace `minimal_node.py` with `odom_subscriber.py` in the `CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables

@@ -568,7 +568,7 @@ In reality, robots need to be able to move around complex environments autonomou
 1. Once VS Code launches, open up your `move_square.py` file, which should be visible in the file explorer on the left-hand side of the VS Code window. Paste the following content into the file:
 
     ```py title="move_square.py"
-    --8<-- "snippets/move_square_timed.py"
+    --8<-- "code_templates/simple_timed_square.py"
     ```
 
     1. `rospy` is the ROS client library for Python. We need this so that our Python node can interact with ROS.

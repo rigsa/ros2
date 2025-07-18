@@ -30,7 +30,7 @@ By the end of this session you will be able to:
 
 1. Control a TurtleBot3 Waffle Robot, from a laptop, using ROS.
 1. Launch ROS applications on the laptop and the robot using `ros2 launch` and `ros2 run`.
-1. Interrogate a ROS network using *ROS command-line tools*.
+1. Interrogate a ROS network using ROS *command-line* and *graphical* tools.
 1. Use ROS Communication Methods to publish messages.
 1. Use a Linux operating system and work within a Linux Terminal.
 
@@ -185,7 +185,7 @@ ROS applications are organised into *packages*. Packages are basically folders c
 
 In Exercise 1 you launched a whole range of different nodes on the ROS Network using the following two commands: 
 
-1. `ros2 launch tuos_tb3_tools ros.launch ...` (on the *robot*, in **TERMINAL 1**).
+1. `ros2 launch tuos_tb3_tools ros.launch.py ...` (on the *robot*, in **TERMINAL 1**).
 2. `ros2 run turtlebot3_teleop teleop_keyboard` (on the *laptop*, in **TERMINAL 3**).
 
 The first of the above was a `ros2 launch` command, which has the following two key parts to it (after the `ros2 launch` bit):
@@ -204,7 +204,7 @@ ros2 run {[1] Package name} {[2] Node name}
 
 Here, **Part [1]** is the same as the `ros2 launch` command, but **Part [2]** is slightly different: `{[2] Node name}`. Here we are directly specifying a single script that we want to execute. We therefore use `ros2 run` if we only want to launch a **single node** on the ROS network (`teleop_keyboard` in this case, which is a Python script).
 
-!!! info "Post-lab Quiz"
+!!! info "Post-lab"
     What were the names of the two packages that we invoked in Exercise 1?
 
 #### :material-pen: Exercise 2: Seeing the Waffle's Sensors in Action! {#ex2}
@@ -222,7 +222,7 @@ Our Waffles have some pretty sophisticated sensors on them, allowing them to "se
     ```
     ***
 
-    !!! info "Post-lab Quiz"
+    !!! info "Post-lab"
         1. We're using `ros2 run` here again, what does this mean?
         1. Why did we have to type `rqt_image_view` twice?
     
@@ -342,85 +342,91 @@ Using `ros2 run` and `ros2 launch`, as we have done so far, it's easy to end up 
     ```
     ***
 
-1. Go back to the RQT Graph window now and hit the refresh icon (to the left of the `Nodes/Topics (active)` dropdown menu). Observe what has now changed.
+1. Go back to the RQT Graph window now and hit the refresh icon (to the left of the `Nodes/Topics (active)` dropdown menu). 
 
     <figure markdown>
       ![](../images/rqt/graph_waffle_teleop.png){width=600px}
     </figure>
 
+    !!! info "Post-lab"
+        What's changed?
+
 A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses *ROS communication methods* to communicate and share data with the other nodes on the ROS Network.
 
 ### Publishers and Subscribers: A *ROS Communication Method* 
 
-ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics using *ROS Messages*. We were actually publishing messages to a topic when we made the robot move using the `teleop_keyboard` node earlier on. Let's have a look at this in a bit more detail...
+ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. We have to use standardised data structures in ROS in order for this to all work. Different topics use different data structures, and there are a lot of different types of data structure available for us to use (we can even define our own, but this is beyond the scope if this lab session). Let's have a look at Topics and their data structures in a bit more detail now...
 
-#### :material-pen: Exercise 4: Exploring ROS Topics and Messages {#ex4}
+#### :material-pen: Exercise 4: Exploring ROS Topics and Interfaces {#ex4}
 
-Much like the `rosnode list` command, we can use `rostopic list` to list all the *topics* that are currently active on the network.
+Much like the `ros2 node list` command, we can use `ros2 topic list` to list all the *topics* that are currently active on the network.
 
-1. Close down the `rqt_graph` window if you haven't done so already. This will release **TERMINAL 2** so that we can enter commands in it again. Return to this terminal window and enter the following:
+1. Close down the `rqt_graph` window if you haven't done so already. This will release **TERMINAL 3** so that we can enter commands in it again. Leave the `teleop_keyboard` node in **TERMINAL 4** running. Return to **TERMINAL 3** and enter the following:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    rostopic list
+    ros2 topic list
     ```
     ***
 
-    A much larger list of items should be printed to the terminal now. See if you can spot the `/cmd_vel` item in the list.
+    A much larger list of items should be printed to the terminal now. See if you can spot `/cmd_vel` in the list.
     
     This topic is used to control the velocity of the robot (*'command velocity'*).
 
-1. Let's find out more about this using the `rostopic info` command.
+1. Let's find out more about this using the `ros2 topic info` command.
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    rostopic info /cmd_vel
+    ros2 topic info /cmd_vel
     ```
     ***
 
     This should provide an output similar to the following: 
     
     ``` { .txt .no-copy }
-    Type: geometry_msgs/Twist
-
-    Publishers: None
-
-    Subscribers:
-     * /turtlebot3_core (http://dia-waffleX:#####/)
+    Type: geometry_msgs/msg/TwistStamped
+    Publisher count: 1
+    Subscription count: 1
     ```
 
     This tells us a few things: <a name="rostopic_info_explained"></a>
     
-    1. The `/cmd_vel` topic currently has no publishers (i.e. no other nodes are currently writing data to this topic).
-    1. The `/turtlebot3_core` node is subscribing to the topic. The `/turtlebot3_core` node turns motor commands into actual wheel motion, so it monitors the topic (i.e. *subscribes* to it) to see when a velocity command is published to it.
-    1. The *type* of message used by the `/cmd_vel` topic is called: `geometry_msgs/Twist`. 
+    1. The `/cmd_vel` topic currently has 1 publisher (i.e. 1 node writing data to the topic).
+    1. There's also 1 *subscriber* (i.e. another node reading the data being written to the topic).
+    1. If we think back to `rqt_graph` (from the previous exercise), we know that the publisher is the `/teleop_keyboard` node, and the subscriber is a node called `/turtlebot3_node`. This node turns the topic data into motor commands, resulting in actual motion of the robot's wheels.
+    1. The *type* of data structure used by the `/cmd_vel` topic is defined as: `geometry_msgs/msg/TwistStamped`. 
+
+        **Interfaces**
     
-        The message type has two parts: `geometry_msgs` and `Twist`. `geometry_msgs` is the name of the ROS package that this message belongs to and `Twist` is the actual message *type*. 
+        Data structures in ROS 2 are called *Interfaces*, and the type of interface used to publish data on a Topic is called a *message* (there are others too, but we don't need to worry about them here). 
+        
+        From the output above, `Type` refers to the *type* of data structure (i.e. the type of interface). The `Type` definition has three parts to it: `geometry_msgs`, `msg` and `TwistStamped`. `geometry_msgs` is the name of the ROS package that this interface (data structure) belongs to, `msg` tells us that it's a topic message (rather than another interface type) and `TwistStamped` is the *name* of the message interface. 
 
-        We have just learnt then, that if we want to make the robot move we need to publish `Twist` messages to the `/cmd_vel` topic. 
+        We have just learnt then, that if we want to make the robot move we need to publish `TwistStamped` interface *messages* to the `/cmd_vel` topic. 
 
-1. We can use the `rosmsg` command to find out more about the `Twist` message:
+1. We can use the `ros2 interface` command to find out more about the `TwistStamped` message:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    rosmsg info geometry_msgs/Twist
+    ros2 interface show geometry_msgs/msg/TwistStamped
     ```
     ***
 
-    From this, we should obtain the following:
+    From this, the bottom bit is of most interest to us: <a name="show-twist"></a>
 
     ``` { .txt .no-copy }
-    geometry_msgs/Vector3 linear
-      float64 x
-      float64 y
-      float64 z
-    geometry_msgs/Vector3 angular
-      float64 x
-      float64 y
-      float64 z
+    Twist twist
+            Vector3  linear
+                    float64 x
+                    float64 y
+                    float64 z
+            Vector3  angular
+                    float64 x
+                    float64 y
+                    float64 z
     ```
 
     Hmmm, this looks complicated. Let's find out what it all means...
@@ -430,106 +436,84 @@ Much like the `rosnode list` command, we can use `rostopic list` to list all the
 The motion of any mobile robot can be defined in terms of its three *principal axes*: `X`, `Y` and `Z`. In the context of our TurtleBot3 Waffle, these axes (and the motion about them) are defined as follows:
 
 <figure markdown>
-  ![](../../images/waffle/principal_axes.svg?width=20cm)
+  ![](../images/waffle/principal_axes.svg){width=700px}
 </figure>
 
-In theory then, a robot can move *linearly* or *angularly* about any of these three axes, as shown by the arrows in the figure. That's six *Degrees of Freedom* (DOFs) in total, achieved based on a robot's design and the actuators it is equipped with. Take a look back at the `rosmsg info` output in **TERMINAL 2**. Hopefully it's a bit clearer now that these topic messages are formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
+In theory then, a robot can move *linearly* or *angularly* about any of these three axes, as shown by the arrows in the figure. That's six *Degrees of Freedom* (DOFs) in total, achieved based on a robot's design and the actuators it is equipped with. Take a look back at the `ros2 interface show` output in **TERMINAL 3**. Hopefully it's a bit clearer now that these topic messages are formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
 
 ``` { .txt .no-copy }
-geometry_msgs/Vector3 linear
-  float64 x  <-- Forwards (or Backwards)
-  float64 y  <-- Left (or Right)
-  float64 z  <-- Up (or Down)
-geometry_msgs/Vector3 angular
-  float64 x  <-- "Roll"
-  float64 y  <-- "Pitch"
-  float64 z  <-- "Yaw"
+Vector3  linear
+        float64 x  <-- Forwards (or Backwards)
+        float64 y  <-- Left (or Right)
+        float64 z  <-- Up (or Down)
+Vector3  angular
+        float64 x  <-- "Roll"
+        float64 y  <-- "Pitch"
+        float64 z  <-- "Yaw"
 ```
 
-Our TurtleBot3 robot only has two motors, so it doesn't actually have six DOFs! These two motors can be controlled independently, which gives it what is called a *"differential drive"* configuration, but this still only allows it to move with **two degrees of freedom** in total, as illustrated below.
+Our TurtleBot3 only has two motors, so it doesn't actually have six DOFs! These two motors can be controlled independently, in a *"differential drive"* configuration, but this still only allows it to move with **two degrees of freedom** in total, as illustrated below.
 
 <figure markdown>
-  ![](../../images/waffle/velocities.svg?width=20cm)
+  ![](../images/waffle/velocities.svg){width=700px}
 </figure>
 
-It can therefore only move **linearly** in the **x-axis** (*Forwards/Backwards*) and **angularly** in the **z-axis** (*Yaw*). 
+Velocity can therefore only be applied **linearly** in the **x-axis** (*Forwards/Backwards*) and **angularly** in the **z-axis** (*Yaw*). 
 
-!!! info "Post-lab Quiz"
+!!! info "Post-lab"
     Take note of all this, there may be a question on it!
 
 #### :material-pen: Exercise 5: Publishing Velocity Commands to the "cmd_vel" Topic {#ex5}
 
-We will use the `rostopic` command differently now, and actually *publish* messages from the terminal to make the robot move. In order to do this we need three key bits of information:
-
-1. The **name of the topic** that we want to publish to.
-1. The **type of message** that this topic uses.
-1. The **data format** that this message type uses.
-
-!!! info "Post-lab Quiz"
-    We discovered all this in the previous exercise, take note of all three points.
-
-We can then use `rostopic` with the `pub` option as follows:
-
-``` { .bash .no-copy }
-rostopic pub {topic_name} {message_type} {data}
-```
-
-As we discovered earlier, the `/cmd_vel` topic is expecting *linear* and *angular* data, each with an `x`, `y` and `z` component to represent a maximum of six DOFs. We have also established however, that our robot only actually has *two* DOFs, so a number of the `Twist` message components won't actually have any effect on our robot at all.
-
-In any case, the message that we need to publish will end up being quite long because of all the message parameters that need to be provided (regardless of how relevant they are to our own robots). Fortunately, we don't have to type the whole thing out manually though, and we can use the *autocomplete functionality* of the Linux terminal to do most of the work for us.
-    
-1. Enter the following into **TERMINAL 2** but where it says `[Space]` or `[Tab]` actually press the corresponding key on the keyboard:
+1. Stop the `teleop_keyboard` node now by entering ++ctrl+c++ in **TERMINAL 4**. We're going to use another graphical tool to help us publish messages to the `/cmd_vel` topic *directly* now.
+1. Go back to **TERMINAL 3** and enter the following command to launch the *RQT Message Publisher* node:
 
     ***
-    **TERMINAL 2:**
-    ``` { .bash .no-copy }
-    rostopic pub /cmd_vel[Space][Tab][Tab]
+    **TERMINAL 3:**
+    ```bash
+    ros2 run rqt_publisher rqt_publisher
     ```
     ***
 
-    The full message should then be presented to us:
+    <figure markdown>
+      ![](../images/rqt/msg_pub.png){width=600px}
+    </figure>
 
-    ``` { .bash .no-copy }
-    rostopic pub /cmd_vel geometry_msgs/Twist "linear:
-      x: 0.0
-      y: 0.0
-      z: 0.0
-    angular:
-      x: 0.0
-      y: 0.0
-      z: 0.0"
-    ```
+1. In the "**Topic**" dropdown menu select `/cmd_vel`.
 
-1. First, you need to add the following text to the end of the message: `--rate=10`.
+1. Move along to the right and enter a value of `10` in the box next to the "**Freq.**" label.
 
-1. Then, you can scroll back through the message and edit any of the `linear`/`angular` `x`/`y`/`z` values as appropriate. Do this by pressing the &larr; key on your keyboard, deleting a `0.0` where appropriate and replacing it with a value of your choosing. In its final format, a message might (for example) look like this:
-    
-    ``` { .bash .no-copy }
-    rostopic pub /cmd_vel geometry_msgs/Twist "linear:
-      x: 0.0
-      y: 101.1
-      z: 0.0
-    angular:
-      x: 22.8
-      y: 0.0
-      z: 0.0" --rate=10
-    ```
+1. Further to the right, click on the :material-plus-box: box to add this as a publisher to the main *"Publisher Table"*.
 
-1. Using what you learnt above about the way your robot can actually move, change **one** of the message parameter values in order to make the robot *rotate on the spot*. Before you do this, it's worth noting the following things:
+1. In the Publisher Table, click on the :octicons-triangle-right-16: next to `/cmd_vel`, to expand the item and reveal two further items: `header` and `twist`:
+
+    <figure markdown>
+      ![](../images/rqt/msg_pub_cmd_vel.png){width=600px}
+    </figure>
+
+1. Click on the :octicons-triangle-right-16: icon next to `twist`, and then the subsequent :octicons-triangle-right-16: icons next to the `linear` and `angular` items that appear below this. Finally, you'll see some values in the "**expression**" column:
+
+    <figure markdown>
+      ![](../images/rqt/msg_pub_cmd_vel_values.png){width=600px}
+    </figure>
+
+    Does this look familiar to [the interface definition as we viewed it in the terminal before](#show-twist)?
+
+1. Using what we learnt above about the way the robot can actually move, change **one** of the six values in the "expression" column that you think might make robot ***rotate on the spot***. Before you do this, it's worth noting the following things:
     
     1. The unit of *linear* velocity is meters per second (m/s).
     1. The unit of *angular* velocity is radians per second (rad/s).
-    1. Our TurtleBot3 robots can move with a **maximum linear velocity** of 0.26 m/s and a **maximum angular velocity** of 1.82 rad/s.
+    1. Our Waffle robots can move with a **maximum linear velocity** of 0.26 m/s and a **maximum angular velocity** of 1.82 rad/s.
 
-1. Once you've edited the message hit `Enter` to publish this to the `/cmd_vel` topic and observe what your robot does!
+1. Once you've entered a value, click on the checkbox to the left of `cmd_vel` and observe what your robot does!
       
-1. Enter ++ctrl+c++ in **TERMINAL 2** to stop the `rostopic pub` process (which will make the robot stop moving too).
+1. Untick the checkbox to stop the velocity data being published to the `/cmd_vel` topic (and which will therefore make the robot stop moving too).
 
-1. Next, find a velocity command that makes the robot *move forwards*. (Don't forget to press ++ctrl+c++ afterwards.)
+1. Next, set the value back to `0.0` and find an alternative velocity value that you can set in order to make the robot ***move forwards*** this time. (Don't forget to tick the checkbox to enable the publisher and untick it to stop it afterwards.)
 
-1. Finally, enter a velocity command to make the robot *move in a circle* (you may need to change two parameter values here).
+1. Finally, enter a *combination* of velocity values to make the robot ***move in a circle***.
 
-1. Enter ++ctrl+c++ in **TERMINAL 2** to stop the robot.
+1. Click on the :material-close-circle: button in the top right-hand corner of the Message Publisher window to close it down once you're all done.
 
 #### :material-pen: Exercise 6: Creating a Python node to make the robot move {#ex6}
 

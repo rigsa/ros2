@@ -188,15 +188,18 @@ In Exercise 1 you launched a whole range of different nodes on the ROS Network u
 1. `ros2 launch tuos_tb3_tools ros.launch.py ...` (on the *robot*, in **TERMINAL 1**).
 2. `ros2 run turtlebot3_teleop teleop_keyboard` (on the *laptop*, in **TERMINAL 3**).
 
-The first of the above was a `ros2 launch` command, which has the following two key parts to it (after the `ros2 launch` bit):
+The first of the above was a ROS 2 `launch` command, which has the following key parts to it (after the `ros2 launch` bit):
 
 ``` { .bash .no-copy }
-ros2 launch {[1] Package name} {[2] Launch file}
+ros2 launch {[1] Package name} {[2] Launch file} {[3] Arguments (optional)}
 ```
 
-**Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute. **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. We can launch multiple nodes at the same time from a single launch file.
+The first **two** of these are the most important: 
 
-The second command was a `ros2 run` command, which has a structure similar to `ros2 launch`:
+**Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute.  
+**Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. We can launch multiple nodes at the same time from a single launch file.  
+
+The second command was a ROS 2 `run` command:
 
 ``` { .bash .no-copy }
 ros2 run {[1] Package name} {[2] Node name}
@@ -253,15 +256,15 @@ Our Waffles have some pretty sophisticated sensors on them, allowing them to "se
       ![](../images/laptops/waffle_rviz_depth_cloud.png){width=600px}
     </figure>
 
-    The strange wobbly sheet of colour in front of the robot is the live image stream from the camera with depth applied to it at the same time. The camera is able to determine how far away each image pixel is from the camera lens, and then uses that to generate this 3-dimensional representation. 
+    The strange wobbly sheet of colour that should appear in front of the robot is the live image stream from the camera with depth applied to it at the same time. The camera is able to determine how far away each image pixel is from the camera lens, and then uses that to generate this 3-dimensional representation. 
 
 1. Again, place your hand or your face in front of the camera and hold steady for a few seconds (there may be a bit of a lag as all of this data is transmitted over the WiFi network). You should see yourself rendered in 3D in front of the robot! 
 
 ##### Part 2: The LiDAR Sensor
 
-In RViz you may have also noticed a lot of green dots scattered around the robot. This is a representation of the *laser displacement data* coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.
+In RViz you may have also noticed a lot of green dots scattered around the robot. This is a representation of the *displacement data* coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.
     
-The LiDAR sensor spins and performs this process continuously, so a full 360&deg; scan of the environment can be generated. This data is therefore really useful for things like *obstacle avoidance* and *mapping*. We'll have a quick look at the latter now.
+The LiDAR sensor spins and performs this process continuously at 1&deg; increments, so a full 360&deg; scan of the environment can be generated. This data is therefore really useful for things like *obstacle avoidance* and *mapping*. We'll have a quick look at the latter now.
 
 1. Close down RViz (click the "Close without saving" button, if asked).
 
@@ -355,7 +358,7 @@ A ROS Robot could have hundreds of individual nodes running simultaneously to ca
 
 ### Publishers and Subscribers: A *ROS Communication Method* 
 
-ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. We have to use standardised data structures in ROS in order for this to all work. Different topics use different data structures, and there are a lot of different types of data structure available for us to use (we can even define our own, but this is beyond the scope if this lab session). Let's have a look at Topics and their data structures in a bit more detail now...
+ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. We have to use standardised data structures in ROS in order for this to all work. Different topics use different data structures, and there are a lot of different data structure *types* available for us to use (we can even define our own, but this is beyond the scope if this lab session). Let's have a look at Topics and their data structures in a bit more detail now...
 
 #### :material-pen: Exercise 4: Exploring ROS Topics and Interfaces {#ex4}
 
@@ -396,13 +399,21 @@ Much like the `ros2 node list` command, we can use `ros2 topic list` to list all
     1. The `/cmd_vel` topic currently has 1 publisher (i.e. 1 node writing data to the topic).
     1. There's also 1 *subscriber* (i.e. another node reading the data being written to the topic).
     1. If we think back to `rqt_graph` (from the previous exercise), we know that the publisher is the `/teleop_keyboard` node, and the subscriber is a node called `/turtlebot3_node`. This node turns the topic data into motor commands, resulting in actual motion of the robot's wheels.
-    1. The *type* of data structure used by the `/cmd_vel` topic is defined as: `geometry_msgs/msg/TwistStamped`. 
+    1. The *type* of data structure used by the `/cmd_vel` topic is defined as:  
+        
+        <center>`geometry_msgs/msg/TwistStamped`</center>
+        
+        This is a ROS *"Interface"*. 
 
         **Interfaces**
     
-        Data structures in ROS 2 are called *Interfaces*, and the type of interface used to publish data on a Topic is called a *message* (there are others too, but we don't need to worry about them here). 
+        Data structures in ROS 2 are called *Interfaces*. 
         
-        From the output above, `Type` refers to the *type* of data structure (i.e. the type of interface). The `Type` definition has three parts to it: `geometry_msgs`, `msg` and `TwistStamped`. `geometry_msgs` is the name of the ROS package that this interface (data structure) belongs to, `msg` tells us that it's a topic message (rather than another interface type) and `TwistStamped` is the *name* of the message interface. 
+        From the output above, `Type` refers to the *type* of data structure (i.e. the type of interface). The `Type` definition has three parts to it: `geometry_msgs`, `msg` and `TwistStamped`:
+        
+        1. `geometry_msgs` is the name of the ROS package that this interface (data structure) belongs to
+        1. `msg` tells us that it's a topic *message* interface (rather than another interface type, of which there are others, but we don't need to worry about them here)
+        1. `TwistStamped` is the *name* of the message interface. 
 
         We have just learnt then, that if we want to make the robot move we need to publish `TwistStamped` interface *messages* to the `/cmd_vel` topic. 
 
@@ -515,11 +526,43 @@ Velocity can therefore only be applied **linearly** in the **x-axis** (*Forwards
 
 1. Click on the :material-close-circle: button in the top right-hand corner of the Message Publisher window to close it down once you're all done.
 
-#### :material-pen: Exercise 6: Creating a Python node to make the robot move {#ex6}
+Hopefully you can see now that, in order to make a robot move, it's simply a case of publishing the right ROS Interface Message (`TwistStamped`) to the right ROS Topic (`/cmd_vel`). Earlier on in the lab we used the `teleop_keyboard` node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic. In the previous exercise we looked at this in a bit more detail by actually directly applying values to the right message attributes and using the RQT Message Publisher to publish these for us. As I'm sure you can appreciate though, there's a limit to what we can achieve by working in this way though(circular and straight line motion is about it!)
 
-Hopefully you can see now that, in order to make a robot move, it's simply a case of publishing the right ROS Message (`Twist`) to the right ROS Topic (`/cmd_vel`). Earlier on in the lab we used the Keyboard Teleop node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the Teleop node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic. In the previous exercise we looked at this in more detail by actually formatting the raw `Twist` messages ourselves, and publishing these to `/cmd_vel`, directly from the command-line. This approach was very manual though, and there's a limit to what we can really achieve by working in this way (circular and straight line motion is about it!)
+In reality, robots need to be able to move around complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this in the following exercises, starting by building a simple Node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex approaches used by robotics engineers to *really* bring robots to life!
 
-In reality, robots need to be able to move around complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this now, building a simple Node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex approaches used by robotics engineers to *really* bring robots to life!
+#### :material-pen: Exercise 6: Creating a ROS Package {#ex6}
+
+As we learnt earlier, all ROS nodes must be contained within *packages*, so in order for us to create our own node, we first need to create our own package.
+
+1. In **TERMINAL 3** run the following command to navigate to a folder called the *"ROS Workspace"* using the `cd` ("change directory") command:
+
+    ```bash
+    cd ~/ros2_ws/src
+    ```
+
+1. Next run the following command to copy a package template from GitHub into the ROS Workspace folder:
+
+    ```bash
+    git clone https://github.com/tom-howard/ros2_pkg_template.git
+    ```
+
+1. Now, run a script from within this template, to initialise the package for us to use:
+
+    ``` { .bash .no-copy }
+    ./init_pkg.sh amr31001_grpX
+    ```
+
+    ... Here, you need to replace `X` with the number of your "group", which should be printed on a piece of paper on the desk you are sitting at.
+
+
+
+
+
+#### :material-pen: Exercise 7: Creating a Python node to make the robot move {#ex7}
+
+
+
+1.  
 
 1. First, create your own folder on the laptop to store your Python script(s) in. A folder is also known as a *"directory"*, and we can make a new one from the command-line by using the `mkdir` (*"make directory"*) command:
 

@@ -22,7 +22,7 @@ We'll be working with robots called *'TurtleBot3 Waffles'*, which you can [find 
 
 In this lab you'll learn how to use ROS 2 to make a robot move, and we'll also look at how to create our own basic ROS 2 script (or *'Node'*), using Python.
 
-From here on, we'll refer to ROS 2 as *"ROS"* (for convenience!)
+From here on, we'll refer to ROS 2 as *"ROS"* for convenience!
 
 ### Intended Learning Outcomes
 
@@ -41,8 +41,9 @@ By the end of this session you will be able to:
 * [Exercise 3: Visualising the ROS Network](#ex3)
 * [Exercise 4: Exploring ROS Topics and Messages](#ex4)
 * [Exercise 5: Publishing Velocity Commands to the `/cmd_vel` Topic](#ex5)
-* [Exercise 6: Creating a Python node to make the robot move](#ex6)
-* [Exercise 7 (Advanced): Alternative Motion Paths](#ex7)
+* [Exercise 6: Creating a ROS Package](#ex6)
+* [Exercise 7: A Python node to make the robot move](#ex7)
+* [Exercise 8 (Advanced): Alternative Motion Paths](#ex8)
 
 ## The Lab
 
@@ -546,23 +547,107 @@ As we learnt earlier, all ROS nodes must be contained within *packages*, so in o
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
 
-1. Now, run a script from within this template, to initialise the package for us to use:
+1. Now, run a script from within this template, to initialise the package for use:
 
     ``` { .bash .no-copy }
-    ./init_pkg.sh amr31001_grpX
+    ./ros2_pkg_template/init_pkg.sh amr31001_groupX
     ```
 
     ... Here, you need to replace `X` with the number of your "group", which should be printed on a piece of paper on the desk you are sitting at.
 
+1. We're going to open this package in a text editor called *Visual Studio Code* (aka "VS Code") now, so that we can start making changes to it:
 
+    ``` { .bash .no-copy }
+    code ./amr31001_groupX
+    ```
 
+    ... Again, you'll need to replace the `X` above with your own group number in order for this to work.
 
+1. When VS Code opens, you should see a *File Explorer* on the left-hand side which allows you to access all the files and folders within your package. Look for a file here called `package.xml` and click on it. This will open this file in the main VS Code window, to allow you to edit it.
 
-#### :material-pen: Exercise 7: Creating a Python node to make the robot move {#ex7}
+1. Look for the following lines in the `package.xml` file:
 
+    ``` title="package.xml"
+    <maintainer email="your.name.1@sheffield.ac.uk">Name 1</maintainer>
+    <maintainer email="your.name.2@sheffield.ac.uk">Name 2</maintainer>
+    ```
 
+    Change `Name 1` to your name, and then change `your.name.1@sheffield.ac.uk` to your Sheffield email address! Then, do the same for your other Group member on the line below it. (If you're working in a group of more than 2 people, then you can add additional lines below this for your other group members.)
 
-1.  
+    !!! warning "Post-lab"
+        **This is important for the post-lab**!
+
+        We'll be assessing your work here as part of the post-lab, so it's important that we can identify each member of your group. If any group members aren't listed here, then they won't receive any marks for this! 
+
+1. Go back to **TERMINAL 3** now and run the following three commands:
+
+    1. First: 
+        
+        ```bash
+        cd ~/ros2_ws
+        ```
+    
+    1. Then:
+
+        ``` { .bash .no-copy }
+        colcon build --packages-select amr31001_groupX --symlink-install
+        ```
+
+        ... You'll need to replace `X` with your group number here.
+    
+    1. And finally:
+
+        ```bash
+        source ~/.bashrc
+        ```
+
+OK, **package creation is now complete**, so we're ready to start some Python programming...
+
+#### :material-pen: Exercise 7: A Python node to make the robot move {#ex7}
+
+Go back to VS Code now, and (in the File Explorer) look for a folder called `scripts`. Click on the :material-chevron-right: icon next to this to expand the folder and reveal its content. A file called `basic_velocity_control.py` should be revealed. Click on this to open it in the main editor window.
+
+This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through some key parts of this:
+    
+1. First, we have some imports:
+
+    ```py
+    import rclpy # (1)!
+    from geometry_msgs.msg import TwistStamped # (2)!
+    import time # (3)!
+    ```
+
+    1. `rclpy` is the ROS client library for Python. We need this so that our Python node can interact with ROS.
+    2. [We know from earlier](#ex4) that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses a data structure (or Interface) called `geometry_msgs/msg/TwistStamped`. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)
+    3. We'll use this to control timing in our node.
+
+    Click on the :material-plus-circle: icons above to read information about each line of the code.
+
+1. Next, we declare some variables that we can use and adapt during the main execution of our code:
+
+    ```py
+    state = 1 # (1)!
+    vel = TwistStamped() # (2)!
+    ```
+
+    1. Inside the `#!py while` loop (explained shortly) we define two different operational states for the robot, and we can control which one is active by changing this value from `1` to `2` (and visa-versa).
+    2. We're instantiating a `TwistStamped` Interface message here and calling it `vel`. We'll assign velocity values to this in the `#!py while` loop later on.
+        
+        Recall that a `TwistStamped` message contains six different components that we can assign values to. [Which *two* are relevant to our robot](#velocity-control)?
+
+1. Next we configure some important ROS-related things:
+
+    ```py
+    rclpy.init(args=None) # (1)!
+    node = rclpy.create_node("basic_velocity_control")  # (2)!
+    vel_pub = node.create_publisher(TwistStamped, "cmd_vel", 10)  # (3)!
+    ```
+
+    1. Initialise `rclpy` and all the ROS communications that are necessary for our node. 
+    2. Initialise this Python script as an actual ROS node, providing a name for it to be registered on the ROS network with ("basic_velocity_control" in this case).
+    3. Here we're setting up a publisher to the `/cmd_vel` topic so that the node can send velocity commands to the robot (using `TwistStamped` data).
+
+1. From here, TODO...
 
 1. First, create your own folder on the laptop to store your Python script(s) in. A folder is also known as a *"directory"*, and we can make a new one from the command-line by using the `mkdir` (*"make directory"*) command:
 
@@ -614,12 +699,11 @@ As we learnt earlier, all ROS nodes must be contained within *packages*, so in o
     --8<-- "code_templates/simple_timed_square.py"
     ```
 
-    1. `rospy` is the ROS client library for Python. We need this so that our Python node can interact with ROS.
-    2. [We know from earlier](#ex4) that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses `Twist` messages from the `geometry_msgs` package. This is how we import that message, from that package, in order to create velocity commands in Python (which we'll get to shortly...)
+    
     3. Before we do anything we need to initialise our node to register it on the ROS network with a name. We're calling it "move_waffle" in this case, and we're using `anonymous=True` to ensure that there are no other nodes of the same name already registered on the network.
     4. We want our main `while` loop (when we get to that bit) to execute 10 times per second (10 Hz), so we create this `rate` object here which we'll use to control this later...
-    5. Here we are setting up a publisher to the `/cmd_vel` topic so that the node can write `Twist` messages to make the robot move.
-    6. We're instantiating a `Twist` message here and calling it `vel` (we'll assign velocity values to this in the `while` loop later on). A `Twist` message contains six different components that we can assign values to. Any idea [what these six values might represent](#velocity-control)?  
+    
+      
     7. What time is it right now? (This will be useful to compare against in the while loop.)
     8. We're entering the main `while` loop now. This `rospy.is_shutdown()` function will read `False` unless we request for the node to be stopped (by pressing ++ctrl+c++ in the terminal). Once it turns `True` the `while` loop stops.
     9. Here we're comparing the time now to the time the last time we checked, to tell us how much time has elapsed (in seconds) since then. We'll use that information to decide what to do...  

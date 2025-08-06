@@ -297,9 +297,9 @@ The LiDAR sensor spins and performs this process continuously at 1&deg; incremen
 
 1. Drive the robot around a bit and watch how the map in RViz is updated as the robot explores new parts of the environment.
 
-1. Enter ++ctrl+c++ in **TERMINAL 4** and then close down this terminal window, we won't need it any more.
+1. Enter ++ctrl+c++ in **TERMINAL 4** to stop the `teleop_keyboard` node.
 
-1. Close down the RViz window, but keep **TERMINAL 3** open for the next exercise...
+1. Close down the RViz window, or enter ++ctrl+c++ in **TERMINAL 3** to stop it too.
 
 We've now used both `ros2 launch` and `ros2 run` to launch ROS applications. These are both ROS *command-line tools*, and there are many others at our disposal. 
 
@@ -517,15 +517,15 @@ Velocity can therefore only be applied **linearly** in the **x-axis** (*Forwards
     1. The unit of *angular* velocity is radians per second (rad/s).
     1. Our Waffle robots can move with a **maximum linear velocity** of 0.26 m/s and a **maximum angular velocity** of 1.82 rad/s.
 
-1. Once you've entered a value, click on the checkbox to the left of `cmd_vel` and observe what your robot does!
-      
-1. Untick the checkbox to stop the velocity data being published to the `/cmd_vel` topic (and which will therefore make the robot stop moving too).
+1. Once you've entered a value, click on the checkbox to the left of `/cmd_vel` to start publishing these values to the topic. Observe what your robot does!
 
-1. Next, set the value back to `0.0` and find an alternative velocity value that you can set in order to make the robot ***move forwards*** this time. (Don't forget to tick the checkbox to enable the publisher and untick it to stop it afterwards.)
+1. Set the value back to `0.0` and then hit ++enter++ to make the robot stop moving.
+
+1. Next, find an alternative velocity value that you can set in order to make the robot ***move forwards*** this time. (Don't forget to set the value back to `0.0` to make the robot stop moving again afterwards.)
 
 1. Finally, enter a *combination* of velocity values to make the robot ***move in a circle***.
 
-1. Click on the :material-close-circle: button in the top right-hand corner of the Message Publisher window to close it down once you're all done.
+1. Once you're finished, set all velocities back to `0.0`, make sure the robot is no longer moving, and then uncheck the box next to `/cmd_vel` to stop publishing messages. Click on the :material-close-circle: button in the top right-hand corner of the Message Publisher window to close it down.
 
 Hopefully you can see now that, in order to make a robot move, it's simply a case of publishing the right ROS Interface Message (`TwistStamped`) to the right ROS Topic (`/cmd_vel`). Earlier on in the lab we used the `teleop_keyboard` node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic. In the previous exercise we looked at this in a bit more detail by actually directly applying values to the right message attributes and using the RQT Message Publisher to publish these for us. As I'm sure you can appreciate though, there's a limit to what we can achieve by working in this way though(circular and straight line motion is about it!)
 
@@ -549,19 +549,15 @@ As we learnt earlier, all ROS nodes must be contained within *packages*, so in o
 
 1. Now, run a script from within this template, to initialise the package for use:
 
-    ``` { .bash .no-copy }
-    ./ros2_pkg_template/init_pkg.sh amr31001_groupX
+    ```bash
+    ./ros2_pkg_template/init_pkg.sh amr31001_lab1
     ```
-
-    ... Here, you need to replace `X` with the number of your "group", which should be printed on a piece of paper on the desk you are sitting at.
 
 1. We're going to open this package in a text editor called *Visual Studio Code* (aka "VS Code") now, so that we can start making changes to it:
 
-    ``` { .bash .no-copy }
-    code ./amr31001_groupX
+    ```bash
+    code ./amr31001_lab1
     ```
-
-    ... Again, you'll need to replace the `X` above with your own group number in order for this to work.
 
 1. When VS Code opens, you should see a *File Explorer* on the left-hand side which allows you to access all the files and folders within your package. Look for a file here called `package.xml` and click on it. This will open this file in the main VS Code window, to allow you to edit it.
 
@@ -579,6 +575,8 @@ As we learnt earlier, all ROS nodes must be contained within *packages*, so in o
 
         We'll be assessing your work here as part of the post-lab, so it's important that we can identify each member of your group. If any group members aren't listed here, then they won't receive any marks for this! 
 
+        When entering your names, make sure you provide first names **AND** surnames for each group member.
+
 1. Go back to **TERMINAL 3** now and run the following three commands:
 
     1. First: 
@@ -589,12 +587,10 @@ As we learnt earlier, all ROS nodes must be contained within *packages*, so in o
     
     1. Then:
 
-        ``` { .bash .no-copy }
-        colcon build --packages-select amr31001_groupX --symlink-install
+        ```bash
+        colcon build --symlink-install --packages-select amr31001_lab1
         ```
 
-        ... You'll need to replace `X` with your group number here.
-    
     1. And finally:
 
         ```bash
@@ -607,7 +603,7 @@ OK, **package creation is now complete**, so we're ready to start some Python pr
 
 Go back to VS Code now, and (in the File Explorer) look for a folder called `scripts`. Click on the :material-chevron-right: icon next to this to expand the folder and reveal its content. A file called `basic_velocity_control.py` should be revealed. Click on this to open it in the main editor window.
 
-This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through some key parts of this:
+This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through it:
     
 1. First, we have some imports:
 
@@ -621,7 +617,7 @@ This is a (fairly) basic ROS 2 Python Node that will control the velocity of the
     2. [We know from earlier](#ex4) that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses a data structure (or Interface) called `geometry_msgs/msg/TwistStamped`. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)
     3. We'll use this to control timing in our node.
 
-    Click on the :material-plus-circle: icons above to read information about each line of the code.
+    Click on the :material-plus-circle: icons above to reveal more information about each line of the code.
 
 1. Next, we declare some variables that we can use and adapt during the main execution of our code:
 
@@ -647,104 +643,122 @@ This is a (fairly) basic ROS 2 Python Node that will control the velocity of the
     2. Initialise this Python script as an actual ROS node, providing a name for it to be registered on the ROS network with ("basic_velocity_control" in this case).
     3. Here we're setting up a publisher to the `/cmd_vel` topic so that the node can send velocity commands to the robot (using `TwistStamped` data).
 
-1. From here, TODO...
+1. After this, we're defining another variable:
 
-1. First, create your own folder on the laptop to store your Python script(s) in. A folder is also known as a *"directory"*, and we can make a new one from the command-line by using the `mkdir` (*"make directory"*) command:
-
-    ***
-    **TERMINAL 2:**
-    ``` { .bash .no-copy }
-    mkdir -p ~/amr31001/your_name 
+    ```py
+    timestamp = node.get_clock().now().nanoseconds # (1)!
     ```
-    Replacing `your_name` with, well... *your name*!
-    ***
 
-    !!! tip
-        Don't use any spaces in your name, use underscores (`_`) instead!
+    1. What time is it right now? This tells us the current "ROS Time" (in nanoseconds), which will be useful to compare against in the while loop.
+
+1. Now, we enter into a `#!py while` loop, which is where our code will spend the majority of its time once it's running:
+
+    ```py
+    while rclpy.ok(): # (1)!
+        time_now = node.get_clock().now().nanoseconds # (2)!
+        elapsed_time = (time_now - timestamp) * 1e-9 # (3)!
+
+        ...
+
+    ```
+
+    1. This returns `#!py True` as long as the node is alive, so all the code inside the `#!py while` loop will continue to execute as long as this is the case.
+    2. What time is it *now*? Check the time at the start of each iteration of the `#!py while` loop, and assign this to a variable called `time_now`.
+    3. Determine how much time has elapsed (in seconds) since the `timestamp` was last updated.
+
+    Everything that's indented below the `#!py while rclpy.ok():` line will continue to be executed over and over again until we ask our node to stop. The code will execute line-by-line from top-to-bottom within this `#!py while` loop, and will then go back to the top again and repeat it all over and over and *over* again! Each repeat is called an *"iteration"*.
+
+    1. An `#!py if` statement now controls the state of operation for our robot. 
+        
+        1. In state `1` we set velocities that will make the robot move forwards (linear X velocity only) for a certain amount of time and then stop. How long will the robot move forwards for, and at what velocity?
+
+            ```py
+            if state == 1: 
+                if elapsed_time < 2: # (1)!
+                    vel.twist.linear.x = 0.05 # (2)!
+                    vel.twist.angular.z = 0.0
+                else: # (3)!
+                    vel.twist.linear.x = 0.0 # (4)!
+                    vel.twist.angular.z = 0.0
+                    state = 2 # (5)!
+                    timestamp = node.get_clock().now().nanoseconds # (6)!
+            ```
+
+            1. If the elapsed time is less than 2 seconds...
+            2. Set a linear velocity so that the robot will move forwards.
+            3. If the elapsed time has *exceeded* 2 seconds...
+            4. Set our robot's velocities to `0.0` to make it stop.
+            5. In the next loop iteration, go into state 2 instead.
+            6. Reset the timestamp to start counting up again. 
+
+        2. In state `2` we set velocities that will make the robot turn on the spot (angular Z velocity only) for a certain amount of time and then stop. How long will it do this for, and at what velocity?
+            
+            ```py
+            elif state == 2:
+                if elapsed_time < 4: # (1)!
+                    vel.twist.linear.x = 0.0
+                    vel.twist.angular.z = 0.2 # (2)!
+                else: # (3)!
+                    vel.twist.linear.x = 0.0 # (4)!
+                    vel.twist.angular.z = 0.0 
+                    state = 1 # (5)!
+                    timestamp = node.get_clock().now().nanoseconds # (6)!
+            ```
+
+            1. While the elapsed time is less than 4 seconds...
+            2. Apply an angular velocity to the robot to make it turn on the spot.
+            3. Once the elapsed time has *exceeded* 4 seconds...
+            4. Set the robot's velocities back to `0.0` to make it stop.
+            5. In the next loop iteration, go back into state 1 again (moving forwards).
+            6. Reset the timestamp to start counting up once more. 
+
+    1. And after the `#!py if` statement:
+
+        ```py
+        node.get_logger().info( # (1)!
+            f"\n[State = {state}] Publishing velocities:\n"
+            f"  - linear.x: {vel.twist.linear.x:.2f} [m/s]\n"
+            f"  - angular.z: {vel.twist.angular.z:.2f} [rad/s].",
+            throttle_duration_sec=1,
+        )
+        vel_pub.publish(vel) # (2)!
+        ```
+
+        1. This (and the following 5 lines) will print a message to the terminal, to provide us with regular updates on what state the node is currently in and what velocities have been set (in the `#!py if` statement above).
+        2. This line is crucial: this operation actual publishes the velocity commands to the `/cmd_vel` topic, to make the robot actual act on our instructions.
+
+            Regardless of what happens in the `if` states above, we *always* publish a velocity command to the `/cmd_vel` topic here (every loop iteration).
+
+
+1. Go back to **TERMINAL 3** now, run the code and see what happens. *Make sure the robot is on the floor and has enough room to roam around before you do this*!
     
-1. Next, navigate into this directory using the `cd` (*"change directory"*) command:
-
     ***
-    **TERMINAL 2:**
-    ``` { .bash .no-copy }
-    cd ~/amr31001/your_name/ 
-    ```
-    Again, replacing `your_name` accordingly.
-    ***
-
-1. Then create a Python file called `move_square.py` using the `touch` command:
-
-    ***
-    **TERMINAL 2:**
+    **TERMINAL 3:**
     ```bash
-    touch move_square.py
-    ```
-    ***
-
-1. Now we want to edit it, and we'll do that using *Visual Studio Code* (VS Code):
-
-    ***
-    **TERMINAL 2:** 
-    ```bash
-    code .
-    ```
-    ***
-
-    !!! note
-        Don't forget to include the `.`, it's important!!
-    
-1. Once VS Code launches, open up your `move_square.py` file, which should be visible in the file explorer on the left-hand side of the VS Code window. Paste the following content into the file:
-
-    ```py title="move_square.py"
-    --8<-- "code_templates/simple_timed_square.py"
-    ```
-
-    
-    3. Before we do anything we need to initialise our node to register it on the ROS network with a name. We're calling it "move_waffle" in this case, and we're using `anonymous=True` to ensure that there are no other nodes of the same name already registered on the network.
-    4. We want our main `while` loop (when we get to that bit) to execute 10 times per second (10 Hz), so we create this `rate` object here which we'll use to control this later...
-    
-      
-    7. What time is it right now? (This will be useful to compare against in the while loop.)
-    8. We're entering the main `while` loop now. This `rospy.is_shutdown()` function will read `False` unless we request for the node to be stopped (by pressing ++ctrl+c++ in the terminal). Once it turns `True` the `while` loop stops.
-    9. Here we're comparing the time now to the time the last time we checked, to tell us how much time has elapsed (in seconds) since then. We'll use that information to decide what to do...  
-    10. The "transition" state is used to stop the robot (if necessary), and check the time again.
-    11. In "state1" we set velocities that will make the robot move forwards (linear-X velocity only). If the elapsed time is greater than **2 seconds** however, we move on to "state2".
-    12. In "state2" we set velocities that will make the robot turn on the spot (angular-Z velocity only). In this case, if the elapsed time is greater than **4 seconds**, we move back to "state1".
-    13. Regardless of what happens in the `if` statements above, we always publish a velocity command to the `/cmd_vel` topic here (i.e. every loop iteration).
-    14. We created a `rate` object earlier, and we use this now to make sure that each iteration of this `while` loop takes exactly the right amount of time to maintain the rate of execution that we specified earlier (10 Hz).
-    15. Here we're importing some mathematical operators that you *might* find useful in your code for this exercise (or the next one!) 
-
-        | Mathematical Operation | Python Implementation |
-        | :---: | :---: |
-        | $\sqrt{a+b}$ | `#!python sqrt(a+b)` |
-        | $a^{2}+(bc)^{3}$ | `#!python pow(a, 2) + pow(b*c, 3)` |
-        | $\pi r^2$ | `#!python pi * pow(r, 2)` |
-
-    Click on the :material-plus-circle: icons above to expand the code annotations. Read these carefully to ensure that you understand what's going on and how this code works.
-
-1. Now, go back to **TERMINAL 2** and run the code.
-
-    !!! note
-        Make sure the robot is on the floor and has enough room to roam around before you do this!
-    
-    ***
-    **TERMINAL 2:**
-    ```bash
-    python3 move_square.py
+    ros2 run amr31001_lab1 basic_velocity_control.py
     ```
     ***
     
-    Observe what the robot does. When you've seen enough, enter `Ctrl+C` in **TERMINAL 2** to stop the node from running, which should also stop the robot from moving.
+    Enter ++ctrl+c++ in **TERMINAL 3** to stop the node from running once you've seen enough.
     
-1. As the name may suggest, the aim here is to make the robot follow a square motion path. What you may have observed when you actually ran the code is that the robot doesn't actually do that! We're using a time-based approach to make the robot switch between two different states continuously: *moving forwards* and *turning on the spot*.
+    !!! warning
+        The robot will continue to move even after you've stopped the node! Run the following command to stop it:
+        
+        ```bash
+        ros2 run amr31001_lab1 stop_me.py
+        ```
     
-    Have a look at the code to work out how much time the robot will currently spend in each state.
+1. **Your Task**:
     
-1. The aim here is to make the robot follow a **0.5m x 0.5m square** motion path.  In order to properly achieve this you'll need to adjust the timings, or the robot's velocity, or both. Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
+    The aim here is to make the robot follow a **square motion path** of dimensions **0.5m x 0.5m**. As it is though, the `basic_velocity_control.py` node doesn't actually do this yet, and you need to fix it!
+        
+    Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
 
-#### :material-pen: Exercise 7 (Advanced): Alternative Motion Paths {#ex7}
+#### :material-pen: Exercise 8 (Advanced): Alternative Motion Paths {#ex8}
 
 *If you have time, why don't you have a go at this now...*
+
+[TODO]
 
 How could you adapt the code further to achieve some more interesting motion profiles?
 
@@ -779,12 +793,13 @@ waffle X off
 ... again, replacing `X` with the number of the robot that you have been working with today.
 ***
 
-You'll need to enter `y` and then hit `Enter` to confirm this.
+You'll need to enter `y` and then hit ++enter++ to confirm this.
 
 Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
 
 <figure markdown>
   ![](../../images/laptops/ubuntu_poweroff.svg?width=10cm)
+  NEEDS UPDATING
 </figure>
 
 <center>

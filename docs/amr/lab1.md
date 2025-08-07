@@ -200,7 +200,7 @@ The first **two** of these are the most important:
 **Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute.  
 **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. We can launch multiple nodes at the same time from a single launch file.  
 
-The second command was a ROS 2 `run` command:
+The second command was a ROS 2 `run` command: <a name="ros2-run"></a>
 
 ``` { .bash .no-copy }
 ros2 run {[1] Package name} {[2] Node name}
@@ -559,7 +559,13 @@ As we learnt earlier, all ROS nodes must be contained within *packages*, so in o
     code ./amr31001_lab1
     ```
 
-1. When VS Code opens, you should see a *File Explorer* on the left-hand side which allows you to access all the files and folders within your package. Look for a file here called `package.xml` and click on it. This will open this file in the main VS Code window, to allow you to edit it.
+1. When VS Code opens, you should see a *File Explorer* on the left-hand side which allows you to access all the files and folders within your package. 
+    
+    <figure markdown>
+      ![](./lab1/vscode_explorer_package_xml.png){width=400px}
+    </figure>
+
+    Look for a file here called `package.xml` and click on it. This will open this file in the main VS Code window, to allow you to edit it.
 
 1. Look for the following lines in the `package.xml` file:
 
@@ -602,6 +608,10 @@ OK, **package creation is now complete**, so we're ready to start some Python pr
 #### :material-pen: Exercise 7: A Python node to make the robot move {#ex7}
 
 Go back to VS Code now, and (in the File Explorer) look for a folder called `scripts`. Click on the :material-chevron-right: icon next to this to expand the folder and reveal its content. A file called `basic_velocity_control.py` should be revealed. Click on this to open it in the main editor window.
+
+<figure markdown>
+  ![](./lab1/vscode_explorer_scripts.png){width=400px}
+</figure>
 
 This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through it:
     
@@ -754,25 +764,84 @@ This is a (fairly) basic ROS 2 Python Node that will control the velocity of the
         
     Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
 
+    !!! info "Post-lab"
+        Your completion of this exercise will be assessed as part of the post-lab!
+
 #### :material-pen: Exercise 8 (Advanced): Alternative Motion Paths {#ex8}
 
-*If you have time, why don't you have a go at this now...*
-
-[TODO]
+*If you have time, have a go at this now...*
 
 How could you adapt the code further to achieve some more interesting motion profiles?
 
-1. First, make a copy of the `move_square.py` code using the `cp` command:
+1. First, go back to **TERMINAL 3** and make sure you're in the right file system location:
 
-    ***
-    **TERMINAL 2:**
     ```bash
-    cp move_square.py move_alt.py
+    cd ~/ros2_ws/src/amr31001_lab1/scripts
     ```
-    Which will create a new version of the file called `move_alt.py`
-    ***
 
-1. See if you can modify the `move_alt.py` code to achieve either of the more complex motion profiles illustrated below.
+1. Then, make a copy of the `basic_velocity_control.py` code using the `cp` command (**c**o**p**y):
+
+    ```bash
+    cp basic_velocity_control.py alt_velocity_control.py
+    ```
+    Which will create a copy called `alt_velocity_control.py`
+
+1. Use the following command to open up a text file in VS Code:
+
+    ```bash
+    code ../CMakeLists.txt
+    ```
+
+1. In this file, locate the lines (near the bottom of the file) that read:
+
+    ``` { .txt .no-copy}
+    # Install Python executables
+    install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
+      DESTINATION lib/${PROJECT_NAME}
+    )
+    ```
+
+    Insert a new line below the one that reads `scripts/basic_velocity_control.py`, so that it now looks like this:
+
+    ``` { .txt .no-copy }
+    # Install Python executables
+    install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/alt_velocity_control.py
+      scripts/stop_me.py
+      DESTINATION lib/${PROJECT_NAME}
+    )
+    ```
+
+    You've just added `alt_velocity_control.py` as a new node within your package. 
+
+    Save the file and close it.
+
+1. Go back to **TERMINAL 3** and run the following 3 commands again, in order:
+
+    1. First: 
+        
+        ```bash
+        cd ~/ros2_ws
+        ```
+    
+    1. Then:
+
+        ```bash
+        colcon build --symlink-install --packages-select amr31001_lab1
+        ```
+
+    1. And finally:
+
+        ```bash
+        source ~/.bashrc
+        ```
+
+1. Go back to VS Code and find your new `alt_velocity_control.py` file. Click on it to open it in the editor.
+    
+1. **NOW** see if you can edit this to achieve either of the more complex motion profiles illustrated below.
 
     <figure markdown>
       ![](./lab1/move_alt.png)
@@ -781,12 +850,25 @@ How could you adapt the code further to achieve some more interesting motion pro
     1. **Profile (a):** The robot needs to follow a *figure-of-eight* shaped path, where a linear and angular velocity command are set simultaneously to generate circular motion. Velocities will need to be defined in order to achieve **a path diameter of 1m** for each of the two loops. Having set the velocities appropriately, you'll then need to work out how long it would take the robot to complete each loop, so that you can determine when the robot should have got back to its starting point. At this point you'll need to change the turn direction, so that the robot switches from anti-clockwise to clockwise turning. 
     1. **Profile (b):** The robot needs to start and end in the same position, but move through intermediate points 1-7, in sequence, to generate the *stacked square* profile as shown. Each of the two squares must be **1m x 1m in size**, so you'll need to find the right velocity and duration pairs for moving forward and turning. You'll also need to change the turn direction once the robot reaches Point 3, and then again at Point 7!
 
+1. To run the file and test it out, you'll need to use `ros2 run ...`. How would you format this command ([recall this](#ros2-run))?[^run-alt]
+
+    Whenever you need to stop the node, enter ++ctrl+c++ in the terminal.
+
+    [^run-alt]: `#!bash ros2 run amr31001_lab1 alt_velocity_control.py`
+
+    !!! warning "Remember"
+        The robot will continue to move even after you've stopped the node! Run the following command to stop it whenever you need to:
+        
+        ```bash
+        ros2 run amr31001_lab1 stop_me.py
+        ```
+
 ## Wrapping Up
 
-Before you leave, please shut down your robot! Enter the following command in **TERMINAL 2** to do so:
+Before you leave, please shut down your robot! Enter the following command in **TERMINAL 3** to do so:
 
 ***
-**TERMINAL 2:**
+**TERMINAL 3:**
 ``` { .bash .no-copy }
 waffle X off
 ```
@@ -795,11 +877,10 @@ waffle X off
 
 You'll need to enter `y` and then hit ++enter++ to confirm this.
 
-Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
+Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop, clicking the Power icon (illustrated below) and then selecting "Power Off..." in the menu.
 
 <figure markdown>
-  ![](../../images/laptops/ubuntu_poweroff.svg?width=10cm)
-  NEEDS UPDATING
+  ![](../images/laptops/ubuntu_poweroff.svg){width=300px}
 </figure>
 
 <center>

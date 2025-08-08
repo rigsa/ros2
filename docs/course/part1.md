@@ -11,7 +11,11 @@ description: Learn the basics of ROS 2 and become familiar with some key tools a
 
 ### Aims
 
-In the first part of this lab course you will learn the basics of ROS and become familiar with some key tools and principles of the framework which will allow you to program robots and work with ROS applications effectively.  For the most part, you will interact with ROS using the *Linux command line* and so you will also become familiar with some key Linux command line tools that will help you.  Finally, you will learn how to create some basic ROS Nodes using Python and get a taste of how communications work via ROS Topics and Interfaces.
+In the first part of this lab course you will learn the basics of ROS 2 and become familiar with some key tools and principles of the framework, which will allow you to program robots and work with ROS 2 applications effectively.
+
+Throughout this course, and from herein, we'll refer to ROS 2 as just "ROS" to make things easier!
+
+For the most part, you will interact with ROS using the *Linux command line* and so you will also become familiar with some key Linux command line tools that will help you.  Finally, you will learn how to create some basic ROS Nodes using Python and get a taste of how communications work via ROS Topics and Interfaces.
 
 ### Intended Learning Outcomes
 
@@ -403,7 +407,9 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ```
     ***
 
-1. Now, navigate into this package (using `cd`):
+    As a result of doing this, the `ros2_pkg_template` directory has now been renamed to `part1_pubsub`, and various other things within the package have been updated too, to initialise the package with the name that we specified. 
+
+1. Navigate into the package directory (using `cd`):
 
     ***
     **TERMINAL 1:**
@@ -430,13 +436,14 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     │   ├── __init__.py
     │   └── tb3_tools.py
     └── scripts
-        └── minimal_node.py
+        ├── basic_velocity_control.py
+        └── stop_me.py
 
-    2 directories, 5 files
+    3 directories, 6 files
     ```
     ***
 
-    * `scripts`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a `minimal_node.py` already exists in there).
+    * `scripts`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a couple in there already).
     * `part1_pubsub_modules`: is a *directory* that we can use to store Python *modules*, that we can then import into our main Python nodes
         
         (`#!py from part1_pubsub_modules.tb3_tools import ...`, for example)
@@ -474,15 +481,13 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     This should output something similar to the following: <a name="no-exec-perms"></a>
 
     ``` { .txt .no-copy }
-    ~/ros2_ws/src/part1_pubsub/scripts
-    > ls -l
-    total 4
-    -rwxr-xr-x 1 student student 339 MMM DD HH:MM minimal_node.py
-    -rw-r--r-- 1 student student   0 MMM DD HH:MM publisher.py
+    -rwxr-xr-x 1 student student 1500 MMM DD HH:MM minimal_node.py
+    -rw-r--r-- 1 student student    0 MMM DD HH:MM publisher.py
+    -rwxrwxr-x 1 student student  816 MMM DD HH:MM stop_me.py
     ```
     ***
 
-    This confirms that the file exists, and the `0` in the middle of the bottom line there indicates that the file is empty (i.e. its current size is 0 bytes), which is what we'd expect.
+    This confirms that the `publisher.py` file exists, and the `0` on that line indicates that the file is empty (i.e. its current size is 0 bytes), which is what we'd expect.
 
 1. We therefore now need to open the file and add content to it. We'd recommend using Visual Studio Code (VS Code) as an IDE for this course. Launch VS Code and access your ROS 2 environment (how you do this will vary based on how you have ROS installed on your machine).
 
@@ -506,16 +511,18 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     ``` { .txt .no-copy}
     # Install Python executables
     install(PROGRAMS
-      scripts/minimal_node.py
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
-
-    Replace `minimal_node.py` with `publisher.py` to define this as a Python executable in your package:
+Add the `publisher.py` Node as follows:
 
     ``` { .txt .no-copy }
     # Install Python executables
     install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
       scripts/publisher.py
       DESTINATION lib/${PROJECT_NAME}
     )
@@ -538,7 +545,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
         !!! info "What do the additional arguments above do?"
 
             * `--packages-select`: Build *only* the `part1_pubsub` package, nothing else (without this `colcon` would attempt to build *every* package in the workspace).
-            * `--symlink-install`: Ensures that you don't have to re-run `colcon build` every time you make a change to your package's executables (i.e. your Python files in the `scripts` directory).
+            * `--symlink-install`: Ensures that you don't have to re-run `colcon build` every time you make a change to your package's executables (i.e. your Python nodes in the `scripts` directory).
     
     1. Finally, "re-source" your `bashrc`[^source-bashrc]:
 
@@ -609,7 +616,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     We have now granted permission for the file to be e**x**ecuted too:
     
     ``` { .txt .no-copy }
-    -rwxr-xr-x 1 student student 1125 MMM DD HH:MM publisher.py
+    -rwxr-xr-x 1 student student 1195 MMM DD HH:MM publisher.py
     ```
 
 1. OK, now use `ros2 run` again to (*hopefully!*) run the `publisher.py` node (remember: `ros2 run {package name} {script name}`).
@@ -716,6 +723,8 @@ To illustrate how information can be passed from one node to another (via topics
     ``` { .txt .no-copy }
     # Install Python executables
     install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
       scripts/publisher.py
       scripts/subscriber.py
       DESTINATION lib/${PROJECT_NAME}
@@ -922,6 +931,8 @@ ROS messages will generally be more complex than this, typically containing seve
     ```txt title="CMakeLists.txt"
     # Install Python executables
     install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
       scripts/publisher.py
       scripts/subscriber.py
       scripts/custom_msg_publisher.py  # ADD THIS 

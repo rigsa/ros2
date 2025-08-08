@@ -79,9 +79,27 @@ The structure of this remains largely the same, we just need to modify a few thi
 
     The reason for this will be explained shortly...
 
+### Calculating Euler Angles from Quaternions 
+
+After the `#!py __init__` class method, define a new method inside the `#!py OdomSubscriber()` class, called `quaternion_to_euler`:
+
+```py
+def quaternion_to_euler(self, orientation):
+    x = orientation.x
+    y = orientation.y
+    z = orientation.z
+    w = orientation.w
+
+    yaw = # TODO: calculate yaw...
+
+    return yaw # (in radians)
+```
+
+This function will receive the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process. [See here for the process](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}. Implement the calculation so that your `quaternion_to_euler()` actually outputs a correct yaw angle (in radians) for the robot.
+
 ### Modifying the Message Callback
 
-This is where the changes are a bit more significant:
+Head to the existing `msg_callback` class method now and change this as follows:
 
 ```py
 def msg_callback(self, topic_message: Odometry): # (1)!
@@ -114,7 +132,7 @@ def msg_callback(self, topic_message: Odometry): # (1)!
     
     Position data is provided in meters, so we don't need to do any conversion on this and can use the data directly.
 
-4. Orientation data is in quaternions, so we need to convert this to a Euler angle representation. We're calling a class method called `self.quaternion_to_euler()` to handle this conversion, and you'll define the content of this class method shortly...
+4. Orientation data is in quaternions, so we need to convert this to a Euler angle representation. We're calling a class method called `self.quaternion_to_euler()` to handle this conversion, which you should have established in the previous step.
 
 5. Here we print out the values that we're interested in to the terminal.
 
@@ -132,24 +150,6 @@ def msg_callback(self, topic_message: Odometry): # (1)!
     That's a lot of messages to be printed to the terminal every second! We therefore use an `if` statement and a `counter` to ensure that our `print` statement only executes for 1 in every 10 topic messages instead.
 
 6. **Task**: Continue formatting the `print` message to display the three odometry values that are relevant to our robot!  
-
-### Defining the `quaternion_to_euler()` Class Method
-
-Underneath the "`msg_callback`" class method define *another* class method now:
-
-```py
-def quaternion_to_euler(self, orientation):
-    x = orientation.x
-    y = orientation.y
-    z = orientation.z
-    w = orientation.w
-
-    yaw = # TODO: calculate yaw...
-
-    return yaw # (in radians)
-```
-
-This function receives the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process. [See here for the process](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}. Implement the calculation so that your `quaternion_to_euler()` actually outputs a correct yaw angle (in radians) for the robot. 
 
 ### Updating "Main"
 

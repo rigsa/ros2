@@ -170,7 +170,7 @@ There are two base fields in this data structure (i.e. the two lines that are no
 
 </center>
 
-Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us at this stage, which comprises two further subfields:
+Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us, and this comprises two further subfields:
 
 <center>
 
@@ -196,7 +196,7 @@ There are therefore **six** velocity *fields* that we can assign values to when 
 
 </center>
 
-These relate to a robot's **six degrees of freedom** (DOFs), and the topic messages are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
+These relate to a robot's **six degrees of freedom** (DOFs), and velocity commands are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
 
 <center>
 
@@ -287,18 +287,16 @@ Having established the data structure, let's explore the actual data now, using 
 
 #### :material-pen: Exercise 1: Exploring Odometry Data {#ex1}
 
-1. In **TERMINAL 2** launch `rqt`:
+1. In **TERMINAL 2** use the following command to launch the *RQT Topic Monitor*:
 
     ***
     **TERMINAL 2:**
     ```bash
-    rqt
+    ros2 run rqt_topic rqt_topic 
     ```
     ***
 
-1. From the top menu select `Plugins` > `Topics` > `Topic Monitor`
-
-    *Topic Monitor* should then present you with a list of active topics which matches the topic list from the `ros2 topic list` command that you ran earlier.
+    *Topic Monitor* should launch with a list of active topics which matches the topic list from the `ros2 topic list` command that you ran earlier.
 
 1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal *four* base fields.
 
@@ -443,7 +441,7 @@ All the above information can then be used to calculate (and keep track of) the 
 
 #### What are Quaternions?
 
-Quaternions use **four values** to represent the orientation of something in 3 dimensional space[^quaternions], as we can observe from the structure of the `nav_msgs/msg/Odometry` ROS interface:
+Quaternions represent the orientation of something in 3 dimensional space[^quaternions], as we can observe from the structure of the `nav_msgs/msg/Odometry` ROS interface, there are **four values** associated with this:
 
 [^quaternions]: [Quaternions are explained very nicely here](https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion){target="_blank"}, if you'd like to learn more.
 
@@ -527,37 +525,38 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     cp ../part1_pubsub/scripts/subscriber.py ./scripts/odom_subscriber.py
     ```
 
-    !!! info
+    ??? info "Info: Copying files from the Terminal"
         When using the `cp` command to copy things, we need to provide two key bits of information (at least): 
 
         ``` { .txt .no-copy }
         cp SOURCE DEST
         ```
 
-        ... copy the file `SOURCE` to the destination `DEST`.
+        i.e.: copy the file `SOURCE` to the destination `DEST`.
         
         Remember that we are located in our `part2_navigation` package root folder when we run this, and the file paths that we are using here are all *relative* to that location.
 
-        As such, `..` means "go back one directory," so when defineign the `SOURCE` that we want to copy, we are telling `cp` to go *out* of the `part2_navigation` directory (back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there (and onwards in to `scripts`).
+        As such, `..` means "go back one directory," so when defining the `SOURCE` file that we want to copy, we're telling `cp` to go *out* of the `part2_navigation` directory (back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there (and onwards into `scripts`).
 
         `.` means "this current directory," so when defining where we want the `subscriber.py` to be copied *to* (`DEST`), we're telling `cp` to start from where we currently are in the filesystem (i.e. `~/ros2_ws/src/part2_navigation/`) and copy it into the `scripts` directory from there (whilst also renaming it to `odom_subscriber.py`).
 
 1. Next, head to the following page for step-by-step instructions on how to build the odometry subscriber:
 
-
     <center>[:material-file-code-outline: Building the `odom_subscriber.py` node](./part2/odom_subscriber.md){ .md-button target="_blank"}</center> 
 
-1. Now, declare the `odom_subscriber.py` node as an executable. Replace `minimal_node.py` with `odom_subscriber.py` in the `CMakeLists.txt`:
+1. Now, declare the `odom_subscriber.py` node as an executable in the `CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
     install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
       scripts/odom_subscriber.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
 
-1. Head back to the terminal and use Colcon to build the package again (which now contains the new `odom_subscriber.py` node):
+1. Head back to the terminal and use Colcon to build the package (including the new `odom_subscriber.py` node):
 
     ```bash
     cd ~/ros2_ws/ && colcon build --packages-select part2_navigation --symlink-install

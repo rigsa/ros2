@@ -3,7 +3,7 @@ title: "Lab 1: Mobile Robotics"
 ---  
 
 !!! info 
-    You should be able to complete exercises 1-6 on this page within a two-hour lab session.
+    You should be able to complete exercises 1-7 on this page within a two-hour lab session.
 
 ## Introduction
 
@@ -17,6 +17,13 @@ We'll be working with robots called *'TurtleBot3 Waffles'*, which you can [find 
 
 !!! warning "Pre-Lab Work"
     You **must** have completed the Pre-Lab Test before you can make a start on this lab. This is available on the AMR31001 Blackboard Course Page.
+
+!!! info "Assessment Info"
+    This lab is **summatively assessed**.
+
+    1. There's a **post-lab quiz** that you'll need to complete after this lab session has taken place, which will be released on Blackboard.
+    1. You'll also be marked on the work that you do **in the lab** for [Exercise 7](#ex7).
+
 
 ### Aims
 
@@ -353,7 +360,7 @@ Using `ros2 run` and `ros2 launch`, as we have done so far, it's easy to end up 
     </figure>
 
     !!! info "Post-lab"
-        What's changed?
+        What's changed? Make sure you know how to interpret these graphs.
 
 A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses *ROS communication methods* to communicate and share data with the other nodes on the ROS Network.
 
@@ -765,7 +772,7 @@ This is a (fairly) basic ROS 2 Python Node that will control the velocity of the
     Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
 
     !!! info "Post-lab"
-        Your completion of this exercise will be assessed as part of the post-lab!
+        As discussed above, your completion of this exercise will be assessed as part of the post-lab!
 
 #### :material-pen: Exercise 8 (Advanced): Alternative Motion Paths {#ex8}
 

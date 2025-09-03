@@ -2806,24 +2806,25 @@
 <h3 id="packages-and-nodes">Packages and Nodes<a class="headerlink" href="#packages-and-nodes" title="Permanent link">&para;</a></h3>
 <p>ROS applications are organised into <em>packages</em>. Packages are basically folders containing scripts, configurations and launch files (ways to launch those scripts and configurations).  </p>
 <p><em>Scripts</em> tell the robot what to do and how to act. In ROS, these scripts are called <em>nodes</em>. <em>ROS Nodes</em> are executable programs that perform specific robot tasks and operations. These are typically written in C++ or Python, but it's possible to write ROS Nodes using other programming languages too.</p>
-<p>In Exercise 1 you launched a whole range of different nodes on the ROS Network using the following two commands: </p>
+<p>In Exercise 1 you launched a whole range of different nodes on the ROS Network using the <code>ros2 launch</code> and <code>ros2 run</code> commands: </p>
 <ol>
-<li><code>ros2 launch tuos_tb3_tools ros.launch.py ...</code> (on the <em>robot</em>, in <strong>TERMINAL 1</strong>).</li>
-<li><code>ros2 run turtlebot3_teleop teleop_keyboard</code> (on the <em>laptop</em>, in <strong>TERMINAL 3</strong>).</li>
+<li><code>ros2 launch tuos_tb3_tools ros.launch.py ...</code> (on the <em>robot</em>, in <strong>TERMINAL 1</strong>)</li>
+<li><code>ros2 run rmw_zenoh_cpp rmw_zenohd</code> (on the <em>laptop</em>, in <strong>TERMINAL 2</strong>)</li>
+<li><code>ros2 run turtlebot3_teleop teleop_keyboard</code> (on the <em>laptop</em>, in <strong>TERMINAL 3</strong>)</li>
 </ol>
-<p>The first of the above was a ROS 2 <code>launch</code> command, which has the following key parts to it (after the <code>ros2 launch</code> bit):</p>
+<p>The first of the above was a ROS <code>launch</code> command, which has the following key parts to it (after the <code>ros2 launch</code> bit):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span><span class="o">{[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Package<span class="w"> </span>name<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span>Launch<span class="w"> </span>file<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">3</span><span class="o">]</span><span class="w"> </span>Arguments<span class="w"> </span><span class="o">(</span>optional<span class="o">)}</span>
 </code></pre></div>
 <p>The first <strong>two</strong> of these are the most important: </p>
 <p><strong>Part [1]</strong> specifies the name of the <em>ROS package</em> containing the functionality that we want to execute.<br />
 <strong>Part [2]</strong> is a file within that package that tells ROS exactly what scripts (<em>'nodes'</em>) that we want to launch. We can launch multiple nodes at the same time from a single launch file.  </p>
-<p>The second command was a ROS 2 <code>run</code> command: <a name="ros2-run"></a></p>
+<p>The second and third commands were ROS <code>run</code> commands: <a name="ros2-run"></a></p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span><span class="o">{[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Package<span class="w"> </span>name<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span>Node<span class="w"> </span>name<span class="o">}</span>
 </code></pre></div>
-<p>Here, <strong>Part [1]</strong> is the same as the <code>ros2 launch</code> command, but <strong>Part [2]</strong> is slightly different: <code>{[2] Node name}</code>. Here we are directly specifying a single script that we want to execute. We therefore use <code>ros2 run</code> if we only want to launch a <strong>single node</strong> on the ROS network (<code>teleop_keyboard</code> in this case, which is a Python script).</p>
+<p>Here, <strong>Part [1]</strong> is the same as the <code>ros2 launch</code> command, but <strong>Part [2]</strong> is slightly different: <code>{[2] Node name}</code>. Here we are directly specifying a single script that we want to execute. We therefore use <code>ros2 run</code> if we only want to launch a <strong>single node</strong> on the ROS network (e.g. <code>teleop_keyboard</code>, which is a Python script).</p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>What were the names of the two packages that we invoked in Exercise 1?</p>
+<p>What were the names of the three packages that we invoked in Exercise 1?</p>
 </div>
 <h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"/></svg></span> Exercise 2: Seeing the Waffle's Sensors in Action!<a class="headerlink" href="#ex2" title="Permanent link">&para;</a></h4>
 <p>Our Waffles have some pretty sophisticated sensors on them, allowing them to "see" the world around them. We won't really make much use of these during this lab, but this next exercise will allow you to see how the data from these devices could be used to help our robots do some very advanced things (with some clever programming, of course!)</p>
@@ -3472,7 +3473,7 @@ Which will create a copy called <code>alt_velocity_control.py</code></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 2, 2025 15:43:13 UTC"><span class="timeago" datetime="2025-09-02T15:43:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 2, 2025 15:43:13 UTC">2025-09-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 3, 2025 10:51:48 UTC"><span class="timeago" datetime="2025-09-03T10:51:48+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 3, 2025 10:51:48 UTC">2025-09-03</span>
   </span>
 
     

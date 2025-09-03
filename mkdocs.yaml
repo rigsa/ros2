@@ -1,6 +1,6 @@
-site_name: "ROS2 Courses in The Diamond"
+site_name: "ROS 2 Lab Courses in The Diamond"
 site_url: https://tom-howard.github.io/ros2/
-site_description: Practical Robotics Course Assignments with ROS2 and the TurtleBot3 Waffle.  
+site_description: Practical Robotics Lab Courses with ROS 2 and the TurtleBot3 Waffle.  
 theme:
   name: material
   icon:

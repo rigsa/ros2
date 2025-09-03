@@ -191,12 +191,13 @@ ROS applications are organised into *packages*. Packages are basically folders c
 
 *Scripts* tell the robot what to do and how to act. In ROS, these scripts are called *nodes*. *ROS Nodes* are executable programs that perform specific robot tasks and operations. These are typically written in C++ or Python, but it's possible to write ROS Nodes using other programming languages too.
 
-In Exercise 1 you launched a whole range of different nodes on the ROS Network using the following two commands: 
+In Exercise 1 you launched a whole range of different nodes on the ROS Network using the `ros2 launch` and `ros2 run` commands: 
 
-1. `ros2 launch tuos_tb3_tools ros.launch.py ...` (on the *robot*, in **TERMINAL 1**).
-2. `ros2 run turtlebot3_teleop teleop_keyboard` (on the *laptop*, in **TERMINAL 3**).
+1. `ros2 launch tuos_tb3_tools ros.launch.py ...` (on the *robot*, in **TERMINAL 1**)
+1. `ros2 run rmw_zenoh_cpp rmw_zenohd` (on the *laptop*, in **TERMINAL 2**)
+1. `ros2 run turtlebot3_teleop teleop_keyboard` (on the *laptop*, in **TERMINAL 3**)
 
-The first of the above was a ROS 2 `launch` command, which has the following key parts to it (after the `ros2 launch` bit):
+The first of the above was a ROS `launch` command, which has the following key parts to it (after the `ros2 launch` bit):
 
 ``` { .bash .no-copy }
 ros2 launch {[1] Package name} {[2] Launch file} {[3] Arguments (optional)}
@@ -207,16 +208,16 @@ The first **two** of these are the most important:
 **Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute.  
 **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. We can launch multiple nodes at the same time from a single launch file.  
 
-The second command was a ROS 2 `run` command: <a name="ros2-run"></a>
+The second and third commands were ROS `run` commands: <a name="ros2-run"></a>
 
 ``` { .bash .no-copy }
 ros2 run {[1] Package name} {[2] Node name}
 ```    
 
-Here, **Part [1]** is the same as the `ros2 launch` command, but **Part [2]** is slightly different: `{[2] Node name}`. Here we are directly specifying a single script that we want to execute. We therefore use `ros2 run` if we only want to launch a **single node** on the ROS network (`teleop_keyboard` in this case, which is a Python script).
+Here, **Part [1]** is the same as the `ros2 launch` command, but **Part [2]** is slightly different: `{[2] Node name}`. Here we are directly specifying a single script that we want to execute. We therefore use `ros2 run` if we only want to launch a **single node** on the ROS network (e.g. `teleop_keyboard`, which is a Python script).
 
 !!! info "Post-lab"
-    What were the names of the two packages that we invoked in Exercise 1?
+    What were the names of the three packages that we invoked in Exercise 1?
 
 #### :material-pen: Exercise 2: Seeing the Waffle's Sensors in Action! {#ex2}
 

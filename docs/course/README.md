@@ -1,5 +1,5 @@
 ---
-title: "The ROS Course"
+title: "The ROS 2 Course"
 description: "An individual simulation-based course to teach you all about ROS 2"
 --- 
 

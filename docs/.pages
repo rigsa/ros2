@@ -1,6 +1,6 @@
 nav:
   - "About": about
-  - "Running ROS": software
+  - "Software": software
   - "The ROS 2 Course": course
   - "The Waffles": waffles
   - "COM2009": com

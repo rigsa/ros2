@@ -2202,6 +2202,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#package-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Dependencies
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2241,13 +2250,13 @@
 <h2 id="creating-the-move-circle-node">Creating the "Move Circle" Node<a class="headerlink" href="#creating-the-move-circle-node" title="Permanent link">¶</a></h2>
 <h3 id="imports">Imports<a class="headerlink" href="#imports" title="Permanent link">¶</a></h3>
 <p>Once again, <code>rclpy</code> and the <code>Node</code> class from the <code>rclpy.node</code> library are vital for any node we create, so the first two imports will remain the same.</p>
-<p>We need to import the message type used by the <code>/cmd_vel</code> topic here though, in order to be able to format velocity command messages appropriately. We can find all the necessary information about this message type by using the <code>ros2 topic info</code> command:</p>
+<p>We need to import the message type used by the <code>/cmd_vel</code> topic here though, in order to be able to format velocity commands appropriately. We can find all the necessary information about this message type by using the <code>ros2 topic info</code> command:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Type:<span class="w"> </span>geometry_msgs/msg/Twist
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Type:<span class="w"> </span>geometry_msgs/msg/TwistStamped
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>...
 </code></pre></div>
 <p>And so our message import becomes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Twist</span> <span class="c1"># (1)!</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwistStamped</span> <span class="c1"># (1)!</span>
 </code></pre></div>
 <ol>
 <li>In place of: <code class="highlight"><span class="kn">from</span><span class="w"> </span><span class="nn">example_interfaces.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">String</span></code></li>
@@ -2272,12 +2281,12 @@
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span>
 </code></pre></div>
 <ol>
-<li>What message type are we using here?</li>
-<li>What's the topic name?</li>
+<li>What is the name of the interface that we are using here?</li>
+<li>What's the name of the topic that we want to publish our velocity commands to?</li>
 </ol>
 </li>
 <li>
-<p>We'll need to publish velocity commands at a rate of at least 10 Hz, so set this here, and then set up a timer accordingly:</p>
+<p>We'll need to publish velocity commands at a rate of at least 10 Hz, so define this here, and then set up a timer accordingly:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">publish_rate</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Hz</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">timer_period_sec</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">publish_rate</span><span class="p">,</span> 
@@ -2293,14 +2302,14 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">linear_velocity</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1"># meters per second [m/s]</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">angular_velocity</span> <span class="o">=</span> <span class="err">??</span> <span class="c1"># radians per second [rad/s] # (1)!</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">topic_msg</span> <span class="o">=</span> <span class="n">Twist</span><span class="p">()</span> <span class="c1"># (2)!</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">topic_msg</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">linear_velocity</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">topic_msg</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">angular_velocity</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">topic_msg</span> <span class="o">=</span> <span class="n">TwistStamped</span><span class="p">()</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">topic_msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">linear_velocity</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">topic_msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">angular_velocity</span>
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">my_publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">topic_msg</span><span class="p">)</span> <span class="c1"># (3)!</span>
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="c1"># (4)!</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="sa">f</span><span class="s2">"Linear Velocity: </span><span class="si">{</span><span class="n">topic_msg</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m/s], "</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="sa">f</span><span class="s2">"Angular Velocity: </span><span class="si">{</span><span class="n">topic_msg</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [rad/s]."</span><span class="p">,</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="sa">f</span><span class="s2">"Linear Velocity: </span><span class="si">{</span><span class="n">topic_msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m/s], "</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="sa">f</span><span class="s2">"Angular Velocity: </span><span class="si">{</span><span class="n">topic_msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [rad/s]."</span><span class="p">,</span>
 <a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="n">throttle_duration_sec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># (5)!</span>
 <a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="p">)</span>
 </code></pre></div>
@@ -2316,7 +2325,7 @@
 \]</div>
 </li>
 <li>
-<p><code>/cmd_vel</code> uses <code>Twist</code> messages, so we instantiate one here, and assign the linear and angular velocity values (as set above) to the relevant message fields. Remember, <a href="../#velocity-commands">we talked about all this here</a>.</p>
+<p><code>/cmd_vel</code> uses <code>TwistStamped</code> messages, so we instantiate one here, and assign the linear and angular velocity values (as set above) to the relevant message fields. Remember, <a href="../#velocity-commands">we talked about all this here</a>.</p>
 </li>
 <li>
 <p>Once the appropriate velocity fields have been set, publish the message.</p>
@@ -2331,9 +2340,20 @@
 </ol>
 <h3 id="updating-main">Updating "Main"<a class="headerlink" href="#updating-main" title="Permanent link">¶</a></h3>
 <p>Once again, don't forget to update any relevant parts of the <code>main</code> function to ensure that we're instantiating the <code>Circle()</code> class, spinning and shutting it down correctly.</p>
-<p align="center">
-  <a href="../../part2#move_circle_ret">← Back to Part 2</a>
-</p>
+<h2 id="package-dependencies">Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permanent link">¶</a></h2>
+<p>Our <code>move_circle.py</code> node has a new package import:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwistStamped</span>
+</code></pre></div>
+<p>Our <code>part2_navigation</code> package therefore has a new dependency, so we need to add this to our package's <code>package.xml</code> file.</p>
+<p>Earlier on we added <code>nav_msgs</code> to this (for the <code>odom_subscriber.py</code> node). Below this, add a new <code class="highlight"><span class="nt">&lt;exec_depend&gt;</span></code> for <code>geometry_msgs</code>:</p>
+<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&lt;exec_depend&gt;</span>rclpy<span class="nt">&lt;/exec_depend&gt;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">&lt;exec_depend&gt;</span>nav_msgs<span class="nt">&lt;/exec_depend&gt;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">&lt;exec_depend&gt;</span>geometry_msgs<span class="nt">&lt;/exec_depend&gt;</span><span class="w">  </span><span class="cm">&lt;!-- (1)! --&gt;</span>
+</code></pre></div>
+<ol>
+<li>ADD THIS LINE!</li>
+</ol>
+<p>Save the file and close it.</p>
 
 
 
@@ -2356,7 +2376,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 6, 2025 13:17:35 UTC"><span class="timeago" datetime="2025-09-06T13:17:35+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 6, 2025 13:17:35 UTC">2025-09-06</span>
   </span>
 
     

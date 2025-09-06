@@ -2294,14 +2294,14 @@ As the name suggests, we'll use this to convert the raw orientation values from 
 <p>Change the subscription parameters:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">my_subscriber</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">msg_type</span><span class="o">=</span><span class="n">Odometry</span><span class="p">,</span> <span class="c1"># (1)!</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">topic</span><span class="o">=</span><span class="s2">"odom"</span><span class="p">,</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">topic</span><span class="o">=</span><span class="s2">"/odom"</span><span class="p">,</span> <span class="c1"># (2)!</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">msg_callback</span><span class="p">,</span> 
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">qos_profile</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">)</span>
 </code></pre></div>
 <ol>
 <li><code>/odom</code> uses the Odometry message type (as imported above)</li>
-<li>The topic name is <code>"odom"</code>, of course!</li>
+<li>The topic name is <code>/odom</code>. You can also omit the forward slash when defining this, so <code class="highlight"><span class="n">topic</span><span class="o">=</span><span class="s2">"odom"</span></code> would also work. </li>
 </ol>
 </li>
 <li>
@@ -2323,7 +2323,7 @@ As the name suggests, we'll use this to convert the raw orientation values from 
 <a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
 <a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="k">return</span> <span class="n">yaw</span> <span class="c1"># (in radians)</span>
 </code></pre></div>
-<p>This function will receive the orientation data from the <code>/odom</code> topic (in quaternions) and needs to output the <code>yaw</code> angle in radians. Your job now is to establish the actual conversion process. <a href="https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/" target="_blank">See here for the process</a>. Implement the calculation so that your <code>quaternion_to_euler()</code> actually outputs a correct yaw angle (in radians) for the robot.</p>
+<p>This function will receive the orientation data from the <code>/odom</code> topic (in quaternions) and needs to output the <code>yaw</code> angle in radians. Your job now is to establish the actual conversion process (<a href="https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/" target="_blank">which can be found here</a>). Implement the calculation so that your <code>quaternion_to_euler()</code> method actually outputs a correct yaw angle (in radians) for the robot.</p>
 <h3 id="modifying-the-message-callback">Modifying the Message Callback<a class="headerlink" href="#modifying-the-message-callback" title="Permanent link">¶</a></h3>
 <p>Head to the existing <code>msg_callback</code> class method now and change this as follows:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">msg_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic_message</span><span class="p">:</span> <span class="n">Odometry</span><span class="p">):</span> <span class="c1"># (1)!</span>
@@ -2346,10 +2346,9 @@ As the name suggests, we'll use this to convert the raw orientation values from 
 <a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </code></pre></div>
 <ol>
-<li>When defining the message callback, modify the <em>type annotation</em> for the <code>topic_message</code> input.</li>
+<li>This is a <em>type annotation</em>. The topic that we are subscribing to has changed (previously <code>/my_topic</code>, now <code>/odom</code>), and the new topic uses a different datatype (a.k.a. "ROS Interface"). We therefore update the type annotation to match the new type of data that will be entering this callback method (via the <code>topic_mesage</code> variable).</li>
 <li>
-<p>There are <a href="../#odom-base-fields">two key parts to an odometry message</a>: Pose and Twist.</p>
-<p>We're only really interested in the Pose part of the message here, so grab this first.</p>
+<p>We're only really interested in the Pose part of the odometry data, so we assign this to a variable.</p>
 </li>
 <li>
 <p>As we know by now, Pose contains information about both the "position" and "orientation" of the robot, we extract the position values first and assign them to the variables <code>pos_x</code>, <code>pos_y</code> and <code>pos_z</code>.</p>
@@ -2378,7 +2377,7 @@ As the name suggests, we'll use this to convert the raw orientation values from 
 <h3 id="updating-main">Updating "Main"<a class="headerlink" href="#updating-main" title="Permanent link">¶</a></h3>
 <p>The only thing left to do now is update any relevant parts of the <code>main</code> function to ensure that you are instantiating, spinning and shutting down your node correctly.</p>
 <h2 id="package-dependencies">Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permanent link">¶</a></h2>
-<p>Once again, we're importing a couple of Python libraries into our node here, which means that our package has two <em>dependencies</em>: <code>rclpy</code> and <code>example_interfaces</code>:</p>
+<p>Once again, we're importing a couple of Python libraries into our node here, which means that our package has two <em>dependencies</em>: <code>rclpy</code> and <code>nav_msgs</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span> 
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
@@ -2413,7 +2412,7 @@ As the name suggests, we'll use this to convert the raw orientation values from 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="August 8, 2025 14:56:38 UTC"><span class="timeago" datetime="2025-08-08T14:56:38+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 8, 2025 14:56:38 UTC">2025-08-08</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="September 6, 2025 13:17:35 UTC"><span class="timeago" datetime="2025-09-06T13:17:35+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 6, 2025 13:17:35 UTC">2025-09-06</span>
   </span>
 
     

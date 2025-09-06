@@ -62,14 +62,14 @@ The structure of this remains largely the same, we just need to modify a few thi
     ```python
     self.my_subscriber = self.create_subscription(
         msg_type=Odometry, # (1)!
-        topic="odom", # (2)!
+        topic="/odom", # (2)!
         callback=self.msg_callback, 
         qos_profile=10,
     )
     ```
 
     1. `/odom` uses the Odometry message type (as imported above)
-    2. The topic name is `"odom"`, of course!
+    2. The topic name is `/odom`. You can also omit the forward slash when defining this, so `#!py topic="odom"` would also work. 
 
 1. The final thing we'll do inside our class' `__init__` method (after we've set up the subscriber) is initialise a counter:
 
@@ -95,7 +95,7 @@ def quaternion_to_euler(self, orientation):
     return yaw # (in radians)
 ```
 
-This function will receive the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process. [See here for the process](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}. Implement the calculation so that your `quaternion_to_euler()` actually outputs a correct yaw angle (in radians) for the robot.
+This function will receive the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process ([which can be found here](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}). Implement the calculation so that your `quaternion_to_euler()` method actually outputs a correct yaw angle (in radians) for the robot.
 
 ### Modifying the Message Callback
 
@@ -123,10 +123,8 @@ def msg_callback(self, topic_message: Odometry): # (1)!
 
 ```
 
-1. When defining the message callback, modify the *type annotation* for the `topic_message` input.
-2. There are [two key parts to an odometry message](../part2.md#odom-base-fields): Pose and Twist.
-
-    We're only really interested in the Pose part of the message here, so grab this first.
+1. This is a *type annotation*. The topic that we are subscribing to has changed (previously `/my_topic`, now `/odom`), and the new topic uses a different datatype (a.k.a. "ROS Interface"). We therefore update the type annotation to match the new type of data that will be entering this callback method (via the `topic_mesage` variable).
+2. We're only really interested in the Pose part of the odometry data, so we assign this to a variable.
 
 3. As we know by now, Pose contains information about both the "position" and "orientation" of the robot, we extract the position values first and assign them to the variables `pos_x`, `pos_y` and `pos_z`.
     
@@ -157,7 +155,7 @@ The only thing left to do now is update any relevant parts of the `main` functio
 
 ## Package Dependencies
 
-Once again, we're importing a couple of Python libraries into our node here, which means that our package has two *dependencies*: `rclpy` and `example_interfaces`:
+Once again, we're importing a couple of Python libraries into our node here, which means that our package has two *dependencies*: `rclpy` and `nav_msgs`:
 
 ```py
 import rclpy 

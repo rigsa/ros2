@@ -30,7 +30,7 @@ By the end of this session you will be able to:
 
 * [Exercise 1: Exploring Odometry Data](#ex1)
 * [Exercise 2: Creating a Python Node to Process Odometry Data](#ex2)
-* [Exercise 3: Controlling Velocity with the ROS2 CLI](#ex3)
+* [Exercise 3: Controlling Velocity with the ROS 2 CLI](#ex3)
 * [Exercise 4: Creating a Python Node to Make a Robot Move in a circle](#ex4)
 * [Exercise 5: Implementing a Shutdown Procedure](#ex5)
 * [Exercise 6: Making our Robot Follow a Square Motion Path](#ex6)
@@ -126,7 +126,10 @@ A Gazebo simulation window should open and within this you should see a TurtleBo
   ![](../../images/gz/tb3_empty_world_mid.png){width=700px}
 </figure>
 
-## Velocity (Motion) {#velocity}
+
+
+
+## Odometry (Position) {#odometry}
 
 In Part 1 we learnt about ROS Topics, and about how the `teleop_keyboard` node could be used to publish messages to a particular topic in order to control the velocity of the robot (and thus change its *position*).
 
@@ -136,133 +139,19 @@ In Part 1 we learnt about ROS Topics, and about how the `teleop_keyboard` node c
 
     [Return here if you need a reminder on how to find the answers to these questions](./part1.md#ex3).
 
-We also learnt how to find out more about this particular interface (using the `ros2 interface show` command): 
+Recall that Topics are key to making things happen on a robot: data is passed between the Nodes on a ROS network via Topics using standardised data structures called Message Interfaces, allowing each of these nodes to make decisions and perform necessary tasks to bring the robot to life.
 
-```bash
-ros2 interface show geometry_msgs/msg/TwistStamped
-```
-
-``` { .txt .no-copy }
-std_msgs/Header header
-        builtin_interfaces/Time stamp
-                int32 sec
-                uint32 nanosec
-        string frame_id
-Twist twist
-        Vector3  linear
-                float64 x
-                float64 y
-                float64 z
-        Vector3  angular
-                float64 x
-                float64 y
-                float64 z
-```
-
-There are two base fields in this data structure (i.e. the two lines that are not indented):
-
-<center>
-
-| # | Field Name | Data Type |
-| :---: | :---: | :---: |
-| 1 | `header` | `std_msgs/Header` |
-| 2 | `twist` | `Twist` |
-
-</center>
-
-Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us, and this comprises two further subfields:
-
-<center>
-
-| # | Field Name | Data Type |
-| :---: | :---: | :---: |
-| 1 | `linear` | `Vector3` |
-| 2 | `angular` | `Vector3` |
-
-</center>
-
-Each of *these* contains 3 *further* subfields: `x`, `y` and `z`.
-
-### Velocity Commands
-
-There are therefore **six** velocity *fields* that we can assign values to when sending velocity commands to a ROS robot: **two** velocity *types*, each with **three** velocity *components*: 
-
-<center>
-
-| Velocity Type | Component 1 | Component 2 | Component 3 |
-| :--- | :---: | :---: | :---: |
-| `linear` | `x` | `y` | `z` |
-| `angular` | `x` | `y` | `z` |
-
-</center>
-
-These relate to a robot's **six degrees of freedom** (DOFs), and velocity commands are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
-
-<center>
-
-| Component (Axis) | Linear Velocity | Angular Velocity | 
-| :---: | :---: | :---: |
-| **X** | "Forwards/Backwards" | "Roll" |
-| **Y** | "Left/Right" | "Pitch" |
-| **Z** | "Up/Down" | "Yaw" |
-
-</center>
-
-### The Degrees of Freedom of our Waffles
-
-The three "axes" in the table above are termed the *"Principal Axes."* In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:
-
-<a name="principal-axes"></a>
-
-<figure markdown>
-  ![](../../images/waffle/principal_axes.svg){width=800}
-</figure>
-
-As discussed above, a mobile robot can have up to six degrees of freedom *in total*, but this is dictated by the robot's design and the actuators it is equipped with. 
-
-Our TurtleBot3 Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
-
-<figure markdown>
-  ![](../../images/waffle/velocities.svg){width=800}
-</figure>
-
-When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
-
-<center>
-
-| Principal Axis | Linear Velocity | Angular Velocity | 
-| :---: | :---: | :---: |
-| **X** | **"Forwards/Backwards"** | ~~"Roll"~~ |
-| **Y** | ~~"Left/Right"~~ | ~~"Pitch"~~ |
-| **Z** | ~~"Up/Down"~~ | **"Yaw"** |
-
-</center>
-
-<a name="velocity_limits"></a>
-
-!!! note "Maximum Velocity Limits"
-    Keep in mind (while we're on the subject of velocity) that our TurtleBot3 Waffles have **maximum velocity limits**:
-
-    <center>
-
-    | Velocity Component | Upper Limit | Units |
-    | :--- | :---: | :--- |
-    | *Linear (in the X axis)* | 0.26 | m/s |
-    | *Angular (about the Z axis)* | 1.82 | rad/s |
-
-    </center>
-
-## Odometry (Position) {#odometry}
+Having investigated the `/cmd_vel` topic in Part 1, let's have a look at another topic now: `/odom`, and consider what the information here means, and what it's used for.
 
 ### Odometry In Action
 
-Let's take another look at *all* the topics that can be used to communicate with our robot:
+Recall from Part 1 the command that we can use to list *all* the topics that are available on our robot:
 
 ```bash
 ros2 topic list
 ```
 
-Another topic of interest here is `/odom`. This topic contains *Odometry data*, which is also essential for robot navigation, giving us an approximation of a robot's location in its environment.
+You should see `/odom` in this list. This topic contains *Odometry data*, which is essential for robot navigation, giving us an approximation of a robot's location in its environment.
 
 Run the `ros2 topic` command again, but this time with an additional `-t` option:
 
@@ -298,16 +187,15 @@ Having established the data structure, let's explore the actual data now, using 
 
     *Topic Monitor* should launch with a list of active topics which matches the topic list from the `ros2 topic list` command that you ran earlier.
 
-1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal *four* base fields.
+1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal four *base fields*.
 
 1. Expand the `pose` field, and then the further `pose` field within that. This should reveal two further fields: **`position`** and **`orientation`**. 
 
     Expand both of these to reveal the data being published to the *three* position (`x`, `y` and `z`) and *four* orientation (`x`, `y`, `z` and `w`) values.
 
-1. Also expand the `twist` base field, and the further `twist` subfield within that, followed by the **`linear`** and **`angular`** children of this to reveal the *three* values being published to each of these too (these might look familiar from earlier).
-
     <figure markdown>
       ![](../../images/rqt/topic_monitor.png){width=600}
+      [UPDATE]
     </figure>
 
 1. Next, launch a new terminal instance, we'll call this one **TERMINAL 3**. Arrange this next to the `rqt` window, so that you can see them both side-by-side.
@@ -323,22 +211,18 @@ Having established the data structure, let's explore the actual data now, using 
 
 1. Enter ++a++ a couple of times to make the robot rotate on the spot. Observe how the odometry data changes in Topic Monitor.
 
-    !!! question "Questions"
-        1. Which `pose` fields are changing?
-        1. Is there anything in `twist` that corresponds to the *angular* velocity that is being published by the `teleop_keyboard` node in **TERMINAL 3**? 
+    !!! question
+        Which `pose` fields are changing?
 
 1. Now press the ++s++ key to halt the robot, then press ++w++ a couple of times to make the robot drive forwards.
 
-    !!! question "Questions"
-        1. Which `pose` fields are changing *now*? How does this relate to the position of the robot in the simulated world?
-        1. How does `twist` now correspond with the *linear* velocity setting in **TERMINAL 3**?
+    !!! question
+        Which `pose` fields are changing *now*? How does this relate to the position of the robot in the simulated world?
 
 1. Now press ++d++ a couple of times and your robot should start to move in a circle.
 
-    !!! question "Questions"
-        1. What linear and angular velocities are you requesting in **TERMINAL 3**, and how are these represented in the `twist` part of the `/odom` message?
-        1. What about `pose`? How is this data changing as your robot moves in a circular path.
-        1. **What are `twist` and `pose` actually telling us?**
+    !!! question
+        What's happening with the `pose` data now? How is this data changing as your robot moves in a circular path.
     
 1. Press ++s++ in **TERMINAL 3** to stop the robot (but leave the `teleop_keyboard` node running).  Then, press ++ctrl+c++ in **TERMINAL 2** to close down `rqt`. 
 
@@ -362,7 +246,7 @@ Having established the data structure, let's explore the actual data now, using 
 
 ### Odometry: Explained
 
-Hopefully you have a good idea of what Odometry is now, but let's dig a little deeper using some key ROS command line tools again:
+Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again:
 
 ***
 **TERMINAL 2:**
@@ -397,11 +281,11 @@ Look down the far left-hand side to identify the four *base fields* of the inter
 | 1 | `header` | `std_msgs/Header` |
 | 2 | `child_frame_id` | `string` |
 | **3** | **`pose`** | **`geometry_msgs/PoseWithCovariance`** |
-| **4** | **`twist`** | **`geometry_msgs/TwistWithCovariance`** |
+| 4 | `twist` | `geometry_msgs/TwistWithCovariance` |
 
 </center>
 
-We saw all these in `rqt` earlier. As before, its items 3 and 4 that are of most interest to us...
+We saw all these in `rqt` earlier. As before, its item 3 that's of most interest to us...
 
 #### Pose
 
@@ -421,7 +305,27 @@ geometry_msgs/PoseWithCovariance pose
         float64[36] covariance
 ```
 
-As you can see above, there are two key components to Pose:
+Within the `pose` base field we have two subfields: `pose` and `covariance`:
+
+<center>
+
+| # | Field *Name* | Field *Type* |
+| :---: | :---: | :---: |
+| **1** | **`pose`** | **`Pose`** |
+| 2 | `covariance` | `float64[36]` |
+
+</center>
+
+It's the `pose` subfield that we're most interested in here, which contains two *further* subfields called `position` and `orientation`: 
+
+<center>
+
+| # | Field *Name* | Field *Type* |
+| :---: | :---: | :---: |
+| 1 | `position` | `Point` |
+| 2 | `orientation` | `Quaternion` |
+
+</center>
 
 1. `position`
     
@@ -431,7 +335,7 @@ As you can see above, there are two key components to Pose:
 
     Tells us which way our robot is pointing in its environment. This is expressed in units of **Quaternions**, which is a mathematically convenient way to store data related to a robot's orientation (it's a bit hard for us humans to understand and visualise this though, so we'll talk about how to convert it to a different format later).
 
-Pose is defined relative to an arbitrary reference point (typically where the robot was when it was turned on), and is determined from:
+Pose is defined relative to an arbitrary reference point, typically where the robot was when it was turned on, or the origin of a simulated world. On our real TurtleBot3 Waffle robots, it is determined from:
 
 * Data from the Inertial Measurement Unit (IMU) on the OpenCR board
 * Data from both the left and right wheel encoders
@@ -441,7 +345,7 @@ All the above information can then be used to calculate (and keep track of) the 
 
 #### What are Quaternions?
 
-Quaternions represent the orientation of something in 3 dimensional space[^quaternions], as we can observe from the structure of the `nav_msgs/msg/Odometry` ROS interface, there are **four values** associated with this:
+Quaternions represent the orientation of something in 3 dimensional space[^quaternions], as we can observe from the structure of the `nav_msgs/msg/Odometry` ROS interface, there are **four fields** associated with this:
 
 [^quaternions]: [Quaternions are explained very nicely here](https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion){target="_blank"}, if you'd like to learn more.
 
@@ -461,12 +365,22 @@ For us, it's easier to think about the orientation of our robot in a *"Euler Ang
 
 Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward ([see here](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}).
 
-Recall from above however, that our TurtleBot3 can only move in a 2D plane (unfortunately, it can't fly!) and so, actually, its pose can be fully represented by just 3 terms: 
+### Which Pose Values Apply to our Waffles?
+
+A robot's pose is defined in terms of three *"Principal Axes"*: `X`, `Y` and `Z`. In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:
+
+<a name="principal-axes"></a>
+
+<figure markdown>
+  ![](../../images/waffle/principal_axes.svg){width=800}
+</figure>
+
+As you can see from the figure, our TurtleBot3 has two motors, and can therefore only move in a 2D plane (unfortunately, it can't fly!). Its pose can therefore be fully represented by just 3 terms: 
 
 * $x$ & $y$: the 2D coordinates of the robot in the `X-Y` plane
 * $\theta_{z}$: the angle of the robot about the `z` (*yaw*) axis
 
-#### Twist
+<!-- #### Twist
 
 The fourth *base field* within the `nav_msgs/msg/Odometry` interface is **Twist**:
 
@@ -485,7 +399,7 @@ geometry_msgs/TwistWithCovariance twist
         float64[36] covariance
 ```
 
-This might look familiar from [earlier](#velocity)! This tells us the current linear and angular velocities of the robot. These velocities are *set* by messages published to `/cmd_vel`, but are then *monitored* by data coming directly from the robot's wheel encoders, and are provided here as a *feedback signal*.
+This might look familiar from [earlier](#velocity)! This tells us the current linear and angular velocities of the robot. These velocities are *set* by messages published to `/cmd_vel`, but are then *monitored* by data coming directly from the robot's wheel encoders, and are provided here as a *feedback signal*. -->
 
 ### Odometry Data as a Feedback Signal
 
@@ -493,9 +407,9 @@ Odometry data can be really useful for robot navigation, allowing us to keep tra
 
 #### :material-pen: Exercise 2: Creating a Python Node to Process Odometry Data {#ex2}
 
-In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic (called `/my_topic`). In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the `/odom` topic that we've been talking about above. We'll also create a new package called `part2_navigation` for this node to live in!
+In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic. In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the `/odom` topic that we've been talking about above. We'll also create a new package called `part2_navigation` for this node to live in!
 
-1. First, head to the `src` directory of your ROS2 workspace in your terminal:
+1. First, head to the `src` directory of your ROS 2 workspace in your terminal:
 
     ```bash
     cd ~/ros2_ws/src/
@@ -507,7 +421,7 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
 
-1. Run the `init_pkg.sh` script within this to initalise that package with the name `part2_navigation`:
+1. Run the `init_pkg.sh` script within this to initalise that package with the name "part2_navigation":
 
     ```bash
     ./ros2_pkg_template/init_pkg.sh part2_navigation
@@ -519,7 +433,7 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     cd ./part2_navigation/
     ```
 
-1. The subscriber that we will build here have a similar structure to the subscriber that we built in Part 1. As a starting point, copy across the `subscriber.py` file from your `part1_pubsub` package using the `cp` command (i.e. **c**o**p**y)
+1. The subscriber that we will build here will have a similar structure to the subscriber that we built in Part 1. As a starting point, copy across the `subscriber.py` file from your `part1_pubsub` package using the `cp` command (i.e. **c**o**p**y):
 
     ```bash
     cp ../part1_pubsub/scripts/subscriber.py ./scripts/odom_subscriber.py
@@ -556,17 +470,25 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     )
     ```
 
-1. Head back to the terminal and use Colcon to build the package (including the new `odom_subscriber.py` node):
+1. Head back to the terminal and use Colcon to build the package (including the new `odom_subscriber.py` node). This is a **three-step process**, that you must always follow:
 
-    ```bash
-    cd ~/ros2_ws/ && colcon build --packages-select part2_navigation --symlink-install
-    ```
+    1. Navigate to the **root** of the ROS 2 workspace:
 
-1. And then, finally, don't forget to re-source:
+        ```bash
+        cd ~/ros2_ws/
+        ```
+    
+    1. Build your package using `colcon`:
 
-    ```bash
-    source ~/.bashrc
-    ```
+        ```bash
+        colcon build --packages-select part2_navigation --symlink-install
+        ```
+
+    1. And finally, re-source the `.bashrc`:
+
+        ```bash
+        source ~/.bashrc
+        ```
 
 1. Now we're ready to run this! Do so using `ros2 run` and see what it does:
 
@@ -578,14 +500,152 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     
     <figure markdown>
       ![](./part2/odom_subscriber.gif){width=700px}
+      [NEEDS UPDATING]
     </figure>
 
-1. Observe how the output (the formatted odometry data) changes whilst you move the robot around using the `teleop_keyboard` node in a new terminal instance (**TERMINAL 3**).
+1. Observe how the output (the formatted odometry data) changes while you move the robot around using the `teleop_keyboard` node in a new terminal instance (**TERMINAL 3**).
 1. Stop your `odom_subscriber.py` node in **TERMINAL 2** and the `teleop_keyboard` node in **TERMINAL 3** by entering ++ctrl+c++ in each of the terminals.
 
-## Basic Navigation: Open-loop Velocity Control
+## Basic Navigation: Open-loop Velocity (Motion) Control {#velocity}
 
-#### :material-pen: Exercise 3: Controlling Velocity with the ROS2 CLI {#ex3}
+In order to change our robot's pose, we need to apply velocity to make it move. We learnt about this in Part 1, but let's look at it all in a bit more detail now.
+
+We know that we can use the `/cmd_vel` topic to publish velocity commands to our robot. Let's remind ourselves how these velocity commands must be structured:
+
+```bash
+ros2 topic info /cmd_vel
+```
+
+This tells us that the data that is transmitted on the `/cmd_vel` topic is of the `geometry_msgs/msg/TwistStamped` interface type.  
+
+We also learnt how to find out more about this particular interface (using the `ros2 interface show` command): 
+
+```bash
+ros2 interface show geometry_msgs/msg/TwistStamped
+```
+
+<a name="twist-stamped-struct"></a>
+
+``` { .txt .no-copy }
+std_msgs/Header header
+        builtin_interfaces/Time stamp
+                int32 sec
+                uint32 nanosec
+        string frame_id
+Twist twist
+        Vector3  linear
+                float64 x
+                float64 y
+                float64 z
+        Vector3  angular
+                float64 x
+                float64 y
+                float64 z
+```
+
+There are two base fields in this data structure:
+
+<center>
+
+| # | Field Name | Data Type |
+| :---: | :---: | :---: |
+| 1 | `header` | `std_msgs/Header` |
+| 2 | `twist` | `Twist` |
+
+</center>
+
+Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us, and this comprises two further subfields:
+
+<center>
+
+| # | Field Name | Data Type |
+| :---: | :---: | :---: |
+| 1 | `linear` | `Vector3` |
+| 2 | `angular` | `Vector3` |
+
+</center>
+
+Each of *these* contains 3 *further* subfields: `x`, `y` and `z`:
+
+<center>
+
+| # | Field Name | Data Type |
+| :---: | :---: | :---: |
+| 1 | `x` | `float64` |
+| 2 | `y` | `float64` |
+| 3 | `z` | `float64` |
+
+</center>
+
+### Velocity Commands
+
+There are therefore **six** velocity *fields* that we can assign values to when sending velocity commands to a ROS robot: **two** velocity *types*, each with **three** velocity *components*: 
+
+<center>
+
+| Velocity Type | Component 1 | Component 2 | Component 3 |
+| :--- | :---: | :---: | :---: |
+| `linear` | `x` | `y` | `z` |
+| `angular` | `x` | `y` | `z` |
+
+</center>
+
+These relate to a robot's **six degrees of freedom** (DOFs), and velocity commands are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
+
+<center>
+
+| Component (Axis) | Linear Velocity | Angular Velocity | 
+| :---: | :---: | :---: |
+| **X** | "Forwards/Backwards" | "Roll" |
+| **Y** | "Left/Right" | "Pitch" |
+| **Z** | "Up/Down" | "Yaw" |
+
+</center>
+
+### The Degrees of Freedom of our Waffles
+
+Recall our robot's *"Principal Axes"* and the motion about them:
+
+<figure markdown>
+  ![](../../images/waffle/principal_axes.svg){width=800}
+</figure>
+
+As discussed above, a mobile robot can have up to six degrees of freedom *in total*, but this is dictated by the robot's design and the actuators it is equipped with. 
+
+Our TurtleBot3 Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
+
+<figure markdown>
+  ![](../../images/waffle/velocities.svg){width=800}
+</figure> -->
+
+When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
+
+<center>
+
+| Principal Axis | Linear Velocity | Angular Velocity | 
+| :---: | :---: | :---: |
+| **X** | **"Forwards/Backwards"** | ~~"Roll"~~ |
+| **Y** | ~~"Left/Right"~~ | ~~"Pitch"~~ |
+| **Z** | ~~"Up/Down"~~ | **"Yaw"** |
+
+</center>
+
+<a name="velocity_limits"></a>
+
+!!! note "Maximum Velocity Limits"
+    Keep in mind (while we're on the subject of velocity) that our TurtleBot3 Waffles have **maximum velocity limits**:
+
+    <center>
+
+    | Velocity Component | Upper Limit | Units |
+    | :--- | :---: | :--- |
+    | *Linear (in the X axis)* | 0.26 | m/s |
+    | *Angular (about the Z axis)* | 1.82 | rad/s |
+
+    </center>
+
+
+#### :material-pen: Exercise 3: Controlling Velocity with the ROS 2 CLI {#ex3}
 
 !!! warning
     Make sure that you've stopped the `teleop_keyboard` node before starting this exercise!
@@ -593,46 +653,51 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
 <a name="rostopic_pub"></a>We can use the `ros2 topic pub` command to *publish* data to a topic from a terminal by using the command in the following way:
 
 ``` { .bash .no-copy }
-ros2 topic pub {topic_name} {message_type} {message_data}
+ros2 topic pub {topic_name} {interface_type} {data}
 ```
 
-[As we discovered earlier](#velocity-commands), the `/cmd_vel` topic is expecting messages containing *linear* and *angular* velocity data, each with an `x`, `y` and `z` component. When publishing topic messages in a terminal the commands can get quite long and complicated, but we can use *autocomplete* functionality to help us format the full command correctly.
+[As we discovered earlier](#velocity-commands), the `/cmd_vel` topic is expecting interface messages containing *linear* and *angular* velocity data, each with `x`, `y` and `z` values associated with them. We can compose these messages in a terminal and publish them with the `ros2 topic pub` command, provided we take care to format the messages correctly to conform with the `geometry_msgs/msg/TwistStamped` data structure.
 
-1. In **TERMINAL 3** *type* the following, using the ++tab++ key where indicated to invoke autocompletion...
+1. In **TERMINAL 3** enter the following, this will end up being quite a long command, so let's break it down a little bit:
 
-    1. First, type the text as shown below and then press the ++tab++ key where indicated to complete the *topic name* for you:
-
-        ``` { .txt .no-copy }
-        ros2 topic pub /cmd_[TAB]
-        ```
-
-    1. Then, type **`g`** and then press ++tab++ again to format the rest of the *message type* for you: 
+    1. Start with the desired subcommand of `ros2 topic`:
 
         ``` { .txt .no-copy }
-        ros2 topic pub /cmd_vel g[TAB]
+        ros2 topic pub
         ```
 
-    1. The message data then needs to be entered inside quotation marks, type **`"l`** and then press ++tab++ again to obtain the format of the *message data*:
+    1. Next comes the *name of the topic* that we want to publish to: 
 
         ``` { .txt .no-copy }
-        ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "l[TAB]
+        ros2 topic pub /cmd_vel
         ```
 
-        The full command will then be presented:
+    1. Next, we define the interface type that this topic uses. Start typing this and then enter the ++tab++ key where shown, and it should autocomplete for you:
 
-        ```txt
-        ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "linear:
-          x: 0.0
-          y: 0.0
-          z: 0.0
-        angular:
-          x: 0.0
-          y: 0.0
-          z: 0.0"
+        ``` { .txt .no-copy }
+        ros2 topic pub /cmd_vel geom[TAB]
+        ```
+
+        Which should autocomplete the interface type for you:
+
+        ``` { .txt .no-copy }
+        ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped
         ```
         
         !!! tip 
             You can use ++tab++ to autocomplete lots of terminal commands, experiment with it - it'll save you lots of time! 
+        
+    1. Finally, provide the values to be published, which **must** be formatted according to the interface definition ([as we established earlier](#twist-stamped-struct)):
+
+        ```txt
+        ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped \
+        "{header: auto, \
+          twist: { \
+            linear: {x: 0.0, y: 0.0, z: 0.0}, \
+            angular: {x: 0.0, y: 0.0, z: 0.0} \
+          } \
+        }"
+        ```
 
 1. Scroll back through the message using the ++left++ key on your keyboard and then edit the values of the various fields, as appropriate.
 
@@ -646,7 +711,7 @@ ros2 topic pub {topic_name} {message_type} {message_data}
 
     In order to make the robot actually stop, we need to publish a *new* message containing alternative velocity commands.
 
-1. In **TERMINAL 3** press the ++up++ key on your keyboard to recall the previous command, but don't press ++enter++ just yet! Now press the ++left++ key to track back through the message and change the velocity field values in order to now make the robot **stop**.
+1. In **TERMINAL 3** press the ++up++ key on your keyboard to recall the previous command, but don't press ++enter++ just yet! Now press the ++left++ key to track back through the message and change the velocity field values back to `0.0` in order to now make the robot **stop**.
 
 1. Once again, enter ++ctrl+c++ in **TERMINAL 3** to stop the publisher from actively publishing new messages, and then follow the same steps as above to compose *another* new message to now make the robot **move in a circle**.
 
@@ -677,49 +742,43 @@ In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one
     ***
 
 1. The task is to make the robot move in a **circle** with a path **radius** of approximately **0.5 meters**.
-    
-    Follow **[the steps here for building this](./part2/move_circle.md)** (using the Part 1 Publisher Node as a starting point). <a name="move_circle_ret"></a>
 
-1. Our `move_circle.py` node has a new dependency:
+    Follow the instructions on the following page for building this:
 
-    ```py
-    from geometry_msgs.msg import Twist
-    ```
-    
-    We therefore need to add this dependency to our package's `package.xml` file.
-    
-    Earlier on we added `nav_msgs` to this. Below this, add a new `#!xml <exec_depend>` for `geometry_msgs`:
+    <center>[:material-file-code-outline: Building the `move_circle.py` node](./part2/move_circle.md){ .md-button target="_blank"}</center>
 
-    ```xml title="package.xml"
-    <exec_depend>rclpy</exec_depend>
-    <exec_depend>nav_msgs</exec_depend>
-    <exec_depend>geometry_msgs</exec_depend>  <!-- (1)! -->
-    ```
-
-    1. ADD THIS LINE!
-
-1. Next (hopefully you're getting the idea by now!), declare the `move_circle.py` node as an executable in the `CMakeLists.txt`:
+1. Next (hopefully you're getting the idea by now!), declare the `move_circle.py` node as an executable in the `part2_navigation/CMakeLists.txt` file:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
     install(PROGRAMS
+      scripts/basic_velocity_control.py
+      scripts/stop_me.py
       scripts/odom_subscriber.py
       scripts/move_circle.py
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
 
-1. Finally, head back to the terminal and use Colcon to build the new node alongside everything else in the package:
+1. Finally, head back to the terminal and use Colcon to build the new node alongside everything else in the package, using the same **three-step process** as before:
 
-    ```bash
-    cd ~/ros2_ws/ && colcon build --packages-select part2_navigation --symlink-install
-    ```
+    1. First: 
 
-    ... and re-source again:
+        ```bash
+        cd ~/ros2_ws/
+        ```
 
-    ```bash
-    source ~/.bashrc
-    ```
+    1. Then:
+    
+        ```bash
+        colcon build --packages-select part2_navigation --symlink-install
+        ```
+    
+    1. And finally, re-source again:
+
+        ```bash
+        source ~/.bashrc
+        ```
 
 1. Run this node now, using `ros2 run` and see what happens:
 
@@ -735,6 +794,12 @@ In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one
         What *does* happen to the robot when you hit ++ctrl+c++ to stop the node?
 
         **Answer**: It carries on moving :open_mouth:!
+
+        You can run another node from within your package to actually stop it:
+        
+        ```bash
+        ros2 run part2_navigation stop_me.py
+        ```
 
 #### :material-pen: Exercise 5: Implementing a Shutdown Procedure {#ex5}
 
@@ -771,11 +836,11 @@ None of this is very good, and we'll address this now by modifying the `move_cir
         self.get_logger().info(
             "Stopping the robot..."
         )
-        self.my_publisher.publish(Twist()) # (1)!
+        self.my_publisher.publish(TwistStamped()) # (1)!
         self.shutdown = True # (2)!
     ```
 
-    1. All velocities within the `Twist()` message class are set to zero by default, so we can just publish this as-is, in order to ask the robot to stop.
+    1. All velocities within the `Twist(Stamped)` message class are set to zero by default, so we can just publish this as-is, in order to ask the robot to stop.
     2. Set the `shutdown` flag to true to indicate that a stop message has now been published.
 
 1. Finally, head to the `#!py main()` function of the script. This is where most of the changes need to be made...
@@ -821,7 +886,7 @@ None of this is very good, and we'll address this now by modifying the `move_cir
 
 ## Odometry-based Navigation
 
-Over the course of the previous two exercises we've created a Python node to make your robot move using *open-loop control*. To achieve this we published velocity commands to the `/cmd_vel` topic to make the robot follow a circular motion path.
+Over the course of the previous two exercises we've created a Python node to make our robot move using *open-loop control*. To achieve this we published velocity commands to the `/cmd_vel` topic to make the robot follow a circular motion path.
 
 !!! question "Questions"
     1. How do we know if our robot actually achieved the motion path that we asked for?
@@ -855,18 +920,30 @@ We can therefore build on the techniques that we used in the `move_circle.py` ex
     ```
     ***
 
-1. Define `move_square.py` as a package executable in your `CMakeLists.txt` file (you should know how to do this by now?!) 
+1. Define `move_square.py` as a package executable in your `CMakeLists.txt` file (you should know how to do this by now, but if not, refer back to either Exercise 2 or Exercise 4). 
 
 1. Use the VS Code File Explorer to navigate to this `move_square.py` file and open it up, ready for editing.
-1. **[There's ^^a template here^^ to help you with this exercise](./part2/move_square.md)**. Copy and paste the template code into your new `move_square.py` file to get you started. <a name="move_square_ret"></a>
+1. There's a template below to help you with this exercise. 
 
-1. Re-build your `part2_navigation` package, to include your new `move_square.py` node:
+    <center>[:material-file-code-outline: Access the `move_square.py` template here](./part2/move_square.md){ .md-button target="_blank"}</center>
+
+    Copy and paste the template code into your new `move_square.py` file to get you started. 
+
+1. Re-build your `part2_navigation` package, to include your new `move_square.py` node, following that **three-step build process** once again:
+
+    Step 1:
 
     ```bash
-    cd ~/ros2_ws/ && colcon build --packages-select part2_navigation --symlink-install
+    cd ~/ros2_ws/
+    ```
+    
+    Step 2:
+
+    ```bash
+    colcon build --packages-select part2_navigation --symlink-install
     ```
 
-    ... and don't forget to re-source again:
+    Step 3:
 
     ```bash
     source ~/.bashrc
@@ -879,10 +956,6 @@ We can therefore build on the techniques that we used in the `move_circle.py` ex
 
 1. Fill in the blank as required and then adapt the code to make your robot follow a **square** motion path of **1 x 1 meter** dimensions.
 
-1. Perform the necessary steps to re-build your package once more (with `colcon`), as you have done each time you've created a new node in the previous exercises. 
-
-1. Having built your package again (and re-sourced) you should now be able to run the `move_square.py` node with `ros2 run`
-    
     After following a square motion path a few times, your robot *should* return to the same location that it started from.
 
     !!! tip "Advanced feature"
@@ -898,8 +971,6 @@ We've also learnt about *Odometry*, which is published by our robot to the `/odo
     1. What information (sensor/actuator data) is used to do this?
     1. Do you see any potential limitations of this?
     
-Consider reading Chapter 11.1.3 ("Pose of Robot") in [the ROS Robot Programming eBook that we mentioned here](../../about/robots.md#ebook).
-
 In the final exercise we explored the development of odometry-based control to make a robot follow a *square* motion path. You will likely have observed some degree of error in this which could be due to the fact that Odometry data is determined by dead-reckoning and is therefore subject to drift and accumulated error. Consider how other factors may impact the accuracy of control too.
 
 !!! question "Questions"

@@ -13,10 +13,10 @@ You can publish velocity commands to `/cmd_vel` to make the robot move, monitor 
 Moving in a square can be achieved by switching between two different movement states sequentially: *Moving forwards* and *turning* on the spot. At the start of each movement step we can read the robot's current odometry, and then use this as a reference to compare to, and to tell us when the robot's position/orientation has changed by the required amount, e.g.:
 
 1. With the robot stationary, **read the odometry** to determine its current X and Y position in the environment.
-1. **Move forwards** until the robot's X and Y position indicate that it has moved linearly by 0.5m.
+1. **Move forwards** until the robot's X and Y position indicate that it has moved forwards by 1m.
 1. **Stop** moving forwards.
 1. **Read the robot's odometry** to determine its current orientation ("yaw"/<code>&theta;<sub>z</sub></code>).
-1. **Turn on the spot** until the robot's orientation changes by 90&deg;.
+1. **Turn on the spot** until the robot's orientation changes by 90&deg; (or the equivalent in radians).
 1. **Stop** turning.
 1. Repeat.  
 
@@ -26,9 +26,14 @@ Moving in a square can be achieved by switching between two different movement s
 --8<-- "code_templates/move_square.py"
 ```
 
-1. Import the `Twist` message for publishing velocity commands to `/cmd_vel`.
+1. Import the `TwistStamped` message for publishing velocity commands to `/cmd_vel`.
 2. Import the `Odometry` message, for use when subscribing to the `/odom` topic.
-3. Import the `quaternion_to_euler` function from `tb3_tools.py` to convert orientation from quaternions to Euler angles (about [the principal axes](../part2.md#principal-axes)).
+3. Import the `quaternion_to_euler` method from `tb3_tools.py`... 
+    
+    This is a hand method that's included in [the ROS 2 Package Template](https://github.com/tom-howard/ros2_pkg_template/blob/main/ros2_pkg_template_modules/tb3_tools.py){target="_blank"} to convert orientation from quaternions to Euler angles (about [the principal axes](../part2.md#principal-axes)).
+
+    Any ROS 2 package that you create with our ROS 2 package template will contain this method for you to use!
+
 4. Finally, import some useful mathematical operations (and `pi`), which may prove useful for this task:
 
     <center>
@@ -41,7 +46,7 @@ Moving in a square can be achieved by switching between two different movement s
 
     </center>
 
-5. Here we establish a `Twist` message, which we can populate with velocities and then publish to `/cmd_vel` within the `timer_callback()` method (in order to make the robot move).
+5. Here we establish a `TwistStamped` message, which we can populate with velocities and then publish to `/cmd_vel` within the `timer_callback()` method (in order to make the robot move).
 
 6. Here, we define some variables that we can use to store relevant bits of odometry data while our node is running (and read it back to implement feedback control):
     * `self.x`, `self.y` and `self.theta_z` will be used by the `odom_callback()` to store the robot's **current** pose
@@ -66,7 +71,3 @@ Moving in a square can be achieved by switching between two different movement s
 A square motion path can be fully defined by the coordinates of its four corners, and we can make the robot move to each of these corners one-by-one, using its odometry system to monitor its real-time position, and adapting linear and angular velocities accordingly.
 
 This is slightly more complicated, and you might want to wait until you have a bit more experience with ROS before tackling it this way.
-
-<p align="center">
-  <a href="../../part2#move_square_ret">&#8592; Back to Part 2</a>
-</p>

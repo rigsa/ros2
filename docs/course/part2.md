@@ -195,7 +195,6 @@ Having established the data structure, let's explore the actual data now, using 
 
     <figure markdown>
       ![](../../images/rqt/topic_monitor.png){width=600}
-      [UPDATE]
     </figure>
 
 1. Next, launch a new terminal instance, we'll call this one **TERMINAL 3**. Arrange this next to the `rqt` window, so that you can see them both side-by-side.

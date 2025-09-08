@@ -48,7 +48,3 @@ The data processing is illustrated in the figure below:
 <figure markdown>
   ![](./scandata.png){width=600px}
 </figure>
-
-<p align="center">
-  <a href="../../part3#ex4_ret">&#8592; Back to Part 3</a>
-</p>

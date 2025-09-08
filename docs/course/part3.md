@@ -11,13 +11,14 @@ description: Execute ROS applications more efficiently using launch files. Learn
 
 ### Aims
 
-In this part of the course we'll look at some more advanced ROS concepts, and explore another of our robot's on-board sensors: the LiDAR sensor. From the work you did in Part 2 you may have started to appreciate the limitations associated with using odometry data alone as a feedback signal when trying to control a robot's position in its environment. The LiDAR sensor can provide further information about an environment, thus enhancing a robot's knowledge and capabilities. To begin with however, we'll look at how to launch ROS applications more efficiently by creating our own *launch files* and executing these with the `ros2 launch` command. 
+In this part of the course we'll look at some more advanced ROS concepts, and explore another of our robot's on-board sensors: the LiDAR sensor. From the work you did in Part 2 you may have started to appreciate the limitations associated with using odometry data alone as a feedback signal when trying to control a robot's position in its environment. The LiDAR sensor can provide further information about an environment, thus enhancing a robot's knowledge and capabilities. To begin with however, we'll look at how to launch ROS applications more efficiently with *launch files*, and how the behaviour of nodes can be changed dynamically using *parameters*. 
 
 ### Intended Learning Outcomes
 
 By the end of this session you will be able to:
 
 1. Create launch files to allow the execution of multiple ROS Nodes simultaneously with `ros2 launch`.
+1. [TODO: parameters]
 1. Learn about the robot's LiDAR sensor and the measurements obtained from this.
 1. Interpret the `LaserScan` data that is published to the `/scan` topic and use existing ROS tools to visualise this.
 1. Perform numeric analysis on data arrays (using the `numpy` Python library) to process `LaserScan` data for use in ROS applications.
@@ -117,24 +118,30 @@ To start with, let's create another new package, this time called `part3_beyond_
 
 1. In **TERMINAL 1**...
     
-    1. Head to the `src` folder of your ROS workspace, and into the `tuos_ros` Course Repo from there:
+    1. Head to the `src` folder of the ROS 2 workspace:
 
         ***
         **TERMINAL 1:**
         ```bash
-        cd ~/ros2_ws/src/tuos_ros/
+        cd ~/ros2_ws/src/
         ```
        
-    1. Use the `create_pkg.sh` helper script to create a new package once again:
+    1. Clone the ROS 2 Package Template:
 
         ```bash
-        ./create_pkg.sh part3_beyond_basics
+        git clone https://github.com/tom-howard/ros2_pkg_template.git
+        ```
+    
+    1. Run the `init_pkg.sh` script from within this template to initalise a package with the name "part3_beyond_basics":
+
+        ```bash
+        ./ros2_pkg_template/init_pkg.sh part3_beyond_basics
         ```
     
     1. And navigate into the *root* of this new package, using `cd`:
 
         ```bash
-        cd ../part3_beyond_basics/
+        cd ./part3_beyond_basics/
         ```
         ***
 
@@ -147,13 +154,20 @@ To start with, let's create another new package, this time called `part3_beyond_
     ```
     ***
 
-1. Use the `cd` command to enter the `launch` folder that you just created, then use the `touch` command to create a new empty file called `pubsub.launch.py`.
-
+1. Use the `cd` command to enter the `launch` folder that you just created:
+    
     ***
     **TERMINAL 1:**
     ```bash
-    cd launch && touch pubsub.launch.py
+    cd launch
     ```
+
+    ...and then use the `touch` command to create a new empty file called `pubsub.launch.py`.
+
+    ```bash
+    touch pubsub.launch.py
+    ```
+    ***
 
 1. Open this launch file in VS Code and enter the following:
 
@@ -198,9 +212,9 @@ To start with, let's create another new package, this time called `part3_beyond_
     )
     ```
 
-1. Now, let's build the package... <a name="colcon-build"></a>
+1. Now, let's build the package using the **three-step process** that you'll be becoming familiar with by now... <a name="colcon-build"></a>
 
-    1. Navigate back to the root of the ROS workspace:
+    1. Navigate back to the root of the ROS 2 workspace:
 
         ***
         **TERMINAL 1:**
@@ -258,6 +272,8 @@ To start with, let's create another new package, this time called `part3_beyond_
         You'll need to run `colcon build` *every time* you make changes to a launch file, even if you use the `--symlink-install` option (as this only applies to nodes in the `scripts` directory)
         
 1. Once you've completed this, it should be possible to launch both the publisher and subscriber nodes with `ros2 launch` and the `pubsub.launch.py` file. Verify this in **TERMINAL 1** by executing the launch file. Soon after launching this, you should see the following messages to indicate that both nodes are alive:
+
+    [TODO: a gif insteads of these two figures?]
 
     ``` { .txt .no-copy }
     [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node is initialised.
@@ -382,7 +398,40 @@ In this exercise we'll look at how we can launch the above launch file *and* our
 
 If you've done this successfully, on launching the above command the Gazebo Empty World simulation should launch and, once it's loaded up, the robot should instantly start moving around in a circle (while printing information to **TERMINAL 1** at the same time).
 
-We've learnt some key launch file techniques now, so let's move on to another more advanced and very important topic...
+## Parameters
+
+Parameters are used as a way to configure nodes, and can be further used to change their behaviour dynamically during run time. Let's think back to our `move_circle.py` node from Part 2 in order to see what this could be used for.
+
+1. First, we'll create a new version of the `move_circle.py` node from Part 2, that we can play around with. First, head to the `scripts` directory of your `part3_beyond_basics` package:
+
+    ***
+    **TERMINAL 1:**
+    ```bash
+    colcon_cd part3_beyond_basics
+    ```
+
+    ... and `cd` into the `scripts` directory from there:
+
+    ```bash
+    cd scripts/
+    ```
+    ***
+
+1. Create a new file called `param_circle.py` (using `touch`) and make this executable (using `chmod`).
+
+1. Define `param_circle.py` as a package executable in your `CMakeLists.txt` file (if you need help with this refer back to Part 2). 
+
+1. After having completed Part 2 Exercises 4 & 5, you should have a working `move_circle.py` node complete with a proper shutdown procedure. Take a copy of the code and paste it into your new `param_circle.py` file. Alternatively, if you didn't manage to finish the exercises previously, you can access a worked example below:
+
+<!-- <center>[:material-file-code-outline: A `move_circle.py` worked example](./part3/move_circle.md){ .md-button target="_blank"}</center>
+
+[TODO: a separate page, or a link to the solution code from gh??]
+
+```python title="publisher.py"
+--8<-- "https://raw.githubusercontent.com/tom-howard/com2009_exercises/refs/heads/main/part1_pubsub/src/publisher.py"
+``` -->
+
+<!-- We've learnt some key launch file techniques now, so let's move on to another more advanced and very important topic... -->
 
 ## Laser Displacement Data and The LiDAR Sensor {#lidar}
 

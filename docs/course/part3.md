@@ -8,7 +8,7 @@ TODO:
 
 ## Introduction
 
-:material-pen: **Exercises**: 6  
+:material-pen: **Exercises**: 5  
 :material-timer: **Estimated Completion Time**: 3 hours  
 :material-gauge: **Difficulty Level**: Intermediate  
 
@@ -21,7 +21,7 @@ In this part of the course we'll look at some more advanced ROS concepts, and ex
 By the end of this session you will be able to:
 
 1. Create launch files to allow the execution of multiple ROS Nodes simultaneously with `ros2 launch`.
-1. [TODO: parameters]
+1. Use parameters to influence the behaviours of nodes in real-time, without having to re-programme them.
 1. Learn about the robot's LiDAR sensor and the measurements obtained from this.
 1. Interpret the `LaserScan` data that is published to the `/scan` topic and use existing ROS tools to visualise this.
 1. Perform numeric analysis on data arrays (using the `numpy` Python library) to process `LaserScan` data for use in ROS applications.
@@ -30,16 +30,14 @@ By the end of this session you will be able to:
 ### Quick Links
 
 * [Exercise 1: Creating a Launch File](#ex1)
-* [Exercise 2: Launching Another Launch File](#ex2)
-* [Exercise 3: Using parameters to change robot behaviour in real-time](#ex3)
-* [Exercise 4: Using RViz to Visualise LaserScan Data](#ex4)
-* [Exercise 5: Building a LaserScan Callback Function](#ex5)
-* [Exercise 6: Building a map of an environment with SLAM](#ex6)
+* [Exercise 2: Using parameters to change robot behaviour in real-time](#ex2)
+* [Exercise 3: Using RViz to Visualise LaserScan Data](#ex3)
+* [Exercise 4: Building a LaserScan Callback Function](#ex4)
+* [Exercise 5: Building a map of an environment with SLAM](#ex5)
 
 ### Additional Resources
 
-* [A worked example of the `move_circle.py` node from Part 2](./part3/move_circle.md)
-* [A Basic `LaserScan` Subscriber Node (for Exercise 5)](./part3/lidar_subscriber.md)
+* [A Basic `LaserScan` Subscriber Node (for Exercise 4)](./part3/lidar_subscriber.md)
 
 ## Getting Started
 
@@ -125,8 +123,6 @@ To start with, let's create another new package, this time called `part3_beyond_
     
     1. Head to the `src` folder of the ROS 2 workspace:
 
-        ***
-        **TERMINAL 1:**
         ```bash
         cd ~/ros2_ws/src/
         ```
@@ -148,32 +144,25 @@ To start with, let's create another new package, this time called `part3_beyond_
         ```bash
         cd ./part3_beyond_basics/
         ```
-        ***
 
 1. Launch files should be located in a `launch` directory at the root of the package directory, so use `mkdir` to do this:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     mkdir launch
     ```
-    ***
 
 1. Use the `cd` command to enter the `launch` folder that you just created:
     
-    ***
-    **TERMINAL 1:**
     ```bash
     cd launch
     ```
 
-    ...and then use the `touch` command to create a new empty file called `pubsub.launch.py`.
+    ...and then use the `touch` command to create a new empty file called `pubsub.launch.py`:
 
     ```bash
     touch pubsub.launch.py
     ```
-    ***
-
+    
 1. Open this launch file in VS Code and enter the following:
 
     ```py title="pubsub.launch.py"
@@ -221,8 +210,6 @@ To start with, let's create another new package, this time called `part3_beyond_
 
     1. Navigate back to the root of the ROS 2 workspace:
 
-        ***
-        **TERMINAL 1:**
         ```bash
         cd ~/ros2_ws/
         ```
@@ -238,18 +225,14 @@ To start with, let's create another new package, this time called `part3_beyond_
         ```bash
         source ~/.bashrc
         ```
-        ***
-
+        
 1. Use `ros2 launch` to launch this file and test it out as it is:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ros2 launch part3_beyond_basics pubsub.launch.py
     ```
-    ***
-    
-1. The code that we've given you above will launch the `publisher.py` node from the `part1_pubsub` package, but not the `subscriber.py` node.  We therefore need to add another `Node()` object to our `LaunchDescription`:
+        
+1. The code (as it is) will launch the `publisher.py` node from the `part1_pubsub` package, but not the `subscriber.py` node.  We therefore need to add another `Node()` object to our `LaunchDescription`:
 
     ```py title="pubsub.launch.py"
     from launch import LaunchDescription 
@@ -278,7 +261,7 @@ To start with, let's create another new package, this time called `part3_beyond_
         
 1. Once you've completed this, it should be possible to launch both the publisher and subscriber nodes with `ros2 launch` and the `pubsub.launch.py` file. Verify this in **TERMINAL 1** by executing the launch file. Soon after launching this, you should see the following messages to indicate that both nodes are alive:
 
-    [TODO: a gif insteads of these two figures?]
+    [TODO: a gif instead of text?]
 
     ``` { .txt .no-copy }
     [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node is initialised.
@@ -295,7 +278,6 @@ To start with, let's create another new package, this time called `part3_beyond_
 
 1. We can further verify this in a new terminal (**TERMINAL 2**), using commands that we've use in Parts 1 & 2 to *list* all nodes and topics that are active on our ROS network:
 
-    ***
     **TERMINAL 2:**
 
     ```bash
@@ -307,123 +289,22 @@ To start with, let's create another new package, this time called `part3_beyond_
 
     Do you see what you'd expect to see in the output of these two commands?
 
-    ***
-
-### :material-pen: Exercise 2: Launching Another Launch File {#ex2}
-
-Using the processes above, we can develop launch files to execute as many nodes as we want on a ROS network simultaneously. *Another* thing we can do with launch files is launch *other* launch files! 
-
-To illustrate this, think back to the `move_circle.py` node that we developed in Part 2, as part of our `part2_navigation` package. In order to launch this node we must first launch a robot simulation, e.g.: 
-
-``` { .bash .no-copy }
-ros2 launch turtlebot3_gazebo empty_world.launch.py
-```
-
-In this exercise we'll look at how we can launch the above launch file *and* our `move_circle.py` node simultaneously from a single `ros2 launch` command...
-
-1. Make sure you're in the `launch` directory of your `part3_beyond_basics` package. First, navigate into the package root:
-
-    ***
-    **TERMINAL 1:**
-    ```bash
-    cd ~/ros2_ws/src/part3_beyond_basics
-    ```
-
-    ... and then into the `launch` directory from there:
-
-    ```bash
-    cd launch/
-    ```
-    ***
-
-1. Make a new launch file in here, called `circle.launch.py`:
-
-    ***
-    **TERMINAL 1:**
-    ```bash
-    touch circle.launch.py
-    ```
-
-1. Open this up in VS Code and enter the following:
-
-    ```py title="circle.launch.py"
-    from launch import LaunchDescription
-    from launch_ros.actions import Node
-
-    import os
-    from launch.actions import IncludeLaunchDescription
-    from launch.launch_description_sources import PythonLaunchDescriptionSource
-    from ament_index_python.packages import get_package_share_directory
-
-    def generate_launch_description():
-        return LaunchDescription([
-            IncludeLaunchDescription( # (1)!
-                PythonLaunchDescriptionSource( # (2)!
-                    os.path.join( # (3)!
-                        get_package_share_directory("turtlebot3_gazebo"), 
-                        "launch", "empty_world.launch.py" # (4)!
-                    )
-                )
-            )
-        ])
-    ``` 
-
-    1. To include another launch file in a launch description, we use a `IncludeLaunchDescription()` class instance (imported from a module called `launch.actions`).
-    2. We want to launch the "Empty World" simulation from the `turtlebot3_gazebo` package, which (as we know) can be done *from a terminal* with the following command:
-
-        ``` { .bash .no-copy }
-        ros2 launch turtlebot3_gazebo empty_world.launch.py
-        ```
-
-        Based on the above, we know that the launch file itself is a *Python* launch file, due to the `.py` file extension at the end.
-
-        As such, the launch description that we want to include is a *Python* launch description, which must therefore be defined using a `PythonLaunchDescriptionSource()` instance (imported from a module called `launch.launch_description_sources`)
-        
-    3. The `os.path.join()` method (from the standard Python `os` library) can be used to build file paths. 
-    4. The *Python Launch Description Source* is defined by providing the full path to the launch file that we want to include. We don't necessarily know where this file is on our filesystem, but ROS does!
-    
-        We can therefore use a function called `get_package_share_directory()` (from a module called `ament_index_python.packages`) to provide us with the path to the *root* of this package directory.
-        
-        From there, we know that the launch file itself must exist in a `launch` directory, so we use the `os.path.join()` method to construct this full file path for us.
-    
-    ... Currently, the launch file above contains *only* the code necessary to include the `empty_world.launch.py` launch file into our `circle.launch.py` launch description. There's a few new things that have been introduced here to achieve this, so click on the :material-plus-circle: icons in the code above to find out what all these things are doing.
-
-1. Now, add a `Node()` item to the launch description so that the `move_circle.py` node (from your `part2_navigation` package) is launched *after* the "Empty World" simulation has been launched.
-
-    Refer back to Exercise 1 for a reminder on how to do this.
-
-1. When you're ready, remember to [run `colcon build` again](#colcon-build) *before* attempting to execute your new `circle.launch.py` launch file:
-
-    ***
-    **TERMINAL 1:**
-    ```bash
-    ros2 launch part3_beyond_basics circle.launch.py
-    ```
-    ***
-
-If you've done this successfully, on launching the above command the Gazebo Empty World simulation should launch and, once it's loaded up, the robot should instantly start moving around in a circle (while printing information to **TERMINAL 1** at the same time).
-
 ## Parameters
 
-Parameters are used as a way to configure nodes, and can be further used to change their behaviour dynamically during run time. 
+Parameters are used to configure nodes, and can be further used to change their behaviour dynamically during run time. 
 
-### :material-pen: Exercise 3: Using parameters to change robot behaviour in real-time {#ex3}
+### :material-pen: Exercise 2: Using parameters to change robot behaviour in real-time {#ex2}
 
 Let's think back to our `move_circle.py` node from Part 2 in order to see what this could be used for. The node that we built originally would make a robot move in a circle of 0.5-meter radius, forever! Wouldn't it be nice if we could actually *change* the radius of the circle while the node was running?
 
 1. First, we'll create a new version of the `move_circle.py` node from Part 2, that we can play around with. First, head to the `scripts` directory of your `part3_beyond_basics` package:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     cd ~/ros2_ws/src/part3_beyond_basics/scripts/
     ```
-    ***
-
+    
 1. Create a new node called `param_circle.py`:
     
-    ***
-    **TERMINAL 1:**
     ```bash
     touch param_circle.py
     ``` 
@@ -433,7 +314,6 @@ Let's think back to our `move_circle.py` node from Part 2 in order to see what t
     ```bash
     chmod +x param_circle.py
     ```
-    ***
 
 1. Declare this as a package executable by opening up your package's `CMakeLists.txt` in VS Code and adding `param_circle.py` as shown below:
 
@@ -446,10 +326,6 @@ Let's think back to our `move_circle.py` node from Part 2 in order to see what t
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
-
-1. After having completed Part 2 Exercises 4 & 5, you should have a working `move_circle.py` node complete with a proper shutdown procedure. Take a copy of the code and paste it into your new `param_circle.py` file. Alternatively, if you didn't manage to finish the exercises previously, you can access a worked example below:
-
-    <center>[:material-file-code-outline: A `move_circle.py` worked example](./part3/move_circle.md){ .md-button target="_blank"}</center>
 
 1. Re-build your package with `colcon` (even though `param_circle.py` is still just an empty file at this stage):
 
@@ -471,6 +347,8 @@ Let's think back to our `move_circle.py` node from Part 2 in order to see what t
         source ~/.bashrc
         ```
 
+1. After having completed Part 2 Exercises 4 & 5, you should have a working `move_circle.py` node complete with a proper shutdown procedure. Take a copy of the code and paste it into your new `param_circle.py` file. Alternatively, if you didn't manage to finish these exercises previously, **[you can access a worked example here](./part3/move_circle.md){target="_blank"}**.
+
 1. Now, let's modify the code:
 
     1. First, in the `__init__()` method, change the name of the node:
@@ -481,74 +359,60 @@ Let's think back to our `move_circle.py` node from Part 2 in order to see what t
 
         When launched, the node will now be registered on the ROS network with the name `"param_circle"`.
 
-    1. Then, directly under this, add the following new lines:
+    1. Then, directly under this (still within the `__init__()` method), add the following new lines:
 
-        ```py title="param_circle.py"
+        ```py 
         self.declare_parameter(
             name="radius", 
             value=0.5 # meters
         )
         ```
     
-        Here, we're declaring a ROS parameter called `"radius"` and assigning a default value of 0.5 to it, to represent the desired radius of the circle (in meters).
+        Here, we're declaring a ROS parameter called `radius` and assigning a default value of `0.5` to it, to represent the desired radius of the circle (in meters).
     
     1. Finally, somewhere in the `timer_callback()` method, you should be defining the desired radius of the circle. *Modify* this as follows:
 
-        ```py title="param_circle.py"
+        ```py 
         radius = self.get_parameter("radius").get_parameter_value().double_value
         ```
 
         The radius of the circle that the robot will move through is now based on the value of the `radius` *parameter*, rather than a static value. 
 
-1. In order to test this, first fire up the *Empty World* simulation:
-    
-    ***
-    **TERMINAL 1:**
+1. In order to test this, first fire up the *Empty World* simulation in **TERMINAL 1**:
+
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py 
     ```
-    ***
+    
+1. Next, in **TERMINAL 2**, run the `param_circle.py` node:
 
-1. Next, open up a new terminal instance (**TERMINAL 2**) and run your `param_circle.py` node:
-
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 run part3_beyond_basics param_circle.py
     ```
-    ***
 
     The robot should start to move in a circle. To begin with, the radius of this circle should be 0.5 meters, based on the default value that we assigned to the parameter in our code.
 
-1. Next, open up another terminal instance (**TERMINAL 3**), and run the following command to list all the active parameters that are currently available on our ROS network:
+1. Next, open up another terminal instance (**TERMINAL 3**), and run the following command to list all the parameters that are currently active/available on our ROS network:
     
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 param list
     ```
-    ***
 
     This may be quite a big list. Parameters are listed under the nodes that define them, so to filter the list, provide the name of the node as well:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 param list /param_circle
     ```
-    ***
+
     There should only be a handful of parameters listed now, including `radius`. 
 
-1. We can now change the value of this parameter while our `param_circle.py` node is running, and therefore change the size of the circle that the robot is currently following. We can do this from the command line, without having to stop our `param_circle.py` node or make any changes to it:
+1. We can now change the value of this parameter while our `param_circle.py` node is running, and therefore change the size of the circle that the robot is currently following. We can do this from the command line, without having to stop our `param_circle.py` node or make any changes to it. Again, in **TERMINAL 3**: 
 
-    ***
-    **TERMINAL 3:**
     ```txt
     ros2 param set /param_circle radius 1.2
     ```
-    ***
 
-    Try setting a range of different values and observe the robot's behaviour changing in the simulated world!
+    Try setting a range of different values and observe how the robot's behaviour changes in the simulated world!
 
 1. Once you're done, close down the `param_circle.py` node and the Gazebo Simulation by entering ++ctrl+c++ in terminals **1** and **2** respectively.
 
@@ -560,37 +424,31 @@ We've also learnt some key launch file techniques now too, so let's move on to a
 
 ## Laser Displacement Data and The LiDAR Sensor {#lidar}
 
-As you'll know from Part 2, odometry is really important for robot navigation, but it can be subject to drift and accumulated error over time. You may have observed this in simulation during [Part 2 Exercise 5](./part2.md#ex5), and you would most certainly notice it if you were to do the same on a real robot. Fortunately, The Waffles have another sensor on-board which provides even richer information about the environment, and we can use this to supplement the odometry information and enhance the robot's navigation capabilities.
+As you'll recall from Part 2, odometry is really important for robot navigation, but it can be subject to drift and accumulated error over time. You may have observed this in simulation during [Part 2 Exercise 5](./part2.md#ex5), and you would most certainly notice it if you were to do the same on a real robot. Fortunately, The Waffles have another sensor on-board which provides even richer information about the environment, and we can use this to supplement the odometry information and enhance the robot's navigation capabilities.
 
 ### Introducing the LaserScan Interface
 
-#### :material-pen: Exercise 4: Using RViz to Visualise LaserScan Data {#ex4}
+#### :material-pen: Exercise 3: Using RViz to Visualise LaserScan Data {#ex3}
 
 <a name="rviz"></a>We're now going to place the robot in a more interesting environment than the "empty world" that we've been working with so far...
 
 1. In **TERMINAL 1** enter the following command to launch this:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
     ```
-    ***
 
     A Gazebo simulation should now be launched with a TurtleBot3 Waffle in a new environment:
 
     <figure markdown>
-      ![](../../images/gz/tb3_world.jpg){width=600px}
+      ![](../../images/gz/tb3_world.png){width=600px}
     </figure>
 
 1. In **TERMINAL 2** enter the following:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 launch tuos_simulations rviz.launch.py
     ```
-    ***
     
     On running the command a new window should open:
 
@@ -608,8 +466,6 @@ As you'll know from Part 2, odometry is really important for robot navigation, b
     
 1. Laser displacement data from the LiDAR sensor is published by the robot to the `/scan` topic. We can use the `ros2 topic info` command to find out more about the nodes that are publishing and subscribing to this topic, as well as the *type of interface* used to transmit this topic data. In **TERMINAL 3** enter the following:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 topic info /scan
     ```
@@ -618,12 +474,9 @@ As you'll know from Part 2, odometry is really important for robot navigation, b
     Publisher count: 1
     Subscription count: 0
     ```
-    ***
 
 1. As we can see from above, `/scan` data is of the `sensor_msgs/msg/LaserScan` type, and we can find out more about this interface using the `ros2 interface show` command:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 interface show sensor_msgs/msg/LaserScan
     ```
@@ -659,7 +512,6 @@ As you'll know from Part 2, odometry is really important for robot navigation, b
                                  # device does not provide intensities, please leave
                                  # the array empty.
     ```
-    ***
 
 ### Interpreting LaserScan Data
 
@@ -667,7 +519,7 @@ The `LaserScan` interface is a standardised ROS message interface (from the `sen
 
 `ranges` is an array of `float32` values (array data-types are suffixed with `[]`). This is the part of the message containing all the *actual distance measurements* that are being obtained by the LiDAR sensor (in meters).
 
-<a name="fig_lidar"></a>Consider a simplified example here, taken from a TurtleBot3 robot in a different environment:
+<a name="fig_lidar"></a>Consider a simplified example here, taken from a TurtleBot3 in a different environment:
 
 <figure markdown>
   ![](../../images/rviz/lidar_illustrated.png)
@@ -733,18 +585,15 @@ What you may also notice is several `inf` values scattered around the array.  Th
 
 Stop the `ros2 topic echo` command from running in the terminal window by entering ++ctrl+c++ in **TERMINAL 3**. Also close down the RViz process running in **TERMINAL 2** now as well, but leave the simulation (in **TERMINAL 1** running). 
 
-#### :material-pen: Exercise 5: Building a LaserScan Callback Function {#ex5}
+#### :material-pen: Exercise 4: Building a LaserScan Callback Function {#ex4}
 
 LaserScan data presents us with a new challenge: processing large datasets. In this exercise we'll look at some basic approaches that can be taken to deal with this data, and get something meaningful out of it that can be used in your robot applications.
 
-1. Navigate into the `scripts` folder of your `part3_beyond_basics` package:
+1. In **TERMINAL 2**, navigate into the `scripts` folder of your `part3_beyond_basics` package:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     cd ~/ros2_ws/src/part3_beyond_basics/scripts/
     ```
-    ***
 
 1. Create a new file called `lidar_subscriber.py` (using `touch`), make this executable (using `chmod`) and then define this as a package executable in your `CMakeLists.txt` file (if you need help with any of this, refer back to the earlier exercise).
 
@@ -761,8 +610,6 @@ LaserScan data presents us with a new challenge: processing large datasets. In t
 
 1. Head back to the terminal and build with `colcon`:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     cd ~/ros2_ws/
     ```
@@ -774,55 +621,45 @@ LaserScan data presents us with a new challenge: processing large datasets. In t
     ```bash
     source ~/.bashrc
     ```
-    ***
 
 1. With all of that done, you're ready to go. Run the node using `ros2 run`:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 run part3_beyond_basics lidar_subscriber.py
     ```
-    ***
 
 1. Open another terminal (so you can still see the outputs from your `lidar_subscriber.py` node). Launch the `teleop_keyboard` node, and drive the robot around, noting how the outputs from your `lidar_subscriber.py` node change as you do so.
 
 1. Close everything down now (including the simulation running in **TERMINAL 1**). Then launch the "empty world" simulation again:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```
-    ***
 
 1. Go back to **TERMINAL 2** and launch your `lidar_subscriber.py` node again:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 run part3_beyond_basics lidar_subscriber.py
     ```
-    ***
 
     What output do you see from this now?
 
     You should notice that your `lidar_subscriber.py` node reports `nan meters` now. That's because there's nothing in the environment for the LiDAR sensor to detect, so *all* readings are out of range and hence our analysis of the 40&deg; arc of LiDAR readings at the front of the robot has filtered out *everything* and therefore returned `nan` (not a number).
 
-1. Use the **Box** tool in Gazebo to place a box in the environment. 
+1. Use the **Box tool** in Gazebo to place a box in the environment. 
 
     <figure markdown>
-      ![](../../images/gz/toolbars_antd.png){width=800px}
+      ![](../../images/gz/toolbars_antd.png){width=500px}
     </figure>
 
-1. Click the **Translate** tool to move the box around until the `lidar_subscriber.py` node returns some reading that *aren't* `nan` again.
+1. Click the **Translate tool** to move the box around until the `lidar_subscriber.py` node returns some reading that *aren't* `nan` again.
 
 1. Move the box around some more to observe what our analysis of the `LaserScan` data *can* detect, and where the box falls out of the detectable range.
 
 1. Think about how you could adapt the callback function of the `lidar_subscriber.py` node so that it picks up on more than one `LaserScan` subset, so that it could detect situations such as this (for example):
 
     <figure markdown>
-      ![](./part3/lidar_subscriber_adv.png){width=800px}
+      ![](./part3/lidar_subscriber_adv.png){width=500px}
     </figure>
 
 
@@ -830,18 +667,15 @@ LaserScan data presents us with a new challenge: processing large datasets. In t
 
 In combination, the data from the LiDAR sensor and the robot's odometry (the robot *pose* specifically) are really powerful, and allow some very useful conclusions to be made about the environment a robot is operating within.  One of the key applications of this data is *"Simultaneous Localisation and Mapping"*, or *SLAM*.  This is a tool that's built into ROS, and allows a robot to build up a map of its environment and locate itself within that map at the same time!  We'll now look at how easy it is to leverage this in ROS.
 
-### :material-pen: Exercise 6: Building a map of an environment with SLAM {#ex6}
+### :material-pen: Exercise 5: Building a map of an environment with SLAM {#ex5}
 
 1. Close down all ROS processes that are running now by entering ++ctrl+c++ in each terminal. 
 
 1. We're going to launch our robot into *another* new simulated environment now, which we'll be creating a map of using SLAM! To launch the simulation enter the following command in **TERMINAL 1**:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ros2 launch tuos_simulations nav_world.launch.py
     ```
-    ***
 
     The environment that launches should look like this:
 
@@ -851,12 +685,9 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 
 1. Now launch SLAM to start building a map of this environment. In **TERMINAL 2**, launch SLAM as follows:
         
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 launch tuos_simulations cartographer.launch.py
     ```
-    ***
 
     This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some red/green dots representing the real-time LiDAR data. 
     
@@ -882,12 +713,9 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 
 1. As you're doing this open up *another* terminal instance (**TERMINAL 4**) and run the `odom_subscriber.py` node that you created back in Part 2:
     
-    ***
-    **TERMINAL 4:**
     ```bash
     ros2 run part2_navigation odom_subscriber.py
     ```
-    ***
     
     This will provide you with the robot's `X` and `Y` coordinates (in meters) within the environment, as you are driving it around, and you can use this to determine the centre coordinates of the four circles (A, B, C & D) that are printed on the arena floor. 
     
@@ -917,43 +745,31 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 
 1. Then, remaining in **TERMINAL 3**, navigate to the root of your `part3_beyond_basics` package directory and create a new folder in it called `maps`:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     cd ~/ros2_ws/src/part3_beyond_basics/
     ```
     ```bash
     mkdir maps
     ```
-    ***
 
 1. Navigate into this new directory:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     cd maps/
     ```
-    ***
     
 1. Then, run the `map_saver_cli` node from the `map_server` package to save a copy of your map: <a name="map-saver-cli"></a>
 
-    ***
-    **TERMINAL 3:**
     ```{ .bash .no-copy }
     ros2 run nav2_map_server map_saver_cli -f MAP_NAME
     ```
     Replacing `MAP_NAME` with a name of your choosing. 
-    ***
 
     This will create two files: a `MAP_NAME.pgm` and a `MAP_NAME.yaml` file, both of which contain data related to the map that you have just created.  The `.pgm` file contains an *Occupancy Grid Map (OGM)*, which is used for *autonomous navigation* in ROS.  Have a look at the map by launching it in an Image Viewer Application called `eog`:
     
-    ***
-    **TERMINAL 3:**
     ```{ .bash .no-copy }
     eog MAP_NAME.pgm
     ```
-    ***
 
     A new window should launch containing the map you have just created with SLAM and the `map_saver_cli` node: 
     

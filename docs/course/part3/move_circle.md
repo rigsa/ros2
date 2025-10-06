@@ -6,17 +6,17 @@ A working `move_circle.py` node (from [Part 2 Exercise 5](../part2.md#ex5)) comp
 
 ## The Code
 
-```python title="param_circle.py"
+```python title="move_circle.py"
 --8<-- "https://raw.githubusercontent.com/tom-howard/com2009_exercises/refs/heads/jazzy/part2_navigation/scripts/move_circle.py"
 ```
 
 ## Adding Package Dependencies
 
-The `param_circle.py` node will live inside your `part3_beyond_basics` package, and so make sure you define the necessary dependencies within the `package.xml` file.
+Make sure you define this node's dependencies within your package's `package.xml` file.
 
 Find this line:
 
-```xml title="part3_beyond_basics/package.xml"
+```xml title="package.xml"
 ...
 <exec_depend>geometry_msgs</exec_depend>
 ...

@@ -1,5 +1,5 @@
 ---
-title: "Launch File Arguments"
+title: "Launch Files (Advanced)"
 ---
 
 ## Introduction
@@ -75,9 +75,95 @@ ros2 launch tuos_simulations waffle.launch.py x_pose:=1 y_pose:=0.5
 
 The robot should spawn into an empty world, but at coordinate position $x=1.0$, $y=0.5$, rather than $x=0$, $y=0$, as would normally be the case.
 
-## Launching Launch Files from Within Launch Files!
+## Launching Launch Files from Launch Files!
 
 This was covered in [Assignment #1 Part 3 Exercise 2](../assignment1/part3.md#ex2), where we learnt how to launch an "Empty World" simulation from within our own launch file (and also launch a velocity control node from one of our own packages alongside this).
+
+<!-- TODO: the below (formerly part of Part 3) to be included here now instead:
+
+Using the processes above, we can develop launch files to execute as many nodes as we want on a ROS network simultaneously. *Another* thing we can do with launch files is launch *other* launch files! 
+
+To illustrate this, think back to the `move_circle.py` node that we developed in Part 2, as part of our `part2_navigation` package. In order to launch this node we must first launch a robot simulation, e.g.: 
+
+``` { .bash .no-copy }
+ros2 launch turtlebot3_gazebo empty_world.launch.py
+```
+
+In this exercise we'll look at how we can launch the above launch file *and* our `move_circle.py` node simultaneously from a single `ros2 launch` command...
+
+1. In **TERMINAL 1**, make sure you're in the `launch` directory of your `part3_beyond_basics` package. First, navigate into the package root:
+
+    ```bash
+    cd ~/ros2_ws/src/part3_beyond_basics
+    ```
+
+    ... and then into the `launch` directory from there:
+
+    ```bash
+    cd launch/
+    ```
+
+1. Make a new launch file in here, called `circle.launch.py`:
+
+    ```bash
+    touch circle.launch.py
+    ```
+
+1. Open this up in VS Code and enter the following:
+
+    ```py title="circle.launch.py"
+    from launch import LaunchDescription
+    from launch_ros.actions import Node
+
+    import os
+    from launch.actions import IncludeLaunchDescription
+    from launch.launch_description_sources import PythonLaunchDescriptionSource
+    from ament_index_python.packages import get_package_share_directory
+
+    def generate_launch_description():
+        return LaunchDescription([
+            IncludeLaunchDescription( # (1)!
+                PythonLaunchDescriptionSource( # (2)!
+                    os.path.join( # (3)!
+                        get_package_share_directory("turtlebot3_gazebo"), 
+                        "launch", "empty_world.launch.py" # (4)!
+                    )
+                )
+            )
+        ])
+    ``` 
+
+    1. To include another launch file in a launch description, we use a `IncludeLaunchDescription()` class instance (imported from a module called `launch.actions`).
+    2. We want to launch the "Empty World" simulation from the `turtlebot3_gazebo` package, which (as we know) can be done *from a terminal* with the following command:
+
+        ``` { .bash .no-copy }
+        ros2 launch turtlebot3_gazebo empty_world.launch.py
+        ```
+
+        Based on the above, we know that the launch file itself is a *Python* launch file, due to the `.py` file extension at the end.
+
+        As such, the launch description that we want to include is a *Python* launch description, which must therefore be defined using a `PythonLaunchDescriptionSource()` instance (imported from a module called `launch.launch_description_sources`)
+        
+    3. The `os.path.join()` method (from the standard Python `os` library) can be used to build file paths. 
+    4. The *Python Launch Description Source* is defined by providing the full path to the launch file that we want to include. We don't necessarily know where this file is on our filesystem, but ROS does!
+    
+        We can therefore use a function called `get_package_share_directory()` (from a module called `ament_index_python.packages`) to provide us with the path to the *root* of this package directory.
+        
+        From there, we know that the launch file itself must exist in a `launch` directory, so we use the `os.path.join()` method to construct this full file path for us.
+    
+    ... Currently, the launch file above contains *only* the code necessary to include the `empty_world.launch.py` launch file into our `circle.launch.py` launch description. There's a few new things that have been introduced here to achieve this, so click on the :material-plus-circle: icons in the code above to find out what all these things are doing.
+
+1. Now, add a `Node()` item to the launch description so that the `move_circle.py` node (from your `part2_navigation` package) is launched *after* the "Empty World" simulation has been launched.
+
+    Refer back to Exercise 1 for a reminder on how to do this.
+
+1. When you're ready, remember to [run `colcon build` again](#colcon-build) *before* attempting to execute your new `circle.launch.py` launch file:
+
+    ```bash
+    ros2 launch part3_beyond_basics circle.launch.py
+    ```
+
+If you've done this successfully, on launching the above command the Gazebo Empty World simulation should launch and, once it's loaded up, the robot should instantly start moving around in a circle (while printing information to **TERMINAL 1** at the same time). -->
 
 ## Passing Launch Arguments
 

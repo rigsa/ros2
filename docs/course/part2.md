@@ -126,10 +126,7 @@ A Gazebo simulation window should open and within this you should see a TurtleBo
   ![](../../images/gz/tb3_empty_world_mid.png){width=700px}
 </figure>
 
-
-
-
-## Odometry (Position) {#odometry}
+## ROS Topics and Interfaces (from Part 1)
 
 In Part 1 we learnt about ROS Topics, and about how the `teleop_keyboard` node could be used to publish messages to a particular topic in order to control the velocity of the robot (and thus change its *position*).
 
@@ -143,6 +140,18 @@ Recall that Topics are key to making things happen on a robot: data is passed be
 
 Having investigated the `/cmd_vel` topic in Part 1, let's have a look at another topic now: `/odom`, and consider what the information here means, and what it's used for.
 
+## Odometry {#odometry}
+
+Odometry is a process of monitoring a robot's *position* and *orientation* in an environment, which (as we'll learn) is essential for robot navigation. The position and orientation of a robot is referred to as its *pose*. A robot's pose is 3-dimensional, and is therefore defined in terms of three *"Principal Axes"*: `X`, `Y` and `Z`. In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:
+
+<a name="principal-axes"></a>
+
+<figure markdown>
+  ![](../../images/waffle/principal_axes.svg){width=800}
+</figure>
+
+Not all the above positions and orientations apply to our Waffles, and we'll explore this further below.
+
 ### Odometry In Action
 
 Recall from Part 1 the command that we can use to list *all* the topics that are available on our robot:
@@ -151,9 +160,7 @@ Recall from Part 1 the command that we can use to list *all* the topics that are
 ros2 topic list
 ```
 
-You should see `/odom` in this list. This topic contains *Odometry data*, which is essential for robot navigation, giving us an approximation of a robot's location in its environment.
-
-Run the `ros2 topic` command again, but this time with an additional `-t` option:
+You should see `/odom` in this list, which is where our robot's Odometry data is published. Run the `ros2 topic` command again, but this time with an additional `-t` option:
 
 ```bash
 ros2 topic list -t
@@ -185,7 +192,7 @@ Having established the data structure, let's explore the actual data now, using 
     ```
     ***
 
-    *Topic Monitor* should launch with a list of active topics which matches the topic list from the `ros2 topic list` command that you ran earlier.
+    *Topic Monitor* should launch with a list of active topics matching the topic list from the `ros2 topic list` command that you ran earlier.
 
 1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal four *base fields*.
 
@@ -243,7 +250,7 @@ Having established the data structure, let's explore the actual data now, using 
     
 1. Press ++ctrl+c++ in **TERMINAL 2** and **TERMINAL 3**, to stop the `robot_pose.py` and `teleop_keyboard` nodes. 
 
-### Odometry: Explained
+### Odometry Explained
 
 Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again:
 
@@ -358,51 +365,30 @@ Quaternion orientation
 
 For us, it's easier to think about the orientation of our robot in a *"Euler Angle"* representation, which tell us the degree of rotation about the *three principal axes* ([as discussed above](#principal-axes)):
 
-* $\theta_{x}$ (`angular.x`), aka: **"Roll"**
-* $\theta_{y}$ (`angular.y`), aka: **"Pitch"**
-* $\theta_{z}$ (`angular.z`), aka: **"Yaw"**
+* $\theta_{x}$: The angular position about the **X**-axis, aka **"Roll"**
+* $\theta_{y}$: The angular position about the **Y**-axis, aka **"Pitch"**
+* $\theta_{z}$: The angular position about the **Z**-axis, aka **"Yaw"**
 
 Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward ([see here](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}).
 
 ### Which Pose Values Apply to our Waffles?
 
-A robot's pose is defined in terms of three *"Principal Axes"*: `X`, `Y` and `Z`. In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:
-
-<a name="principal-axes"></a>
+Referring back to the three *principal axes* from earlier: 
 
 <figure markdown>
-  ![](../../images/waffle/principal_axes.svg){width=800}
+  ![](../../images/waffle/principal_axes.svg){width=500}
 </figure>
 
-As you can see from the figure, our TurtleBot3 has two motors, and can therefore only move in a 2D plane (unfortunately, it can't fly!). Its pose can therefore be fully represented by just 3 terms: 
+You can also see here that our TurtleBot3 has two motors that allow it to move. As a result of this, it can only move in a 2D plane and so its pose can be fully represented by just 3 odometry terms in total: 
 
-* $x$ & $y$: the 2D coordinates of the robot in the `X-Y` plane
-* $\theta_{z}$: the angle of the robot about the `z` (*yaw*) axis
+* $x$ & $y$: the 2D coordinates of the robot in the **X**-**Y** plane
+* $\theta_{z}$: the angle of the robot about the **Z**-axis (*yaw*)
 
-<!-- #### Twist
-
-The fourth *base field* within the `nav_msgs/msg/Odometry` interface is **Twist**:
-
-``` { .txt .no-copy }
-# Estimated linear and angular velocity relative to child_frame_id.
-geometry_msgs/TwistWithCovariance twist
-        Twist twist
-                Vector3  linear
-                        float64 x
-                        float64 y
-                        float64 z
-                Vector3  angular
-                        float64 x
-                        float64 y
-                        float64 z
-        float64[36] covariance
-```
-
-This might look familiar from [earlier](#velocity)! This tells us the current linear and angular velocities of the robot. These velocities are *set* by messages published to `/cmd_vel`, but are then *monitored* by data coming directly from the robot's wheel encoders, and are provided here as a *feedback signal*. -->
+(unfortunately, it can't fly!)
 
 ### Odometry Data as a Feedback Signal
 
-Odometry data can be really useful for robot navigation, allowing us to keep track of where a robot is, how it's moving and how to get back to where we started. We therefore need to know how to use odometry data effectively within our Python nodes, and we'll explore this now.
+Odometry data can be really useful for robot navigation, allowing us to keep track of where a robot is, how it's moving and how to get back to where we started. We therefore need to know how to use this data effectively within our Python nodes, and we'll explore this now.
 
 #### :material-pen: Exercise 2: Creating a Python Node to Process Odometry Data {#ex2}
 
@@ -438,7 +424,7 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     cp ../part1_pubsub/scripts/subscriber.py ./scripts/odom_subscriber.py
     ```
 
-    ??? info "Info: Copying files from the Terminal"
+    ??? info "Info: Copying files in a terminal"
         When using the `cp` command to copy things, we need to provide two key bits of information (at least): 
 
         ``` { .txt .no-copy }
@@ -505,7 +491,7 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
 1. Observe how the output (the formatted odometry data) changes while you move the robot around using the `teleop_keyboard` node in a new terminal instance (**TERMINAL 3**).
 1. Stop your `odom_subscriber.py` node in **TERMINAL 2** and the `teleop_keyboard` node in **TERMINAL 3** by entering ++ctrl+c++ in each of the terminals.
 
-## Basic Navigation: Open-loop Velocity (Motion) Control {#velocity}
+## Basic Navigation: Open-loop Velocity Control {#velocity}
 
 In order to change our robot's pose, we need to apply velocity to make it move. We learnt about this in Part 1, but let's look at it all in a bit more detail now.
 
@@ -603,19 +589,17 @@ These relate to a robot's **six degrees of freedom** (DOFs), and velocity comman
 
 ### The Degrees of Freedom of our Waffles
 
-Recall our robot's *"Principal Axes"* and the motion about them:
+Recall (again) our robot's *"Principal Axes"* and the motion about them:
 
 <figure markdown>
-  ![](../../images/waffle/principal_axes.svg){width=800}
+  ![](../../images/waffle/principal_axes.svg){width=500}
 </figure>
 
-As discussed above, a mobile robot can have up to six degrees of freedom *in total*, but this is dictated by the robot's design and the actuators it is equipped with. 
-
-Our TurtleBot3 Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
+As discussed above, our Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
 
 <figure markdown>
   ![](../../images/waffle/velocities.svg){width=800}
-</figure> -->
+</figure>
 
 When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
 
@@ -655,9 +639,9 @@ When issuing velocity commands to our Waffles therefore, only two (of the six) v
 ros2 topic pub {topic_name} {interface_type} {data}
 ```
 
-[As we discovered earlier](#velocity-commands), the `/cmd_vel` topic is expecting interface messages containing *linear* and *angular* velocity data, each with `x`, `y` and `z` values associated with them. We can compose these messages in a terminal and publish them with the `ros2 topic pub` command, provided we take care to format the messages correctly to conform with the `geometry_msgs/msg/TwistStamped` data structure.
+As discussed above, the `/cmd_vel` topic is expecting interface messages containing *linear* and *angular* velocity data, each with `x`, `y` and `z` values associated with them. We can compose these messages in a terminal and publish them with the `ros2 topic pub` command, provided we take care to format the messages correctly to conform with the `geometry_msgs/msg/TwistStamped` data structure.
 
-1. In **TERMINAL 3** enter the following, this will end up being quite a long command, so let's break it down a little bit:
+1. In **TERMINAL 3** enter the following, this will end up being quite a long command, so let's break it down a little:
 
     1. Start with the desired subcommand of `ros2 topic`:
 
@@ -704,11 +688,9 @@ ros2 topic pub {topic_name} {interface_type} {data}
     
 1. Enter ++ctrl+c++ in **TERMINAL 3** to stop the message from being published.
 
-    What happens to the robot when you stop the `ros2 topic pub` command?
+    Notice that **the robot carries on moving** even when you stop the `ros2 topic pub` process...
 
-    ... it keeps on moving at the requested velocity!
-
-    In order to make the robot actually stop, we need to publish a *new* message containing alternative velocity commands.
+    In order to make the robot *actually* stop, we need to publish a *new* message containing alternative velocity commands.
 
 1. In **TERMINAL 3** press the ++up++ key on your keyboard to recall the previous command, but don't press ++enter++ just yet! Now press the ++left++ key to track back through the message and change the velocity field values back to `0.0` in order to now make the robot **stop**.
 
@@ -785,12 +767,12 @@ In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one
     ros2 run part2_navigation move_circle.py
     ```
 
-    Head back to the Gazebo simulation and watch as the robot moves around in a circle of 0.5 meter radius!
+    Head back to the Gazebo simulation and watch as the robot moves around in a circle of 0.5-meter radius!
 
-1. Once you're done, enter ++ctrl+c++ in **TERMINAL 2** to stop the `move_circle.py` node. **Notice what happens to the robot when you do this**...
+1. Once you're done, enter ++ctrl+c++ in **TERMINAL 2** to stop the `move_circle.py` node. 
 
     !!! question
-        What *does* happen to the robot when you hit ++ctrl+c++ to stop the node?
+        What happens to the robot when you hit ++ctrl+c++ to stop the `move_circle.py` node?
 
         **Answer**: It carries on moving :open_mouth:!
 

@@ -416,7 +416,7 @@ Let's think back to our `move_circle.py` node from Part 2 in order to see what t
 
 1. Once you're done, close down the `param_circle.py` node and the Gazebo Simulation by entering ++ctrl+c++ in terminals **1** and **2** respectively.
 
-### Summary
+## Summary
 
 Parameters allow us to change the behaviour of things during runtime. We'll also explore some other uses for them in the next part of this course (Part 4).
 
@@ -600,13 +600,6 @@ LaserScan data presents us with a new challenge: processing large datasets. In t
 1. Open up the file in VS Code, then see below for the instructions on how to build it:
     
     <center>[:material-file-code-outline: Building a `LaserScan` Subscriber](./part3/lidar_subscriber.md){ .md-button target="_blank"}</center> 
-
-1. Add some new dependencies to your package's `package.xml` file, based on the imports that your newly constructed `lidar_subscriber.py` file requires:
-
-    ```xml title="package.xml"
-    <exec_depend>sensor_msgs</exec_depend>
-    <exec_depend>python3-numpy</exec_depend>
-    ```
 
 1. Head back to the terminal and build with `colcon`:
 

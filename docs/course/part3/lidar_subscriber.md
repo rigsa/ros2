@@ -2,6 +2,8 @@
 title: Building a Basic LaserScan Subscriber Node
 ---
 
+## The Code
+
 Copy **all** the code below into your `lidar_subscriber.py` file and then **review the annotations** to understand how it all works.
 
 ```python title="lidar_subscriber.py"
@@ -48,3 +50,19 @@ The data processing is illustrated in the figure below:
 <figure markdown>
   ![](./scandata.png){width=600px}
 </figure>
+
+## Package Dependencies
+
+This node has dependencies on two external Python libraries (in addition to `rclpy`): 
+
+```py
+from sensor_msgs.msg import LaserScan
+import numpy as np
+```
+
+As such, you should include these in the `package.xml` file (under the `#!xml <exec_depend>rclpy</exec_depend>` line):
+
+```xml title="package.xml"
+<exec_depend>sensor_msgs</exec_depend>
+<exec_depend>python3-numpy</exec_depend>
+```

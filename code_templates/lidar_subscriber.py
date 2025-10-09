@@ -5,7 +5,6 @@ from rclpy.node import Node
 from rclpy.signals import SignalHandlerOptions # (1)!
 
 from sensor_msgs.msg import LaserScan # (2)!
-
 import numpy as np # (3)!
 
 class LidarSubscriber(Node): 

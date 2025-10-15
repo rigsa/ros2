@@ -779,12 +779,14 @@ See how easy it was to map an environment in the previous exercise? This works j
 
 This illustrates the power of ROS: having access to tools such as SLAM, which are built into the ROS framework, makes it really quick and easy for a robotics engineer to start developing robotic applications on top of this. Our job was made even easier here since we used some packages that had been pre-made by the manufacturers of our TurtleBot3 Robots to help us launch SLAM with the right configurations for our particular robot. If you were developing a robot yourself, or working with a different type of robot, then you might need to do a bit more work in setting up and tuning the SLAM tools to make them work for your own application.
 
+## Wrapping Up
+
 As we learnt in Part 2, a robot's odometry is determined by dead-reckoning and control algorithms based on this alone (like the `move_square.py` node) may be subject to drift and accumulated error. 
 
 Ultimately then, a robot needs additional information to pinpoint its precise location within an environment, and thus enhance its ability to navigate effectively and avoid crashing into things!
 
 This additional information can come from a LiDAR sensor, which was discussed earlier. We explored where this data is published to, how we access it, and what it tells us about a robot's immediate environment.  We then looked at some ways odometry and laser displacement data can be combined to perform advanced robotic functions such as the mapping of an environment. This is all complicated stuff but, using ROS, we can leverage these tools with relative ease, which illustrates just how powerful ROS can be for developing robotic applications quickly and effectively without having to re-invent the wheel!
-    
+
 ### WSL-ROS2 Managed Desktop Users: Save your work! {#backup}
 
 Remember, the work you have done in the WSL-ROS2 environment during this session **will not be preserved** for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS2 Terminal Instance:

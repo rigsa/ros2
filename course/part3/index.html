@@ -1394,21 +1394,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
-    <span class="md-ellipsis">
-      Wrapping Up
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Wrapping Up">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
@@ -2591,21 +2576,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
-    <span class="md-ellipsis">
-      Wrapping Up
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Wrapping Up">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
@@ -2654,9 +2624,7 @@
 
   <h1>Part 3: Beyond the Basics</h1>
 
-<!-- 
-TODO:
-* update all the figures, maybe leave the parameters bit in the extras section (adapt Part 4 and then see...)? --><h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Exercises</strong>: 5<br>
 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Estimated Completion Time</strong>: 3 hours<br>
 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Difficulty Level</strong>: Intermediate  </p>
@@ -2866,7 +2834,7 @@ TODO:
 </li>
 <li>
 <p>Once you've completed this, it should be possible to launch both the publisher and subscriber nodes with <code>ros2 launch</code> and the <code>pubsub.launch.py</code> file. Verify this in <strong>TERMINAL 1</strong> by executing the launch file. Soon after launching this, you should see the following messages to indicate that both nodes are alive:</p>
-<p>[TODO: a gif instead of text?]</p>
+<!-- [TODO: a gif instead of text?] -->
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>[subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node is initialised.
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>[publisher.py-1] [INFO] [###] [my_publisher]: The 'my_publisher' node is initialised.
 </code></pre></div>
@@ -3203,31 +3171,28 @@ TODO:
 </code></pre></div>
 <p>The environment that launches should look like this:</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="nav_world.jpg" width="800px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="nav_world.png" width="800px"></a>
 </figure><p></p>
 </li>
 <li>
 <p>Now launch SLAM to start building a map of this environment. In <strong>TERMINAL 2</strong>, launch SLAM as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>cartographer.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>cartographer.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
-<p>This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some red/green dots representing the real-time LiDAR data. </p>
+<p>This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some dots representing the real-time LiDAR data. </p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cartographer_rviz.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cartographer_rviz1.png" width="600px"></a>
 </figure><p></p>
 <p>SLAM has already started building a map of the boundaries that are currently visible to the robot, based on its starting position in the environment. </p>
-<p>If you leave this for a minute the walls of the arena will start to become visible in RViz, and the floor will start to turn a lighter grey. As time passes the SLAM algorithms are becoming more certain of what is being observed in the environment, and are starting to determine what is free space, and where the boundaries are.</p>
+<p>If you leave this for a minute the walls of the arena will start to become visible in RViz, and the floor will start to turn a lighter grey. As time passes the SLAM algorithms become more certain of what is being observed in the environment, allowing the boundaries and the free space to be defined.</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cartographer_rviz_progressed.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cartographer_rviz2.png" width="600px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>In <strong>TERMINAL 3</strong> launch the <code>teleop_keyboard</code> node (<a href="../part2/#teleop">you should know how to do this by now</a>). Re-arrange and re-size your windows so that you can see Gazebo, RViz <em>and</em> the <code>teleop_keybaord</code> terminal instances all at the same time:</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="slam_windows.png" width="800px"></a>
-</figure><p></p>
+<p>In <strong>TERMINAL 3</strong> launch the <code>teleop_keyboard</code> node (<a href="../part2/#teleop">you should know how to do this by now</a>). Re-arrange and re-size your windows so that you can see Gazebo, RViz <em>and</em> the <code>teleop_keyboard</code> terminal instances all at the same time.</p>
 </li>
 <li>
-<p>Drive the robot around the arena slowly, using the <code>teleop_keyboard</code> node, and observe the map being updated in the RViz window as you do so. </p>
+<p>Drive the robot around the arena slowly, using the <code>teleop_keyboard</code> node, and observe how the map is constantly being updated and expanded in the RViz window as you do so. </p>
 </li>
 <li>
 <p>As you're doing this open up <em>another</em> terminal instance (<strong>TERMINAL 4</strong>) and run the <code>odom_subscriber.py</code> node that you created back in Part 2:</p>
@@ -3235,7 +3200,7 @@ TODO:
 </code></pre></div>
 <p>This will provide you with the robot's <code>X</code> and <code>Y</code> coordinates (in meters) within the environment, as you are driving it around, and you can use this to determine the centre coordinates of the four circles (A, B, C &amp; D) that are printed on the arena floor. </p>
 <p>Drive your robot into each of these circular zones and stop the robot inside them.    </p>
-<p><a name="goal_coords"></a>Record the zone marker coordinates in a table such as the one below.</p>
+<p><a name="goal_coords"></a>Record the coordinates of each zone marker  in a table such as the one below.</p>
 <p></p><center><p></p>
 <table>
 <thead>
@@ -3276,13 +3241,13 @@ TODO:
 <p></p></center><p></p>
 </li>
 <li>
-<p>Drive the robot around until a full map of the environment has been generated.</p>
+<p>Continue to drive the robot around until a full map of the environment has been generated.</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="slam_steps.png" width="800px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Once you're happy that your robot has built a complete map of the environment (and you've got the coordinates of all the circles), you can then save your map for later use. We do this using a ROS <code>map_server</code> package.  First, stop the robot by pressing <span class="keys"><kbd class="key-s">S</kbd></span> in <strong>TERMINAL 3</strong> and then enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> to shut down the <code>teleop_keyboard</code> node.</p>
+<p>Once you have built a complete map of the environment (and you've got the coordinates of all the circles), you can then save your map for later use. We do this using a ROS <code>map_server</code> package.  First, stop the robot by pressing <span class="keys"><kbd class="key-s">S</kbd></span> in <strong>TERMINAL 3</strong> and then enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> to shut down the <code>teleop_keyboard</code> node.</p>
 </li>
 <li>
 <p>Then, remaining in <strong>TERMINAL 3</strong>, navigate to the root of your <code>part3_beyond_basics</code> package directory and create a new folder in it called <code>maps</code>:</p>
@@ -3311,7 +3276,7 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
 <p>White regions represent the area that your robot has determined is open space and that it can freely move within.  Black regions, on the other hand, represent boundaries or objects that have been detected.  Any grey area on the map represents regions that remain unexplored, or that were inaccessible to the robot.</p>
 </li>
 <li>
-<p>Compare the map generated by SLAM to the real simulated environment. In a simulated environment this process should be pretty accurate, and the map should represent the simulated environment very well (unless you didn't allow your robot to travel around and see the whole thing!)  In a real environment this is often not the case.  </p>
+<p>Compare the map generated by SLAM to the actual simulated environment (in Gazebo). </p>
 <div class="admonition question">
 <p class="admonition-title">Questions</p>
 <ul>
@@ -3325,12 +3290,11 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
 </li>
 </ol>
 <h3 id="summary-of-slam">Summary of SLAM<a class="headerlink" href="#summary-of-slam" title="Permanent link">¶</a></h3>
-<p>See how easy it was to map an environment in the previous exercise? This works just as well on a real robot in a real environment too (as you will observe in <a href="../../waffles/basics.md#exSlam">one of the Real Waffle "Getting Started Exercises" for Assignment #2</a>). </p>
-<p>This illustrates the power of ROS: having access to tools such as SLAM, which are built into the ROS framework, makes it really quick and easy for a robotics engineer to start developing robotic applications on top of this. Our job was made even easier here since we used some packages that had been pre-made by the manufacturers of our TurtleBot3 Robots to help us launch SLAM with the right configurations for our exact robot.  If you were developing a robot yourself, or working with a different type of robot, then you might need to do a bit more work in setting up and tuning the SLAM tools to make them work for your own application.</p>
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
+<p>See how easy it was to map an environment in the previous exercise? This works just as well on a real robot in a real environment too (as you'll observe in the lab). </p>
+<p>This illustrates the power of ROS: having access to tools such as SLAM, which are built into the ROS framework, makes it really quick and easy for a robotics engineer to start developing robotic applications on top of this. Our job was made even easier here since we used some packages that had been pre-made by the manufacturers of our TurtleBot3 Robots to help us launch SLAM with the right configurations for our particular robot. If you were developing a robot yourself, or working with a different type of robot, then you might need to do a bit more work in setting up and tuning the SLAM tools to make them work for your own application.</p>
 <p>As we learnt in Part 2, a robot's odometry is determined by dead-reckoning and control algorithms based on this alone (like the <code>move_square.py</code> node) may be subject to drift and accumulated error. </p>
 <p>Ultimately then, a robot needs additional information to pinpoint its precise location within an environment, and thus enhance its ability to navigate effectively and avoid crashing into things!</p>
-<p>This additional information can come from a LiDAR sensor, which you learnt about in this session. We explored where this data is published to, how we access it, and what it tells us about a robot's immediate environment.  We then looked at some ways odometry and laser displacement data can be combined to perform advanced robotic functions such as the mapping of an environment. This is all complicated stuff but, using ROS, we can leverage these tools with relative ease, which illustrates just how powerful ROS can be for developing robotic applications quickly and effectively without having to re-invent the wheel!</p>
+<p>This additional information can come from a LiDAR sensor, which was discussed earlier. We explored where this data is published to, how we access it, and what it tells us about a robot's immediate environment.  We then looked at some ways odometry and laser displacement data can be combined to perform advanced robotic functions such as the mapping of an environment. This is all complicated stuff but, using ROS, we can leverage these tools with relative ease, which illustrates just how powerful ROS can be for developing robotic applications quickly and effectively without having to re-invent the wheel!</p>
 <h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
 <p>Remember, the work you have done in the WSL-ROS2 environment during this session <strong>will not be preserved</strong> for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS2 Terminal Instance:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>wsl_ros<span class="w"> </span>backup
@@ -3358,7 +3322,7 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 9, 2025 16:23:52 UTC"><span class="timeago" datetime="2025-10-09T16:23:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2025 16:23:52 UTC">2025-10-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 15, 2025 15:39:07 UTC"><span class="timeago" datetime="2025-10-15T15:39:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 15, 2025 15:39:07 UTC">2025-10-15</span>
   </span>
 
     

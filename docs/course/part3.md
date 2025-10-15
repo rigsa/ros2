@@ -2,9 +2,6 @@
 title: "Part 3: Beyond the Basics"  
 description: Execute ROS applications more efficiently using launch files. Learn about the LiDAR sensor, the data that it generates, and see the benefits of this for tools like "SLAM".
 ---
-<!-- 
-TODO:
-* update all the figures, maybe leave the parameters bit in the extras section (adapt Part 4 and then see...)? -->
 
 ## Introduction
 
@@ -261,7 +258,7 @@ To start with, let's create another new package, this time called `part3_beyond_
         
 1. Once you've completed this, it should be possible to launch both the publisher and subscriber nodes with `ros2 launch` and the `pubsub.launch.py` file. Verify this in **TERMINAL 1** by executing the launch file. Soon after launching this, you should see the following messages to indicate that both nodes are alive:
 
-    [TODO: a gif instead of text?]
+    <!-- [TODO: a gif instead of text?] -->
 
     ``` { .txt .no-copy }
     [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node is initialised.
@@ -673,36 +670,32 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
     The environment that launches should look like this:
 
     <figure markdown>
-      ![](./part3/nav_world.jpg){width=800px}
+      ![](./part3/nav_world.png){width=800px}
     </figure>
 
 1. Now launch SLAM to start building a map of this environment. In **TERMINAL 2**, launch SLAM as follows:
         
     ```bash
-    ros2 launch tuos_simulations cartographer.launch.py
+    ros2 launch tuos_tb3_tools cartographer.launch.py environment:=sim
     ```
 
-    This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some red/green dots representing the real-time LiDAR data. 
+    This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some dots representing the real-time LiDAR data. 
     
     <figure markdown>
-      ![](./part3/cartographer_rviz.png){width=600px}
+      ![](./part3/cartographer_rviz1.png){width=600px}
     </figure>
 
     SLAM has already started building a map of the boundaries that are currently visible to the robot, based on its starting position in the environment. 
 
-    If you leave this for a minute the walls of the arena will start to become visible in RViz, and the floor will start to turn a lighter grey. As time passes the SLAM algorithms are becoming more certain of what is being observed in the environment, and are starting to determine what is free space, and where the boundaries are.
+    If you leave this for a minute the walls of the arena will start to become visible in RViz, and the floor will start to turn a lighter grey. As time passes the SLAM algorithms become more certain of what is being observed in the environment, allowing the boundaries and the free space to be defined.
 
     <figure markdown>
-      ![](./part3/cartographer_rviz_progressed.png){width=600px}
+      ![](./part3/cartographer_rviz2.png){width=600px}
     </figure>
 
-1. In **TERMINAL 3** launch the `teleop_keyboard` node ([you should know how to do this by now](./part2.md#teleop)). Re-arrange and re-size your windows so that you can see Gazebo, RViz *and* the `teleop_keybaord` terminal instances all at the same time:
-    
-    <figure markdown>
-      ![](./part3/slam_windows.png){width=800px}
-    </figure>
+1. In **TERMINAL 3** launch the `teleop_keyboard` node ([you should know how to do this by now](./part2.md#teleop)). Re-arrange and re-size your windows so that you can see Gazebo, RViz *and* the `teleop_keyboard` terminal instances all at the same time.
 
-1. Drive the robot around the arena slowly, using the `teleop_keyboard` node, and observe the map being updated in the RViz window as you do so. 
+1. Drive the robot around the arena slowly, using the `teleop_keyboard` node, and observe how the map is constantly being updated and expanded in the RViz window as you do so. 
 
 1. As you're doing this open up *another* terminal instance (**TERMINAL 4**) and run the `odom_subscriber.py` node that you created back in Part 2:
     
@@ -714,7 +707,7 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
     
     Drive your robot into each of these circular zones and stop the robot inside them.    
 
-    <a name="goal_coords"></a>Record the zone marker coordinates in a table such as the one below.
+    <a name="goal_coords"></a>Record the coordinates of each zone marker  in a table such as the one below.
 
     <center>
 
@@ -728,13 +721,13 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 
     </center>
 
-1. Drive the robot around until a full map of the environment has been generated.
+1. Continue to drive the robot around until a full map of the environment has been generated.
     
     <figure markdown>
       ![](./part3/slam_steps.png){width=800px}
     </figure>
 
-1. Once you're happy that your robot has built a complete map of the environment (and you've got the coordinates of all the circles), you can then save your map for later use. We do this using a ROS `map_server` package.  First, stop the robot by pressing ++s++ in **TERMINAL 3** and then enter ++ctrl+c++ to shut down the `teleop_keyboard` node.
+1. Once you have built a complete map of the environment (and you've got the coordinates of all the circles), you can then save your map for later use. We do this using a ROS `map_server` package.  First, stop the robot by pressing ++s++ in **TERMINAL 3** and then enter ++ctrl+c++ to shut down the `teleop_keyboard` node.
 
 1. Then, remaining in **TERMINAL 3**, navigate to the root of your `part3_beyond_basics` package directory and create a new folder in it called `maps`:
 
@@ -772,7 +765,7 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 
     White regions represent the area that your robot has determined is open space and that it can freely move within.  Black regions, on the other hand, represent boundaries or objects that have been detected.  Any grey area on the map represents regions that remain unexplored, or that were inaccessible to the robot.
     
-1. Compare the map generated by SLAM to the real simulated environment. In a simulated environment this process should be pretty accurate, and the map should represent the simulated environment very well (unless you didn't allow your robot to travel around and see the whole thing!)  In a real environment this is often not the case.  
+1. Compare the map generated by SLAM to the actual simulated environment (in Gazebo). 
 
     !!! question "Questions"
         * How accurately did your robot map the environment?
@@ -782,17 +775,15 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 
 ### Summary of SLAM
 
-See how easy it was to map an environment in the previous exercise? This works just as well on a real robot in a real environment too (as you will observe in [one of the Real Waffle "Getting Started Exercises" for Assignment #2](../../waffles/basics.md#exSlam)). 
+See how easy it was to map an environment in the previous exercise? This works just as well on a real robot in a real environment too (as you'll observe in the lab). 
 
-This illustrates the power of ROS: having access to tools such as SLAM, which are built into the ROS framework, makes it really quick and easy for a robotics engineer to start developing robotic applications on top of this. Our job was made even easier here since we used some packages that had been pre-made by the manufacturers of our TurtleBot3 Robots to help us launch SLAM with the right configurations for our exact robot.  If you were developing a robot yourself, or working with a different type of robot, then you might need to do a bit more work in setting up and tuning the SLAM tools to make them work for your own application.
-
-## Wrapping Up
+This illustrates the power of ROS: having access to tools such as SLAM, which are built into the ROS framework, makes it really quick and easy for a robotics engineer to start developing robotic applications on top of this. Our job was made even easier here since we used some packages that had been pre-made by the manufacturers of our TurtleBot3 Robots to help us launch SLAM with the right configurations for our particular robot. If you were developing a robot yourself, or working with a different type of robot, then you might need to do a bit more work in setting up and tuning the SLAM tools to make them work for your own application.
 
 As we learnt in Part 2, a robot's odometry is determined by dead-reckoning and control algorithms based on this alone (like the `move_square.py` node) may be subject to drift and accumulated error. 
 
 Ultimately then, a robot needs additional information to pinpoint its precise location within an environment, and thus enhance its ability to navigate effectively and avoid crashing into things!
 
-This additional information can come from a LiDAR sensor, which you learnt about in this session. We explored where this data is published to, how we access it, and what it tells us about a robot's immediate environment.  We then looked at some ways odometry and laser displacement data can be combined to perform advanced robotic functions such as the mapping of an environment. This is all complicated stuff but, using ROS, we can leverage these tools with relative ease, which illustrates just how powerful ROS can be for developing robotic applications quickly and effectively without having to re-invent the wheel!
+This additional information can come from a LiDAR sensor, which was discussed earlier. We explored where this data is published to, how we access it, and what it tells us about a robot's immediate environment.  We then looked at some ways odometry and laser displacement data can be combined to perform advanced robotic functions such as the mapping of an environment. This is all complicated stuff but, using ROS, we can leverage these tools with relative ease, which illustrates just how powerful ROS can be for developing robotic applications quickly and effectively without having to re-invent the wheel!
     
 ### WSL-ROS2 Managed Desktop Users: Save your work! {#backup}
 

@@ -1244,6 +1244,16 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quick Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1252,6 +1262,11 @@
       Additional Resources
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2397,6 +2412,16 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quick Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2405,6 +2430,11 @@
       Additional Resources
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2627,6 +2657,7 @@
 <li>Invoke different services using various service-type interfaces.</li>
 </ol>
 <h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
+<h4 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">¶</a></h4>
 <ul>
 <li><a href="#ex1">Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface</a></li>
 <li><a href="#ex2">Exercise 2: Playing the Number Game (from the Command-line)</a></li>
@@ -2635,9 +2666,9 @@
 <li><a href="#ex5">Exercise 5: Creating a Python Service Client</a></li>
 <li><a href="#ex6">Exercise 6: Developing A Map Saver Service Client</a></li>
 </ul>
-<h3 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h3>
+<h4 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="number_game_client/">The <code>number_game_client.py</code> Node (for Exercise 5)</a></li>
+<li><a href="number_game_client/" target="_blank">The <code>number_game_client.py</code> Node (for Exercise 5)</a></li>
 </ul>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
 <p><strong>Step 1: Launch your ROS2 Environment</strong></p>
@@ -2649,10 +2680,14 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Do you want to restore this now? [y/n]
 </code></pre></div>
 <p><strong>Step 3: Launch VS Code</strong>  </p>
-<p>It's also worth launching VS Code now. <em>WSL users</em> remember to check for this:</p>
-<figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../ros/figures/code-wsl-ext-on.png" width="400px"></a></p>
-</figure>
+<p>It's also worth launching VS Code now. </p>
+<details class="warning">
+<summary>WSL Users...</summary>
+<p>It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: </p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.png" width="400px"></a>
+</figure><p></p>
+</details>
 <p><strong>Step 4: Make Sure The Course Repo is Up-To-Date</strong></p>
 <p>Once again, it's worth quickly checking that the Course Repo is up-to-date before you start on the Part 4 exercises. Go back to <a href="../part1/#course-repo">Part 1</a> if you haven't installed it yet (really?!) or - alternatively - <a href="../extras/course-repo.md#updating">see here for how to update</a>.</p>
 <h2 id="an-introduction-to-services">An Introduction to Services<a class="headerlink" href="#an-introduction-to-services" title="Permanent link">¶</a></h2>
@@ -2679,32 +2714,24 @@
 <figcaption>Multiple Clients to a single Service Server</figcaption>
 </figure>
 <p>Let's see how this all works in practice now, by playing a number game! We don't need a simulation up and running for this one, so in <strong>TERMINAL 1</strong> use the following command to launch the <em>Guess the Number</em> Service: </p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>number_game.py
-</code></pre></div><p></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>number_game.py
+</code></pre></div>
 <p>Having launched the service successfully, you should be presented with the following:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[INFO] [#####] [number_game_service]: The '/guess_the_number' service is active.
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[INFO] [#####] [number_game_service]: A secret number has been set... Game on!
 </code></pre></div>
-<hr>
 <p>We need to interrogate this now, in order to work out how to play the game...</p>
 <h2 id="interrogating-a-service">Interrogating a Service<a class="headerlink" href="#interrogating-a-service" title="Permanent link">¶</a></h2>
 <h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
 <ol>
 <li>
 <p>Open up a new terminal instance (<strong>TERMINAL 2</strong>) and use the <code>ros2 service</code> command to list all active ROS services:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>list
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>list
+</code></pre></div>
 <p>There'll be a few items in this list, most of them with the prefix: <code>/number_game_service</code>. This is the name of the <em>node</em> that is providing the service (i.e. the <strong>Server</strong>) and these items are all automatically generated by ROS. What we're really interested in is the service itself, which should be listed as <code>/guess_the_number</code>. </p>
 </li>
 <li>
 <p>Next, we need to find the <em>interface type</em> used by this service, which we can do a couple of ways:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong></p>
 <ol>
 <li>
 <p>Use the <code>type</code> sub-command:</p>
@@ -2718,7 +2745,6 @@
 <p>The latter will provide the same list of services as before, but each one will now have its interface type provided alongside it.</p>
 </li>
 </ol>
-<hr>
 </li>
 <li>
 <p>Regardless of the method that you used above, you should have discovered that the interface type used by the <code>/guess_the_number</code> service is:</p>
@@ -2734,8 +2760,6 @@
 </li>
 <li>
 <p>We can use the <code>ros2 interface list</code> command to list <em>all</em> interface types available to us on our ROS system, but this will provide us with a long list!</p>
-<hr>
-<p><strong>TERMINAL 2:</strong></p>
 <ol>
 <li>
 <p>We can use the <code>-m</code> flag to filter for <em>message</em> interfaces, or the <code>-s</code> flag to filter for <em>service</em> interfaces. Try the latter:</p>
@@ -2755,7 +2779,6 @@
 </code></pre></div>
 </li>
 </ol>
-<hr>
 <p>The interface structure should be shown as follows:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>int32 guess
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>---
@@ -2823,41 +2846,52 @@
 </ol>
 <h2 id="creating-our-own-services">Creating Our Own Services<a class="headerlink" href="#creating-our-own-services" title="Permanent link">¶</a></h2>
 <p>Over the next three exercises, we'll learn how to create a service interface of our own, and build a Server and Client (in Python) that use this.</p>
-<p>First though, we need to create a new package, so follow the same procedure as you have in the previous parts of this course to create one called <code>part4_services</code>.</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/
-</code></pre></div><p></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>./create_pkg.sh part4_services
+<p>First though, we need to create a new package, so follow the same procedure as you have in the previous parts of this course to create another new package called <code>part4_services</code>.</p>
+<p>In <strong>TERMINAL 1</strong>:</p>
+<ol>
+<li>
+<p>Head to the ROS 2 workspace <code>src</code> folder:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
 </code></pre></div>
-<hr>
+</li>
+<li>
+<p>Clone the package template:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tom-howard/ros2_pkg_template.git
+</code></pre></div>
+</li>
+<li>
+<p>Call the <code>init_pkg.sh</code> script and specify your package name:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>./ros2_pkg_template/init_pkg.sh<span class="w"> </span>part4_services
+</code></pre></div>
+</li>
+</ol>
 <h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Creating a Service Interface<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
 <p>Let's create a service interface now which has a <em>similar</em> structure to the one used by the <code>/guess_the_number</code> service, but this time with <em>two</em> request parameters, rather than just one...</p>
 <ol>
 <li>
 <p>In <strong>TERMINAL 1</strong>, navigate into the root of your <code>part4_services</code> package directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part4_services/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part4_services/
 </code></pre></div>
 </li>
 <li>
 <p>Create a new directory there called <code>srv</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>mkdir<span class="w"> </span>srv
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>mkdir<span class="w"> </span>srv
 </code></pre></div>
 </li>
 <li>
 <p>Create a new file in this directory called <code>MyNumberGame.srv</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>touch<span class="w"> </span>srv/MyNumberGame.srv
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>touch<span class="w"> </span>srv/MyNumberGame.srv
 </code></pre></div>
 <p>In here is where we will define the structure of our own <code>MyNumberGame</code> service interface.</p>
 </li>
 <li>
 <p>Open up this file in VS Code, enter the following content and save the file:</p>
-<div class="highlight"><span class="filename">MyNumberGame.srv</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>int32 guess
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>bool cheat
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>---
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>int32 num_guesses
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>string hint
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>bool correct
+<div class="highlight"><span class="filename">MyNumberGame.srv</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>int32 guess
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>bool cheat
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>---
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>int32 num_guesses
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>string hint
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>bool correct
 </code></pre></div>
 <p>The <strong>Request</strong> will therefore have two fields now:</p>
 <p></p><center><p></p>
@@ -2887,17 +2921,17 @@
 <li>
 <p>The rest of the process now is very similar to creating a <em>message</em> interface, <a href="../part1/#ex7">like we did in Part 1</a>. </p>
 <p>First, we need to declare the interface in our <code>CMakeLists.txt</code> file, by adding the following above the <code>ament_package()</code> line:</p>
-<div class="highlight"><span class="filename">part4_services/CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>find_package(rosidl_default_generators REQUIRED)
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>rosidl_generate_interfaces(${PROJECT_NAME}
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>  "srv/MyNumberGame.srv" 
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>)
+<div class="highlight"><span class="filename">part4_services/CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>find_package(rosidl_default_generators REQUIRED)
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>rosidl_generate_interfaces(${PROJECT_NAME}
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  "srv/MyNumberGame.srv" 
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>)
 </code></pre></div>
 </li>
 <li>
 <p>Next, we need to modify the <code>package.xml</code> file. Add the following lines to this one, just above the <code class="highlight"><span class="nt">&lt;export&gt;</span></code> line:</p>
-<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nt">&lt;buildtool_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/buildtool_depend&gt;</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
+<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nt">&lt;buildtool_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/buildtool_depend&gt;</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
 </code></pre></div>
 </li>
 <li>
@@ -2905,17 +2939,17 @@
 <ol>
 <li>
 <p>Navigate to the root of the ROS2 Workspace:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 </li>
 <li>
 <p>Run <code>colcon build</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part4_services<span class="w"> </span>--symlink-install<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part4_services<span class="w"> </span>--symlink-install<span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
 <p>And re-source the <code>.bashrc</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
@@ -2925,13 +2959,13 @@
 <ol>
 <li>
 <p>First, <em>list</em> all the ROS service interfaces that are available on the system (<code>-s</code> to filter for <em>service</em> interface types remember!):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s
 </code></pre></div>
 <p>Scroll through this list and see if you can find <code>part4_services/srv/MyNumberGame</code> (or, <a href="#grep">use <code>grep</code> again</a>).</p>
 </li>
 <li>
 <p>If it's there, use the <code>show</code> sub-command to <em>show</em> the data structure:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>part4_services/srv/MyNumberGame
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>part4_services/srv/MyNumberGame
 </code></pre></div>
 </li>
 </ol>
@@ -2943,31 +2977,33 @@
 <ol>
 <li>
 <p>In <strong>TERMINAL 1</strong> still, navigate into the <code>part4_services/scripts</code> directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part4_services/scripts/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part4_services/scripts/
 </code></pre></div>
 </li>
 <li>
 <p>Copy the <code>number_game.py</code> script from the course repo into here, renaming it to <code>my_number_game.py</code> at the same time:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>cp<span class="w"> </span>../../tuos_ros/tuos_examples/scripts/number_game.py<span class="w"> </span>./my_number_game.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cp<span class="w"> </span>../../tuos_ros/tuos_examples/scripts/number_game.py<span class="w"> </span>./my_number_game.py
 </code></pre></div>
 <p>This file should already have <em>execute</em> permissions, but <a href="../part1/#chmod">it's always worth checking</a>...</p>
 </li>
 <li>
-<p>Declare this as a package executable by going back to the <code>CMakeLists.txt</code> file, and adding <code>my_number_game.py</code> below <code>minimal_node.py</code> (or just replacing <code>minimal_node.py</code> entirely):</p>
-<div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a># Install Python executables
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>install(PROGRAMS
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>  scripts/my_number_game.py
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>  DESTINATION lib/${PROJECT_NAME}
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>)
+<p>Declare this as a package executable by going back to the <code>CMakeLists.txt</code> file and adding <code>my_number_game.py</code> to your list of Python executables:</p>
+<div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a># Install Python executables
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>install(PROGRAMS
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>  scripts/basic_velocity_control.py
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>  scripts/stop_me.py
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>  scripts/my_number_game.py
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>  DESTINATION lib/${PROJECT_NAME}
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>)
 </code></pre></div>
 </li>
 <li>
 <p>Build and re-source now: <a name="colcon-build-steps"></a></p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part4_services<span class="w"> </span>--symlink-install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part4_services<span class="w"> </span>--symlink-install
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc<span class="w"> </span>
 </code></pre></div><p></p>
 </li>
 <li>
@@ -2977,15 +3013,15 @@
 <p>Open up the <code>my_number_game.py</code> node in VS Code and review it.</p>
 </li>
 <li>
-<p>As it stands, the node imports the <code>NumberGame</code> service interface from <code>tuos_interfaces</code>, so you'll need to change this to use the interface from our own package:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">part4_services.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyNumberGame</span>
+<p>As it stands, the node imports the <code>NumberGame</code> service interface from <code>tuos_interfaces</code>, so you'll need to change this to use the interface from your own package now:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">part4_services.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyNumberGame</span>
 </code></pre></div>
 <p>You'll also need to change the <code>srv_type</code> definition, when the service is created in the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">srv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_service</span><span class="p">(</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    <span class="n">srv_type</span><span class="o">=</span><span class="n">MyNumberGame</span><span class="p">,</span>
-<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">srv_name</span><span class="o">=</span><span class="s1">'guess_the_number'</span><span class="p">,</span>
-<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">srv_callback</span>
-<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">srv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_service</span><span class="p">(</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>    <span class="n">srv_type</span><span class="o">=</span><span class="n">MyNumberGame</span><span class="p">,</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>    <span class="n">srv_name</span><span class="o">=</span><span class="s1">'guess_the_number'</span><span class="p">,</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">srv_callback</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
@@ -2993,19 +3029,19 @@
 <p>In here, <code>request</code> parameters are processed, <code>response</code> parameters are defined and the overall <code>response</code> is returned once the callback tasks have been completed.</p>
 </li>
 <li>
-<p>You may have noticed that when we created our <code>MyNumberGame</code> interface in the previous exercise, the <strong>Response</strong> parameters were the same as the originals from Exercise 1 &amp; 2, <em>except</em> that some of their names were changed slightly!</p>
-<p>Work through the <code>srv_callback()</code> method and make sure that all <code>response</code> attributes are renamed to match the new names that we've given them in <code>MyNumberGame.srv</code>. </p>
+<p>You may have noticed that when we created our <code>MyNumberGame</code> interface in the previous exercise, the <strong>Response</strong> parameters were <em>almost</em> the same as those from Exercises 1 &amp; 2, <em>except</em> that some of their names had been changed slightly!</p>
+<p>Work through the <code>srv_callback()</code> method and make sure that all <code>response</code> attributes are renamed to match the new names that we've given them in our <code>part4_services/srv/MyNumberGame</code> interface. </p>
 </li>
 <li>
 <p>Remember that our <code>MyNumberGame</code> interface has an additional <strong>Request</strong> parameter too: </p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>bool cheat
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>bool cheat
 </code></pre></div>
 <p>... i.e. a <em>boolean</em> flag with the attribute name <code>cheat</code>.</p>
 <p>Adapt the <code>srv_callback()</code> method further now to read this value as well. </p>
 <ul>
 <li>
 <p>If (when a <strong>request</strong> is made to the server) the value of <code>cheat</code> is <code>True</code> the hint that the server returns should contain the actual secret number! E.g.:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>hint='The answer is 67!'
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>hint='The answer is 67!'
 </code></pre></div>
 </li>
 <li>
@@ -3019,14 +3055,14 @@
 <p>Once you've adapted the node, test it out by running it:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>my_number_game.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>my_number_game.py
 </code></pre></div><p></p>
 <hr>
 <p>You should then be able to make calls to this from <strong>TERMINAL 2</strong> using the <code>ros2 service call</code> sub-command, as we did in <a href="#ex2">Exercise 2</a>.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>There are <strong>two</strong> request parameters now, so when sending a request from the command-line <strong>both</strong> need to be supplied. Do this by including them both within the braces (<code>{}</code>) and separated with a comma, e.g.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>part4_services/srv/MyNumberGame<span class="w"> </span><span class="s2">"{guess: X, cheat: Y}"</span><span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>part4_services/srv/MyNumberGame<span class="w"> </span><span class="s2">"{guess: X, cheat: Y}"</span><span class="w"> </span>
 </code></pre></div>
 </div>
 </li>
@@ -3038,21 +3074,21 @@
 <p>Make sure your <code>my_number_game.py</code> node is still active in <strong>TERMINAL 1</strong> for this exercise.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 2</strong>, create a new file in the <code>part4_services/scripts</code> directory called <code>number_game_client.py</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>touch<span class="w"> </span>~/ros2_ws/src/part4_services/scripts/number_game_client.py
-</code></pre></div>
+<p>In <strong>TERMINAL 2</strong>, create a new file in the <code>part4_services/scripts</code> directory called <code>number_game_client.py</code> (using the <code>touch</code> command).</p>
 </li>
 <li>
 <p><a href="../part1/#chmod">Make this executable (with <code>chmod</code>)</a>.</p>
 </li>
 <li>
-<p>Add this to your package's <em>Python executables</em> list in <code>CMakeLists.txt</code>:</p>
+<p>Add this to your package's <em>Python executables</em> list in the <code>CMakeLists.txt</code> file:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a># Install Python executables
 <a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>install(PROGRAMS
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>  scripts/my_number_game.py
-<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>  scripts/number_game_client.py
-<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>  DESTINATION lib/${PROJECT_NAME}
-<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>)
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>  scripts/basic_velocity_control.py
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>  scripts/stop_me.py
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>  scripts/my_number_game.py
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>  scripts/number_game_client.py
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>  DESTINATION lib/${PROJECT_NAME}
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>)
 </code></pre></div>
 </li>
 <li>
@@ -3062,24 +3098,22 @@
 <li>Run <code>colcon build</code> (with the necessary additional arguments), </li>
 <li>Re-source your <code>~/.bashrc</code>.</li>
 </ol>
-<p><a name="ex_srv_cli_ret"></a></p>
 </li>
 <li>
-<p>Now, open up the <code>number_game_client.py</code> file in VS Code. <strong><a href="number_game_client/">Have a look at <ins>the code here</ins>, review it (including all the annotations), then copy and paste it and save the file</a></strong>.</p>
+<p>Now, open up the <code>number_game_client.py</code> file in VS Code, then take a look at the following:</p>
+<p></p><center><a class="md-button" href="number_game_client/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> The <code>number_game_client.py</code> Node</a></center><p></p>
+<p>Review the above code carefully (<strong>including all the annotations</strong>), before taking a copy of it and pasting it into your own <code>number_game_client.py</code> file.</p>
 </li>
 <li>
-<p>You should now be able to run the code with <code>ros2 run</code>. To begin with, run it without supplying any additional command-line arguments:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py
-</code></pre></div><p></p>
-<hr>
-<p>You'll probably then get an output like this:</p>
+<p>You should now be able to run the code with <code>ros2 run</code>. To begin with, use a standard <code>ros2 run</code> call as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py
+</code></pre></div>
+<p>You should then get an output like this:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>[INFO] [#####] [number_game_client]: Sending the request:
 <a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a> - guess: 0
 <a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a> - cheat: False
 <a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>   Awaiting response...
-<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>[INFO] [#####] [number_game_client]: The server has responded with:
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>[INFO] [#####] [number_game_client]: The server responded with:
 <a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a> - Incorrect guess :(
 <a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a> - Number of attempts so far: 1
 <a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a> - A hint: 'Higher'.
@@ -3087,22 +3121,25 @@
 <p>Notice how the request parameters <code>guess</code> and <code>cheat</code> have defaulted to <code>0</code> and <code>False</code> respectively?</p>
 </li>
 <li>
-<p>Supply a guess now, using our node's CLI:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py<span class="w"> </span>--guess<span class="w"> </span>GUESS
-</code></pre></div><p></p>
-<hr>
-<p>... replacing <code>GUESS</code> with an actual number!</p>
+<p>The main reason for using parameters in our <code>number_game_client</code> node is so that we can actually change the value of the guess from the command-line. We can do this by adding some additional arguments to the <code>ros2 run</code> call:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>guess:<span class="o">=</span>X
+</code></pre></div>
+<p>... replace <code>X</code> with an actual number!</p>
 </li>
 <li>
 <p>Have a go at cheating now too:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py<span class="w"> </span>--cheat
-</code></pre></div><p></p>
-<hr>
-<p>... notice how we only need to supply the <code>--cheat</code> flag, no actual value is required.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>cheat:<span class="o">=</span>True
+</code></pre></div>
+</li>
+<li>
+<p>We can also set the two parameters simultaneously using multiple <code>-p</code> flags:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>ros2 run part4_services number_game_client.py \
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>    --ros-args -p guess:=99 -p cheat:=True
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>\</code> above just allows us to split the command across two separate lines, handy for when these things start to get a bit long!</p>
+</div>
 </li>
 </ol>
 <h2 id="the-map-saver-service">The Map Saver Service<a class="headerlink" href="#the-map-saver-service" title="Permanent link">¶</a></h2>
@@ -3111,10 +3148,10 @@
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_steps.png" width="500px"></a></p>
 </figure>
-<p>Having mapped out the environment, we called up a node called <code>map_saver_cli</code> from the <code>nav2_map_server</code> package, to save a copy of that map to a file:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
+<p>Having mapped out the environment, we called up the <code>map_saver_cli</code> node from the <code>nav2_map_server</code> package, to save a copy of that map to a file:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
 </code></pre></div>
-<p>... wouldn't it be nice if there was a way to be able to do this <em>programmatically</em> (i.e. from within a Python node, for example) rather than having to run the above command manually? Well, there is a way, and guess what - it involves <em>Services</em>!</p>
+<p>... wouldn't it be nice if there was a way to be able to do this <em>programmatically</em> (i.e. from within a Python node, for example) rather than having to run the above command manually? Well, there is a way, and guess what? ... <em>It involves Services</em>!</p>
 <h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 6: Developing A Map Saver Service Client<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
 <ol>
 <li>
@@ -3122,40 +3159,31 @@
 </li>
 <li>
 <p>In <strong>TERMINAL 1</strong>, let's fire up the <em>Nav World</em> again, like we did in Part 3:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
+</code></pre></div>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="./part3/nav_world.jpg" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
 <p>In <strong>TERMINAL 2</strong>, let's also fire up <em>Cartographer</em> again (the SLAM algorithms):</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>cartographer.launch.py
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>cartographer.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
+</code></pre></div>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="./part3/cartographer_rviz.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/cartographer_rviz1.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Open up <em>another</em> terminal instance now (<strong>TERMINAL 3</strong>), and use this one to fire up the <em>Map Saver Service</em> (wouldn't it be nice if we could <a href="../part3/#ex2">launch all of these launch files at once</a>?!):</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_server.launch.py
-</code></pre></div><p></p>
-<hr>
+<p>Open up <em>another</em> terminal instance now (<strong>TERMINAL 3</strong>), and use this one to fire up the <em>Map Saver Service</em> (wouldn't it be nice if we could launch all of these launch files at once?<sup id="fnref:launch-adv"><a class="footnote-ref" href="#fn:launch-adv">3</a></sup>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_server.launch.py
+</code></pre></div>
 <p>This will add a number of <code>/map_saver</code> services to our ROS network.</p>
 </li>
 <li>
-<p>Use a <code>ros2 service</code> sub-command to identify all the <code>/map_saver</code> services (like we did in <a href="#ex1">Exercise 1</a>).</p>
+<p>In <em>yet</em> another new terminal instance (<strong>TERMINAL 4</strong>), use a <code>ros2 service</code> sub-command to identify all the <code>/map_saver</code> services (like we did in <a href="#ex1">Exercise 1</a>).</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>Do you see an item in this list that could be related to saving a map? (It has a <code>/map_saver</code> prefix<sup id="fnref:save-map"><a class="footnote-ref" href="#fn:save-map">3</a></sup>!)</p>
+<p>Do you see an item in this list that could be related to saving a map? (It has a <code>/map_saver</code> prefix!<sup id="fnref:save-map"><a class="footnote-ref" href="#fn:save-map">4</a></sup>)</p>
 </div>
 </li>
 <li>
@@ -3167,7 +3195,7 @@
 <p class="admonition-title">Questions</p>
 <ol>
 <li>How many <strong>Request</strong> parameters does this interface have?</li>
-<li>How many <strong>Response</strong> parameters are there too?<sup id="fnref:save-map-interface"><a class="footnote-ref" href="#fn:save-map-interface">4</a></sup></li>
+<li>How many <strong>Response</strong> parameters are there too?<sup id="fnref:save-map-interface"><a class="footnote-ref" href="#fn:save-map-interface">5</a></sup></li>
 <li>What are their data types?</li>
 </ol>
 </div>
@@ -3189,11 +3217,11 @@
 <p>Use <a href="number_game_client/">the <code>number_game_client.py</code> Node from Exercise 5</a> as a starting point when building your new <code>map_saver_client.py</code> node... all the same principals will apply here, you are just applying them to a different service (and therefore you need to account for a different service interface).</p>
 </li>
 <li>
-<p>Use <code>argparse</code> again to build a CLI for your <code>map_saver_client.py</code> node.</p>
-<p>In this case, your CLI should only need one argument though (where, in <code>number_game_client.py</code> there were two). This should be used to pass in a filename for a map, e.g.:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>map_saver_client.py<span class="w"> </span>--map-file<span class="w"> </span>my_amazing_map
+<p><em>Declare a parameter for your node</em> to allow you to specify a file name for your map when the <code>map_saver_client.py</code> node is called e.g.:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>ros2 run part4_services map_saver_client.py \ 
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>    --ros-args -p map_file:=my_amazing_map
 </code></pre></div>
-<p>You should ensure that this argument is optional though, i.e. if the argument isn't provided when your node is called, then a default value is applied instead.</p>
+<p>Follow the same approach as in Exercise 5 for this, and ensure that you specify a default value, for situations where the parameter value is not explicitly defined when the node is called.</p>
 </li>
 <li>
 <p>When constructing service requests, consider the following tips:</p>
@@ -3213,7 +3241,7 @@
 <li>
 <p>For further guidance <a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services" target="_blank">see here for a usage example</a>.</p>
 </li>
-<li>The server will apply <a href="https://docs.nav2.org/configuration/packages/configuring-map-server.html" target="_blank">its own defaults to certain parameters</a>, if they aren't set in the <strong>request</strong>.</li>
+<li>The server will apply <a href="https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html" target="_blank">its own defaults to certain request attributes</a>, if they aren't defined explicitly by a client.</li>
 </ol>
 </li>
 </ol>
@@ -3221,7 +3249,7 @@
 </ol>
 <h3 id="summary-of-the-map-saver-service">Summary of the Map Saver Service<a class="headerlink" href="#summary-of-the-map-saver-service" title="Permanent link">¶</a></h3>
 <p><a href="../part3/#map-saver-cli">Back in Part 3</a> we saved our SLAM map once via a command-line call after we had <em>fully explored and mapped out the environment</em>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
 </code></pre></div>
 <p>... which resulted in something like:</p>
 <figure>
@@ -3229,7 +3257,7 @@
   </p>
 <figcaption>The <code>MAP_NAME.pgm</code> file</figcaption>
 </figure>
-<p>In real-world tasks however (i.e. tasks that you might need to complete in <a href="../assignment2/README.md">Assignment #2</a> for example), your robot might be exploring an environment <em>autonomously</em>, and you don't necessarily know when the full environment has been explored, nor are you always going to be there to run the <code>map_saver_cli</code> node manually! You might therefore want to program your robot with the ability to save a map <em>incrementally</em> and <em>periodically</em> as more and more of the environment is explored.</p>
+<p>In real-world tasks however (i.e. tasks that you might need to complete in the lab!), your robot might be exploring an environment <em>autonomously</em>, and you don't necessarily know when the full environment has been explored, nor are you always going to be there to run the <code>map_saver_cli</code> node manually! You might therefore want to program your robot with the ability to save a map <em>incrementally</em> and <em>periodically</em> as more and more of the environment is explored.</p>
 <p>The process that we explored in the previous exercise allows you to do just that! In the example, our client node was programmed to make only one request to the server and then stop. It <em>could</em> however be programmed to make regular service requests (say, once every 5 or 10 seconds) in order to continuously update its map as the robot explores further and further.</p>
 <p>Think about how you might adapt the <code>map_saver_client.py</code> node to achieve this, drawing upon other exercises that you have worked through in previous parts of this course.  </p>
 <h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
@@ -3241,7 +3269,7 @@
 </ul>
 <h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
 <p>Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>wsl_ros<span class="w"> </span>backup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
 <p>You'll then be able to restore it to a fresh WSL-ROS2 environment next time you fire one up (<code>wsl_ros restore</code>).  </p>
 <div class="footnote">
@@ -3253,11 +3281,14 @@
 <li id="fn:tb3_sound">
 <p>On the real Waffles, there's a service called <code>/sound</code>. Have a look at this next time you're in the lab... Once you've worked through the whole of Part 4 you'll know exactly how to interrogate this service and leverage the functionality that it provides!&nbsp;<a class="footnote-backref" href="#fnref:tb3_sound" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
+<li id="fn:launch-adv">
+<p>You can! We can use launch files to launch <em>other</em> launch files, <a href="../extras/launch-files/">see here for more info</a>.&nbsp;<a class="footnote-backref" href="#fnref:launch-adv" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
 <li id="fn:save-map">
-<p>There should be one in the list called <code>/map_saver/save_map</code>&nbsp;<a class="footnote-backref" href="#fnref:save-map" title="Jump back to footnote 3 in the text">↩</a></p>
+<p>There should be one in the list called <code>/map_saver/save_map</code>&nbsp;<a class="footnote-backref" href="#fnref:save-map" title="Jump back to footnote 4 in the text">↩</a></p>
 </li>
 <li id="fn:save-map-interface">
-<p>The <code>nav2_msgs/srv/SaveMap</code> Service Interface has <strong>6</strong> Requests (<code>map_topic</code>, <code>map_url</code>, <code>image_format</code>, <code>map_mode</code>, <code>free_thresh</code>, <code>occupied_thresh</code>) and <strong>1</strong> Response (<code>result</code>).&nbsp;<a class="footnote-backref" href="#fnref:save-map-interface" title="Jump back to footnote 4 in the text">↩</a></p>
+<p>The <code>nav2_msgs/srv/SaveMap</code> Service Interface has <strong>6</strong> Requests (<code>map_topic</code>, <code>map_url</code>, <code>image_format</code>, <code>map_mode</code>, <code>free_thresh</code>, <code>occupied_thresh</code>) and <strong>1</strong> Response (<code>result</code>).&nbsp;<a class="footnote-backref" href="#fnref:save-map-interface" title="Jump back to footnote 5 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -3283,7 +3314,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 16, 2025 15:57:09 UTC"><span class="timeago" datetime="2025-10-16T15:57:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 16, 2025 15:57:09 UTC">2025-10-16</span>
   </span>
 
     

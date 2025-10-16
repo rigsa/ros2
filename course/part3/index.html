@@ -1221,6 +1221,16 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quick Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1229,6 +1239,11 @@
       Additional Resources
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2418,6 +2433,16 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quick Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2426,6 +2451,11 @@
       Additional Resources
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2671,6 +2701,7 @@
 <li>Use existing ROS tools to implement SLAM and build a map of an environment. </li>
 </ol>
 <h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
+<h4 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">¶</a></h4>
 <ul>
 <li><a href="#ex1">Exercise 1: Creating a Launch File</a></li>
 <li><a href="#ex2">Exercise 2: Using parameters to change robot behaviour in real-time</a></li>
@@ -2678,9 +2709,9 @@
 <li><a href="#ex4">Exercise 4: Building a LaserScan Callback Function</a></li>
 <li><a href="#ex5">Exercise 5: Building a map of an environment with SLAM</a></li>
 </ul>
-<h3 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h3>
+<h4 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="lidar_subscriber/">A Basic <code>LaserScan</code> Subscriber Node (for Exercise 4)</a></li>
+<li><a href="lidar_subscriber/" target="_blank">A Basic <code>LaserScan</code> Subscriber Node (for Exercise 4)</a></li>
 </ul>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
 <p><strong>Step 1: Launch your ROS Environment</strong></p>
@@ -2706,22 +2737,19 @@
 <summary>WSL Users...</summary>
 <p>It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: </p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../ros/figures/code-wsl-ext-on.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.png" width="400px"></a>
 </figure><p></p>
 </details>
 <p><strong>Step 4: Make Sure The Course Repo is Up-To-Date</strong></p>
 <p>In Part 1 you should have <a href="../part1/#course-repo">downloaded and installed The Course Repo</a> into your ROS environment. Hopefully you've done this by now, but if you haven't then go back and do it now (you'll need it for some exercises here). If you <em>have</em> already done it, then (once again) it's worth just making sure it's all up-to-date, so run the following command now to do so:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
-</code></pre></div><p></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
+</code></pre></div>
 <p>Then run <code>colcon build</code> </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-up-to<span class="w"> </span>tuos_ros
 </code></pre></div>
 <p>And finally, re-source your environment:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
-<hr>
 <div class="admonition warning">
 <p class="admonition-title">Remember</p>
 <p>If you have any other terminal instances open, then you'll need run <code class="highlight"><span class="nb">source</span><span class="w"> </span>~/.bashrc</code> in these too, in order for the changes to propagate through to these as well!</p>
@@ -2735,7 +2763,7 @@
 <p>To start with, let's create another new package, this time called <code>part3_beyond_basics</code>. </p>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong>...</p>
+<p>In <strong>TERMINAL 1</strong>:</p>
 <ol>
 <li>
 <p>Head to the <code>src</code> folder of the ROS 2 workspace:</p>
@@ -3353,7 +3381,7 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 15, 2025 15:41:15 UTC"><span class="timeago" datetime="2025-10-15T15:41:15+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 15, 2025 15:41:15 UTC">2025-10-15</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 16, 2025 15:57:39 UTC"><span class="timeago" datetime="2025-10-16T15:57:39+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 16, 2025 15:57:39 UTC">2025-10-16</span>
   </span>
 
     

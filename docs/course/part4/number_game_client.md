@@ -8,56 +8,42 @@ Copy **all** the code below into your `number_game_client.py` file and then **re
 --8<-- "code_templates/number_game_client.py"
 ```
 
-1. Nothing above this should be new to you. 
-    
-    Here however, we're importing a standard Python module called `argparse`, which we'll use to build a *command-line interface* for our node.
-
-2. Creating a Service *Client* is done using the `create_client()` class method, providing the name of the service that we want to call (`srv_name`), and specifying the interface type used by it (`srv_type`). 
+1. Creating a Service *Client* is done using the `create_client()` class method, providing the name of the service that we want to call (`srv_name`), and specifying the interface type used by it (`srv_type`). 
 
     `srv_type` and `srv_name` **must** match the definition in the server, in order to be able to communicate and send requests to it. 
 
-3. Here we're building a simple Command-line Interface (CLI) for the node, using `argparse`.
+2. We're declaring some parameters here (recall [Part 3](../part3.md#ex2)). We'll be using these differently this time however: *to create a command-line interface (CLI) for our node*. Essentially, we'll be setting these parameters dynamically when we call it with `ros2 run` (so that we can change the values each time we launch the client).
 
-4. We add an argument here called "guess", which will be used to pass our guesses for the number game from the command line, into this node.
-    
-    The node itself can then access the value that we've passed to it (an `int`) and use this to construct a service request.
+    We're defining two parameters for the node, to match the attributes of the service request:
 
-    We've assigned a default value of `0` here, for cases where we don't pass a guess from the CLI.
-
-5. Here we're adding a *second* Command-line Argument (CLA) called "cheat".
-
-    `#!py action="store_true"` ensures that if we don't specify this argument as a CLA then the value will be set to `False`. If we do pass in this argument then the value will be `True`. 
+    1.`"guess"`: An integer, with a default value of `0`. 
+    2. `"cheat"`: A boolean, with a default value of `False`.
 
     (You'll see how this all works shortly, when we actually run the node.)
 
-6. Here we "parse" the arguments that have been passed to the node from the CLI, so that we can access them from `self.args`.
-
-7. We use a `while` loop here to halt the execution of the code at this point and wait for the service to become available (if it isn't already). 
+3. We use a `while` loop here to halt the execution of the code at this point and wait for the service to become available (if it isn't already). 
 
     We can't send a request to a service that isn't actually running!
 
-8. In this class method we construct a service **request**, based on the values that have been passed via the CLI.
+4. In this class method we construct the service request and send it.
     
     (This method is called in the `main()` function below.)
 
-    We know what the **request** attributes are called, because we defined them in the `MyNumberGame.srv` file, and we can also use `ros2 interface show` to recall them at any point:
+5. Read the value of the `guess` parameter, which we'll set from the command-line when we call the node (with `ros2 run`).
 
-    ``` { .txt .no-copy }
-    $ ros2 interface show part4_services/srv/MyNumberGame
-    
-    int32 guess
-    bool cheat
-    ---
-    int32 num_guesses
-    string hint
-    bool correct
-    ```
+    This has been split across three lines, otherwise it gets too long and runs off the screen!
 
-    `#!py call_async(request)` then actually sends this request to the server.
+6. Read the value of the `cheat` parameter, which we'll *also* set from the command-line (we'll look at this shortly).
 
-9. Here we're grabbing the values passed via the CLI and printing them as a log message to the terminal, in order to verify exactly what request will be sent.
+    *Also* split across three lines for no reason other than readability!
 
-10. We then call our client's `send_request()` class method, supplying the `guess` and `cheat` values from the CLI to this too, in order for the request to be constructed accordingly, and sent to the server. 
+7. Here we're printing the parameter values to the terminal as a log message, to confirm exactly what request will be sent to the server.
+
+8. Here we actually construct the request, using a `part4_services/srv/MyNumberGame` interface class instance, as imported up at the top.
+
+9. `#!py call_async(request)` then actually sends this request to the server.
+
+10. We then call our client's `send_request()` class method, which in turn (as you know from above) will initiate the construction of the request and send it to the server. 
 
     The output of this function is the output of the `call_async(request)` call, which we assign to a variable called `future`.
 
@@ -67,7 +53,7 @@ Copy **all** the code below into your `number_game_client.py` file and then **re
     
     We obtain the response from our `future` object so that we can read its values...
 
-13. To finish off, we construct another log message to contain all the values returned by the Server (i.e. the **Response**). 
+13. To finish off, we construct a final log message containing the values returned by the Server (i.e. the **Response**). 
     
     We know what these attributes are called, because we defined them in the `MyNumberGame.srv` file, which we can recall at any point using `ros2 interface show`:
 
@@ -81,8 +67,3 @@ Copy **all** the code below into your `number_game_client.py` file and then **re
     string hint
     bool correct
     ```
-
-
-<p align="center">
-  <a href="../../part4#ex_srv_cli_ret">&#8592; Back to Part 4</a>
-</p>

@@ -24,6 +24,8 @@ By the end of this session you will be able to:
 
 ### Quick Links
 
+#### Exercises
+
 * [Exercise 1: Launching an Action Server and calling it from the command-line](#ex1)
 * [Exercise 2: Building a Python Action Client Node](#ex2)
 * [Exercise 3: Creating an Action Interface](#ex3)
@@ -31,9 +33,9 @@ By the end of this session you will be able to:
 * [Exercise 5: Building a Basic "ExploreForward" Client](#ex5)
 * [Exercise 6 (Advanced): Implementing an Exploration Strategy](#ex6)
 
-### Additional Resources
+#### Additional Resources
 
-* [The Explore Server Template (for Exercise 4)](./part5/explore_server.md)
+* [The Explore Server Template (for Exercise 4)](./part5/explore_server.md){target="_blank"}
 
 ## Getting Started
 

@@ -25,16 +25,18 @@ By the end of this session you will be able to:
 
 ### Quick Links
 
+#### Exercises
+
 * [Exercise 1: Using the `rqt_image_view` node whilst changing the robot's viewpoint](#ex1)
 * [Exercise 2: Object Detection](#ex2)
 * [Exercise 3: Using Image Moments for Robot Control](#ex3)
 * [Exercise 4: Line following](#ex4)
 
-### Additional Resources
+#### Additional Resources
 
-* [The Initial Object Detection Code (for Exercise 2)](./part6/object_detection.md)
-* [A Complete Worked Example of the `object_detection.py` Node](./part6/object_detection_complete.md)
-* [The `line_follower` Template (for Exercise 4)](./part6/line_follower.md)
+* [The Initial Object Detection Code (for Exercise 2)](./part6/object_detection.md){target="_blank"}
+* [A Complete Worked Example of the `object_detection.py` Node](./part6/object_detection_complete.md){target="_blank"}
+* [The `line_follower` Template (for Exercise 4)](./part6/line_follower.md){target="_blank"}
 
 ## Getting Started
 

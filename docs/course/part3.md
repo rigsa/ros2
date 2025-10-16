@@ -26,15 +26,17 @@ By the end of this session you will be able to:
 
 ### Quick Links
 
+#### Exercises
+
 * [Exercise 1: Creating a Launch File](#ex1)
 * [Exercise 2: Using parameters to change robot behaviour in real-time](#ex2)
 * [Exercise 3: Using RViz to Visualise LaserScan Data](#ex3)
 * [Exercise 4: Building a LaserScan Callback Function](#ex4)
 * [Exercise 5: Building a map of an environment with SLAM](#ex5)
 
-### Additional Resources
+#### Additional Resources
 
-* [A Basic `LaserScan` Subscriber Node (for Exercise 4)](./part3/lidar_subscriber.md)
+* [A Basic `LaserScan` Subscriber Node (for Exercise 4)](./part3/lidar_subscriber.md){target="_blank"}
 
 ## Getting Started
 
@@ -73,15 +75,13 @@ It's also worth launching VS Code now, so that it's ready to go for when you nee
     It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: 
     
     <figure markdown>
-      ![](../../ros/figures/code-wsl-ext-on.png){width=400px}
+      ![](../software/figures/code-wsl-ext-on.png){width=400px}
     </figure>
 
 **Step 4: Make Sure The Course Repo is Up-To-Date**
 
 In Part 1 you should have [downloaded and installed The Course Repo](./part1.md#course-repo) into your ROS environment. Hopefully you've done this by now, but if you haven't then go back and do it now (you'll need it for some exercises here). If you *have* already done it, then (once again) it's worth just making sure it's all up-to-date, so run the following command now to do so:
 
-***
-**TERMINAL 1:**
 ```bash
 cd ~/ros2_ws/src/tuos_ros/ && git pull
 ```
@@ -97,7 +97,6 @@ And finally, re-source your environment:
 ```bash
 source ~/.bashrc
 ```
-***
 
 !!! warning "Remember"
     If you have any other terminal instances open, then you'll need run `#!bash source ~/.bashrc` in these too, in order for the changes to propagate through to these as well!
@@ -116,7 +115,7 @@ In Part 1 we created `publisher.py` and `subscriber.py` nodes that could talk to
 
 To start with, let's create another new package, this time called `part3_beyond_basics`. 
 
-1. In **TERMINAL 1**...
+1. In **TERMINAL 1**:
     
     1. Head to the `src` folder of the ROS 2 workspace:
 

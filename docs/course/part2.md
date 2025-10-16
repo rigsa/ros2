@@ -37,9 +37,9 @@ By the end of this session you will be able to:
 
 #### Additional Resources
 
-* [An Odometry Subscriber Node](./part2/odom_subscriber.md)
-* [A Simple Velocity Control Node (Move Circle)](./part2/move_circle.md)
-* [Odometry-based Navigation (Move Square)](./part2/move_square.md)
+* [An Odometry Subscriber Node](./part2/odom_subscriber.md){target="_blank"}
+* [A Simple Velocity Control Node (Move Circle)](./part2/move_circle.md){target="_blank"}
+* [Odometry-based Navigation (Move Square)](./part2/move_square.md){target="_blank"}
 
 ## Getting Started
 

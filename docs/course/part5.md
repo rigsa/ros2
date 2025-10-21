@@ -35,7 +35,7 @@ By the end of this session you will be able to:
 
 #### Additional Resources
 
-* [A minimal action client (for Exercise 2)](./part5/minimal_action_client.md){target="_blank"}
+* [A Minimal Action Client (for Exercise 2)](./part5/minimal_action_client.md){target="_blank"}
 * [The Explore Server Template (for Exercise 4)](./part5/explore_server.md){target="_blank"}
 
 ## Getting Started
@@ -135,17 +135,8 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
     
     Which should present us with the following:
 
-    ``` { .txt .no-copy }
-    #goal
-    float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
-    int32 image_count     # Number of images to capture during the sweep
-    ---
-    #result
-    string[] image_paths  # Full path to each of the captured images
-    ---
-    #feedback
-    int32 current_image   # Number of images taken
-    float32 current_angle # Current angular position of the robot (in degrees)
+    ```txt
+    --8<-- "https://raw.githubusercontent.com/tom-howard/tuos_ros/refs/heads/jazzy/tuos_interfaces/action/CameraSweep.action"
     ```
     
     There are three parts to an action interface, and we'll talk about these in a bit more detail later on, but for now, all we need to know is that in order to *call* an action, we need to send the action server a **Goal**.
@@ -273,19 +264,12 @@ Like Services, Action Interfaces have multiple parts to them, and we need to kno
 
 We ran `ros2 interface show` in the previous exercise, to interrogate the action interface used by the `/camera_sweep` action server:
 
-``` { .txt .no-copy }
-$ ros2 interface show tuos_interfaces/action/CameraSweep
+```txt
+ros2 interface show tuos_interfaces/action/CameraSweep
+```
 
-#goal
-float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
-int32 image_count     # Number of images to capture during the sweep
----
-#result
-string[] image_paths  # Full path to each of the captured images
----
-#feedback
-int32 current_image   # Number of images taken
-float32 current_angle # Current angular position of the robot (in degrees)
+``` { .txt .no-copy }
+--8<-- "https://raw.githubusercontent.com/tom-howard/tuos_ros/refs/heads/jazzy/tuos_interfaces/action/CameraSweep.action"
 ```
 
 As we know from Exercise 1, in order to call this action server we need to send a **goal**, and (in this case) there are **two** goal parameters that must be provided:
@@ -307,11 +291,15 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
 1. In **TERMINAL 1** launch the *mystery world* simulation again, but this time with an additional argument:
 
-    ```bash
+    ```txt
     ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
     ```
 
     With the `with_gui` switch set to `true`, we should now be able to actually *see* the simulated world this time.
+
+    <figure markdown>
+      ![](../images/gz/colloured_pillars.png){width=600px}
+    </figure>
 
 1. Then, in **TERMINAL 2**, launch the Camera Sweep Action Server again: 
 
@@ -363,15 +351,25 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     source ~/.bashrc
     ```
 
-1. Run your node with `ros2 run`...
+1. Run your node with `ros2 run`:
 
-    The node that we've created here makes a call to the action server and then exits, it doesn't even wait for the server to finish its task! The only way that we'd know if the action was successful, is if we were to keep an eye on **TERMINAL 2**, to see the action *server* respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...
+    ```
+    ros2 run part5_actions camera_sweep_action_client.py
+    ```
+
+    With the command above as it is, the server will reject the goal (check back in **TERMINAL 2** to find out why). How can you modify the above command (by adding some additional arguments), so that the `camera_sweep_action_client.py` node actually sends a valid goal?[^goal_params]
+
+    [^goal_params]: You need to explicitly set the `goal_images` and `goal_angle` parameters at runtime, [much like we did here with the `number_game_client.py` service client](./part4.md#ex5).
+
+1. Having modified the `ros2 run` command to successfully send a *valid* goal to the `camera_sweep` action server, the robot should start to turn, capturing images as it goes. 
+
+    The Client that we've created here makes a call to the action server and then exits, it doesn't even wait for the server to finish its task! The only way that we'd know if the action was successful, is if we were to keep an eye on **TERMINAL 2**, to see the action *server* respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...
 
 #### Part 2: Handling a Result
 
 1. Go back to the `camera_sweep_action_client.py` file in VS Code.
 
-1. In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends in response to the goal itself.
+1. In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends to the goal itself.
 
     Within the `send_goal()` method of the `CameraSweepActionClient()` class, find the line that reads:
 
@@ -388,7 +386,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
     This method is no longer returning the *future* that is sent from `send_goal_async()`, but is now handling this and adding a callback to it: `goal_response_callback`. This callback can now be used to inform the client of whether the server has *accepted* the goal or not.
 
-1. With therefore need to define this callback now. Define it as a *new* class method of the `CameraSweepActionClient()` class (i.e. underneath the `send_goal()` class method that has already been defined)...
+1. We therefore need to define this callback now. Define it as a *new* class method of the `CameraSweepActionClient()` class (i.e. underneath the `send_goal()` class method that has already been defined)...
 
     ```py
     def goal_response_callback(self, future):
@@ -423,7 +421,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
     The input to *this* class method is another future object which contains the actual result sent from the server. We assign this to `result` and use a `get_logger().info()` call to print this to the terminal when the action has finished.
 
-    As we know from our work earlier, the `CameraSweep` interface contains one `result` parameter called `image_paths`.
+    As we know from our work earlier, the `CameraSweep` Action interface contains one *Result* parameter called `image_paths`.
 
 1. Finally, in the `main` method, change this:
 
@@ -498,7 +496,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
 
 #### Part 4: Cancelling an Action
 
-1. First, create a copy of your `camera_sweep_action_client.py` node and call it `cancel_camera_sweep.py`. Make sure **TERMINAL 3** is located in the `scripts` directory of your `part5_actions` package before running this following:
+1. First, create a copy of your `camera_sweep_action_client.py` node and call it `cancel_camera_sweep.py`. Make sure **TERMINAL 3** is located in the `scripts` directory of your `part5_actions` package before running the following:
 
     ```bash
     cp camera_sweep_action_client.py cancel_camera_sweep.py
@@ -598,11 +596,9 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     For the purposes of this exercise, we want to modify our node so that the action is always cancelled after a total of **5 images** have been captured. This can be done by making a fairly small modification to the `feedback_callback()`. **Have a go at implementing this now**. 
 
     * Have a go now at introducing a conditional call to the `cancel_goal()` method once a total of **5 images** have been captured.
-    * You could use the `captured_images` attribute from the `CameraSweepFeedback` message to trigger this.
+    * You could use the `current_image` attribute from the `CameraSweepFeedback` message to trigger this.
 
 ### A Summary of ROS Actions
-
-<!-- TODO from here -->
 
 ROS Actions work a lot like ROS Services, but they have the following key differences:
 
@@ -654,9 +650,9 @@ Some things to review:
 
 1. Take a look at the various Action callbacks to see what's happening in each:
 
-    1. How are goal parameters checked, and subsequently accepted or rejected?
-    1. How are cancellations implemented, and how is this monitored in the main `server_execution_callback()`?
-    1. How is feedback handled and published?
+    1. How are **goal** parameters checked, and subsequently accepted or rejected?
+    1. How are **cancellations** implemented, and how is this monitored in the main `server_execution_callback()`?
+    1. How is **feedback** handled and published?
     1. How is the **result** handled and published too?
 
 1. Finally, consider the shutdown operations.
@@ -739,14 +735,6 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
     <member_of_group>rosidl_interface_packages</member_of_group>
     ```
 
-    Also, add the following `msg` dependencies too (below the `#!xml <exec_depend>action_msgs</exec_depend>` line):
-
-    ```xml title="package.xml"
-    <exec_depend>geometry_msgs</exec_depend>
-    <exec_depend>nav_msgs</exec_depend>
-    <exec_depend>sensor_msgs</exec_depend>
-    ```
-
 1. Now run `colcon` to generate the necessary source code for this new interface: <a name="colcon-build-steps"></a>
 
     1. First, **always** make sure you're in the root of the Workspace:
@@ -787,7 +775,7 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
 
 #### :material-pen: Exercise 4: Building the "ExploreForward" Action Server {#ex4}
 
-1. In **TERMINAL 1** navigate to the `scripts` folder of your `part5_actions` package then:
+1. In **TERMINAL 1** navigate to the `scripts` folder of your `part5_actions` package, then:
     
     1. Create a Python script called `explore_server.py`
     1. Make it executable
@@ -827,38 +815,33 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
         1. The *total* distance travelled (in meters) over the course of the action.
         1. The distance to the obstacle that made the robot stop (if the action server has done its job properly, then this should be very similar to the `stopping_distance` that was provided by the Action Client in the **goal**).
 
-    <a name="explore_srv_ret"></a>
+1. There's some template code to help you with this:
 
-1. **[There's ^^some template code here^^ to help you with this](./part5/explore_server.md)**, but you might also want to take a look at the `camera_sweep_action_server.py` code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).  
+    <center>[:material-file-code-outline: The `explore_server.py` Template](./part5/explore_server.md){ .md-button target="_blank"}</center>
+    
+    You might also want to take a look at the `camera_sweep_action_server.py` code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).  
 
 **Testing**
 
-There's a good simulation environment that you can use as you're developing your action server here. When you want to test things out, launch the simulation with the following command: 
+When you want to test things out, why not use the *Nav World* environment from Part 3 (in **TERMINAL 1**):
 
-***
-**TERMINAL 1:**
 ```bash
-ros2 launch turtlebot3_gazebo turtlebot3_dqn_stage4.launch.py
+ros2 launch tuos_simulations nav_world.launch.py
 ```
 
 <figure markdown>
-  ![](../../images/gz/tb3_stage4_dqn.jpg){width=600px}
+  ![](./part3/nav_world.png){width=600px}
 </figure>
 
-***
+Don't forget that in order to launch the server you'll need to have built everything with `colcon` by following [the usual **three stage** process](#colcon-build-steps).
 
-Don't forget, that in order to launch the server, you'll need to have built everything with `colcon` by following [the usual **three stage** process](#colcon-build-steps).
+Do this in **TERMINAL 2**, and you'll then be able to run it:
 
-Once you've done this, you'll then be able to run it:
-
-***
-**TERMINAL 2:**
 ```bash
 ros2 run part5_actions explore_server.py
 ```
-***
 
-Don't forget that **you don't need to have developed a Python Client Node in order to test the server**. Use the `ros2 action send_goal` CLI tool to make calls to the server (like we did in [Exercise 1](#send_goal_cli)).
+Also, don't forget that **you don't need to have developed a Python Client Node in order to test the server**. Use the `ros2 action send_goal` CLI tool to make calls to the server (like we did in [Exercise 1](#send_goal_cli)).
 
 #### :material-pen: Exercise 5: Building a Basic "ExploreForward" Client {#ex5}
 
@@ -868,9 +851,6 @@ Don't forget that **you don't need to have developed a Python Client Node in ord
 
     Here it is again, for good measure:
 
-    ***
-    **TERMINAL 3:**
-    
     1. Step 1:
     
         ```bash
@@ -889,8 +869,6 @@ Don't forget that **you don't need to have developed a Python Client Node in ord
         source ~/.bashrc
         ```
     
-    ***
-
 1. Open up the `explore_client.py` file in VS Code.
 
 1. The job of the Action Client is as follows:
@@ -904,14 +882,11 @@ Don't forget that **you don't need to have developed a Python Client Node in ord
 
 1. Once you have everything in place, launch the action client with `ros2 run` as below:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 run part5_actions explore_client.py
     ```
-    ***
 
-    If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it reaches a certain distance from an obstacle up ahead, at which point the robot will stop, and your client node will stop too. Once this happens, reorient your robot (using the `teleop_keyboard` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
+    If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it gets a certain distance away from an obstacle up ahead (`stopping_distance`), at which point the robot will stop, and your client node should then stop too. Once this happens, reorient your robot (using the `teleop_keyboard` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
 
     !!! warning "Important"
         Make sure that your cancellation functionality works correctly too, ensuring that:
@@ -958,7 +933,7 @@ You should now have developed a good understanding of the three communication me
 
 Through this course you've gained some practical experience using all three of these, but you may still be wondering how to select the appropriate one for a certain robot task... 
 
-[This ROS.org webpage](https://docs.ros.org/en/humble/How-To-Guides/Topics-Services-Actions.html){target="_blank"} summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:
+[This ROS.org webpage](https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html){target="_blank"} summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:
 
 * **Topics**: Are most appropriate for broadcasting continuous data-streams such as sensor data and robot state information, and for publishing data that is likely to be required by a range of Nodes across a ROS network.
 * **Services**: Are most appropriate for very short procedures like *quick* calculations (inverse kinematics etc.) and performing short discrete actions that are unlikely to go wrong or will not need intervention (e.g. turning on a warning LED when a battery is low).

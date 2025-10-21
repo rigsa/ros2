@@ -18,23 +18,31 @@ Review the code (including the annotations) and then take a copy of it.
 
 4. Here, we instantiate an `ActionClient` class object. In doing this we define the `node` to add the action client too (in our case `self`, i.e. our `CameraSweepActionClient` class). We then also define the interface type used by the server (`CameraSweep`), and the name of the action that we want to call (`action_name="camera_sweep"`).
 
-5. Here we define a class method to construct and deliver a goal to the server. 
+5. Here we're declaring two ROS parameters: `goal_images` and `goal_angle`. 
 
-    As we know from earlier, a `CameraSweep.Goal()` contains two parameters that we can assign values to: `sweep_angle` and `image_count`.
+    We'll use these to set goals for the action server at runtime.
 
-    The goal is sent to the server using the `send_goal_async()` method, which returns a *future*: i.e. something that will happen in the future, that we can wait on. This future is returned once the goal parameters have been accepted by the server, *not* when the action server has actually completed its job.
+    By default, these values are set to `0`, so if we don't explicitly set values for these two parameters then they will remain at `0`!
 
-    !!! tip
-        Both goal parameters are set to `0` by default!
+    !!! question
+        How do we set values for parameters at runtime (i.e. when we execute this node using `ros2 run`)?
 
-6. In our `main` method we initialise `rclpy` and our `CameraSweepActionClient` class (nothing new here), but then we call the `send_goal()` method of our class (as discussed above), which returns a *future*. We can then use the `rclpy.spin_until_future_complete()` method to spin up our node *only* until this future object has finished.
+        [Recall how we did this in Part 4](../part4.md#ex5). 
 
-    !!! warning 
-        When the `send_goal()` method is called, no additional arguments are provided, which means *default values* will be applied... which were defined above!
+6. Here we define a class method to construct and deliver a goal to the server. 
 
+7. As we know from earlier, a `CameraSweep.Goal()` contains two parameters that we can assign values to: `sweep_angle` and `image_count`.
 
-!!! warning "Fill in the blanks!"
-    You need to adapt the code so that a valid goal is actually sent to the server! 
+    As above, the values assigned to these are derived from two ROS parameters: `goal_angle` and `goal_images`.
+
+    !!! warning "Remember"
+        By default, both parameters will have a value of `0` unless we explicitly assign a value to them (see above)!
+
+        How do we assign values to these parameters at runtime? [Recall how we did this in Part 4](../part4.md#ex5).
+
+8. The goal is sent to the server using the `send_goal_async()` method, which returns a *future*: i.e. something that will happen in the future, that we can wait on. This future is returned once the goal parameters have been accepted by the server, *not* when the action server has actually completed its job.
+        
+9. In our `main` method we initialise `rclpy` and our `CameraSweepActionClient` class (nothing new here), but then we call the `send_goal()` method of our class (as discussed above), which returns a *future*. We can then use the `rclpy.spin_until_future_complete()` method to spin up our node *only* until this future object has finished.
 
 ## Package Dependencies
 

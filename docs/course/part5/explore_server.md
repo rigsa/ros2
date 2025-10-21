@@ -2,7 +2,7 @@
 title: The Part 5 Explore Server Template
 ---
 
-# The Part 5 Explore Server Template
+## The Code
 
 ```py title="explore_server.py"
 --8<-- "code_templates/explore_server.py"
@@ -24,8 +24,14 @@ title: The Part 5 Explore Server Template
         clock=self.get_clock()
     )
     ```
-    
 
-<p align="center">
-  <a href="../../part5#explore_srv_ret">&#8592; Back to Part 5</a>
-</p>
+## Dependencies
+
+We're introducing a few more dependencies here, due to the various additional Python modules that the Explore Server imports. Make sure you add these to your `package.xml` file: 
+
+```xml title="package.xml"
+<exec_depend>sensor_msgs</exec_depend>
+<exec_depend>geometry_msgs</exec_depend>
+<exec_depend>nav_msgs</exec_depend>
+<exec_depend>python3-numpy</exec_depend>
+```

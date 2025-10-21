@@ -300,6 +300,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     <figure markdown>
       ![](../images/gz/colloured_pillars.png){width=600px}
     </figure>
+    <center>*(Not really that exciting is it!?)*</center>
 
 1. Then, in **TERMINAL 2**, launch the Camera Sweep Action Server again: 
 

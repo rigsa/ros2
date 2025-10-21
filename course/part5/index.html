@@ -2800,7 +2800,7 @@
 </ul>
 <h4 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="minimal_action_client/" target="_blank">A minimal action client (for Exercise 2)</a></li>
+<li><a href="minimal_action_client/" target="_blank">A Minimal Action Client (for Exercise 2)</a></li>
 <li><a href="explore_server/" target="_blank">The Explore Server Template (for Exercise 4)</a></li>
 </ul>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
@@ -2868,7 +2868,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>tuos_interfaces/action/CameraSweep
 </code></pre></div>
 <p>Which should present us with the following:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#goal
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#goal
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>int32 image_count     # Number of images to capture during the sweep
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>---
@@ -2979,18 +2979,18 @@
 <h3 id="the-format-of-action-interfaces">The Format of Action Interfaces<a class="headerlink" href="#the-format-of-action-interfaces" title="Permanent link">¶</a></h3>
 <p>Like Services, Action Interfaces have multiple parts to them, and we need to know what format these action messages take in order to be able to use them.</p>
 <p>We ran <code>ros2 interface show</code> in the previous exercise, to interrogate the action interface used by the <code>/camera_sweep</code> action server:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$ ros2 interface show tuos_interfaces/action/CameraSweep
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>#goal
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>int32 image_count     # Number of images to capture during the sweep
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>---
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>#result
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>string[] image_paths  # Full path to each of the captured images
-<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>---
-<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>#feedback
-<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>int32 current_image   # Number of images taken
-<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>float32 current_angle # Current angular position of the robot (in degrees)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ros2 interface show tuos_interfaces/action/CameraSweep
+</code></pre></div>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>#goal
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>int32 image_count     # Number of images to capture during the sweep
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>---
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>#result
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>string[] image_paths  # Full path to each of the captured images
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>---
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>#feedback
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>int32 current_image   # Number of images taken
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>float32 current_angle # Current angular position of the robot (in degrees)
 </code></pre></div>
 <p>As we know from Exercise 1, in order to call this action server we need to send a <strong>goal</strong>, and (in this case) there are <strong>two</strong> goal parameters that must be provided:</p>
 <ol>
@@ -3011,13 +3011,16 @@
 <ol>
 <li>
 <p>In <strong>TERMINAL 1</strong> launch the <em>mystery world</em> simulation again, but this time with an additional argument:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>mystery_world.launch.py<span class="w"> </span>with_gui:<span class="o">=</span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
 </code></pre></div>
 <p>With the <code>with_gui</code> switch set to <code>true</code>, we should now be able to actually <em>see</em> the simulated world this time.</p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/colloured_pillars.png" width="600px"></a>
+</figure><p></p>
 </li>
 <li>
 <p>Then, in <strong>TERMINAL 2</strong>, launch the Camera Sweep Action Server again: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 </li>
 </ol>
@@ -3028,7 +3031,7 @@
 </li>
 <li>
 <p>Navigate into the <code>scripts</code> folder of your package using the <code>cd</code> command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part5_actions/scripts/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part5_actions/scripts/
 </code></pre></div>
 </li>
 <li>
@@ -3036,13 +3039,13 @@
 </li>
 <li>
 <p>Then, declare this as an executable in the package's <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a># Install Python executables
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>install(PROGRAMS
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>  scripts/basic_velocity_control.py
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>  scripts/stop_me.py
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>  scripts/camera_sweep_action_client.py
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>  DESTINATION lib/${PROJECT_NAME}
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>)
+<div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a># Install Python executables
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>install(PROGRAMS
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>  scripts/basic_velocity_control.py
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>  scripts/stop_me.py
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>  scripts/camera_sweep_action_client.py
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>  DESTINATION lib/${PROJECT_NAME}
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>)
 </code></pre></div>
 </li>
 <li>
@@ -3051,19 +3054,25 @@
 </li>
 <li>
 <p>Let's build the Node now, so that we can run it. Head back to <strong>TERMINAL 3</strong> and use Colcon to build the package: <a name="colcon"></a></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install
 </code></pre></div>
 </li>
 <li>
 <p>Re-source the <code>.bashrc</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 <li>
-<p>Run your node with <code>ros2 run</code>...</p>
-<p>The node that we've created here makes a call to the action server and then exits, it doesn't even wait for the server to finish its task! The only way that we'd know if the action was successful, is if we were to keep an eye on <strong>TERMINAL 2</strong>, to see the action <em>server</em> respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...</p>
+<p>Run your node with <code>ros2 run</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ros2 run part5_actions camera_sweep_action_client.py
+</code></pre></div>
+<p>With the command above as it is, the server will reject the goal (check back in <strong>TERMINAL 2</strong> to find out why). How can you modify the above command (by adding some additional arguments), so that the <code>camera_sweep_action_client.py</code> node actually sends a valid goal?<sup id="fnref:goal_params"><a class="footnote-ref" href="#fn:goal_params">2</a></sup></p>
+</li>
+<li>
+<p>Having modified the <code>ros2 run</code> command to successfully send a <em>valid</em> goal to the <code>camera_sweep</code> action server, the robot should start to turn, capturing images as it goes. </p>
+<p>The Client that we've created here makes a call to the action server and then exits, it doesn't even wait for the server to finish its task! The only way that we'd know if the action was successful, is if we were to keep an eye on <strong>TERMINAL 2</strong>, to see the action <em>server</em> respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...</p>
 </li>
 </ol>
 <h4 id="part-2-handling-a-result">Part 2: Handling a Result<a class="headerlink" href="#part-2-handling-a-result" title="Permanent link">¶</a></h4>
@@ -3072,28 +3081,28 @@
 <p>Go back to the <code>camera_sweep_action_client.py</code> file in VS Code.</p>
 </li>
 <li>
-<p>In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends in response to the goal itself.</p>
+<p>In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends to the goal itself.</p>
 <p>Within the <code>send_goal()</code> method of the <code>CameraSweepActionClient()</code> class, find the line that reads:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
 </code></pre></div>
 <p>and change this to:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
 </code></pre></div>
 <p>This method is no longer returning the <em>future</em> that is sent from <code>send_goal_async()</code>, but is now handling this and adding a callback to it: <code>goal_response_callback</code>. This callback can now be used to inform the client of whether the server has <em>accepted</em> the goal or not.</p>
 </li>
 <li>
-<p>With therefore need to define this callback now. Define it as a <em>new</em> class method of the <code>CameraSweepActionClient()</code> class (i.e. underneath the <code>send_goal()</code> class method that has already been defined)...</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"The goal was rejected by the server."</span><span class="p">)</span>
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>        <span class="k">return</span>
-<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
-<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"The goal was accepted by the server."</span><span class="p">)</span>
-<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
-<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
-<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
+<p>We therefore need to define this callback now. Define it as a <em>new</em> class method of the <code>CameraSweepActionClient()</code> class (i.e. underneath the <code>send_goal()</code> class method that has already been defined)...</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>    <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"The goal was rejected by the server."</span><span class="p">)</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>        <span class="k">return</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"The goal was accepted by the server."</span><span class="p">)</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
 </code></pre></div>
 <p>The <em>input</em> to this method will be the <em>future</em> that is created by the <code>send_goal_async()</code> call. We assign this to an attribute called <code>goal_handle</code> here, and can then use this for two purposes:</p>
 <ol>
@@ -3103,33 +3112,33 @@
 </li>
 <li>
 <p>Now we need to define this callback too. Define <code>get_result_callback</code> as another new method of the <code>CameraSweepActionClient()</code> class (i.e. underneath the <code>goal_response_callback()</code> class method that we have just defined)...</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>        <span class="sa">f</span><span class="s2">"The action has completed.</span><span class="se">\n</span><span class="s2">"</span>
-<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>        <span class="sa">f</span><span class="s2">"Result (Image Paths):</span><span class="se">\n</span><span class="s2">  "</span>
-<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>        <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">  "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">image_paths</span><span class="p">)</span>
-<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>    <span class="p">)</span>
-<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>        <span class="sa">f</span><span class="s2">"The action has completed.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>        <span class="sa">f</span><span class="s2">"Result (Image Paths):</span><span class="se">\n</span><span class="s2">  "</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>        <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">  "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">image_paths</span><span class="p">)</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>    <span class="p">)</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </code></pre></div>
 <p>The input to <em>this</em> class method is another future object which contains the actual result sent from the server. We assign this to <code>result</code> and use a <code>get_logger().info()</code> call to print this to the terminal when the action has finished.</p>
-<p>As we know from our work earlier, the <code>CameraSweep</code> interface contains one <code>result</code> parameter called <code>image_paths</code>.</p>
+<p>As we know from our work earlier, the <code>CameraSweep</code> Action interface contains one <em>Result</em> parameter called <code>image_paths</code>.</p>
 </li>
 <li>
 <p>Finally, in the <code>main</code> method, change this:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">future</span> <span class="o">=</span> <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">()</span>
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">future</span> <span class="o">=</span> <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">()</span>
 </code></pre></div>
 to just this:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">()</span>
 </code></pre></div>
 (because <code class="highlight"><span class="n">send_goal</span><span class="p">()</span></code> no longer returns a <code>future</code>)<p></p>
 </li>
 <li>
 <p>And then also change: 
-    </p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">action_client</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+    </p><div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">action_client</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
 </code></pre></div><p></p>
 <p>to this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
@@ -3147,27 +3156,27 @@ to just this:
 </li>
 <li>
 <p>In order to be able to handle the feedback that is sent from an action server, we need to add yet another callback! Go back to the <code>send_goal()</code> method and the line where we are actually sending the goal to the server:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
 </code></pre></div>
 <p>As it stands, all we're doing here is sending the goal, but we can also add a <em>feedback callback</em> to this too:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span>
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>    <span class="n">goal</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span> 
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>    <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span>
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>    <span class="n">goal</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span> 
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>    <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="p">)</span>
 </code></pre></div>
 <p>The <code>feedback_callback</code> will be executed every time a new feedback message is received from the server.</p>
 </li>
 <li>
 <p>In order to define what we want to do with these feedback messages we need to add <em>yet another</em> new method to the <code>CameraSweepActionClient()</code> class. Underneath the <code>get_result_callback()</code> class method that we defined earlier, add this new one as well:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>    <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>    <span class="n">fdbk_current_angle</span> <span class="o">=</span> <span class="n">feedback</span><span class="o">.</span><span class="n">current_angle</span>
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>    <span class="n">fdbk_current_image</span> <span class="o">=</span> <span class="n">feedback</span><span class="o">.</span><span class="n">current_image</span>
-<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">FEEDBACK:</span><span class="se">\n</span><span class="s2">"</span>
-<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>        <span class="sa">f</span><span class="s2">"  - Current angular position = </span><span class="si">{</span><span class="n">fdbk_current_angle</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> degrees.</span><span class="se">\n</span><span class="s2">"</span>
-<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>        <span class="sa">f</span><span class="s2">"  - Image(s) captured so far = </span><span class="si">{</span><span class="n">fdbk_current_image</span><span class="si">}</span><span class="s2">."</span>
-<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>    <span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>    <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>    <span class="n">fdbk_current_angle</span> <span class="o">=</span> <span class="n">feedback</span><span class="o">.</span><span class="n">current_angle</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>    <span class="n">fdbk_current_image</span> <span class="o">=</span> <span class="n">feedback</span><span class="o">.</span><span class="n">current_image</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">FEEDBACK:</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>        <span class="sa">f</span><span class="s2">"  - Current angular position = </span><span class="si">{</span><span class="n">fdbk_current_angle</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> degrees.</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>        <span class="sa">f</span><span class="s2">"  - Image(s) captured so far = </span><span class="si">{</span><span class="n">fdbk_current_image</span><span class="si">}</span><span class="s2">."</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>    <span class="p">)</span>
 </code></pre></div>
 <p>As we know from our work earlier, the <code>CameraSweep</code> interface contains two <em>feedback</em> parameters: <code>current_angle</code> and <code>current_image</code>.</p>
 </li>
@@ -3180,8 +3189,8 @@ to just this:
 <h4 id="part-4-cancelling-an-action">Part 4: Cancelling an Action<a class="headerlink" href="#part-4-cancelling-an-action" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>First, create a copy of your <code>camera_sweep_action_client.py</code> node and call it <code>cancel_camera_sweep.py</code>. Make sure <strong>TERMINAL 3</strong> is located in the <code>scripts</code> directory of your <code>part5_actions</code> package before running this following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>cp<span class="w"> </span>camera_sweep_action_client.py<span class="w"> </span>cancel_camera_sweep.py
+<p>First, create a copy of your <code>camera_sweep_action_client.py</code> node and call it <code>cancel_camera_sweep.py</code>. Make sure <strong>TERMINAL 3</strong> is located in the <code>scripts</code> directory of your <code>part5_actions</code> package before running the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>cp<span class="w"> </span>camera_sweep_action_client.py<span class="w"> </span>cancel_camera_sweep.py
 </code></pre></div>
 </li>
 <li>
@@ -3200,61 +3209,61 @@ to just this:
 </li>
 <li>
 <p>As you hopefully recall, we first need to import <code>SignalHandlerOptions</code> into our node, so add this as an additional import at the start of the code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.signals</span><span class="w"> </span><span class="kn">import</span> <span class="n">SignalHandlerOptions</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.signals</span><span class="w"> </span><span class="kn">import</span> <span class="n">SignalHandlerOptions</span>
 </code></pre></div>
 <p>Then, in the <code>main()</code> node function, modify the <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">()</span></code> call:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>    <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>    <span class="n">signal_handler_options</span><span class="o">=</span><span class="n">SignalHandlerOptions</span><span class="o">.</span><span class="n">NO</span>
-<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    <span class="n">signal_handler_options</span><span class="o">=</span><span class="n">SignalHandlerOptions</span><span class="o">.</span><span class="n">NO</span>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
 <p>Inside the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code> method of our <code>CameraSweepActionClient()</code> class we now need to add some additional flags:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_succeeded</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_cancelled</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_succeeded</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_cancelled</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="kc">False</span>
 </code></pre></div>
 <p>In the <code>get_result_callback()</code> class method, we can then ensure that the <code>self.goal_succeeded</code> flag is set to <code>True</code> when a result is received. In this class method, locate the <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span></code> line and add the following <em>additional</em> line just above it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_succeeded</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_succeeded</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 </li>
 <li>
 <p>Actions can be cancelled using a <code>cancel_goal_async()</code> method of the <code>goal_handle</code> that is obtained from the <code>goal_response_callback()</code>. As such, we need to make this accessible across our entire <code>CameraSweepActionClient()</code> class. Locate the <code>goal_response_callback()</code> class method, and add this line at the bottom as the last line of the <code>goal_response_callback()</code> method:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span> <span class="o">=</span> <span class="n">goal_handle</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span> <span class="o">=</span> <span class="n">goal_handle</span>
 </code></pre></div>
 <p>This makes <code>goal_handle</code> accessible across the entire <code>CameraSweepActionClient()</code> class as <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span></code>. </p>
 </li>
 <li>
 <p>We can only attempt to cancel an Action when it's in progress, therefore the <em>feedback callback</em> is the best place to trigger this. Locate the <code>feedback_callback()</code> class method and place the following at the end of it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
-<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span><span class="o">.</span><span class="n">cancel_goal_async</span><span class="p">()</span>
-<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>    <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_goal</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span><span class="o">.</span><span class="n">cancel_goal_async</span><span class="p">()</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>    <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_goal</span><span class="p">)</span>
 </code></pre></div>
 <p>Here, we call the <code>cancel_goal_async()</code> method from <code>self.goal_handle</code>, and add another new callback (<code>cancel_goal()</code>) to it (i.e. to encapsulate what we want to happen when the action is cancelled).</p>
 </li>
 <li>
 <p>Now, let's define this as another new (and final!) class method:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">cancel_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>    <span class="n">cancel_response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cancel_response</span><span class="o">.</span><span class="n">goals_canceling</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal successfully canceled'</span><span class="p">)</span>
-<a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">goal_cancelled</span> <span class="o">=</span> <span class="kc">True</span>
-<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal failed to cancel'</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">cancel_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>    <span class="n">cancel_response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cancel_response</span><span class="o">.</span><span class="n">goals_canceling</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal successfully canceled'</span><span class="p">)</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">goal_cancelled</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal failed to cancel'</span><span class="p">)</span>
 </code></pre></div>
 <p>The input to this callback is another <em>future</em>, which we can use to determine if the goal has been cancelled (as shown above). If it <em>has</em>, then we set our <code>self.goal_cancelled</code> flag to <code>True</code>.</p>
 </li>
 <li>
 <p><strong>Finally</strong>, go back the <code>main()</code> function of the node. We're going to replace the <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span></code> line now, with a <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">()</span></code>, wrapped inside a <code class="highlight"><span class="k">try</span></code> - <code class="highlight"><span class="k">except</span></code>, wrapped inside a <code class="highlight"><span class="k">while</span></code> loop!</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">while</span> <span class="ow">not</span> <span class="n">action_client</span><span class="o">.</span><span class="n">goal_succeeded</span><span class="p">:</span>
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>    <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
-<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>        <span class="k">if</span> <span class="n">action_client</span><span class="o">.</span><span class="n">goal_cancelled</span><span class="p">:</span>
-<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>            <span class="k">break</span>
-<a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-<a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Ctrl+C"</span><span class="p">)</span>
-<a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>        <span class="n">action_client</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="k">while</span> <span class="ow">not</span> <span class="n">action_client</span><span class="o">.</span><span class="n">goal_succeeded</span><span class="p">:</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>        <span class="k">if</span> <span class="n">action_client</span><span class="o">.</span><span class="n">goal_cancelled</span><span class="p">:</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>            <span class="k">break</span>
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Ctrl+C"</span><span class="p">)</span>
+<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>        <span class="n">action_client</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 <p>The <code class="highlight"><span class="k">while</span></code> loop will execute until the action completes successfully, <em>or</em> until the goal is <em>cancelled</em>, <em>or</em> we shutdown the node with a <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> interrupt.</p>
 <p>Look back through the node to see how all this will flow through your class.</p>
@@ -3264,13 +3273,11 @@ to just this:
 <p>For the purposes of this exercise, we want to modify our node so that the action is always cancelled after a total of <strong>5 images</strong> have been captured. This can be done by making a fairly small modification to the <code>feedback_callback()</code>. <strong>Have a go at implementing this now</strong>. </p>
 <ul>
 <li>Have a go now at introducing a conditional call to the <code>cancel_goal()</code> method once a total of <strong>5 images</strong> have been captured.</li>
-<li>You could use the <code>captured_images</code> attribute from the <code>CameraSweepFeedback</code> message to trigger this.</li>
+<li>You could use the <code>current_image</code> attribute from the <code>CameraSweepFeedback</code> message to trigger this.</li>
 </ul>
 </li>
 </ol>
 <h3 id="a-summary-of-ros-actions">A Summary of ROS Actions<a class="headerlink" href="#a-summary-of-ros-actions" title="Permanent link">¶</a></h3>
-<!-- TODO from here -->
-
 <p>ROS Actions work a lot like ROS Services, but they have the following key differences:</p>
 <ol>
 <li>They can be <strong>cancelled</strong>: If something is taking too long, or if something else has happened, then an Action Client can cancel an Action whenever it needs to.</li>
@@ -3284,7 +3291,7 @@ to just this:
 </div>
 <p>So far we have looked at how to call a pre-existing action server, but what about if we actually want to set up our own, and use our own custom Action Interfaces too? </p>
 <p>To start with, have a look at the Action Server that you've been working with in the previous exercises. You've been launching this with the following command:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 <div class="admonition question">
 <p class="admonition-title">Questions</p>
@@ -3298,15 +3305,15 @@ to just this:
 <ol>
 <li>
 <p>The way the server is initialised and the numerous callbacks that are attached to it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">actionserver</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
-<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>    <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> 
-<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>    <span class="n">action_type</span><span class="o">=</span><span class="n">CameraSweep</span><span class="p">,</span>
-<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>    <span class="n">action_name</span><span class="o">=</span><span class="s2">"camera_sweep"</span><span class="p">,</span>
-<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>    <span class="n">execute_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server_execution_callback</span><span class="p">,</span> <span class="c1"># (1)!</span>
-<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>    <span class="n">callback_group</span><span class="o">=</span><span class="n">ReentrantCallbackGroup</span><span class="p">(),</span> <span class="c1"># (2)!</span>
-<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>    <span class="n">goal_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_callback</span><span class="p">,</span> <span class="c1"># (3)!</span>
-<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>    <span class="n">cancel_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_callback</span> <span class="c1"># (4)!</span>
-<a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">actionserver</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>    <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> 
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>    <span class="n">action_type</span><span class="o">=</span><span class="n">CameraSweep</span><span class="p">,</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>    <span class="n">action_name</span><span class="o">=</span><span class="s2">"camera_sweep"</span><span class="p">,</span>
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>    <span class="n">execute_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server_execution_callback</span><span class="p">,</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>    <span class="n">callback_group</span><span class="o">=</span><span class="n">ReentrantCallbackGroup</span><span class="p">(),</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>    <span class="n">goal_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_callback</span><span class="p">,</span> <span class="c1"># (3)!</span>
+<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a>    <span class="n">cancel_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_callback</span> <span class="c1"># (4)!</span>
+<a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a><span class="p">)</span>
 </code></pre></div>
 <ol>
 <li>This callback contains all the code that will be executed by the server once a valid goal is sent to it (i.e. the core functionality of the Action)</li>
@@ -3318,9 +3325,9 @@ to just this:
 <li>
 <p>Take a look at the various Action callbacks to see what's happening in each:</p>
 <ol>
-<li>How are goal parameters checked, and subsequently accepted or rejected?</li>
-<li>How are cancellations implemented, and how is this monitored in the main <code>server_execution_callback()</code>?</li>
-<li>How is feedback handled and published?</li>
+<li>How are <strong>goal</strong> parameters checked, and subsequently accepted or rejected?</li>
+<li>How are <strong>cancellations</strong> implemented, and how is this monitored in the main <code>server_execution_callback()</code>?</li>
+<li>How is <strong>feedback</strong> handled and published?</li>
 <li>How is the <strong>result</strong> handled and published too?</li>
 </ol>
 </li>
@@ -3339,33 +3346,33 @@ to just this:
 <ol>
 <li>
 <p>First, navigate into your package:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part5_actions
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part5_actions
 </code></pre></div>
 </li>
 <li>
 <p>Then use <code>mkdir</code> to make a new directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>mkdir<span class="w"> </span>action
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>mkdir<span class="w"> </span>action
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
 <p>In here we'll now define an Action Interface called <code>ExploreForward</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>touch<span class="w"> </span>action/ExploreForward.action
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>touch<span class="w"> </span>action/ExploreForward.action
 </code></pre></div>
 </li>
 <li>
 <p>Open this up in VS Code and define the data structure of the Interface as follows:</p>
-<div class="highlight"><span class="filename">ExploreForward.action</span><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>#goal
-<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>float32 fwd_velocity               # The speed at which the robot should move forwards (m/s)
-<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>float32 stopping_distance          # Minimum distance of an approaching obstacle before the robot stops (meters) 
-<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>---
-<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>#result
-<a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>float32 total_distance_travelled   # Total distance travelled during the action (meters)
-<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a>float32 closest_obstacle           # LaserScan distance to the closest detected obstacle up ahead (meters)
-<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>---
-<a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a>#feedback
-<a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a>float32 current_distance_travelled # Distance travelled so far during the action (meters)
+<div class="highlight"><span class="filename">ExploreForward.action</span><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>#goal
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>float32 fwd_velocity               # The speed at which the robot should move forwards (m/s)
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>float32 stopping_distance          # Minimum distance of an approaching obstacle before the robot stops (meters) 
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>---
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>#result
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>float32 total_distance_travelled   # Total distance travelled during the action (meters)
+<a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a>float32 closest_obstacle           # LaserScan distance to the closest detected obstacle up ahead (meters)
+<a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a>---
+<a id="__codelineno-55-9" name="__codelineno-55-9" href="#__codelineno-55-9"></a>#feedback
+<a id="__codelineno-55-10" name="__codelineno-55-10" href="#__codelineno-55-10"></a>float32 current_distance_travelled # Distance travelled so far during the action (meters)
 </code></pre></div>
 <p>This interface therefore has <strong>two</strong> goal parameters, <strong>one</strong> feedback parameter, and <strong>two</strong> result parameters:</p>
 <p><strong>Goal</strong>:</p>
@@ -3385,22 +3392,17 @@ to just this:
 </li>
 <li>
 <p>Now, declare this interface in the package's <code>CMakeLists.txt</code> file, so that the necessary Python code can be created:</p>
-<div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>find_package(rosidl_default_generators REQUIRED)
-<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>rosidl_generate_interfaces(${PROJECT_NAME}
-<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>  "action/ExploreForward.action" 
-<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>)
+<div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>find_package(rosidl_default_generators REQUIRED)
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>rosidl_generate_interfaces(${PROJECT_NAME}
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>  "action/ExploreForward.action" 
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>)
 </code></pre></div>
 </li>
 <li>
 <p>Also modify the <code>package.xml</code> file (above the <code class="highlight"><span class="nt">&lt;export&gt;</span></code> line) to include the necessary <code>rosidl</code> dependencies:</p>
-<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="nt">&lt;buildtool_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/buildtool_depend&gt;</span>
-<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
-<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
-</code></pre></div>
-<p>Also, add the following <code>msg</code> dependencies too (below the <code class="highlight"><span class="nt">&lt;exec_depend&gt;</span>action_msgs<span class="nt">&lt;/exec_depend&gt;</span></code> line):</p>
-<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="nt">&lt;exec_depend&gt;</span>geometry_msgs<span class="nt">&lt;/exec_depend&gt;</span>
-<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="nt">&lt;exec_depend&gt;</span>nav_msgs<span class="nt">&lt;/exec_depend&gt;</span>
-<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="nt">&lt;exec_depend&gt;</span>sensor_msgs<span class="nt">&lt;/exec_depend&gt;</span>
+<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="nt">&lt;buildtool_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/buildtool_depend&gt;</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
 </code></pre></div>
 </li>
 <li>
@@ -3408,17 +3410,17 @@ to just this:
 <ol>
 <li>
 <p>First, <strong>always</strong> make sure you're in the root of the Workspace:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 </li>
 <li>
 <p>Then run <code>colcon build</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install<span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
 <p>And finally re-source the <code>.bashrc</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
@@ -3428,13 +3430,13 @@ to just this:
 <ol>
 <li>
 <p>Use <code>ros2 interface</code> to list all available interface types, but use the <code>-a</code> option to display only action-type interfaces:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-a
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-a
 </code></pre></div>
 <p>Look for a message with the prefix "<code>part5_actions</code>".</p>
 </li>
 <li>
 <p>Next, <em>show</em> the data structure of the interface:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>part5_actions/action/ExploreForward
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>part5_actions/action/ExploreForward
 </code></pre></div>
 <p>This should match the content of the <code>part5_actions/action/ExploreForward.action</code> file that we created above.</p>
 </li>
@@ -3444,7 +3446,7 @@ to just this:
 <h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Building the "ExploreForward" Action Server<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong> navigate to the <code>scripts</code> folder of your <code>part5_actions</code> package then:</p>
+<p>In <strong>TERMINAL 1</strong> navigate to the <code>scripts</code> folder of your <code>part5_actions</code> package, then:</p>
 <ol>
 <li>Create a Python script called <code>explore_server.py</code></li>
 <li>Make it executable</li>
@@ -3501,30 +3503,25 @@ to just this:
 </ol>
 </li>
 </ul>
-<p><a name="explore_srv_ret"></a></p>
 </li>
 <li>
-<p><strong><a href="explore_server/">There's <ins>some template code here</ins> to help you with this</a></strong>, but you might also want to take a look at the <code>camera_sweep_action_server.py</code> code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).  </p>
+<p>There's some template code to help you with this:</p>
+<p></p><center><a class="md-button" href="explore_server/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> The <code>explore_server.py</code> Template</a></center><p></p>
+<p>You might also want to take a look at the <code>camera_sweep_action_server.py</code> code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).  </p>
 </li>
 </ol>
 <p><strong>Testing</strong></p>
-<p>There's a good simulation environment that you can use as you're developing your action server here. When you want to test things out, launch the simulation with the following command: </p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_dqn_stage4.launch.py
-</code></pre></div><p></p>
+<p>When you want to test things out, why not use the <em>Nav World</em> environment from Part 3 (in <strong>TERMINAL 1</strong>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
+</code></pre></div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_stage4_dqn.jpg" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="600px"></a></p>
 </figure>
-<hr>
-<p>Don't forget, that in order to launch the server, you'll need to have built everything with <code>colcon</code> by following <a href="#colcon-build-steps">the usual <strong>three stage</strong> process</a>.</p>
-<p>Once you've done this, you'll then be able to run it:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part5_actions<span class="w"> </span>explore_server.py
-</code></pre></div><p></p>
-<hr>
-<p>Don't forget that <strong>you don't need to have developed a Python Client Node in order to test the server</strong>. Use the <code>ros2 action send_goal</code> CLI tool to make calls to the server (like we did in <a href="#send_goal_cli">Exercise 1</a>).</p>
+<p>Don't forget that in order to launch the server you'll need to have built everything with <code>colcon</code> by following <a href="#colcon-build-steps">the usual <strong>three stage</strong> process</a>.</p>
+<p>Do this in <strong>TERMINAL 2</strong>, and you'll then be able to run it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part5_actions<span class="w"> </span>explore_server.py
+</code></pre></div>
+<p>Also, don't forget that <strong>you don't need to have developed a Python Client Node in order to test the server</strong>. Use the <code>ros2 action send_goal</code> CLI tool to make calls to the server (like we did in <a href="#send_goal_cli">Exercise 1</a>).</p>
 <h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: Building a Basic "ExploreForward" Client<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
 <ol>
 <li>
@@ -3533,26 +3530,23 @@ to just this:
 <li>
 <p>Run <code>colcon build</code> on it now, so you don't have to worry about it later (again, following the <a href="#colcon-build-steps"><strong>three stage</strong> process as above</a>)...</p>
 <p>Here it is again, for good measure:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong></p>
 <ol>
 <li>
 <p>Step 1:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
 </code></pre></div>
 </li>
 <li>
 <p>Step 2:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install
 </code></pre></div>
 </li>
 <li>
 <p>Step 3:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
-<hr>
 </li>
 <li>
 <p>Open up the <code>explore_client.py</code> file in VS Code.</p>
@@ -3570,12 +3564,9 @@ to just this:
 </li>
 <li>
 <p>Once you have everything in place, launch the action client with <code>ros2 run</code> as below:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part5_actions<span class="w"> </span>explore_client.py
-</code></pre></div><p></p>
-<hr>
-<p>If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it reaches a certain distance from an obstacle up ahead, at which point the robot will stop, and your client node will stop too. Once this happens, reorient your robot (using the <code>teleop_keyboard</code> node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part5_actions<span class="w"> </span>explore_client.py
+</code></pre></div>
+<p>If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it gets a certain distance away from an obstacle up ahead (<code>stopping_distance</code>), at which point the robot will stop, and your client node should then stop too. Once this happens, reorient your robot (using the <code>teleop_keyboard</code> node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. </p>
 <div class="admonition warning">
 <p class="admonition-title">Important</p>
 <p>Make sure that your cancellation functionality works correctly too, ensuring that:</p>
@@ -3621,7 +3612,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 <li>ROS Actions.</li>
 </ol>
 <p>Through this course you've gained some practical experience using all three of these, but you may still be wondering how to select the appropriate one for a certain robot task... </p>
-<p><a href="https://docs.ros.org/en/humble/How-To-Guides/Topics-Services-Actions.html" target="_blank">This ROS.org webpage</a> summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:</p>
+<p><a href="https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html" target="_blank">This ROS.org webpage</a> summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:</p>
 <ul>
 <li><strong>Topics</strong>: Are most appropriate for broadcasting continuous data-streams such as sensor data and robot state information, and for publishing data that is likely to be required by a range of Nodes across a ROS network.</li>
 <li><strong>Services</strong>: Are most appropriate for very short procedures like <em>quick</em> calculations (inverse kinematics etc.) and performing short discrete actions that are unlikely to go wrong or will not need intervention (e.g. turning on a warning LED when a battery is low).</li>
@@ -3629,7 +3620,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 </ul>
 <h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
 <p>Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>wsl_ros<span class="w"> </span>backup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
 <p>You'll then be able to restore it to a fresh WSL-ROS2 environment next time you fire one up (<code>wsl_ros restore</code>).  </p>
 <div class="footnote">
@@ -3637,6 +3628,9 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 <ol>
 <li id="fn:1">
 <p>Remember: you can also use the <code>wsl_ros restore</code> command at any time.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:goal_params">
+<p>You need to explicitly set the <code>goal_images</code> and <code>goal_angle</code> parameters at runtime, <a href="../part4/#ex5">much like we did here with the <code>number_game_client.py</code> service client</a>.&nbsp;<a class="footnote-backref" href="#fnref:goal_params" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -3662,7 +3656,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 20, 2025 15:02:19 UTC"><span class="timeago" datetime="2025-10-20T15:02:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2025 15:02:19 UTC">2025-10-20</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 21, 2025 13:37:55 UTC"><span class="timeago" datetime="2025-10-21T13:37:55+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 21, 2025 13:37:55 UTC">2025-10-21</span>
   </span>
 
     

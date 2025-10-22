@@ -6,9 +6,9 @@ hide:
 
 <center>
 
-# ROS 2 Lab Courses 
+# ROS 2 Lab Courses in The Diamond
 
-Practical Robotics Lab Courses with ROS2 and the TurtleBot3 Waffle in the Diamond.
+Practical Robotics Lab Courses with ROS 2 and the TurtleBot3 Waffle.
 
 <figure markdown>
   ![A picture of a TurtleBot3 Waffle in the Diamond Computer Room 3 Robot Arena](./images/waffle/arena_shot.jpg){width=1000}

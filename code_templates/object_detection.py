@@ -47,22 +47,18 @@ class ObjectDetection(Node):
 
     def show_image(self, img, img_name, save_img=True): # (11)!
         
-        self.get_logger().info("Opening the image in a new window...")
+        self.get_logger().info(f"Opening {img_name}...")
         cv2.imshow(img_name, img) # (12)!
         
+        cv2.waitKey(4000) # (14)!
+
         if save_img: # (13)!
             self.save_image(img, img_name)
-        
-        self.get_logger().info(
-            "IMPORTANT: Close the image pop-up window to exit."
-        )
-        
-        cv2.waitKey(0) # (14)!
     
     def save_image(self, img, img_name): # (17)!
         self.get_logger().info(f"Saving the image...")
         
-        base_image_path = Path.home().joinpath("myrosdata/object_detection/")
+        base_image_path = Path.home().joinpath("object_detection")
         base_image_path.mkdir(parents=True, exist_ok=True) # (18)!
         full_image_path = base_image_path.joinpath(
             f"{img_name}.jpg") # (19)!

@@ -443,7 +443,7 @@ As you'll recall from Part 2, odometry is really important for robot navigation,
 1. In **TERMINAL 2** enter the following:
 
     ```bash
-    ros2 launch tuos_simulations rviz.launch.py
+    ros2 launch tuos_tb3_tools rviz.launch.py environment:=sim
     ```
     
     On running the command a new window should open:

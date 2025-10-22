@@ -62,15 +62,13 @@ Check that the Course Repo is up-to-date before you start on these exercises. [S
 
 In this session we'll start by working with the same *mystery world* environment from Part 5. In **TERMINAL 1**, use the following command to load it:
 
-***
-**TERMINAL 1:**
 ```bash
 ros2 launch tuos_simulations coloured_pillars.launch.py
 ```
 ...and then wait for the Gazebo window to open:
 
 <figure markdown>
-  ![](../../images/gz/colloured_pillars.png){width=700px}
+  ![](../images/gz/coloured_pillars.png){width=600px}
 </figure>
 
 ## Working with Cameras and Images in ROS
@@ -81,8 +79,6 @@ There are a number of tools that we can use to view the live images that are bei
 
 In a new terminal instance (**TERMINAL 2**), run `ros2 topic list` to see the full list of topics that are currently active on our system. Conveniently, all the topics related to our robot's *camera* are prefixed with `/camera`! Filter the `ros2 topic list` output using `grep` (a Linux command), to only show topics with this prefix:
 
-***
-**TERMINAL 2:**
 ```bash
 ros2 topic list | grep /camera
 ```
@@ -95,9 +91,8 @@ This should provide the following filtered list:
 /camera/image_raw/compressed
 /camera/image_raw/compressedDepth
 /camera/image_raw/theora
+/camera/image_raw/zstd
 ```
-
-***
 
 The main item that we're interested in here is the *raw image data*, and the key topic that we'll therefore be using here is:
 
@@ -141,19 +136,16 @@ uint8[] data          # actual matrix data, size is (step * rows)
 
 We can *view* the images being streamed to the above camera topic (in real-time) in a variety of different ways, and we'll explore a couple of these now.
 
-One way is to use *RViz*, which can be launched using the following `ros2 launch` command:
+One way is to use *RViz*, which can be launched using the following `ros2 launch` command in **TERMINAL 2**:
 
-***
-**TERMINAL 2:**
 ```bash
-ros2 launch tuos_simulations rviz.launch.py
+ros2 launch tuos_tb3_tools rviz.launch.py environment:=sim
 ```
-***
 
 Once RViz launches, you should see a camera panel in the bottom-left corner with a live stream of the images being obtained from the robot's camera.
 
 <figure markdown>
-  ![](../../images/rviz/waffle_antd.png){width=800px}
+  ![](../images/rviz/waffle_antd.svg){width=800px}
 </figure>
 
 Close down RViz by entering ++ctrl+c++ in **TERMINAL 2**.  
@@ -162,26 +154,22 @@ Close down RViz by entering ++ctrl+c++ in **TERMINAL 2**.
 
 Another tool we can use to view camera data-streams is the RQT.
 
-1. Enter the following command to launch it:
+1. Enter the following command in **TERMINAL 2** to launch it:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     rqt
     ```
     <figure markdown>
-      ![](../../images/rqt/main.png){width=600}
+      ![](../images/rqt/main.png){width=600}
     </figure>
 
 1. From the top menu select `Plugins` > `Vizualisation` > `Image View`.
 
     <figure markdown>
-      ![](../../images/rqt/image_view_antd.png){width=600}
+      ![](../images/rqt/image_view_antd.svg){width=500px}
     </figure>
 
-    This allows us to easily view images that are being published to any camera topic on the ROS network. Another useful feature is the ability to save these images (as `.jpg` files) to the filesystem: See the "Save as image" button highlighted in the figure above. This might be useful later on...
-
-    ***
+    This allows us to easily view images that are being published to any camera topic on the ROS network. Another useful feature is the ability to save these images (as `.jpg` files) to the filesystem: See the "Save image" button highlighted in the figure above. This might be useful later on...
 
 1. Click the drop-down box in the top left of the window to select an image topic to display.  Select `/camera/image_raw` (if it's not already selected).
 
@@ -203,25 +191,22 @@ In this exercise you will learn how to use OpenCV to capture images, filter them
 
 ##### Step 1: Getting Started
 
-1. First create a new package called `part6_vision` using the `create_pkg.sh` helper script (from the `tuos_ros` course repo). 
+1. First create a new package called `part6_vision` using [the usual approach](./part1.md#ex4). 
 
-1. Navigate into the `scripts` directory of this new package (using `cd`), create a new file called `object_detection.py` (using `touch`), make this executable (`chmod`) and declare this as an executable in the package's `CMakeLists.txt` (you've done all this lots of times now, but check back through previous parts of the course if you need a reminder on how to do any of it).
+1. Navigate into the `scripts` directory of this new package (using `cd`), create a new file called `object_detection.py` (using `touch`), make this executable (`chmod`) and declare this as an executable in the package's `CMakeLists.txt` (you've done this lots of times now, but check back through previous parts of the course if you need a reminder on how to do any of it).
 
-1. Modify the `package.xml` file (below the `#!xml <buildtool_depend>ament_cmake_python</buildtool_depend>` line) to include following dependencies:
+1. Open up the `object_detection.py` Python file in VS Code, and take a look at the following code:
 
-    ```xml title="package.xml"
-    <depend>opencv2</depend>
-    <depend>cv_bridge</depend>
-    <depend>sensor_msgs</depend>
-    <depend>geometry_msgs</depend>
-    ```
+    <center>[:material-file-code-outline: The `object_detection.py` code](./part6/object_detection.md){ .md-button target="_blank" }</center>
+
+    Read the annotations so that you understand how the node works and what should happen when you run it!
+
+1. Copy the code into the empty `object_detection.py` file and save it.
 
 1. Build the package with `colcon`:
 
     1. In **TERMINAL 2**, make sure you're in the root of the Workspace:
         
-        ***
-        **TERMINAL 2:**
         ```bash
         cd ~/ros2_ws/
         ```
@@ -237,27 +222,21 @@ In this exercise you will learn how to use OpenCV to capture images, filter them
         ```bash
         source ~/.bashrc
         ```
-        ***
 
-1. Open up the `object_detection.py` Python file in VS Code.
-
-1. **[Copy ^^the code here^^ into the empty `object_detection.py` file](./part6/object_detection.md)**, save it, then read the annotations so that you understand how the node works and what should happen when you run it. <a name="ex2_ret"></a>
-
-1. Run the node using `ros2 run`.
-
-    !!! warning
-        This node will capture an image and display it in a pop-up window. Once you've viewed the image in this pop-up window **MAKE SURE YOU CLOSE THE POP-UP WINDOW DOWN** so that execution can complete!
+1. Run the node using `ros2 run ...` 
     
-1. As you should know from reading the explainer, the node has just obtained an image and saved it to a location on the filesystem.  Navigate to this filesystem location and view the image using `eog`.
+    An image should appear from the robot's camera and then vanish again after a few seconds.
+    
+1. As you should know from reading the explainer, the node has just saved this image to a location on your filesystem. Navigate to this filesystem location and view the image using `eog`.
 
-    What you may have noticed from the terminal output when you ran the `object_detection.py` node is that the robot's camera captures images at a native size of 1080x1920 pixels (you should already know this from interrogating the `/camera/rgb/image_raw/width` and `/height` messages using `rostopic echo` earlier, right?!).  That's over 2 million pixels in total in a single image (2,073,600 pixels per image, to be exact), each pixel having a blue, green and red value associated with it - so that's a lot of data in a single image file! 
+    What you may have noticed from the terminal output when you ran the `object_detection.py` node is that the robot's camera captures images at a native size of 1080x1920 pixels.  That's over *2 million pixels* in total in a single image (2,073,600 pixels per image, to be exact), each pixel having a blue, green and red value associated with it - so that's a lot of data in a single image file! 
 
     !!! question
         The size of the image file (in bytes) was actually printed to the terminal when you ran the `object_detection.py` node. Did you notice how big it was exactly?
 
 Processing an image of this size is therefore hard work for a robot: any analysis we do will be slow and any raw images that we capture will occupy a considerable amount of storage space. The next step then is to reduce this down by cropping the image to a more manageable size.
 
-##### Step 2: Cropping
+##### Step 2: Cropping 
 
 We're going to modify the `object_detection.py` node now to:
 
@@ -286,42 +265,42 @@ We're going to modify the `object_detection.py` node now to:
     ```
 
 1. Run the node again.  
-    
-    !!! tip "Remember"
-        Make sure you close all of these pop-up windows down after viewing them to ensure that **all** your images are saved to the filesystem and the node completes all of its tasks successfully.
-    
-    The code that you have just added here has created a new image object called `cropped_img`, from a subset of the original by specifying a desired `crop_height` and `crop_width` relative to the original image dimensions.  Additionally, we have also specified *where* in the original image (in terms of pixel coordinates) we want this subset to start, using `crop_y0` and `crop_z0`. This process is illustrated in the figure below:
 
-    <figure markdown>
-      ![](part6/ex2/od1_cropping.png)
-    </figure>
+    You'll be presented with *two* image windows now, but **be patient**! You'll have to wait for a few seconds for each window to open!
+
+    Navigate back to the directory where the images have been saved, and use `eog` again to view them and take a closer look.
     
-    <a name="img_cropping" ></a>The original image (`cv_img`) is cropped using a process called *"slicing"*:
 
-    ``` { .python .no-copy }
-    cropped_img = cv_img[
-        crop_z0:crop_z0+crop_height,
-        crop_y0:crop_y0+crop_width
-    ]
-    ```
-    This may seem quite confusing, but hopefully the figure below illustrates what's going on here:
+The code that we've just added here has created a new image object called `cropped_img` from a subset of the original (`cv_img`). This was achieved by specifying a desired `crop_height` and `crop_width` relative to the original image dimensions (in pixels). Additionally, we've also specified *where* in the original image (in terms of pixel coordinates) we want this subset to start, using `crop_y0` and `crop_z0`. This process is illustrated in the figure below:
 
-    <figure markdown>
-      ![](part6/ex2/img_slicing.png)
-    </figure>
+<figure markdown>
+  ![](part6/ex2/od1_cropping.png)
+</figure>
+
+<a name="img_cropping" ></a>The original image (`cv_img`) is cropped using a process called *"slicing"*:
+
+``` { .python .no-copy }
+cropped_img = cv_img[
+    crop_z0:crop_z0+crop_height,
+    crop_y0:crop_y0+crop_width
+]
+```
+This may seem quite confusing, but hopefully the figure below illustrates what's going on here:
+
+<figure markdown>
+  ![](part6/ex2/img_slicing.png)
+</figure>
 
 ##### Step 3: Masking
 
-As discussed above, an image is essentially a series of pixels each with a blue, green and red value associated with it to represent the actual image colours. From the original image that we have just obtained and cropped, we *then* want to get rid of any colours other than those associated with the pillar that we want the robot to detect.  We therefore need to apply a *filter* to the pixels, which we will ultimately use to discard any pixel data that isn't related to the coloured pillar, whilst retaining data that is.  
+As discussed above, an image is essentially a series of pixels each with a blue, green and red value associated with it to represent the actual image colours. From the original image that we have just obtained and cropped, we *now* want to get rid of any colours other than those associated with the pillar that we want the robot to detect. We therefore need to apply a *filter* to the pixels, which we will ultimately use to discard any pixel data that isn't related to the coloured pillar, whilst retaining data that is.  
 
-This process is called *masking* and, to achieve this, we need to set some colour thresholds. This can be difficult to do in a standard Blue-Green-Red (BGR) or Red-Green-Blue (RGB) colour space, and you can see a good example of this in [this article from RealPython.com](https://realpython.com/python-opencv-color-spaces/){target="_blank"}.  We will apply some steps discussed in this article to convert our cropped image into a [Hue-Saturation-Value (HSV)](https://en.wikipedia.org/wiki/HSL_and_HSV){target="_blank"} colour space instead, which makes the process of colour masking a bit easier.
+This process is called *masking* and, to achieve this, we need to set some colour thresholds. This can be difficult to do in a standard Blue-Green-Red (BGR) or Red-Green-Blue (RGB) colour space, and you can see a good example of this in [this article from RealPython.com](https://realpython.com/python-opencv-color-spaces/){target="_blank"}.  We'll apply some steps discussed in this article to convert our cropped image into a [Hue-Saturation-Value (HSV)](https://en.wikipedia.org/wiki/HSL_and_HSV){target="_blank"} colour space instead, which makes the process of colour masking a bit easier.
 
-1. First, analyse the *Hue* and *Saturation* values of the cropped image. To do this, first navigate to the `~/myrosdata/object_detection` directory, where the raw image has been saved:
+1. First, analyse the *Hue* and *Saturation* values of the cropped image. To do this, navigate to the `~/object_detection` directory, where the raw images are all being saved:
 
-    ***
-    **TERMINAL 2:**
     ```bash
-    cd ~/myrosdata/object_detection
+    cd ~/object_detection
     ```
     
     Then, run the following ROS Node (from the `tuos_examples` package), supplying the name of the cropped image as an additional argument:<a name="img_cols_node"></a>
@@ -329,8 +308,7 @@ This process is called *masking* and, to achieve this, we need to set some colou
     ```bash
     ros2 run tuos_examples image_colours.py step2_cropping.jpg
     ```
-    ***
-
+    
 1. The node should produce a scatter plot, illustrating the Hue and Saturation values of each of the pixels in the image. Each data point in the plot represents a single image pixel and each is coloured to match its RGB value:
 
     <figure markdown>
@@ -409,7 +387,7 @@ Finally, we can apply this mask to the cropped image, generating a final version
 
 You have now successfully isolated an object of interest within your robot's field of vision, but perhaps we want to make our robot move towards it, or - conversely - make our robot navigate around it and avoid crashing into it!  We therefore also need to know the *position* of the object in relation to the robot's viewpoint, and we can do this using **image moments**.
 
-The work we have just done above led to us obtaining what is referred to as a *colour blob*.  OpenCV also has built-in tools to allow us to calculate the *centroid* of a colour blob like this, allowing us to determine where exactly within an image the object of interest is located (in terms of pixels).  This is done using the principle of *image moments*: essentially statistical parameters related to an image, telling us how a collection of pixels (i.e. the blob of colour that we have just isolated) are distributed within it.  [You can read more about Image Moments here](https://theailearner.com/tag/image-moments-opencv-python/){target="_blank"}, which tells us that the central coordinates of a colour blob can be obtained by considering some key moments of the *image mask* that we obtained from thresholding earlier:
+The work we have just done above led to us obtaining what is referred to as a *colour blob*.  OpenCV also has built-in tools to allow us to calculate the *centroid* of a colour blob like this, allowing us to determine where exactly within an image the object of interest is located (in terms of pixels).  This is done using the principle of *image moments*: essentially statistical parameters related to an image, telling us how a collection of pixels (i.e. the blob of colour that we have just isolated) are distributed within it. [You can read more about Image Moments here](https://theailearner.com/tag/image-moments-opencv-python/){target="_blank"}. Using this process, the central coordinates of a colour blob can be obtained by considering some key moments of the *image mask* that we obtained from thresholding earlier:
 
 * $M_{00}$: the sum of all non-zero pixels in the image mask (i.e. the size of the colour blob, in pixels)
 * $M_{10}$: the sum of all the non-zero pixels in the horizontal (y) axis, weighted by *row* number
@@ -438,7 +416,9 @@ cz = m['m01']/(m['m00']+1e-5)
   ![](part6/ex2/od6_centroid.png){width=600px}
 </figure>
 
-Once again, there is a built-in OpenCV tool that we can use to add a circle onto an image to illustrate the centroid location within the robot's viewpoint: `cv2.circle()`.  This is how we produced the red circle that you can see in the figure above.  You can see how this is implemented in **[a complete ^^worked example of the `object_detection.py` node^^ from the previous exercise](./part6/object_detection_complete.md)**. <a name="ex2b_ret"></a>
+Once again, there is a built-in OpenCV tool that we can use to add a circle onto an image to illustrate the centroid location within the robot's viewpoint: `cv2.circle()`.  This is how we produced the red circle that you can see in the figure above.  You can see how this is implemented here:
+
+<center>[A complete worked example of the `object_detection.py` node](./part6/object_detection_complete.md){ .md-button target="_blank" }</center> 
 
 In our case, we can't actually change the position of our robot in the z axis, so the `cz` centroid component here might not be that important to us for navigation purposes.  We may however want to use the centroid coordinate `cy` to understand where a feature is located *horizontally* in our robot's field of vision, and use this information to turn towards it (or away from it, depending on what we are trying to achieve).  We can then use this as the basis for some real **closed-loop** control.
 
@@ -446,23 +426,19 @@ In our case, we can't actually change the position of our robot in the z axis, s
 
 Inside the `tuos_examples` package there is a node that has been developed to illustrate how all the OpenCV tools that you have explored so far could be used to search an environment and stop a robot when it is looking directly at an object of interest. All the tools that are used in this node should be familiar to you by now, and in this exercise you're going to make a copy of this node and modify it to enhance its functionality.
 
+Make sure the "Coloured Pillars" world is still active and continue with the following steps now in **TERMINAL 2**.
+
 1. The node is called `colour_search.py`, and it is located in the `scripts` folder of the `tuos_examples` package. Copy this into the `scripts` folder of your own `part6_vision` package by first ensuring that you are located in the desired destination folder:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     cd ~/ros2_ws/src/part6_vision/scripts
     ```
-    ***
-
+    
 1. Then, copy the `colour_search.py` node using `cp` as follows:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     cp ~/ros2_ws/src/tuos_ros/tuos_examples/scripts/colour_search.py ./
     ```
-    ***
 
 1. Open up the `colour_search.py` file in VS Code to view the content.  Have a look through it and see if you can make sense of how it works.  The overall structure should be fairly familiar to you by now: we have a Python class structure, a Subscriber with a callback function, a timer with a callback containing all the robot control code, and a lot of the OpenCV tools that you have explored so far in this part of the course.  Essentially this node functions as follows:
     1. The robot turns on the spot whilst obtaining images from its camera (by subscribing to the `/camera/image_raw` topic).
@@ -473,7 +449,19 @@ Inside the `tuos_examples` package there is a node that has been developed to il
     1. The robot **stops** turning as soon as it determines that the pillar is situated directly in front of it (determined using the `cy` component of the blue blob centroid).
     1. The robot then **waits** for a while and then starts to turn again.
     1. The whole process repeats until it finds the blue pillar once again.
+
+1. Add the `colour_search.py` node to the list of Python executables in your `part6_vision/CMakeLists.txt` file.
+
+1. Add the following additional dependency to your `part6_vision/package.xml`:
+
+    ```xml
+    <exec_depend>geometry_msgs</exec_depend>
+    ```
+
+1. Re-build your package with `colcon`.
+
 1. Run the node as it is to see this in action.  Observe the log messages as they are printed to the terminal throughout execution.
+
 1. **Your task** is to then modify the node so that it stops in front of *every coloured pillar* in the arena (there are four in total, each of a different colour, as you know). For this, you may need to use some of the methods that you have explored in the previous exercises.
     1. You might first want to use some of the methods that we used to obtain and analyse some images from the robot's camera:
         1. Use the `teleop_keyboard` node to manually move the robot, making it look at every coloured pillar in the arena individually.
@@ -485,7 +473,7 @@ Inside the `tuos_examples` package there is a node that has been developed to il
 
 Line following is a handy skill for a robot to have! We can achieve this on our TurtleBot3 using its camera system and the image processing techniques that have been covered so far in this session.
 
-COM2009 Lecture 6 introduces a well established algorithm for closed-loop control known as **PID Control**, and this can be used to achieve such line following behaviour.
+A well established algorithm for closed-loop control is known as **PID Control**, and this can be used to achieve such line following behaviour.
 
 At the heart of this is the principle of *Negative-Feedback* control, which considers a **Reference Input**, a **Feedback Signal** and the **Error** between these.
 
@@ -519,41 +507,35 @@ $$
 u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 $$
 
-Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrated in the figure above) and $K_{P}$, $K_{I}$ and $K_{D}$ are Proportional, Integral and Differential **Gains** respectively. These three gains are constants that must be established for any given system through a process called *tuning*. This tuning process is discussed in COM2009 Lecture 6, but you will also explore this in the practical exercise that follows.
+Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrated in the figure above) and $K_{P}$, $K_{I}$ and $K_{D}$ are Proportional, Integral and Differential **Gains** respectively. These three gains are constants that must be established for any given system through a process called *tuning*. We will explore this tuning process in the practical exercise that follows.
 
 #### :material-pen: Exercise 4: Line Following {#ex4}
 
 ##### Part A: Setup {#ex4a}
 
 1. Make sure that all ROS processes from the previous exercise are shut down now, including the `colour_search.py` node, and the Gazebo simulation in **TERMINAL 1**.
+
 1. In **TERMINAL 1** launch a new simulation from the `tuos_simulations` package:
 
-    ***
-    **TERMINAL 1:**
     ```bash
-    ros2 launch tuos_simulations line_following_setup.launch.py
+    ros2 launch tuos_simulations line_following.launch.py tuning:=true
     ```
-    ***
     
     Your robot should be launched onto a long thin track with a straight pink line painted down the middle of the floor:
 
     <figure markdown>
-      ![](part6/line_following/setup.jpg){width=800px}
+      ![](part6/line_following/setup.png){width=800px}
     </figure>
 
 1. In **TERMINAL 2** you should still be located in your `part6_vision/scripts` directory, but if not then go there now:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     cd ~/ros2_ws/src/part6_vision/scripts
     ```
-    ***
 
 1. Perform the necessary steps to create a new empty Python file called `line_follower.py` and prepare it for execution as a node within your package.
-1. Once that's done open up the empty file in VS Code.
 
-    <a name="ex4a_ret"></a>
+1. Once that's done open up the empty file in VS Code.
 
 1. **[Start with ^^the code template^^ provided here](./part6/line_follower.md)**. 
     
@@ -698,7 +680,7 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     Your robot should be launched into an environment with a more interesting line to follow:
 
     <figure markdown>
-      ![](part6/line_following/advanced.jpg){width=800px}
+      ![](part6/line_following/advanced.png){width=800px}
     </figure>
 
 1. In **TERMINAL 2**, run your `line_follower.py` node and see how it performs. Does your proportional gain need to be adjusted further to optimise the performance?

@@ -2,7 +2,7 @@
 title: "Part 6 Object Detection Node"  
 ---
 
-# Part 6 Object Detection Node
+## The Code
 
 Copy **all** the code below into your `object_detection.py` file, and **make sure you read the annotations**!
 
@@ -51,11 +51,9 @@ Copy **all** the code below into your `object_detection.py` file, and **make sur
     
 13. The `show_image()` class method has a `save_img` argument, which is set to `True` by default, so that this `#!py if` condition is triggered, and *another* class method is called to save the image to file.    
 
-14. We're supplying a value of `0` here, which tells this function to keep this window open **indefinitely** and wait until it is closed manually before allowing our `show_image()` class method to complete.
+14. We're supplying a value of `4000` here, which tells this function to keep this window open for 4000 milliseconds (4 seconds) before closing it again.  
     
-    If we had supplied a value here (say: `1`) then the function would simply wait for 1 millisecond and then close the pop-up window down. In our case however, we want some time to actually look at the image and then close the window down ourselves, manually. 
-    
-    Once the window has been closed, the execution of our code is able to continue...    
+    Once the window has closed, the execution of our code is able to continue...    
 
 15. We then set the `waiting_for_image` flag to `False` so that we only ever perform these processing steps once (we only want to capture a single image).  This will then trigger the main `#!py while` loop to stop (see below), thus causing the overall execution of the node to stop too.
 
@@ -65,7 +63,7 @@ Copy **all** the code below into your `object_detection.py` file, and **make sur
     
 18. Here, we define a filesystem location to save images to. 
     
-    We want this to exist in a folder called "`myrosdata/object_detection`" in the home directory, so we can use Pathlib's `#!py Path.home().joinpath(...)` to define it (a handy way to access the User's home directory, without needing to know the Users name).
+    We want this to exist in a folder called "`object_detection`" in the home directory, so we can use Pathlib's `#!py Path.home().joinpath(...)` to define it (a handy way to access the User's home directory, without needing to know the Users name).
     
     Then, we use the Pathlib `#!py Path.mkdir()` method to create this directory if it doesn't exist already.    
     
@@ -84,6 +82,12 @@ Copy **all** the code below into your `object_detection.py` file, and **make sur
 
 22. We're using `spin_once()` inside a `#!py while` loop here so that we can keep an eye on the value of the `wait_for_image` flag, and stop spinning (i.e. break out of the `#!py while` loop) once it turns `#!py False`.
     
-<p align="center">
-  <a href="../../part6#ex2_ret">&#8592; Back to Part 6 - Exercise 2</a>
-</p>
+## Dependencies
+
+Modify your `package.xml` file to accommodate the various dependencies of the `object_detection.py` node:
+
+```xml title="package.xml"
+<exec_depend>opencv2</exec_depend>
+<exec_depend>cv_bridge</exec_depend>
+<exec_depend>sensor_msgs</exec_depend>
+```

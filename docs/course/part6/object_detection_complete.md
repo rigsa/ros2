@@ -23,7 +23,3 @@ Here's a full example of the `object_detection.py` node that you should have dev
     1. How *big* we want the circle to be: here we specify a radius of 10 pixels.
     1. The *colour* of the circle, specifying this using a Blue-Green-Red colour space: `(0, 0, 255)` (i.e.: pure red in this case)
     1. Finally, the thickness of the line that will be used to draw the circle, in pixels.
-
-<p align="center">
-  <a href="../../part6#ex2b_ret">&#8592; Back to Part 6 - Exercise 2</a>
-</p>

@@ -298,7 +298,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     With the `with_gui` switch set to `true`, we should now be able to actually *see* the simulated world this time.
 
     <figure markdown>
-      ![](../images/gz/colloured_pillars.png){width=600px}
+      ![](../images/gz/coloured_pillars.png){width=600px}
     </figure>
     <center>*(Not really that exciting is it!?)*</center>
 

@@ -3239,11 +3239,9 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 <p>Perform the necessary steps to create a new empty Python file called <code>line_follower.py</code> and prepare it for execution as a node within your package.</p>
 </li>
 <li>
-<p>Once that's done open up the empty file in VS Code.</p>
-</li>
-<li>
-<p><strong><a href="line_follower/">Start with <ins>the code template</ins> provided here</a></strong>. </p>
-<p>This template contains three "TODOs" that you need to complete, all of which are explained in detail in the code annotations, so read these carefully. Ultimately, you did all of this in <a href="#ex2">Exercise 2</a>, so go back here if you need a reminder on how any of this works. </p>
+<p>Once that's done open up the empty file in VS Code, then have a look at the following code template:</p>
+<p></p><center><a class="md-button" href="line_follower/" target="_blank">The <code>line_follower.md</code> code template</a></center><p></p>
+<p>The template contains three "TODOs" that you need to complete, all of which are explained in detail in the code annotations, so read these carefully. Ultimately, you did all of this in <a href="#ex2">Exercise 2</a>, so go back here if you need a reminder on how any of it works. </p>
 <p>Your aim here is to get the code to generate a cropped image, with the coloured line isolated and located within it, like this:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/setup_complete.jpg"></a>
@@ -3323,8 +3321,8 @@ u(t)=K_{P} e(t)
 <a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="p">)</span>
 </code></pre></div>
 <p>Paste the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.1</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ang_vel</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.1</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ang_vel</span>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="p">)</span>
 </code></pre></div>
 <p>The code <em>should</em> now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter <code>kp</code>.</p>
@@ -3339,12 +3337,12 @@ u(t)=K_{P} e(t)
 <p>Run the code and see what happens. You should find that the robot behaves quite erratically, indicating that <code>kp</code> (at an absolute value of 0.01) is probably too large.</p>
 </li>
 <li>
-<p>Try reducing <code>kp</code> by a factor of 100: <code class="highlight"><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0001</span></code>. Before you run the code again, you can reset the Gazebo simulation by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-r">R</kbd></span> so that the robot returns to the starting position.</p>
-<p>You should find that the robot now gradually approaches the line, but it can take a while for it to do so.</p>
+<p>Try reducing <code>kp</code> by a factor of 100: <code class="highlight"><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0001</span></code>. Before you run the code again, you might need to close down and re-launch your Gazebo simulation to get the robot back in its starting position. Make sure that you shut down the Gazebo simulation in the terminal, using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>, rather than closing down the Gazebo window itself, since sometimes this doesn't actually shut down the background processes properly, and can result in errors.  </p>
+<p>With a modified <code>kp</code> gain, you should find that the robot now gradually approaches the line, but it can take a while for it to do so.</p>
 </li>
 <li>
-<p>Next, increase <code>kp</code> by a factor of 10: <code class="highlight"><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.001</span></code>. Once again, reset the robot back to its starting position in Gazebo by using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-r">R</kbd></span> to reset the simulation.</p>
-<p>The robot should now reach the line much quicker, and follow the line well once it reaches it.</p>
+<p>Next, increase <code>kp</code> by a factor of 10: <code class="highlight"><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.001</span></code>. Once again, get the robot back to its starting position by shutting down Gazebo using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in its host terminal and then relaunching with <code>ros2 launch</code> again.</p>
+<p>With this new <code>kp</code> gain, the robot should now reach the line much quicker, and follow the line well once it reaches it.</p>
 </li>
 <li>
 <p>Could <code>kp</code> be modified any more to improve the control further? Play around a bit more and see what happens. We'll but this to the test on a more challenging track in the next part of this exercise.</p>
@@ -3353,11 +3351,12 @@ u(t)=K_{P} e(t)
 <h5 id="ex4c">Part C: Advanced Line Following<a class="headerlink" href="#ex4c" title="Permanent link">¶</a></h5>
 <ol>
 <li>
-<p>Now, in <strong>TERMINAL 1</strong> run a new simulation:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py
-</code></pre></div><p></p>
+<p>Shut down the Line Following <em>"tuning"</em> environment if it's still running.</p>
+</li>
+<li>
+<p>Then, in <strong>TERMINAL 1</strong> fire up a new one:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py
+</code></pre></div>
 <p>Your robot should be launched into an environment with a more interesting line to follow:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/advanced.png" width="800px"></a>
@@ -3368,12 +3367,10 @@ u(t)=K_{P} e(t)
 </li>
 <li>
 <p>Next, think about conditions where the line can't initially be seen...</p>
-<p>As you know, the angular velocity is determined by considering the <code>cy</code> component of a colour blob representing the line. What happens in situations where the blob of colour isn't there though?  What influence would this have on the Control Signals that are calculated by the proportional controller? To consider this further, try launching the robot in the same arena but in a different location instead, and think about how you might approach this situation:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py<span class="w"> </span>x_pos:<span class="o">=</span><span class="m">3</span><span class="w"> </span>y_pos:<span class="o">=</span>-3<span class="w"> </span>yaw:<span class="o">=</span><span class="m">0</span>
-</code></pre></div><p></p>
-<hr>
+<p>As you know, the angular velocity is determined by considering the <code>cy</code> component of a colour blob representing the line. What happens in situations where the blob of colour isn't there though?  What influence would this have on the Control Signals that are calculated by the proportional controller? To consider this further, try launching the robot in the same arena but with a different starting pose, and think about how you might approach this situation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2 launch tuos_simulations line_following.launch.py \
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    x_pose:=-3 y_pose:=-3 yaw:=-1.57
+</code></pre></div>
 </li>
 <li>
 <p>Finally, what happens when the robot reaches the finish line? How could you add additional functionality to ensure that the robot stops when it reaches this point? What features of the arena could you use to trigger this?</p>
@@ -3416,7 +3413,7 @@ u(t)=K_{P} e(t)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 22, 2025 15:52:30 UTC"><span class="timeago" datetime="2025-10-22T15:52:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 22, 2025 15:52:30 UTC">2025-10-22</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 24, 2025 14:08:02 UTC"><span class="timeago" datetime="2025-10-24T14:08:02+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 24, 2025 14:08:02 UTC">2025-10-24</span>
   </span>
 
     

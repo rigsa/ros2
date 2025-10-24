@@ -535,11 +535,11 @@ Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrat
 
 1. Perform the necessary steps to create a new empty Python file called `line_follower.py` and prepare it for execution as a node within your package.
 
-1. Once that's done open up the empty file in VS Code.
-
-1. **[Start with ^^the code template^^ provided here](./part6/line_follower.md)**. 
+1. Once that's done open up the empty file in VS Code, then have a look at the following code template:
     
-    This template contains three "TODOs" that you need to complete, all of which are explained in detail in the code annotations, so read these carefully. Ultimately, you did all of this in [Exercise 2](#ex2), so go back here if you need a reminder on how any of this works. 
+    <center>[The `line_follower.md` code template](./part6/line_follower.md){ .md-button target="_blank" }</center>
+
+    The template contains three "TODOs" that you need to complete, all of which are explained in detail in the code annotations, so read these carefully. Ultimately, you did all of this in [Exercise 2](#ex2), so go back here if you need a reminder on how any of it works. 
 
     Your aim here is to get the code to generate a cropped image, with the coloured line isolated and located within it, like this:
 
@@ -638,8 +638,8 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     Paste the following:
 
     ```python
-    self.vel_cmd.linear.x = 0.1
-    self.vel_cmd.angular.z = ang_vel
+    self.vel_cmd.twist.linear.x = 0.1
+    self.vel_cmd.twist.angular.z = ang_vel
     self.vel_pub.publish(self.vel_cmd)
     ```
 
@@ -657,22 +657,22 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 
     Run the code and see what happens. You should find that the robot behaves quite erratically, indicating that `kp` (at an absolute value of 0.01) is probably too large.
 
-1. Try reducing `kp` by a factor of 100: `#!python kp = -0.0001`. Before you run the code again, you can reset the Gazebo simulation by pressing ++ctrl+shift+r++ so that the robot returns to the starting position.
+1. Try reducing `kp` by a factor of 100: `#!python kp = -0.0001`. Before you run the code again, you might need to close down and re-launch your Gazebo simulation to get the robot back in its starting position. Make sure that you shut down the Gazebo simulation in the terminal, using ++ctrl+c++, rather than closing down the Gazebo window itself, since sometimes this doesn't actually shut down the background processes properly, and can result in errors.  
 
-    You should find that the robot now gradually approaches the line, but it can take a while for it to do so.
+    With a modified `kp` gain, you should find that the robot now gradually approaches the line, but it can take a while for it to do so.
 
-1. Next, increase `kp` by a factor of 10: `#!python kp = -0.001`. Once again, reset the robot back to its starting position in Gazebo by using ++ctrl+shift+r++ to reset the simulation.
+1. Next, increase `kp` by a factor of 10: `#!python kp = -0.001`. Once again, get the robot back to its starting position by shutting down Gazebo using ++ctrl+c++ in its host terminal and then relaunching with `ros2 launch` again.
 
-    The robot should now reach the line much quicker, and follow the line well once it reaches it.
+    With this new `kp` gain, the robot should now reach the line much quicker, and follow the line well once it reaches it.
 
 1. Could `kp` be modified any more to improve the control further? Play around a bit more and see what happens. We'll but this to the test on a more challenging track in the next part of this exercise.
 
 ##### Part C: Advanced Line Following {#ex4c}
 
-1. Now, in **TERMINAL 1** run a new simulation:
+1. Shut down the Line Following *"tuning"* environment if it's still running.
 
-    ***
-    **TERMINAL 1:**
+1. Then, in **TERMINAL 1** fire up a new one:
+
     ```bash
     ros2 launch tuos_simulations line_following.launch.py
     ```
@@ -687,14 +687,12 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 
 1. Next, think about conditions where the line can't initially be seen...
 
-    As you know, the angular velocity is determined by considering the `cy` component of a colour blob representing the line. What happens in situations where the blob of colour isn't there though?  What influence would this have on the Control Signals that are calculated by the proportional controller? To consider this further, try launching the robot in the same arena but in a different location instead, and think about how you might approach this situation:
+    As you know, the angular velocity is determined by considering the `cy` component of a colour blob representing the line. What happens in situations where the blob of colour isn't there though?  What influence would this have on the Control Signals that are calculated by the proportional controller? To consider this further, try launching the robot in the same arena but with a different starting pose, and think about how you might approach this situation:
 
-    ***
-    **TERMINAL 1:**
-    ```bash
-    ros2 launch tuos_simulations line_following.launch.py x_pos:=3 y_pos:=-3 yaw:=0
+    ```txt
+    ros2 launch tuos_simulations line_following.launch.py \
+        x_pose:=-3 y_pose:=-3 yaw:=-1.57
     ```
-    ***
 
 1. Finally, what happens when the robot reaches the finish line? How could you add additional functionality to ensure that the robot stops when it reaches this point? What features of the arena could you use to trigger this?
 

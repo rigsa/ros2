@@ -7,7 +7,7 @@ from rclpy.signals import SignalHandlerOptions
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import TwistStamped
 
 class LineFollower(Node):
     
@@ -22,12 +22,12 @@ class LineFollower(Node):
         )
         
         self.vel_pub = self.create_publisher(
-            msg_type=Twist,
+            msg_type=TwistStamped,
             topic="/cmd_vel",
             qos_profile=10
         )
         
-        self.vel_cmd = Twist()
+        self.vel_cmd = TwistStamped()
         self.shutdown = False
         
     def shutdown_ops(self):
@@ -36,7 +36,7 @@ class LineFollower(Node):
         )
         cv2.destroyAllWindows()
         for i in range(5):
-            self.vel_pub.publish(Twist())
+            self.vel_pub.publish(TwistStamped())
         self.shutdown = True
 
     def camera_callback(self, img_data):

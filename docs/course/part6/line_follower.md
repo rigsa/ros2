@@ -86,6 +86,3 @@ Use this code as a starting point for Part A of the Line Following exercise.
       ![](line_following/partA_todo3.jpg)
     </figure>
 
-<p align="center">
-  <a href="../../part6#ex4a_ret">&#8592; Back to Part 6 - Exercise 4 (Part A)</a>
-</p>

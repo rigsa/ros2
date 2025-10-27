@@ -274,7 +274,7 @@ We're going to modify the `object_detection.py` node now to:
 The code that we've just added here has created a new image object called `cropped_img` from a subset of the original (`cv_img`). This was achieved by specifying a desired `crop_height` and `crop_width` relative to the original image dimensions (in pixels). Additionally, we've also specified *where* in the original image (in terms of pixel coordinates) we want this subset to start, using `crop_y0` and `crop_z0`. This process is illustrated in the figure below:
 
 <figure markdown>
-  ![](part6/ex2/od1_cropping.png)
+  ![](part6/ex2/od1_cropping.svg){width=600px}
 </figure>
 
 <a name="img_cropping" ></a>The original image (`cv_img`) is cropped using a process called *"slicing"*:
@@ -288,7 +288,7 @@ cropped_img = cv_img[
 This may seem quite confusing, but hopefully the figure below illustrates what's going on here:
 
 <figure markdown>
-  ![](part6/ex2/img_slicing.png)
+  ![](part6/ex2/img_slicing.svg){width=500px}
 </figure>
 
 ##### Step 3: Masking
@@ -318,7 +318,7 @@ This process is called *masking* and, to achieve this, we need to set some colou
 1. You should see from the image that all the pixels related to the coloured pillar that we want to detect are clustered together.  We can use this information to specify a range of Hue and Saturation values that can be used to mask our image: filtering out any colours that sit outside this range and thus allowing us to isolate the pillar itself. The pixels also have a *Value* (or *"Brightness"*), which isn't shown in this plot. As a rule of thumb, a range of brightness values between 100 and 255 generally works quite well.
 
     <figure markdown>
-      ![](part6/ex2/od3_hs_thresholds.png){width=600px}
+      ![](part6/ex2/od3_hs_thresholds.svg){width=600px}
     </figure>
 
     In this case then, we select upper and lower HSV thresholds as follows:
@@ -356,7 +356,7 @@ This process is called *masking* and, to achieve this, we need to set some colou
     Notice (from the text printed to the terminal) that the cropped image and the image mask have the same dimensions, but the image mask file has a significantly smaller file size.  While the mask contains the same *number* of pixels, these pixels only have a value of `1` or `0`, whereas - in the cropped image of the same pixel size - each pixel has a Red, Green and Blue value: each ranging between `0` and `255`, which represents significantly more data.
 
     <figure markdown>
-      ![](part6/ex2/od4_masking.png){width=600px}
+      ![](part6/ex2/od4_masking.svg){width=600px}
     </figure>
 
 ##### Step 4: Filtering {#bitwise_and}
@@ -380,7 +380,7 @@ Finally, we can apply this mask to the cropped image, generating a final version
 1. Run this node again, and a fourth image should also be generated now, this time showing the cropped image taken from the robot's camera, but only containing data related to coloured pillar, with all other background image data removed (and rendered black):
 
     <figure markdown>
-      ![](part6/ex2/od5_filtering.png){width=600px}
+      ![](part6/ex2/od5_filtering.svg){width=600px}
     </figure>
 
 ### Image Moments
@@ -413,7 +413,7 @@ cz = m['m01']/(m['m00']+1e-5)
     We're adding a very small number to the $M_{00}$ moment here to make sure that the divisor in the above equations is never zero and thus ensuring that we never get caught out by any "divide-by-zero" errors. Why might this be necessary?
 
 <figure markdown>
-  ![](part6/ex2/od6_centroid.png){width=600px}
+  ![](part6/ex2/od6_centroid.svg){width=600px}
 </figure>
 
 Once again, there is a built-in OpenCV tool that we can use to add a circle onto an image to illustrate the centroid location within the robot's viewpoint: `cv2.circle()`.  This is how we produced the red circle that you can see in the figure above.  You can see how this is implemented here:

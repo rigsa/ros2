@@ -85,10 +85,8 @@ It's also worth launching VS Code now, so that it's ready to go for when you nee
 
 <a name="course-repo"></a>
 
-In Part 1 you should have [downloaded and installed The Course Repo](./part1.md#course-repo) into your ROS environment. If you haven't done this yet then go back and do it now. If you *have* already done it, then it's worth just making sure it's all up-to-date, so run the following command now to do so:
+In Part 1 you should have [downloaded and installed The Course Repo](./part1.md#course-repo) into your ROS environment. If you haven't done this yet then go back and do it now. If you *have* already done it, then it's worth just making sure it's all up-to-date, so run the following command in **TERMINAL 1** now to do so:
 
-***
-**TERMINAL 1:**
 ```bash
 cd ~/ros2_ws/src/tuos_ros/ && git pull
 ```
@@ -104,7 +102,6 @@ And finally, re-source your environment:
 ```bash
 source ~/.bashrc
 ```
-***
 
 !!! warning
     If you have any other terminal instances open, then you'll need run `source ~/.bashrc` in these too, in order for any changes made by the Colcon build process to propagate through to these as well.
@@ -113,17 +110,14 @@ source ~/.bashrc
 
 In **TERMINAL 1** enter the following command to launch a simulation of a TurtleBot3 Waffle in an empty world:  
         
-***
-**TERMINAL 1:**
 ```bash
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
-***
 
 A Gazebo simulation window should open and within this you should see a TurtleBot3 Waffle in empty space:
 
 <figure markdown>
-  ![](../../images/gz/tb3_empty_world_mid.png){width=700px}
+  ![](../images/gz/tb3_empty_world_mid.png){width=700px}
 </figure>
 
 ## ROS Topics and Interfaces (from Part 1)
@@ -147,7 +141,7 @@ Odometry is a process of monitoring a robot's *position* and *orientation* in an
 <a name="principal-axes"></a>
 
 <figure markdown>
-  ![](../../images/waffle/principal_axes.svg){width=800}
+  ![](../images/waffle/principal_axes.svg){width=800}
 </figure>
 
 Not all the above positions and orientations apply to our Waffles, and we'll explore this further below.
@@ -183,14 +177,11 @@ Having established the data structure, let's explore the actual data now, using 
 
 #### :material-pen: Exercise 1: Exploring Odometry Data {#ex1}
 
-1. In **TERMINAL 2** use the following command to launch the *RQT Topic Monitor*:
+1. In a new terminal instance (**TERMINAL 2**) use the following command to launch the *RQT Topic Monitor*:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 run rqt_topic rqt_topic 
     ```
-    ***
 
     *Topic Monitor* should launch with a list of active topics matching the topic list from the `ros2 topic list` command that you ran earlier.
 
@@ -201,19 +192,16 @@ Having established the data structure, let's explore the actual data now, using 
     Expand both of these to reveal the data being published to the *three* position (`x`, `y` and `z`) and *four* orientation (`x`, `y`, `z` and `w`) values.
 
     <figure markdown>
-      ![](../../images/rqt/topic_monitor.png){width=600}
+      ![](../images/rqt/topic_monitor.png){width=600}
     </figure>
 
 1. Next, launch a new terminal instance, we'll call this one **TERMINAL 3**. Arrange this next to the `rqt` window, so that you can see them both side-by-side.
 
 1. In **TERMINAL 3** launch the `teleop_keyboard` node [as you did in Part 1](./part1.md#teleop): <a name="teleop"></a>
 
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 run turtlebot3_teleop teleop_keyboard
     ```
-    ***
 
 1. Enter ++a++ a couple of times to make the robot rotate on the spot. Observe how the odometry data changes in Topic Monitor.
 
@@ -232,14 +220,11 @@ Having established the data structure, let's explore the actual data now, using 
     
 1. Press ++s++ in **TERMINAL 3** to stop the robot (but leave the `teleop_keyboard` node running).  Then, press ++ctrl+c++ in **TERMINAL 2** to close down `rqt`. 
 
-1. Let's look at the Odometry data differently now. With the robot stationary, use `ros2 run` to run a Python node from the `tuos_examples` package: 
+1. Let's look at the Odometry data differently now. With the robot stationary, use `ros2 run` (in **TERMINAL 2**) to run a Python node from the `tuos_examples` package: 
 
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 run tuos_examples robot_pose.py
     ```
-    ***
         
 1. Now (using the `teleop_keyboard` node in **TERMINAL 3**) drive your robot around again, keeping an eye on the outputs that are being printed by the `robot_pose.py` node in **TERMINAL 2** as you do so.
 
@@ -252,14 +237,11 @@ Having established the data structure, let's explore the actual data now, using 
 
 ### Odometry Explained
 
-Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again:
+Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again. IN **TERMINAL 2**:
 
-***
-**TERMINAL 2:**
 ```bash
 ros2 topic info /odom
 ```
-***
 
 This provides information about the interface used by this topic:
 
@@ -269,12 +251,9 @@ Type: nav_msgs/msg/Odometry
 
 We can find out more about this interface using the `ros2 interface show` command:
 
-***
-**TERMINAL 2:**
 ```bash
 ros2 interface show nav_msgs/msg/Odometry
 ```
-***
 
 Look down the far left-hand side to identify the four *base fields* of the interface (the fields that are not indented):
 
@@ -376,7 +355,7 @@ Fortunately, the maths involved in converting between these two orientation form
 Referring back to the three *principal axes* from earlier: 
 
 <figure markdown>
-  ![](../../images/waffle/principal_axes.svg){width=500}
+  ![](../images/waffle/principal_axes.svg){width=500}
 </figure>
 
 You can also see here that our TurtleBot3 has two motors that allow it to move. As a result of this, it can only move in a 2D plane and so its pose can be fully represented by just 3 odometry terms in total: 
@@ -394,7 +373,7 @@ Odometry data can be really useful for robot navigation, allowing us to keep tra
 
 In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic. In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the `/odom` topic that we've been talking about above. We'll also create a new package called `part2_navigation` for this node to live in!
 
-1. First, head to the `src` directory of your ROS 2 workspace in your terminal:
+1. First, head to the `src` directory of your ROS 2 workspace in **TERMINAL 2**:
 
     ```bash
     cd ~/ros2_ws/src/
@@ -485,10 +464,10 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     
     <figure markdown>
       ![](./part2/odom_subscriber.gif){width=700px}
-      [NEEDS UPDATING]
+      [TODO: NEEDS UPDATING]
     </figure>
 
-1. Observe how the output (the formatted odometry data) changes while you move the robot around using the `teleop_keyboard` node in a new terminal instance (**TERMINAL 3**).
+1. Observe how the output (the formatted odometry data) changes while you move the robot around using the `teleop_keyboard` node in **TERMINAL 3**.
 1. Stop your `odom_subscriber.py` node in **TERMINAL 2** and the `teleop_keyboard` node in **TERMINAL 3** by entering ++ctrl+c++ in each of the terminals.
 
 ## Basic Navigation: Open-loop Velocity Control {#velocity}
@@ -592,13 +571,13 @@ These relate to a robot's **six degrees of freedom** (DOFs), and velocity comman
 Recall (again) our robot's *"Principal Axes"* and the motion about them:
 
 <figure markdown>
-  ![](../../images/waffle/principal_axes.svg){width=500}
+  ![](../images/waffle/principal_axes.svg){width=500}
 </figure>
 
 As discussed above, our Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
 
 <figure markdown>
-  ![](../../images/waffle/velocities.svg){width=800}
+  ![](../images/waffle/velocities.svg){width=800}
 </figure>
 
 When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
@@ -714,13 +693,10 @@ In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one
 
 1. Create a new file called `move_circle.py`:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     touch move_circle.py
     ```
     ... and make this file executable using the `chmod` command ([as we did in Part 1](./part1.md#chmod)).
-    ***
 
 1. The task is to make the robot move in a **circle** with a path **radius** of approximately **0.5 meters**.
 
@@ -741,7 +717,7 @@ In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one
     )
     ```
 
-1. Finally, head back to the terminal and use Colcon to build the new node alongside everything else in the package, using the same **three-step process** as before:
+1. Finally, head back to **TERMINAL 2** and use Colcon to build the new node alongside everything else in the package, using the same **three-step process** as before:
 
     1. First: 
 
@@ -885,21 +861,15 @@ We can therefore build on the techniques that we used in the `move_circle.py` ex
         
 1. Navigate to the package `scripts` directory and use the Linux `touch` command to create a new file called `move_square.py`:
     
-    ***
-    **TERMINAL 2:**
     ```bash
     touch move_square.py
     ```
-    ***
 
 1. Then make this file executable using `chmod`:
 
-    ***
-    **TERMINAL 2:**
     ```bash
     chmod +x move_square.py
     ```
-    ***
 
 1. Define `move_square.py` as a package executable in your `CMakeLists.txt` file (you should know how to do this by now, but if not, refer back to either Exercise 2 or Exercise 4). 
 

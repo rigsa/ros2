@@ -79,23 +79,17 @@ We've put together a few ROS packages specifically for this course. These all li
 
 1. Then, run the following command to clone the Course Repo from GitHub:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     git clone https://github.com/tom-howard/tuos_ros.git -b jazzy
     ```
-    ***
 
 1. Once this is done, you'll need to build this using a tool called *"Colcon"*[^colcon]:
 
     [^colcon]: What is **Colcon**? [Find out more here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#background){target="_blank"}.
 
-    ***
-    **TERMINAL 1:**
     ```bash
     cd ~/ros2_ws/ && colcon build --packages-up-to tuos_ros && source ~/.bashrc
     ```
-    ***
 
 Don't worry too much about what you just did right now. We'll cover this in more detail throughout the course. That's it for now though, we'll start using some of the packages that we've just installed a bit later on.
 
@@ -103,19 +97,16 @@ Don't worry too much about what you just did right now. We'll cover this in more
 
 Now that you're all up and running, let's launch ROS and fire up a simulation of our TurtleBot3 Waffle robot... 
 
-1. In the terminal enter the following command to launch a simulation of a TurtleBot3 Waffle in an *empty world*:  
+1. In **TERMINAL 1** enter the following command to launch a simulation of a TurtleBot3 Waffle in an *empty world*:  
         
-    ***
-    **TERMINAL 1:** 
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```    
-    ***
 
 1. A *Gazebo Sim* window should open:
 
     <figure markdown>
-      ![](../../images/gz/tb3_empty_world_top.png){width=800}
+      ![](../images/gz/tb3_empty_world_top.png){width=800}
     </figure>
 
     1. **Zoom in and out** using the scroll wheel on your mouse.  
@@ -124,24 +115,21 @@ Now that you're all up and running, let's launch ROS and fire up a simulation of
     Using both of these methods you should be able to get a better view of the robot, which is an approximate representation of [our real ones](../about/robots.md#our-waffles).
 
     <figure markdown>
-      ![](../../images/gz/tb3_empty_world_close.png){width=700px}
+      ![](../images/gz/tb3_empty_world_close.png){width=700px}
     </figure> 
 
 1. With the Gazebo simulation up and running, return to your terminal and open up a *second* terminal instance (**TERMINAL 2**)
    
 1. In this new terminal instance enter the following command:<a name="teleop"></a>
 
-    ***
-    **TERMINAL 2:**
     ```bash
     ros2 run turtlebot3_teleop teleop_keyboard
     ```
-    ***
 
 1. Follow the instructions provided in the terminal to drive the robot around using specific buttons on your keyboard:
 
     <figure markdown>
-      ![](../../images/waffle/teleop_keymap.svg)
+      ![](../images/waffle/teleop_keymap.svg)
     </figure>
 
 ### Summary
@@ -200,12 +188,9 @@ You should currently have two terminal instances active: the first in which you 
 1. Open up a new terminal instance now (**TERMINAL 3**).
 1. Use the following command to have a look at which nodes are currently active on the network:
 
-    ***
-    **TERMINAL 3:**
     ```bash
     ros2 node list
     ```
-    ***
 
     Only a handful of nodes should be listed:
 
@@ -218,17 +203,14 @@ You should currently have two terminal instances active: the first in which you 
 
 1. We can visualise the connections between the active nodes by using an application called *RQT*. RQT is a collection of graphical tools that allow us to interact with and interrogate the ROS network. Launch the main RQT application by entering `rqt` in **TERMINAL 3** (you might see some warnings in the terminal when you do this, but don't worry about them):
 
-    ***
-    **TERMINAL 3:**
     ```bash
     rqt
     ```
-    ***
 
     A window should then open:
 
     <figure markdown>
-      ![](../../images/rqt/main.png){width=600}
+      ![](../images/rqt/main.png){width=600}
     </figure>
 
 1. From here, we then want to load the *Node Graph* plugin. From the top menu select `Plugins` > `Introspection` > `Node Graph`.
@@ -236,7 +218,7 @@ You should currently have two terminal instances active: the first in which you 
 1. Select `Nodes/Topics (all)` from the top-left most dropdown, and in the **`Hide`** section uncheck everything except `Debug` and `Params` (you may then need to hit the refresh button):
 
     <figure markdown>
-      ![](../../images/rqt/node_graph.png){width=600}
+      ![](../images/rqt/node_graph.png){width=600}
       <figcaption>(Click on the image to enlarge it.)</figcaption>
     </figure>
 
@@ -254,14 +236,11 @@ Let's have a look at this in a bit more detail...
 
 We can find out more about the `/cmd_vel` topic by using the `ros2 topic` command.
 
-1. Open up yet another new terminal instance (**TERMINAL 4**) and type the following:
+1. Open up yet *another* new terminal instance (**TERMINAL 4**) and type the following:
 
-    ***
-    **TERMINAL 4:**
     ```bash
     ros2 topic list
     ```
-    ***
 
     This shows us all the topics that are currently available on the ROS network (a lot of which we saw in the RQT Node Graph above):
 
@@ -289,12 +268,9 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
 
 1. Use the `topic info` command now:
 
-    ***
-    **TERMINAL 4:**
     ```bash
     ros2 topic info /cmd_vel
     ```
-    ***
     
     This should provide the following output:
     
@@ -320,14 +296,11 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
 
         In summary then, we've established that if we want to make the robot move we need to publish `TwistStamped` messages to the `/cmd_vel` topic.
 
-1. We can use the `ros2 interface` command to show us the (standardised) data structure used by the `TwistStamped` Interface:
+1. Still in **TERMINAL 4**, use the `ros2 interface` command to show us the (standardised) data structure used by the `TwistStamped` Interface:
 
-    ***
-    **TERMINAL 4:**
     ```bash
     ros2 interface show geometry_msgs/msg/TwistStamped
     ```
-    ***
 
     From this, we obtain the following:
 
@@ -353,7 +326,7 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
 1. To finish, enter ++ctrl+c++ in each of the three terminals that should currently have ROS processes running (Terminals **1**, **2** and **3**). The associated Gazebo and RQT Node Graph windows should close as a result of this too.
 
     !!! tip
-        Whenever you need to stop any ROS process use ++ctrl+c++ in the terminal it's running in.
+        Whenever you need to stop any ROS process use ++ctrl+c++ in the terminal it's running in. 
 
 ## Creating Your First ROS Applications
 
@@ -382,46 +355,32 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
 
 1. Navigate into the `ros2_ws/src` directory using the Linux `cd` command (**c**hange **d**irectory). In **TERMINAL 1** enter the following:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     cd ~/ros2_ws/src/
     ```
-    ***
 
 1. From here, use `git` to *clone* the ROS2 Package Template from GitHub:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
-    ***
     
 1. This package template contains a script called `init_pkg.sh`, which we'll use to turn the template into our first ROS 2 package. Run the script as follows, to convert the template into a ROS 2 package called `part1_pubsub`:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ./ros2_pkg_template/init_pkg.sh part1_pubsub
     ```
-    ***
 
     As a result of doing this, the `ros2_pkg_template` directory has now been renamed to `part1_pubsub`, and various other things within the package have been updated too, to initialise the package with the name that we specified. 
 
 1. Navigate into the package directory (using `cd`):
 
-    ***
-    **TERMINAL 1:**
     ```bash
     cd part1_pubsub/
     ```
-    ***  
 
 1. `tree` is a **Linux command** which shows us the content of the current directory in a nice tree-like format. Use `tree` now to show the current content of the `part1_pubsub` directory:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     tree
     ```
@@ -441,7 +400,6 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
 
     3 directories, 6 files
     ```
-    ***
 
     * `scripts`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a couple in there already).
     * `part1_pubsub_modules`: is a *directory* that we can use to store Python *modules*, that we can then import into our main Python nodes
@@ -454,26 +412,18 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
 
 1. From the root of your `part1_pubsub` package, navigate to the `scripts` folder using the `cd` command.
 
-    ***
-    **TERMINAL 1:**
     ```bash
     cd scripts
     ```
-    ***
 
 1. `touch` is a **Linux command** that we can use to create an empty file. Use this to create an empty file called `publisher.py`, which we will add content to shortly:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     touch publisher.py
     ```
-    ***
 
 1. Use `ls` to verify that the file has been created, but use the `-l` option with this, so that the command provides its output in *"a long listing format"*:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ls -l
     ```
@@ -485,7 +435,6 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     -rw-r--r-- 1 student student    0 MMM DD HH:MM publisher.py
     -rwxrwxr-x 1 student student  816 MMM DD HH:MM stop_me.py
     ```
-    ***
 
     This confirms that the `publisher.py` file exists, and the `0` on that line indicates that the file is empty (i.e. its current size is 0 bytes), which is what we'd expect.
 
@@ -516,7 +465,8 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
       DESTINATION lib/${PROJECT_NAME}
     )
     ```
-Add the `publisher.py` Node as follows:
+    
+    Add the `publisher.py` Node as follows:
 
     ``` { .txt .no-copy }
     # Install Python executables
@@ -559,12 +509,9 @@ Add the `publisher.py` Node as follows:
     
     Remember: `ros2 run {package name} {script name}`, so:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     ros2 run part1_pubsub publisher.py
     ```
-    ***
 
     ... Hmm, something not quite right? If you typed the command exactly as above and then tried to run it, you probably just received the following error:
 
@@ -588,30 +535,21 @@ Add the `publisher.py` Node as follows:
 
 1. Use `cd` to navigate back to our package's `scripts` directory (where the `publisher.py` file is located):
 
-    ***
-    **TERMINAL 1:**
     ```bash
     cd ~/ros2_ws/src/part1_pubsub/scripts/
     ```
-    ***
 
     Then run the `chmod` command as follows to give the `publisher.py` file *execute* permissions:
 
-    ***
-    **TERMINAL 1:**
     ```bash
     chmod +x publisher.py
     ```
-    ***
 
 1. Now, run `ls -l` again to see what has changed:
     
-    ***
-    **TERMINAL 1:**
     ```bash
     ls -l
     ```
-    ***
 
     We have now granted permission for the file to be e**x**ecuted too:
     
@@ -641,14 +579,11 @@ So far we have used the `ros2 topic` ROS command with two additional arguments:
 * `list`: to provide us with a *list* of all the topics that are active on our ROS system, and
 * `info`: to provide us with *information* on a particular topic of interest.
 
-We can find out what other *sub-commands* are available for us to use with `ros2 topic` by calling for *help*! 
+We can find out what other *sub-commands* are available for us to use with `ros2 topic` by calling for *help*! Run the following in **TERMINAL 2**:
 
-***
-**TERMINAL 2:**
 ```bash
 ros2 topic --help
 ```
-***
 
 Which should provide us with a list of all the options:
 
@@ -735,32 +670,23 @@ To illustrate how information can be passed from one node to another (via topics
     
     1. Make sure you're at the **root** of the Colcon Workspace:
 
-        ***
-        **TERMINAL 2:**
         ```bash
         cd ~/ros2_ws/
         ```
-        ***
 
     1. Run `colcon build` on *only* the `part1_pubsub` package:
 
-        ***
-        **TERMINAL 2:**
         ```bash
         colcon build --packages-select part1_pubsub --symlink-install
         ```
-        ***
 
     1. And then re-source the `bashrc`:
 
-        ***
-        **TERMINAL 2:**
         ```bash
         source ~/.bashrc
         ```
-        ***
 
-1. Use `ros2 run` to execute your newly created `subscriber.py` node (remember: `ros2 run {package name} {script name}`). If your publisher and subscriber nodes are working correctly you should see an output like this:
+1. Use `ros2 run` (in **TERMINAL 2**) to execute your newly created `subscriber.py` node (remember: `ros2 run {package name} {script name}`). If your publisher and subscriber nodes are working correctly you should see an output like this:
     
     <figure markdown>
       ![](part1/subscriber_output.gif){width=700px}
@@ -789,7 +715,7 @@ We've just created a publisher and subscriber that were able to communicate with
 The data that the publisher was sending to the topic was very simple: a `example_interfaces/msg/String` type message.
 
 ``` { .txt .no-copy }
-> ros2 topic info /my_topic
+ros2 topic info /my_topic
 
 Type: example_interfaces/msg/String
 Publisher count: 1
@@ -800,7 +726,7 @@ Subscription count: 1
 This message just has one *field* called `data` of the type `string`:
 
 ``` { .txt .no-copy }
-> ros2 interface show ros2 topic info -t /my_topic
+ros2 interface show ros2 topic info -t /my_topic
 
 string data
 ```
@@ -906,7 +832,7 @@ ROS messages will generally be more complex than this, typically containing seve
 
 #### :material-pen: Exercise 8: Using a custom ROS Message {#ex8}
 
-1. Create a copy of the `publisher.py` file from [Exercise 5](#ex5). Let's do this from the command line too:
+1. Create a copy of the `publisher.py` file from [Exercise 5](#ex5). Let's do this from the command line too (in **TERMINAL 1**):
 
     1. Navigate into your package's `scripts` folder:
 

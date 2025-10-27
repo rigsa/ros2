@@ -274,8 +274,6 @@ To start with, let's create another new package, this time called `part3_beyond_
 
 1. We can further verify this in a new terminal (**TERMINAL 2**), using commands that we've use in Parts 1 & 2 to *list* all nodes and topics that are active on our ROS network:
 
-    **TERMINAL 2:**
-
     ```bash
     ros2 node list
     ```
@@ -293,7 +291,9 @@ Parameters are used to configure nodes, and can be further used to change their 
 
 Let's think back to our `move_circle.py` node from Part 2 in order to see what this could be used for. The node that we built originally would make a robot move in a circle of 0.5-meter radius, forever! Wouldn't it be nice if we could actually *change* the radius of the circle while the node was running?
 
-1. First, we'll create a new version of the `move_circle.py` node from Part 2, that we can play around with. First, head to the `scripts` directory of your `part3_beyond_basics` package:
+1. Shutdown your `pubsub.launch.py` file in **TERMINAL 1** if it's still running.
+
+1. Now, we'll create a new version of the `move_circle.py` node from Part 2, that we can play around with. First, head to the `scripts` directory of your `part3_beyond_basics` package in **TERMINAL 1**:
 
     ```bash
     cd ~/ros2_ws/src/part3_beyond_basics/scripts/
@@ -437,7 +437,7 @@ As you'll recall from Part 2, odometry is really important for robot navigation,
     A Gazebo simulation should now be launched with a TurtleBot3 Waffle in a new environment:
 
     <figure markdown>
-      ![](../../images/gz/tb3_world.png){width=600px}
+      ![](../images/gz/tb3_world.png){width=600px}
     </figure>
 
 1. In **TERMINAL 2** enter the following:
@@ -449,7 +449,7 @@ As you'll recall from Part 2, odometry is really important for robot navigation,
     On running the command a new window should open:
 
     <figure markdown>
-      ![](../../images/rviz/tb3.png){width=600px}
+      ![](../images/rviz/tb3.png){width=600px}
     </figure>
 
     This is *RViz*, which is a ROS tool that allows us to *visualise* the data being measured by a robot in real-time. 
@@ -518,7 +518,7 @@ The `LaserScan` interface is a standardised ROS message interface (from the `sen
 <a name="fig_lidar"></a>Consider a simplified example here, taken from a TurtleBot3 in a different environment:
 
 <figure markdown>
-  ![](../../images/rviz/lidar_illustrated.png)
+  ![](../images/rviz/lidar_illustrated.png)
 </figure>
 
 <a name="echo_scan_variables"></a>As illustrated in the figure, we can associate each data-point of the `ranges` array to an *angular position* by using the `angle_min`, `angle_max` and `angle_increment` values that are also provided within the `LaserScan` message.  We can use the `ros2 topic echo` command to find out what their values are:
@@ -638,7 +638,7 @@ LaserScan data presents us with a new challenge: processing large datasets. In t
 1. Use the **Box tool** in Gazebo to place a box in the environment. 
 
     <figure markdown>
-      ![](../../images/gz/toolbars_antd.png){width=500px}
+      ![](../images/gz/toolbars_antd.png){width=500px}
     </figure>
 
 1. Click the **Translate tool** to move the box around until the `lidar_subscriber.py` node returns some reading that *aren't* `nan` again.

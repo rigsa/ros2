@@ -2847,29 +2847,23 @@
 </details>
 <p><strong>Step 4: Make Sure The Course Repo is Up-To-Date</strong></p>
 <p><a name="course-repo"></a></p>
-<p>In Part 1 you should have <a href="../part1/#course-repo">downloaded and installed The Course Repo</a> into your ROS environment. If you haven't done this yet then go back and do it now. If you <em>have</em> already done it, then it's worth just making sure it's all up-to-date, so run the following command now to do so:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
-</code></pre></div><p></p>
+<p>In Part 1 you should have <a href="../part1/#course-repo">downloaded and installed The Course Repo</a> into your ROS environment. If you haven't done this yet then go back and do it now. If you <em>have</em> already done it, then it's worth just making sure it's all up-to-date, so run the following command in <strong>TERMINAL 1</strong> now to do so:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
+</code></pre></div>
 <p>Then build with Colcon: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-up-to<span class="w"> </span>tuos_ros
 </code></pre></div>
 <p>And finally, re-source your environment:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
-<hr>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you have any other terminal instances open, then you'll need run <code>source ~/.bashrc</code> in these too, in order for any changes made by the Colcon build process to propagate through to these as well.</p>
 </div>
 <p><strong>Step 5: Launch a Waffle Simulation</strong></p>
 <p>In <strong>TERMINAL 1</strong> enter the following command to launch a simulation of a TurtleBot3 Waffle in an empty world:  </p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
+</code></pre></div>
 <p>A Gazebo simulation window should open and within this you should see a TurtleBot3 Waffle in empty space:</p>
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_mid.png" width="700px"></a></p>
@@ -2916,12 +2910,9 @@
 <h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Exploring Odometry Data<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>In <strong>TERMINAL 2</strong> use the following command to launch the <em>RQT Topic Monitor</em>:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_topic<span class="w"> </span>rqt_topic<span class="w"> </span>
-</code></pre></div><p></p>
-<hr>
+<p>In a new terminal instance (<strong>TERMINAL 2</strong>) use the following command to launch the <em>RQT Topic Monitor</em>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_topic<span class="w"> </span>rqt_topic<span class="w"> </span>
+</code></pre></div>
 <p><em>Topic Monitor</em> should launch with a list of active topics matching the topic list from the <code>ros2 topic list</code> command that you ran earlier.</p>
 </li>
 <li>
@@ -2939,11 +2930,8 @@
 </li>
 <li>
 <p>In <strong>TERMINAL 3</strong> launch the <code>teleop_keyboard</code> node <a href="../part1/#teleop">as you did in Part 1</a>: <a name="teleop"></a></p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
+</code></pre></div>
 </li>
 <li>
 <p>Enter <span class="keys"><kbd class="key-a">A</kbd></span> a couple of times to make the robot rotate on the spot. Observe how the odometry data changes in Topic Monitor.</p>
@@ -2970,12 +2958,9 @@
 <p>Press <span class="keys"><kbd class="key-s">S</kbd></span> in <strong>TERMINAL 3</strong> to stop the robot (but leave the <code>teleop_keyboard</code> node running).  Then, press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 2</strong> to close down <code>rqt</code>. </p>
 </li>
 <li>
-<p>Let's look at the Odometry data differently now. With the robot stationary, use <code>ros2 run</code> to run a Python node from the <code>tuos_examples</code> package: </p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>robot_pose.py
-</code></pre></div><p></p>
-<hr>
+<p>Let's look at the Odometry data differently now. With the robot stationary, use <code>ros2 run</code> (in <strong>TERMINAL 2</strong>) to run a Python node from the <code>tuos_examples</code> package: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>robot_pose.py
+</code></pre></div>
 </li>
 <li>
 <p>Now (using the <code>teleop_keyboard</code> node in <strong>TERMINAL 3</strong>) drive your robot around again, keeping an eye on the outputs that are being printed by the <code>robot_pose.py</code> node in <strong>TERMINAL 2</strong> as you do so.</p>
@@ -2990,21 +2975,15 @@
 </li>
 </ol>
 <h3 id="odometry-explained">Odometry Explained<a class="headerlink" href="#odometry-explained" title="Permanent link">¶</a></h3>
-<p>Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/odom
-</code></pre></div><p></p>
-<hr>
+<p>Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again. IN <strong>TERMINAL 2</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/odom
+</code></pre></div>
 <p>This provides information about the interface used by this topic:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Type: nav_msgs/msg/Odometry
 </code></pre></div>
 <p>We can find out more about this interface using the <code>ros2 interface show</code> command:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>nav_msgs/msg/Odometry
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>nav_msgs/msg/Odometry
+</code></pre></div>
 <p>Look down the far left-hand side to identify the four <em>base fields</em> of the interface (the fields that are not indented):</p>
 <p><a name="odom-base-fields"></a></p>
 <p></p><center><p></p>
@@ -3153,7 +3132,7 @@
 <p>In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic. In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the <code>/odom</code> topic that we've been talking about above. We'll also create a new package called <code>part2_navigation</code> for this node to live in!</p>
 <ol>
 <li>
-<p>First, head to the <code>src</code> directory of your ROS 2 workspace in your terminal:</p>
+<p>First, head to the <code>src</code> directory of your ROS 2 workspace in <strong>TERMINAL 2</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
 </code></pre></div>
 </li>
@@ -3231,11 +3210,11 @@
 <p>Having followed all the steps, the output from your node should be similar to that shown below:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="odom_subscriber.gif" width="700px"></a>
-  [NEEDS UPDATING]
+  [TODO: NEEDS UPDATING]
 </figure><p></p>
 </li>
 <li>
-<p>Observe how the output (the formatted odometry data) changes while you move the robot around using the <code>teleop_keyboard</code> node in a new terminal instance (<strong>TERMINAL 3</strong>).</p>
+<p>Observe how the output (the formatted odometry data) changes while you move the robot around using the <code>teleop_keyboard</code> node in <strong>TERMINAL 3</strong>.</p>
 </li>
 <li>Stop your <code>odom_subscriber.py</code> node in <strong>TERMINAL 2</strong> and the <code>teleop_keyboard</code> node in <strong>TERMINAL 3</strong> by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in each of the terminals.</li>
 </ol>
@@ -3545,12 +3524,9 @@
 </li>
 <li>
 <p>Create a new file called <code>move_circle.py</code>:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>touch<span class="w"> </span>move_circle.py
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>touch<span class="w"> </span>move_circle.py
 </code></pre></div>
 ... and make this file executable using the <code>chmod</code> command (<a href="../part1/#chmod">as we did in Part 1</a>).<p></p>
-<hr>
 </li>
 <li>
 <p>The task is to make the robot move in a <strong>circle</strong> with a path <strong>radius</strong> of approximately <strong>0.5 meters</strong>.</p>
@@ -3570,7 +3546,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>Finally, head back to the terminal and use Colcon to build the new node alongside everything else in the package, using the same <strong>three-step process</strong> as before:</p>
+<p>Finally, head back to <strong>TERMINAL 2</strong> and use Colcon to build the new node alongside everything else in the package, using the same <strong>three-step process</strong> as before:</p>
 <ol>
 <li>
 <p>First: </p>
@@ -3711,19 +3687,13 @@
 </li>
 <li>
 <p>Navigate to the package <code>scripts</code> directory and use the Linux <code>touch</code> command to create a new file called <code>move_square.py</code>:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>touch<span class="w"> </span>move_square.py
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>touch<span class="w"> </span>move_square.py
+</code></pre></div>
 </li>
 <li>
 <p>Then make this file executable using <code>chmod</code>:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>move_square.py
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>move_square.py
+</code></pre></div>
 </li>
 <li>
 <p>Define <code>move_square.py</code> as a package executable in your <code>CMakeLists.txt</code> file (you should know how to do this by now, but if not, refer back to either Exercise 2 or Exercise 4). </p>
@@ -3819,7 +3789,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 16, 2025 15:57:39 UTC"><span class="timeago" datetime="2025-10-16T15:57:39+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 16, 2025 15:57:39 UTC">2025-10-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 27, 2025 15:47:09 UTC"><span class="timeago" datetime="2025-10-27T15:47:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 27, 2025 15:47:09 UTC">2025-10-27</span>
   </span>
 
     

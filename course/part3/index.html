@@ -2904,7 +2904,6 @@
 </li>
 <li>
 <p>We can further verify this in a new terminal (<strong>TERMINAL 2</strong>), using commands that we've use in Parts 1 &amp; 2 to <em>list</em> all nodes and topics that are active on our ROS network:</p>
-<p><strong>TERMINAL 2:</strong></p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2<span class="w"> </span>node<span class="w"> </span>list
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
@@ -2918,7 +2917,10 @@
 <p>Let's think back to our <code>move_circle.py</code> node from Part 2 in order to see what this could be used for. The node that we built originally would make a robot move in a circle of 0.5-meter radius, forever! Wouldn't it be nice if we could actually <em>change</em> the radius of the circle while the node was running?</p>
 <ol>
 <li>
-<p>First, we'll create a new version of the <code>move_circle.py</code> node from Part 2, that we can play around with. First, head to the <code>scripts</code> directory of your <code>part3_beyond_basics</code> package:</p>
+<p>Shutdown your <code>pubsub.launch.py</code> file in <strong>TERMINAL 1</strong> if it's still running.</p>
+</li>
+<li>
+<p>Now, we'll create a new version of the <code>move_circle.py</code> node from Part 2, that we can play around with. First, head to the <code>scripts</code> directory of your <code>part3_beyond_basics</code> package in <strong>TERMINAL 1</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part3_beyond_basics/scripts/
 </code></pre></div>
 </li>
@@ -3381,7 +3383,7 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 22, 2025 15:52:30 UTC"><span class="timeago" datetime="2025-10-22T15:52:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 22, 2025 15:52:30 UTC">2025-10-22</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 27, 2025 15:47:09 UTC"><span class="timeago" datetime="2025-10-27T15:47:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 27, 2025 15:47:09 UTC">2025-10-27</span>
   </span>
 
     

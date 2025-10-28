@@ -9,11 +9,11 @@ description: Learn more about the TurtleBot3 Waffle Robots that you'll work with
 
 To teach ROS here we use the [TurtleBot3 Waffle](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/){target="_blank"} robot, made by Robotis. This is the 3rd Generation Robot in the [TurtleBot family](http://wiki.ros.org/Robots/TurtleBot){target="_blank"} (which has been the reference hardware platform for ROS since 2010). The TurtleBot Robot family exists to provide accessible and relatively low-cost hardware and open-source software on a robot platform, to encourage people to learn robotics and ROS and make it as easy as possible to do so.
 
-### The (Free) TurtleBot3 eBook {#ebook}
+<!-- ### The (Free) TurtleBot3 eBook {#ebook}
 
 The TurtleBot3 Waffle developers (Robotis) have written a book on programming robots with ROS. This is available as a *free eBook*, which you can [download here](https://www.pishrobot.com/wp-content/uploads/2021/05/ros-robot-programming-book-by-turtlebo3-developers-en.pdf){target="_blank"}, and we recommend that you do so! This is a great resource which provides a detailed introduction to what ROS is and how it works, as well as a comprehensive "Beginners Guide" to ROS programming. The other great thing about this is that it is tailored to the TurtleBot3 Robot specifically, providing examples of how to use a range of TurtleBot3 packages along with a detailed description of how they work.
 
-We recommend that you have a look at this book to learn more about the concepts that you are exploring in this course.
+We recommend that you have a look at this book to learn more about the concepts that you are exploring in this course. -->
 
 ### Our Waffles
 
@@ -55,11 +55,11 @@ In addition to this, the robots are equipped with the following sensors:
 
 #### Software
 
-Our robots currently run [ROS 2 Humble Hawksbill](https://docs.ros.org/en/humble/index.html){target="_blank"} (or *"Humble"* for short). The courses here are therefore based around this version of ROS. The easiest way to install Humble is via Deb packages for Ubuntu Jammy (22.04). This is the setup we recommend and - as such - all out robotics hardware runs with this OS/Software setup.
+Our robots currently run [ROS 2 Jazzy Jalisco](https://docs.ros.org/en/jazzy/index.html){target="_blank"} (or *"Jazzy"* for short). The courses here are therefore based around this version of ROS. The easiest way to install Jazzy is via Deb packages for Ubuntu Noble Numbat (24.04). This is the setup we recommend and - as such - all our robotics hardware runs with this OS/Software setup.
 
-To deliver the simulation-based parts of this course, we've created a custom simulation environment using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. This has been developed primarily to run on University of Sheffield Managed Desktop Computers, which run Windows 10, but it's also possible to run this on other machines too. We call this simulation environment *"WSL-ROS2"*. [See here for more details](../ros/wsl-ros/README.md).
+To deliver the simulation-based parts of this course, we've created a custom simulation environment using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. This has been developed primarily to run on University of Sheffield Managed Desktop Computers, which run Windows 11, but it's also possible to run this on other machines too. We call this simulation environment *"WSL-ROS2"*. [See here for more details](../software/wsl-ros/README.md).
 
-[You can find out more about installing ROS on your own system here](../ros/README.md).
+[You can find out more about installing ROS on your own system here](../software/README.md).
 
 ## Laptops
 

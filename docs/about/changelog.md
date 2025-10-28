@@ -2,6 +2,15 @@
 title: Version History
 ---
 
+
+## Iteration 2
+
+**Academic Year**: 2025-26
+
+* Course materials for all modules now moved over to this single site.
+* Course material (and robots) upgraded for ROS 2 Jazzy (where last year they were based around ROS 2 Humble)
+* Simulation resources now updated for Gazebo Ignition
+
 ## Iteration 1
 
 **Academic Year**: 2024-25 

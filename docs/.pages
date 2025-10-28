@@ -2,6 +2,7 @@ nav:
   - "About": about
   - "Software": software
   - "The ROS 2 Course": course
-  - "The Waffles": waffles
   - "COM2009": com
   - "AMR31001": amr
+  - "The Waffles": waffles
+  

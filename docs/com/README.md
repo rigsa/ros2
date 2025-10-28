@@ -7,7 +7,7 @@ description: "Course Material for Assignments #1 and #2"
 
 For the COM2009 Robotics course you must complete two lab assignments:
 
-* [**Assignment #1**: "An Introduction to ROS (the Robot Operating System)"](./assignment1/README.md).
+* [**Assignment #1**: "An Introduction to ROS (the Robot Operating System)"](./assignment1.md).
 
     *Here you will learn what ROS is and how to use it. You will complete this assignment individually, and in your own time.*
 

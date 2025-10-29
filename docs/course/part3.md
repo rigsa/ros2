@@ -1,6 +1,6 @@
 ---  
 title: "Part 3: Beyond the Basics"  
-description: Execute ROS applications more efficiently using launch files. Learn about the LiDAR sensor, the data that it generates, and see the benefits of this for tools like "SLAM".
+description: Execute ROS applications more efficiently using launch files, and learn how to affect the behaviour of nodes during run-time using parameters. Learn about the LiDAR sensor, the data that it generates, and see the benefits of this for tools like "SLAM".
 ---
 
 ## Introduction

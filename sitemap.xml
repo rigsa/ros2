@@ -89,10 +89,6 @@
          <lastmod>2025-10-29</lastmod>
     </url>
     <url>
-         <loc>https://tom-howard.github.io/ros2/course/_descriptions/</loc>
-         <lastmod>2025-10-29</lastmod>
-    </url>
-    <url>
          <loc>https://tom-howard.github.io/ros2/course/part1/</loc>
          <lastmod>2025-10-29</lastmod>
     </url>
@@ -189,15 +185,11 @@
          <lastmod>2025-10-29</lastmod>
     </url>
     <url>
-         <loc>https://tom-howard.github.io/ros2/software/other-options/</loc>
+         <loc>https://tom-howard.github.io/ros2/software/docker-ros2/</loc>
          <lastmod>2025-10-29</lastmod>
     </url>
     <url>
-         <loc>https://tom-howard.github.io/ros2/software/other-options/docker-ros2/</loc>
-         <lastmod>2025-10-29</lastmod>
-    </url>
-    <url>
-         <loc>https://tom-howard.github.io/ros2/software/other-options/utm/</loc>
+         <loc>https://tom-howard.github.io/ros2/software/installing-wsl-ros2/</loc>
          <lastmod>2025-10-29</lastmod>
     </url>
     <url>
@@ -214,18 +206,6 @@
     </url>
     <url>
          <loc>https://tom-howard.github.io/ros2/software/using-wsl-ros/vscode/</loc>
-         <lastmod>2025-10-29</lastmod>
-    </url>
-    <url>
-         <loc>https://tom-howard.github.io/ros2/software/wsl-ros/</loc>
-         <lastmod>2025-10-29</lastmod>
-    </url>
-    <url>
-         <loc>https://tom-howard.github.io/ros2/software/wsl-ros/install/</loc>
-         <lastmod>2025-10-29</lastmod>
-    </url>
-    <url>
-         <loc>https://tom-howard.github.io/ros2/software/wsl-ros/man-win/</loc>
          <lastmod>2025-10-29</lastmod>
     </url>
     <url>

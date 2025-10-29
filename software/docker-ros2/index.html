@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/software/wsl-ros/">
+        <link rel="canonical" href="https://tom-howard.github.io/ros2/software/docker-ros2/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../using-wsl-ros/vscode/">
       
       
-        <link rel="next" href="install/">
+        <link rel="next" href="../../course/">
       
       
       <link rel="icon" href="../../assets/tuos_logo.svg">
@@ -21,7 +21,7 @@
     
     
       
-        <title>The WSL-ROS2 Simulation Environment - ROS 2 Lab Courses in The Diamond</title>
+        <title>Installing ROS 2 Using Docker (Linux &amp; Mac) - ROS 2 Lab Courses in The Diamond</title>
       
     
     
@@ -60,11 +60,11 @@
       
         <meta property="og:type" content="website">
       
-        <meta property="og:title" content="The WSL-ROS2 Simulation Environment - ROS 2 Lab Courses in The Diamond">
+        <meta property="og:title" content="Installing ROS 2 Using Docker (Linux &amp; Mac) - ROS 2 Lab Courses in The Diamond">
       
         <meta property="og:description" content="Practical Robotics Lab Courses with ROS 2 and the TurtleBot3 Waffle.">
       
-        <meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/software/wsl-ros/README.png">
+        <meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/software/docker-ros2.png">
       
         <meta property="og:image:type" content="image/png">
       
@@ -72,15 +72,15 @@
       
         <meta property="og:image:height" content="630">
       
-        <meta property="og:url" content="https://tom-howard.github.io/ros2/software/wsl-ros/">
+        <meta property="og:url" content="https://tom-howard.github.io/ros2/software/docker-ros2/">
       
         <meta name="twitter:card" content="summary_large_image">
       
-        <meta name="twitter:title" content="The WSL-ROS2 Simulation Environment - ROS 2 Lab Courses in The Diamond">
+        <meta name="twitter:title" content="Installing ROS 2 Using Docker (Linux &amp; Mac) - ROS 2 Lab Courses in The Diamond">
       
         <meta name="twitter:description" content="Practical Robotics Lab Courses with ROS 2 and the TurtleBot3 Waffle.">
       
-        <meta name="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/software/wsl-ros/README.png">
+        <meta name="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/software/docker-ros2.png">
       
     
     
@@ -113,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-wsl-ros2-simulation-environment" class="md-skip">
+        <a href="#acknowledgments" class="md-skip">
           Skip to content
         </a>
       
@@ -156,7 +156,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The WSL-ROS2 Simulation Environment
+              Installing ROS 2 Using Docker (Linux &amp; Mac)
             
           </span>
         </div>
@@ -648,77 +648,15 @@
                 
   
   
-    
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
-              
-  
-  
-  <span class="md-ellipsis">
-    WSL-ROS2
-    
-  </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link md-nav__link--active" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_2">
-            <span class="md-nav__icon md-icon"></span>
-            WSL-ROS2
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="install/" class="md-nav__link">
+      <a href="../installing-wsl-ros2/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Installing WSL-ROS2 on your Own (Windows) Machine
+    Installing WSL-ROS2 on Windows
     
   </span>
   
@@ -735,42 +673,13 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="man-win/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Accessing WSL-ROS2 from A University Managed Desktop Computer on Campus
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
       
         
           
+        
+      
         
       
         
@@ -792,12 +701,12 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../other-options/" class="md-nav__link ">
+            <a href="../using-wsl-ros/" class="md-nav__link ">
               
   
   
   <span class="md-ellipsis">
-    Other Installation Options
+    Accessing WSL-ROS2 on University Computers
     
   </span>
   
@@ -814,123 +723,7 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
-            Other Installation Options
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../other-options/docker-ros2/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Installing "docker-ros2" for Linux, Mac (and Windows)
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../other-options/utm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Installing with UTM (on a Mac)
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../using-wsl-ros/" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    Using WSL-ROS2
-    
-  </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
-            <span class="md-nav__icon md-icon"></span>
-            Using WSL-ROS2
+            Accessing WSL-ROS2 on University Computers
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -948,7 +741,7 @@
   
   
   <span class="md-ellipsis">
-    University Managed Desktops
+    Getting Started with WSL-ROS2 on the University Managed Desktops
     
   </span>
   
@@ -1007,6 +800,109 @@
             
           </ul>
         </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acknowledgments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching the ROS Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching the ROS Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mac &amp; Linux
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2103,8 +1999,56 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acknowledgments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching the ROS Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching the ROS Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mac &amp; Linux
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2120,7 +2064,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/software/wsl-ros/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/tom-howard/ros2/edit/main/docs/software/docker-ros2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2129,18 +2073,31 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/software/wsl-ros/README.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/tom-howard/ros2/raw/main/docs/software/docker-ros2.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-<h1 id="the-wsl-ros2-simulation-environment">The WSL-ROS2 Simulation Environment<a class="headerlink" href="#the-wsl-ros2-simulation-environment" title="Permanent link">¶</a></h1>
-<p>To support this course we've created a custom ROS2 (Humble) and Ubuntu (22.04) environment which runs on Windows 10 or 11 using the <a href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank">Windows Subsystem for Linux (WSL)</a>. We call this "<strong>WSL-ROS2</strong>," and you can find out more about it - and how to use it - here.</p>
-<figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/wsl-ros.png" width="800px"></a></p>
-</figure>
+  <h1>Installing ROS 2 Using Docker (Linux &amp; Mac)</h1>
+
+<p><strong>Applicable to</strong>: Linux and Mac Users</p>
+<h2 id="acknowledgments">Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permanent link">¶</a></h2>
+<p>This solution has been put together by Atri Hegde, a COM2009 student from 2024 (and a course demonstrator in 2025!)</p>
+<p><strong>Thanks Atri</strong>!!</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">¶</a></h2>
+<p>See here for the <code>docker-ros2</code> repo and the instructions on how to install it: </p>
+<p></p><center><a href="https://github.com/hegde-atri/ros2-docker" target="_blank">https://github.com/hegde-atri/ros2-docker</a></center><p></p>
+<h2 id="launch">Launching the ROS Environment<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
+<h3 id="mac-linux">Mac &amp; Linux<a class="headerlink" href="#mac-linux" title="Permanent link">¶</a></h3>
+<p>Instructions on how to launch the ROS2 docker container are provided <a href="https://github.com/hegde-atri/ros2-docker?tab=readme-ov-file#ros2-humble-development-container" target="_blank">in the README</a>, so please consult this for all the details. Essentially though (<em>if you're on a Mac or Linux machine</em>) then you first need to fire up the docker container using:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros_start
+</code></pre></div>
+<p>... and once that's done, you need to run the following command to enter the ROS2 environment:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros_shell
+</code></pre></div>
+<p>The above assumes that you have already set up your shell appropriately (again <a href="https://github.com/hegde-atri/ros2-docker?tab=readme-ov-file#ros2-humble-development-container" target="_blank">see the README</a>).</p>
 
 
 
@@ -2163,7 +2120,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 29, 2025 12:14:19 UTC"><span class="timeago" datetime="2025-10-29T12:14:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 29, 2025 12:14:19 UTC">2025-10-29</span>
   </span>
 
     
@@ -2208,7 +2165,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Accessing ROS for this Course">
+          <a href="../using-wsl-ros/vscode/" class="md-footer__link md-footer__link--prev" aria-label="Previous: VS Code and WSL">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -2218,20 +2175,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Accessing ROS for this Course
+                VS Code and WSL
               </div>
             </div>
           </a>
         
         
           
-          <a href="install/" class="md-footer__link md-footer__link--next" aria-label="Next: Installing WSL-ROS2 on your Own (Windows) Machine">
+          <a href="../../course/" class="md-footer__link md-footer__link--next" aria-label="Next: The ROS 2 Course">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Installing WSL-ROS2 on your Own (Windows) Machine
+                The ROS 2 Course
               </div>
             </div>
             <div class="md-footer__button md-icon">

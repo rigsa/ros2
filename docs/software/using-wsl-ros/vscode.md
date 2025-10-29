@@ -53,7 +53,7 @@ title: "VS Code and WSL"
 1. You can now navigate the WSL-ROS2 filesystem in the explorer window on the left-hand side of the VS Code screen. You'll need to use this to locate the packages and scripts that you create throughout this course!
 
     <figure markdown>
-      ![](../figures/code-wsl-explorer-annt.png){width=800px}
+      ![](../figures/code-wsl-explorer-annt.svg){width=600px}
     </figure>
 
 ## Always make sure that the "WSL" extension is enabled!! {#verify}
@@ -61,7 +61,7 @@ title: "VS Code and WSL"
 Check that your blue "Remote Window" icon in the bottom-left of the VS Code screen always looks like this:
 
 <figure markdown>
-  ![](../figures/code-wsl-ext-on.png){width=400px}
+  ![](../figures/code-wsl-ext-on.svg){width=400px}
 </figure>
 
 If not, then go back to [the top of this page](#the-top) and try again!

@@ -58,8 +58,8 @@ If you haven't done so already, see here for all the details on [how to install 
 Launch your ROS environment.
 
 1. If you're using WSL-ROS2 on a university managed desktop machine then follow [the instructions here to launch it](../software/using-wsl-ros/man-win.md).
-1. If you're [running WSL-ROS2 on your own machine](../software/wsl-ros/install.md), then you'll need to launch the Windows Terminal to access a WSL-ROS2 terminal instance.
-1. If you're using another installation option, then follow the instructions on [the relevant page here](../software/other-options/README.md). 
+1. If you're [running WSL-ROS2 on your own machine](../software/installing-wsl-ros2.md), then you'll need to launch the Windows Terminal to access a WSL-ROS2 terminal instance.
+1. If you're using Docker, then you can find [further instructions here](../software/docker-ros2.md). 
 
 Either way, you should now have access to ROS 2 via a Linux terminal instance, and we'll refer to this terminal instance as **TERMINAL 1**.
 

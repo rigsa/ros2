@@ -44,9 +44,9 @@ By the end of this session you will be able to:
 
 If you haven't done so already, launch your ROS environment now:
 
-1. **Using WSL-ROS2 on a university managed desktop machine**: follow [the instructions here to launch it](../../ros/using-wsl-ros/man-win.md).
-1. **[Running WSL-ROS2 on your own machine](../../ros/wsl-ros/install.md)**: launch the Windows Terminal to access a WSL-ROS2 terminal instance.
-1. **Other Users**: Follow [the relevant steps](../../ros/other-options/README.md) to launch a terminal instance into your local ROS installation.
+1. **Using WSL-ROS2 on a university managed desktop machine**: follow [the instructions here to launch it](../software/using-wsl-ros/man-win.md).
+1. **[Running WSL-ROS2 on your own machine](../software/installing-wsl-ros2.md)**: launch the Windows Terminal to access a WSL-ROS2 terminal instance.
+1. **Docker Users**: Follow [the relevant steps](../software/docker-ros2.md) to launch a terminal instance into your local ROS installation.
 
 You should now have access to a Linux terminal instance, and we'll refer to this terminal instance as **TERMINAL 1**.
 
@@ -75,7 +75,7 @@ It's also worth launching VS Code now, so that it's ready to go for when you nee
     It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: 
     
     <figure markdown>
-      ![](../software/figures/code-wsl-ext-on.png){width=400px}
+      ![](../software/figures/code-wsl-ext-on.svg){width=400px}
     </figure>
 
 **Step 4: Make Sure The Course Repo is Up-To-Date**

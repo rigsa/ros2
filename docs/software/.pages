@@ -1,5 +1,5 @@
 nav:
   - README.md
-  - "WSL-ROS2": wsl-ros
-  - "Other Installation Options": other-options
-  - "Using WSL-ROS2": using-wsl-ros
+  - installing-wsl-ros2.md
+  - "Accessing WSL-ROS2 on University Computers": using-wsl-ros
+  - docker-ros2.md

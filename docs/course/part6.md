@@ -52,11 +52,11 @@ Remember that any work that you do within the WSL-ROS2 Environment will not be p
 
 **Step 3: Launch VS Code** 
 
-*WSL users* [remember to check for this](../../ros/using-wsl-ros/vscode.md#verify).
+*WSL users* [remember to check for this](../software/using-wsl-ros/vscode.md#verify).
 
 **Step 4: Make Sure The Course Repo is Up-To-Date**
 
-Check that the Course Repo is up-to-date before you start on these exercises. [See here for how to update](../extras/course-repo.md#updating). 
+Check that the Course Repo is up-to-date before you start on these exercises. [See here for how to update](./extras/course-repo.md#updating). 
 
 **Step 5: Launch the Robot Simulation**
 
@@ -595,7 +595,7 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 1. Run the code as it is, and consider the following:
 
     1. What proportional gain ($K_{P}$) are we applying?
-    1. What is [the maximum angular velocity that can be applied to our robot](../../about/robots.md#max_vels)? Is the angular velocity that has been calculated actually appropriate?
+    1. What is [the maximum angular velocity that can be applied to our robot](../about/robots.md#max_vels)? Is the angular velocity that has been calculated actually appropriate?
     1. Is the angular velocity that has been calculated positive or negative? Will this make the robot turn in the right direction and move towards the line?  
 
 1. Let's address the third question (**c**) first...

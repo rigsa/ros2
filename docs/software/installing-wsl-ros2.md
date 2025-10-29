@@ -1,10 +1,12 @@
 ---
-title: Installing WSL-ROS2 on your Own (Windows) Machine 
+title: Installing WSL-ROS2 on Windows 
 ---
 
 **Applicable to**: Windows 10 or 11 personal (unmanaged) computers
 
-You can install WSL-ROS2 (our purpose-built ROS image for this course) via the University of Sheffield [Software Download Service](https://www.sheffield.ac.uk/software/){target="_blank"} (University login required).
+## The WSL-ROS2 Simulation Environment
+
+To support this course we've created a custom ROS 2 environment which runs on Windows 10 or 11 using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. We call this "**WSL-ROS2**" and you can download it via the University of Sheffield [Software Download Service](https://www.sheffield.ac.uk/software/){target="_blank"} (University login required).
 
 !!! note
     When you download WSL-ROS2 from the Software Download Service you will receive an email with installation instructions. We recommend that you follow the instructions provided on *this page* instead, as this page will be kept more up-to-date throughout the semester.
@@ -26,12 +28,7 @@ You can install WSL-ROS2 (our purpose-built ROS image for this course) via the U
     
     Click on the blue "Request WSL-ROS" button and then wait to receive an email to your university email address.
 
-3. The email will contain a link to two different download locations. 
-
-    !!! warning 
-        Make sure you click on the link for ^^WSL-ROS2^^, **NOT** WSL-ROS (this is based on an older ROS version).
-    
-    Click the *correct* link to download **WSL-ROS2** to your machine as a `.zip` file (~2 GB).
+3. The email will contain a link to download **WSL-ROS2** to your machine as a `.zip` file (~2 GB).
     
 4. On your computer, create a new folder in the root of your `C:\` drive called `WSL-ROS2`.
 5. Extract the content of the downloaded `.zip` file into to the `C:\WSL-ROS2\` folder.
@@ -39,7 +36,7 @@ You can install WSL-ROS2 (our purpose-built ROS image for this course) via the U
 
     ```powershell
     wsl --import WSL-ROS2 $env:localappdata\WSL-ROS2 `
-    C:\WSL-ROS2\wsl-ros2-v2425.01.tar --version 2
+    C:\WSL-ROS2\wsl-ros2-v2526.01.tar --version 2
     ```
 
 7. This may take a couple of minutes. Once it's done, you can verify that it was successful with the following command:
@@ -67,7 +64,7 @@ You can install WSL-ROS2 (our purpose-built ROS image for this course) via the U
 9. You should now be able to launch the WSL-ROS2 environment by launching the Windows Terminal App:
 
     <figure markdown>
-      ![](../figures/launch-win-term.png){width=700px}
+      ![](./figures/launch-win-term.png){width=700px}
     </figure>
 
 
@@ -84,7 +81,7 @@ With your WSL-ROS2 terminal instance, you'll need to run some initial commands t
 1. Next, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all [the prerequisites above](#prerequisites)):
 
     ```bash
-    echo "export XSERVER=false" > $HOME/.tuos/xserver.sh
+    echo "export XSERVER=false" > $HOME/.diamond/xserver.sh
     ```
 
 1. Re-source your `.bashrc` file for this change to take effect:
@@ -102,34 +99,32 @@ With your WSL-ROS2 terminal instance, you'll need to run some initial commands t
     This should hopefully present you with something like this:
 
     <figure markdown>
-      ![](../../images/gz/tb3_empty_world_top.png){width=600px}
+      ![](../images/gz/tb3_empty_world_top.png){width=600px}
     </figure>
 
-    If this doesn't work, then you may need to try using a dedicated X Server (VcXsrv) instead... 
+    If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead... 
 
 ## Using a Dedicated X Server
 
-Only try this if you were **unable** to launch the robot simulation in the previous section.
-
-If you are unable to run GUI apps (having completed the steps in the section above), then you may need to try using a dedicated X Server instead. In [the prerequisites](#prerequisites), you should have already installed VcXsrv. 
+Having completed the steps in the section above, if you are unable to launch GUI apps, or if performance is very poor, then you may need to try using a dedicated X Server instead. 
 
 1. First, install the [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/){target="_blank"}.
 1. Download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
 
     <figure markdown>
-      ![](../figures/wsl-ros-config.png)
+      ![](./figures/wsl-ros-config.png)
     </figure>
 
 1. Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray to indicate that the X Server is running:
     
     <figure markdown>
-      ![](../figures/xlaunch_icon.png){width=25px}
+      ![](./figures/xlaunch_icon.png){width=25px}
     </figure>
 
 1. In a WSL-ROS2 Terminal Instance, run the following:
 
     ```bash
-    echo "export XSERVER=true" > $HOME/.tuos/xserver.sh
+    echo "export XSERVER=true" > $HOME/.diamond/xserver.sh
     ```
 
 1. Re-source your `.bashrc` file for this change to take effect:
@@ -147,7 +142,7 @@ If you are unable to run GUI apps (having completed the steps in the section abo
     !!! warning "Important"
         If this option works for you, you'll need to make sure you have the X Server running (by clicking the `wsl_ros_config.xlaunch` shortcut) **every time** you work with WSL-ROS2. 
 
-## Hardware Acceleration
+<!-- ## Hardware Acceleration
 
 !!! note
     Only a (potential) option for those who **aren't** using [VcXsrv](#using-a-dedicated-x-server), and even then, it's not guaranteed that it'll work for everyone!
@@ -162,9 +157,9 @@ If you are unable to run GUI apps (having completed the steps in the section abo
 
     ```bash
     source ~/.bashrc
-    ```
+    ``` -->
 
 ## See Also
 
-* [Setting up VS Code for WSL](../using-wsl-ros/vscode.md)
-* [A Quick Introduction to the Linux Terminal](../using-wsl-ros/linux-term.md)
+* [Setting up VS Code for WSL](./using-wsl-ros/vscode.md)
+* [A Quick Introduction to the Linux Terminal](./using-wsl-ros/linux-term.md)

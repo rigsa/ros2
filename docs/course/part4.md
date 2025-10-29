@@ -64,12 +64,12 @@ It's also worth launching VS Code now.
     It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: 
     
     <figure markdown>
-      ![](../software/figures/code-wsl-ext-on.png){width=400px}
+      ![](../software/figures/code-wsl-ext-on.svg){width=400px}
     </figure>
 
 **Step 4: Make Sure The Course Repo is Up-To-Date**
 
-Once again, it's worth quickly checking that the Course Repo is up-to-date before you start on the Part 4 exercises. Go back to [Part 1](./part1.md#course-repo) if you haven't installed it yet (really?!) or - alternatively - [see here for how to update](../extras/course-repo.md#updating).
+Once again, it's worth quickly checking that the Course Repo is up-to-date before you start on the Part 4 exercises. Go back to [Part 1](./part1.md#course-repo) if you haven't installed it yet (really?!) or - alternatively - [see here for how to update](./extras/course-repo.md#updating).
 
 ## An Introduction to Services
 

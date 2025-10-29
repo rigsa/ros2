@@ -1,28 +1,27 @@
 ---
-title: Accessing ROS for this Course
+title: Accessing or Installing ROS 2
 description: "How to access ROS 2 on University Computers, or install it on your own."
 ---
 
-In order to engage with [the COM2009 Course Assignments](../course/README.md) you'll need access to a ROS environment. [As discussed here](../about/robots.md#software), the course is designed around the eighth version of ROS 2: **Humble Hawksbill**. 
+In order to engage with [the ROS 2 Course](../course/README.md) you'll need access to a ROS environment. 
 
-ROS can be a bit tricky to install, and is primarily supported on only a handful of *"Tier 1"* operating systems ([as listed here](https://docs.ros.org/en/humble/Installation.html){target="_blank"}), the first choice being Ubuntu 22.04. While Windows 10 is also a supported OS (natively), we strongly recommend actually installing via the Windows Subsystem for Linux (WSL) running an Ubuntu 22.04 distro. In order to install or access ROS for this course, we recommend one of the following options. Click on the relevant link below to access the associated instructions:
+ROS can be a bit tricky to install, and is primarily supported on only a handful of *"Tier 1"* operating systems ([as listed here](https://docs.ros.org/en/jazzy/Installation.html){target="_blank"}), the first (and best) choice being Ubuntu Linux. In order to install or access ROS 2 for this course, we recommend one of the following options. Click on the relevant link below to access further details:
 
 ## WSL-ROS2 (Windows)
 
-We've created our own custom ROS2 (Humble) and Ubuntu (22.04) environment for WSL specifically for this course, which we call **"WSL-ROS2"**. The environment contains all the tools and ROS packages that you will need for COM2009. 
+*University of Sheffield Staff/Students Only*
+
+We've created our own custom ROS 2 (Jazzy) and Ubuntu (24.04) environment for WSL specifically for this course, which we call **"WSL-ROS2"**. The environment contains all the tools and ROS packages that you will need for the course exercises and assignments. 
 
 **This is our recommended option**, and there are two ways to access this: 
 
-1. [**Install it** on your own Windows 10 or 11 machine](./wsl-ros/install.md) via the IT Services Software Download Service.
-1. [**Access it** on a range of managed desktop computers across the University campus](./wsl-ros/man-win.md).
+1. [**Install it** on your own Windows 10 or 11 machine](./installing-wsl-ros2.md) via the IT Services Software Download Service.
+1. [**Access it** on a range of managed desktop computers across the University campus](./using-wsl-ros/README.md).
 
 ## Mac & Linux
 
-**New for 2025**
+For Mac users, the best option for installing ROS 2 on your machine is by using Docker, but please note that performance is not optimal. 
 
-We also have a couple of options for accessing ROS on Mac or Linux Machines:
+The Docker option works *very well* on Linux.
 
-1. [Installing with Docker](./other-options/docker-ros2.md) (Mac, Linux *& Windows*).
-1. [UTM](./other-options/utm.md) (Mac Only).
-
-
+* [Installing ROS 2 with Docker](./docker-ros2.md).

@@ -57,9 +57,7 @@ In addition to this, the robots are equipped with the following sensors:
 
 Our robots currently run [ROS 2 Jazzy Jalisco](https://docs.ros.org/en/jazzy/index.html){target="_blank"} (or *"Jazzy"* for short). The courses here are therefore based around this version of ROS. The easiest way to install Jazzy is via Deb packages for Ubuntu Noble Numbat (24.04). This is the setup we recommend and - as such - all our robotics hardware runs with this OS/Software setup.
 
-To deliver the simulation-based parts of this course, we've created a custom simulation environment using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. This has been developed primarily to run on University of Sheffield Managed Desktop Computers, which run Windows 11, but it's also possible to run this on other machines too. We call this simulation environment *"WSL-ROS2"*. [See here for more details](../software/wsl-ros/README.md).
-
-[You can find out more about installing ROS on your own system here](../software/README.md).
+To deliver the simulation-based parts of this course, we've created a custom simulation environment using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. This has been developed primarily to run on University of Sheffield Managed Desktop Computers, which run Windows 11, but it's also possible to run this on other machines too. We call this simulation environment *"WSL-ROS2"*. [See here for more details](../software/README.md). (You can find out more about installing ROS on your own system here too).
 
 ## Laptops
 

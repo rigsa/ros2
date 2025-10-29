@@ -1,11 +1,8 @@
 ---
-title: Installing "docker-ros2" for Linux, Mac (and Windows)
+title: Installing ROS 2 Using Docker (Linux & Mac)
 ---
 
-**Applicable to**: Linux, Mac (and Windows) Users
-
-!!! warning "Windows Users"
-    While this *should* work on Windows machines, it's currently untested so proceed with caution! (and remember that there's always [the WSL-ROS2 option](../wsl-ros/install.md))
+**Applicable to**: Linux and Mac Users
 
 ## Acknowledgments
 
@@ -36,7 +33,3 @@ ros_shell
 ```
 
 The above assumes that you have already set up your shell appropriately (again [see the README](https://github.com/hegde-atri/ros2-docker?tab=readme-ov-file#ros2-humble-development-container){target="_blank"}).
-
-### Windows
-
-[The process for Windows users is slightly different](https://github.com/hegde-atri/ros2-docker?tab=readme-ov-file#windows){target="_blank"}. 

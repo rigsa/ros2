@@ -1,19 +1,19 @@
 ---
-title: University Managed Desktops
+title: Getting Started with WSL-ROS2 on the University Managed Desktops
 ---
 
 ## Prerequisites
 
-* [Accessing WSL-ROS2 on a University Managed Desktop Computer](../wsl-ros/man-win.md)
+* [Accessing WSL-ROS2 on a University Managed Desktop Computer](./README.md)
 
 ## Launching WSL-ROS2
 
-1. Click the Windows Start Menu button: ![](../figures/win-logo.png)
+1. Click the Windows Start Menu button: ![](../figures/win-logo.svg)
     
 1. Then, start typing `wsl-ros` and click on the application shortcut that should appear in the list:
 
     <figure markdown>
-      ![](../figures/win-menu.png){width=700px}
+      ![](../figures/win-menu.svg){width=600px}
     </figure>
 
     Make sure you select **WSL-ROS2**! 
@@ -21,23 +21,25 @@ title: University Managed Desktops
     You'll then be presented with the following screen:
 
     <figure markdown>
-      ![](../figures/wsl-ros-first-install.png){width=700px}
+      ![](../figures/wsl-ros-first-install.png){width=600px}
     </figure>
 
-    WSL-ROS2 is now being installed from our custom OS image, which may take a couple of minutes to complete.  Once it's done, the *Windows Terminal* should automatically launch:
+    WSL-ROS2 is now being installed, which may take a couple of minutes to complete.  Once it's done, the *Windows Terminal* should automatically launch:
 
     <figure markdown>
-      ![](../figures/welcome.png){width=700px}
+      ![](../figures/win-term-welcome.png){width=600px}
     </figure>
 
 This is a **WSL-ROS2 Terminal Instance**!
 
-## Configuring Visual Studio Code {#configure-vscode}
+<!-- ## Configuring Visual Studio Code {#configure-vscode}
 
-*Visual Studio Code* (or *"VS Code,"* for short) should be installed on all the University of Sheffield Managed Desktop Computers that have WSL-ROS2 pre-installed on. This is a great *Integrated Development Environment (IDE)* that we'll use extensively throughout the course. You'll first need to make sure it's set up correctly though, so [follow the instructions here](./vscode.md), in preparation for later.
+*Visual Studio Code* (or *"VS Code,"* for short) should be installed on all the University of Sheffield Managed Desktop Computers that have WSL-ROS2 pre-installed on. This is a great *Integrated Development Environment (IDE)* that we'll use extensively throughout the course. You'll first need to make sure it's set up correctly though, so follow the instructions below in preparation for later:
+
+<center>[Setting up Visual Studio Code](./vscode.md){ .md-button }</center>
 
 !!! tip
-    You should only ever need to do this bit once: the configurations should be saved to your user profile, and should be carried over to any other University Desktop Computer that you log into!
+    You should only ever need to do this bit once: the configurations should be saved to your user profile, and should be carried over to any other University Desktop Computer that you log into! -->
 
 ## Backing-Up (and Restoring) your Data
 

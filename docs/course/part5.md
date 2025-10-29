@@ -52,11 +52,11 @@ Remember that any work that you do within the WSL-ROS2 Environment will not be p
 
 **Step 3: Launch VS Code**  
 
-*WSL users* [remember to check for this](../../ros/using-wsl-ros/vscode.md#verify).
+*WSL users* [remember to check for this](../software/using-wsl-ros/vscode.md#verify).
 
 **Step 4: Make Sure The Course Repo is Up-To-Date**
 
-Check that the Course Repo is up-to-date before you start on these exercises. [See here for how to install and/or update](../extras/course-repo.md).
+Check that the Course Repo is up-to-date before you start on these exercises. [See here for how to install and/or update](./extras/course-repo.md).
 
 ## Calling an Action Server
 

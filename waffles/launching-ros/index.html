@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/tuos_logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -1883,9 +1883,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-robot-laptop-bridging" class="md-nav__link">
+  <a href="#step-4-connecting-to-the-zenoh-router" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 4: Robot-Laptop 'Bridging'
+      Step 4: Connecting to the Zenoh Router
     </span>
   </a>
   
@@ -2037,9 +2037,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-robot-laptop-bridging" class="md-nav__link">
+  <a href="#step-4-connecting-to-the-zenoh-router" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 4: Robot-Laptop 'Bridging'
+      Step 4: Connecting to the Zenoh Router
     </span>
   </a>
   
@@ -2109,11 +2109,9 @@
 </li>
 <li>
 <p>We'll use our purpose-built <code>waffle</code> CLI to handle the pairing process. Run this in the terminal by entering the following command to <em>pair</em> the laptop and robot:</p>
-<hr>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>pair
 </code></pre></div>
 Replacing <code>X</code> with the number of the robot that you are working with.<p></p>
-<hr>
 </li>
 <li>
 <p>You may see a message like this early on in the pairing process:</p>
@@ -2134,11 +2132,9 @@ Replacing <code>X</code> with the number of the robot that you are working with.
 </li>
 <li>
 <p>Then, in the same terminal, enter the following command: <a name="tmux"></a></p>
-<hr>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>term
 </code></pre></div>
 (again, replacing <code>X</code> with the number of <em>your</em> robot).<p></p>
-<hr>
 <p>A green banner should appear across the bottom of the terminal window:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="500px"></a>
@@ -2148,7 +2144,7 @@ Replacing <code>X</code> with the number of the robot that you are working with.
 </ol>
 <h2 id="step-3-launching-ros">Step 3: Launching ROS<a class="headerlink" href="#step-3-launching-ros" title="Permanent link">¶</a></h2>
 <p>Launch ROS on the robot by entering the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>tb3_bringup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py
 </code></pre></div>
 <p>If all is well then the robot will play a nice <em>"do-re-me"</em> sound and a message like this should appear (amongst all the other text):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[tb3_status.py-#] ######################################
@@ -2163,20 +2159,19 @@ Replacing <code>X</code> with the number of the robot that you are working with.
 <p><strong>The robot's battery won't last a full 2-hour lab session!!</strong></p>
 <p>When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)</p>
 </div>
-<h2 id="step-4-robot-laptop-bridging">Step 4: Robot-Laptop 'Bridging'<a class="headerlink" href="#step-4-robot-laptop-bridging" title="Permanent link">¶</a></h2>
-<p>The Waffle and laptop both communicate over the University network via <a href="https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds" target="_blank">a Zenoh Bridge</a>. The bridge should already be running on the robot after having run the <code>tb3_bringup</code> command in <a href="#step-3-launching-ros">Step 3 above</a>. </p>
-<p>The next <strong>crucial</strong> step is to establish a connection to this bridge from the laptop, so that all ROS nodes, topics etc. can flow between the two devices as necessary. </p>
+<h2 id="step-4-connecting-to-the-zenoh-router">Step 4: Connecting to the <em>Zenoh Router</em><a class="headerlink" href="#step-4-connecting-to-the-zenoh-router" title="Permanent link">¶</a></h2>
+<p>We use a ROS 2 Middleware (RMW) implementation called <a href="https://github.com/ros2/rmw_zenoh">Zenoh</a> to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh <em>Router</em>, and this was enabled as part of the <em>bringup</em> operations that you launched in <a href="#step-3-launching-ros">Step 3 above</a>. We now need to launch a <em>Session</em> on the laptop to connect to this router. </p>
 <div class="admonition warning">
 <p class="admonition-title">This is Essential!</p>
-<p>You <strong>always</strong> need to have the bridge running on the laptop in order to be able to communicate with your robot!</p>
+<p>You <strong>always</strong> need to have a Zenoh session running on the laptop in order to be able to communicate with your robot!</p>
 </div>
 <p>Open up <strong>a new terminal instance</strong> on the laptop (either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>bridge
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rmw_zenoh_cpp<span class="w"> </span>rmw_zenohd
 </code></pre></div>
-You should now have two terminals active: <p></p>
+<p>You should now have two terminals active: </p>
 <ol>
-<li>The <em>robot</em> terminal where you ran <code>tb3_bringup</code> to launch ROS in <a href="#step-3-launching-ros">Step 3</a><sup id="fnref:term_recover"><a class="footnote-ref" href="#fn:term_recover">1</a></sup></li>
-<li>The <em>laptop</em> terminal where you just ran the <code>bridge</code> command</li>
+<li>The <em>robot</em> terminal where you ran the <code>ros2 launch tuos_tb3_tools ros.launch.py</code> operation (aka <em>"the bringup"</em>) in <a href="#step-3-launching-ros">Step 3</a><sup id="fnref:term_recover"><a class="footnote-ref" href="#fn:term_recover">1</a></sup></li>
+<li>The <em>laptop</em> terminal where you just ran the <code>rmw_zenohd</code> node</li>
 </ol>
 <p>Leave both of these terminals alone, but <strong>keep them running in the background at all times</strong> while working with your robot.</p>
 <h2 id="shutting-down-at-the-end-of-a-lab-session">Shutting Down (at the end of a Lab Session)<a class="headerlink" href="#shutting-down-at-the-end-of-a-lab-session" title="Permanent link">¶</a></h2>
@@ -2211,7 +2206,7 @@ You should now have two terminals active: <p></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 3, 2025 17:08:24 UTC"><span class="timeago" datetime="2025-11-03T17:08:24+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 3, 2025 17:08:24 UTC">2025-11-03</span>
   </span>
 
     

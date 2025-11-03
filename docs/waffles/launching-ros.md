@@ -27,14 +27,11 @@ Robots are named as follows:
 
 1. We'll use our purpose-built `waffle` CLI to handle the pairing process. Run this in the terminal by entering the following command to *pair* the laptop and robot:
 
-    ***
     ```bash
     waffle X pair
     ```
     Replacing `X` with the number of the robot that you are working with.
     
-    ***
-
 1. You may see a message like this early on in the pairing process:
 
     <figure markdown>
@@ -52,14 +49,11 @@ Robots are named as follows:
 
 1. Then, in the same terminal, enter the following command: <a name="tmux"></a>
 
-    ***
     ```bash
     waffle X term
     ```
     (again, replacing `X` with the number of *your* robot).
     
-    ***
-
     A green banner should appear across the bottom of the terminal window:
     
     <figure markdown>
@@ -73,7 +67,7 @@ Robots are named as follows:
 Launch ROS on the robot by entering the following command:
 
 ```bash
-tb3_bringup
+ros2 launch tuos_tb3_tools ros.launch.py
 ```
 
 If all is well then the robot will play a nice *"do-re-me"* sound and a message like this should appear (amongst all the other text):
@@ -97,24 +91,23 @@ Battery: 12.40V [100%]
     When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)
 
 
-## Step 4: Robot-Laptop 'Bridging'
+## Step 4: Connecting to the *Zenoh Router*
 
-The Waffle and laptop both communicate over the University network via [a Zenoh Bridge](https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds){target="_blank"}. The bridge should already be running on the robot after having run the `tb3_bringup` command in [Step 3 above](#step-3-launching-ros). 
-
-The next **crucial** step is to establish a connection to this bridge from the laptop, so that all ROS nodes, topics etc. can flow between the two devices as necessary. 
+We use a ROS 2 Middleware (RMW) implementation called [Zenoh](https://github.com/ros2/rmw_zenoh) to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh *Router*, and this was enabled as part of the *bringup* operations that you launched in [Step 3 above](#step-3-launching-ros). We now need to launch a *Session* on the laptop to connect to this router. 
 
 !!! warning "This is Essential!"
-    You **always** need to have the bridge running on the laptop in order to be able to communicate with your robot!
+    You **always** need to have a Zenoh session running on the laptop in order to be able to communicate with your robot!
 
 Open up **a new terminal instance** on the laptop (either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:
 
 ```bash
-waffle X bridge
+ros2 run rmw_zenoh_cpp rmw_zenohd
 ```
+
 You should now have two terminals active: 
 
-1. The *robot* terminal where you ran `tb3_bringup` to launch ROS in [Step 3](#step-3-launching-ros)[^term_recover]
-1. The *laptop* terminal where you just ran the `bridge` command
+1. The *robot* terminal where you ran the `ros2 launch tuos_tb3_tools ros.launch.py` operation (aka *"the bringup"*) in [Step 3](#step-3-launching-ros)[^term_recover]
+1. The *laptop* terminal where you just ran the `rmw_zenohd` node
 
 [^term_recover]: If you happen to have closed down the *robot* terminal, you can return to it by entering `waffle X term` from a new terminal instance on the laptop.
 

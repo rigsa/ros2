@@ -26,26 +26,23 @@ The robots will be provided to you with a battery already installed and ready to
 
 ## The Robot Laptops {#laptops}
 
-You'll be provided with one of our pre-configured *Robot Laptops* in the lab when working with the real Waffles. These Laptops (and the Robots) run **Ubuntu 22.04** with **ROS 2 Humble**. 
+You'll be provided with one of our pre-configured *Robot Laptops* in the lab when working with the real Waffles. This will have all the right software installed and ready to go. 
 
-There's a "student" user account already set up, and you'll need to use this when working in the lab. The laptop should log you into this user account automatically on startup, but we'll provide you with the account password as well, during the lab sessions, should you need it.
+There's a `student` user account already set up, and you'll need to use this when working in the lab. You'll need password to log into this, which we'll provide you with during the lab sessions.
 
 ## Network
 
-The Robots and Laptops must be able to connect to one another over an internet connection. The robots connect to a dedicated wireless network running in the Diamond called *'DIA-LAB'*. In order for the laptops to be able to "see" the robots, they must be connected to the university network using any of the following options:
+The Robots and Laptops must be able to connect to one another over an internet connection. The robots connect to a dedicated wireless network running in the Diamond called `DIA-LAB`. In order for the laptops to be able to "see" the robots, they must be connected to the university network using any of the following options:
 
-1. A wired (ethernet) connection (**Recommended**)
+1. The `eduroam` WiFi SSID
+1. The `DIA-LAB` WiFi SSID (**no internet access**!)
+1. A direct wired (ethernet) connection between the robot and laptop
 
-    * *(subject to provision of network sockets in CR5 by February 2025)*
-    
-1. The *eduroam* WiFi SSID
-1. The *DIA-LAB* WiFi SSID (**no internet access**!)
-
-WiFi credentials for DIA-LAB and eduroam have already been set on the laptops, allowing you to connect to either network straight away, but speak to a member of the teaching team if you are having any issues.
+WiFi credentials for `DIA-LAB` and `eduroam` have already been set on the laptops, allowing you to connect to either network straight away, but speak to a member of the teaching team if you are having any issues.
 
 ## VS Code
 
-*Visual Studio Code* is installed on the laptops for you to use when working on your ROS applications for the assignment tasks. Launch VS Code from any terminal by simply typing `code`. You can also launch it by clicking the icon in the favourites bar on the left-hand side of the screen:
+*Visual Studio Code* is installed on the laptops for you to use when working on your real-robot ROS 2 applications. Launch VS Code from any terminal by simply typing `code`. You can also launch it by clicking the icon in the favourites bar on the left-hand side of the screen:
 
 <figure markdown>
   ![](../images/vscode/icon.png)

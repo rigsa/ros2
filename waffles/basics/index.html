@@ -1994,7 +1994,7 @@
           <li class="md-nav__item">
   <a href="#exSimpleVelCtrl" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 5: Creating A Velocity Control Node (with Python)
+      Exercise 5: A Python Velocity Control Node
     </span>
   </a>
   
@@ -2238,7 +2238,7 @@
           <li class="md-nav__item">
   <a href="#exSimpleVelCtrl" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 5: Creating A Velocity Control Node (with Python)
+      Exercise 5: A Python Velocity Control Node
     </span>
   </a>
   
@@ -2315,15 +2315,15 @@
 
 
 <h1 id="waffle-ros-basics">Waffle (&amp; ROS) Basics<a class="headerlink" href="#waffle-ros-basics" title="Permanent link">¶</a></h1>
-<p>Having completed the steps on <a href="../launching-ros/">the previous page</a>, your robot and laptop should now be paired, and ROS should be up and running (on the robot). You're ready to bring the robot to life! </p>
-<p>On this page are a series of exercises for you to work through <strong>in your teams</strong>, to explore how the robots work. We'll also talk through some core ROS concepts and use some key ROS tools, in case you haven't had a chance to explore these in simulation yet.</p>
+<p>Having completed the steps on <a href="../launching-ros/">the previous page</a>, your robot and laptop should now be paired, and ROS should be up and running (on the robot). Now, you're ready to bring the robot to life! </p>
+<p>On this page are a series of exercises for you to work through, to see how the robots work. We'll also talk through some core ROS concepts and use some key ROS tools, in case you haven't had a chance to explore these in simulation yet.</p>
 <h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
 <ul>
 <li><a href="#exMove">Exercise 1: Making the Robot Move</a></li>
 <li><a href="#exViz">Exercise 2: Seeing the Sensors in Action</a></li>
 <li><a href="#exNet">Exercise 3: Visualising the ROS Network</a></li>
 <li><a href="#exTopicMsg">Exercise 4: Exploring ROS Topics and Interfaces</a></li>
-<li><a href="#exSimpleVelCtrl">Exercise 5: Creating A Velocity Control Node (with Python)</a></li>
+<li><a href="#exSimpleVelCtrl">Exercise 5: A Python Velocity Control Node</a></li>
 <li><a href="#exSlam">Exercise 6: Using SLAM to create a map of the environment</a></li>
 </ul>
 <h2 id="manual-control">Manual Control<a class="headerlink" href="#manual-control" title="Permanent link">¶</a></h2>
@@ -2331,12 +2331,16 @@
 <p>There's a very useful ready-made ROS application called <code>teleop_keyboard</code> (from the <code>turtlebot3_teleop</code> package) that we will use to drive a Waffle around. This node works in exactly the same way in both simulation and in the real-world!</p>
 <ol>
 <li>
-<p>Open up a new terminal instance on the laptop either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon, we'll refer to this as <strong>TERMINAL 1</strong>. In this terminal enter the following <code>ros2 run</code> command to launch the <code>teleop_keyboard</code> node:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
-</code></pre></div><p></p>
-<hr>
+<p>You should already have two terminal instances active:</p>
+<ul>
+<li><strong>TERMINAL 1</strong>: The <em>robot</em> terminal with the <em>"bringup"</em> processes running (<a href="../launching-ros/#step-3-launching-ros">Launching ROS, Step 3</a>)</li>
+<li><strong>TERMINAL 2</strong>: The <em>laptop</em> terminal with the <code>rmw_zenohd</code> node running (<a href="../launching-ros/#step-4-connecting-to-the-zenoh-router">Launching ROS, Step 4</a>)</li>
+</ul>
+</li>
+<li>
+<p>Open up a new terminal instance on the laptop either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon, we'll refer to this as <strong>TERMINAL 3</strong>. In this terminal enter the following <code>ros2 run</code> command to fire up the <code>teleop_keyboard</code> node:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
+</code></pre></div>
 </li>
 <li>
 <p>Follow the instructions provided in the terminal to drive the robot around using specific buttons on the keyboard:</p>
@@ -2349,7 +2353,7 @@
 </div>
 </li>
 <li>
-<p>Once you've spent a bit of time on this, close the application down by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 1</strong>.</p>
+<p>Once you've spent a bit of time on this, close the application down by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong>.</p>
 </li>
 </ol>
 <h2 id="packages-and-nodes">Packages and Nodes<a class="headerlink" href="#packages-and-nodes" title="Permanent link">¶</a></h2>
@@ -2373,60 +2377,49 @@
 <h4 id="exViz"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Seeing the Sensors in Action<a class="headerlink" href="#exViz" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>There shouldn't be anything running in <strong>TERMINAL 1</strong> now, after you closed down the <code>teleop_keyboard</code> node (using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>) at the end of the previous exercise. Return to this terminal and enter the following command:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py
-</code></pre></div><p></p>
-<hr>
+<p>There shouldn't be anything running in <strong>TERMINAL 3</strong> now, after you closed down the <code>teleop_keyboard</code> node (using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>) at the end of the previous exercise. Return to this terminal and enter the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py
+</code></pre></div>
 <p>This will launch an application called <em>RViz</em>, which is a handy tool that allows us to <em>visualise</em> the data from all the sensors on-board our robots. When RViz opens, you should see something similar to the following:</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/rviz.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz.png" width="700px"></a>
 </figure><p></p>
-<p>In the bottom left-hand corner of the RViz screen there should be a Camera panel, displaying a live image feed from the robot's camera.</p>
-<details class="bug">
-<summary>No camera images?</summary>
-<ol>
-<li>In the top-left "Displays" panel, scroll down to the "Camera" item.</li>
-<li>Under "Topic", find the "Reliability Policy" option.</li>
-<li>From the Drop-down box, change this from "Best Effort" to "Reliable".</li>
-</ol>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/rviz_cam_relpol.svg" width="400px"></a>
-</figure> <p></p>
-</details>
-<p>In the main RViz panel you should see a digital render of the robot, surrounded by lots of green dots. This is a representation of the <em>laser displacement data</em> coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.</p>
-<p>The LiDAR sensor spins and performs this process continuously, so a full 360° scan of the environment can be generated. This data is therefore really useful for things like <em>obstacle avoidance</em> and <em>mapping</em>. <!-- We'll explore this in more detail later. --></p>
+<p>Click on the checkbox next to <em>"Camera"</em> in the <em>"Displays"</em> list to enable camera subscription. A live feed from the robot's camera should then be displayed in the <em>Camera</em> panel in the bottom left.</p>
 </li>
 <li>
-<p>Place your hand in front of the robot and see if the position of the green dots change to match your hand's location. Move your hand up and down and consider at what height the LiDAR sensor is able to detect it.</p>
+<p>In the main RViz panel you should see a digital model of the robot, surrounded by lots of green dots. This is a representation of the <em>laser displacement data</em> coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.</p>
+<p>The LiDAR sensor spins and performs this process continuously, so a full 360° scan of the environment can be generated. This data is therefore really useful for things like <em>obstacle avoidance</em> and <em>mapping</em>.</p>
+</li>
+<li>
+<p>Place your hand in front of the robot and see if the position of the green dots changes to match your hand's location. Move your hand up and down and consider at what height the LiDAR sensor is able to detect it.</p>
 </li>
 <li>
 <p>Then, move your hand closer and further away and watch how the green dots move to match this. </p>
 </li>
 <li>
-<p>Open up a new terminal instance (<strong>TERMINAL 2</strong>) and launch the <code>teleop_keyboard</code> node as you did in Exercise 1. Watch how the data in the RViz screen changes as you drive the robot around a bit.</p>
+<p>Open up a new terminal instance (<strong>TERMINAL 4</strong>) and launch the <code>teleop_keyboard</code> node as you did in Exercise 1. Watch how the data in the RViz screen changes as you drive the robot around a bit.</p>
 </li>
 </ol>
 <h4 id="exNet"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Visualising the ROS Network<a class="headerlink" href="#exNet" title="Permanent link">¶</a></h4>
 <p>Using <code>ros2 run</code> and <code>ros2 launch</code>, as we have done so far, it's easy to end up with a lot of different processes or <em>ROS Nodes</em> running on the network, some of which we will interact with, but others may just be running in the background. It is often useful to know exactly what <em>is</em> running on the ROS network, and there are a few ways to do this.</p>
 <ol>
 <li>
-<p>Open up a new terminal instance now (<strong>TERMINAL 3</strong>) and from here use the <code>ros2 node</code> command to <em>list</em> the nodes that are currently running:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ros2<span class="w"> </span>node<span class="w"> </span>list
-</code></pre></div><p></p>
-<hr>
-<p>You may notice up to 4 items in the list.</p>
+<p>Open up a new terminal instance now (<strong>TERMINAL 5</strong>) and from here use the <code>ros2 node</code> command to <em>list</em> the nodes that are currently running:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ros2<span class="w"> </span>node<span class="w"> </span>list
+</code></pre></div>
+<p>At a <em>minimum</em>, you should be presented with the following list: </p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/camera
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/diff_drive_controller
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/hlds_laser_publisher
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>/robot_state_publisher
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/tb3_status_node
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>/turtlebot3_node
+</code></pre></div>
 </li>
 <li>
-<p>We can visualise the connections between the active nodes by using a ROS node called <code>rqt_graph</code>. Launch this as follows:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rqt
-</code></pre></div><p></p>
-<hr>
+<p>We can visualise the connections between the active nodes by using a ROS node called <code>rqt_graph</code>. In the same terminal, launch this as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rqt
+</code></pre></div>
 <p>A window should then open:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/main.png" width="600"></a>
@@ -2434,70 +2427,157 @@
 </li>
 <li>
 <p>From here, we then want to load the <em>Node Graph</em> plugin. From the top menu select <code>Plugins</code> &gt; <code>Introspection</code> &gt; <code>Node Graph</code>.</p>
+<details class="tip">
+<summary>Shortcut</summary>
+<p>You can also launch the <code>rqt_graph</code> node directly with <code>ros2 run</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_graph<span class="w"> </span>rqt_graph
+</code></pre></div>
+</details>
 </li>
 <li>
 <p>In the window that opens, select <code>Nodes/Topics (active)</code> from the dropdown menu in the top left. </p>
 <p>What you should then see is a map of all the nodes in the list from above (as ovals), and arrows to illustrate the flow of information between them. This is a visual representation of the ROS network!</p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle.png" width="600px"></a>
+</figure><p></p>
 <p>Items that have a rectangular border are <em>ROS Topics</em>. ROS Topics are essentially communication channels, and ROS Nodes can read (<em>subscribe</em>) or write (<em>publish</em>) to these topics to access sensor data, pass information around the network and make things happen.</p>
-<p>If the <code>teleop_keyboard</code> Node is still active (in <strong>TERMINAL 2</strong>) then this graph should show us that the node is publishing messages to a topic called <code>/cmd_vel</code>, which in turn is being subscribed to by the <code>zenoh_bridge_ros2dds</code> Node. The Zenoh Bridge node handles all communication between the robot and the laptop, so this node is tunnelling the data from <code>/cmd_vel</code> to the robot to make it move.</p>
+<p>If the <code>teleop_keyboard</code> Node is still active (in <strong>TERMINAL 4</strong>) then the graph should show us that this node is publishing messages to a topic called <code>/cmd_vel</code>, which in turn is being subscribed to by <code>turtlebot3_node</code>. </p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle_teleop.png" width="600px"></a>
+</figure><p></p>
+<p>This node runs on the robot and controls its velocity. We send instructions to this (by publishing to the <code>/cmd_vel</code> topic) to actually make the robot move.</p>
 </li>
 </ol>
 <p>A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses <em>ROS communication methods</em> to communicate and share data with the other nodes on the ROS Network.</p>
 <h2 id="publishers-and-subscribers-a-ros-communication-method">Publishers and Subscribers: A <em>ROS Communication Method</em><a class="headerlink" href="#publishers-and-subscribers-a-ros-communication-method" title="Permanent link">¶</a></h2>
-<p>ROS Topics are key to making things happen on a robot. Nodes can publish (<em>write</em>) and/or subscribe to (<em>read</em>) ROS Topics in order to share data around the ROS network. Data is published to topics via <em>message interfaces</em>.</p>
+<p>ROS Topics are therefore key to making things happen on a robot. Nodes can publish (<em>write</em>) and/or subscribe to (<em>read</em>) ROS Topics in order to share data around the ROS network. Data is published to topics via <em>message-type interfaces</em>.</p>
 <p>Let's have a look at this in a bit more detail...</p>
 <h4 id="exTopicMsg"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Exploring ROS Topics and Interfaces<a class="headerlink" href="#exTopicMsg" title="Permanent link">¶</a></h4>
 <p>Much like the <code>ros2 node list</code> command, we can use <code>ros2 topic list</code> to list all the <em>topics</em> that are currently active on the ROS network.</p>
 <ol>
 <li>
-<p>Close down the RQT Graph window if you haven't done so already. This will release <strong>TERMINAL 3</strong> so that we can enter commands in it again. Return to this terminal window and enter the following:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
-</code></pre></div><p></p>
-<hr>
-<p>A much larger list of items should be printed to the terminal now. See if you can spot the <code>/cmd_vel</code> item in the list.</p>
-<p>This topic is used to control the velocity of the robot (<em>'command velocity'</em>).</p>
+<p>Close down the RQT Graph window if you haven't done so already. This will release <strong>TERMINAL 5</strong> so that we can enter commands in it again. Return to this terminal window and enter the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
+</code></pre></div>
+<p>A new list of items should be printed to the terminal now. See if you can spot the <code>/cmd_vel</code> item in the list.</p>
+<p>As we learnt above, this topic is used to control the velocity of the robot (<em>'command velocity'</em>).</p>
 </li>
 <li>
 <p>Let's find out more about this using the <code>ros2 topic info</code> command.</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
-</code></pre></div><p></p>
-<hr>
-<p>This should provide an output similar to the following: </p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Type: geometry_msgs/msg/Twist
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Publisher count: 1
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Subscription count: 1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
 </code></pre></div>
-<p>This tells us that the <em>type</em> of data being communicated on the <code>/cmd_vel</code> topic is called: <code>geometry_msgs/msg/Twist</code>. </p>
+<p>This should provide an output similar to the following: </p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Type: geometry_msgs/msg/TwistStamped
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Publisher count: 1
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Subscription count: 1
+</code></pre></div>
+<p>This tells us that the <em>type</em> of data being communicated on the <code>/cmd_vel</code> topic is called: <code>geometry_msgs/msg/TwistStamped</code>. </p>
 <p>The interface description has three parts:</p>
 <ol>
 <li><code>geometry_msgs</code>: The name of the ROS package that this interface belongs to.</li>
 <li><code>msg</code>: The type of interface. In this case <em>message</em>, but there are other types too. </li>
-<li><code>Twist</code>: The name of the message interface. </li>
+<li><code>TwistStamped</code>: The name of the message interface. </li>
 </ol>
-<p>We have just learnt then, that if we want to make the robot move we need to publish <code>Twist</code> <em>messages</em> to the <code>/cmd_vel</code> topic. </p>
+<p>We have just learnt then, that if we want to make the robot move we need to publish <code>TwistStamped</code> <em>messages</em> to the <code>/cmd_vel</code> topic. </p>
 </li>
 <li>
-<p>We can use the <code>ros2 interface</code> command to find out more about the <code>Twist</code> message:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>geometry_msgs/msg/Twist
-</code></pre></div><p></p>
-<hr>
-<p>From this, we should obtain the following:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Vector3  linear
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>        float64 x
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        float64 y
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        float64 z
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Vector3  angular
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        float64 x
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        float64 y
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>        float64 z
+<p>We can use the <code>ros2 interface</code> command to find out more about the <code>TwistStamped</code> message:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>geometry_msgs/msg/TwistStamped
 </code></pre></div>
-<p>Let's find out what it all means...</p>
+<p>From this, we should obtain the following:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>std_msgs/Header header
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>        builtin_interfaces/Time stamp
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>                int32 sec
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>                uint32 nanosec
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        string frame_id
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Twist twist
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        Vector3  linear
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>                float64 x
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>                float64 y
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>                float64 z
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>        Vector3  angular
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>                float64 x
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>                float64 y
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>                float64 z
+</code></pre></div>
+<p>Here we have a list of fields, subfields and data types. The interface has two <em>base fields</em> (indicated by the lines that are not indented):</p>
+<p></p><center><p></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th style="text-align: center;">Field <em>Name</em></th>
+<th style="text-align: center;">Field <em>Type</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><code>header</code></td>
+<td style="text-align: center;"><code>std_msgs/Header</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><code>twist</code></td>
+<td style="text-align: center;"><code>Twist</code></td>
+</tr>
+</tbody>
+</table>
+<p></p></center><p></p>
+<p>Of the above, we're most interested in <em>Field 2</em>, which contains a further two subfields: </p>
+<p></p><center><p></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th style="text-align: center;">Field <em>Name</em></th>
+<th style="text-align: center;">Field <em>Type</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><code>linear</code></td>
+<td style="text-align: center;"><code>Vector3</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><code>angular</code></td>
+<td style="text-align: center;"><code>Vector3</code></td>
+</tr>
+</tbody>
+</table>
+<p></p></center><p></p>
+<p>Each of <em>these</em> contains 3 <em>further</em> subfields: <code>x</code>, <code>y</code> and <code>z</code>:</p>
+<p></p><center><p></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th style="text-align: center;">Field Name</th>
+<th style="text-align: center;">Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><code>x</code></td>
+<td style="text-align: center;"><code>float64</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><code>y</code></td>
+<td style="text-align: center;"><code>float64</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><code>z</code></td>
+<td style="text-align: center;"><code>float64</code></td>
+</tr>
+</tbody>
+</table>
+<p></p></center><p></p>
+<p>Let's find out what this all means...</p>
 </li>
 </ol>
 <h2 id="velocity-control">Velocity Control<a class="headerlink" href="#velocity-control" title="Permanent link">¶</a></h2>
@@ -2505,264 +2585,229 @@
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="600"></a></p>
 </figure>
-<p>In theory then, a robot can move <em>linearly</em> or <em>angularly</em> about any of these three axes, as shown by the arrows in the figure. That's six <em>Degrees of Freedom</em> (DOFs) in total, achieved based on a robot's design and the actuators it is equipped with. Take a look back at the <code>ros2 interface show</code> output above. Hopefully it's a bit clearer now that these topic messages are formatted to give a ROS Programmer the ability to <em>ask</em> a robot to move in any one of its six DOFs. </p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Vector3  linear
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>        float64 x  &lt;-- Forwards (or Backwards)
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        float64 y  &lt;-- Left (or Right)
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        float64 z  &lt;-- Up (or Down)
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Vector3  angular
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        float64 x  &lt;-- "Roll"
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        float64 y  &lt;-- "Pitch"
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        float64 z  &lt;-- "Yaw"
+<p>In theory then, a robot can move <em>linearly</em> or <em>angularly</em> about any of these three axes, as shown by the arrows in the figure. That's six <em>Degrees of Freedom</em> (DOFs) in total, achieved based on a robot's design and the actuators it is equipped with. Take a look back at the <code>ros2 interface show</code> output above. Hopefully it's a bit clearer now that the <code>twist</code> subfield of the <code>TwistStamped</code> interface is formatted to give a ROS Programmer the ability to <em>ask</em> a robot to move in any one of its six DOFs. </p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Vector3  linear
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        float64 x  &lt;-- Forwards (or Backwards)
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        float64 y  &lt;-- Left (or Right)
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        float64 z  &lt;-- Up (or Down)
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>Vector3  angular
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        float64 x  &lt;-- "Roll"
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        float64 y  &lt;-- "Pitch"
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        float64 z  &lt;-- "Yaw"
 </code></pre></div>
 <p>Our TurtleBot3 robot only has two motors, so it doesn't actually have six DOFs! The two motors can be controlled independently, which gives it what is called a <em>"differential drive"</em> configuration, but this still only allows it to move with <strong>two degrees of freedom</strong> in total, as illustrated below.</p>
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="600"></a></p>
 </figure>
 <p>It can therefore only move <strong>linearly</strong> in the <strong>x-axis</strong> (<em>Forwards/Backwards</em>) and <strong>angularly</strong> in the <strong>z-axis</strong> (<em>Yaw</em>). </p>
-<h4 id="exSimpleVelCtrl"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: Creating A Velocity Control Node (with Python)<a class="headerlink" href="#exSimpleVelCtrl" title="Permanent link">¶</a></h4>
+<h4 id="exSimpleVelCtrl"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: A Python Velocity Control Node<a class="headerlink" href="#exSimpleVelCtrl" title="Permanent link">¶</a></h4>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Before you start this, close down RViz (click the "Close without saving" button, if asked) and stop the <code>teleop_keyboard</code> node by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 2</strong>.</p>
+<p>Before you start this, make sure you have nothing running in <strong>TERMINALS</strong> <strong>3</strong>, <strong>4</strong> &amp; <strong>5</strong> (enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in each of these terminals to stop any processes that may be running there).</p>
 </div>
-<p>As we've seen, making a robot move with ROS is simply a case of publishing the right ROS Interface (<code>geometry_msgs/msg/Twist</code>) to the right ROS Topic (<code>/cmd_vel</code>). Earlier we used the <code>teleop_keyboard</code> node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the <code>/cmd_vel</code> topic.</p>
+<p>As we've seen, making a robot move with ROS is simply a case of publishing the right data (<code>geometry_msgs/msg/TwistStamped</code>) to the right ROS Topic (<code>/cmd_vel</code>). Earlier we used the <code>teleop_keyboard</code> node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the <code>/cmd_vel</code> topic.</p>
 <p>In reality, robots need to be able to navigate complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this now by building a simple node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex applications that you will learn about in the lab course!</p>
 <ol>
 <li>
-<p>Above we talked about how ROS Nodes should be contained within packages, so let's create one now using a helper script that we've already put together. (This is covered in more detail in the ROS course, but for the purposes of this exercise let's just go ahead and run the script without worrying too much about it!)</p>
-<p>In <strong>TERMINAL 1</strong>, navigate to the <code>tuos_ros</code> Course Repo, which is located in the ROS2 Workspace on the laptop:</p>
-<hr>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/
+<p>Above, we talked about how ROS Nodes should be contained within packages, so let's create one now using a helper script that we've already put together. (This is covered in more detail in the ROS course, but for the purposes of this exercise let's just go ahead and run the script without worrying too much about it!)</p>
+<p>In <strong>TERMINAL 3</strong>, navigate to <em>the ROS2 Workspace</em> on the laptop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
 </code></pre></div>
-<p>Here you'll find the <code>create_pkg.sh</code> helper script. Run this now using the following command to create a new ROS package called <code>waffle_demo</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>./create_pkg.sh<span class="w"> </span>waffle_demo
+</li>
+<li>
+<p>From here, use <code>git</code> to <em>clone</em> our <em>"ROS 2 Package Template"</em> from GitHub:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tom-howard/ros2_pkg_template.git
 </code></pre></div>
-<hr>
+</li>
+<li>
+<p>This package template contains a script called <code>init_pkg.sh</code>, which can be called to turn the template into a proper ROS 2 package. Run the script as follows, which will convert the template into a ROS 2 package called <code>waffle_demo</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>./ros2_pkg_template/init_pkg.sh<span class="w"> </span>waffle_demo
+</code></pre></div>
 </li>
 <li>
 <p>Navigate into this new package directory (using <code>cd</code>):</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>../waffle_demo/scripts/<span class="w"> </span>
-</code></pre></div><p></p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p><code>..</code> means "go back one directory," so that command above is telling <code>cd</code> to navigate out of the <code>tuos_ros</code> directory (and therefore back to <code>~/ros2_ws/src/</code>), and then go <em>into</em> the <code>waffle_demo</code> package directory from there (and then into the <code>scripts</code> directory within that).</p>
-</div>
-<hr>
-</li>
-<li>
-<p>Here, create a Python file called <code>square.py</code> using the <code>touch</code> command:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>touch<span class="w"> </span>square.py
-</code></pre></div><p></p>
-<hr>
-</li>
-<li>
-<p>You'll need to change the <em>execution permissions</em> for this file in order to be able to run it later on. This is also covered in more depth in the ROS course but, for now, simply run the following command:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>square.py
-</code></pre></div><p></p>
-<hr>
-</li>
-<li>
-<p>Now we need to start editing files in our package, and we'll do that using <em>Visual Studio Code</em> (VS Code). </p>
-<p>First, use <code>cd</code> to navigate back one directory, to get us back to the root of our package:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong> 
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>..
-</code></pre></div><p></p>
-<p>Verify that you're in the right place by using the <code>pwd</code> command, which should provide the following output:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$<span class="w"> </span><span class="nb">pwd</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>/home/student/ros2_ws/src/waffle_demo
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>waffle_demo/<span class="w"> </span>
 </code></pre></div>
-<p>Having confirmed that you're in the right place, open up VS Code in this directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>code<span class="w"> </span>.
+</li>
+<li>
+<p>This package contains a subdirectory called <code>scripts</code>, and within this there are two basic nodes to get us started:</p>
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>tree<span class="w"> </span>scripts/
+</code></pre></div>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>scripts/
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>├── basic_velocity_control.py
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>└── stop_me.py
+</code></pre></div><p></p>
+</li>
+<li>
+<p>Let's open up our package now in <em>Visual Studio Code</em> (VS Code). </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>code<span class="w"> </span>.
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Don't forget to include the <code>.</code> at the end there, it's important!!</p>
 </div>
-<hr>
 </li>
 <li>
-<p>Next, we need to add our <code>square.py</code> file as an executable to our package's <code>CMakeLists.txt</code>. </p>
-<p>In VS Code, open the <code>CMakeLists.txt</code> file that is at the root of the <code>waffle_demo</code> package directory (<code>/home/student/ros2_ws/src/waffle_demo/CMakeLists.txt</code>). </p>
-<p>Locate the lines (near the bottom of the file) that read:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a># Install Python executables
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>install(PROGRAMS
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>  scripts/minimal_node.py
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>  DESTINATION lib/${PROJECT_NAME}
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>)
-</code></pre></div>
-<p>Replace <code>minimal_node.py</code> with <code>square.py</code> to define this as an executable of your package:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a># Install Python executables
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>install(PROGRAMS
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>  scripts/square.py
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>  DESTINATION lib/${PROJECT_NAME}
-<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>)
-</code></pre></div>
-</li>
+<p>Next, in the VS Code file explorer, open up the <code>scripts</code> directory, find the <code>basic_velocity_control.py</code> file and click it to open it up in the editor.</p>
+<p><a name="timedSquareCode"></a></p>
+<p>This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through it:</p>
+<ol>
 <li>
-<p>Next, in the VS Code file explorer, open up the <code>scripts</code> directory and click on the <code>square.py</code> file to open it up in the editor.</p>
-</li>
-<li>
-<p>Paste the following content into the <code>square.py</code> file: <a name="timedSquareCode"></a></p>
-<div class="highlight"><span class="filename">square.py</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="ch">#!/usr/bin/env python3</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="c1"># TODO: shutdown hook</span>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
-<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span> <span class="c1"># (1)!</span>
-<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
-<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Twist</span> <span class="c1"># (2)!</span>
-<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="nb">pow</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># (3)!</span>
-<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
-<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">Square</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span> <span class="c1"># (4)!</span>
-<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>
-<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">"square"</span><span class="p">)</span> <span class="c1"># (5)!</span>
-<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>
-<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">vel_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>            <span class="n">msg_type</span><span class="o">=</span><span class="n">Twist</span><span class="p">,</span>
-<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a>            <span class="n">topic</span><span class="o">=</span><span class="s2">"cmd_vel"</span><span class="p">,</span>
-<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>            <span class="n">qos_profile</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>        <span class="p">)</span> <span class="c1"># (6)!</span>
-<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>
-<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="mi">1</span>
-<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">change_state</span> <span class="o">=</span> <span class="kc">True</span>
-<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a>
-<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">vel</span> <span class="o">=</span> <span class="n">Twist</span><span class="p">()</span> <span class="c1"># (7)!</span>
-<a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a>
-<a id="__codelineno-22-27" name="__codelineno-22-27" href="#__codelineno-22-27"></a>        <span class="n">ctrl_rate</span> <span class="o">=</span> <span class="mi">10</span> 
-<a id="__codelineno-22-28" name="__codelineno-22-28" href="#__codelineno-22-28"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
-<a id="__codelineno-22-29" name="__codelineno-22-29" href="#__codelineno-22-29"></a>            <span class="n">timer_period_sec</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">ctrl_rate</span><span class="p">,</span>
-<a id="__codelineno-22-30" name="__codelineno-22-30" href="#__codelineno-22-30"></a>            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timer_callback</span><span class="p">,</span>
-<a id="__codelineno-22-31" name="__codelineno-22-31" href="#__codelineno-22-31"></a>        <span class="p">)</span> <span class="c1"># (8)!</span>
-<a id="__codelineno-22-32" name="__codelineno-22-32" href="#__codelineno-22-32"></a>
-<a id="__codelineno-22-33" name="__codelineno-22-33" href="#__codelineno-22-33"></a>        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">seconds_nanoseconds</span><span class="p">()</span> <span class="c1"># (9)!</span>
-<a id="__codelineno-22-34" name="__codelineno-22-34" href="#__codelineno-22-34"></a>
-<a id="__codelineno-22-35" name="__codelineno-22-35" href="#__codelineno-22-35"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-22-36" name="__codelineno-22-36" href="#__codelineno-22-36"></a>            <span class="sa">f</span><span class="s2">"The '</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="s2">' node is initialised."</span>
-<a id="__codelineno-22-37" name="__codelineno-22-37" href="#__codelineno-22-37"></a>        <span class="p">)</span>
-<a id="__codelineno-22-38" name="__codelineno-22-38" href="#__codelineno-22-38"></a>
-<a id="__codelineno-22-39" name="__codelineno-22-39" href="#__codelineno-22-39"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">timer_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># (10)!</span>
-<a id="__codelineno-22-40" name="__codelineno-22-40" href="#__codelineno-22-40"></a>        <span class="p">[</span><span class="n">time_now</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">seconds_nanoseconds</span><span class="p">()</span>
-<a id="__codelineno-22-41" name="__codelineno-22-41" href="#__codelineno-22-41"></a>        <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">time_now</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="c1"># (11)!</span>
-<a id="__codelineno-22-42" name="__codelineno-22-42" href="#__codelineno-22-42"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_state</span><span class="p">:</span> <span class="c1"># (12)!</span>
-<a id="__codelineno-22-43" name="__codelineno-22-43" href="#__codelineno-22-43"></a>            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">seconds_nanoseconds</span><span class="p">()</span>
-<a id="__codelineno-22-44" name="__codelineno-22-44" href="#__codelineno-22-44"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">change_state</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="__codelineno-22-45" name="__codelineno-22-45" href="#__codelineno-22-45"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
-<a id="__codelineno-22-46" name="__codelineno-22-46" href="#__codelineno-22-46"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
-<a id="__codelineno-22-47" name="__codelineno-22-47" href="#__codelineno-22-47"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-22-48" name="__codelineno-22-48" href="#__codelineno-22-48"></a>                <span class="sa">f</span><span class="s2">"Changing to state: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<a id="__codelineno-22-49" name="__codelineno-22-49" href="#__codelineno-22-49"></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># (13)!</span>
-<a id="__codelineno-22-50" name="__codelineno-22-50" href="#__codelineno-22-50"></a>            <span class="k">if</span> <span class="n">elapsed_time</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-22-51" name="__codelineno-22-51" href="#__codelineno-22-51"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="mi">2</span>
-<a id="__codelineno-22-52" name="__codelineno-22-52" href="#__codelineno-22-52"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">change_state</span> <span class="o">=</span> <span class="kc">True</span>
-<a id="__codelineno-22-53" name="__codelineno-22-53" href="#__codelineno-22-53"></a>            <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-22-54" name="__codelineno-22-54" href="#__codelineno-22-54"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.05</span>
-<a id="__codelineno-22-55" name="__codelineno-22-55" href="#__codelineno-22-55"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
-<a id="__codelineno-22-56" name="__codelineno-22-56" href="#__codelineno-22-56"></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># (14)!</span>
-<a id="__codelineno-22-57" name="__codelineno-22-57" href="#__codelineno-22-57"></a>            <span class="k">if</span> <span class="n">elapsed_time</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-<a id="__codelineno-22-58" name="__codelineno-22-58" href="#__codelineno-22-58"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="mi">1</span>
-<a id="__codelineno-22-59" name="__codelineno-22-59" href="#__codelineno-22-59"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">change_state</span> <span class="o">=</span> <span class="kc">True</span>
-<a id="__codelineno-22-60" name="__codelineno-22-60" href="#__codelineno-22-60"></a>            <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-22-61" name="__codelineno-22-61" href="#__codelineno-22-61"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.2</span>
-<a id="__codelineno-22-62" name="__codelineno-22-62" href="#__codelineno-22-62"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
-<a id="__codelineno-22-63" name="__codelineno-22-63" href="#__codelineno-22-63"></a>
-<a id="__codelineno-22-64" name="__codelineno-22-64" href="#__codelineno-22-64"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-22-65" name="__codelineno-22-65" href="#__codelineno-22-65"></a>            <span class="sa">f</span><span class="s2">"Publishing Velocities:</span><span class="se">\n</span><span class="s2">"</span>
-<a id="__codelineno-22-66" name="__codelineno-22-66" href="#__codelineno-22-66"></a>            <span class="sa">f</span><span class="s2">"  linear.x: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m/s] | angular.z: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [rad/s]."</span><span class="p">,</span>
-<a id="__codelineno-22-67" name="__codelineno-22-67" href="#__codelineno-22-67"></a>            <span class="n">throttle_duration_sec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-22-68" name="__codelineno-22-68" href="#__codelineno-22-68"></a>        <span class="p">)</span>
-<a id="__codelineno-22-69" name="__codelineno-22-69" href="#__codelineno-22-69"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vel</span><span class="p">)</span> <span class="c1"># (15)!</span>
-<a id="__codelineno-22-70" name="__codelineno-22-70" href="#__codelineno-22-70"></a>
-<a id="__codelineno-22-71" name="__codelineno-22-71" href="#__codelineno-22-71"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1"># (16)!</span>
-<a id="__codelineno-22-72" name="__codelineno-22-72" href="#__codelineno-22-72"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
-<a id="__codelineno-22-73" name="__codelineno-22-73" href="#__codelineno-22-73"></a>    <span class="n">node</span> <span class="o">=</span> <span class="n">Square</span><span class="p">()</span>
-<a id="__codelineno-22-74" name="__codelineno-22-74" href="#__codelineno-22-74"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<a id="__codelineno-22-75" name="__codelineno-22-75" href="#__codelineno-22-75"></a>    <span class="n">node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
-<a id="__codelineno-22-76" name="__codelineno-22-76" href="#__codelineno-22-76"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
-<a id="__codelineno-22-77" name="__codelineno-22-77" href="#__codelineno-22-77"></a>
-<a id="__codelineno-22-78" name="__codelineno-22-78" href="#__codelineno-22-78"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
-<a id="__codelineno-22-79" name="__codelineno-22-79" href="#__codelineno-22-79"></a>    <span class="n">main</span><span class="p">()</span>
+<p>First, we have some imports:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwistStamped</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span> <span class="c1"># (3)!</span>
 </code></pre></div>
 <ol>
-<li><code>rclpy</code> is the ROS client library for Python. We need this (and the <code>Node</code> class from it) in order to build and run Python ROS nodes.</li>
-<li>We know from earlier that in order to make a robot move we need to publish messages to the <code>/cmd_vel</code> topic, and that this topic uses the <code>geometry_msgs/msg/Twist</code> interface messages. This is how we import that message into the node, in order to create velocity commands in Python (which we'll get to shortly...)</li>
-<li>
-<p>Here we're importing some mathematical operators that could be useful... </p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">Mathematical Operation</th>
-<th style="text-align: center;">Python Syntax</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><span class="arithmatex">\(\sqrt{a+b}\)</span></td>
-<td style="text-align: center;"><code class="highlight"><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span></code></td>
-</tr>
-<tr>
-<td style="text-align: center;"><span class="arithmatex">\(a^{2}+(bc)^{3}\)</span></td>
-<td style="text-align: center;"><code class="highlight"><span class="nb">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></code></td>
-</tr>
-<tr>
-<td style="text-align: center;"><span class="arithmatex">\(\pi r^2\)</span></td>
-<td style="text-align: center;"><code class="highlight"><span class="n">pi</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></code></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>All the functionality of our Python node is contained within a Class called <code>Square</code>.    </p>
-</li>
-<li>When we initialise this class, we provide a name for our node, which is the name that is used to register it on the ROS network. We're calling this one "square".</li>
-<li>Here we are setting up a publisher to the <code>/cmd_vel</code> topic so that the node can write <code>Twist</code> messages to this topic to make the robot move.</li>
-<li>We're instantiating a <code>Twist</code> message here and calling it <code>vel</code> (we'll assign velocity values to this later on). A <code>Twist</code> message contains six different components that we can assign values to. Any idea <a href="#velocity-control">what these six values might represent</a>?  </li>
-<li>We want our node to run at a rate of 10 times per second (10 Hz), so we create a timer object here, set the timer period (<code>timer_period_sec</code>) and then point the object to a <em>"callback function"</em> that is defined later on in the code. This callback function will execute at the rate that we specify with <code>timer_period_sec</code>...</li>
-<li>What time is it right now? (This will help us to keep track of elapsed time in our main timer callback...)</li>
-<li>Here we're defining our timer callback function. Everything here will execute at the rate that we specified earlier, so we can encapsulate our main control code in here and be confident that it will execute repeatedly (and indefinitely) at our desired rate.</li>
-<li>Here we're comparing the time <em>now</em> to the time the last time we checked, to tell us how much time has elapsed since then (converting from nanoseconds to seconds by multiplying by <code>1e-9</code>). We'll use that information to decide what the robot should do...</li>
-<li>This variable is used to stop the robot (if necessary), check the time again, and then move into a new state.</li>
-<li>In state <code>1</code> we set velocities that will make the robot move forwards (linear-X velocity only). If the elapsed time is greater than <strong>2 seconds</strong> however, we move on to state <code>2</code>.</li>
-<li>In state <code>2</code> we set velocities that will make the robot turn on the spot (angular-Z velocity only). In this case, if the elapsed time is greater than <strong>4 seconds</strong>, we move back to state <code>1</code>.</li>
-<li>Regardless of what happens in the <code>if</code> statements above, we <em>always</em> publish a velocity command to the <code>/cmd_vel</code> topic here (i.e. every time this timer callback executes).</li>
-<li>The rest of the code here is <em>"boilerplate"</em>: a standard approach that we'll use to instantiate our nodes and execute them. You'll learn about all of this throughout the lab course.</li>
-<li>We're defining a class method here that we can call when our node needs to shut down. We're controlling a robot here, so it's important to make sure the robot stops moving when this happens.</li>
+<li><code>rclpy</code> is the ROS client library for Python. We need this so that our Python node can interact with ROS.</li>
+<li><a href="#ex4">We know from earlier</a> that in order to make a robot move we need to publish messages to the <code>/cmd_vel</code> topic, and that this topic uses a data structure (or Interface) called <code>geometry_msgs/msg/TwistStamped</code>. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)</li>
+<li>We'll use this to control timing in our node.</li>
 </ol>
-<p>Click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> icons above to expand the code annotations. Read these carefully to ensure that you understand what's going on and how this code works.</p>
+<p>Click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> icons above to reveal more information about each line of the code.</p>
 </li>
 <li>
-<p>Having programmed our node and defined it as an executable in our package, we're now ready to build the package so that we can run it. We use a tool called "Colcon" to do this, but this <strong>MUST</strong> be run from the root of the ROS Workspace (i.e.: <code>~/ros2_ws/</code>), so let's navigate there now using <code>cd</code>:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong> 
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span>
-</code></pre></div><p></p>
+<p>Next, we declare some variables that we can use and adapt during the main execution of our code:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">vel</span> <span class="o">=</span> <span class="n">TwistStamped</span><span class="p">()</span> <span class="c1"># (2)!</span>
+</code></pre></div>
+<ol>
+<li>Inside the <code class="highlight"><span class="k">while</span></code> loop (explained shortly) we define two different operational states for the robot, and we can control which one is active by changing this value from <code>1</code> to <code>2</code> (and visa-versa).</li>
+<li>
+<p>We're instantiating a <code>TwistStamped</code> Interface message here and calling it <code>vel</code>. We'll assign velocity values to this in the <code class="highlight"><span class="k">while</span></code> loop later on.</p>
+<p>Recall that a <code>TwistStamped</code> message contains six different components that we can assign values to. <a href="#velocity-control">Which <em>two</em> are relevant to our robot</a>?</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Next we configure some important ROS-related things:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">node</span> <span class="o">=</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">"basic_velocity_control"</span><span class="p">)</span>  <span class="c1"># (2)!</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="n">vel_pub</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">TwistStamped</span><span class="p">,</span> <span class="s2">"cmd_vel"</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># (3)!</span>
+</code></pre></div>
+<ol>
+<li>Initialise <code>rclpy</code> and all the ROS communications that are necessary for our node. </li>
+<li>Initialise this Python script as an actual ROS node, providing a name for it to be registered on the ROS network with ("basic_velocity_control" in this case).</li>
+<li>Here we're setting up a publisher to the <code>/cmd_vel</code> topic so that the node can send velocity commands to the robot (using <code>TwistStamped</code> data).</li>
+</ol>
+</li>
+<li>
+<p>After this, we're defining another variable:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">timestamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (1)!</span>
+</code></pre></div>
+<ol>
+<li>What time is it right now? This tells us the current "ROS Time" (in nanoseconds), which will be useful to compare against in the while loop.</li>
+</ol>
+</li>
+<li>
+<p>Now, we enter into a <code class="highlight"><span class="k">while</span></code> loop, which is where our code will spend the majority of its time once it's up and running:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="n">time_now</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="n">elapsed_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_now</span> <span class="o">-</span> <span class="n">timestamp</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-9</span> <span class="c1"># (3)!</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    <span class="o">...</span>
+</code></pre></div>
+<ol>
+<li>This returns <code class="highlight"><span class="kc">True</span></code> as long as the node is alive, so all the code inside the <code class="highlight"><span class="k">while</span></code> loop will continue to execute as long as this is the case.</li>
+<li>What time is it <em>now</em>? Check the time at the start of each iteration of the <code class="highlight"><span class="k">while</span></code> loop, and assign this to a variable called <code>time_now</code>.</li>
+<li>Determine how much time has elapsed (in seconds) since the <code>timestamp</code> was last updated.</li>
+</ol>
+<p><a name="break"></a></p>
+<ol>
+<li>
+<p>An <code class="highlight"><span class="k">if</span></code> statement now controls the state of operation for our robot. </p>
+<ol>
+<li>
+<p>In state <code>1</code> we set velocities that will make the robot move forwards (linear X velocity only) for a certain amount of time and then stop. How long will the robot move forwards for, and at what velocity?</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="k">if</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="k">else</span><span class="p">:</span> <span class="c1"># (3)!</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># (4)!</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>        <span class="n">state</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># (5)!</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (6)!</span>
+</code></pre></div>
+<ol>
+<li>If the elapsed time is less than 2 seconds...</li>
+<li>Set a linear velocity so that the robot will move forwards.</li>
+<li>If the elapsed time has <em>exceeded</em> 2 seconds...</li>
+<li>Set our robot's velocities to <code>0.0</code> to make it stop.</li>
+<li>In the next loop iteration, go into state 2 instead.</li>
+<li>Reset the timestamp to start counting up again. </li>
+</ol>
+</li>
+<li>
+<p>In state <code>2</code> we set velocities that will make the robot turn on the spot (angular Z velocity only) for a certain amount of time and then stop. How long will it do this for, and at what velocity?</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="k">if</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    <span class="k">else</span><span class="p">:</span> <span class="c1"># (3)!</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># (4)!</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span> 
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>        <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># (5)!</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (6)!</span>
+</code></pre></div>
+<ol>
+<li>While the elapsed time is less than 4 seconds...</li>
+<li>Apply an angular velocity to the robot to make it turn on the spot.</li>
+<li>Once the elapsed time has <em>exceeded</em> 4 seconds...</li>
+<li>Set the robot's velocities back to <code>0.0</code> to make it stop.</li>
+<li>In the next loop iteration, go back into state 1 again (moving forwards).</li>
+<li>Reset the timestamp to start counting up once more. </li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>And after the <code class="highlight"><span class="k">if</span></code> statement:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">node</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[State = </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">] Publishing velocities:</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="sa">f</span><span class="s2">"  - linear.x: </span><span class="si">{</span><span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m/s]</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    <span class="sa">f</span><span class="s2">"  - angular.z: </span><span class="si">{</span><span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [rad/s]."</span><span class="p">,</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="n">throttle_duration_sec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="p">)</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="n">vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</code></pre></div>
+<ol>
+<li>This (and the following 5 lines) will print a message to the terminal, to provide us with regular updates on what state the node is currently in and what velocities have been set (in the <code class="highlight"><span class="k">if</span></code> statement above).</li>
+<li>
+<p>This line is crucial: this operation actual publishes the velocity commands to the <code>/cmd_vel</code> topic, to make the robot actual act on our instructions.</p>
+<p>Regardless of what happens in the <code>if</code> states above, we <em>always</em> publish a velocity command to the <code>/cmd_vel</code> topic here (every loop iteration).</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>We're now ready to build our package so that we can run it. We use a tool called "Colcon" to do this, but this <strong>MUST</strong> be run from the root of the ROS 2 Workspace (i.e.: <code>~/ros2_ws/</code>), so let's navigate there now using <code>cd</code>. Head back to <strong>TERMINAL 3</strong> and run the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span>
+</code></pre></div>
 <p>Then, use the <code>colcon build</code> command to build your package:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>waffle_demo<span class="w"> </span>--symlink-install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>waffle_demo<span class="w"> </span>--symlink-install
 </code></pre></div>
 <p>And finally, "re-source" the environment:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
-<hr>
 </li>
 <li>
-<p>Now, run the code.</p>
+<p>Now we can run the code.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Make sure the robot is on the floor and has enough room to roam around before you do this!</p>
 </div>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>waffle_demo<span class="w"> </span>square.py
-</code></pre></div><p></p>
-<hr>
-<p>Observe what the robot does. When you've seen enough, enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 1</strong> to stop the node from running, which should also stop the robot from moving.</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>waffle_demo<span class="w"> </span>square.py
+</code></pre></div>
+<p>Observe what the robot does. When you've seen enough, enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> to stop the node.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The robot will continue to move even after you've stopped the node! Run the following command to stop it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>waffle_demo<span class="w"> </span>stop_me.py
+</code></pre></div>
+</div>
 </li>
 <li>
 <p>Now it's time to <strong>adapt the code</strong>:</p>
@@ -2780,24 +2825,21 @@
 <h4 id="exSlam"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 6: Using SLAM to create a map of the environment<a class="headerlink" href="#exSlam" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong> enter the following command to launch all the necessary SLAM nodes on the laptop:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer.launch.py
-</code></pre></div><p></p>
+<p>In <strong>TERMINAL 3</strong> enter the following command to launch all the necessary SLAM nodes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>slam.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
+</code></pre></div>
 <details class="tip">
 <summary>Tip</summary>
 <p>On the laptop, this command is also available as an alias: <code>tb3_slam</code>!</p>
 </details>
-<hr>
-<p>This will launch a new RViz instance, showing a top-down view of the environment, and dots of various colours representing the real-time LiDAR data. Rather than a robot <em>model</em>, the robot is now represented in the environment as a series of links denoted by 3-dimensional red/green/blue crosses (you can turn these off by unchecking the <code>TF</code> option in the left-hand "Displays" menu, if you want to). </p>
+<p>This will launch a new RViz instance, showing a top-down view of the environment, and dots of various colours representing the real-time LiDAR data. </p>
 <p></p><figure markdown>
-    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/slam_step0.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/slam_step0.png" width="600px"></a>
 </figure><p></p>
 <p>SLAM will already have begun processing this data to start building a map of the boundaries that are currently visible to the Waffle based on its location in the environment.</p>
 </li>
 <li>
-<p>Return to <strong>TERMINAL 2</strong> and launch the <code>teleop_keyboard</code> node. Start to drive the robot around <em>slowly</em> and <em>carefully</em> to build up a complete map of the area.</p>
+<p>Return to <strong>TERMINAL 4</strong> now and launch the <code>teleop_keyboard</code> node. Start to drive the robot around <em>slowly</em> and <em>carefully</em> to build up a complete map of the area.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>It's best to do this slowly and perform multiple circuits of the area to build up a more accurate map.</p>
@@ -2813,58 +2855,43 @@
 <p>Once you're happy that your robot has built up a good map of its environment, you can save this map using the <code>map_saver_cli</code> node from a package called <code>nav2_map_server</code>:</p>
 <ol>
 <li>
-<p>First, create a new directory within your ROS package on the laptop. Return to <strong>TERMINAL 3</strong> and navigate to the root of the <code>waffle_demo</code> package that you created earlier. We can use the <code>colcon_cd</code> tool to do this now:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>colcon_cd<span class="w"> </span>waffle_demo
-</code></pre></div><p></p>
-<hr>
+<p>First, create a new directory within your ROS package on the laptop. Return to <strong>TERMINAL 5</strong> and navigate to the root of the <code>waffle_demo</code> package that you created earlier:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/waffle_demo
+</code></pre></div>
 </li>
 <li>
 <p>Create a directory in here called <code>maps</code>: </p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>mkdir<span class="w"> </span>maps
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>mkdir<span class="w"> </span>maps
+</code></pre></div>
 </li>
 <li>
 <p>Navigate into this directory:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nb">cd</span><span class="w"> </span>maps/
-</code></pre></div><p></p>
-<hr>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nb">cd</span><span class="w"> </span>maps/
+</code></pre></div>
 </li>
 <li>
 <p>Then, use <code>ros2 run</code> to run the <code>map_saver_cli</code> node and save a copy of your robot's map:</p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
-</code></pre></div><p></p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
+</code></pre></div>
 <p>Replacing <code>MAP_NAME</code> with an appropriate name for your map. This will create two files: </p>
 <ol>
 <li>a <code>MAP_NAME.pgm</code> </li>
 <li>a <code>MAP_NAME.yaml</code> file</li>
 </ol>
 <p>...both of which contain data related to the map that you have just created.</p>
-<hr>
 </li>
 <li>
 <p>The <code>.pgm</code> file can be opened using an application called <code>eog</code> on the laptop: </p>
-<hr>
-<p><strong>TERMINAL 3:</strong>
-</p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>eog<span class="w"> </span>MAP_NAME.pgm
-</code></pre></div><p></p>
-<hr>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>eog<span class="w"> </span>MAP_NAME.pgm
+</code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Return to <strong>TERMINAL 1</strong> and close down SLAM by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>. The process should stop and RViz should close down.</p>
+<p>Return to <strong>TERMINAL 3</strong> and close down SLAM by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>. The process should stop and RViz should close down.</p>
 </li>
 <li>
-<p>Close down the <code>teleop_keyboard</code> node in <strong>TERMINAL 2</strong> as well, if that's still running.</p>
+<p>Close down the <code>teleop_keyboard</code> node in <strong>TERMINAL 4</strong> as well, if that's still running.</p>
 </li>
 </ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
@@ -2900,7 +2927,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 7, 2025 11:05:42 UTC"><span class="timeago" datetime="2025-11-07T11:05:42+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 7, 2025 11:05:42 UTC">2025-11-07</span>
   </span>
 
     

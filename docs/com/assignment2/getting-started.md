@@ -35,16 +35,16 @@ Nominate **only one member of your team** to do this bit.
 1. The name for your repository **must** be as follows:
 
     ``` { .txt .no-copy }
-    com2009_teamXX_2025
+    com2009_teamXX_2026
     ```
 
     ... where `XX` should be replaced with *your* COM2009 Assignment #2 Team Number. Enter this in the `Repository name` box.
 
     **If your team number is less than 10**: put a zero before the number, so that the team number is **always** 2 digits long, e.g.: 
     
-    * `com2009_team03_2025` for **Team 3**
-    * `com2009_team08_2025` for **Team 8**
-    * `com2009_team15_2025` for **Team 15**
+    * `com2009_team03_2026` for **Team 3**
+    * `com2009_team08_2026` for **Team 8**
+    * `com2009_team15_2026` for **Team 15**
 
     !!! warning "Important"
         Your repository name should match the above format **exactly**:
@@ -53,11 +53,13 @@ Nominate **only one member of your team** to do this bit.
         * All characters should be **lower case** (e.g. `com2009`, **NOT** `COM2009`)
 
 
-1. Select `Private` to **make the repository private**, then click the green `Create repository` button. 
+1. Under `Configuration`, select `Private` to **make the repository private**: 
 
     <figure markdown>
-      ![](./getting-started/create_repo.png){width=500px}
+      ![](./getting-started/gh-repo-config.png){width=600px}
     </figure>
+
+    Then click the green `Create repository` button.
 
 1. You'll then be directed to your main repository page. From here, click on `Settings`, then under `Access` click `Collaborators`:
 
@@ -67,10 +69,10 @@ Nominate **only one member of your team** to do this bit.
 
     (You may be prompted for 2FA.)
 
-1. In the `Manage access` area, click the green `Add people` button and add `tom-howard`: 
+1. In the `Manage access` area, click the green `Add people` button and add `tom-howard` and `AlexandrLucas`: 
 
     <figure markdown>
-      ![](./getting-started/tph-gh-profile.png){width=150px}
+      ![](./getting-started/gh-profiles-th-al.svg){width=300px}
     </figure>
 
 1. Finally, click on the `Add people` button and add the rest of your team members as collaborators to this repo too.
@@ -81,7 +83,7 @@ Having created your package, you'll need to tell us your GitHub username and the
 
 There is a form that **you must complete** (as a team), to register your ROS package with us for Assignment #2. 
 
-[Access the form here](https://forms.gle/p75DDXkLcnFDB2A59){target="_blank"} (also available on Blackboard). You **must** be signed in to your university email account (`...@sheffield.ac.uk`) to access this. 
+[Access the form here](https://forms.gle/XPcZx9JKRmzFYmsW8){target="_blank"} (also available on Blackboard). You **must** be signed in to your university email account (`...@sheffield.ac.uk`) to access this. 
 
 The team member who created the Repo (in the step above) should fill in this form **now**.
 
@@ -126,7 +128,7 @@ You should do this from within your own ROS installation (or WSL-ROS2), rather t
 1. Navigate into the package directory using the `cd` command:
 
     ```bash
-    cd com2009_teamXX_2025
+    cd com2009_teamXX_2026
     ```
     
     (...replacing `XX` with your COM2009 Assignment #2 Team Number.)
@@ -144,12 +146,12 @@ Next, you'll need to make sure Git is configured properly in your local ROS inst
 1. From the same terminal instance as above run the following commands to update your personal details in the global Git config file on your machine:
 
     ``` { .bash .no-copy }
-    git config --global user.name "your_name"
+    git config user.name "your_name"
     ```
     ...replacing `your_name` with your actual name! E.g.: `#!bash git config --global user.name "John Smith"`
     
     ``` { .bash .no-copy }
-    git config --global user.email "your_email_address"
+    git config user.email "your_email_address"
     ```
     ...replacing `your_email_address` with your actual email address!
 
@@ -184,7 +186,7 @@ Having initialised your team's ROS package, it's now ready for you to start popu
 1. Then commit them:
 
     ```bash
-    git commit -m "ROS package initialisations complete."
+    git commit -m "Package initialisations complete."
     ```
 
 1. Finally, *push* the local changes back up the "remote" repository on GitHub:

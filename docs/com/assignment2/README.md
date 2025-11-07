@@ -5,9 +5,9 @@ description: Apply your ROS2 knowledge to real TurtleBot3 Waffles in the lab.
 
 ## Overview
 
-In Assignment #2 you will put into practice everything that you are learning about ROS in Assignment #1, and explore the capabilities of the framework further.
+In Assignment #2 you will put into practice everything that you are learning about ROS 2 in Assignment #1, and explore the capabilities of the framework further.
 
-You will attend a 2-hour lab session per week in Diamond Computer Room 5 for the full 12-week semester. You will work **in teams** to develop ROS Nodes for our TurtleBot3 Waffles that allow them to successfully complete a number of robotics tasks in a *real-world environment*. 
+You will attend a 2-hour lab session per week in Diamond Computer Room 5 for the full 12-week semester. Here, you will work **in teams** to develop ROS Nodes for our *real* TurtleBot3 Waffles, allowing them to successfully complete a number of robotics tasks in a *real-world environment*. 
 
 Assignment #2 is split into two parts: **Part A** and **Part B**. You will complete Part A in the first half of the semester (Weeks 1-6) and then move on to Part B in the second half of the semester (Weeks 7-12). 
 
@@ -57,8 +57,8 @@ In order to launch the necessary functionality within your package for a given t
 
 For more information on how to create `.launch.py` files, refer to the following resources:
 
-1. [Assignment #1 Part 3](../assignment1/part3.md)
-2. [Launch File Arguments](../extras/launch-file-args.md) (Additional Resources) 
+1. [Assignment #1 Part 3](../../course/part3.md#ex1)
+2. [Launch Files (Advanced)](../../course/extras/launch-files.md) 
 
 ### Preparing for the Deadlines
 

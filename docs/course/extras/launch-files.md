@@ -4,7 +4,7 @@ title: "Launch Files (Advanced)"
 
 ## Introduction
 
-As we know from the work we've done in Assignment #1, ROS applications can be executed in two different ways:  
+As we know from the work we've done in this course, ROS applications can be executed in two different ways:  
 
 1. Using the `ros2 run` command:
 
@@ -24,12 +24,12 @@ The `ros2 launch` command, used in combination with *launch files*, offers a few
 1. From within one launch file, we can call *other* launch files.
 1. We can pass in **additional arguments** to launch things conditionally, or to change the behaviour of our ROS applications *dynamically*.
 
-Points 1 and 2 above are explored in [Assignment #1 Part 3](../assignment1/part3.md) (Exercises 1 & 2). In this section we'll explore Point 3 further[^more].
+Point 1 above is explored in [Part 3](../part3.md) (Exercise 1). In this section we'll explore Points 2 & 3 further[^more].
 
 [^more]: For more advanced launch file features, [have a look at this guide](https://github.com/MetroRobots/rosetta_launch){target="_blank"}.
 
 !!! note
-    Make sure you [check for updates to the course repo](../extras/course-repo.md#updating) before moving on!
+    Make sure you [check for updates to the course repo](./course-repo.md#updating) before moving on!
 
 ## Identifying Launch Arguments
 

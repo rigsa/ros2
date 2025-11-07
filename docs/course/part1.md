@@ -359,7 +359,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     cd ~/ros2_ws/src/
     ```
 
-1. From here, use `git` to *clone* the ROS2 Package Template from GitHub:
+1. From here, use `git` to *clone* our *ROS 2 Package Template* from GitHub:
 
     ```bash
     git clone https://github.com/tom-howard/ros2_pkg_template.git

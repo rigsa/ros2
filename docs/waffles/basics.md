@@ -509,7 +509,7 @@ In reality, robots need to be able to navigate complex environments autonomously
         Make sure the robot is on the floor and has enough room to roam around before you do this!
     
     ``` { .bash .no-copy }
-    ros2 run waffle_demo square.py
+    ros2 run waffle_demo basic_velocity_control.py
     ```
     
     Observe what the robot does. When you've seen enough, enter ++ctrl+c++ to stop the node.

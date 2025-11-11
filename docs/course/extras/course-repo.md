@@ -2,19 +2,19 @@
 title: "The TUoS ROS Course Repo"
 --- 
 
-A ROS Metapackage called `tuos_ros` has been put together to support these courses. [This package is available on GitHub here](https://github.com/tom-howard/tuos_ros/tree/humble){target="_blank"}. This repo contains the following ROS packages:
+A ROS Metapackage called `tuos_ros` has been put together to support these courses. [This package is available on GitHub here](https://github.com/tom-howard/tuos_ros/tree/jazzy){target="_blank"}. This repo contains the following ROS packages:
 
 | Package Name | Description |
 | :---: | :--- |
-| `tuos_examples` | Some example scripts to support certain exercises in COM2009 Assignment #1 |
-| `tuos_interfaces` | Some custom ROS interfaces to support certain exercises in COM2009 Assignment #1 |
-| `tuos_simulations` | Some Gazebo simulations to support certain exercises in COM2009 Assignment #1 |
-| `tuos_tb3_tools` | Scripts that run on the real Waffles, and some RViz configs to support real robot work too | 
-| `com2009_simulations` | Simulation resources to support your development work in COM2009 Assignment #2 |
+| `tuos_examples` | Some example scripts to support certain exercises in The ROS 2 Course |
+| `tuos_interfaces` | Some custom ROS interfaces to support certain exercises in The ROS 2 Course |
+| `tuos_simulations` | Some Gazebo Ignition simulations to support certain exercises in The ROS 2 Course |
+| `tuos_task_sims` | Simulation resources to support your development work in real robot based course assignments |
+| `tuos_tb3_tools` | Scripts and visualisation tools for the Waffles (real and sim) | 
 
 ## Installing
 
-The `tuos_ros` course repo is already installed and ready to go in WSL-ROS, for those who use it, and on the Robotics Laptops. To install the packages in your own local ROS installation, follow the steps here.
+[Early on in Part 1 of the ROS 2 Course](../part1.md#step-3-download-the-course-repo) we explain how to install the `tuos_ros` course repo, but here are those instructions again:
 
 1. Navigate to your ROS Workspace `src` directory:
 
@@ -25,7 +25,7 @@ The `tuos_ros` course repo is already installed and ready to go in WSL-ROS, for 
 1. Clone the repo from GitHub:
 
     ```bash
-    git clone -b humble https://github.com/tom-howard/tuos_ros.git
+    git clone https://github.com/tom-howard/tuos_ros.git -b jazzy
     ```
 
 1. Navigate back one directory, into the *root** of the ROS workspace:

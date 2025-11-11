@@ -62,7 +62,7 @@ Robots are named as follows:
 
     This is a terminal instance running **on the robot**, and any commands that you enter here will be executed *on the robot* (not the laptop!)
 
-## Step 3: Launching ROS
+## Step 3: Launching ROS {#step3}
 
 Launch ROS on the robot by entering the following command:
 
@@ -91,7 +91,7 @@ Battery: 12.40V [100%]
     When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)
 
 
-## Step 4: Connecting to the *Zenoh Router*
+## Step 4: Connecting to the *Zenoh Router* {#step4}
 
 We use a ROS 2 Middleware (RMW) implementation called [Zenoh](https://github.com/ros2/rmw_zenoh) to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh *Router*, and this was enabled as part of the *bringup* operations that you launched in [Step 3 above](#step-3-launching-ros). We now need to launch a *Session* on the laptop to connect to this router. 
 

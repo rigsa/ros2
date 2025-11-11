@@ -25,8 +25,8 @@ There's a very useful ready-made ROS application called `teleop_keyboard` (from 
 
 1. You should already have two terminal instances active:
 
-    * **TERMINAL 1**: The *robot* terminal with the *"bringup"* processes running ([Launching ROS, Step 3](./launching-ros.md#step-3-launching-ros))
-    * **TERMINAL 2**: The *laptop* terminal with the `rmw_zenohd` node running ([Launching ROS, Step 4](./launching-ros.md#step-4-connecting-to-the-zenoh-router))
+    * **TERMINAL 1**: The *robot* terminal with the *"bringup"* processes running ([Launching ROS, Step 3](./launching-ros.md#step3))
+    * **TERMINAL 2**: The *laptop* terminal with the `rmw_zenohd` node running ([Launching ROS, Step 4](./launching-ros.md#step4))
 
 1. Open up a new terminal instance on the laptop either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon, we'll refer to this as **TERMINAL 3**. In this terminal enter the following `ros2 run` command to fire up the `teleop_keyboard` node:
 
@@ -369,7 +369,7 @@ In reality, robots need to be able to navigate complex environments autonomously
         ```
 
         1. `rclpy` is the ROS client library for Python. We need this so that our Python node can interact with ROS.
-        2. [We know from earlier](#ex4) that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses a data structure (or Interface) called `geometry_msgs/msg/TwistStamped`. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)
+        2. We know from earlier that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses a data structure (or Interface) called `geometry_msgs/msg/TwistStamped`. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)
         3. We'll use this to control timing in our node.
 
         Click on the :material-plus-circle: icons above to reveal more information about each line of the code.

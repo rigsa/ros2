@@ -6,16 +6,16 @@ Develop the ROS node(s) to allow a TurtleBot3 Waffle to autonomously explore an 
 
 !!! success "Course Checkpoints"
     
-    You should aim to have completed the following *additional* parts of the COM2009 ROS Course to support your work on this task: 
+    You should aim to have completed the following *additional* parts of the ROS 2 Course to support your work on this task: 
 
-    * **Assignment #1**: Up to and including [Part 5](../../assignment1/part5.md) (in full).
+    * **Assignment #1**: Up to and including [Part 5](../../../course/part5.md) (in full).
     * **Real Waffle Essentials**:
         * [Exercise 1 (Publishing Velocity Commands)](../../../waffles/essentials.md#ex1),
         * [Exercise 2 (Out of Range LiDAR Data)](../../../waffles/essentials.md#ex2).
 
 ## Summary
 
-Assignment #1 Part 3 introduces [the Waffle's LiDAR sensor](../../assignment1/part3.md#lidar). This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. In [Assignment #1 Part 5](../../assignment1/part5.md#explore) we look at how this data, in combination with the *ROS Action framework*, can be used as the basis for a basic exploration strategy that would incorporate obstacle avoidance. Building on this in [Part 5 Exercise 6](../../assignment1/part5.md#ex6), we discuss how this could be developed further by developing an action *client* that could make successive calls to the action server to keep the robot moving randomly, and indefinitely, around an arena whilst avoiding obstacles.
+Assignment #1 Part 3 introduces [the Waffle's LiDAR sensor](../../../course/part3.md#lidar). This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. In [Assignment #1 Part 5](../../../course/part5.md#explore) we look at how this data, in combination with the *ROS Action framework*, can be used as the basis for a basic exploration strategy that would incorporate obstacle avoidance. Building on this in [Part 5 Exercise 6](../../../course/part5.md#ex6), we discuss how this could be developed further by developing an action *client* that could make successive calls to the action server to keep the robot moving randomly, and indefinitely, around an arena whilst avoiding obstacles.
 
 This is one approach that you could use for this task, but there are other (and potentially simpler) ways that this could be achieved too. 
 
@@ -47,31 +47,31 @@ The environment that your robot will need to explore for this will (again) be th
 The ROS package that you submit must contain a launch file called `task2.launch.py`, such that the functionality that you develop for Task 2 can be launched from your package via the command:
 
 ```bash
-ros2 launch com2009_teamXX_2025 task2.launch.py
+ros2 launch com2009_teamXX_2026 task2.launch.py
 ```
 
 ... where `XX` will be replaced with *your team number*.
 
 !!! note
-    ROS will already be running on the robot before we attempt to execute your launch file, and [a bridge between the robot and laptop will have already been established](../../../waffles/launching-ros.md#step-4-robot-laptop-bridging).
+    ROS will already be running on the robot before we attempt to execute your launch file, and [a *Zenoh Session* will be running on the laptop, to allow nodes running on the laptop to communicate with it](../../../waffles/launching-ros.md#step4).
 
 ## Simulation Resources
 
-Within the `com2009_simulations` package there is an example arena which can be used to develop and test out your team's obstacle avoidance node(s) for this task.
+Within the `tuos_task_sims` package there is an example arena which can be used to develop and test out your team's obstacle avoidance node(s) for this task.
 
 !!! info 
-    Make sure you [check for updates to the Course Repo](../../extras/course-repo.md#updating) to ensure that you have the most up-to-date version of these simulations.
+    Make sure you [check for updates to the Course Repo](../../../course/extras/course-repo.md#updating) to ensure that you have the most up-to-date version of these simulations.
 
 The simulation can be launched using the following `ros2 launch` command:
 
 ```bash
-ros2 launch com2009_simulations task2.launch.py
+ros2 launch tuos_task_sims obstacle_avoidance.launch.py
 ```
 
 <a name="avoid_arena"></a>
 
 <figure markdown>
-  ![](../figures/task2.jpg)
+  ![](../figures/task2.png)
   <figcaption>The Obstacle Avoidance development arena.</figcaption>
 </figure>
 

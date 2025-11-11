@@ -224,7 +224,7 @@ You should currently have two terminal instances active: the first in which you 
 
     Here, *nodes* are represented by ellipses and *topics* by rectangles (hover over a region of the graph to enable colour highlighting).
 
-    This tool shows us that (amongst other things) the `/teleop_keyboard` node is communicating with another node called `/ros_gz_bridge`. The direction of the arrow tells us that `/teleop_keyboard` is a *Publisher* and `/turtlebot3_diff_drive` is a *Subscriber*. The two nodes communicate via a **ROS Topic** called `/cmd_vel`. 
+    This tool shows us that (amongst other things) the `/teleop_keyboard` node is communicating with another node called `/ros_gz_bridge`. The direction of the arrow tells us that `/teleop_keyboard` is a *Publisher* and `/ros_gz_bridge` is a *Subscriber*. The two nodes communicate via a **ROS Topic** called `/cmd_vel`. 
 
 ## Publishers and Subscribers: A *ROS Communication Method* 
 

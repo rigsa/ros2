@@ -18,19 +18,21 @@ Assignment #2 is split into two parts: **Part A** and **Part B**. You will compl
 | Part | Tasks | Marks<br />(/100) | Submission |
 | :---: | :---  | :---: | :---: |
 | **A** | **Task 1**: [Velocity Control](./part-a/task1.md)<br />**Task 2**: [Avoiding Obstacles](./part-a/task2.md) | 20<br />20 | Friday of Week 6 at 10pm (GMT) |
-| **B** | **Task 3**: [Exploration & Search](./part-b/task3.md)<br />**Task 4**: [Documentation](./part-b/task4.md) | 40<br />20 | Friday of Week 12 at 10pm (BST) |
+| **B** | **Tasks 3 & 4**<br />More details coming soon... | 60 | Friday of Week 12 at 10pm (BST) |
 
 </center>
 
 As shown above, there are **four tasks** in total that you must complete for Assignment #2, worth a total of **100 marks** overall. Exact submission deadlines will be stated on Blackboard.
 
-Tasks **1**, **2** & **3** are *programming tasks*, requiring you to develop ROS nodes for the Waffles in order for them to complete certain real-world objectives in the robot arena in Computer Room 5. All three of these tasks will be marked based on how well the robot completes each of the objectives. Task **4** will require you to produce some *documentation* to describe your approach to Task 3.
+Tasks **1**, **2** & **3** are *programming tasks*, requiring you to develop ROS nodes for the Waffles in order for them to complete certain real-world objectives in the robot arena in Computer Room 5. 
+
+<!-- All three of these tasks will be marked based on how well the robot completes each of the objectives. Task **4** will require you to produce some *documentation* to describe your approach to Task 3. -->
 
 ## Assessment
 
 This assignment is **worth 30%** of the overall mark for COM2009. As a team you will be assessed on a ROS package that you develop to satisfy the above tasks.
 
-Your ROS package will be assessed by the teaching team *off-line* in the weeks following the submission deadlines (as above). You will receive your marks, plus video recordings of the assessment within 3 weeks of submission[^holiday].
+Your ROS package will be assessed by the teaching team in the weeks following the submission deadlines (as above). You will receive your marks, plus video recordings of the assessment within 3 weeks of submission[^holiday].
 
 [^holiday]: If this falls over a holiday period (i.e. Easter), then the deadline for marking and the return of marks extends to 5 weeks (as per standard University policy).
 
@@ -40,7 +42,9 @@ Each submission will be assessed by deploying your ROS package on one of the *ro
 
 ### Task 4 
 
-Your package must contain a `README.md` file in the root of your package directory. This README file must document the application that you have developed for Task 3. [Further details can be found on the Task 4 page](./part-b/task4.md). 
+Details coming soon...
+
+<!-- Your package must contain a `README.md` file in the root of your package directory. This README file must document the application that you have developed for Task 3. [Further details can be found on the Task 4 page](./part-b/task4.md).  -->
 
 ### Submissions
 

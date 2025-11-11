@@ -1392,8 +1392,6 @@
       
         
       
-        
-      
     
     
     
@@ -1586,139 +1584,6 @@
     
   
     Task 2: Avoiding Obstacles
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4">
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../com/assignment2/part-b/" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Part B (Weeks 7-12)
-  
-
-    
-  </span>
-  
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Part B (Weeks 7-12)
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../com/assignment2/part-b/task3/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Task 3: Exploration &amp; Search
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../com/assignment2/part-b/task4/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Task 4: Documentation
   
 
     
@@ -2106,7 +1971,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-launching-ros" class="md-nav__link">
+  <a href="#step3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Step 3: Launching ROS
@@ -2117,7 +1982,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-connecting-to-the-zenoh-router" class="md-nav__link">
+  <a href="#step4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Step 4: Connecting to the Zenoh Router
@@ -2285,7 +2150,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-launching-ros" class="md-nav__link">
+  <a href="#step3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Step 3: Launching ROS
@@ -2296,7 +2161,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-connecting-to-the-zenoh-router" class="md-nav__link">
+  <a href="#step4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Step 4: Connecting to the Zenoh Router
@@ -2406,7 +2271,7 @@ Replacing <code>X</code> with the number of the robot that you are working with.
 <p>This is a terminal instance running <strong>on the robot</strong>, and any commands that you enter here will be executed <em>on the robot</em> (not the laptop!)</p>
 </li>
 </ol>
-<h2 id="step-3-launching-ros">Step 3: Launching ROS<a class="headerlink" href="#step-3-launching-ros" title="Permanent link">¶</a></h2>
+<h2 id="step3">Step 3: Launching ROS<a class="headerlink" href="#step3" title="Permanent link">¶</a></h2>
 <p>Launch ROS on the robot by entering the following command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py
 </code></pre></div>
@@ -2423,7 +2288,7 @@ Replacing <code>X</code> with the number of the robot that you are working with.
 <p><strong>The robot's battery won't last a full 2-hour lab session!!</strong></p>
 <p>When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)</p>
 </div>
-<h2 id="step-4-connecting-to-the-zenoh-router">Step 4: Connecting to the <em>Zenoh Router</em><a class="headerlink" href="#step-4-connecting-to-the-zenoh-router" title="Permanent link">¶</a></h2>
+<h2 id="step4">Step 4: Connecting to the <em>Zenoh Router</em><a class="headerlink" href="#step4" title="Permanent link">¶</a></h2>
 <p>We use a ROS 2 Middleware (RMW) implementation called <a href="https://github.com/ros2/rmw_zenoh">Zenoh</a> to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh <em>Router</em>, and this was enabled as part of the <em>bringup</em> operations that you launched in <a href="#step-3-launching-ros">Step 3 above</a>. We now need to launch a <em>Session</em> on the laptop to connect to this router. </p>
 <div class="admonition warning">
 <p class="admonition-title">This is Essential!</p>
@@ -2470,7 +2335,7 @@ Replacing <code>X</code> with the number of the robot that you are working with.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 3, 2025 17:08:24 UTC"><span class="timeago" datetime="2025-11-03T17:08:24+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 3, 2025 17:08:24 UTC">2025-11-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 11, 2025 11:36:58 UTC"><span class="timeago" datetime="2025-11-11T11:36:58+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 11, 2025 11:36:58 UTC">2025-11-11</span>
   </span>
 
     

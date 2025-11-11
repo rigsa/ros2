@@ -13,7 +13,7 @@
         <link rel="prev" href="../task1/">
       
       
-        <link rel="next" href="../../part-b/">
+        <link rel="next" href="../../ros-pkg-tips/">
       
       
         
@@ -1399,8 +1399,6 @@
       
         
       
-        
-      
     
     
     
@@ -1718,139 +1716,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_4">
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../part-b/" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Part B (Weeks 7-12)
-  
-
-    
-  </span>
-  
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Part B (Weeks 7-12)
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part-b/task3/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Task 3: Exploration &amp; Search
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part-b/task4/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Task 4: Documentation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2393,9 +2258,9 @@
 <p>Develop the ROS node(s) to allow a TurtleBot3 Waffle to autonomously explore an environment containing various obstacles. The robot must explore as much of the environment as possible in 90 seconds without crashing into anything!</p>
 <div class="admonition success">
 <p class="admonition-title">Course Checkpoints</p>
-<p>You should aim to have completed the following <em>additional</em> parts of the COM2009 ROS Course to support your work on this task: </p>
+<p>You should aim to have completed the following <em>additional</em> parts of the ROS 2 Course to support your work on this task: </p>
 <ul>
-<li><strong>Assignment #1</strong>: Up to and including <a href="../../assignment1/part5.md">Part 5</a> (in full).</li>
+<li><strong>Assignment #1</strong>: Up to and including <a href="../../../../course/part5/">Part 5</a> (in full).</li>
 <li><strong>Real Waffle Essentials</strong>:<ul>
 <li><a href="../../../../waffles/essentials/#ex1">Exercise 1 (Publishing Velocity Commands)</a>,</li>
 <li><a href="../../../../waffles/essentials/#ex2">Exercise 2 (Out of Range LiDAR Data)</a>.</li>
@@ -2404,7 +2269,7 @@
 </ul>
 </div>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
-<p>Assignment #1 Part 3 introduces <a href="../../assignment1/part3.md#lidar">the Waffle's LiDAR sensor</a>. This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. In <a href="../../assignment1/part5.md#explore">Assignment #1 Part 5</a> we look at how this data, in combination with the <em>ROS Action framework</em>, can be used as the basis for a basic exploration strategy that would incorporate obstacle avoidance. Building on this in <a href="../../assignment1/part5.md#ex6">Part 5 Exercise 6</a>, we discuss how this could be developed further by developing an action <em>client</em> that could make successive calls to the action server to keep the robot moving randomly, and indefinitely, around an arena whilst avoiding obstacles.</p>
+<p>Assignment #1 Part 3 introduces <a href="../../../../course/part3/#lidar">the Waffle's LiDAR sensor</a>. This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. In <a href="../../../../course/part5/#explore">Assignment #1 Part 5</a> we look at how this data, in combination with the <em>ROS Action framework</em>, can be used as the basis for a basic exploration strategy that would incorporate obstacle avoidance. Building on this in <a href="../../../../course/part5/#ex6">Part 5 Exercise 6</a>, we discuss how this could be developed further by developing an action <em>client</em> that could make successive calls to the action server to keep the robot moving randomly, and indefinitely, around an arena whilst avoiding obstacles.</p>
 <p>This is one approach that you could use for this task, but there are other (and potentially simpler) ways that this could be achieved too. </p>
 <p>In COM2009 Lecture 3 ("Sensing, Actuation &amp; Control"), for instance, you are introduced to <em>Cybernetic Control Principles</em> and some of <em>Braitenberg's "Vehicles,"</em> which are discussed and implemented on a Lego robot during the lecture! In particular, <em>"Vehicle 3b"</em> might well be relevant to consider as a simple method to achieve an obstacle avoidance behaviour.</p>
 <p>Another aspect of this task is <em>exploration</em>: your robot will be awarded more marks for navigating around more of the environment. Consider the search strategies that are discussed in Lecture 8 ("Local Guidance Strategies"), such as <em>"Brownian Motion"</em> and <em>"Levy Walks."</em> Could something along these lines be implemented on the 
@@ -2433,25 +2298,25 @@ Waffle?</p>
 </ol>
 <h2 id="launch">Executing Your Code<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
 <p>The ROS package that you submit must contain a launch file called <code>task2.launch.py</code>, such that the functionality that you develop for Task 2 can be launched from your package via the command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2025<span class="w"> </span>task2.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task2.launch.py
 </code></pre></div>
 <p>... where <code>XX</code> will be replaced with <em>your team number</em>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ROS will already be running on the robot before we attempt to execute your launch file, and <a href="../../../../waffles/launching-ros/#step-4-robot-laptop-bridging">a bridge between the robot and laptop will have already been established</a>.</p>
+<p>ROS will already be running on the robot before we attempt to execute your launch file, and <a href="../../../../waffles/launching-ros/#step4">a <em>Zenoh Session</em> will be running on the laptop, to allow nodes running on the laptop to communicate with it</a>.</p>
 </div>
 <h2 id="simulation-resources">Simulation Resources<a class="headerlink" href="#simulation-resources" title="Permanent link">¶</a></h2>
-<p>Within the <code>com2009_simulations</code> package there is an example arena which can be used to develop and test out your team's obstacle avoidance node(s) for this task.</p>
+<p>Within the <code>tuos_task_sims</code> package there is an example arena which can be used to develop and test out your team's obstacle avoidance node(s) for this task.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Make sure you <a href="../../extras/course-repo.md#updating">check for updates to the Course Repo</a> to ensure that you have the most up-to-date version of these simulations.</p>
+<p>Make sure you <a href="../../../../course/extras/course-repo/#updating">check for updates to the Course Repo</a> to ensure that you have the most up-to-date version of these simulations.</p>
 </div>
 <p>The simulation can be launched using the following <code>ros2 launch</code> command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_simulations<span class="w"> </span>task2.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>obstacle_avoidance.launch.py
 </code></pre></div>
 <p><a name="avoid_arena"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task2.jpg"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task2.png"></a>
   </p>
 <figcaption>The Obstacle Avoidance development arena.</figcaption>
 </figure>
@@ -2550,7 +2415,7 @@ Waffle?</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 11, 2025 11:36:10 UTC"><span class="timeago" datetime="2025-11-11T11:36:10+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 11, 2025 11:36:10 UTC">2025-11-11</span>
   </span>
 
     
@@ -2612,13 +2477,13 @@ Waffle?</p>
         
         
           
-          <a href="../../part-b/" class="md-footer__link md-footer__link--next" aria-label="Next: Assignment #2 Part B">
+          <a href="../../ros-pkg-tips/" class="md-footer__link md-footer__link--next" aria-label="Next: Working with your ROS Package (in the Lab)">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Assignment #2 Part B
+                Working with your ROS Package (in the Lab)
               </div>
             </div>
             <div class="md-footer__button md-icon">

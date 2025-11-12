@@ -283,6 +283,10 @@ To start with, let's create another new package, this time called `part3_beyond_
 
     Do you see what you'd expect to see in the output of these two commands?
 
+!!! tip "Launch Files: Advanced"
+    For more advanced launch file techniques, **[see here](./extras/launch-files.md)**!
+
+
 ## Parameters
 
 Parameters are used to configure nodes, and can be further used to change their behaviour dynamically during run time. 

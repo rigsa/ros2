@@ -2,8 +2,6 @@
 title: "Launch Files (Advanced)"
 ---
 
-## Introduction
-
 As we know from the work we've done in this course, ROS applications can be executed in two different ways:  
 
 1. Using the `ros2 run` command:
@@ -24,7 +22,7 @@ The `ros2 launch` command, used in combination with *launch files*, offers a few
 1. From within one launch file, we can call *other* launch files.
 1. We can pass in **additional arguments** to launch things conditionally, or to change the behaviour of our ROS applications *dynamically*.
 
-Point 1 above is explored in [Part 3](../part3.md) (Exercise 1). In this section we'll explore Points 2 & 3 further[^more].
+Point 1 above is explored in [Part 3 of the ROS 2 Course](../part3.md) (Exercise 1). In this section we'll explore Points 2 & 3 further[^more].
 
 [^more]: For more advanced launch file features, [have a look at this guide](https://github.com/MetroRobots/rosetta_launch){target="_blank"}.
 
@@ -77,21 +75,25 @@ The robot should spawn into an empty world, but at coordinate position $x=1.0$, 
 
 ## Launching Launch Files from Launch Files!
 
-This was covered in [Assignment #1 Part 3 Exercise 2](../assignment1/part3.md#ex2), where we learnt how to launch an "Empty World" simulation from within our own launch file (and also launch a velocity control node from one of our own packages alongside this).
+As above, we learnt about how to create a basic launch file in [Part 3 of the ROS Course](../part3.md#ex1). Using what we learnt here, we can develop launch files to execute as many nodes as we want on a ROS network simultaneously. *Another* thing we can do with launch files however is launch *other* launch files! 
 
-<!-- TODO: the below (formerly part of Part 3) to be included here now instead:
+Think back to [Part 3 Exercise 2](../part3.md#ex2) now, where we explored **ROS 2 Parameters**. To explore this, we created a `param_circle.py` node (based on the `move_circle.py` node from Part 2) that would make the robot move in a circle at a radius dictated by the `radius` ROS parameter.
 
-Using the processes above, we can develop launch files to execute as many nodes as we want on a ROS network simultaneously. *Another* thing we can do with launch files is launch *other* launch files! 
-
-To illustrate this, think back to the `move_circle.py` node that we developed in Part 2, as part of our `part2_navigation` package. In order to launch this node we must first launch a robot simulation, e.g.: 
+Ultimately, in order for this node to do *anything*, we must first have a robot simulation up and running, e.g.: 
 
 ``` { .bash .no-copy }
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
 
-In this exercise we'll look at how we can launch the above launch file *and* our `move_circle.py` node simultaneously from a single `ros2 launch` command...
+We could actually wrap the execution of the simulation *and* our `param_circle.py` node inside a single launch file, so that it can all be launched together using a single `ros2 launch` command...
 
-1. In **TERMINAL 1**, make sure you're in the `launch` directory of your `part3_beyond_basics` package. First, navigate into the package root:
+!!! warning "Note"
+    
+    This exercise is here for illustration purposes.
+
+    **DON'T** include launch descriptions for simulations in any work that you submit for course assignments! 
+
+1. In a ROS 2 terminal, return to the `launch` directory of the `part3_beyond_basics` package. First, navigate into the package root:
 
     ```bash
     cd ~/ros2_ws/src/part3_beyond_basics
@@ -115,19 +117,20 @@ In this exercise we'll look at how we can launch the above launch file *and* our
     from launch import LaunchDescription
     from launch_ros.actions import Node
 
-    import os
     from launch.actions import IncludeLaunchDescription
     from launch.launch_description_sources import PythonLaunchDescriptionSource
-    from ament_index_python.packages import get_package_share_directory
+    from launch.substitutions import PathJoinSubstitution
+    from launch_ros.substitutions import FindPackageShare
 
     def generate_launch_description():
         return LaunchDescription([
             IncludeLaunchDescription( # (1)!
                 PythonLaunchDescriptionSource( # (2)!
-                    os.path.join( # (3)!
-                        get_package_share_directory("turtlebot3_gazebo"), 
-                        "launch", "empty_world.launch.py" # (4)!
-                    )
+                    PathJoinSubstitution([ # (3)!
+                        FindPackageShare("turtlebot3_gazebo"), # (4)!
+                        "launch", 
+                        "empty_world.launch.py" 
+                    ])
                 )
             )
         ])
@@ -144,81 +147,86 @@ In this exercise we'll look at how we can launch the above launch file *and* our
 
         As such, the launch description that we want to include is a *Python* launch description, which must therefore be defined using a `PythonLaunchDescriptionSource()` instance (imported from a module called `launch.launch_description_sources`)
         
-    3. The `os.path.join()` method (from the standard Python `os` library) can be used to build file paths. 
-    4. The *Python Launch Description Source* is defined by providing the full path to the launch file that we want to include. We don't necessarily know where this file is on our filesystem, but ROS does!
-    
-        We can therefore use a function called `get_package_share_directory()` (from a module called `ament_index_python.packages`) to provide us with the path to the *root* of this package directory.
+    3. The `PathJoinSubstitution()` class (from the `launch.substitutions` library) can be used to build file paths from a *list* of individual components (other file paths, folder names and launch file names).
         
-        From there, we know that the launch file itself must exist in a `launch` directory, so we use the `os.path.join()` method to construct this full file path for us.
+        Here we're using this to construct a full file path to the launch file that we want to execute.
+
+        ... but *how do we know what that is?* See below for more information...
     
-    ... Currently, the launch file above contains *only* the code necessary to include the `empty_world.launch.py` launch file into our `circle.launch.py` launch description. There's a few new things that have been introduced here to achieve this, so click on the :material-plus-circle: icons in the code above to find out what all these things are doing.
+    4. We need to know the *full path* to the launch file that we want to execute. We don't always know where this file is on our filesystem (launch files that are outside the ROS 2 workspace, that we haven't created ourselves for example).
+    
+        We can use another class called `FindPackageShare()` (from yet another library called `launch_ros.substitutions`). This provides us with the path to the *root* of this package directory.
 
-1. Now, add a `Node()` item to the launch description so that the `move_circle.py` node (from your `part2_navigation` package) is launched *after* the "Empty World" simulation has been launched.
+        Installed ROS packages (including the ones that we create ourselves) are always located in - and executed from - a *"share"* directory, hence `FindPackageShare()`. There will be multiple *share* directories on our system:
+            
+        * `/opt/ros/jazzy/share/`
+        * `~/ros2_ws/install/part3_beyond_basics/share/`
+        
+            ... for example.
+            
+    
+    Currently, this launch file only contains the description of the `empty_world.launch.py` launch file from the `turtlebot3_gazebo` package. There's a few new things that have been introduced here to achieve this, so click on the :material-plus-circle: icons in the code above to find out what all these things are doing.
 
-    Refer back to Exercise 1 for a reminder on how to do this.
+1. Now, add a `Node()` item to the launch description so that the `param_circle.py` node (from your `part3_beyond_basics` package) is launched *after* the "Empty World" simulation has been launched.
 
-1. When you're ready, remember to [run `colcon build` again](#colcon-build) *before* attempting to execute your new `circle.launch.py` launch file:
+    Refer back to [Part 3 Exercise 1](../part3.md#ex1) for a reminder of how to do this.
+
+1. [Run `colcon build` on your package](../part3.md#colcon-build) to *build* this new launch file.
+
+
+1. Finally, when you're ready, execute your new `circle.launch.py` launch file:
 
     ```bash
     ros2 launch part3_beyond_basics circle.launch.py
     ```
 
-If you've done this successfully, on launching the above command the Gazebo Empty World simulation should launch and, once it's loaded up, the robot should instantly start moving around in a circle (while printing information to **TERMINAL 1** at the same time). -->
+If you've done this successfully, on launching the above command the Gazebo Empty World simulation should launch and, once it's loaded up, the robot should instantly start moving in a circle.
 
 ## Passing Launch Arguments
 
-How do we pass an argument to a launch file (`tuos_simulations/waffle.launch.py`, for example) that we are executing from within *another* launch file? 
+How do we pass an argument to a launch file (`tuos_simulations/waffle.launch.py`, for example) that is declared within *another* launch file? 
 
-As per [Assignment #1 Part 3 Exercise 2](../assignment1/part3.md#ex2), a basic launch file would look like this (in this case configured to launch `tuos_simulations/waffle.launch.py`):
+Taking the same approach as above, a basic launch description for the `tuos_simulations/waffle.launch.py` sim would look like this:
 
 ```py title="launch_args_example.launch.py"
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
-import os
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from ament_index_python.packages import get_package_share_directory
+from launch.substitutions import PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     return LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                os.path.join(
-                    get_package_share_directory("tuos_simulations"), 
-                    "launch", "waffle.launch.py"
-                )
+                PathJoinSubstitution([
+                    FindPackageShare("tuos_simulations"),
+                    "launch", 
+                    "waffle.launch.py" 
+                ])
             )
         )
     ])
 ```
 
-To launch this *and* supply the `x_pose` and `y_pose` launch arguments to it as well, we need to add the following:
+To launch this *and* supply the `x_pose` and `y_pose` launch arguments to it as well, we need to add the following to the `PythonLaunchDescriptionSource()` definition:
 
-```py title="launch_args_example.launch.py"
-from launch import LaunchDescription
-from launch_ros.actions import Node
-
-import os
-from launch.actions import IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from ament_index_python.packages import get_package_share_directory
-
-def generate_launch_description():
-    return LaunchDescription([
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(
-                    get_package_share_directory("tuos_simulations"), 
-                    "launch", "waffle.launch.py"
-                )
-            ),
-            launch_arguments={ # (1)!
-                'x_pose': '1.0',
-                'y_pose': '0.5' # (2)!
-            }.items() 
-        )
-    ])
+```py
+IncludeLaunchDescription(
+    PythonLaunchDescriptionSource(
+        PathJoinSubstitution([
+            FindPackageShare("tuos_simulations"), 
+            "launch", 
+            "waffle.launch.py"
+        ])
+    ),
+    launch_arguments={ # (1)!
+        'x_pose': '1.0',
+        'y_pose': '0.5' # (2)!
+    }.items()
+)
 ```
 
 1. Arguments are passed to the launch file via the `launch_arguments` option of `IncludeLaunchDescription()`.
@@ -226,55 +234,35 @@ def generate_launch_description():
     
     In this case, *keys* are the names of the launch arguments to be passed to the `waffle.launch.py` launch file, and **values** are the actual values we want to assign to those arguments (and which can be changed as required).
 
-## A Very Brief Introduction to ROS Parameters
+## Command Line Arguments for Launch Files
 
-To create arguments for our own launch files and to be able to pass these arguments into our own Nodes, we need to use **the ROS parameter System**.
+To create arguments for our own launch files and to be able to pass these arguments into our own Nodes, we need to use **parameters**. Once again, we learnt about these in [Part 3 of the course](../part3.md#ex2) (in Exercise 2), where we created the `param_circle.py` node that has already been discussed above.
 
-There's a node in the `tuos_examples` package called `param_publisher.py`. This node looks for a parameter on the ROS network called `word`, reads its value and then publishes this to a topic called `/chatter`.
+If you have a simulation still running, close this down now. For the remainder of this section, you should launch an empty world manually, from a separate terminal, whenever you need it (either the `tuos_simulations/waffle.launch.py` or `turtlebot3_gazebo/empty_world.launch.py` worlds would be appropriate).
 
-Parameters are used as a way to configure nodes, and can be further used to change their behaviour dynamically during run time. [You can read more about ROS Parameters here](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target="_blank"}, and you can also **[take a look at ^^the code for the `param_publisher.py` file^^ here](https://github.com/tom-howard/tuos_ros/blob/humble/tuos_examples/scripts/param_publisher.py){target="_blank"}**, where you'll see that it's fairly straightforward to declare and read parameter values from within a node. 
+### Declaring Command Line Arguments for Launch Files
 
-If we run this node using `ros2 run` a default value is used for the `word` parameter:
+Let's now create a very basic launch file called `cli_example.launch.py` now, to launch this node alone (once again, why not create this in your `part3_beyond_basics` package where you'll be building up quite a collection of launch files by now!):
 
-``` { .txt .no-copy }
-$ ros2 run tuos_examples param_publisher.py
-[INFO] [####] [param_publisher]: The 'param_publisher' node is running...
-[INFO] [####] [param_publisher]: Publishing the word 'hello'.
-```
-
-In a different terminal, we can read the values that are being published to the `/chatter` topic using `ros2 topic echo`:
-
-``` { .txt .no-copy }
-$ ros2 topic echo /chatter
-data: hello
----
-data: hello
----
-```
-
-## Defining Command Line Arguments for Launch Files
-
-We can create a basic launch file to launch the `param_publisher.py` file as shown below:
-
-```py
+```py title="cli_example.launch.py"
 from launch import LaunchDescription 
 from launch_ros.actions import Node 
 
 def generate_launch_description(): 
     return LaunchDescription([ 
         Node( 
-            package='tuos_examples', 
-            executable='param_publisher.py', 
-            name='the_param_publisher_node' 
+            package='part3_beyond_basics', 
+            executable='param_circle.py', 
+            name='my_param_circle_node' 
         )
     ])
 ```
 
-In order to follow along here, you'll need to create this launch file within one of your own packages. Refer back to [Assignment #1 Part 3](../assignment1/part3.md) for a reminder on how all this works.
+As we know, this node uses a ROS 2 parameter called `radius` to control the size of the circle that the robot will follow. We can declare a value for this at run time from within this launch file and set its value via a command line argument passed to the launch file itself. 
 
-To define an argument for this launch file, we use the `DeclareLaunchArgument` action, which must be included as an item in the `LaunchDescription`:
+To do this, we first use the `DeclareLaunchArgument` action, which must be included as an item in the `LaunchDescription`:
 
-```py
+```py title="cli_example.launch.py"
 from launch import LaunchDescription 
 from launch_ros.actions import Node 
 from launch.actions import DeclareLaunchArgument # (1)!
@@ -282,14 +270,14 @@ from launch.actions import DeclareLaunchArgument # (1)!
 def generate_launch_description(): 
     return LaunchDescription([ 
         DeclareLaunchArgument(
-            name='some_word', 
-            description="A word, any word.",
-            default_value='Hi'
+            name='circle_radius', 
+            description="Sets the desired radius of the circle (in meters).",
+            default_value='1.0'
         ), # (2)!
         Node( 
-            package='tuos_examples', 
-            executable='param_publisher.py', 
-            name='the_param_publisher_node' 
+            package='part3_beyond_basics', 
+            executable='param_circle.py', 
+            name='my_param_circle_node' 
         )
     ])
 ```
@@ -301,15 +289,13 @@ We're defining **three things** when declaring the launch argument:
 
 1. `name`: The **name** of the argument.
 2. `description`: A description of what this argument is used for.
-3. `default_value`: A value that will be assigned to `name` if we don't provide one when executing the launch file.
+3. `default_value`: A value that will be assigned if we don't provide one when executing the launch file.
 
-## Passing Launch File Arguments to Python Nodes (via Parameters)
+### Passing Launch File Arguments to Python Nodes (via Parameters)
 
-We defined a launch argument in the step above, but (currently) this argument isn't actually being used anywhere. We want to pass this value to our `param_publisher.py` node via a parameter (as discussed earlier).
+We defined a launch argument in the step above, but (currently) this argument isn't actually being passed to our `param_circle.py` node. To do this, we can add an argument to the `Node()` launch description item:
 
-To do this, we can add an argument to the `Node()` launch description item:
-
-```py
+```py title="cli_example.launch.py"
 from launch import LaunchDescription 
 from launch_ros.actions import Node 
 from launch.actions import DeclareLaunchArgument
@@ -318,43 +304,49 @@ from launch.substitutions import LaunchConfiguration # (1)!
 def generate_launch_description(): 
     return LaunchDescription([ 
         DeclareLaunchArgument(
-            name='some_word', 
-            description="A word, any word.",
-            default_value='Hi'
+            name='circle_radius', 
+            description="Sets the desired radius of the circle (in meters).",
+            default_value='1.0'
         ),
         Node( 
-            package='tuos_examples', 
-            executable='param_publisher.py', 
-            name='param_publisher_node',
-            parameters=[{'word': LaunchConfiguration('some_word')}] 
+            package='part3_beyond_basics', 
+            executable='param_circle.py', 
+            name='my_param_circle_node',
+            parameters=[{'radius': LaunchConfiguration('circle_radius')}] 
         )
     ])
 ```
 
 1. Another new import here!!
 
-Remember that our `param_publisher.py` node is looking for a parameter called `word`, and we are passing this in using the value supplied by the *launch file* argument `some_word`. So, if we call this launch file *without* supplying the `some_word` argument, a default value of `Hi` will be set (instead of the default value of `Hello` set by the node itself). You can test this out by running the pre-made `cli_example.launch.py` launch file also available in the `tuos_examples` package:
+Remember that our `param_circle.py` node uses a parameter called `radius`, and we are passing this into *this launch file* using the value supplied by the *launch file* argument `circle_radius`. So, if we call this launch file *without* supplying the `circle_radius` argument, a default value of `1.0` will be set (instead of the default value of `0.5` set by the node itself). Test this out by running this launch file without passing a value for the `circle_radius` argument first:
 
-``` { .txt .no-copy }
-$ ros2 launch tuos_examples cli_example.launch.py
-[INFO] [launch]: All log files can be found below xxx
-[INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [param_publisher.py-1]: process started with pid [####]
-[param_publisher.py-1] [INFO] [####] [param_publisher_node]: The 'param_publisher_node' node is running...
-[param_publisher.py-1] [INFO] [####] [param_publisher_node]: Publishing the word 'Hi'.
-[param_publisher.py-1] [INFO] [####] [param_publisher_node]: Publishing the word 'Hi'.
+```txt
+ros2 launch part3_beyond_basics cli_example.launch.py
 ```
 
-Now, do this again but this time supplying the `some_word` command line argument to the launch file:
+You should see regular messages printed to the terminal to indicate the radius that the node is attempting to achieve:
 
-``` { .txt .no-copy }
-$ ros2 launch tuos_examples cli_example.launch.py some_word:=goodbye
-[INFO] [launch]: All log files can be found below xxx
-[INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [param_publisher.py-1]: process started with pid [####]
-[param_publisher.py-1] [INFO] [####] [param_publisher_node]: The 'param_publisher_node' node is running...
-[param_publisher.py-1] [INFO] [####] [param_publisher_node]: Publishing the word 'goodbye'.
-[param_publisher.py-1] [INFO] [####] [param_publisher_node]: Publishing the word 'goodbye'.
+``` { .txt .no-copy}
+...
+[param_circle.py-1] [INFO] [###] [my_param_circle_node]: Moving with radius: 1.00 [m]
+...
 ```
 
-Here, we've seen how we can build a launch file that accepts a command line argument, and how we can pass the *value* of that command line argument into a ROS node.
+Now, do this again but this time specifying a value for `circle_radius`:
+
+```txt
+ros2 launch part3_beyond_basics cli_example.launch.py circle_radius:=0.3
+```
+
+This time, the regular status messages (and the movement of the robot) should have changed:
+
+``` { .txt .no-copy}
+...
+[param_circle.py-1] [INFO] [###] [my_param_circle_node]: Moving with radius: 0.30 [m]
+...
+```
+
+### Summary
+
+In the above two sections we've seen how we can build a launch file that accepts a command line argument, and how we can pass the *value* of that command line argument into a ROS node.

@@ -366,13 +366,24 @@ Let's think back to our `move_circle.py` node from Part 2 in order to see what t
     
         Here, we're declaring a ROS parameter called `radius` and assigning a default value of `0.5` to it, to represent the desired radius of the circle (in meters).
     
-    1. Finally, somewhere in the `timer_callback()` method, you should be defining the desired radius of the circle. *Modify* this as follows:
+    1. Somewhere in the `timer_callback()` method, you should be defining the desired radius of the circle. *Modify* this as follows:
 
         ```py 
         radius = self.get_parameter("radius").get_parameter_value().double_value
         ```
 
         The radius of the circle that the robot will move through is now based on the value of the `radius` *parameter*, rather than a static value. 
+
+    1. Finally, modify your `get_logger().info()` statement (at the end of the `timer_callback()` method) to include information about the target radius:
+
+        ```py
+        self.get_logger().info( 
+            f"Moving with radius: {radius:.2f} [m]\n"
+            f"Linear Velocity: {topic_msg.twist.linear.x:.2f} [m/s], "
+            f"Angular Velocity: {topic_msg.twist.angular.z:.2f} [rad/s].",
+            throttle_duration_sec=1, 
+        )
+        ```
 
 1. In order to test this, first fire up the *Empty World* simulation in **TERMINAL 1**:
 

@@ -3000,36 +3000,46 @@
 <p>Here, we're declaring a ROS parameter called <code>radius</code> and assigning a default value of <code>0.5</code> to it, to represent the desired radius of the circle (in meters).</p>
 </li>
 <li>
-<p>Finally, somewhere in the <code>timer_callback()</code> method, you should be defining the desired radius of the circle. <em>Modify</em> this as follows:</p>
+<p>Somewhere in the <code>timer_callback()</code> method, you should be defining the desired radius of the circle. <em>Modify</em> this as follows:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">"radius"</span><span class="p">)</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">()</span><span class="o">.</span><span class="n">double_value</span>
 </code></pre></div>
 <p>The radius of the circle that the robot will move through is now based on the value of the <code>radius</code> <em>parameter</em>, rather than a static value. </p>
+</li>
+<li>
+<p>Finally, modify your <code>get_logger().info()</code> statement (at the end of the <code>timer_callback()</code> method) to include information about the target radius:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> 
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>    <span class="sa">f</span><span class="s2">"Moving with radius: </span><span class="si">{</span><span class="n">radius</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m]</span><span class="se">\n</span><span class="s2">"</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>    <span class="sa">f</span><span class="s2">"Linear Velocity: </span><span class="si">{</span><span class="n">topic_msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m/s], "</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>    <span class="sa">f</span><span class="s2">"Angular Velocity: </span><span class="si">{</span><span class="n">topic_msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [rad/s]."</span><span class="p">,</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>    <span class="n">throttle_duration_sec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="p">)</span>
+</code></pre></div>
 </li>
 </ol>
 </li>
 <li>
 <p>In order to test this, first fire up the <em>Empty World</em> simulation in <strong>TERMINAL 1</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py<span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
 <p>Next, in <strong>TERMINAL 2</strong>, run the <code>param_circle.py</code> node:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part3_beyond_basics<span class="w"> </span>param_circle.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part3_beyond_basics<span class="w"> </span>param_circle.py
 </code></pre></div>
 <p>The robot should start to move in a circle. To begin with, the radius of this circle should be 0.5 meters, based on the default value that we assigned to the parameter in our code.</p>
 </li>
 <li>
 <p>Next, open up another terminal instance (<strong>TERMINAL 3</strong>), and run the following command to list all the parameters that are currently active/available on our ROS network:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>ros2<span class="w"> </span>param<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ros2<span class="w"> </span>param<span class="w"> </span>list
 </code></pre></div>
 <p>This may be quite a big list. Parameters are listed under the nodes that define them, so to filter the list, provide the name of the node as well:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ros2<span class="w"> </span>param<span class="w"> </span>list<span class="w"> </span>/param_circle
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>ros2<span class="w"> </span>param<span class="w"> </span>list<span class="w"> </span>/param_circle
 </code></pre></div>
 <p>There should only be a handful of parameters listed now, including <code>radius</code>. </p>
 </li>
 <li>
 <p>We can now change the value of this parameter while our <code>param_circle.py</code> node is running, and therefore change the size of the circle that the robot is currently following. We can do this from the command line, without having to stop our <code>param_circle.py</code> node or make any changes to it. Again, in <strong>TERMINAL 3</strong>: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>ros2 param set /param_circle radius 1.2
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2 param set /param_circle radius 1.2
 </code></pre></div>
 <p>Try setting a range of different values and observe how the robot's behaviour changes in the simulated world!</p>
 </li>
@@ -3048,7 +3058,7 @@
 <ol>
 <li>
 <p>In <strong>TERMINAL 1</strong> enter the following command to launch this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
 </code></pre></div>
 <p>A Gazebo simulation should now be launched with a TurtleBot3 Waffle in a new environment:</p>
 <p></p><figure markdown>
@@ -3057,7 +3067,7 @@
 </li>
 <li>
 <p>In <strong>TERMINAL 2</strong> enter the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
 <p>On running the command a new window should open:</p>
 <p></p><figure markdown>
@@ -3070,47 +3080,47 @@
 </li>
 <li>
 <p>Laser displacement data from the LiDAR sensor is published by the robot to the <code>/scan</code> topic. We can use the <code>ros2 topic info</code> command to find out more about the nodes that are publishing and subscribing to this topic, as well as the <em>type of interface</em> used to transmit this topic data. In <strong>TERMINAL 3</strong> enter the following:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/scan
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/scan
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>Type: sensor_msgs/msg/LaserScan
-<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>Publisher count: 1
-<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>Subscription count: 0
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>Type: sensor_msgs/msg/LaserScan
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>Publisher count: 1
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>Subscription count: 0
 </code></pre></div><p></p>
 </li>
 <li>
 <p>As we can see from above, <code>/scan</code> data is of the <code>sensor_msgs/msg/LaserScan</code> type, and we can find out more about this interface using the <code>ros2 interface show</code> command:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>sensor_msgs/msg/LaserScan
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>sensor_msgs/msg/LaserScan
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a># Single scan from a planar laser range-finder
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>
-<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>std_msgs/Header header # timestamp in the header is the acquisition time of
-<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>        builtin_interfaces/Time stamp
-<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>                int32 sec
-<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>                uint32 nanosec
-<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>        string frame_id
-<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>                             # the first ray in the scan.
-<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>                             #
-<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>                             # in frame frame_id, angles are measured around
-<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>                             # the positive Z axis (counterclockwise, if Z is up)
-<a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>                             # with zero angle being forward along the x axis
-<a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a>
-<a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>float32 angle_min            # start angle of the scan [rad]
-<a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a>float32 angle_max            # end angle of the scan [rad]
-<a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a>float32 angle_increment      # angular distance between measurements [rad]
-<a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a>
-<a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a>float32 time_increment       # time between measurements [seconds] - if your scanner
-<a id="__codelineno-44-19" name="__codelineno-44-19" href="#__codelineno-44-19"></a>                             # is moving, this will be used in interpolating position
-<a id="__codelineno-44-20" name="__codelineno-44-20" href="#__codelineno-44-20"></a>                             # of 3d points
-<a id="__codelineno-44-21" name="__codelineno-44-21" href="#__codelineno-44-21"></a>float32 scan_time            # time between scans [seconds]
-<a id="__codelineno-44-22" name="__codelineno-44-22" href="#__codelineno-44-22"></a>
-<a id="__codelineno-44-23" name="__codelineno-44-23" href="#__codelineno-44-23"></a>float32 range_min            # minimum range value [m]
-<a id="__codelineno-44-24" name="__codelineno-44-24" href="#__codelineno-44-24"></a>float32 range_max            # maximum range value [m]
-<a id="__codelineno-44-25" name="__codelineno-44-25" href="#__codelineno-44-25"></a>
-<a id="__codelineno-44-26" name="__codelineno-44-26" href="#__codelineno-44-26"></a>float32[] ranges             # range data [m]
-<a id="__codelineno-44-27" name="__codelineno-44-27" href="#__codelineno-44-27"></a>                             # (Note: values &lt; range_min or &gt; range_max should be discarded)
-<a id="__codelineno-44-28" name="__codelineno-44-28" href="#__codelineno-44-28"></a>float32[] intensities        # intensity data [device-specific units].  If your
-<a id="__codelineno-44-29" name="__codelineno-44-29" href="#__codelineno-44-29"></a>                             # device does not provide intensities, please leave
-<a id="__codelineno-44-30" name="__codelineno-44-30" href="#__codelineno-44-30"></a>                             # the array empty.
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a># Single scan from a planar laser range-finder
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>std_msgs/Header header # timestamp in the header is the acquisition time of
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>        builtin_interfaces/Time stamp
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>                int32 sec
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>                uint32 nanosec
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>        string frame_id
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>                             # the first ray in the scan.
+<a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>                             #
+<a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>                             # in frame frame_id, angles are measured around
+<a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>                             # the positive Z axis (counterclockwise, if Z is up)
+<a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>                             # with zero angle being forward along the x axis
+<a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>
+<a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>float32 angle_min            # start angle of the scan [rad]
+<a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>float32 angle_max            # end angle of the scan [rad]
+<a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a>float32 angle_increment      # angular distance between measurements [rad]
+<a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a>
+<a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>float32 time_increment       # time between measurements [seconds] - if your scanner
+<a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a>                             # is moving, this will be used in interpolating position
+<a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a>                             # of 3d points
+<a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a>float32 scan_time            # time between scans [seconds]
+<a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a>
+<a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a>float32 range_min            # minimum range value [m]
+<a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a>float32 range_max            # maximum range value [m]
+<a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a>
+<a id="__codelineno-45-26" name="__codelineno-45-26" href="#__codelineno-45-26"></a>float32[] ranges             # range data [m]
+<a id="__codelineno-45-27" name="__codelineno-45-27" href="#__codelineno-45-27"></a>                             # (Note: values &lt; range_min or &gt; range_max should be discarded)
+<a id="__codelineno-45-28" name="__codelineno-45-28" href="#__codelineno-45-28"></a>float32[] intensities        # intensity data [device-specific units].  If your
+<a id="__codelineno-45-29" name="__codelineno-45-29" href="#__codelineno-45-29"></a>                             # device does not provide intensities, please leave
+<a id="__codelineno-45-30" name="__codelineno-45-30" href="#__codelineno-45-30"></a>                             # the array empty.
 </code></pre></div><p></p>
 </li>
 </ol>
@@ -3122,17 +3132,17 @@
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rviz/lidar_illustrated.png"></a></p>
 </figure>
 <p><a name="echo_scan_variables"></a>As illustrated in the figure, we can associate each data-point of the <code>ranges</code> array to an <em>angular position</em> by using the <code>angle_min</code>, <code>angle_max</code> and <code>angle_increment</code> values that are also provided within the <code>LaserScan</code> message.  We can use the <code>ros2 topic echo</code> command to find out what their values are:</p>
-<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>$ ros2 topic echo /scan --field angle_min --once
-<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>0.0
-<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>---
-</code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>$ ros2 topic echo /scan --field angle_max --once
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>6.28000020980835
+<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>$ ros2 topic echo /scan --field angle_min --once
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>0.0
 <a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>---
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>$ ros2 topic echo /scan --field angle_increment --once
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>0.01749303564429283
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>$ ros2 topic echo /scan --field angle_max --once
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>6.28000020980835
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>---
+</code></pre></div>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>$ ros2 topic echo /scan --field angle_increment --once
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>0.01749303564429283
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>---
 </code></pre></div><p></p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
@@ -3150,20 +3160,20 @@
 <li>What <em>is</em> the maximum and minimum range of the LiDAR sensor? Use <a href="#echo_scan_variables">the same technique as we used above</a> to find out.</li>
 <li>
 <p>Consider the note against <code>ranges</code> in the <code>ros2 interface show</code> output earlier:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>float32[] ranges    # range data [m]
-<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>                    # (Note: values &lt; range_min or &gt; range_max should be discarded)
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>float32[] ranges    # range data [m]
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>                    # (Note: values &lt; range_min or &gt; range_max should be discarded)
 </code></pre></div>
 <p>(this might be worth thinking about).</p>
 </li>
 </ol>
 </div>
 <p>Finally, use the <code>ros2 topic echo</code> command again to display the <code>ranges</code> portion of the <code>LaserScan</code> data. There's a lot of data here (360 data points per message in fact, as you know from above!):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2 topic echo /scan --field ranges
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2 topic echo /scan --field ranges
 </code></pre></div>
 <p>We're dropping the <code>--once</code> option now, so that we can see the data as it comes in, in <em>real-time</em>.  You might need to expand the terminal window so that you can see all the data points; data will be bound by square brackets <code>[]</code>, and there should be a <code>---</code> at the end of each message too, to help you confirm that you are viewing the whole thing.</p>
 <p>The main thing you'll notice here is that there's lots of information, and it changes rapidly! As you have already seen though, it is the numbers that are flying by here that are represented by green dots in RViz.  Head back to the RViz screen to have another look at this now. As you'll no doubt agree, this is a much more useful way to visualise the <code>ranges</code> data, and illustrates how useful RViz can be for interpreting what your robot can <em>see</em> in real-time.</p>
 <p>What you may also notice is several <code>inf</code> values scattered around the array.  These represent sensor readings that are outside the sensor's measurement range (i.e. <em>greater than</em> <code>range_max</code> or <em>less than</em> <code>range_min</code>), so the sensor can't report a distance measurement in such cases. Remember from above: </p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>(Note: values &lt; range_min or &gt; range_max should be discarded)
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>(Note: values &lt; range_min or &gt; range_max should be discarded)
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3175,7 +3185,7 @@
 <ol>
 <li>
 <p>In <strong>TERMINAL 2</strong>, navigate into the <code>scripts</code> folder of your <code>part3_beyond_basics</code> package:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part3_beyond_basics/scripts/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part3_beyond_basics/scripts/
 </code></pre></div>
 </li>
 <li>
@@ -3187,16 +3197,16 @@
 </li>
 <li>
 <p>Head back to the terminal and build with <code>colcon</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part3_beyond_basics<span class="w"> </span>--symlink-install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part3_beyond_basics<span class="w"> </span>--symlink-install
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 <li>
 <p>With all of that done, you're ready to go. Run the node using <code>ros2 run</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part3_beyond_basics<span class="w"> </span>lidar_subscriber.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part3_beyond_basics<span class="w"> </span>lidar_subscriber.py
 </code></pre></div>
 </li>
 <li>
@@ -3204,12 +3214,12 @@
 </li>
 <li>
 <p>Close everything down now (including the simulation running in <strong>TERMINAL 1</strong>). Then launch the "empty world" simulation again:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
 </li>
 <li>
 <p>Go back to <strong>TERMINAL 2</strong> and launch your <code>lidar_subscriber.py</code> node again:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part3_beyond_basics<span class="w"> </span>lidar_subscriber.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part3_beyond_basics<span class="w"> </span>lidar_subscriber.py
 </code></pre></div>
 <p>What output do you see from this now?</p>
 <p>You should notice that your <code>lidar_subscriber.py</code> node reports <code>nan meters</code> now. That's because there's nothing in the environment for the LiDAR sensor to detect, so <em>all</em> readings are out of range and hence our analysis of the 40° arc of LiDAR readings at the front of the robot has filtered out <em>everything</em> and therefore returned <code>nan</code> (not a number).</p>
@@ -3242,7 +3252,7 @@
 </li>
 <li>
 <p>We're going to launch our robot into <em>another</em> new simulated environment now, which we'll be creating a map of using SLAM! To launch the simulation enter the following command in <strong>TERMINAL 1</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <p>The environment that launches should look like this:</p>
 <p></p><figure markdown>
@@ -3251,7 +3261,7 @@
 </li>
 <li>
 <p>Now launch SLAM to start building a map of this environment. In <strong>TERMINAL 2</strong>, launch SLAM as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>cartographer.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>cartographer.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
 <p>This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some dots representing the real-time LiDAR data. </p>
 <p></p><figure markdown>
@@ -3271,7 +3281,7 @@
 </li>
 <li>
 <p>As you're doing this open up <em>another</em> terminal instance (<strong>TERMINAL 4</strong>) and run the <code>odom_subscriber.py</code> node that you created back in Part 2:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part2_navigation<span class="w"> </span>odom_subscriber.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part2_navigation<span class="w"> </span>odom_subscriber.py
 </code></pre></div>
 <p>This will provide you with the robot's <code>X</code> and <code>Y</code> coordinates (in meters) within the environment, as you are driving it around, and you can use this to determine the centre coordinates of the four circles (A, B, C &amp; D) that are printed on the arena floor. </p>
 <p>Drive your robot into each of these circular zones and stop the robot inside them.    </p>
@@ -3326,23 +3336,23 @@
 </li>
 <li>
 <p>Then, remaining in <strong>TERMINAL 3</strong>, navigate to the root of your <code>part3_beyond_basics</code> package directory and create a new folder in it called <code>maps</code>:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part3_beyond_basics/
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part3_beyond_basics/
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>mkdir<span class="w"> </span>maps
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>mkdir<span class="w"> </span>maps
 </code></pre></div><p></p>
 </li>
 <li>
 <p>Navigate into this new directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="nb">cd</span><span class="w"> </span>maps/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="nb">cd</span><span class="w"> </span>maps/
 </code></pre></div>
 </li>
 <li>
 <p>Then, run the <code>map_saver_cli</code> node from the <code>map_server</code> package to save a copy of your map: <a name="map-saver-cli"></a></p>
-<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
+<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
 </code></pre></div>
 Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
 <p>This will create two files: a <code>MAP_NAME.pgm</code> and a <code>MAP_NAME.yaml</code> file, both of which contain data related to the map that you have just created.  The <code>.pgm</code> file contains an <em>Occupancy Grid Map (OGM)</em>, which is used for <em>autonomous navigation</em> in ROS.  Have a look at the map by launching it in an Image Viewer Application called <code>eog</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>eog<span class="w"> </span>MAP_NAME.pgm
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>eog<span class="w"> </span>MAP_NAME.pgm
 </code></pre></div>
 <p>A new window should launch containing the map you have just created with SLAM and the <code>map_saver_cli</code> node: </p>
 <p></p><figure markdown>
@@ -3373,7 +3383,7 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
 <p>This additional information can come from a LiDAR sensor, which was discussed earlier. We explored where this data is published to, how we access it, and what it tells us about a robot's immediate environment.  We then looked at some ways odometry and laser displacement data can be combined to perform advanced robotic functions such as the mapping of an environment. This is all complicated stuff but, using ROS, we can leverage these tools with relative ease, which illustrates just how powerful ROS can be for developing robotic applications quickly and effectively without having to re-invent the wheel!</p>
 <h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
 <p>Remember, the work you have done in the WSL-ROS2 environment during this session <strong>will not be preserved</strong> for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS2 Terminal Instance:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>wsl_ros<span class="w"> </span>backup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
 <p>This will export your home directory to your University <code>U:\</code> Drive, allowing you to restore it on another managed desktop machine the next time you fire up WSL-ROS2.  </p>
 
@@ -3398,7 +3408,7 @@ Replacing <code>MAP_NAME</code> with a name of your choosing. <p></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 29, 2025 12:14:19 UTC"><span class="timeago" datetime="2025-10-29T12:14:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 29, 2025 12:14:19 UTC">2025-10-29</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 12, 2025 11:56:40 UTC"><span class="timeago" datetime="2025-11-12T11:56:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 12, 2025 11:56:40 UTC">2025-11-12</span>
   </span>
 
     

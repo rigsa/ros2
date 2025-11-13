@@ -66,5 +66,5 @@ For more information on how to create `.launch.py` files, refer to the following
 
 ### Preparing for the Deadlines
 
-You can find all the Key Information regarding assessment of the *programming* tasks on [this page](./assessment.md). It's extremely important that you follow all the *Key Requirements* outlined here regarding the structure, content and configuration of your ROS package, so please be sure to **read this page in full** at your earliest convenience!
+[You can find all the Key Information regarding assessment of the *programming* tasks on this page](./assessment.md). It's extremely important that you follow all the *Key Requirements* outlined here regarding the structure, content and configuration of your ROS package, so please be sure to **read this page in full** at your earliest convenience!
 

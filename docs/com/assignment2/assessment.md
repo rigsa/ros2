@@ -5,7 +5,7 @@ title: Key Assessment Info & Requirements
 !!! warning
     Failure to follow all the requirements listed on this page could result in **penalties** being applied to your mark, or **zero marks** being awarded for a submission point and/or assignment task!
 
-Your ROS package should be hosted on GitHub, it should be setup as a private repository, and you should have added `tom-howard` as a collaborator. 
+Your ROS package should be hosted on GitHub, it should be setup as a private repository, and you should have added `tom-howard` and `AlexandrLucas` as collaborators. 
 
 In addition to this, you should have registered your package with the teaching team (via the Google Form), so that we know where to find it on the submission deadlines.
 
@@ -45,7 +45,7 @@ In addition to registering your package correctly (as above), you **must** also 
 * [ ] The name of your ROS package must be:
 
     ``` { .txt .no-copy }
-    com2009_teamXX_2025
+    com2009_teamXX_2026
     ```
 
     ... where `XX` should be replaced with your team number.
@@ -53,7 +53,7 @@ In addition to registering your package correctly (as above), you **must** also 
 * [ ] It must be possible to build your package by running the following command from the root of the local ROS2 Workspace, and this must build without errors:
     
     ``` { .bash .no-copy }
-    colcon build --packages-select com2009_teamXX_2025
+    colcon build --packages-select com2009_teamXX_2026
     ```
 
 * [ ] You must ensure that a launch file exists for each of the *programming* tasks (Tasks 1, 2 & 3) and that these are *callable* (after having run the above `colcon build` command) so that we are able to launch your work using `ros2 launch` as follows[^launch-files]:
@@ -61,7 +61,7 @@ In addition to registering your package correctly (as above), you **must** also 
     [^launch-files]: Make sure you have [defined an appropriate `install` directory in your package's `CMakeLists.txt`](../assignment1/part3.md#ex1) 
 
     ``` { .bash .no-copy }
-    ros2 launch com2009_teamXX_2025 taskY.launch.py
+    ros2 launch com2009_teamXX_2026 taskY.launch.py
     ```
 
     ... where `XX` will be replaced by your team number, and `Y` will be replaced by the appropriate task number.

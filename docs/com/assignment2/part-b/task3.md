@@ -74,7 +74,7 @@ Having developed the core functionality for the task, you'll then need to think 
 As with the previous 2 tasks, we will launch the ROS node(s) from within your package for this task using `ros2 launch` ([as discussed below](#launch)). For this one however, we will *also* attempt to supply an additional argument when we make the command-line call:
 
 ``` { .bash .no-copy }
-ros2 launch com2009_teamXX_2025 task3.launch.py target_colour:=COLOUR
+ros2 launch com2009_teamXX_2026 task3.launch.py target_colour:=COLOUR
 ```
 
 ...where `COLOUR` will be replaced with either `yellow`, `red`, `green` or `blue` (the target colour will be selected randomly). Based on this input, your robot will need to capture an image of the beacon in the arena of the same colour!
@@ -92,13 +92,13 @@ You will therefore need to define your launch file to accommodate the `target_co
 We will test whether your launch file has been correctly built to accept the `target_colour` command-line argument using the `-s` option with `ros2 launch`, which provides a list of all arguments that may be given to the launch file: 
 
 ``` { .bash .no-copy }
-ros2 launch com2009_teamXX_2025 task3.launch.py -s
+ros2 launch com2009_teamXX_2026 task3.launch.py -s
 ```
 
 Having built your `task3.launch.py` file correctly, the `target_colour` argument should be listed in the output of the above command, e.g.:
 
 ``` { .txt .no-copy }
-$ ros2 launch com2009_teamXX_2025 task3.launch.py -s
+$ ros2 launch com2009_teamXX_2026 task3.launch.py -s
 Arguments (pass arguments as '<name>:=<value>'):
 
     'target_colour':
@@ -154,7 +154,7 @@ The root of your package directory must contain a directory called `maps`, and t
 Your team's ROS package must contain a launch file named `task3.launch.py`, such that (for the assessment) we are able to launch all the nodes that you have developed for this task via the following command:
   
 ```bash
-ros2 launch com2009_teamXX_2025 task3.launch.py target_colour:=COLOUR
+ros2 launch com2009_teamXX_2026 task3.launch.py target_colour:=COLOUR
 ```
 ... where `XX` will be replaced with your team number and `COLOUR` will be replaced with either `yellow`, `red`, `green` or `blue`.
 
@@ -202,9 +202,9 @@ The marks available per room explored will be awarded as follows:
 | Criteria | Details | Marks|
 | :--- | :--- | :--- |
 | **D1.a** | Your `task3.launch.py` file has been built to accept `target_colour` argument (assessed by [running `ros2 launch -s` on your launch file](#args_test)) **and** a message is printed to the terminal (using a `#!py get_logger().info()` method call) to indicate that the **correct** target colour has been passed to a node in your package (this must occur straight away on executing your launch file and [the message format must be exactly as specified here](#arg_parsing)). | 2 |
-| **D1.b** | At the end of the assessment a **single** image file, called `target_beacon.jpg`, has been obtained from the robot's camera (during the course of the assessment), and this is located in a folder called `snaps` at the root of your package directory i.e.: `com2009_teamXX_2025/snaps/target_beacon.jpg`. | 2 | 
-| **D1.c** | Your `com2009_teamXX_2025/snaps/target_beacon.jpg` image file contains **any part** of the **correct** beacon. | 3 |
-| **D1.d** | Your `com2009_teamXX_2025/snaps/target_beacon.jpg` image file has captured the **full width** of the correct beacon. | 3 |
+| **D1.b** | At the end of the assessment a **single** image file, called `target_beacon.jpg`, has been obtained from the robot's camera (during the course of the assessment), and this is located in a folder called `snaps` at the root of your package directory i.e.: `com2009_teamXX_2026/snaps/target_beacon.jpg`. | 2 | 
+| **D1.c** | Your `com2009_teamXX_2026/snaps/target_beacon.jpg` image file contains **any part** of the **correct** beacon. | 3 |
+| **D1.d** | Your `com2009_teamXX_2026/snaps/target_beacon.jpg` image file has captured the **full width** of the correct beacon. | 3 |
 
 </center>
 
@@ -214,7 +214,7 @@ The marks available per room explored will be awarded as follows:
 
 | Criteria | Details | Marks|
 | :--- | :--- | :--- |
-| **D2.a** | By the end of the assessment a map of the robot arena (or any part of it) must have been generated. Two files should exist: a `.png` and a `.yaml`, both of which must be called `arena_map`, and both must be located in a `maps` folder at the root of your package directory i.e. `com2009_teamXX_2025/maps/arena_map.png` and `com2009_teamXX_2025/maps/arena_map.yaml`. | 2 |
-| **D2.b** | Your `com2009_teamXX_2025/maps/arena_map.png` file that is created *during the assessment* is a map that depicts **at least one** of the rooms of the arena, **in full**. | 3 |   
+| **D2.a** | By the end of the assessment a map of the robot arena (or any part of it) must have been generated. Two files should exist: a `.png` and a `.yaml`, both of which must be called `arena_map`, and both must be located in a `maps` folder at the root of your package directory i.e. `com2009_teamXX_2026/maps/arena_map.png` and `com2009_teamXX_2026/maps/arena_map.yaml`. | 2 |
+| **D2.b** | Your `com2009_teamXX_2026/maps/arena_map.png` file that is created *during the assessment* is a map that depicts **at least one** of the rooms of the arena, **in full**. | 3 |   
 
 </center>

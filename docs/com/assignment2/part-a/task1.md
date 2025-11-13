@@ -65,7 +65,7 @@ Odometry and keeping track of the robot's *pose* is discussed in detail in [Assi
 Your ROS package must contain a launch file called `task1.launch.py`. When assessing your team's package, the teaching team will use the following command to execute all the necessary functionality from within your package:
 	 
 ``` { .bash .no-copy }
-ros2 launch com2009_teamXX_2025 task1.launch.py
+ros2 launch com2009_teamXX_2026 task1.launch.py
 ```
 
 ... where `XX` will be replaced with *your team number*.

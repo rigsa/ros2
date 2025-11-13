@@ -31,7 +31,7 @@ If you're generating an SSH key for the first time, then you can skip this step 
     ls -al ~/.ssh
     ```
 
-    This will provide you with a list of all the SSH keys on the laptop. Your team's key should have the same name as your ROS package ([if you followed the steps correctly when you created the key previously](#ssh-key-name)), and so you should see your key in the list, i.e.: `com2009_teamXX_2025.pub`.
+    This will provide you with a list of all the SSH keys on the laptop. Your team's key should have the same name as your ROS package ([if you followed the steps correctly when you created the key previously](#ssh-key-name)), and so you should see your key in the list, i.e.: `com2009_teamXX_2026.pub`.
 
 3. If your key is there, then you're good to go... Either [clone your ROS package onto the Laptop](#ssh-clone) if you deleted it the last time you were in the lab, or just navigate back to it and pull down any updates (`git pull`) if you left it there.
 
@@ -58,7 +58,7 @@ If you're generating an SSH key for the first time, then you can skip this step 
 
     <a name="ssh-key-name"></a>
 
-1. You'll then be asked to **"Enter a file in which to save the key"**. This needs to be unique, so enter the name of your ROS package. For the purposes of this example, let's assume yours is called `com2009_team99_2025`.
+1. You'll then be asked to **"Enter a file in which to save the key"**. This needs to be unique, so enter the name of your ROS package. For the purposes of this example, let's assume yours is called `com2009_team99_2026`.
 
 1. You'll then be asked to **enter a passphrase**. This is how you make your SSH key secure, so that no other teams using the same laptop can access and make changes to your team's package/GitHub repo. You'll be asked to enter this whenever you try to commit/push new changes to your ROS package on GitHub. Decide on a passphrase and share this **ONLY** with your fellow team members. 
 
@@ -68,13 +68,13 @@ If you're generating an SSH key for the first time, then you can skip this step 
     eval "$(ssh-agent -s)"
     ```
 
-1. Add your SSH private key to the laptop's ssh-agent. You'll need to enter the name of the SSH key file that you created in the earlier step (e.g.: `com2009_team99_2025`)
+1. Add your SSH private key to the laptop's ssh-agent. You'll need to enter the name of the SSH key file that you created in the earlier step (e.g.: `com2009_team99_2026`)
 
     ```bash
-    ssh-add ~/.ssh/com2009_team99_2025
+    ssh-add ~/.ssh/com2009_team99_2026
     ```
 
-    Replacing `com2009_team99_2025` with the name of your own SSH key file, of course!
+    Replacing `com2009_team99_2026` with the name of your own SSH key file, of course!
 
 1. Then, you'll need to add the SSH key to your account on GitHub...
 
@@ -87,10 +87,10 @@ If you're generating an SSH key for the first time, then you can skip this step 
     Do this from a terminal on the laptop, using `cat`:
 
     ```bash
-    cat ~/.ssh/com2009_team99_2025.pub
+    cat ~/.ssh/com2009_team99_2026.pub
     ```
 
-    ...replacing `com2009_team99_2025` with the name of your SSH key file.
+    ...replacing `com2009_team99_2026` with the name of your SSH key file.
 
     The content of the file will then be displayed in the terminal... copy it from here.
 
@@ -99,7 +99,7 @@ If you're generating an SSH key for the first time, then you can skip this step 
         2. You could also open the file in VS Code and copy it from there:
 
             ```bash
-            code ~/.ssh/com2009_team99_2025.pub
+            code ~/.ssh/com2009_team99_2026.pub
             ```
 
 2. Go to your GitHub account in a web browser. In the upper-right corner of any page, click your profile photo, then click **Settings**.
@@ -149,9 +149,9 @@ There's a ROS Workspace on each of the robot laptops and (much the same as in yo
     1. Run the `colcon build` command, targetting your package only:
     
         ```bash
-        colcon build --packages-select com2009_team99_2025 --symlink-install
+        colcon build --packages-select com2009_team99_2026 --symlink-install
         ```
-        (...again, replacing `com2009_team99_2025` with *your* team's package name.)
+        (...again, replacing `com2009_team99_2026` with *your* team's package name.)
         
     1. Then, re-source your environment:
 	
@@ -162,7 +162,7 @@ There's a ROS Workspace on each of the robot laptops and (much the same as in yo
 1. Navigate into your package and run the following commands to set your identity, to allow you to make commits to your package repo:
 
     ``` { .bash .no-copy }
-    cd com2009_team99_2025/
+    cd com2009_team99_2026/
     ```
     ``` { .bash .no-copy }
     git config user.name "your name"
@@ -183,7 +183,7 @@ Remember that the Robotics Laptops use an account that everyone in the class has
 Delete your package by simply running the following command from any terminal on the laptop:
 
 ```bash
-rm -rf ~/ros2_ws/src/com2009_teamXX_2025
+rm -rf ~/ros2_ws/src/com2009_teamXX_2026
 ```
 
 ... replacing `XX` with your own team's number!
@@ -206,7 +206,7 @@ Your team will be provided with the same Robotics Laptop for each lab session. H
     ```
     
     ``` { .bash .no-copy }
-    ssh-add ~/.ssh/com2009_teamXX_2025
+    ssh-add ~/.ssh/com2009_teamXX_2026
     ```
 
     Replacing `XX` with your team number.

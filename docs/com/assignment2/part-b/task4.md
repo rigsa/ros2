@@ -9,7 +9,7 @@ For this task you will write some documentation to describe the application that
 Your documentation should be contained within a single `README.md` file which must sit in the root of your team's package directory, i.e.: 
 
 ``` { .txt .no-copy }
-com2009_teamXX_2025/README.md
+com2009_teamXX_2026/README.md
 ``` 
 
 !!! warning "Important"

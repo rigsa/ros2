@@ -60,7 +60,7 @@ In addition to registering your package correctly (as above), you **must** also 
 
 * [ ] You must ensure that a launch file exists for each of the *programming* tasks (Tasks 1, 2 & 3) and that these are *callable* (after having run the above `colcon build` command) so that we are able to launch your work using `ros2 launch` as follows[^launch-files]:
     
-    [^launch-files]: Make sure you have [defined an appropriate `install` directory in your package's `CMakeLists.txt`](../assignment1/part3.md#ex1) 
+    [^launch-files]: Make sure you have [defined an appropriate `install` directory in your package's `CMakeLists.txt`](../../course/part3.md#ex1) 
 
     ``` { .bash .no-copy }
     ros2 launch com2009_teamXX_2026 taskY.launch.py

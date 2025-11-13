@@ -93,7 +93,7 @@ Battery: 12.40V [100%]
 
 ## Step 4: Connecting to the *Zenoh Router* {#step4}
 
-We use a ROS 2 Middleware (RMW) implementation called [Zenoh](https://github.com/ros2/rmw_zenoh) to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh *Router*, and this was enabled as part of the *bringup* operations that you launched in [Step 3 above](#step-3-launching-ros). We now need to launch a *Session* on the laptop to connect to this router. 
+We use a ROS 2 Middleware (RMW) implementation called [Zenoh](https://github.com/ros2/rmw_zenoh) to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh *Router*, and this was enabled as part of the *bringup* operations that you launched in [Step 3 above](#step3). We now need to launch a *Session* on the laptop to connect to this router. 
 
 !!! warning "This is Essential!"
     You **always** need to have a Zenoh session running on the laptop in order to be able to communicate with your robot!
@@ -106,7 +106,7 @@ ros2 run rmw_zenoh_cpp rmw_zenohd
 
 You should now have two terminals active: 
 
-1. The *robot* terminal where you ran the `ros2 launch tuos_tb3_tools ros.launch.py` operation (aka *"the bringup"*) in [Step 3](#step-3-launching-ros)[^term_recover]
+1. The *robot* terminal where you ran the `ros2 launch tuos_tb3_tools ros.launch.py` operation (aka *"the bringup"*) in [Step 3](#step3)[^term_recover]
 1. The *laptop* terminal where you just ran the `rmw_zenohd` node
 
 [^term_recover]: If you happen to have closed down the *robot* terminal, you can return to it by entering `waffle X term` from a new terminal instance on the laptop.

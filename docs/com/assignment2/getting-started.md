@@ -19,6 +19,10 @@ Your team's package will need to be hosted on GitHub, so each team member will n
 
 [^github-pro]: As a University of Sheffield student, you can apply for the [GitHub Student Developer Pack](https://education.github.com/pack){target="_blank"}, which gives you access to a range of developer tools including *GitHub Pro*. GitHub Pro allows you to have unlimited collaborators on your repositories, which might help you to collaborate on your ROS package with your team.
 
+!!! tip "Working with Git and GitHub"
+
+    You'll be working with Git and GitHub quite extensively throughout Assignment #2. Hopefully a lot of you will already be quite familiar with these tools, but if not, we would strongly recommend that you have a look at [This Course by the University of Sheffield's Research Software Engineering (RSE) Team](https://srse-git-github-zero2hero.netlify.app/){target="_blank"}.
+
 ### Creating Your Team's Package Repo (on GitHub)
 
 Nominate **only one member of your team** to do this bit.

@@ -77,13 +77,15 @@ Nominate **only one member of your team** to do this bit.
 
 1. Finally, click on the `Add people` button and add the rest of your team members as collaborators to this repo too.
 
-### Register Your ROS Package URL with the Teaching Team
+### Register Your ROS Package URL with the Teaching Team {#pkg-reg}
 
 Having created your package, you'll need to tell us your GitHub username and the URL to your team's GitHub repository, so that we can access it and pull download your work when the submissions are due.
 
-There is a form that **you must complete** (as a team), to register your ROS package with us for Assignment #2. 
+There is a form that **you must complete** (as a team), to register your ROS package with us for Assignment #2. The form is available via the link below (also on Blackboard). 
 
-[Access the form here](https://forms.gle/XPcZx9JKRmzFYmsW8){target="_blank"} (also available on Blackboard). You **must** be signed in to your university email account (`...@sheffield.ac.uk`) to access this. 
+<center>[COM2009 Package Registration Form (2026)](https://forms.gle/XPcZx9JKRmzFYmsW8){ .md-button target="_blank"}</center>
+
+You **must** be signed in to your university email account (`...@sheffield.ac.uk`) to access this. 
 
 The team member who created the Repo (in the step above) should fill in this form **now**.
 

@@ -7,13 +7,13 @@ title: Key Assessment Info & Requirements
 
 Your ROS package should be hosted on GitHub, it should be setup as a private repository, and you should have added `tom-howard` and `AlexandrLucas` as collaborators. 
 
-In addition to this, you should have registered your package with the teaching team (via the Google Form), so that we know where to find it on the submission deadlines.
+In addition to this, [you should have registered your package with the teaching team (via the Google Form)](./getting-started.md#pkg-reg), so that we know where to find it on the submission deadlines.
 
 All the above was covered in [the Getting Started section](./getting-started.md), which you should have completed in the Week 1 Lab.
 
 Having completed all of this *successfully*, we'll be able to pull your package on each of the submission dates so that your team's Assignment #2 work can be assessed. If you *haven't* completed all this, then you could receive zero marks!
 
-!!! note
+!!! note "Hello :wave:"
     At some point within the first few weeks of the course a `hello.md` file will be pushed to your repo (by Tom) to confirm that it has been registered correctly.
 
 ## Submission Points
@@ -33,6 +33,8 @@ See the task pages for full details on each of the four tasks.
 
 ## Dependencies
 
+<!-- Use rosdep?? -->
+
 You may draw upon any pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2 **as long as they are pre-installed on the real robotics hardware** (i.e. the Linux laptops in the lab). The WSL-ROS2 environment is equivalent to the software setup on the real robotics hardware, so any packages that exist in one will also exist in the other.
 
 !!! danger "Note"
@@ -50,7 +52,7 @@ In addition to registering your package correctly (as above), you **must** also 
 
     ... where `XX` should be replaced with your team number.
 
-* [ ] It must be possible to build your package by running the following command from the root of the local ROS2 Workspace, and this must build without errors:
+* [ ] It must be possible to build your package by running the following command from the root of the local ROS 2 Workspace, and this must build without errors:
     
     ``` { .bash .no-copy }
     colcon build --packages-select com2009_teamXX_2026
@@ -96,7 +98,7 @@ For the assessment of each Assignment #2 Task, your package will be built and de
 
 ## Other Important Information 
 
-* The [`tuos_ros` Course Repo](../extras/course-repo.md) will be installed and up-to-date on the Robotics Laptop that we use to assess your work with.
+* The [`tuos_ros` Course Repo](../../course/extras/course-repo.md) will be installed and up-to-date on the Robotics Laptop that we use to assess your work with.
 
 * The Robotics Laptop that we use for the assessment will be selected at random.
 
@@ -104,6 +106,6 @@ For the assessment of each Assignment #2 Task, your package will be built and de
 
 * The robot will also be selected at random.
 
-* We will have already [launched the *bringup* on the robot](../../waffles/launching-ros.md#step-3-launching-ros), so ROS will be up and running, and the robot will be ready to go in the arena.
+* We will have already [launched the *bringup* on the robot](../../waffles/launching-ros.md#step3), so ROS will be up and running, and the robot will be ready to go in the arena.
 
-* [A bridge between the robot and laptop will have already been established](../../waffles/launching-ros.md#step-4-robot-laptop-bridging), and communications will be tested, prior to us attempting to launch your work for each task.
+* [A Zenoh Session will already be running on the laptop](../../waffles/launching-ros.md#step4) to connect to the Robot's Zenoh *Router*, and **communications will have been tested** prior to us attempting to launch your work for each task.

@@ -102,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#working-with-git-and-github" class="md-skip">
+        <a href="#getting-started" class="md-skip">
           Skip to content
         </a>
       
@@ -1687,10 +1687,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#working-with-git-and-github" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Working with Git and GitHub
+        Getting Started in Each Lab Session
       
     </span>
   </a>
@@ -1708,17 +1708,6 @@
   
     <nav class="md-nav" aria-label="Setting Up SSH Keys">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-0-check-if-you-already-have-an-ssh-key-on-the-laptop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 0: Check if you already have an SSH Key on the Laptop
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#ssh-keygen" class="md-nav__link">
@@ -1763,17 +1752,6 @@
     <span class="md-ellipsis">
       
         Deleting your ROS package after a lab session
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#returning-in-a-subsequent-lab-session" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Returning in a Subsequent Lab Session
       
     </span>
   </a>
@@ -2185,10 +2163,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#working-with-git-and-github" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Working with Git and GitHub
+        Getting Started in Each Lab Session
       
     </span>
   </a>
@@ -2206,17 +2184,6 @@
   
     <nav class="md-nav" aria-label="Setting Up SSH Keys">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-0-check-if-you-already-have-an-ssh-key-on-the-laptop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 0: Check if you already have an SSH Key on the Laptop
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#ssh-keygen" class="md-nav__link">
@@ -2267,17 +2234,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#returning-in-a-subsequent-lab-session" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Returning in a Subsequent Lab Session
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2313,70 +2269,67 @@
 
   <h1>Working with your ROS Package (in the Lab)</h1>
 
-<p>Having followed <a href="../getting-started/">the instructions on the Getting Started page</a> in Week 1, your team's ROS package will be hosted on GitHub, which makes it much easier to collaborate, and transfer between simulation (e.g. WSL-ROS2, for example) and the real hardware in the lab. </p>
+<p>Having followed <a href="../getting-started/">the instructions on the Getting Started page</a> (in Week 1), your team's ROS package will be hosted on GitHub, which makes it much easier to collaborate and transfer your work to the real hardware during the lab sessions<sup id="fnref:rse"><a class="footnote-ref" href="#fn:rse">1</a></sup>.</p>
 <p>You'll need to transfer your ROS package to a robot laptop whenever you want to work on a real robot during the labs. </p>
-<h2 id="working-with-git-and-github">Working with Git and GitHub<a class="headerlink" href="#working-with-git-and-github" title="Permanent link">¶</a></h2>
-<p>You'll be working with Git and GitHub quite extensively throughout Assignment #2. Hopefully a lot of you will already be quite familiar with these tools, but if not, we would strongly recommend that you have a look at <a href="https://srse-git-github-zero2hero.netlify.app/" target="_blank" rel="noopener">This Course by the University of Sheffield's Research Software Engineering (RSE) Team</a>.</p>
-<h2 id="setting-up-ssh-keys">Setting Up SSH Keys<a class="headerlink" href="#setting-up-ssh-keys" title="Permanent link">¶</a></h2>
-<p>Using <em>SSH keys</em>, you can clone your team's ROS package to the robot laptops, make commits and push these back up to GitHub during the labs, without needing to provide your GitHub username and a personal access token every time. This makes life a lot easier! The following steps describe the process you should follow to achieve this (adapted from <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener">GitHub Docs</a>).</p>
-<h3 id="step-0-check-if-you-already-have-an-ssh-key-on-the-laptop">Step 0: Check if you already have an SSH Key on the Laptop<a class="headerlink" href="#step-0-check-if-you-already-have-an-ssh-key-on-the-laptop" title="Permanent link">¶</a></h3>
-<p><em>These instructions are adapted from <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys?platform=linux" target="_blank" rel="noopener">this GitHub Docs page</a>.</em></p>
-<p>If you're generating an SSH key for the first time, then you can skip this step and go straight to the next section: "<a href="#ssh-keygen">Step 1: Generating an SSH key (on the Laptop)</a>". If, however, you've already generated an SSH Key on the laptop previously then check it's still there before you go any further by following these steps...</p>
+<h2 id="getting-started">Getting Started in Each Lab Session<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
+<p>Your team should be provided with the same laptop for every lab session. Having completed all the steps to set up SSH Keys (as described in the sections below), you should be able to return to the laptop, re-clone your package and continue working with relative ease at the start of each and every lab session.</p>
 <ol>
 <li>
-<p>Open a terminal on the laptop.</p>
-<details class="tip">
-<summary>Tip</summary>
-<p>You can use the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard combination to open a terminal!</p>
-</details>
-</li>
-<li>
-<p>Use the <code>ls</code> command as follows, to see if your SSH key already exists on the laptop:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ls<span class="w"> </span>-al<span class="w"> </span>~/.ssh
+<p><strong>Check if you already have an SSH Key</strong>: You'll save a private SSH Key (private to you and the rest of your team) on the laptop that has been designated to you for each lab session. The first step is to check whether this exists on your laptop:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ls -al ~/.ssh | grep com2009_teamXX_2026
 </code></pre></div>
-<p>This will provide you with a list of all the SSH keys on the laptop. Your team's key should have the same name as your ROS package (<a href="#ssh-key-name">if you followed the steps correctly when you created the key previously</a>), and so you should see your key in the list, i.e.: <code>com2009_teamXX_2026.pub</code>.</p>
+<p>Replace <code>XX</code> with your team number.</p>
+<p>If your team's ssh key is presented then you're good to go, continue to Step 2. If not, go to the <strong><a href="#setting-up-ssh-keys">Setting up SSH Keys</a></strong> section below.</p>
 </li>
 <li>
-<p>If your key is there, then you're good to go... Either <a href="#ssh-clone">clone your ROS package onto the Laptop</a> if you deleted it the last time you were in the lab, or just navigate back to it and pull down any updates (<code>git pull</code>) if you left it there.</p>
+<p><strong>If your team's SSH Key exists</strong>: start the laptop's ssh-agent and activate your key:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ssh-add<span class="w"> </span>~/.ssh/com2009_teamXX_2026
+</code></pre></div>
+<p>Replacing <code>XX</code> with your team number.</p>
+</li>
+<li>
+<p>Then, <a href="#ssh-clone">clone your package onto the laptop</a>.</p>
+<p>You'll be asked for your secret passphrase, hopefully you remember it!</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>We strongly recommend that you delete your team's package from the laptop at the end of each lab session.</p>
+<p>We strongly recommend that you <a href="#deleting-your-ros-package-after-a-lab-session">delete your team's package from the laptop</a> at the end of each lab session.</p>
 </div>
 </li>
-<li>
-<p>If you can't see your key in the list, then you'll need to follow all the steps on this page, starting with <a href="#ssh-keygen">Step 1: Generating an SSH key (on the Laptop)</a>.</p>
-</li>
 </ol>
+<h2 id="setting-up-ssh-keys">Setting Up SSH Keys<a class="headerlink" href="#setting-up-ssh-keys" title="Permanent link">¶</a></h2>
+<p>Using <em>SSH keys</em>, you can clone your team's ROS package to the robot laptops, make commits and push these back up to GitHub during the labs, without needing to provide your GitHub username and a personal access token every time. This makes life a lot easier! The following steps describe the process you should follow to achieve this<sup id="fnref:github-docs"><a class="footnote-ref" href="#fn:github-docs">2</a></sup>.</p>
 <h3 id="ssh-keygen">Step 1: Generating an SSH key (on the Laptop)<a class="headerlink" href="#ssh-keygen" title="Permanent link">¶</a></h3>
 <ol>
 <li>
 <p>From a terminal instance on the laptop navigate to the <code>~/.ssh</code> folder:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>~/.ssh
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/.ssh
 </code></pre></div>
 </li>
 <li>
 <p>Create a new SSH key on the laptop, using your GitHub email address:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">"your.email@sheffield.ac.uk"</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ssh-keygen -t ed25519 -C "your.email@sheffield.ac.uk"
 </code></pre></div>
 <p>Replacing <code>your.email@sheffield.ac.uk</code> with <strong>your GitHub email address</strong>.</p>
 <p><a name="ssh-key-name"></a></p>
 </li>
 <li>
-<p>You'll then be asked to <strong>"Enter a file in which to save the key"</strong>. This needs to be unique, so enter the name of your ROS package. For the purposes of this example, let's assume yours is called <code>com2009_team99_2026</code>.</p>
+<p>You'll then be asked to <code>Enter a file in which to save the key</code>. This needs to be unique, so enter the name of your ROS package, e.g.: <code>com2009_teamXX_2026</code> (where <code>XX</code> is replaced with your team number).</p>
 </li>
 <li>
-<p>You'll then be asked to <strong>enter a passphrase</strong>. This is how you make your SSH key secure, so that no other teams using the same laptop can access and make changes to your team's package/GitHub repo. You'll be asked to enter this whenever you try to commit/push new changes to your ROS package on GitHub. Decide on a passphrase and share this <strong>ONLY</strong> with your fellow team members. </p>
+<p>You'll then be asked to <code>enter a passphrase</code>. This is how you make your SSH key secure, so that no other teams using the same laptop can access and make changes to your team's package/GitHub repo. You'll be asked to enter this whenever you try to commit/push new changes to your ROS package on GitHub. Decide on a passphrase and share this <strong>ONLY</strong> with your fellow team members. </p>
 </li>
 <li>
 <p>Next, start the laptop's ssh-agent:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">"</span>
 </code></pre></div>
 </li>
 <li>
-<p>Add your SSH private key to the laptop's ssh-agent. You'll need to enter the name of the SSH key file that you created in the earlier step (e.g.: <code>com2009_team99_2026</code>)</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ssh-add<span class="w"> </span>~/.ssh/com2009_team99_2026
+<p>Add your SSH private key to the laptop's ssh-agent. You'll need to enter the name of the SSH key file that you created in the earlier step (e.g.: <code>com2009_teamXX_2026</code>)</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ssh-add ~/.ssh/com2009_teamXX_2026
 </code></pre></div>
-<p>Replacing <code>com2009_team99_2026</code> with the name of your own SSH key file, of course!</p>
+<p>Replacing <code>XX</code> with your team number of course!</p>
 </li>
 <li>
 <p>Then, you'll need to add the SSH key to your account on GitHub...</p>
@@ -2388,9 +2341,9 @@
 <li>
 <p>On the laptop, copy the SSH public key that you created in the previous steps to your clipboard.</p>
 <p>Do this from a terminal on the laptop, using <code>cat</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cat<span class="w"> </span>~/.ssh/com2009_team99_2026.pub
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cat ~/.ssh/com2009_teamXX_2026.pub
 </code></pre></div>
-<p>...replacing <code>com2009_team99_2026</code> with the name of your SSH key file.</p>
+<p>Replacing <code>XX</code> with your team number once again.</p>
 <p>The content of the file will then be displayed in the terminal... copy it from here.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tips</p>
@@ -2398,7 +2351,7 @@
 <li>To copy text from inside a terminal window use <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-c">C</kbd></span></li>
 <li>
 <p>You could also open the file in VS Code and copy it from there:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>code<span class="w"> </span>~/.ssh/com2009_team99_2026.pub
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>code ~/.ssh/com2009_teamXX_2026.pub
 </code></pre></div>
 </li>
 </ol>
@@ -2414,7 +2367,7 @@
 <p>Click <strong>New SSH key</strong>.</p>
 </li>
 <li>
-<p>Enter a descriptive name for the key in the "Title" field, e.g. <code>com2009_dia-laptop1</code>.</p>
+<p>Enter a descriptive name for the key in the "Title" field, e.g. <code>com2009_dia_laptop1</code>.</p>
 </li>
 <li>
 <p>Select <code>Authentication Key</code> as the "Key Type."</p>
@@ -2427,12 +2380,12 @@
 </li>
 </ol>
 <h2 id="ssh-clone">Cloning your ROS package onto the Laptop<a class="headerlink" href="#ssh-clone" title="Permanent link">¶</a></h2>
-<p>With your SSH keys all set up, you can now clone your ROS package onto the laptop. </p>
-<p>There's a ROS Workspace on each of the robot laptops and (much the same as in your own local ROS environment) your package <strong>must</strong> reside within this workspace!</p>
+<p>With your SSH keys all set up, you'll be able to clone your ROS package onto the laptop. </p>
+<p>There's a ROS 2 Workspace on each of the robot laptops and (much the same as in your own local ROS environment) your package <strong>must</strong> reside within this workspace!</p>
 <ol>
 <li>
-<p>From a terminal on the laptop, navigate to the ROS Workspace <code>src</code> directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
+<p>From a terminal on the laptop, navigate to the ROS 2 Workspace <code>src</code> directory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
 </code></pre></div>
 </li>
 <li>
@@ -2440,7 +2393,7 @@
 </li>
 <li>
 <p>Head back to the terminal instance on the laptop to then clone your package into the <code>ros2_ws/src/</code> directory using <code>git</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>clone<span class="w"> </span>REMOTE_SSH_ADDRESS
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>clone<span class="w"> </span>REMOTE_SSH_ADDRESS
 </code></pre></div>
 <p>Where <code>REMOTE_SSH_ADDRESS</code> is the SSH address that you have just copied from GitHub.</p>
 </li>
@@ -2449,72 +2402,55 @@
 <ol>
 <li>
 <p>Navigate into the <strong>root</strong> of the ROS Workspace:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
 </code></pre></div>
 </li>
 <li>
 <p>Run the <code>colcon build</code> command, targetting your package only:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>com2009_team99_2026<span class="w"> </span>--symlink-install
+<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>colcon build --packages-select com2009_teamXX_2026 --symlink-install
 </code></pre></div>
-(...again, replacing <code>com2009_team99_2026</code> with <em>your</em> team's package name.)<p></p>
+(Again, replacing <code>XX</code> with <em>your</em> team number.)<p></p>
 </li>
 <li>
 <p>Then, re-source your environment:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Navigate into your package and run the following commands to set your identity, to allow you to make commits to your package repo:</p>
-<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>com2009_team99_2026/
+<p>Navigate into your package: </p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>cd ~/ros2_ws/src/com2009_teamXX_2026/
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">"your name"</span>
+<p>... and then run the following commands to set your identity (which will allow you to make commits to your package repo):</p>
+<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git config user.name "your name"
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">"your email address"</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git config user.email "your email address"
 </code></pre></div><p></p>
 </li>
 </ol>
 <p>You should then be able to commit and push any updates that you make to your ROS package while working on the laptop, back to your remote repository using the secret passphrase that you defined earlier!</p>
 <h2 id="deleting-your-ros-package-after-a-lab-session">Deleting your ROS package after a lab session<a class="headerlink" href="#deleting-your-ros-package-after-a-lab-session" title="Permanent link">¶</a></h2>
-<p>Remember that the Robotics Laptops use an account that everyone in the class has access to. You might therefore want to delete your package from the laptop at the end of each lab session. It's very easy to clone it back onto the laptop again by following <a href="#ssh-clone">the steps above</a> at the start of each lab session. Deleting your package (by following the instructions below) <strong>won't</strong> delete your SSH key from the laptop though, so you won't need to do all that again, and your SSH key will still be protected with the secret passphrase that you set up when generating the SSH Key to begin with (assuming that you are working on the same laptop, of course!) </p>
+<p>Remember that the Robotics Laptops use an account that everyone in the class has access to. You might therefore want to delete your package from the laptop at the end of each lab session. It's very easy to clone it back onto the laptop again by following <a href="#getting-started">the steps above</a> at the start of each lab session. Deleting your package (by following the instructions below) <strong>won't</strong> delete your SSH key from the laptop though, so you won't need to do all that again, and your SSH key will still be protected with the secret passphrase that you set up when generating the SSH Key to begin with (assuming that you are working on the same laptop, of course!) </p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Make sure you've pushed any changes to GitHub before deleting your package!</p>
 </div>
 <p>Delete your package by simply running the following command from any terminal on the laptop:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/ros2_ws/src/com2009_teamXX_2026
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/ros2_ws/src/com2009_teamXX_2026
 </code></pre></div>
 <p>... replacing <code>XX</code> with your own team's number!</p>
-<h2 id="returning-in-a-subsequent-lab-session">Returning in a Subsequent Lab Session<a class="headerlink" href="#returning-in-a-subsequent-lab-session" title="Permanent link">¶</a></h2>
-<p>Your team will be provided with the same Robotics Laptop for each lab session. Having completed all the steps above in a previous lab session, you should be able to return to the laptop, re-clone your package and continue working with relative ease...</p>
+<div class="footnote">
+<hr>
 <ol>
-<li>
-<p>The private SSH key that you created in a previous lab session (and secured with a passphrase) should still be saved on the laptop. Check that this is the case by first running the following command:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ls<span class="w"> </span>-al<span class="w"> </span>~/.ssh
-</code></pre></div>
-If you can see your team's ssh key in the list then you're good to go. If not you'll need to <a href="#ssh-keygen">go back here and follow the steps to create it again</a>.<p></p>
+<li id="fn:rse">
+<p><strong>Remember</strong>: If you're not already familiar with how to use tools like Git and GitHub, we would strongly recommend that you have a look at <a href="https://srse-git-github-zero2hero.netlify.app/" target="_blank" rel="noopener">This Course by the University of Sheffield's Research Software Engineering (RSE) Team</a>.&nbsp;<a class="footnote-backref" href="#fnref:rse" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
-<li>
-<p>Next, start the laptop's ssh-agent and re-add your team's private key:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">eval</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">"</span>
-</code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ssh-add<span class="w"> </span>~/.ssh/com2009_teamXX_2026
-</code></pre></div>
-<p>Replacing <code>XX</code> with your team number.</p>
-</li>
-<li>
-<p>Then, navigate to the ROS Workspace <code>src</code> directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src
-</code></pre></div>
-</li>
-<li>
-<p>Clone your package into here, using the SSH address of your package on GitHub:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>git<span class="w"> </span>clone<span class="w"> </span>REMOTE_SSH_ADDRESS
-</code></pre></div>
-<p>You'll be asked for your secret passphrase, hopefully you remember it!</p>
+<li id="fn:github-docs">
+<p>Adapted from <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener">GitHub Docs</a>&nbsp;<a class="footnote-backref" href="#fnref:github-docs" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
+</div>
 
 
 
@@ -2537,7 +2473,7 @@ If you can see your team's ssh key in the list then you're good to go. If not yo
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 09:12:50 UTC"><span class="timeago" datetime="2025-11-13T09:12:50+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 09:12:50 UTC">2025-11-13</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 10:49:12 UTC"><span class="timeago" datetime="2025-11-13T10:49:12+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 10:49:12 UTC">2025-11-13</span>
   </span>
 
     

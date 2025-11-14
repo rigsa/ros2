@@ -418,7 +418,7 @@ cz = m['m01']/(m['m00']+1e-5)
 
 Once again, there is a built-in OpenCV tool that we can use to add a circle onto an image to illustrate the centroid location within the robot's viewpoint: `cv2.circle()`.  This is how we produced the red circle that you can see in the figure above.  You can see how this is implemented here:
 
-<center>[A complete worked example of the `object_detection.py` node](./part6/object_detection_complete.md){ .md-button target="_blank" }</center> 
+<center>[:material-file-code-outline: A complete worked example of the `object_detection.py` node](./part6/object_detection_complete.md){ .md-button target="_blank" }</center> 
 
 In our case, we can't actually change the position of our robot in the z axis, so the `cz` centroid component here might not be that important to us for navigation purposes.  We may however want to use the centroid coordinate `cy` to understand where a feature is located *horizontally* in our robot's field of vision, and use this information to turn towards it (or away from it, depending on what we are trying to achieve).  We can then use this as the basis for some real **closed-loop** control.
 
@@ -537,7 +537,7 @@ Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrat
 
 1. Once that's done open up the empty file in VS Code, then have a look at the following code template:
     
-    <center>[The `line_follower.md` code template](./part6/line_follower.md){ .md-button target="_blank" }</center>
+    <center>[:material-file-code-outline: The `line_follower.md` code template](./part6/line_follower.md){ .md-button target="_blank" }</center>
 
     The template contains three "TODOs" that you need to complete, all of which are explained in detail in the code annotations, so read these carefully. Ultimately, you did all of this in [Exercise 2](#ex2), so go back here if you need a reminder on how any of it works. 
 

@@ -88,11 +88,11 @@ If you've already installed this (as part of Assignment #1 perhaps), then it's w
 Once you've done all this, then you should be able to launch the Task 1 development arena with the following `ros2 launch` command:
 
 ```bash
-ros2 launch com2009_simulations task1.launch.py
+ros2 launch tuos_task_sims fig_of_eight.launch.py
 ```
 
 <figure markdown>
-  ![](../figures/task1.jpg)
+  ![](../figures/task1.png)
   <figcaption>The Task 1 development arena.</figcaption>
 </figure>
 

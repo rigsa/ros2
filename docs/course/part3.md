@@ -690,7 +690,7 @@ In combination, the data from the LiDAR sensor and the robot's odometry (the rob
 1. Now launch SLAM to start building a map of this environment. In **TERMINAL 2**, launch SLAM as follows:
         
     ```bash
-    ros2 launch tuos_tb3_tools cartographer.launch.py environment:=sim
+    ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
     ```
 
     This will launch RViz again, where you should see a top-down view of an environment with a model of the robot, surrounded by some dots representing the real-time LiDAR data. 

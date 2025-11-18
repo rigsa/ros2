@@ -603,7 +603,7 @@ ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 1. In **TERMINAL 2**, let's also fire up *Cartographer* again (the SLAM algorithms):
 
     ```bash
-    ros2 launch tuos_tb3_tools cartographer.launch.py environment:=sim
+    ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
     ```
 
     <figure markdown>

@@ -4,12 +4,17 @@ title: "Task 1: Velocity Control"
 
 Develop a working ROS application to making *a real TurtleBot3 Waffle* follow a prescribed motion profile, whilst printing key information to the terminal.
 
-!!! success "Course Checkpoints"
+!!! success "Assignment #1 Checkpoints"
     
-    You should aim to have completed the following *additional* parts of the COM2009 ROS Course to support your work on this task: 
+    The following parts of [The ROS 2 Course](../../assignment1.md) will support your work on this task: 
 
-    * **Assignment #1**: Part 2, up to (and including) [Exercise 5](../../assignment1/part2.md#ex5).
-    * **Real Waffle Essential Exercises**: [Exercise 1 (Publishing Velocity Commands)](../../../waffles/essentials.md#ex1).
+    * [ ] **Part 1**: in full.
+    * [ ] **Part 2**: up to (and including) [Exercise 5](../../../course/part2.md#ex5).
+    * [ ] **Part 3**: [Exercise 1](../../../course/part3.md#ex1).
+    
+    <!-- TODO: **See Also**: -->
+    
+    <!-- * Real Waffle Velocity Commands? -->
 
 ## Summary
 
@@ -20,13 +25,22 @@ The main objective of this task is to create a ROS node (or multiple nodes) that
   <figcaption>The figure-of-eight path for Task 1.</figcaption>
 </figure>
 
-Whilst doing this, you will also need to print some robot odometry data to the terminal at regular intervals ([see below for the specifics](#details)). In order to get the terminal message formatting right, you might want to have a look at the documentation on [Python String Formatting](https://docs.python.org/3/tutorial/inputoutput.html){target="_blank"}, and refer to any of the code examples that involve printing messages to the terminal in Assignment #1.
+The Robot Arena will be set up as follows for this task:
+
+<figure markdown>
+  ![](../figures/task1_arena_layout.jpg){width=500px}
+  <figcaption>The DIA-CR5 Robot Arena layout for Task 1.</figcaption>
+</figure>
+
+Whilst doing this, you will also need to present robot odometry data to the terminal at regular intervals ([see below for the specifics](#details)). Your node must output this data as ROS 2 Log Messages with `INFO` severity, i.e. using `#!py get_logger().info()` calls from within one of your nodes. Log messaging is used in lots of the exercises and example code throughout Assignment #1, and so you should refer back to this for guidance if you need it. 
+
+Additionally, for this task, log messages must be *formatted* in a particular way, so you might want to have a look at the documentation on [Python String Formatting](https://docs.python.org/3/tutorial/inputoutput.html){target="_blank"}, and read the details below thoroughly so that you know what is expected!
 
 ## Details
 
-1. The robot must start by moving **anti-clockwise**, following a circular motion path of 1 m diameter ("**Loop 1**," as shown in [the figure above](#fig-eight)).
-1. Once complete, the robot must then turn **clockwise** to follow a second circular path, again of 1 m diameter ("**Loop 2**").
-1. After Loop 2 the robot must stop, at which point it *should* be located back at its starting point.
+1. "**Loop 1**": The robot must start by moving **anti-clockwise**, following a circular motion path of 1 m diameter around the red beacon [as shown above](#fig-eight).
+1. "**Loop 2**": Once the robot has returned to the starting point, it must then turn **clockwise** to follow a second circular path, again of 1 m diameter, this time around the blue beacon.
+1. After Loop 2 the robot must stop on the start / finish line (:material-plus-minus:10 cm, as denoted by the white tape lines on the floor).
 1. The velocity of the robot should be defined to ensure that the whole sequence takes **60 seconds** to complete (:material-plus-minus:5 seconds).
 
     **Note**: *The timer will start as soon as the robot starts moving*.
@@ -48,6 +62,8 @@ Whilst doing this, you will also need to print some robot odometry data to the t
     ``` { .txt .no-copy }
     x=0.00 [m], y=0.00 [m], yaw=0.0 [degrees].
     ```
+
+    <!-- TODO: a figure? -->
 	
 	These message should be printed to the terminal **at a rate of 1Hz**. It doesn't matter if the messages continue to be printed to the terminal after the robot has stopped (i.e. after the figure-of-eight has been completed).
 
@@ -56,48 +72,24 @@ Whilst doing this, you will also need to print some robot odometry data to the t
 
 ### A note on Odometry
 
-When the robot is placed in the arena at the start of the task its odometry may not necessarily read zero, so you will need to compensate for this. You'll therefore need to grab the robot pose from the `/odom` topic before your robot starts moving, and then use that as the zero-reference to convert all the subsequent odometry readings that you obtain throughout the task.
+When the robot is placed in the arena at the start of the task **its odometry may not necessarily read zero**, so you will need to compensate for this. You'll therefore need to grab the robot pose from the `/odom` topic before your robot starts moving, and then use that as the zero-reference to convert all the subsequent odometry readings that you obtain throughout the task.
 
-Odometry and keeping track of the robot's *pose* is discussed in detail in [Assignment #1 Part 2](../../assignment1/part2.md).
+Odometry and keeping track of the robot's *pose* is discussed in detail in [Assignment #1 Part 2](../../../course/part2.md).
 
 ## Executing Your Code {#launch}
 
-Your ROS package must contain a launch file called `task1.launch.py`. When assessing your team's package, the teaching team will use the following command to execute all the necessary functionality from within your package:
+When assessing your code for this task, the teaching team will use the following command to execute all the necessary functionality from within your package:
 	 
 ``` { .bash .no-copy }
 ros2 launch com2009_teamXX_2026 task1.launch.py
 ```
 
 ... where `XX` will be replaced with *your team number*.
-    
-!!! note
-    ROS will already be running on the robot before we attempt to execute your launch file, and [a bridge between the robot and laptop will have already been established](../../../waffles/launching-ros.md#step-4-robot-laptop-bridging).
 
-## Simulation Resources
-
-You might find it helpful to develop your node(s) basic functionality in simulation before testing things out on a real robot. You can use the standard "Empty World" environment to do this, which can be launched in using the following command:
-
-```bash
-ros2 launch turtlebot3_gazebo empty_world.launch.py
-```
-
-For the real task, there will be cylindrical objects placed at the centre of each of the figure-of-eight loops, so your robot will need to move around these as it completes the task. We have therefore also created a simulation environment that is representative of the real world environment during the assessment. This is available in a package called `com2009_simulations`, which is part of [the `tuos_ros` Course Repo](https://github.com/tom-howard/tuos_ros/tree/humble){target="_blank"}. The instructions for downloading and installing this within your own local ROS installation are [available here](../../extras/course-repo.md).
-
-If you've already installed this (as part of Assignment #1 perhaps), then it's worth making sure that you have the most up-to-date version ([as discussed here](../../extras/course-repo.md#updating)).
-
-Once you've done all this, then you should be able to launch the Task 1 development arena with the following `ros2 launch` command:
-
-```bash
-ros2 launch tuos_task_sims fig_of_eight.launch.py
-```
-
-<figure markdown>
-  ![](../figures/task1.png)
-  <figcaption>The Task 1 development arena.</figcaption>
-</figure>
+As such, your ROS 2 Node(s) for Task 1 **MUST** be executable via a launch file, and this launch file **MUST** be called `task1.launch.py`.
 
 !!! note
-    There won't be any loop markers on the real robot arena floor during the assessment.
+    ROS will already be running on the robot before we attempt to execute your launch file, and [a *Zenoh Session* will be running on the laptop, to allow your nodes (running on the laptop) to communicate with it](../../../waffles/launching-ros.md#step4). You don't need to include any of this in your `task1.launch.py` launch description.
 
 ## Marking
 
@@ -123,9 +115,9 @@ There are **20 marks** available for this task in total, summarised as follows:
 | Criteria | Details | Marks|
 | :--- | :--- | :--- |
 | **A1**: Direction of travel | The robot must move anticlockwise for the first loop ("Loop 1") and then clockwise for the second ("Loop 2"). | 2 |
-| **A2**: Loop 1 | The loop must be ~1 m in diameter, centred about the red beacon. | 2 |
-| **A3**: Loop 2 | The loop must be ~1 m in diameter, centred about the blue beacon. | 2 |
-| **A4**: Stopping | Once the robot completes its figure of eight, it must stop with both wheels **within 10 cm** of the start line. | 2 |
+| **A2**: Loop 1 | The loop must be 1 m in diameter, centred about the red beacon. | 2 |
+| **A3**: Loop 2 | The loop must be 1 m in diameter, centred about the blue beacon. | 2 |
+| **A4**: Stopping | Once the robot completes its figure of eight, it must stop with both wheels **within 10 cm** of the start line (as denoted by white tape lines on the floor). | 2 |
 | **A5**: Timing | The robot must complete the full figure of eight and stop in 55-65 seconds. | 2 |
 
 </center>
@@ -139,7 +131,37 @@ There are **20 marks** available for this task in total, summarised as follows:
 | Criteria | Details | Marks|
 | :--- | :--- | :--- |
 | **B1**: Rate | Messages should be printed to the terminal at **a rate of 1 Hz**. | 2 |
-| **B2**: Format | The messages printed to the terminal should be formatted **exactly** [as detailed above](#msg-format), and must be printed using `#!py get_logger().info()` method calls. | 2 |
-| **B3**: Data | Each message value (`x`, `y` and `yaw`) should be plausible, that is: they represent the actual pose of the robot, based on all readings being set to zero at the start/finish point ([as illustrated above](#fig-eight)). In addition, each value must be quoted in the correct units (meters or degrees, as appropriate). | 6 |
+| **B2**: Format | The messages printed to the terminal should be formatted **exactly** [as detailed above](#msg-format), and must be presented as ROS 2 Log Messages with `INFO` severity (i.e. using `#!py get_logger().info()` method calls). | 2 |
+| **B3**: Data | Each message value (`x`, `y` and `yaw`) should be plausible, that is: they represent the actual pose of the robot at all points throughout the figure-of-eight, based on all readings being set to zero at the start/finish line ([as illustrated above](#fig-eight)). In addition, each value must be quoted in the correct units (meters / degrees, as appropriate). | 6 |
 
 </center>
+
+## Simulation Resources
+
+You might find it helpful to develop the core functionality for this task in simulation before getting things running on the real robot. 
+
+!!! warning "Real World vs. Sim"
+
+    **There is no substitute for real-world testing**! 
+
+    While you might develop a ROS application that works perfectly in simulation, this doesn't mean that it will work equally well in the real world.
+
+    Ultimately, this task (and indeed all the *other* Assignment #2 programming tasks) will be assessed on real robots, so make the most of the lab sessions and **test things out on the real robots ^^thoroughly^^**.
+
+[As shown above](#fig-eight), for the assessment there will be cylindrical beacons placed at the centre of each of the figure-of-eight loops which the robot will need to move around as it completes the task. We have therefore also created a simulation environment that is representative of the real world environment. This is available in the `tuos_task_sims` package, which is part of the `tuos_ros` Course Repo. The instructions for downloading and installing this within your own local ROS installation are [available here](../../../course/extras/course-repo.md).
+
+If you've already installed this (as part of Assignment #1 perhaps), then it's worth making sure that you have the most up-to-date version ([as discussed here](../../../course/extras/course-repo.md#updating)).
+
+Once you've done all this, then you should be able to launch the simulation using `ros2 launch` as follows:
+
+```bash
+ros2 launch tuos_task_sims fig_of_eight.launch.py
+```
+
+<figure markdown>
+  ![](../figures/task1.png)
+  <figcaption>A simulation environment to represent the real CR5 arena layout for Task 1.</figcaption>
+</figure>
+
+!!! note
+    Loop markers are *illustrative*, there won't be any on the real robot arena floor during the assessment.

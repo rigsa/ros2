@@ -1684,17 +1684,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simulation-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Simulation Resources
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#marking" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1719,6 +1708,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulation Resources
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2196,17 +2196,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simulation-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Simulation Resources
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#marking" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2231,6 +2220,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulation Resources
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2269,18 +2269,16 @@
 
   <h1>Task 2: Avoiding Obstacles</h1>
 
-<p>Develop the ROS node(s) to allow a TurtleBot3 Waffle to autonomously explore an environment containing various obstacles. The robot must explore as much of the environment as possible in 90 seconds without crashing into anything!</p>
+<p>Develop the ROS node(s) to allow a real TurtleBot3 Waffle to autonomously explore an environment containing various obstacles. The robot must explore as much of the environment as possible in 90 seconds without crashing into anything!</p>
 <div class="admonition success">
-<p class="admonition-title">Course Checkpoints</p>
-<p>You should aim to have completed the following <em>additional</em> parts of the ROS 2 Course to support your work on this task: </p>
-<ul>
-<li><strong>Assignment #1</strong>: Up to and including <a href="../../../../course/part5/">Part 5</a> (in full).</li>
-<li><strong>Real Waffle Essentials</strong>:<ul>
-<li><a href="../../../../waffles/essentials/#ex1">Exercise 1 (Publishing Velocity Commands)</a>,</li>
-<li><a href="../../../../waffles/essentials/#ex2">Exercise 2 (Out of Range LiDAR Data)</a>.</li>
+<p class="admonition-title">Assignment #1 Checkpoints</p>
+<p>The following parts of <a href="../../../assignment1/">The ROS 2 Course</a> to support your work on this task (in addition to the suggestions for Task 1): </p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Part 3</strong>: in full.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Part 5</strong>: in full.</li>
 </ul>
-</li>
-</ul>
+<p><!-- TODO: **See Also**:     -->
+<!-- * Real Waffle Out of Range LiDAR Data? --></p>
 </div>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
 <p>Assignment #1 Part 3 introduces <a href="../../../../course/part3/#lidar">the Waffle's LiDAR sensor</a>. This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. In <a href="../../../../course/part5/#explore">Assignment #1 Part 5</a> we look at how this data, in combination with the <em>ROS Action framework</em>, can be used as the basis for a basic exploration strategy that would incorporate obstacle avoidance. Building on this in <a href="../../../../course/part5/#ex6">Part 5 Exercise 6</a>, we discuss how this could be developed further by developing an action <em>client</em> that could make successive calls to the action server to keep the robot moving randomly, and indefinitely, around an arena whilst avoiding obstacles.</p>
@@ -2289,52 +2287,55 @@
 <p>Another aspect of this task is <em>exploration</em>: your robot will be awarded more marks for navigating around more of the environment. Consider the search strategies that are discussed in Lecture 8 ("Local Guidance Strategies"), such as <em>"Brownian Motion"</em> and <em>"Levy Walks."</em> Could something along these lines be implemented on the 
 Waffle?</p>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">¶</a></h2>
-<p>The environment that your robot will need to explore for this will (again) be the Diamond Computer Room 5 Robot Arena, which is a square arena of 4x4m. For the task, the arena will contain a number of <em>"obstacles,"</em> i.e.: short wooden walls and coloured cylinders. Your robot will need to be able to detect these obstacles and navigate around them in order to fully explore the space.</p>
+<p>The Diamond Computer Room 5 Robot Arena is a square arena of 4x4m. For the task, the arena will contain a number of <em>"obstacles,"</em> i.e.: short wooden walls and coloured cylinders. Your robot will need to be able to detect these obstacles and navigate around them in order to fully explore the space.</p>
+<p>Exploration marks will be awarded when the robot enters each of the 12 outer arena zones (each a 1x1m square), as shown below.</p>
+<p><a name="cr5-layout"></a></p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task2_arena_layout.png" width="600px"></a>
+  </p>
+<figcaption>The DIA-CR5 Robot Arena layout for Task 2.</figcaption>
+</figure>
+<p><a name="env-vars"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Note</p>
+<p>This is an <em>example</em> of what the environment <em>might</em> look like:</p>
+<ul>
+<li><strong>ALL</strong> objects (i.e. the four coloured cylinders and the four wall assemblies) could be in <em>different positions entirely</em>. </li>
+<li>The wooden walls <em>may not be touching the outer edges of the arena</em>!</li>
+<li>The coloured cylinders <em>could</em> be inside exploration zones. </li>
+<li>The only things that will remain the same are the arena size, the presence of the outer arena walls and the floor layout (i.e. the location of all the zones).</li>
+</ul>
+</div>
 <ol>
-<li>The robot will start in the centre of the arena, perpendicular to one of the four <em>outer</em> arena walls.</li>
+<li>The robot will start in the centre of the arena, perpendicular to one of the four outer walls.</li>
 <li>
 <p>It must explore the environment for 90 seconds without touching <strong>any</strong> of the arena walls or the obstacles within it.</p>
 <p><strong>Note</strong>: <em>The 90-second timer will start as soon as the robot starts moving within the arena.</em></p>
 </li>
 <li>
-<p>If the robot makes contact with <strong>anything</strong> before the time has elapsed then the attempt is over, and this time will be recorded to determine the <em>"Run Time"</em> mark (<a href="#run-time">see below</a>).</p>
+<p>If the robot makes contact with <strong>anything</strong> before the time has elapsed then the attempt is over, and this time will be recorded to determine a <em>"Run Time"</em> mark (<a href="#run-time">see below</a>).</p>
 </li>
-<li>The arena floor will be divided into 16 equal-sized zones and the robot must enter as many of the <strong>outer 12 zones</strong> as possible during the attempt.</li>
+<li>As shown above, the arena floor will be marked with 12 equal-sized (1x1m) zones and the robot must enter as many of these 12 <strong>exploration zones</strong> as possible during the attempt.</li>
 <li>
 <p>The robot must be moving for the entire duration of the task. Simply just turning on the spot for the whole time doesn't count!</p>
 <ul>
 <li>What we want to see here is that the robot is constantly making an effort to explore.</li>
 <li>It is however OK for the robot to stop moving and turn on the spot for a few seconds whenever required though.</li>
-<li>If the robot explores for a while and then stops and doesn't move again for the remainder of the 90-second run, then <em>Run Time</em> marks will be awarded up to the point at which the robot ceased to be active.</li>
+<li>If the robot explores for a while and then stops and doesn't move again for the remainder of the 90-second run, then <em>Run Time</em> marks will be awarded up to the point at which the robot ceases to be active.</li>
 <li>Further details on the eligibility for <em>Run Time</em> marks are provided in <a href="#marking">the Marking Section below</a>.</li>
 </ul>
 </li>
 </ol>
 <h2 id="launch">Executing Your Code<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
-<p>The ROS package that you submit must contain a launch file called <code>task2.launch.py</code>, such that the functionality that you develop for Task 2 can be launched from your package via the command:</p>
+<p>When assessing your code for this task, the teaching team will use the following command to execute all the necessary functionality from within your team's ROS 2 package:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task2.launch.py
 </code></pre></div>
 <p>... where <code>XX</code> will be replaced with <em>your team number</em>.</p>
+<p>As such, the ROS 2 package that your team submit must contain a launch file called <code>task2.launch.py</code>, to execute all the necessary functionality from within your package for this task.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>ROS will already be running on the robot before we attempt to execute your launch file, and <a href="../../../../waffles/launching-ros/#step4">a <em>Zenoh Session</em> will be running on the laptop, to allow nodes running on the laptop to communicate with it</a>.</p>
 </div>
-<h2 id="simulation-resources">Simulation Resources<a class="headerlink" href="#simulation-resources" title="Permanent link">¶</a></h2>
-<p>Within the <code>tuos_task_sims</code> package there is an example arena which can be used to develop and test out your team's obstacle avoidance node(s) for this task.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Make sure you <a href="../../../../course/extras/course-repo/#updating">check for updates to the Course Repo</a> to ensure that you have the most up-to-date version of these simulations.</p>
-</div>
-<p>The simulation can be launched using the following <code>ros2 launch</code> command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>obstacle_avoidance.launch.py
-</code></pre></div>
-<p><a name="avoid_arena"></a></p>
-<figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task2.png"></a>
-  </p>
-<figcaption>The Obstacle Avoidance development arena.</figcaption>
-</figure>
-<p>This is an <em>example</em> of what the real-world environment <em>might</em> look like. <strong>ALL</strong> objects (i.e. the four coloured cylinders and the four inner wooden wall assemblies) could be in <em>different positions entirely</em>. The wooden walls <em>may not be touching the outer edges of the arena</em>! The only things that will remain the same are the arena size, the location of the outer arena walls and the floor layout (i.e. the location of the exploration zones).</p>
 <h2 id="marking">Marking<a class="headerlink" href="#marking" title="Permanent link">¶</a></h2>
 <p>There are <strong>20 marks</strong> available for Task 2 in total, awarded as follows:</p>
 <p></p><center><p></p>
@@ -2350,12 +2351,12 @@ Waffle?</p>
 <tr>
 <td style="text-align: left;"><strong>A</strong>: Run Time</td>
 <td style="text-align: center;">8/20</td>
-<td style="text-align: left;">You will be awarded marks for the amount of time that your robot spends exploring the environment before 90 seconds has elapsed, <strong>or</strong> the robot makes contact with anything in its environment (<a href="#run-time">as per the table below</a>). <strong>The robot must leave the central red zone</strong> (a 1x1m area) in order to be eligible for any of these marks. If the robot does not explore beyond <strong>the central orange zone</strong> then a <span class="arithmatex">\(0.5\times\)</span> multiplication factor will be applied to the run time marks.</td>
+<td style="text-align: left;">You will be awarded marks for the amount of time that your robot spends exploring the environment before 90 seconds has elapsed, <strong>or</strong> until the robot makes contact with anything in its environment for the first time (<a href="#run-time">as per the table below</a>). <strong>The robot must leave the centre zone</strong> (a 1x1m box, denoted in red <a href="#cr5-layout">in the figure above</a>) in order to be eligible for any of these marks. If the robot does not explore beyond <strong>the "partial exploration" zone</strong> (denoted orange in the figure) then a <span class="arithmatex">\(0.5\times\)</span> multiplication factor will be applied to the run time marks.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>B</strong>: Exploration</td>
 <td style="text-align: center;">12/20</td>
-<td style="text-align: left;">You will be awarded 1 mark for each of the outer 12 arena zones that the robot manages to enter (i.e. excluding the four zones in the middle). The robot only needs to enter each of the 12 zones once, but its full body must be inside the zone marking to be awarded the mark.</td>
+<td style="text-align: left;">You will be awarded 1 mark for each of the 12 exploration zones that the robot manages to enter. The robot only needs to enter each of the 12 zones once, but its full body must be inside the zone marking to be awarded the mark.</td>
 </tr>
 </tbody>
 </table>
@@ -2407,6 +2408,29 @@ Waffle?</p>
 </tbody>
 </table>
 <p></p></center><p></p>
+<h2 id="simulation-resources">Simulation Resources<a class="headerlink" href="#simulation-resources" title="Permanent link">¶</a></h2>
+<p>Within the <code>tuos_task_sims</code> package there is an example arena that can be used to develop and test out your team's obstacle avoidance node(s) for this task<sup id="fnref:update-course-repo"><a class="footnote-ref" href="#fn:update-course-repo">1</a></sup>. <a href="#env-vars">As above</a> however, this is just an <em>example</em> of what the real-world environment <em>might</em> look like. </p>
+<p>The simulation can be launched using the following <code>ros2 launch</code> command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>obstacle_avoidance.launch.py
+</code></pre></div>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task2.png"></a>
+  </p>
+<figcaption>A simulation environment to represent the real DIA-CR5 arena layout for Task 2.</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Real World vs. Sim</p>
+<p>Remember: <strong>just because it works in simulation <ins>DOESN'T</ins> mean it will work in the real world</strong>!</p>
+<p>Make sure you test things out <ins>thoroughly</ins> on the real robots during the lab sessions.</p>
+</div>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:update-course-repo">
+<p>Make sure you <a href="../../../../course/extras/course-repo/#updating">check for updates to the Course Repo</a> to ensure that you have the most up-to-date version of these simulations.&nbsp;<a class="footnote-backref" href="#fnref:update-course-repo" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -2429,7 +2453,7 @@ Waffle?</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 11, 2025 11:36:10 UTC"><span class="timeago" datetime="2025-11-11T11:36:10+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 11, 2025 11:36:10 UTC">2025-11-11</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 19, 2025 17:03:33 UTC"><span class="timeago" datetime="2025-11-19T17:03:33+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 19, 2025 17:03:33 UTC">2025-11-19</span>
   </span>
 
     

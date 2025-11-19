@@ -160,7 +160,7 @@ ros2 launch tuos_task_sims fig_of_eight.launch.py
 
 <figure markdown>
   ![](../figures/task1.png)
-  <figcaption>A simulation environment to represent the real CR5 arena layout for Task 1.</figcaption>
+  <figcaption>A simulation environment to represent the real DIA-CR5 arena layout for Task 1.</figcaption>
 </figure>
 
 !!! note

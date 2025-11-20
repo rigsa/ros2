@@ -20,6 +20,7 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
     2. If you *do* already have WSL installed on your machine, then follow [these instructions to update it](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#existing-wsl-install){target="_blank"}.
 4. [Install the Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/install){target="_blank"}.
 5. [Install Visual Studio Code](https://code.visualstudio.com/){target="_blank"} and [the WSL VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl){target="_blank"}.
+1. Install the [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/){target="_blank"}.
 
 ## Installing
 
@@ -47,7 +48,7 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
 
     Where `WSL-ROS2` should be listed.
 
-8. Next (optional, but recommended), open up the Windows Terminal App, then:
+8. Next (**optional**), open up the Windows Terminal App, then:
     
     1. Go to Settings (++ctrl+comma++)
     1. In `Startup` > `Default profile` select **WSL-ROS2** from the drop-down list.
@@ -60,15 +61,9 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
     ```
 
     Either way, this will ensure that each time you open the Windows Terminal App *or* you press the New Tab (:material-plus:) button a WSL-ROS2 Terminal Instance will be launched by default.
-   
-9. You should now be able to launch the WSL-ROS2 environment by launching the Windows Terminal App:
-
-    <figure markdown>
-      ![](./figures/launch-win-term.png){width=700px}
-    </figure>
 
 
-## Initial Setup
+<!-- ## Initial Setup
 
 With your WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.
 
@@ -96,51 +91,49 @@ With your WSL-ROS2 terminal instance, you'll need to run some initial commands t
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```
 
+    
+
+    If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead...  -->
+
+## Using a Dedicated X Server
+
+WSL-ROS2 requires an XServer in order to render graphical applications (such as Gazebo and RViz)[^wsl-native-guis]. You need to make sure you have one up and running whenever you're working with WSL-ROS2.
+
+[^wsl-native-guis]: WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer marginally better performance. 
+
+1. First, download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
+
+    <figure markdown>
+      ![](./figures/wsl-ros-config.png)
+    </figure>
+
+1. Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray (bottom-right) to indicate that the X Server is running:
+    
+    <figure markdown>
+      ![](./figures/xlaunch_icon.png){width=25px}
+    </figure>
+
+1. Launch the WSL-ROS2 environment by launching the Windows Terminal App:
+
+    <figure markdown>
+      ![](./figures/launch-win-term.png){width=700px}
+    </figure>
+
+1. In the WSL-ROS2 terminal instance, try running the empty world Gazebo simulation:
+
+    ```bash
+    ros2 launch turtlebot3_gazebo empty_world.launch.py
+    ```
+
     This should hopefully present you with something like this:
 
     <figure markdown>
       ![](../images/gz/tb3_empty_world_top.png){width=600px}
     </figure>
 
-    If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead... 
-
-## Using a Dedicated X Server
-
-Having completed the steps in the section above, if you are unable to launch GUI apps, or if performance is very poor, then you may need to try using a dedicated X Server instead. 
-
-1. First, install the [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/){target="_blank"}.
-1. Download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
-
-    <figure markdown>
-      ![](./figures/wsl-ros-config.png)
-    </figure>
-
-1. Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray to indicate that the X Server is running:
-    
-    <figure markdown>
-      ![](./figures/xlaunch_icon.png){width=25px}
-    </figure>
-
-1. In a WSL-ROS2 Terminal Instance, run the following:
-
-    ```bash
-    echo "export XSERVER=true" > $HOME/.diamond/xserver.sh
-    ```
-
-1. Re-source your `.bashrc` file for this change to take effect:
-
-    ```bash
-    source ~/.bashrc
-    ```
-
-1. Try running the empty world Gazebo simulation again:
-
-    ```bash
-    ros2 launch turtlebot3_gazebo empty_world.launch.py
-    ```
-
     !!! warning "Important"
-        If this option works for you, you'll need to make sure you have the X Server running (by clicking the `wsl_ros_config.xlaunch` shortcut) **every time** you work with WSL-ROS2. 
+        You need to make sure you have the X Server running (by clicking the `wsl_ros_config.xlaunch` shortcut) **every time** you work with WSL-ROS2. 
+
 
 <!-- ## Hardware Acceleration
 

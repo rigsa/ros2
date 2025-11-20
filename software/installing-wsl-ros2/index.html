@@ -764,17 +764,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initial Setup
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#using-a-dedicated-x-server" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2190,17 +2179,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initial Setup
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#using-a-dedicated-x-server" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2275,6 +2253,7 @@
 </li>
 <li><a href="https://learn.microsoft.com/en-us/windows/terminal/install" target="_blank" rel="noopener">Install the Windows Terminal</a>.</li>
 <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Install Visual Studio Code</a> and <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" target="_blank" rel="noopener">the WSL VS Code extension</a>.</li>
+<li>Install the <a href="https://sourceforge.net/projects/vcxsrv/" target="_blank" rel="noopener">VcXsrv Windows X Server</a>.</li>
 </ol>
 <h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">¶</a></h2>
 <ol>
@@ -2303,7 +2282,7 @@
 <p>Where <code>WSL-ROS2</code> should be listed.</p>
 </li>
 <li>
-<p>Next (optional, but recommended), open up the Windows Terminal App, then:</p>
+<p>Next (<strong>optional</strong>), open up the Windows Terminal App, then:</p>
 <ol>
 <li>Go to Settings (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-comma">,</kbd></span>)</li>
 <li>In <code>Startup</code> &gt; <code>Default profile</code> select <strong>WSL-ROS2</strong> from the drop-down list.</li>
@@ -2314,75 +2293,67 @@
 </code></pre></div>
 <p>Either way, this will ensure that each time you open the Windows Terminal App <em>or</em> you press the New Tab (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span>) button a WSL-ROS2 Terminal Instance will be launched by default.</p>
 </li>
-<li>
-<p>You should now be able to launch the WSL-ROS2 environment by launching the Windows Terminal App:</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/launch-win-term.png" width="700px"></a>
-</figure><p></p>
-</li>
 </ol>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">¶</a></h2>
-<p>With your WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.</p>
-<ol>
-<li>
-<p>First, update the distro:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
+<!-- ## Initial Setup
+
+With your WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.
+
+1. First, update the distro:
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
 </code></pre></div>
-</li>
-<li>
-<p>Next, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all <a href="#prerequisites">the prerequisites above</a>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=false"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
+
+1. Next, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all [the prerequisites above](#prerequisites)):
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export XSERVER=false&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
 </code></pre></div>
-</li>
-<li>
-<p>Re-source your <code>.bashrc</code> file for this change to take effect:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+
+1. Re-source your `.bashrc` file for this change to take effect:
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
-</li>
-<li>
-<p>Run the following ROS command to see if you can launch the Gazebo GUI, which is crucial for this course:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
+
+1. Run the following ROS command to see if you can launch the Gazebo GUI, which is crucial for this course:
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
-<p>This should hopefully present you with something like this:</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_top.png" width="600px"></a>
-</figure><p></p>
-<p>If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead... </p>
-</li>
-</ol>
+
+
+
+    If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead...  -->
+
 <h2 id="using-a-dedicated-x-server">Using a Dedicated X Server<a class="headerlink" href="#using-a-dedicated-x-server" title="Permanent link">¶</a></h2>
-<p>Having completed the steps in the section above, if you are unable to launch GUI apps, or if performance is very poor, then you may need to try using a dedicated X Server instead. </p>
+<p>WSL-ROS2 requires an XServer in order to render graphical applications (such as Gazebo and RViz)<sup id="fnref:wsl-native-guis"><a class="footnote-ref" href="#fn:wsl-native-guis">1</a></sup>. You need to make sure you have one up and running whenever you're working with WSL-ROS2.</p>
 <ol>
-<li>First, install the <a href="https://sourceforge.net/projects/vcxsrv/" target="_blank" rel="noopener">VcXsrv Windows X Server</a>.</li>
 <li>
-<p>Download this <a href="https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing" target="_blank" rel="noopener">config file for VcXsrv</a> and save it to your desktop as <code>wsl_ros_config.xlaunch</code>.</p>
+<p>First, download this <a href="https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing" target="_blank" rel="noopener">config file for VcXsrv</a> and save it to your desktop as <code>wsl_ros_config.xlaunch</code>.</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/wsl-ros-config.png"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray to indicate that the X Server is running:</p>
+<p>Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray (bottom-right) to indicate that the X Server is running:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/xlaunch_icon.png" width="25px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>In a WSL-ROS2 Terminal Instance, run the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=true"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
-</code></pre></div>
+<p>Launch the WSL-ROS2 environment by launching the Windows Terminal App:</p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/launch-win-term.png" width="700px"></a>
+</figure><p></p>
 </li>
 <li>
-<p>Re-source your <code>.bashrc</code> file for this change to take effect:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<p>In the WSL-ROS2 terminal instance, try running the empty world Gazebo simulation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
-</li>
-<li>
-<p>Try running the empty world Gazebo simulation again:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
-</code></pre></div>
+<p>This should hopefully present you with something like this:</p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_top.png" width="600px"></a>
+</figure><p></p>
 <div class="admonition warning">
 <p class="admonition-title">Important</p>
-<p>If this option works for you, you'll need to make sure you have the X Server running (by clicking the <code>wsl_ros_config.xlaunch</code> shortcut) <strong>every time</strong> you work with WSL-ROS2. </p>
+<p>You need to make sure you have the X Server running (by clicking the <code>wsl_ros_config.xlaunch</code> shortcut) <strong>every time</strong> you work with WSL-ROS2. </p>
 </div>
 </li>
 </ol>
@@ -2393,7 +2364,7 @@
 
 1. If your graphics card supports it, it **may** be possible to also use hardware acceleration for GUI apps. If you want to try this, then run the following command to enable this:
 
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export LIBGL_ALWAYS_SOFTWARE=false&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$HOME</span>/.bashrc
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export LIBGL_ALWAYS_SOFTWARE=false&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$HOME</span>/.bashrc
 </code></pre></div>
 
     Then - once again - re-source your `.bashrc` file for this change to take effect:
@@ -2407,6 +2378,14 @@
 <li><a href="../using-wsl-ros/vscode/">Setting up VS Code for WSL</a></li>
 <li><a href="../using-wsl-ros/linux-term/">A Quick Introduction to the Linux Terminal</a></li>
 </ul>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:wsl-native-guis">
+<p>WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer marginally better performance.&nbsp;<a class="footnote-backref" href="#fnref:wsl-native-guis" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -2429,7 +2408,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 20, 2025 12:45:29 UTC"><span class="timeago" datetime="2025-11-20T12:45:29+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 20, 2025 12:45:29 UTC">2025-11-20</span>
   </span>
 
     

@@ -2747,6 +2747,14 @@ See if you can adapt the code within this block to make the robot move forwards 
 </ol>
 </li>
 </ol>
+<p>&lt;!-- From GPT-5 (18/11/25):</p>
+<p>This line computes the difference between two range readings from the lidar and stores that scalar in the variable wall_rate. Concretely it does 
+wall_rate = l3 − l4, where l3 and l4 are distance measurements (presumably from two adjacent laser rays or sensor indices) accessed via self.lidar.distance.</p>
+<p>Important interpretation: this is a spatial difference between two beams, not a time derivative. A positive value means the measurement at l3 is larger than at l4 (the object/wall is farther along the l3 ray than along l4), and a negative value means the opposite. That difference can be used as a simple measure of local wall slope or relative offset; with knowledge of the angular (or lateral) separation between the two beams you can convert it to an approximate angle:</p>
+<p>θ≈arctan((l3−l4)/d)
+​
+where d is the distance between the beam endpoints projected orthogonally (or the arc/angle separation converted to a linear separation).</p>
+<p>Gotchas and suggestions: check that l3 and l4 are valid finite floats (not None, inf, or NaN) before subtracting, because sensor dropouts will break this computation. If you actually need a rate over time, divide the difference by the elapsed time between samples. Consider smoothing or low-pass filtering this difference to reduce noise, and give the variable a clearer name (e.g., beam_diff, lateral_gradient, or approx_wall_slope) if it’s not truly a temporal rate. --&gt;</p>
 </li>
 <li>
 <p>Run the node, as it is, from <strong>TERMINAL 1</strong>:</p>
@@ -2991,7 +2999,7 @@ See if you can adapt the code within this block to make the robot move forwards 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 17, 2025 14:15:56 UTC"><span class="timeago" datetime="2025-07-17T14:15:56+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 17, 2025 14:15:56 UTC">2025-07-17</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 20, 2025 12:30:21 UTC"><span class="timeago" datetime="2025-11-20T12:30:21+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 20, 2025 12:30:21 UTC">2025-11-20</span>
   </span>
 
     

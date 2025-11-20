@@ -51,16 +51,16 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
 8. Next (**optional**), open up the Windows Terminal App, then:
     
     1. Go to Settings (++ctrl+comma++)
-    1. In `Startup` > `Default profile` select **WSL-ROS2** from the drop-down list.
+    1. Under `Profiles` in the left-hand menu, find `WSL-ROS2` (or scroll further down and click the `Add a new profile` button to create it).
+    1. Configure the settings for the `WSL-ROS2` profile as shown below:
 
-    *Alternatively*, you could always use our own Windows Terminal Settings file (but note that this will overwrite any of your own custom Windows Terminal App settings, if you have any):
+        <figure markdown>
+          ![](./figures/win_term_profile_settings.png){width=600px}
+        </figure>
 
-    ```powershell
-    Copy-Item -Path C:\WSL-ROS2\settings.json -Destination `
-    $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
-    ```
+    1. Then, in `Startup` (back in the left-hand menu again), under `Default profile` select **WSL-ROS2** from the drop-down list.
 
-    Either way, this will ensure that each time you open the Windows Terminal App *or* you press the New Tab (:material-plus:) button a WSL-ROS2 Terminal Instance will be launched by default.
+        This will ensure that each time you open the Windows Terminal App *or* you press the New Tab (:material-plus:) button a WSL-ROS2 Terminal Instance will be launched by default.
 
 
 <!-- ## Initial Setup
@@ -99,7 +99,7 @@ With your WSL-ROS2 terminal instance, you'll need to run some initial commands t
 
 WSL-ROS2 requires an XServer in order to render graphical applications (such as Gazebo and RViz)[^wsl-native-guis]. You need to make sure you have one up and running whenever you're working with WSL-ROS2.
 
-[^wsl-native-guis]: WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer marginally better performance. 
+[^wsl-native-guis]: WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer slightly better performance. 
 
 1. First, download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
 

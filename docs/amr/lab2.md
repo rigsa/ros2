@@ -491,6 +491,19 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 1**.
             <figure markdown>
               ![](./lab2/wall_rate.png?width=20cm)
             </figure>  
+        
+    <!-- From GPT-5 (18/11/25):
+
+    This line computes the difference between two range readings from the lidar and stores that scalar in the variable wall_rate. Concretely it does 
+    wall_rate = l3 − l4, where l3 and l4 are distance measurements (presumably from two adjacent laser rays or sensor indices) accessed via self.lidar.distance.
+
+    Important interpretation: this is a spatial difference between two beams, not a time derivative. A positive value means the measurement at l3 is larger than at l4 (the object/wall is farther along the l3 ray than along l4), and a negative value means the opposite. That difference can be used as a simple measure of local wall slope or relative offset; with knowledge of the angular (or lateral) separation between the two beams you can convert it to an approximate angle:
+
+    θ≈arctan((l3−l4)/d)
+    ​
+    where d is the distance between the beam endpoints projected orthogonally (or the arc/angle separation converted to a linear separation).
+
+    Gotchas and suggestions: check that l3 and l4 are valid finite floats (not None, inf, or NaN) before subtracting, because sensor dropouts will break this computation. If you actually need a rate over time, divide the difference by the elapsed time between samples. Consider smoothing or low-pass filtering this difference to reduce noise, and give the variable a clearer name (e.g., beam_diff, lateral_gradient, or approx_wall_slope) if it’s not truly a temporal rate. -->
 
 1. Run the node, as it is, from **TERMINAL 1**:
 

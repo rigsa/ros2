@@ -101,7 +101,8 @@ WSL-ROS2 requires an XServer in order to render graphical applications (such as 
 
 [^wsl-native-guis]: WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer slightly better performance. 
 
-1. First, download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
+1. [Having installed VcXsrv in the Prerequisites Section](#prerequisites)...
+1. Download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
 
     <figure markdown>
       ![](./figures/wsl-ros-config.png)

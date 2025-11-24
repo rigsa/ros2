@@ -2122,10 +2122,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#downloading-the-amr31001-ros-package" class="md-nav__link">
+  <a href="#creating-a-ros-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Downloading the AMR31001 ROS Package
+        Creating a ROS Package
       
     </span>
   </a>
@@ -2329,57 +2329,63 @@
 <li>ROS Topics are key to this - they are essentially the communication channels (or the plumbing) on which all data is passed around between the nodes.</li>
 <li>Different topics communicate different types of information.</li>
 <li>Any Node can publish (<em>write</em>) and/or subscribe to (<em>read</em>) any ROS Topic in order to pass information around or make things happen.</li>
-<li>One of the key ROS Topics that we worked with last time was <code>/cmd_vel</code>, which is a topic that communicates velocity commands to make a robot move.</li>
-<li>We published <code>Twist</code> messages to this (both via the command line, and in Python) to make our TurtleBot3 Waffle move.</li>
 </ul>
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_comms.png" width="500px"></a></p>
 </figure>
+<p>One of the key ROS Topics that we worked with last time was <code>/cmd_vel</code>, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move, we publish <code>TwistStamped</code> <em>Interface Messages</em> to the <code>/cmd_vel</code> topic. Interfaces messages are <em>structured data types</em> defined in ROS, and we will remind ourselves about the structure of the <code>TwistStamped</code> data type shortly...</p>
 <p><strong>Open-Loop Control</strong></p>
 <p>We used a time-based method to control the motion of our robot in order to get it to generate a square motion path. This type of control is <em>open-loop</em>: we hoped that the robot had moved (or turned) by the amount that was required, but had no <em>feedback</em> to tell us whether this had actually been achieved.</p>
 <p>In this lab we'll look at how this can be improved, making use of some of our robot's on-board sensors to tell us where the robot is or what it can see in its environment, in order to complete a task more reliably and be able to better adapt to changes and uncertainty in the environment.</p>
 <h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
-<p>In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to <em>subscribe</em> to these. We'll see how the data from these sensors can be used as <em>feedback</em> to inform decision-making, thus allowing us to implement some different forms of <em>closed-loop control</em>, thus making our robot more autonomous. </p>
+<p>In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to <em>subscribe</em> to these. We'll see how the data from these sensors can be used as <em>feedback</em> to inform decision-making, thus allowing us to implement some different forms of <em>closed-loop control</em>, and make our robot more autonomous. </p>
 <h3 id="intended-learning-outcomes">Intended Learning Outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Permanent link">¶</a></h3>
 <p>By the end of this session you will be able to:</p>
 <ol>
 <li>Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.</li>
 <li>Use feedback from a robot's odometry system to <em>control</em> its position in an environment.</li>
 <li>Use data from a Robot's LiDAR sensor to make a robot follow a wall.</li>
-<li>Generate a map of an environment, using SLAM.</li>
-<li>Make a robot navigate an environment <em>autonomously</em>, using ROS navigation tools.</li>
 </ol>
+<!-- TODO: 1. Generate a map of an environment, using SLAM.
+1. Make a robot navigate an environment *autonomously*, using ROS navigation tools. -->
+
 <h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
 <ul>
 <li><a href="#ex1">Exercise 1: Exploring Odometry Data</a></li>
 <li><a href="#ex2">Exercise 2: Odometry-based Navigation</a></li>
 <li><a href="#ex3">Exercise 3: Wall following</a></li>
-<li><a href="#ex4">Exercise 4: SLAM and Autonomous Navigation</a></li>
 </ul>
+<!-- TODO: * [Exercise 4: SLAM and Autonomous Navigation](#ex4) -->
+
 <h2 id="the-lab">The Lab<a class="headerlink" href="#the-lab" title="Permanent link">¶</a></h2>
 <h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h3>
-<h4 id="downloading-the-amr31001-ros-package">Downloading the AMR31001 ROS Package<a class="headerlink" href="#downloading-the-amr31001-ros-package" title="Permanent link">¶</a></h4>
-<p>To start with, you'll need to download a ROS package to the Robot Laptop that you are working on today. This package contains all the resources that you'll need for the lab exercises.</p>
+<h4 id="creating-a-ros-package">Creating a ROS Package<a class="headerlink" href="#creating-a-ros-package" title="Permanent link">¶</a></h4>
+<p>We'll need a ROS package to work with for this lab session. We've created a template for you, which contains all the resources that you'll need for today. Download and install this as follows.</p>
 <ol>
 <li>
 <p>Open up a terminal instance on the laptop, either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/bash_terminal_icon.svg" width="60px"></a>
 </figure><p></p>
+<p>We'll call this <strong>TERMINAL 1</strong>.</p>
 </li>
 <li>
-<p>In the terminal, run the following commands in order:</p>
+<p>In <strong>TERMINAL 1</strong>, run the following commands in order:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To <strong>paste</strong> the following commands into the terminal use <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
 </div>
 <hr>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>wget<span class="w"> </span>-O<span class="w"> </span>build.sh<span class="w"> </span>https://raw.githubusercontent.com/tom-howard/amr31001/main/scripts/build.sh
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>build.sh
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./build.sh
+<p><strong>TERMINAL 1</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cd ~/ros2_ws/src/
 </code></pre></div><p></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/tom-howard/amr31001_lab2.git
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cd ~/ros2_ws &amp;&amp; \
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  colcon build --symlink-install \
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  --packages-select amr31001_lab2 &amp;&amp; \
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  source ~/.bashrc 
+</code></pre></div>
 <hr>
 </li>
 </ol>
@@ -2387,18 +2393,19 @@
 <p>Much the same as last time, you'll now need to get ROS up and running on your robot. </p>
 <ol>
 <li>
-<p>First, identify the number of the robot that you have been provided with.</p>
-<p>Robots are named: <code>dia-waffleNUM</code>, where <code>NUM</code> is a unique <em>'Robot Number'</em> (a number between 1 and 50).</p>
+<p>First, identify the robot that you have been provided with. Each of our robots are uniquely named: <code>dia-waffleX</code>, where <code>X</code> is the <em>'Robot Number'</em> (a number between 1 and 50). Check the label printed on top of the robot to find out which one you have!</p>
 </li>
 <li>
-<p>In the terminal, type the following command to <em>pair</em> the laptop and robot:</p>
+<p>In <strong>TERMINAL 1</strong> type the following command to <em>pair</em> the laptop and robot, so that they can work together:</p>
 <hr>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>pair
+<p><strong>TERMINAL 1</strong>:
+</p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>waffle X pair
 </code></pre></div>
-Replacing <code>NUM</code> with the number of the robot that you have been provided with.<p></p>
+<strong>... replacing <code>X</code> with the number of the robot that you have been provided with</strong>.<p></p>
 <hr>
 </li>
 <li>
+<p>Enter the password for the robot when requested (we'll tell you what this is in the lab).</p>
 <p>You <em>may</em> see a message like this early on in the pairing process:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
@@ -2406,46 +2413,49 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>If so, just type <code>yes</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm that you want to continue.</p>
 </li>
 <li>
-<p>Enter the password for the robot when requested (if you can't remember what this is from last time then ask a member of the teaching team!)</p>
-<div class="admonition note">
-<p class="admonition-title">Remember</p>
-<p>You won't see anything change on the screen when you are entering the password. This is normal, just keep typing!!</p>
-</div>
-</li>
-<li>
 <p>Once the pairing process is finished you should see a message saying <code>pairing complete</code>, displayed in blue in the terminal. </p>
 </li>
 <li>
-<p>In the same terminal, enter the following command:</p>
+<p>Then, in the same terminal (<strong>TERMINAL 1</strong>), enter the following command:</p>
 <hr>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>term
+<p><strong>TERMINAL 1:</strong>
+</p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>waffle X term
 </code></pre></div>
-(again, replacing <code>NUM</code> with the number of <em>your</em> robot).<p></p>
+(again, replacing <code>X</code> with the number of <strong>your</strong> robot).<p></p>
 <hr>
-<p>A green banner should appear across the bottom of the terminal window:</p>
+<p>Any text that was in the terminal should now disappear, and a green banner should appear across the bottom of the terminal window:</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
 </figure><p></p>
-<p>Remember, this is a terminal instance running <em>on the robot</em>, and any commands that you enter here will be <em>executed on the robot</em> (not the laptop!)</p>
+<p>This is a terminal instance running <strong>on the robot</strong>, and any commands that you enter here will be <strong>executed on the robot</strong> (not the laptop!)</p>
 </li>
 <li>
 <p>Now, launch ROS on the robot by entering the following command:</p>
 <hr>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>roslaunch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch
-</code></pre></div>
+<p><strong>TERMINAL 1:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py
+</code></pre></div><p></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To paste text into a Linux terminal you'll need to use the Control + <strong>Shift</strong> + V keyboard keys: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
+</div>
 <hr>
-<p>After a short while, you should see a message like this:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[INFO] [#####] --------------------------
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[INFO] [#####] dia-waffleNUM is up and running!
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[INFO] [#####] -------------------------- 
+<p>If all is well then the robot will play a nice <em>"do-re-me"</em> sound and a message like this should appear (amongst all the other text):</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[tb3_status.py-#] ######################################
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[tb3_status.py-#] ### dia-waffleX is up and running! ###
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[tb3_status.py-#] ######################################
 </code></pre></div>
-<p>The robot is now up and running, and you're ready to go!</p>
+<p>ROS is now up and running on the robot, and we're ready to go!</p>
 </li>
 <li>
-<p>Close down this terminal instance. If you see the following message, just click "Close Terminal."</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/term_confirm_close.png" width="600px"></a>
-</figure><p></p>
+<p>Next, connect the laptop to the ROS network that we've just established on the robot. The Robot and Laptop communicate with one another via the University Wireless network, but there's one more step required to link them together. </p>
+<p>Open up <strong>a new terminal instance</strong> on the laptop (either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:</p>
+<hr>
+<p><strong>TERMINAL 2</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rmw_zenoh_cpp<span class="w"> </span>rmw_zenohd
+</code></pre></div><p></p>
+<hr>
+<p>Leave <strong>TERMINAL 1</strong> and <strong>TERMINAL 2</strong> running in the background at all times while working with your robot in the lab today.</p>
 </li>
 </ol>
 <h3 id="odometry">Odometry<a class="headerlink" href="#odometry" title="Permanent link">¶</a></h3>
@@ -2463,32 +2473,33 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>In the previous lab we used some ROS commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the <code>/odom</code> topic this time.</p>
 <ol>
 <li>
-<p>Open up a new terminal instance on the laptop (by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, or clicking the Terminal App desktop icon, as you did before). We’ll call this one <strong>TERMINAL 1</strong>.</p>
+<p>Open up a new terminal instance on the laptop (by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, or clicking the Terminal App desktop icon, as you did before). We’ll call this one <strong>TERMINAL 3</strong>.</p>
 </li>
 <li>
-<p>As you may recall from last time, we can use the <code>rostopic</code> command to <em>list</em> all the topics that are currently active on the network. Enter the following in <strong>TERMINAL 1</strong>:</p>
+<p>As you may recall from last time, we can use the <code>ros2 topic</code> command to <em>list</em> all the topics that are currently active on the network. Enter the following in <strong>TERMINAL 3</strong>:</p>
 <hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rostopic<span class="w"> </span>list
+<p><strong>TERMINAL 3</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
 </code></pre></div><p></p>
 <hr>
 <p>A large list of items should appear on the screen. Can you spot the <code>/odom</code> topic?</p>
 </li>
 <li>
-<p>Let's find out more about this using the <code>rostopic info</code> command.</p>
+<p>Let's find out more about this using the <code>ros2 topic info</code> command.</p>
 <hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rostopic<span class="w"> </span>info<span class="w"> </span>/odom
+<p><strong>TERMINAL 3</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/odom
 </code></pre></div><p></p>
 <hr>
 <p>This should provide the following output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Type: nav_msgs/Odometry
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Publishers:
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  * /turtlebot3_core (http://dia-waffleNUM:#####/)
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Subscribers: None
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Type: nav_msgs/Odometry
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Publishers:
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  * /turtlebot3_core (http://dia-waffleNUM:#####/)
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>Subscribers: None
 </code></pre></div>
+<!-- TODO from here -->
 <div class="admonition info">
 <p class="admonition-title">Post-lab Quiz</p>
 <p>What does all this mean? We discussed this <a href="../lab1/#rostopic_info_explained">last time (in relation to the <code>/cmd_vel</code> topic)</a>, and you may want to have a look back at this to refresh your memory! </p>
@@ -2499,20 +2510,20 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>We can use the <code>rosmsg</code> command to find out more about this:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>rosmsg<span class="w"> </span>info<span class="w"> </span>nav_msgs/Odometry
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>rosmsg<span class="w"> </span>info<span class="w"> </span>nav_msgs/Odometry
 </code></pre></div><p></p>
 <hr>
 <p>You'll see a lot of information there, but try to find the line that reads <code>geometry_msgs/Pose pose</code>: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>geometry_msgs/Pose pose
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  geometry_msgs/Point position
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    float64 x
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    float64 y
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    float64 z
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  geometry_msgs/Quaternion orientation
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    float64 x
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    float64 y
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    float64 z
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    float64 w
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>geometry_msgs/Pose pose
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  geometry_msgs/Point position
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    float64 x
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    float64 y
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    float64 z
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  geometry_msgs/Quaternion orientation
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    float64 x
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    float64 y
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    float64 z
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    float64 w
 </code></pre></div>
 <p>Here's where we'll find information about the robot's position and orientation (aka <em>"Pose"</em>) in the environment. Let's have a look at this data in real time...</p>
 </li>
@@ -2520,7 +2531,7 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>We can look at the live data being streamed across the <code>/odom</code> topic, using the <code>rostopic echo</code> command. We know that this topic uses <code>nav_msgs/Odometry</code> type messages, and we know which part of these messages we are interested in (<code>geometry_msgs/Pose pose</code>)</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom/pose/pose
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom/pose/pose
 </code></pre></div><p></p>
 <hr>
 </li>
@@ -2531,7 +2542,7 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>Remember that node that we used last time that allowed us to control the motion of the robot using different buttons on the keyboard? Let's launch that again now:</p>
 <hr>
 <p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
 </code></pre></div><p></p>
 <hr>
 </li>
@@ -2570,7 +2581,7 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>Open up the <code>amr31001</code> ROS package that you downloaded earlier into VS Code using the following command in <strong>TERMINAL 1</strong>:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>code<span class="w"> </span>~/catkin_ws/src/amr31001
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>code<span class="w"> </span>~/catkin_ws/src/amr31001
 </code></pre></div><p></p>
 <hr>
 </li>
@@ -2582,10 +2593,10 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <ol>
 <li>
 <p>Motion control is handled by an external Python module called <code>waffle</code>, which is imported on line 4:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">waffle</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">waffle</span>
 </code></pre></div>
 <p>and instantiated on line 16:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">motion</span> <span class="o">=</span> <span class="n">waffle</span><span class="o">.</span><span class="n">Motion</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">motion</span> <span class="o">=</span> <span class="n">waffle</span><span class="o">.</span><span class="n">Motion</span><span class="p">()</span>
 </code></pre></div>
 <p>In the main part of the code, this can be used to control the velocity of the robot, using the following methods:</p>
 <ol>
@@ -2595,7 +2606,7 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 </li>
 <li>
 <p>Subscribing to the <code>/odom</code> topic and the processing of the <code>nav_msgs/Odometry</code> data is also handled by the <code>waffle</code> module, so you don't have to worry about it! This functionality is instantiated on line 17:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">pose</span> <span class="o">=</span> <span class="n">waffle</span><span class="o">.</span><span class="n">Pose</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">pose</span> <span class="o">=</span> <span class="n">waffle</span><span class="o">.</span><span class="n">Pose</span><span class="p">()</span>
 </code></pre></div>
 <p>So all that you have to do in order to access the robot's odometry data in the main part of the code is call the appropriate attribute:</p>
 <ol>
@@ -2610,7 +2621,7 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <p>Run the code in <strong>TERMINAL 1</strong> and observe what happens:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>rosrun<span class="w"> </span>amr31001<span class="w"> </span>ex2.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>rosrun<span class="w"> </span>amr31001<span class="w"> </span>ex2.py
 </code></pre></div><p></p>
 <hr>
 <p>The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45° the robot should stop. </p>
@@ -2623,14 +2634,14 @@ Replacing <code>NUM</code> with the number of the robot that you have been provi
 <ol>
 <li>
 <p>In the <code>while()</code> loop there is an <code>if</code> statement with a condition that handles the turning process: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">elif</span> <span class="n">movement</span> <span class="o">==</span> <span class="s2">"turn"</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">elif</span> <span class="n">movement</span> <span class="o">==</span> <span class="s2">"turn"</span><span class="p">:</span>
 </code></pre></div>
 <p>Within this, look at how the robot's yaw angle is being monitored and updated as it turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make the robot turn in 90° steps instead.</p>
 </li>
 <li>
 <p>Ultimately, after the robot has turned by 90° it needs to then move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.</p>
 <p>Moving forwards is handled by an additional condition within the <code>if</code> statement:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">elif</span> <span class="n">movement</span> <span class="o">==</span> <span class="s2">"move_fwd"</span><span class="p">:</span>
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">elif</span> <span class="n">movement</span> <span class="o">==</span> <span class="s2">"move_fwd"</span><span class="p">:</span>
 </code></pre></div>
 See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a><p></p>
 <details class="note">
@@ -2649,7 +2660,7 @@ See if you can adapt the code within this block to make the robot move forwards 
 <p>Once you've saved it, you can re-run the code at any time by using the same <code>rosrun</code> command as before:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rosrun<span class="w"> </span>amr31001<span class="w"> </span>ex2.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>rosrun<span class="w"> </span>amr31001<span class="w"> </span>ex2.py
 </code></pre></div><p></p>
 <hr>
 <p>... and you can stop it at any time by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in the terminal.</p>
@@ -2659,14 +2670,14 @@ See if you can adapt the code within this block to make the robot move forwards 
 <ol>
 <li>
 <p><strong>To the power of...</strong>: Use <code>**</code> to raise a number to the power of another number (i.e. <span class="arithmatex">\(2^{3}\)</span>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="mi">8</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="mi">8</span>
 </code></pre></div>
 </li>
 <li>
 <p><strong>Square Root</strong>: To calculate the square root of a number (i.e. <span class="arithmatex">\(\sqrt{4}\)</span>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="mf">2.0</span> 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="mf">2.0</span> 
 </code></pre></div>
 </li>
 </ol>
@@ -2689,7 +2700,7 @@ See if you can adapt the code within this block to make the robot move forwards 
 <p>Launch RViz, so that we can see the data coming from this sensor in real-time:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>roslaunch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>roslaunch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch
 </code></pre></div><p></p>
 <hr>
 <figure>
@@ -2715,7 +2726,7 @@ See if you can adapt the code within this block to make the robot move forwards 
 </li>
 <li>
 <p>The data from the LiDAR sensor has been preprocessed and encapsulated in an additional class from the <code>waffle</code> module. This functionality is instantiated on line 13:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">lidar</span> <span class="o">=</span> <span class="n">waffle</span><span class="o">.</span><span class="n">Lidar</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">lidar</span> <span class="o">=</span> <span class="n">waffle</span><span class="o">.</span><span class="n">Lidar</span><span class="p">()</span>
 </code></pre></div>
 <p>This class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:</p>
 <p></p><figure markdown>
@@ -2735,7 +2746,7 @@ See if you can adapt the code within this block to make the robot move forwards 
 <li>We use distance measurements from LiDAR zones L3 and L4 to determine the alignment of the robot to a left-hand wall.</li>
 <li>
 <p>This is determined by calculating the difference between the distance measurements reported from these two zones:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">wall_rate</span> <span class="o">=</span> <span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l3</span> <span class="o">-</span> <span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l4</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">wall_rate</span> <span class="o">=</span> <span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l3</span> <span class="o">-</span> <span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l4</span>
 </code></pre></div>
 </li>
 <li>
@@ -2760,7 +2771,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>Run the node, as it is, from <strong>TERMINAL 1</strong>:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>rosrun<span class="w"> </span>amr31001<span class="w"> </span>ex3.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>rosrun<span class="w"> </span>amr31001<span class="w"> </span>ex3.py
 </code></pre></div><p></p>
 <hr>
 <p>When you do this, you'll notice that the robot doesn't move at all (yet!), but the following data appears in the terminal:</p>
@@ -2786,7 +2797,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <ul>
 <li>
 <p>You'll need to set a constant <em>linear</em> velocity, so that the robot is always moving forwards. Set an appropriate value for this now, by editing the line that currently reads:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">lin_vel</span> <span class="o">=</span> <span class="mf">0.0</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">lin_vel</span> <span class="o">=</span> <span class="mf">0.0</span>
 </code></pre></div>
 </li>
 <li>
@@ -2806,22 +2817,22 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <li>You may need to consider the distance measurements from some other LiDAR zones!</li>
 <li>
 <p>The <code>ex3.py</code> template that was provided to you uses an <code>if</code> statement with three different cases:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="k">else</span><span class="p">:</span>
-</code></pre></div>
-<p>You may need to add in some further cases to this to accommodate the additional situations discussed above, e.g.:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
 <a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
 <a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
 <a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
-<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
-<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="k">else</span><span class="p">:</span>
+</code></pre></div>
+<p>You may need to add in some further cases to this to accommodate the additional situations discussed above, e.g.:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="k">else</span><span class="p">:</span>
 </code></pre></div>
 </li>
 </ol>
@@ -2858,7 +2869,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>Then, in <strong>TERMINAL 1</strong>, run the following command:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>roslaunch<span class="w"> </span>amr31001<span class="w"> </span>ex4_slam.launch
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>roslaunch<span class="w"> </span>amr31001<span class="w"> </span>ex4_slam.launch
 </code></pre></div><p></p>
 <hr>
 <p>An RViz screen will open up showing the robot from a top-down view, with the LiDAR data represented by green dots.</p>
@@ -2871,7 +2882,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>In <strong>TERMINAL 2</strong> launch the <code>turtlebot3_teleop_keyboard</code> node again, to drive the robot around:</p>
 <hr>
 <p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
 </code></pre></div><p></p>
 <hr>
 </li>
@@ -2888,7 +2899,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>While you were doing the above, a map file was being constantly updated and saved to the laptop's filesystem. Have a quick look at this now to make sure that the map that you have built is indeed a good representation of the environment:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>eog<span class="w"> </span>~/catkin_ws/src/amr31001/maps/my_map.pgm
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>eog<span class="w"> </span>~/catkin_ws/src/amr31001/maps/my_map.pgm
 </code></pre></div><p></p>
 <hr>
 <p>If the map looks like the actual arena then you're good to move on, but if not then you may need to repeat the above steps again to give it another go.</p>
@@ -2901,7 +2912,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>Launch the navigation processes in <strong>TERMINAL 1</strong> by entering the following command:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>roslaunch<span class="w"> </span>amr31001<span class="w"> </span>ex4_nav.launch
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>roslaunch<span class="w"> </span>amr31001<span class="w"> </span>ex4_nav.launch
 </code></pre></div><p></p>
 <hr>
 <p>RViz should then open up again, once again with a top-down view of the robot, but this time with the map that you generated earlier displayed underneath it (in black).  </p>
@@ -2928,7 +2939,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>Once again, launch the <code>turtlebot_teleop_keyboard</code> node in <strong>TERMINAL 2</strong>, and drive the robot around a bit:</p>
 <hr>
 <p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
 </code></pre></div><p></p>
 <hr>
 <p>As you're doing this, watch how the scatter in the localisation particle cloud reduces, and the small green arrows begin to converge underneath the robot.</p>
@@ -2957,7 +2968,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
 <p>Before you leave, please turn off your robot! Enter the following command in <strong>TERMINAL 1</strong> to do so:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
 </code></pre></div>
 ... again, replacing <code>NUM</code> with the number of the robot that you have been working with today.<p></p>
 <hr>
@@ -2999,7 +3010,7 @@ where d is the distance between the beam endpoints projected orthogonally (or th
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 20, 2025 12:30:21 UTC"><span class="timeago" datetime="2025-11-20T12:30:21+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 20, 2025 12:30:21 UTC">2025-11-20</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 24, 2025 16:57:14 UTC"><span class="timeago" datetime="2025-11-24T16:57:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 24, 2025 16:57:14 UTC">2025-11-24</span>
   </span>
 
     

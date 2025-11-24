@@ -23,12 +23,12 @@ In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quick
 * ROS Topics are key to this - they are essentially the communication channels (or the plumbing) on which all data is passed around between the nodes.
 * Different topics communicate different types of information.
 * Any Node can publish (*write*) and/or subscribe to (*read*) any ROS Topic in order to pass information around or make things happen.
-* One of the key ROS Topics that we worked with last time was `/cmd_vel`, which is a topic that communicates velocity commands to make a robot move.
-* We published `Twist` messages to this (both via the command line, and in Python) to make our TurtleBot3 Waffle move.
 
 <figure markdown>
   ![](./lab2/ros_comms.png){width=500px}
 </figure>
+
+One of the key ROS Topics that we worked with last time was `/cmd_vel`, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move, we publish `TwistStamped` *Interface Messages* to the `/cmd_vel` topic. Interfaces messages are *structured data types* defined in ROS, and we will remind ourselves about the structure of the `TwistStamped` data type shortly...
 
 **Open-Loop Control**
 
@@ -38,7 +38,7 @@ In this lab we'll look at how this can be improved, making use of some of our ro
 
 ### Aims
 
-In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to *subscribe* to these. We'll see how the data from these sensors can be used as *feedback* to inform decision-making, thus allowing us to implement some different forms of *closed-loop control*, thus making our robot more autonomous. 
+In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to *subscribe* to these. We'll see how the data from these sensors can be used as *feedback* to inform decision-making, thus allowing us to implement some different forms of *closed-loop control*, and make our robot more autonomous. 
 
 ### Intended Learning Outcomes
 
@@ -47,23 +47,23 @@ By the end of this session you will be able to:
 1. Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.
 1. Use feedback from a robot's odometry system to *control* its position in an environment.
 1. Use data from a Robot's LiDAR sensor to make a robot follow a wall.
-1. Generate a map of an environment, using SLAM.
-1. Make a robot navigate an environment *autonomously*, using ROS navigation tools.
+<!-- TODO: 1. Generate a map of an environment, using SLAM.
+1. Make a robot navigate an environment *autonomously*, using ROS navigation tools. -->
 
 ### Quick Links
 
 * [Exercise 1: Exploring Odometry Data](#ex1)
 * [Exercise 2: Odometry-based Navigation](#ex2)
 * [Exercise 3: Wall following](#ex3)
-* [Exercise 4: SLAM and Autonomous Navigation](#ex4)
+<!-- TODO: * [Exercise 4: SLAM and Autonomous Navigation](#ex4) -->
 
 ## The Lab
 
 ### Getting Started
 
-#### Downloading the AMR31001 ROS Package
+#### Creating a ROS Package
 
-To start with, you'll need to download a ROS package to the Robot Laptop that you are working on today. This package contains all the resources that you'll need for the lab exercises.
+We'll need a ROS package to work with for this lab session. We've created a template for you, which contains all the resources that you'll need for today. Download and install this as follows.
 
 1. Open up a terminal instance on the laptop, either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:
     
@@ -71,20 +71,28 @@ To start with, you'll need to download a ROS package to the Robot Laptop that yo
       ![](../../images/laptops/bash_terminal_icon.svg){width=60px}
     </figure>
 
-1. In the terminal, run the following commands in order:
+    We'll call this **TERMINAL 1**.
+
+1. In **TERMINAL 1**, run the following commands in order:
 
     !!! tip
         To **paste** the following commands into the terminal use ++ctrl+shift+v++
     
     ***
-    ```bash
-    wget -O build.sh https://raw.githubusercontent.com/tom-howard/amr31001/main/scripts/build.sh
+    **TERMINAL 1**:
+    ```txt
+    cd ~/ros2_ws/src/
     ```
-    ```bash
-    chmod +x build.sh
+    
+    ```txt
+    git clone https://github.com/tom-howard/amr31001_lab2.git
     ```
-    ```bash
-    ./build.sh
+    
+    ```txt
+    cd ~/ros2_ws && \
+      colcon build --symlink-install \
+      --packages-select amr31001_lab2 && \
+      source ~/.bashrc 
     ```
     ***
 
@@ -92,76 +100,86 @@ To start with, you'll need to download a ROS package to the Robot Laptop that yo
 
 Much the same as last time, you'll now need to get ROS up and running on your robot. 
 
-1. First, identify the number of the robot that you have been provided with.
+1. First, identify the robot that you have been provided with. Each of our robots are uniquely named: `dia-waffleX`, where `X` is the *'Robot Number'* (a number between 1 and 50). Check the label printed on top of the robot to find out which one you have!
 
-    Robots are named: `dia-waffleNUM`, where `NUM` is a unique *'Robot Number'* (a number between 1 and 50).
-
-1. In the terminal, type the following command to *pair* the laptop and robot:
+1. In **TERMINAL 1** type the following command to *pair* the laptop and robot, so that they can work together:
 
     ***
-    ```bash
-    waffle NUM pair
+    
+    **TERMINAL 1**:
+    ``` { .txt .no-copy }
+    waffle X pair
     ```
-    Replacing `NUM` with the number of the robot that you have been provided with.
+    **... replacing `X` with the number of the robot that you have been provided with**.
     
     ***
 
-1. You *may* see a message like this early on in the pairing process:
+1. Enter the password for the robot when requested (we'll tell you what this is in the lab).
+
+    You *may* see a message like this early on in the pairing process:
 
     <figure markdown>
-      ![](../../images/laptops/ssh_auth.svg){width=600px}
+      ![](../images/laptops/ssh_auth.svg){width=600px}
     </figure>
 
     If so, just type `yes` and then hit ++enter++ to confirm that you want to continue.
 
-1. Enter the password for the robot when requested (if you can't remember what this is from last time then ask a member of the teaching team!)
-
-    !!! note "Remember"
-        You won't see anything change on the screen when you are entering the password. This is normal, just keep typing!!
-    
 1. Once the pairing process is finished you should see a message saying `pairing complete`, displayed in blue in the terminal. 
 
-1. In the same terminal, enter the following command:
+1. Then, in the same terminal (**TERMINAL 1**), enter the following command:
 
     ***
-    ```bash
-    waffle NUM term
+    **TERMINAL 1:**
+    ``` { .txt .no-copy }
+    waffle X term
     ```
-    (again, replacing `NUM` with the number of *your* robot).
+    (again, replacing `X` with the number of **your** robot).
     
     ***
 
-    A green banner should appear across the bottom of the terminal window:
+    Any text that was in the terminal should now disappear, and a green banner should appear across the bottom of the terminal window:
     
     <figure markdown>
-      ![](../../images/laptops/tmux.svg){width=700px}
+      ![](../images/laptops/tmux.svg){width=600px}
     </figure>
 
-    Remember, this is a terminal instance running *on the robot*, and any commands that you enter here will be *executed on the robot* (not the laptop!)
+    This is a terminal instance running **on the robot**, and any commands that you enter here will be **executed on the robot** (not the laptop!)
 
 1. Now, launch ROS on the robot by entering the following command:
 
     ***
+    **TERMINAL 1:**
     ```bash
-    roslaunch tuos_tb3_tools ros.launch
+    ros2 launch tuos_tb3_tools ros.launch.py
+    ```
+
+    !!! tip
+        To paste text into a Linux terminal you'll need to use the Control + **Shift** + V keyboard keys: ++ctrl+shift+v++
+
+    ***
+
+    If all is well then the robot will play a nice *"do-re-me"* sound and a message like this should appear (amongst all the other text):
+
+    ``` { .txt .no-copy }
+    [tb3_status.py-#] ######################################
+    [tb3_status.py-#] ### dia-waffleX is up and running! ###
+    [tb3_status.py-#] ######################################
+    ```
+
+    ROS is now up and running on the robot, and we're ready to go!
+
+1. Next, connect the laptop to the ROS network that we've just established on the robot. The Robot and Laptop communicate with one another via the University Wireless network, but there's one more step required to link them together. 
+
+    Open up **a new terminal instance** on the laptop (either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:
+
+    ***
+    **TERMINAL 2**:
+    ```bash
+    ros2 run rmw_zenoh_cpp rmw_zenohd
     ```
     ***
 
-    After a short while, you should see a message like this:
-
-    ``` { .txt .no-copy }
-    [INFO] [#####] --------------------------
-    [INFO] [#####] dia-waffleNUM is up and running!
-    [INFO] [#####] -------------------------- 
-    ```
-
-    The robot is now up and running, and you're ready to go!
-
-1. Close down this terminal instance. If you see the following message, just click "Close Terminal."
-
-    <figure markdown>
-      ![](../../images/laptops/term_confirm_close.png){width=600px}
-    </figure>
+    Leave **TERMINAL 1** and **TERMINAL 2** running in the background at all times while working with your robot in the lab today.
 
 ### Odometry
 
@@ -182,25 +200,25 @@ This data is published to a ROS Topic called `/odom`.
 
 In the previous lab we used some ROS commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the `/odom` topic this time.
 
-1. Open up a new terminal instance on the laptop (by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before). We’ll call this one **TERMINAL 1**.
+1. Open up a new terminal instance on the laptop (by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before). We’ll call this one **TERMINAL 3**.
 
-1. As you may recall from last time, we can use the `rostopic` command to *list* all the topics that are currently active on the network. Enter the following in **TERMINAL 1**:
+1. As you may recall from last time, we can use the `ros2 topic` command to *list* all the topics that are currently active on the network. Enter the following in **TERMINAL 3**:
 
     ***
-    **TERMINAL 1:**
+    **TERMINAL 3**:
     ```bash
-    rostopic list
+    ros2 topic list
     ```
     ***
 
     A large list of items should appear on the screen. Can you spot the `/odom` topic?
     
-1. Let's find out more about this using the `rostopic info` command.
+1. Let's find out more about this using the `ros2 topic info` command.
 
     ***
-    **TERMINAL 1:**
+    **TERMINAL 3**:
     ```bash
-    rostopic info /odom
+    ros2 topic info /odom
     ```
     ***
 
@@ -214,6 +232,8 @@ In the previous lab we used some ROS commands to identify and interrogate active
 
     Subscribers: None
     ```
+
+    <!-- TODO from here -->
 
     !!! info "Post-lab Quiz"
         What does all this mean? We discussed this [last time (in relation to the `/cmd_vel` topic)](./lab1.md#rostopic_info_explained), and you may want to have a look back at this to refresh your memory! 

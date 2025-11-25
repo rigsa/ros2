@@ -217,78 +217,91 @@ In the previous lab we used some ROS commands to identify and interrogate active
 
     ***
     **TERMINAL 3**:
-    ```bash
+    ```txt
     ros2 topic info /odom
     ```
     ***
 
     This should provide the following output:
     
-    ```txt
-    Type: nav_msgs/Odometry
-
-    Publishers:
-      * /turtlebot3_core (http://dia-waffleNUM:#####/)
-
-    Subscribers: None
+    ```{ .txt .no-copy }
+    Type: nav_msgs/msg/Odometry
+    Publisher count: 1
+    Subscription count: 0
     ```
-
-    <!-- TODO from here -->
 
     !!! info "Post-lab Quiz"
         What does all this mean? We discussed this [last time (in relation to the `/cmd_vel` topic)](./lab1.md#rostopic_info_explained), and you may want to have a look back at this to refresh your memory! 
     
-    One of the key things that this does tell us is that the `/odom` topic transmits data using a `nav_msgs/Odometry` message. All topics use standard message types to pass information around the ROS network. This is so that any node on the ROS network knows how to deal with the data, if it needs to. `nav_msgs/Odometry` is one of these standard message types. 
+    Based on the above, we know that the `/odom` topic uses a `nav_msgs/msg/Odometry` data structure (or *"interface"*). 
     
-1. We can use the `rosmsg` command to find out more about this:
+    **Interfaces** (revisited)
+    
+    Recall from Lab 1 that data structures in ROS 2 are called *Interfaces*. 
+        
+    From the output above, `Type` refers to the *type* of data structure (i.e. the type of interface). The `Type` definition always has three parts to it, in this case: `nav_msgs`, `msg` and `Odometry`:
+        
+    1. `nav_msgs` is the name of the ROS package that this interface (data structure) belongs to
+    1. `msg` tells us that it's a topic *message* interface (rather than another interface type, of which there are others, but we don't need to worry about them here)
+    1. `Odometry` is the *name* of the message interface.
+    
+1. We can use the `ros2 interface` command to find out more about this:
 
     ***
-    **TERMINAL 1:**
-    ```bash
-    rosmsg info nav_msgs/Odometry
+    **TERMINAL 3**:
+    ```txt
+    ros2 interface show nav_msgs/msg/Odometry
     ```
     ***
 
-    You'll see a lot of information there, but try to find the line that reads `geometry_msgs/Pose pose`: 
+    You'll see a lot of information there, but try to find the line that reads `Pose pose`: 
 
-    ```txt
-    geometry_msgs/Pose pose
-      geometry_msgs/Point position
-        float64 x
-        float64 y
-        float64 z
-      geometry_msgs/Quaternion orientation
-        float64 x
-        float64 y
-        float64 z
-        float64 w
+    ``` { .txt .no-copy }
+    Pose pose
+            Point position
+                    float64 x
+                    float64 y
+                    float64 z
+            Quaternion orientation
+                    float64 x 0
+                    float64 y 0
+                    float64 z 0
+                    float64 w 1
     ```
 
     Here's where we'll find information about the robot's position and orientation (aka *"Pose"*) in the environment. Let's have a look at this data in real time...
 
-1. We can look at the live data being streamed across the `/odom` topic, using the `rostopic echo` command. We know that this topic uses `nav_msgs/Odometry` type messages, and we know which part of these messages we are interested in (`geometry_msgs/Pose pose`)
+1. We can look at the live data being streamed across the `/odom` topic, using the `ros2 topic echo` command. We know that the data type is called `nav_msgs/msg/Odometry`, and nested within this is the `pose` attribute that we are interested in, so:
 
     ***
-    **TERMINAL 1:**
-    ```bash
-    rostopic echo /odom/pose/pose
+    **TERMINAL 3**:
+    ```txt
+    ros2 topic echo /odom --field pose.pose
     ```
     ***
 
-1. Now, let's drive the robot around a bit and see how this data changes as we do so. Open up a new terminal instance by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before. We'll call this one **TERMINAL 2**.
-
-1. Remember that node that we used last time that allowed us to control the motion of the robot using different buttons on the keyboard? Let's launch that again now:
+1. What we're presented with now is live Odometry data from the robot.
+    
+    Let's drive the robot around a bit and observe how our robot's pose changes as we do so.
+    
+1. Open up a new terminal instance by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before. We'll call this one **TERMINAL 4**:
 
     ***
-    **TERMINAL 2:**
+    **TERMINAL 4**:
     ```bash
-    rosrun turtlebot3_teleop turtlebot3_teleop_key
+    ros2 run turtlebot3_teleop teleop_keyboard
     ```
     ***
 
 1. Follow the instructions provided in the terminal to drive the robot around:
 
-    As you're doing this, look at how the `position` and `orientation` data is changing in **TERMINAL 1**, in real-time!
+    ??? tip "Reminder"
+
+        <figure markdown>
+          ![](../images/cli/teleop_keymap.svg)
+        </figure>
+
+    As you're doing this, look at how the `position` and `orientation` data is changing in **TERMINAL 3**, in real-time!
 
     !!! info "Post-lab Quiz"
         Which position and orientation values change (by a significant amount) when:
@@ -299,7 +312,7 @@ In the previous lab we used some ROS commands to identify and interrogate active
 
         **Make a note of the answers to these questions, as they may feature in the post-lab quiz!**
 
-1. When you've seen enough enter ++ctrl+c++ in **TERMINAL 2** to stop the `turtlebot3_teleop_keyboard` node. Then, enter ++ctrl+c++ in **TERMINAL 1** as well, which will stop the live stream of Odometery messages from being displayed.
+1. When you've seen enough enter ++ctrl+c++ in **TERMINAL 4** to stop the `teleop_keyboard` node. Then, enter ++ctrl+c++ in **TERMINAL 3** as well, which will stop the live stream of Odometery messages from being displayed.
 
 ##### Summary
 
@@ -313,8 +326,11 @@ You should have noticed that (as the robot moved around) the `x` and `y` terms c
 
 Ultimately though, our robots *position* can change in both the `X` and `Y` axes (i.e. the plane of the floor), while its *orientation* can only change about the `Z` axis (i.e. it can only "yaw"): 
 
+<!-- TODO from here -->
+
 <figure markdown>
-  ![](../../images/waffle/pose.png?width=15cm)
+  ![](../images/waffle/pose.png){width=700px}
+  TODO: This doesn't currently exist!!
 </figure>
 
 #### :material-pen: Exercise 2: Odometry-based Navigation {#ex2}

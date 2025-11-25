@@ -1,6 +1,8 @@
-# ros2
+# ROS 2 Labs at The University of Sheffield
 
-Teaching material for Tom's ROS2 Labs at The University of Sheffield.
+## With the TurtleBot3 Waffle and ROS 2 Jazzy
+
+Teaching material for Tom's ROS 2 Labs at The University of Sheffield.
 
 Access the site here: https://tom-howard.github.io/ros2/
 
@@ -16,27 +18,10 @@ First, create a Python virtual environment (ideally 3.9 or higher):
 python3 -m venv venv
 ```
 
-**[Activate the environment](https://realpython.com/what-is-pip/#using-pip-in-a-python-virtual-environment)** and install the latest version of Material for MKDocs:
+**[Activate the environment](https://realpython.com/what-is-pip/#using-pip-in-a-python-virtual-environment)** and install from [`requirements.txt`](./requirements.txt):
 
 ```
-pip install mkdocs-material
-```
-
-The MKDocs [Awesome Pages Plugin](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin):
-
-```
-pip install mkdocs-awesome-pages-plugin
-```
-
-And the [Git Revision Date Localised Plugin](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin):
-
-```
-pip install mkdocs-git-revision-date-localized-plugin
-```
-
-And finally, [the necessary plugins for social card generation](https://squidfunk.github.io/mkdocs-material/plugins/requirements/image-processing/):
-```
-pip install "mkdocs-material[imaging]"
+pip install -r requirements.txt 
 ```
 
 ### Editing

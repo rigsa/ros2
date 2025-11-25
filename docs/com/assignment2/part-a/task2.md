@@ -39,7 +39,7 @@ Exploration marks will be awarded when the robot enters each of the 12 outer are
 
 <a name="env-vars"></a>
 
-!!! warning "Note"
+!!! danger "Important"
     This is an *example* of what the environment *might* look like:
     
     * **ALL** objects (i.e. the four coloured cylinders and the four wall assemblies) could be in *different positions entirely*. 

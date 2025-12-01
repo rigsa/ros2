@@ -557,8 +557,7 @@ ros2 launch tuos_tb3_tools rviz.launch.py environment:=real
 ***
 
 <figure markdown>
-  ![](){width=800px}
-  TODO
+  ![](../images/waffle/real_rviz_vs_arena.png){width=700px}
 </figure>
 
 The red dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of red dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the red dots also move towards or away from the robot on the screen. 

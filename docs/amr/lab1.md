@@ -18,13 +18,6 @@ We'll be working with robots called *'TurtleBot3 Waffles'*, which you can [find 
 !!! warning "Pre-Lab Work"
     You **must** have completed the Pre-Lab Test before you can make a start on this lab. This is available on the AMR31001 Blackboard Course Page.
 
-!!! info "Assessment Info"
-    This lab is **summatively assessed**.
-
-    1. There's a **post-lab quiz** that you'll need to complete after this lab session has taken place, which will be released on Blackboard.
-    1. You'll also be marked on the work that you do **in the lab** for [Exercise 7](#ex7).
-
-
 ### Aims
 
 In this lab you'll learn how to use ROS 2 to make a robot move, and we'll also look at how to create our own basic ROS 2 script (or *'Node'*), using Python.
@@ -53,6 +46,12 @@ By the end of this session you will be able to:
 * [Exercise 8 (Advanced): Alternative Motion Paths](#ex8)
 
 ## The Lab
+
+!!! info "Assessment Info"
+    This lab is **summatively assessed**.
+
+    1. There's a **post-lab quiz** that you'll need to complete after this lab session has taken place, which will be released on Blackboard.
+    1. You'll also be marked on the work that you do **in the lab** for [Exercise 7](#ex7).
 
 ### Getting Started
 

@@ -464,7 +464,6 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     
     <figure markdown>
       ![](./part2/odom_subscriber.gif){width=700px}
-      [TODO: NEEDS UPDATING]
     </figure>
 
 1. Observe how the output (the formatted odometry data) changes while you move the robot around using the `teleop_keyboard` node in **TERMINAL 3**.

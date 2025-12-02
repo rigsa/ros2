@@ -28,16 +28,13 @@ This tells us everything we need to know to construct the Python import statemen
 from nav_msgs.msg import Odometry
 ```
 
-<!-- We'll also need to import a handy function that should already exist as an importable module in your `part2_navigation` package called `tb3_tools`:
+You'll also need to import a mathematical tool from the `math` module:
 
 ```py
-from part2_navigation_modules.tb3_tools import quaternion_to_euler
+from math import atan2
 ```
 
-As the name suggests, we'll use this to convert the raw orientation values from `/odom` into their Euler Angle representation.
-
-??? info
-    This module can be found here: `part2_navigation/part2_navigation_modules/tb3_tools.py`, if you want to have a look. -->
+(for reasons that will become clearer shortly.)
 
 ### Change the Class Name
 

@@ -255,22 +255,11 @@ To start with, let's create another new package, this time called `part3_beyond_
 
         You'll need to run `colcon build` *every time* you make changes to a launch file, even if you use the `--symlink-install` option (as this only applies to nodes in the `scripts` directory)
         
-1. Once you've completed this, it should be possible to launch both the publisher and subscriber nodes with `ros2 launch` and the `pubsub.launch.py` file. Verify this in **TERMINAL 1** by executing the launch file. Soon after launching this, you should see the following messages to indicate that both nodes are alive:
+1. Once you've completed this, it should be possible to launch both the publisher and subscriber nodes (from your `part1_pubsub` package) with `ros2 launch` and the `pubsub.launch.py` file. Verify this in **TERMINAL 1** by executing the launch file:
 
-    <!-- [TODO: a gif instead of text?] -->
-
-    ``` { .txt .no-copy }
-    [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node is initialised.
-    [publisher.py-1] [INFO] [###] [my_publisher]: The 'my_publisher' node is initialised.
-    ```
-
-    ... and following this, the outputs of both nodes should be printed to the screen continually:
-
-    ``` { .txt .no-copy }
-    [publisher.py-1] [INFO] [###] [my_publisher]: Publishing: 'The ROS time is 1737545960 (seconds).'
-    [subscriber.py-2] [INFO] [###] [my_subscriber]: The 'my_subscriber' node heard:
-    [subscriber.py-2] [INFO] [###] [my_subscriber]: 'The ROS time is 1737545960 (seconds).' 
-    ```
+    <figure markdown>
+      ![](./part3/pubsub.gif){width=600px}
+    </figure>
 
 1. We can further verify this in a new terminal (**TERMINAL 2**), using commands that we've use in Parts 1 & 2 to *list* all nodes and topics that are active on our ROS network:
 

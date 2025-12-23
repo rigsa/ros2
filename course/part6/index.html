@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/tuos_logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3320,15 +3320,17 @@ u(t)=K_{P} e(t)
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <p>Paste the following additional code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">kp</span> <span class="o">=</span> <span class="mf">0.01</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">kp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">'kp'</span><span class="p">)</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">()</span><span class="o">.</span><span class="n">double_value</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="err">?</span>
 <a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">feedback_signal</span> <span class="o">=</span> <span class="n">cy</span>
 <a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="n">error</span> <span class="o">=</span> <span class="n">feedback_signal</span> <span class="o">-</span> <span class="n">reference_input</span> 
 <a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
 <a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
 <a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    <span class="sa">f</span><span class="s2">"Error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> pixels | Control Signal = </span><span class="si">{</span><span class="n">ang_vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> rad/s"</span>
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="p">)</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">kp = </span><span class="si">{</span><span class="n">kp</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">,"</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> pixels,"</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Control Signal = </span><span class="si">{</span><span class="n">ang_vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> rad/s."</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="p">)</span>
 </code></pre></div>
 <p><a name="blank-1"></a></p>
 <div class="admonition warning">
@@ -3347,38 +3349,50 @@ u(t)=K_{P} e(t)
 </li>
 <li>
 <p>Let's address the third question (<strong>c</strong>) first...</p>
-<p>A <strong>positive</strong> angular velocity should make the robot turn <strong>anti-clockwise</strong> (i.e. to the left), and a <strong>negative</strong> angular velocity should make the robot turn <strong>clockwise</strong> (to the right). The line should currently be to the left of the robot, which means a positive angular velocity would be required in order to make the robot turn towards it. If the value of the <strong>Control Signal</strong> that is being calculated by our proportional controller (as printed to the terminal) is negative, then this isn't correct, so we need to change the sign of our proportional gain (<span class="arithmatex">\(K_{P}\)</span>) in order to correct this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.01</span>
+<p>A <strong>positive</strong> angular velocity should make the robot turn <strong>anti-clockwise</strong> (i.e. to the left), and a <strong>negative</strong> angular velocity should make the robot turn <strong>clockwise</strong> (to the right).</p>
+<p>To start with, the line should be to the left of the robot, which means a <strong>positive</strong> angular velocity is required to make the robot turn towards it. </p>
+<p>If the value of the <strong>Control Signal</strong> that is being calculated by our proportional controller (as printed to the terminal) is negative, then this isn't correct. </p>
+<p>The sign of our proportional gain (<span class="arithmatex">\(K_{P}\)</span>) should be changed in order to correct this. <span class="arithmatex">\(K_{P}\)</span> is defined in our code as a <em>Parameter</em> called <code>kp</code>, and if we don't explicitly define a value for this (which so far we have not done) then a default value will be used. We defined this default value in our Node's <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code>, when we declared the parameter to begin with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s2">"kp"</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div>
+<p>With your node still running, change the value now with a <code>ros2 param</code> call from <strong>TERMINAL 3</strong>:</p>
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ros2 param set /line_follower kp -0.01
+</code></pre></div>
+... the value of the <strong>Control Signal</strong> (i.e. <code>ang_vel</code>) should now be greater than zero, which (when velocity commands are actually published) will make the robot turn <em>left</em>, i.e. <em>towards</em> the line, thereby attempting to <em>minimise</em> the position error.<p></p>
+</li>
+<li>
+<p>Stop the node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>. Change the code so that the <code>declare_parameter()</code> line now sets the <code>kp</code> parameter to be negative by default:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s2">"kp"</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
 <p>Next, let's address the second of the above questions (<strong>b</strong>)...</p>
 <p>The maximum angular velocity that can be applied to our robot is ±1.82 rad/s. If our proportional controller is calculating a value for the <strong>Control Signal</strong> that is greater than 1.82, or less than -1.82 then this needs to be limited. <strong>In between</strong> the following two lines of code:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="sa">f</span><span class="s2">"Error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> pixels | Control Signal = </span><span class="si">{</span><span class="n">ang_vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> rad/s"</span>
-<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="p">)</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="o">...</span>
 </code></pre></div>
 <p>Insert the following:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">if</span> <span class="n">ang_vel</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.82</span><span class="p">:</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>    <span class="n">ang_vel</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.82</span>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="k">elif</span> <span class="n">ang_vel</span> <span class="o">&gt;</span> <span class="mf">1.82</span><span class="p">:</span>
-<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>    <span class="n">ang_vel</span> <span class="o">=</span> <span class="mf">1.82</span>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">if</span> <span class="n">ang_vel</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.82</span><span class="p">:</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>    <span class="n">ang_vel</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.82</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="k">elif</span> <span class="n">ang_vel</span> <span class="o">&gt;</span> <span class="mf">1.82</span><span class="p">:</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>    <span class="n">ang_vel</span> <span class="o">=</span> <span class="mf">1.82</span>
 </code></pre></div><p></p>
 </li>
 <li>
-<p>Finally, we need to think about the actual proportional gain that is being applied. This is where we need to actually <em>tune</em> our system by finding a proportional gain value that controls our system appropriately.</p>
-<p>Return to your <code>line_follower.py</code> file. Underneath the line that reads:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>    <span class="sa">f</span><span class="s2">"Error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> pixels | Control Signal = </span><span class="si">{</span><span class="n">ang_vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> rad/s"</span>
-<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="p">)</span>
+<p>Finally, we need to think about the actual proportional gain that is being applied. This is where we need to <em>tune</em> our system by finding a proportional gain (<span class="arithmatex">\(K_{P}\)</span>) value that controls our system appropriately.</p>
+<p>Return to your <code>line_follower.py</code> file. <strong>Underneath</strong> the lines that read:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">kp = </span><span class="si">{</span><span class="n">kp</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">,"</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> pixels,"</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Control Signal = </span><span class="si">{</span><span class="n">ang_vel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> rad/s."</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="p">)</span>
 </code></pre></div>
 <p>Paste the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.1</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ang_vel</span>
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.1</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ang_vel</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vel_cmd</span><span class="p">)</span>
 </code></pre></div>
-<p>The code <em>should</em> now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter <code>kp</code>.</p>
+<p>Once running, the code <em>should</em> now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter <code>kp</code>.</p>
 <p>The figure below illustrates the effects different values of proportional gain can have on a system.</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/kp.png" width="600"></a>
@@ -3387,14 +3401,36 @@ u(t)=K_{P} e(t)
     Taken from COM2009 Lecture 6: PID Control
   </figcaption>
 </figure><p></p>
-<p>Run the code and see what happens. You should find that the robot behaves quite erratically, indicating that <code>kp</code> (at an absolute value of 0.01) is probably too large.</p>
+<p>Run the code and see what happens. You should find that the robot behaves quite erratically, indicating that <code>kp</code> (currently at 0.01) is probably too large.</p>
 </li>
 <li>
-<p>Try reducing <code>kp</code> by a factor of 100: <code class="highlight"><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0001</span></code>. Before you run the code again, you might need to close down and re-launch your Gazebo simulation to get the robot back in its starting position. Make sure that you shut down the Gazebo simulation in the terminal, using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>, rather than closing down the Gazebo window itself, since sometimes this doesn't actually shut down the background processes properly, and can result in errors.  </p>
+<p>Try reducing <code>kp</code> by a factor of 100. From <strong>TERMINAL 3</strong>: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>ros2 param set /line_follower kp -0.0001
+</code></pre></div>
 <p>With a modified <code>kp</code> gain, you should find that the robot now gradually approaches the line, but it can take a while for it to do so.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The line that the robot is trying to follow is quite long, but if it gets to the end of it, or if it gets off track and ends up quite far away from the line, then you can always:</p>
+<ol>
+<li>Stop your <code>line_following.py</code> node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</li>
+<li>
+<p>Launch the <code>teleop_keyboard</code> node:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ros2 run turtlebot3_teleop teleop_keyboard
+</code></pre></div>
 </li>
 <li>
-<p>Next, increase <code>kp</code> by a factor of 10: <code class="highlight"><span class="n">kp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.001</span></code>. Once again, get the robot back to its starting position by shutting down Gazebo using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in its host terminal and then relaunching with <code>ros2 launch</code> again.</p>
+<p>Drive the robot back to the line manually.</p>
+</li>
+<li>Stop the <code>teleop_keyboard</code> node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> then launch your <code>line_following.py</code> node again. </li>
+</ol>
+</div>
+</li>
+<li>
+<p>Next, increase <code>kp</code> by a factor of 10: </p>
+<p>Once again (if you need to), use the <code>teleop_keyboard</code> node to get the robot back to the start line. Then, re-launch the <code>line_follower.py</code> node.</p>
+<p>Update the proportional gain once more with a <code>ros2 param</code> call: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>ros2 param set /line_follower kp -0.001
+</code></pre></div>
 <p>With this new <code>kp</code> gain, the robot should now reach the line much quicker, and follow the line well once it reaches it.</p>
 </li>
 <li>
@@ -3408,7 +3444,7 @@ u(t)=K_{P} e(t)
 </li>
 <li>
 <p>Then, in <strong>TERMINAL 1</strong> fire up a new one:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py
 </code></pre></div>
 <p>Your robot should be launched into an environment with a more interesting line to follow:</p>
 <p></p><figure markdown>
@@ -3421,8 +3457,8 @@ u(t)=K_{P} e(t)
 <li>
 <p>Next, think about conditions where the line can't initially be seen...</p>
 <p>As you know, the angular velocity is determined by considering the <code>cy</code> component of a colour blob representing the line. What happens in situations where the blob of colour isn't there though?  What influence would this have on the Control Signals that are calculated by the proportional controller? To consider this further, try launching the robot in the same arena but with a different starting pose, and think about how you might approach this situation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2 launch tuos_simulations line_following.launch.py \
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    x_pose:=-3 y_pose:=-3 yaw:=-1.57
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2 launch tuos_simulations line_following.launch.py \
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>    x_pose:=-3 y_pose:=-3 yaw:=-1.57
 </code></pre></div>
 </li>
 <li>
@@ -3433,7 +3469,7 @@ u(t)=K_{P} e(t)
 <p>In this session you have learnt how to use data from a robot's camera to extract further information about its environment.  The camera allows our robot to "see" and the information that we obtain from this device can allow us to develop more advanced robotic behaviours such as searching for objects, follow things or - conversely - moving away or avoiding them.  You have learnt how to do some basic tasks with OpenCV, but this is a huge and very capable library of computer vision tools, and we encourage you to explore this further yourselves to enhance some of the basic principles that we have shown you today.</p>
 <h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
 <p>Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>wsl_ros<span class="w"> </span>backup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
 <p>You'll then be able to restore it to a fresh WSL-ROS2 environment whenever you need it again (<code>wsl_ros restore</code>).  </p>
 <div class="footnote">
@@ -3466,7 +3502,7 @@ u(t)=K_{P} e(t)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 14, 2025 12:11:33 UTC"><span class="timeago" datetime="2025-11-14T12:11:33+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 14, 2025 12:11:33 UTC">2025-11-14</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 23, 2025 14:06:10 UTC"><span class="timeago" datetime="2025-12-23T14:06:10+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 23, 2025 14:06:10 UTC">2025-12-23</span>
   </span>
 
     
@@ -3576,10 +3612,10 @@ u(t)=K_{P} e(t)
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../../js/timeago.min.js"></script>
       

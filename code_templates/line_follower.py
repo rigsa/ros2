@@ -13,6 +13,8 @@ class LineFollower(Node):
     
     def __init__(self):
         super().__init__("line_follower")
+
+        self.declare_parameter("kp", 0.01)
         
         self.camera_sub = self.create_subscription(
             msg_type=Image,

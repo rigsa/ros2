@@ -574,14 +574,16 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     Paste the following additional code:
 
     ```python
-    kp = 0.01
+    kp = self.get_parameter('kp').get_parameter_value().double_value
     reference_input = ?
     feedback_signal = cy
     error = feedback_signal - reference_input 
 
     ang_vel = kp * error
     self.get_logger().info(
-        f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s"
+        f"\nkp = {kp:.4f},"
+        f"\nError = {error:.1f} pixels,"
+        f"\nControl Signal = {ang_vel:.2f} rad/s."
     )
     ```
 
@@ -600,10 +602,29 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 
 1. Let's address the third question (**c**) first...
 
-    A **positive** angular velocity should make the robot turn **anti-clockwise** (i.e. to the left), and a **negative** angular velocity should make the robot turn **clockwise** (to the right). The line should currently be to the left of the robot, which means a positive angular velocity would be required in order to make the robot turn towards it. If the value of the **Control Signal** that is being calculated by our proportional controller (as printed to the terminal) is negative, then this isn't correct, so we need to change the sign of our proportional gain ($K_{P}$) in order to correct this:
+    A **positive** angular velocity should make the robot turn **anti-clockwise** (i.e. to the left), and a **negative** angular velocity should make the robot turn **clockwise** (to the right).
+    
+    To start with, the line should be to the left of the robot, which means a **positive** angular velocity is required to make the robot turn towards it. 
+    
+    If the value of the **Control Signal** that is being calculated by our proportional controller (as printed to the terminal) is negative, then this isn't correct. 
+    
+    The sign of our proportional gain ($K_{P}$) should be changed in order to correct this. $K_{P}$ is defined in our code as a *Parameter* called `kp`, and if we don't explicitly define a value for this (which so far we have not done) then a default value will be used. We defined this default value in our Node's `#!py __init__()`, when we declared the parameter to begin with:
 
     ```python
-    kp = -0.01
+    self.declare_parameter("kp", 0.01)
+    ```
+
+    With your node still running, change the value now with a `ros2 param` call from **TERMINAL 3**:
+
+    ```txt
+    ros2 param set /line_follower kp -0.01
+    ```
+    ... the value of the **Control Signal** (i.e. `ang_vel`) should now be greater than zero, which (when velocity commands are actually published) will make the robot turn *left*, i.e. *towards* the line, thereby attempting to *minimise* the position error.
+
+1. Stop the node with ++ctrl+c++. Change the code so that the `declare_parameter()` line now sets the `kp` parameter to be negative by default:
+
+    ```py
+    self.declare_parameter("kp", -0.01)
     ```
 
 1. Next, let's address the second of the above questions (**b**)...
@@ -612,9 +633,7 @@ The next task then is to adapt our `line_follower.py` node to implement this con
 
     ``` { .python .no-copy }
     ang_vel = kp * error
-    self.get_logger().info(
-        f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s"
-    )
+    self.get_logger().info(...
     ```
 
     Insert the following:
@@ -625,13 +644,15 @@ The next task then is to adapt our `line_follower.py` node to implement this con
         ang_vel = 1.82
     ```
 
-1. Finally, we need to think about the actual proportional gain that is being applied. This is where we need to actually *tune* our system by finding a proportional gain value that controls our system appropriately.
+1. Finally, we need to think about the actual proportional gain that is being applied. This is where we need to *tune* our system by finding a proportional gain ($K_{P}$) value that controls our system appropriately.
 
-    Return to your `line_follower.py` file. Underneath the line that reads:
+    Return to your `line_follower.py` file. **Underneath** the lines that read:
 
     ``` { .python .no-copy }
     self.get_logger().info(
-        f"Error = {error:.1f} pixels | Control Signal = {ang_vel:.2f} rad/s"
+        f"\nkp = {kp:.4f},"
+        f"\nError = {error:.1f} pixels,"
+        f"\nControl Signal = {ang_vel:.2f} rad/s."
     )
     ```
 
@@ -643,7 +664,7 @@ The next task then is to adapt our `line_follower.py` node to implement this con
     self.vel_pub.publish(self.vel_cmd)
     ```
 
-    The code *should* now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter `kp`.
+    Once running, the code *should* now make the robot move with a constant linear velocity of 0.1 m/s at all times, while its angular velocity will be determined by our proportional controller, based on the controller error and the proportional gain parameter `kp`.
 
     The figure below illustrates the effects different values of proportional gain can have on a system.
 
@@ -655,14 +676,39 @@ The next task then is to adapt our `line_follower.py` node to implement this con
       </figcaption>
     </figure>
 
-    Run the code and see what happens. You should find that the robot behaves quite erratically, indicating that `kp` (at an absolute value of 0.01) is probably too large.
+    Run the code and see what happens. You should find that the robot behaves quite erratically, indicating that `kp` (currently at 0.01) is probably too large.
 
-1. Try reducing `kp` by a factor of 100: `#!python kp = -0.0001`. Before you run the code again, you might need to close down and re-launch your Gazebo simulation to get the robot back in its starting position. Make sure that you shut down the Gazebo simulation in the terminal, using ++ctrl+c++, rather than closing down the Gazebo window itself, since sometimes this doesn't actually shut down the background processes properly, and can result in errors.  
-
+1. Try reducing `kp` by a factor of 100. From **TERMINAL 3**: 
+    
+    ```txt
+    ros2 param set /line_follower kp -0.0001
+    ```
+    
     With a modified `kp` gain, you should find that the robot now gradually approaches the line, but it can take a while for it to do so.
 
-1. Next, increase `kp` by a factor of 10: `#!python kp = -0.001`. Once again, get the robot back to its starting position by shutting down Gazebo using ++ctrl+c++ in its host terminal and then relaunching with `ros2 launch` again.
+    !!! tip
 
+        The line that the robot is trying to follow is quite long, but if it gets to the end of it, or if it gets off track and ends up quite far away from the line, then you can always:
+        
+        1. Stop your `line_following.py` node with ++ctrl+c++.
+        1. Launch the `teleop_keyboard` node:
+
+            ```txt
+            ros2 run turtlebot3_teleop teleop_keyboard
+            ```
+        1. Drive the robot back to the line manually.
+        1. Stop the `teleop_keyboard` node with ++ctrl+c++ then launch your `line_following.py` node again. 
+        
+1. Next, increase `kp` by a factor of 10: 
+    
+    Once again (if you need to), use the `teleop_keyboard` node to get the robot back to the start line. Then, re-launch the `line_follower.py` node.
+    
+    Update the proportional gain once more with a `ros2 param` call: 
+    
+    ```txt
+    ros2 param set /line_follower kp -0.001
+    ```
+    
     With this new `kp` gain, the robot should now reach the line much quicker, and follow the line well once it reaches it.
 
 1. Could `kp` be modified any more to improve the control further? Play around a bit more and see what happens. We'll but this to the test on a more challenging track in the next part of this exercise.

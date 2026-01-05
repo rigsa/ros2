@@ -701,137 +701,85 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
                 else:
                 
                 ```
-
-        
+    
     <!-- TODO: Post-lab assessed??   -->
 
-### SLAM and Autonomous Navigation
+### Line Following
 
-We've played around with the data from both the LiDAR sensor and the robot's Odometry System now, so hopefully you now understand what these two systems can tell us about our robot and its environment, and how this information is very valuable for robotic applications.
+Line following is a handy skill for a robot to have, and we can achieve this with a TurtleBot3 Waffle using its *vision*, i.e. the data from its camera. We will now explore how to apply image processing techniques in combination with a well established control algorithm known as **PID Control** to make our robot follow a line on the arena floor.
 
-To illustrate this further, we'll now have a look at two extremely useful tools that are built into ROS, and that use the data from these two sensors alone to achieve powerful results!
+Consider the following: 
 
-**Simultaneous Localisation and Mapping (SLAM)**
+<figure markdown>
+  TODO: but like this...
+  ![](../course/part6/pid/terms.png){width=700px}
+</figure>
 
-As you now know, the LiDAR sensor gives us a full 360&deg; view of our robot's environment. As the robot moves around it starts to observe different features in the environment, or perhaps the same features that it has already seen, but at a different perspective. Using the LiDAR data in combination with our robots *Pose* and *Velocity* (as provided by the Odometry System), we can actually build up a comprehensive 2-dimensional map of an environment and keep track of where our robot is actually located within that map, at the same time. This is a process called **SLAM**, and you may remember that we had a go at this in the previous lab session.
+PID Control is a clever algorithm that aims to minimise the **Error** between a **Reference Input**: a desired condition that we would like our robot to maintain; and a **Feedback Signal**: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate **Controlled Output** for our system that should maintain a very small error.   
 
-**Navigation**
+If we want our robot to successfully follow a coloured line on the floor, we will need it to keep that line in the centre of its view point at all times by minimising the **error** between where the line currently is (the **feedback signal**) and where it should be (the **reference input**, i.e. the centre of its view point). In this case then, the PID algorithm provides us with an angular velocity command (the **controlled output**) to achieve this.
 
-Having built a complete map (using SLAM) our robot then knows exactly what its environment looks like, and it can then use the map to work out how to get from one place to another on its own! 
+The full PID algorithm is as follows:
 
-In the next exercise, we'll have a go at this: first we need to build a map, then we can use that map to implement *autonomous navigation*!
+$$
+u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
+$$
 
-#### :material-pen: Exercise 4: SLAM and Navigation {#ex4}
+Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrated in the figure above) and $K_{P}$, $K_{I}$ and $K_{D}$ are Proportional, Integral and Differential **Gains** respectively, which each have different effects on a system in terms of its ability to maintain the desired state (the reference input). We must establish appropriate values for these gains by a process called *tuning*.
 
-**Step 1: Mapping**
+In fact, to allow our TurtleBot3 to follow a line, we actually only really need a *proportional* gain, so our control algorithm can be simplified considerably:
 
-1. Make sure none of your code from the previous exercise is still running now, **TERMINAL 1** should be idle, ready to accept some new instructions!
+$$
+u(t)=K_{P} e(t)
+$$
 
-1. Place your robot in the enclosure that we have created in the lab. 
+This is what's referred to as a **"P" Controller**, and the only gain we need to establish here is therefore $K_{P}$.
 
-1. Then, in **TERMINAL 1**, run the following command:
+#### :material-pen: Exercise 4: Line Following {#ex4}
+
+##### Part A: Establishing a Feedback Signal (Detecting the Line) {#ex4a}
+
+1. Launch RViz again in **TERMINAL 3**:
 
     ***
-    **TERMINAL 1:**
+    **TERMINAL 3**:
     ```bash
-    roslaunch amr31001 ex4_slam.launch
+    ros2 launch tuos_tb3_tools rviz.launch.py environment:=real
     ```
     ***
 
-    An RViz screen will open up showing the robot from a top-down view, with the LiDAR data represented by green dots.
+1. In the "Displays" menu on the left-hand side, tick the box next to the "Camera" item. Live images from the robot's camera should then be displayed in the bottom left-hand corner of the RViz window.
+
+1. Place the robot in the arena so that line on the arena floor is visible in the robot's vision.
+
+1. Now, launch the `ex4_colour_detection.py` node in **TERMINAL 4**:
+
+    ***
+    **TERMINAL 4**:
+    ```
+    ros2 run amr31001_lab2 ex4_colour_detection.py
+    ```
+    ***
+
+    After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.
 
     <figure markdown>
-      ![](./lab2/slam1.png)
+      TODO: example figure with different coloured line
     </figure>
 
-    SLAM is already working, and you should notice black lines forming underneath the green LiDAR dots to indicate the regions that SLAM has already determined as static and which therefore represent boundaries in the environment.
-
-1. In **TERMINAL 2** launch the `turtlebot3_teleop_keyboard` node again, to drive the robot around:
-
-    ***
-    **TERMINAL 2:**
-    ```bash
-    rosrun turtlebot3_teleop turtlebot3_teleop_key
-    ```
-    ***
-
-1. Drive the robot around until SLAM has built up a complete map of the entire arena.
-
-    <figure markdown>
-      ![](./lab2/slam23.png)
-    </figure>
-
-1. Once you're happy with this, stop the `turtlebot3_teleop_keyboard` node by hitting ++ctrl+c++ in **TERMINAL 2**. You can also stop SLAM now too, so head back to **TERMINAL 1** and enter ++ctrl+c++ to stop this too.
-
-1. While you were doing the above, a map file was being constantly updated and saved to the laptop's filesystem. Have a quick look at this now to make sure that the map that you have built is indeed a good representation of the environment:
-
-    ***
-    **TERMINAL 1:**
-    ```bash
-    eog ~/catkin_ws/src/amr31001/maps/my_map.pgm
-    ```
-    ***
-
-    If the map looks like the actual arena then you're good to move on, but if not then you may need to repeat the above steps again to give it another go.
-
-**Step 2: Navigating Autonomously**
-
-Using the map that you've just created you should now be able to make your robot navigate around the real environment!
-
-1. Launch the navigation processes in **TERMINAL 1** by entering the following command:
-
-    ***
-    **TERMINAL 1:**
-    ```bash
-    roslaunch amr31001 ex4_nav.launch
-    ```
-    ***
-
-    RViz should then open up again, once again with a top-down view of the robot, but this time with the map that you generated earlier displayed underneath it (in black).  
-
-1. To begin with, the robot needs to know *roughly* where it is within this map, and we can tell it this by performing a manual *"2D Pose Estimation"*.  
-
-    1. Press the "2D Pose Estimate" button at the top of the RViz screen.  
-    1. The map should be visible (in black) in the background underneath all the live LiDAR Data (displayed in green), but the two are probably not lined up properly. Move the cursor to the approximate point on the background map at which the robot is actually located.  
-    1. Press and hold the left mouse button and a large green arrow will appear.  
-    1. Whilst still holding down the left mouse button, rotate the green arrow to set the robot's *orientation* within the map.  
-    1. Let go of the left mouse button to set the pose estimation. If done correctly, the real-time LiDAR data should nicely overlap the background map after doing this:
+    The scatter plot shows all the different colours that are present in the raw camera image. These are plotted in terms of the *Hue* and *Saturation* values of each pixel in the image.
     
-        <figure markdown>
-          ![](./lab2/nav12.png)
-        </figure>
-
-        ... if not, then have another go!
-
-1. We then need to give the robot a chance to determine its pose more accurately. The navigation processes that are running in the background are currently generating what's called a *"localisation particle cloud"*, which is displayed as lots of tiny green arrows surrounding the robot in RViz. The scatter of these green arrows indicates the level of certainty the robot currently has about its *true* pose (position and orientation) within the environment: a *large* scatter indicates a high level of *uncertainty*, and we need to improve this before we can make the robot navigate around autonomously.
-
-    We can improve this by simply driving the robot around the environment a bit, so that it gets the opportunity to see different walls and obstacles from different perspectives. In the background, the navigation algorithms will be comparing the real time LiDAR data with the background map that was generated earlier, and when the two things line up well, the robot becomes more certain about its pose in the environment.
-
-    Once again, launch the `turtlebot_teleop_keyboard` node in **TERMINAL 2**, and drive the robot around a bit:
-
-    ***
-    **TERMINAL 2:**
-    ```bash
-    rosrun turtlebot3_teleop turtlebot3_teleop_key
-    ```
-    ***
-
-    As you're doing this, watch how the scatter in the localisation particle cloud reduces, and the small green arrows begin to converge underneath the robot.
-
+1. In the plot, you should be able to identify a cluster of data points that are the same colour as the line on the floor. From the plot, make a note of the range of Hue and Saturation values that these dots reside within.
+    
     <figure markdown>
-      ![](./lab2/nav3.png)
+      TODO: example
     </figure>
 
-1. Now, click the "2D Nav Goal" button:  
-    1. Move the cursor to the location that you want the robot to move to on the map. 
-    1. Click and hold the left mouse button and a large green arrow will appear again to indicate that the *position* goal has been set.  
-    1. Whilst still holding the left mouse button, rotate the green arrow around to set the desired *orientation* goal.  
-    1. Release the mouse button to set the goal...
-    
-        The robot will then try its best to navigate to the destination autonomously!
+1. Once you've done this, close the figure by clicking the :material-close-circle: icon in the top right corner, and also close the RViz window too. This should release **TERMINAL 3** and **TERMINAL 4**.
 
-    !!! info "Post-lab Quiz"
-        What does a ROS robot need in order to be able to navigate an environment autonomously?
+##### Part B: Implementing Proportional Control (Following the Line) {#ex4b}
+
+TODO
 
 ## Wrapping Up
 

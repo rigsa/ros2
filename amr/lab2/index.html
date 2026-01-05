@@ -2233,25 +2233,53 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#slam-and-autonomous-navigation" class="md-nav__link">
+  <a href="#line-following" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SLAM and Autonomous Navigation
+        Line Following
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="SLAM and Autonomous Navigation">
+    <nav class="md-nav" aria-label="Line Following">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: SLAM and Navigation
+        Exercise 4: Line Following
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Exercise 4: Line Following">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ex4a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Establishing a Feedback Signal (Detecting the Line)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Implementing Proportional Control (Following the Line)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2943,127 +2971,72 @@
 <!-- TODO: Post-lab assessed??   -->
 </li>
 </ol>
-<h3 id="slam-and-autonomous-navigation">SLAM and Autonomous Navigation<a class="headerlink" href="#slam-and-autonomous-navigation" title="Permanent link">¶</a></h3>
-<p>We've played around with the data from both the LiDAR sensor and the robot's Odometry System now, so hopefully you now understand what these two systems can tell us about our robot and its environment, and how this information is very valuable for robotic applications.</p>
-<p>To illustrate this further, we'll now have a look at two extremely useful tools that are built into ROS, and that use the data from these two sensors alone to achieve powerful results!</p>
-<p><strong>Simultaneous Localisation and Mapping (SLAM)</strong></p>
-<p>As you now know, the LiDAR sensor gives us a full 360° view of our robot's environment. As the robot moves around it starts to observe different features in the environment, or perhaps the same features that it has already seen, but at a different perspective. Using the LiDAR data in combination with our robots <em>Pose</em> and <em>Velocity</em> (as provided by the Odometry System), we can actually build up a comprehensive 2-dimensional map of an environment and keep track of where our robot is actually located within that map, at the same time. This is a process called <strong>SLAM</strong>, and you may remember that we had a go at this in the previous lab session.</p>
-<p><strong>Navigation</strong></p>
-<p>Having built a complete map (using SLAM) our robot then knows exactly what its environment looks like, and it can then use the map to work out how to get from one place to another on its own! </p>
-<p>In the next exercise, we'll have a go at this: first we need to build a map, then we can use that map to implement <em>autonomous navigation</em>!</p>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: SLAM and Navigation<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<p><strong>Step 1: Mapping</strong></p>
+<h3 id="line-following">Line Following<a class="headerlink" href="#line-following" title="Permanent link">¶</a></h3>
+<p>Line following is a handy skill for a robot to have, and we can achieve this with a TurtleBot3 Waffle using its <em>vision</em>, i.e. the data from its camera. We will now explore how to apply image processing techniques in combination with a well established control algorithm known as <strong>PID Control</strong> to make our robot follow a line on the arena floor.</p>
+<p>Consider the following: </p>
+<figure>
+<p>TODO: but like this...
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../course/part6/pid/terms.png" width="700px"></a></p>
+</figure>
+<p>PID Control is a clever algorithm that aims to minimise the <strong>Error</strong> between a <strong>Reference Input</strong>: a desired condition that we would like our robot to maintain; and a <strong>Feedback Signal</strong>: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate <strong>Controlled Output</strong> for our system that should maintain a very small error.   </p>
+<p>If we want our robot to successfully follow a coloured line on the floor, we will need it to keep that line in the centre of its view point at all times by minimising the <strong>error</strong> between where the line currently is (the <strong>feedback signal</strong>) and where it should be (the <strong>reference input</strong>, i.e. the centre of its view point). In this case then, the PID algorithm provides us with an angular velocity command (the <strong>controlled output</strong>) to achieve this.</p>
+<p>The full PID algorithm is as follows:</p>
+<div class="arithmatex">\[
+u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
+\]</div>
+<p>Where <span class="arithmatex">\(u(t)\)</span> is the <strong>Controlled Output</strong>, <span class="arithmatex">\(e(t)\)</span> is the <strong>Error</strong> (as illustrated in the figure above) and <span class="arithmatex">\(K_{P}\)</span>, <span class="arithmatex">\(K_{I}\)</span> and <span class="arithmatex">\(K_{D}\)</span> are Proportional, Integral and Differential <strong>Gains</strong> respectively, which each have different effects on a system in terms of its ability to maintain the desired state (the reference input). We must establish appropriate values for these gains by a process called <em>tuning</em>.</p>
+<p>In fact, to allow our TurtleBot3 to follow a line, we actually only really need a <em>proportional</em> gain, so our control algorithm can be simplified considerably:</p>
+<div class="arithmatex">\[
+u(t)=K_{P} e(t)
+\]</div>
+<p>This is what's referred to as a <strong>"P" Controller</strong>, and the only gain we need to establish here is therefore <span class="arithmatex">\(K_{P}\)</span>.</p>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Line Following<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<h5 id="ex4a">Part A: Establishing a Feedback Signal (Detecting the Line)<a class="headerlink" href="#ex4a" title="Permanent link">¶</a></h5>
 <ol>
 <li>
-<p>Make sure none of your code from the previous exercise is still running now, <strong>TERMINAL 1</strong> should be idle, ready to accept some new instructions!</p>
-</li>
-<li>
-<p>Place your robot in the enclosure that we have created in the lab. </p>
-</li>
-<li>
-<p>Then, in <strong>TERMINAL 1</strong>, run the following command:</p>
+<p>Launch RViz again in <strong>TERMINAL 3</strong>:</p>
 <hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>roslaunch<span class="w"> </span>amr31001<span class="w"> </span>ex4_slam.launch
+<p><strong>TERMINAL 3</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
 </code></pre></div><p></p>
 <hr>
-<p>An RViz screen will open up showing the robot from a top-down view, with the LiDAR data represented by green dots.</p>
+</li>
+<li>
+<p>In the "Displays" menu on the left-hand side, tick the box next to the "Camera" item. Live images from the robot's camera should then be displayed in the bottom left-hand corner of the RViz window.</p>
+</li>
+<li>
+<p>Place the robot in the arena so that line on the arena floor is visible in the robot's vision.</p>
+</li>
+<li>
+<p>Now, launch the <code>ex4_colour_detection.py</code> node in <strong>TERMINAL 4</strong>:</p>
+<hr>
+<p><strong>TERMINAL 4</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2 run amr31001_lab2 ex4_colour_detection.py
+</code></pre></div><p></p>
+<hr>
+<p>After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="slam1.png"></a>
+  TODO: example figure with different coloured line
 </figure><p></p>
-<p>SLAM is already working, and you should notice black lines forming underneath the green LiDAR dots to indicate the regions that SLAM has already determined as static and which therefore represent boundaries in the environment.</p>
+<p>The scatter plot shows all the different colours that are present in the raw camera image. These are plotted in terms of the <em>Hue</em> and <em>Saturation</em> values of each pixel in the image.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 2</strong> launch the <code>turtlebot3_teleop_keyboard</code> node again, to drive the robot around:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
-</code></pre></div><p></p>
-<hr>
-</li>
-<li>
-<p>Drive the robot around until SLAM has built up a complete map of the entire arena.</p>
+<p>In the plot, you should be able to identify a cluster of data points that are the same colour as the line on the floor. From the plot, make a note of the range of Hue and Saturation values that these dots reside within.</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="slam23.png"></a>
-</figure><p></p>
-</li>
-<li>
-<p>Once you're happy with this, stop the <code>turtlebot3_teleop_keyboard</code> node by hitting <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 2</strong>. You can also stop SLAM now too, so head back to <strong>TERMINAL 1</strong> and enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> to stop this too.</p>
-</li>
-<li>
-<p>While you were doing the above, a map file was being constantly updated and saved to the laptop's filesystem. Have a quick look at this now to make sure that the map that you have built is indeed a good representation of the environment:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>eog<span class="w"> </span>~/catkin_ws/src/amr31001/maps/my_map.pgm
-</code></pre></div><p></p>
-<hr>
-<p>If the map looks like the actual arena then you're good to move on, but if not then you may need to repeat the above steps again to give it another go.</p>
-</li>
-</ol>
-<p><strong>Step 2: Navigating Autonomously</strong></p>
-<p>Using the map that you've just created you should now be able to make your robot navigate around the real environment!</p>
-<ol>
-<li>
-<p>Launch the navigation processes in <strong>TERMINAL 1</strong> by entering the following command:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>roslaunch<span class="w"> </span>amr31001<span class="w"> </span>ex4_nav.launch
-</code></pre></div><p></p>
-<hr>
-<p>RViz should then open up again, once again with a top-down view of the robot, but this time with the map that you generated earlier displayed underneath it (in black).  </p>
-</li>
-<li>
-<p>To begin with, the robot needs to know <em>roughly</em> where it is within this map, and we can tell it this by performing a manual <em>"2D Pose Estimation"</em>.  </p>
-<ol>
-<li>Press the "2D Pose Estimate" button at the top of the RViz screen.  </li>
-<li>The map should be visible (in black) in the background underneath all the live LiDAR Data (displayed in green), but the two are probably not lined up properly. Move the cursor to the approximate point on the background map at which the robot is actually located.  </li>
-<li>Press and hold the left mouse button and a large green arrow will appear.  </li>
-<li>Whilst still holding down the left mouse button, rotate the green arrow to set the robot's <em>orientation</em> within the map.  </li>
-<li>
-<p>Let go of the left mouse button to set the pose estimation. If done correctly, the real-time LiDAR data should nicely overlap the background map after doing this:</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="nav12.png"></a>
-</figure><p></p>
-<p>... if not, then have another go!</p>
-</li>
-</ol>
-</li>
-<li>
-<p>We then need to give the robot a chance to determine its pose more accurately. The navigation processes that are running in the background are currently generating what's called a <em>"localisation particle cloud"</em>, which is displayed as lots of tiny green arrows surrounding the robot in RViz. The scatter of these green arrows indicates the level of certainty the robot currently has about its <em>true</em> pose (position and orientation) within the environment: a <em>large</em> scatter indicates a high level of <em>uncertainty</em>, and we need to improve this before we can make the robot navigate around autonomously.</p>
-<p>We can improve this by simply driving the robot around the environment a bit, so that it gets the opportunity to see different walls and obstacles from different perspectives. In the background, the navigation algorithms will be comparing the real time LiDAR data with the background map that was generated earlier, and when the two things line up well, the robot becomes more certain about its pose in the environment.</p>
-<p>Once again, launch the <code>turtlebot_teleop_keyboard</code> node in <strong>TERMINAL 2</strong>, and drive the robot around a bit:</p>
-<hr>
-<p><strong>TERMINAL 2:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>rosrun<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>turtlebot3_teleop_key
-</code></pre></div><p></p>
-<hr>
-<p>As you're doing this, watch how the scatter in the localisation particle cloud reduces, and the small green arrows begin to converge underneath the robot.</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="nav3.png"></a>
+  TODO: example
 </figure><p></p>
 </li>
 <li>
-<p>Now, click the "2D Nav Goal" button:  </p>
-<ol>
-<li>Move the cursor to the location that you want the robot to move to on the map. </li>
-<li>Click and hold the left mouse button and a large green arrow will appear again to indicate that the <em>position</em> goal has been set.  </li>
-<li>Whilst still holding the left mouse button, rotate the green arrow around to set the desired <em>orientation</em> goal.  </li>
-<li>
-<p>Release the mouse button to set the goal...</p>
-<p>The robot will then try its best to navigate to the destination autonomously!</p>
+<p>Once you've done this, close the figure by clicking the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"></path></svg></span> icon in the top right corner, and also close the RViz window too. This should release <strong>TERMINAL 3</strong> and <strong>TERMINAL 4</strong>.</p>
 </li>
 </ol>
-<div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
-<p>What does a ROS robot need in order to be able to navigate an environment autonomously?</p>
-</div>
-</li>
-</ol>
+<h5 id="ex4b">Part B: Implementing Proportional Control (Following the Line)<a class="headerlink" href="#ex4b" title="Permanent link">¶</a></h5>
+<p>TODO</p>
 <h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
 <p>Before you leave, please turn off your robot! Enter the following command in <strong>TERMINAL 1</strong> to do so:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
 </code></pre></div>
 ... again, replacing <code>NUM</code> with the number of the robot that you have been working with today.<p></p>
 <hr>
@@ -3105,7 +3078,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 1, 2025 17:08:23 UTC"><span class="timeago" datetime="2025-12-01T17:08:23+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 1, 2025 17:08:23 UTC">2025-12-01</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 5, 2026 13:36:35 UTC"><span class="timeago" datetime="2026-01-05T13:36:35+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 5, 2026 13:36:35 UTC">2026-01-05</span>
   </span>
 
     
@@ -3190,7 +3163,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2025.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
 
     </div>
   

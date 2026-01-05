@@ -2401,7 +2401,7 @@
 <li>
 <p>Open up a terminal instance on the laptop, either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:</p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/bash_terminal_icon.svg" width="60px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
 </figure><p></p>
 <p>We'll call this <strong>TERMINAL 1</strong>.</p>
 </li>
@@ -3031,19 +3031,114 @@ u(t)=K_{P} e(t)
 </li>
 </ol>
 <h5 id="ex4b">Part B: Implementing Proportional Control (Following the Line)<a class="headerlink" href="#ex4b" title="Permanent link">¶</a></h5>
-<p>TODO</p>
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
-<p>Before you leave, please turn off your robot! Enter the following command in <strong>TERMINAL 1</strong> to do so:</p>
-<hr>
-<p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
+<ol>
+<li>
+<p>In VS Code, click on the <code>ex4_line_following.py</code> file in the File Explorer to display it in the editor.</p>
+</li>
+<li>
+<p>Have a look through the code and see if you can work out what's going on. Here's a few points to start with:</p>
+<ol>
+<li>
+<p>Once again, velocity control is handled in the same way as the previous exercises, using the <code class="highlight"><span class="n">Motion</span><span class="p">()</span></code> class and calls to <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">()</span></code> and <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></code> commands.</p>
+</li>
+<li>
+<p>The data from the robot's camera is once again handled by a separate class (much like <code>Pose</code> and <code>Lidar</code> in the previous exercises). This one (instantiated on line 15) is called <code>Camera</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
-... again, replacing <code>NUM</code> with the number of the robot that you have been working with today.<p></p>
+<p>We'll look at how to use this shortly...</p>
+</li>
+</ol>
+</li>
+<li>
+<p>The <em>"main"</em> part of the code is once again controlled by a timer and a "callback" function. </p>
+<div class="admonition info">
+<p class="admonition-title">Post-lab Quiz</p>
+<ul>
+<li>What is the name of the callback function (aka the "main" control method)?</li>
+<li>At what rate (in Hz) will this run at?</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run the node as it is, from <strong>TERMINAL 3</strong>:</p>
+<hr>
+<p><strong>TERMINAL 3</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2 run amr31001_lab2 ex4_line_following.py
+</code></pre></div><p></p>
+<hr>
+<p>To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera.</p>
+<p>Make sure the robot can "see" the line on the floor.</p>
+</li>
+<li>
+<p>Stop the node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
+</li>
+<li>
+<p>In VS Code, locate the line in the <code>ex4_line_following.py</code> file that reads:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">()</span>
+</code></pre></div>
+<p>Into this, you can provide the Hue and Saturation ranges that you identified in <a href="#ex4a">Part A</a>:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">(</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="n">saturation</span><span class="o">=</span><span class="p">[</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="p">)</span>
+</code></pre></div>
+<p>Replace <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code> with your upper and lower hue and saturation values.</p>
+</li>
+<li>
+<p>Run the code again. If your Hue and Saturation ranges are correct, and the line is in view then it should now be isolated in the image (all other pixels in the camera stream should be black).</p>
+<p></p><figure markdown>
+  TODO: example of a filtered line
+</figure><p></p>
+<p>If the line isn't successfully isolated then go back to Part A and run the <code>ex4_colour_detection.py</code> node again. </p>
+</li>
+<li>
+<p>If the line <em>is</em> successfully isolated in the image, then the robot is able to locate its position, and we have successfully established the <strong>Feedback Signal</strong> for our proportional controller. In the code, this can be accessed as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span>
+</code></pre></div>
+<p></p><figure markdown>
+  TODO: a figure to illustrate how to calculate the error
+</figure><p></p>
+<p>In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">image_width</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="n">error</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># TODO</span>
+</code></pre></div>
+<p>... and edit the <code class="highlight"><span class="n">error</span> <span class="o">=</span> <span class="o">...</span></code> line to correctly calculate the robot's positional error based on the real-time position of the line in its view point (<code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span></code>).</p>
+</li>
+<li>
+<p>Angular Velocity is the <strong>Controlled Output</strong> of our P Controller, calculated (once again) according to:</p>
+<div class="arithmatex">\[
+u(t)=K_{P} e(t)
+\]</div>
+<p>This is reflected in the code by the line that reads:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
+</code></pre></div>
+<p>Modify the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velcity</span><span class="p">()</span></code> line in the code to apply this angular velocity to the robot along with a constant (and <em>moderate</em>) linear velocity too. </p>
+</li>
+<li>
+<p>Finally, tune the P Controller by identifying an appropriate proportional gain <code>kp</code> so that the robot successfully follows the line smoothly and consistently.</p>
+<!-- TODO: Post-lab assessed??   -->
+</li>
+</ol>
+<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
+<p>Before you leave, please shut everything down properly:</p>
+<ol>
+<li>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in any terminals that are still active.</li>
+<li>
+<p>Turn off your robot by entering the following command in <strong>TERMINAL 1</strong>:</p>
+<hr>
+<p><strong>TERMINAL 1</strong>:
+</p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
+</code></pre></div>
+... replacing <code>NUM</code> with the number of the robot that you have been working with today.<p></p>
 <hr>
 <p>You'll need to enter <code>y</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm this.</p>
+</li>
+<li>
 <p>Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.</p>
+</li>
+</ol>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg?width=10cm"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
 </figure>
 <p></p><center><p></p>
 <p><strong>AMR31001 Lab 2 Complete!</strong>  </p>
@@ -3078,7 +3173,7 @@ u(t)=K_{P} e(t)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 5, 2026 13:36:35 UTC"><span class="timeago" datetime="2026-01-05T13:36:35+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 5, 2026 13:36:35 UTC">2026-01-05</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 5, 2026 16:31:06 UTC"><span class="timeago" datetime="2026-01-05T16:31:06+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 5, 2026 16:31:06 UTC">2026-01-05</span>
   </span>
 
     

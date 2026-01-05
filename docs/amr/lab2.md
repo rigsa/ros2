@@ -74,7 +74,7 @@ We'll need a ROS package to work with for this lab session. We've created a temp
 1. Open up a terminal instance on the laptop, either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:
     
     <figure markdown>
-      ![](../../images/laptops/bash_terminal_icon.svg){width=60px}
+      ![](../images/laptops/terminal_icon.svg){width=60px}
     </figure>
 
     We'll call this **TERMINAL 1**.
@@ -779,26 +779,125 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
 ##### Part B: Implementing Proportional Control (Following the Line) {#ex4b}
 
-TODO
+1. In VS Code, click on the `ex4_line_following.py` file in the File Explorer to display it in the editor.
+
+1. Have a look through the code and see if you can work out what's going on. Here's a few points to start with:
+
+    1. Once again, velocity control is handled in the same way as the previous exercises, using the `#!py Motion()` class and calls to `#!py self.motion.move_at_velocity()` and `#!py self.motion.stop()` commands.
+    
+    1. The data from the robot's camera is once again handled by a separate class (much like `Pose` and `Lidar` in the previous exercises). This one (instantiated on line 15) is called `Camera`:
+
+        ```python
+        self.camera = Camera(self)
+        ```
+
+        We'll look at how to use this shortly...
+    
+1. The *"main"* part of the code is once again controlled by a timer and a "callback" function. 
+    
+    !!! info "Post-lab Quiz"
+
+        * What is the name of the callback function (aka the "main" control method)?
+        * At what rate (in Hz) will this run at?
+
+1. Run the node as it is, from **TERMINAL 3**:
+
+    ***
+    **TERMINAL 3**:
+    ```
+    ros2 run amr31001_lab2 ex4_line_following.py
+    ```
+    ***
+
+    To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera.
+    
+    Make sure the robot can "see" the line on the floor.
+
+1. Stop the node with ++ctrl+c++.
+
+1. In VS Code, locate the line in the `ex4_line_following.py` file that reads:
+
+    ``` { .py .no-copy }
+    self.camera.colour_filter()
+    ```
+
+    Into this, you can provide the Hue and Saturation ranges that you identified in [Part A](#ex4a):
+
+    ``` { .py .no-copy }
+    self.camera.colour_filter(
+        hue=[a,b],
+        saturation=[c,d]
+    )
+    ```
+    
+    Replace `a`, `b`, `c` and `d` with your upper and lower hue and saturation values.
+
+1. Run the code again. If your Hue and Saturation ranges are correct, and the line is in view then it should now be isolated in the image (all other pixels in the camera stream should be black).
+
+    <figure markdown>
+      TODO: example of a filtered line
+    </figure>
+
+    If the line isn't successfully isolated then go back to Part A and run the `ex4_colour_detection.py` node again. 
+
+1. If the line *is* successfully isolated in the image, then the robot is able to locate its position, and we have successfully established the **Feedback Signal** for our proportional controller. In the code, this can be accessed as follows:
+
+    ```py
+    self.camera.line_position_pixels
+    ```
+
+    <figure markdown>
+      TODO: a figure to illustrate how to calculate the error
+    </figure>
+
+    In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:
+
+    ``` { .py .no-copy }
+    reference_input = self.camera.image_width / 2
+    error = 0.0 # TODO
+    ```
+
+    ... and edit the `#!py error = ...` line to correctly calculate the robot's positional error based on the real-time position of the line in its view point (`#!py self.camera.line_position_pixels`).
+
+1. Angular Velocity is the **Controlled Output** of our P Controller, calculated (once again) according to:
+    
+    $$
+    u(t)=K_{P} e(t)
+    $$
+
+    This is reflected in the code by the line that reads:
+
+    ```py
+    ang_vel = kp * error
+    ```
+
+    Modify the `#!py self.motion.move_at_velcity()` line in the code to apply this angular velocity to the robot along with a constant (and *moderate*) linear velocity too. 
+
+1. Finally, tune the P Controller by identifying an appropriate proportional gain `kp` so that the robot successfully follows the line smoothly and consistently.
+
+    <!-- TODO: Post-lab assessed??   -->
 
 ## Wrapping Up
 
-Before you leave, please turn off your robot! Enter the following command in **TERMINAL 1** to do so:
+Before you leave, please shut everything down properly:
 
-***
-**TERMINAL 1:**
-```bash
-waffle NUM off
-```
-... again, replacing `NUM` with the number of the robot that you have been working with today.
-***
+1. Enter ++ctrl+c++ in any terminals that are still active.
+1. Turn off your robot by entering the following command in **TERMINAL 1**:
 
-You'll need to enter `y` and then hit ++enter++ to confirm this.
+    ***
+    **TERMINAL 1**:
+    ``` { .bash .no-copy }
+    waffle NUM off
+    ```
+    ... replacing `NUM` with the number of the robot that you have been working with today.
+    ***
 
-Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
+    You'll need to enter `y` and then hit ++enter++ to confirm this.
+
+1. Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
 
 <figure markdown>
-  ![](../../images/laptops/ubuntu_poweroff.svg?width=10cm)
+  ![](../images/laptops/ubuntu_poweroff.svg){width=300px}
 </figure>
 
 <center>

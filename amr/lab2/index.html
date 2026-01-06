@@ -13,7 +13,7 @@
         <link rel="prev" href="../lab1/">
       
       
-        <link rel="next" href="../../com/">
+        <link rel="next" href="../../waffles/">
       
       
         
@@ -1709,6 +1709,8 @@
       
         
       
+        
+      
     
     
     
@@ -1787,6 +1789,334 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Feedback Control
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2: Feedback Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intended-learning-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intended Learning Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Links
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Lab
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Lab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-ros-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a ROS Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launching-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launching ROS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Odometry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Odometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ex1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: Exploring Odometry Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise 1: Exploring Odometry Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: Odometry-based Navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-lidar-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The LiDAR Sensor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The LiDAR Sensor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ex3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: Wall Following
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cameras-and-robot-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cameras and Robot Vision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cameras and Robot Vision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ex4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: Line Following
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise 4: Line Following">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ex4a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Establishing a Feedback Signal (Detecting the Line)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Implementing Proportional Control (Following the Line)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wrapping-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wrapping Up
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2220,7 +2550,7 @@
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Wall following
+        Exercise 3: Wall Following
       
     </span>
   </a>
@@ -2233,15 +2563,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#line-following" class="md-nav__link">
+  <a href="#cameras-and-robot-vision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Line Following
+        Cameras and Robot Vision
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Line Following">
+    <nav class="md-nav" aria-label="Cameras and Robot Vision">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2341,21 +2671,21 @@
 
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
 <p>In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quickly recap the key points:</p>
-<p><strong>ROS Nodes</strong></p>
+<p><strong>Nodes</strong></p>
 <ul>
 <li>Are executable programs (Python, C++ scripts) that perform specific robot tasks and operations.</li>
-<li>Typically, there'll be many ROS Nodes running on a robot simultaneously in order to make it work.</li>
+<li>Typically, there'll be many Nodes running on a robot simultaneously in order to make it work.</li>
 <li>We can create our own Nodes on top of what's already running, to add extra functionality.</li>
-<li>You may recall that we created our own ROS Node in Python, to make our TurtleBot3 Waffle follow a square motion path.</li>
+<li>You may recall that we created our own Node (in Python) to make our TurtleBot3 Waffle follow a square motion path.</li>
 </ul>
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_network.png" width="500px"></a></p>
 </figure>
-<p><strong>Topics and Messages</strong></p>
+<p><strong>Topics and Message interfaces</strong></p>
 <ul>
 <li>All the ROS Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.</li>
 <li>ROS Topics are key to this - they are essentially the communication channels (or the plumbing) on which all data is passed around between the nodes.</li>
-<li>Different topics communicate different types of information.</li>
+<li>Different topics communicate different types of information using standardised data structures (called <em>"Message Interfaces"</em>).</li>
 <li>Any Node can publish (<em>write</em>) and/or subscribe to (<em>read</em>) any ROS Topic in order to pass information around or make things happen.</li>
 </ul>
 <figure>
@@ -2364,6 +2694,7 @@
 <p>One of the key ROS Topics that we worked with last time was <code>/cmd_vel</code>, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move, we publish <code>TwistStamped</code> <em>Interface Messages</em> to the <code>/cmd_vel</code> topic. Interfaces messages are <em>structured data types</em> defined in ROS, and we will remind ourselves about the structure of the <code>TwistStamped</code> data type shortly...</p>
 <p><strong>Open-Loop Control</strong></p>
 <p>We used a time-based method to control the motion of our robot in order to get it to generate a square motion path. This type of control is <em>open-loop</em>: we hoped that the robot had moved (or turned) by the amount that was required, but had no <em>feedback</em> to tell us whether this had actually been achieved.</p>
+<p><strong>Closed-Loop Control</strong></p>
 <p>In this lab we'll look at how this can be improved, making use of some of our robot's on-board sensors to tell us where the robot is or what it can see in its environment, in order to complete a task more reliably and be able to better adapt to changes and uncertainty in the environment.</p>
 <h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
 <p>In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to <em>subscribe</em> to these. We'll see how the data from these sensors can be used as <em>feedback</em> to inform decision-making, thus allowing us to implement some different forms of <em>closed-loop control</em>, and make our robot more autonomous. </p>
@@ -2373,18 +2704,15 @@
 <li>Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.</li>
 <li>Use feedback from a robot's odometry system to <em>control</em> its position in an environment.</li>
 <li>Use data from a Robot's LiDAR sensor to make a robot follow a wall.</li>
+<li>Analyse images from a Robot's Camera and use this information to follow a coloured line on the floor.</li>
 </ol>
-<!-- TODO: 1. Generate a map of an environment, using SLAM.
-1. Make a robot navigate an environment *autonomously*, using ROS navigation tools. -->
-
 <h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
 <ul>
 <li><a href="#ex1">Exercise 1: Exploring Odometry Data</a></li>
 <li><a href="#ex2">Exercise 2: Odometry-based Navigation</a></li>
-<li><a href="#ex3">Exercise 3: Wall following</a></li>
+<li><a href="#ex3">Exercise 3: Wall Following</a></li>
+<li><a href="#ex4">Exercise 4: Line Following</a></li>
 </ul>
-<!-- TODO: * [Exercise 4: SLAM and Autonomous Navigation](#ex4) -->
-
 <h2 id="the-lab">The Lab<a class="headerlink" href="#the-lab" title="Permanent link">¶</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Assessment Info</p>
@@ -2432,7 +2760,7 @@
 <li>
 <p>When VS Code opens, navigate to the <em>File Explorer</em>: </p>
 <p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../lab1/vscode_explorer_package_xml.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
 </figure><p></p>
 <p>... find a file here called <code>package.xml</code> and click on it. </p>
 </li>
@@ -2823,7 +3151,7 @@
 <p>The green dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of green dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the dots also move towards or away from the robot on the screen. </p>
 <p>This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. This is, of course, a very valuable skill for a robot to have if we want it to be able to navigate autonomously, and we'll explore this further later on. For now though, we'll look at how we can use the LiDAR data ourselves to build Nodes that make the robot detect and follow walls!</p>
 <p>Once you're done, close down RViz by hitting <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong>. </p>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Wall following<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Wall Following<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
 <ol>
 <li>
 <p>In VS Code, click on the <code>ex3.py</code> file in the File Explorer to display it in the editor.</p>
@@ -2971,14 +3299,13 @@
 <!-- TODO: Post-lab assessed??   -->
 </li>
 </ol>
-<h3 id="line-following">Line Following<a class="headerlink" href="#line-following" title="Permanent link">¶</a></h3>
-<p>Line following is a handy skill for a robot to have, and we can achieve this with a TurtleBot3 Waffle using its <em>vision</em>, i.e. the data from its camera. We will now explore how to apply image processing techniques in combination with a well established control algorithm known as <strong>PID Control</strong> to make our robot follow a line on the arena floor.</p>
-<p>Consider the following: </p>
+<h3 id="cameras-and-robot-vision">Cameras and Robot Vision<a class="headerlink" href="#cameras-and-robot-vision" title="Permanent link">¶</a></h3>
+<p>Our robot's have cameras, providing them with the ability to <em>"see"</em> their environment. Camera data can be used as yet another feedback signal to inform closed-loop control, which we will leverage now to implement <em>line following</em>. We will achieve this using a well established control algorithm known as <strong>PID Control</strong>, using the data from our robot's camera and applying some image processing techniques to this to detect and <em>locate</em> a coloured line printed on the floor.</p>
+<p>Consider the following image obtained from a robot's camera, with a green line visible on the floor: </p>
 <figure>
-<p>TODO: but like this...
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../course/part6/pid/terms.png" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="600px"></a></p>
 </figure>
-<p>PID Control is a clever algorithm that aims to minimise the <strong>Error</strong> between a <strong>Reference Input</strong>: a desired condition that we would like our robot to maintain; and a <strong>Feedback Signal</strong>: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate <strong>Controlled Output</strong> for our system that should maintain a very small error.   </p>
+<p>PID Control is a clever algorithm that aims to minimise the <strong>Error</strong> between a <strong>Reference Input</strong>: a desired condition that we would like our robot to maintain; and a <strong>Feedback Signal</strong>: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate <strong>Controlled Output</strong> for our system that (when tuned appropriately) will act to minimise this error.   </p>
 <p>If we want our robot to successfully follow a coloured line on the floor, we will need it to keep that line in the centre of its view point at all times by minimising the <strong>error</strong> between where the line currently is (the <strong>feedback signal</strong>) and where it should be (the <strong>reference input</strong>, i.e. the centre of its view point). In this case then, the PID algorithm provides us with an angular velocity command (the <strong>controlled output</strong>) to achieve this.</p>
 <p>The full PID algorithm is as follows:</p>
 <div class="arithmatex">\[
@@ -3016,14 +3343,14 @@ u(t)=K_{P} e(t)
 <hr>
 <p>After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.</p>
 <p></p><figure markdown>
-  TODO: example figure with different coloured line
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/hsv_cam_img.png" width="700px"></a>
 </figure><p></p>
 <p>The scatter plot shows all the different colours that are present in the raw camera image. These are plotted in terms of the <em>Hue</em> and <em>Saturation</em> values of each pixel in the image.</p>
 </li>
 <li>
 <p>In the plot, you should be able to identify a cluster of data points that are the same colour as the line on the floor. From the plot, make a note of the range of Hue and Saturation values that these dots reside within.</p>
 <p></p><figure markdown>
-  TODO: example
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/hsv_plot.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -3066,8 +3393,8 @@ u(t)=K_{P} e(t)
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2 run amr31001_lab2 ex4_line_following.py
 </code></pre></div><p></p>
 <hr>
-<p>To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera.</p>
-<p>Make sure the robot can "see" the line on the floor.</p>
+<p>To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera. You should also see a small blue circle hovering around somewhere in the image too.</p>
+<p>Make sure the line on the floor is visible to the robot before proceeding any further.</p>
 </li>
 <li>
 <p>Stop the node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
@@ -3078,25 +3405,27 @@ u(t)=K_{P} e(t)
 </code></pre></div>
 <p>Into this, you can provide the Hue and Saturation ranges that you identified in <a href="#ex4a">Part A</a>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">(</span>
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],</span>
-<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="n">saturation</span><span class="o">=</span><span class="p">[</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">],</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="n">saturation</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">]</span>
 <a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="p">)</span>
 </code></pre></div>
-<p>Replace <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code> with your upper and lower hue and saturation values.</p>
+<p>Replace <code>MIN</code> and <code>MAX</code> with your upper and lower hue and saturation values.</p>
 </li>
 <li>
 <p>Run the code again. If your Hue and Saturation ranges are correct, and the line is in view then it should now be isolated in the image (all other pixels in the camera stream should be black).</p>
+<p>The small blue circle should also now be located roughly in the middle of the line. If you move the robot now (whilst keeping the line in view) then the blue circle should move with the line, indicating that the line is successfully being detected by your filtering, and the image processing algorithms.</p>
 <p></p><figure markdown>
-  TODO: example of a filtered line
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/line_filtered.png" width="400px"></a>
 </figure><p></p>
-<p>If the line isn't successfully isolated then go back to Part A and run the <code>ex4_colour_detection.py</code> node again. </p>
+<p>If the line <em>isn't</em> successfully isolated then <a href="#ex4a">go back to Part A</a> and run the <code>ex4_colour_detection.py</code> node again. </p>
 </li>
 <li>
-<p>If the line <em>is</em> successfully isolated in the image, then the robot is able to locate its position, and we have successfully established the <strong>Feedback Signal</strong> for our proportional controller. In the code, this can be accessed as follows:</p>
+<p>The robot is now able to locate the position of the line in its viewpoint, so we have now successfully established the <strong>Feedback Signal</strong> for our proportional controller. In the code, this can be accessed as follows:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span>
 </code></pre></div>
+<p>Consider the figure from above, once again:</p>
 <p></p><figure markdown>
-  TODO: a figure to illustrate how to calculate the error
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="500px"></a>
 </figure><p></p>
 <p>In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">image_width</span> <span class="o">/</span> <span class="mi">2</span>
@@ -3173,7 +3502,7 @@ u(t)=K_{P} e(t)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 5, 2026 16:31:06 UTC"><span class="timeago" datetime="2026-01-05T16:31:06+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 5, 2026 16:31:06 UTC">2026-01-05</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 6, 2026 17:09:50 UTC"><span class="timeago" datetime="2026-01-06T17:09:50+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 6, 2026 17:09:50 UTC">2026-01-06</span>
   </span>
 
     
@@ -3235,13 +3564,13 @@ u(t)=K_{P} e(t)
         
         
           
-          <a href="../../com/" class="md-footer__link md-footer__link--next" aria-label="Next: COM2009">
+          <a href="../../waffles/" class="md-footer__link md-footer__link--next" aria-label="Next: The Waffles">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                COM2009
+                The Waffles
               </div>
             </div>
             <div class="md-footer__button md-icon">

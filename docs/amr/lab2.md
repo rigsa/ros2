@@ -6,22 +6,22 @@ title: "Lab 2: Feedback Control"
 
 In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quickly recap the key points:
 
-**ROS Nodes**
+**Nodes**
 
 * Are executable programs (Python, C++ scripts) that perform specific robot tasks and operations.
-* Typically, there'll be many ROS Nodes running on a robot simultaneously in order to make it work.
+* Typically, there'll be many Nodes running on a robot simultaneously in order to make it work.
 * We can create our own Nodes on top of what's already running, to add extra functionality.
-* You may recall that we created our own ROS Node in Python, to make our TurtleBot3 Waffle follow a square motion path.
+* You may recall that we created our own Node (in Python) to make our TurtleBot3 Waffle follow a square motion path.
 
 <figure markdown>
   ![](./lab2/ros_network.png){width=500px}
 </figure>
 
-**Topics and Messages**
+**Topics and Message interfaces**
 
 * All the ROS Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.
 * ROS Topics are key to this - they are essentially the communication channels (or the plumbing) on which all data is passed around between the nodes.
-* Different topics communicate different types of information.
+* Different topics communicate different types of information using standardised data structures (called *"Message Interfaces"*).
 * Any Node can publish (*write*) and/or subscribe to (*read*) any ROS Topic in order to pass information around or make things happen.
 
 <figure markdown>
@@ -33,6 +33,8 @@ One of the key ROS Topics that we worked with last time was `/cmd_vel`, which is
 **Open-Loop Control**
 
 We used a time-based method to control the motion of our robot in order to get it to generate a square motion path. This type of control is *open-loop*: we hoped that the robot had moved (or turned) by the amount that was required, but had no *feedback* to tell us whether this had actually been achieved.
+
+**Closed-Loop Control**
 
 In this lab we'll look at how this can be improved, making use of some of our robot's on-board sensors to tell us where the robot is or what it can see in its environment, in order to complete a task more reliably and be able to better adapt to changes and uncertainty in the environment.
 
@@ -47,15 +49,14 @@ By the end of this session you will be able to:
 1. Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.
 1. Use feedback from a robot's odometry system to *control* its position in an environment.
 1. Use data from a Robot's LiDAR sensor to make a robot follow a wall.
-<!-- TODO: 1. Generate a map of an environment, using SLAM.
-1. Make a robot navigate an environment *autonomously*, using ROS navigation tools. -->
+1. Analyse images from a Robot's Camera and use this information to follow a coloured line on the floor.
 
 ### Quick Links
 
 * [Exercise 1: Exploring Odometry Data](#ex1)
 * [Exercise 2: Odometry-based Navigation](#ex2)
-* [Exercise 3: Wall following](#ex3)
-<!-- TODO: * [Exercise 4: SLAM and Autonomous Navigation](#ex4) -->
+* [Exercise 3: Wall Following](#ex3)
+* [Exercise 4: Line Following](#ex4)
 
 ## The Lab
 
@@ -111,7 +112,7 @@ We'll need a ROS package to work with for this lab session. We've created a temp
 1. When VS Code opens, navigate to the *File Explorer*: 
     
     <figure markdown>
-      ![](./lab1/vscode_explorer_package_xml.png){width=400px}
+      ![](./lab2/vscode_explorer_package_xml.png){width=400px}
     </figure>
 
     ... find a file here called `package.xml` and click on it. 
@@ -566,7 +567,7 @@ This data is really useful and (as we observed during the previous lab session) 
 
 Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**. 
 
-#### :material-pen: Exercise 3: Wall following {#ex3}
+#### :material-pen: Exercise 3: Wall Following {#ex3}
 
 1. In VS Code, click on the `ex3.py` file in the File Explorer to display it in the editor.
 
@@ -704,18 +705,17 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
     
     <!-- TODO: Post-lab assessed??   -->
 
-### Line Following
+### Cameras and Robot Vision
 
-Line following is a handy skill for a robot to have, and we can achieve this with a TurtleBot3 Waffle using its *vision*, i.e. the data from its camera. We will now explore how to apply image processing techniques in combination with a well established control algorithm known as **PID Control** to make our robot follow a line on the arena floor.
+Our robot's have cameras, providing them with the ability to *"see"* their environment. Camera data can be used as yet another feedback signal to inform closed-loop control, which we will leverage now to implement *line following*. We will achieve this using a well established control algorithm known as **PID Control**, using the data from our robot's camera and applying some image processing techniques to this to detect and *locate* a coloured line printed on the floor.
 
-Consider the following: 
+Consider the following image obtained from a robot's camera, with a green line visible on the floor: 
 
 <figure markdown>
-  TODO: but like this...
-  ![](../course/part6/pid/terms.png){width=700px}
+  ![](./lab2/line_following/overview.png){width=600px}
 </figure>
 
-PID Control is a clever algorithm that aims to minimise the **Error** between a **Reference Input**: a desired condition that we would like our robot to maintain; and a **Feedback Signal**: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate **Controlled Output** for our system that should maintain a very small error.   
+PID Control is a clever algorithm that aims to minimise the **Error** between a **Reference Input**: a desired condition that we would like our robot to maintain; and a **Feedback Signal**: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate **Controlled Output** for our system that (when tuned appropriately) will act to minimise this error.   
 
 If we want our robot to successfully follow a coloured line on the floor, we will need it to keep that line in the centre of its view point at all times by minimising the **error** between where the line currently is (the **feedback signal**) and where it should be (the **reference input**, i.e. the centre of its view point). In this case then, the PID algorithm provides us with an angular velocity command (the **controlled output**) to achieve this.
 
@@ -764,7 +764,7 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.
 
     <figure markdown>
-      TODO: example figure with different coloured line
+      ![](./lab2/line_following/hsv_cam_img.png){width=700px}
     </figure>
 
     The scatter plot shows all the different colours that are present in the raw camera image. These are plotted in terms of the *Hue* and *Saturation* values of each pixel in the image.
@@ -772,7 +772,7 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 1. In the plot, you should be able to identify a cluster of data points that are the same colour as the line on the floor. From the plot, make a note of the range of Hue and Saturation values that these dots reside within.
     
     <figure markdown>
-      TODO: example
+      ![](./lab2/line_following/hsv_plot.png){width=500px}
     </figure>
 
 1. Once you've done this, close the figure by clicking the :material-close-circle: icon in the top right corner, and also close the RViz window too. This should release **TERMINAL 3** and **TERMINAL 4**.
@@ -809,9 +809,9 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     ```
     ***
 
-    To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera.
+    To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera. You should also see a small blue circle hovering around somewhere in the image too.
     
-    Make sure the robot can "see" the line on the floor.
+    Make sure the line on the floor is visible to the robot before proceeding any further.
 
 1. Stop the node with ++ctrl+c++.
 
@@ -825,29 +825,33 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
     ``` { .py .no-copy }
     self.camera.colour_filter(
-        hue=[a,b],
-        saturation=[c,d]
+        hue=[MIN, MAX],
+        saturation=[MIN, MAX]
     )
     ```
     
-    Replace `a`, `b`, `c` and `d` with your upper and lower hue and saturation values.
+    Replace `MIN` and `MAX` with your upper and lower hue and saturation values.
 
 1. Run the code again. If your Hue and Saturation ranges are correct, and the line is in view then it should now be isolated in the image (all other pixels in the camera stream should be black).
 
+    The small blue circle should also now be located roughly in the middle of the line. If you move the robot now (whilst keeping the line in view) then the blue circle should move with the line, indicating that the line is successfully being detected by your filtering, and the image processing algorithms.
+
     <figure markdown>
-      TODO: example of a filtered line
+      ![](./lab2/line_following/line_filtered.png){width=400px}
     </figure>
 
-    If the line isn't successfully isolated then go back to Part A and run the `ex4_colour_detection.py` node again. 
+    If the line *isn't* successfully isolated then [go back to Part A](#ex4a) and run the `ex4_colour_detection.py` node again. 
 
-1. If the line *is* successfully isolated in the image, then the robot is able to locate its position, and we have successfully established the **Feedback Signal** for our proportional controller. In the code, this can be accessed as follows:
+1. The robot is now able to locate the position of the line in its viewpoint, so we have now successfully established the **Feedback Signal** for our proportional controller. In the code, this can be accessed as follows:
 
     ```py
     self.camera.line_position_pixels
     ```
 
+    Consider the figure from above, once again:
+
     <figure markdown>
-      TODO: a figure to illustrate how to calculate the error
+      ![](./lab2/line_following/overview.png){width=500px}
     </figure>
 
     In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:

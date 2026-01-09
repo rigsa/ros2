@@ -64,7 +64,7 @@ By the end of this session you will be able to:
     This lab is **summatively assessed**.
 
     1. There's a **post-lab quiz** that you'll need to complete after this lab session has taken place, which will be released on Blackboard.
-    1. You'll also be marked on the work that you do **in the lab** for [Exercise X (TODO)]().
+    1. You'll also be marked on the work that you do **in the lab** for Exercises 3 & 4.
 
 ### Getting Started
 
@@ -536,8 +536,6 @@ In theory though, we can do all this much more effectively with odometry data in
                 >>> sqrt(4)
                 2.0 
                 ```
-    
-    <!-- TODO: Post-lab assessed??   -->
 
 ### The LiDAR Sensor
 
@@ -703,7 +701,8 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
                 
                 ```
     
-    <!-- TODO: Post-lab assessed??   -->
+    !!! info "Post-lab"
+        As discussed above, your completion of this exercise will be assessed as part of the post-lab!
 
 ### Cameras and Robot Vision
 
@@ -879,7 +878,8 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
 1. Finally, tune the P Controller by identifying an appropriate proportional gain `kp` so that the robot successfully follows the line smoothly and consistently.
 
-    <!-- TODO: Post-lab assessed??   -->
+    !!! info "Post-lab"
+        As discussed above, your completion of this exercise will be assessed as part of the post-lab!
 
 ## Wrapping Up
 

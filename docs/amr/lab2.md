@@ -449,7 +449,7 @@ In theory though, we can do all this much more effectively with odometry data in
 
 1. **What you need to do**:
 
-    1. The `move_square()` class method is called over and over again at controlled rate. This was established in the `#!py __init__()` class method: 
+    1. The `move_square()` class method is called over and over again at a controlled rate. This was established in the `#!py __init__()` class method: 
     
         ```py
         self.create_timer(

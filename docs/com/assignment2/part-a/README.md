@@ -6,7 +6,7 @@ title: "Assignment #2 Part A"
 
 **Total Marks**: 40/100
 
-**Submission**: Friday of Week 6 at 10pm (GMT) 
+**Submission**: Friday of Week 6 at 6pm (GMT) 
 
 **Tasks**:
 

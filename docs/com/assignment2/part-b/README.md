@@ -6,7 +6,7 @@ title: "Assignment #2 Part B"
 
 **Total Marks**: 60/100
 
-**Submission**: Friday of Week 12 at 10pm (BST)
+**Submission**: Friday of Week 12 at 6pm (BST)
 
 **Tasks**:
 

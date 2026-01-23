@@ -24,8 +24,8 @@ Having completed all of this *successfully*, we'll be able to pull your package 
 
 | Part | Tasks | Marks<br />(/100) | Submission |
 | :---: | :---  | :---: | :---: |
-| **A** | **Tasks 1 & 2** | 40 | Friday of Week 6 at 10pm (GMT) |
-| **B** | **Tasks 3 & 4** | 60 | Friday of Week 12 at 10pm (BST) |
+| **A** | **Tasks 1 & 2** | 40 | Friday of Week 6 at 6pm (GMT) |
+| **B** | **Tasks 3 & 4** | 60 | Friday of Week 12 at 6pm (BST) |
 
 </center>
 

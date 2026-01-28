@@ -76,6 +76,13 @@ As such, the ROS 2 package that your team submit must contain a launch file call
 !!! note
     ROS will already be running on the robot before we attempt to execute your launch file, and [a *Zenoh Session* will be running on the laptop, to allow nodes running on the laptop to communicate with it](../../../waffles/launching-ros.md#step4).
 
+## Dependencies
+
+You may draw upon pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2, but **there are restrictions that you must be aware of**. [See here for more details on this](../assessment.md#dependencies).
+
+!!! failure "Nav2"
+    In addition to the above, **the use of [Nav2](https://docs.nav2.org/){target="_blank"} is ^^not permitted^^ for this task**.
+
 ## Marking
 
 There are **20 marks** available for Task 2 in total, awarded as follows:

@@ -152,7 +152,7 @@ Close down RViz by entering ++ctrl+c++ in **TERMINAL 2**.
 
 #### :material-pen: Exercise 1: Using RQT whilst changing the robot's viewpoint {#ex1}
 
-Another tool we can use to view camera data-streams is the RQT.
+Another tool we can use to view camera data-streams is *RQT*.
 
 1. Enter the following command in **TERMINAL 2** to launch it:
 

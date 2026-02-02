@@ -615,6 +615,6 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
 
 ## Next Steps
 
-"**Pro Tips**": There are some important things to consider when working with the Real Waffles. [Move onto the next page to find out more](./essentials.md)...
+Having mastered the basics, you should ensure you review some **[Essential Considerations](./essentials.md)** before you go much further on this course; these will highlight some challenges students commonly face when working with the robots Indeed, being aware of these early on can make a huge difference and save a lot of head scratching in the lab! 
 
-... and when you've done that, don't forget to [power off your robot properly](./shutdown.md). 
+... and when you're all done with your robot at the end of each lab session, make sure you **[power it off properly](./shutdown.md)**. 

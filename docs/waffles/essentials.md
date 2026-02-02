@@ -1,142 +1,57 @@
 ---  
-title: Further (Essential) Exercises 
+title: Essential Considerations 
 ---
 
-By working through the additional short exercises below, you will become aware of the key differences in how our TurtleBot3 Waffles work in the real world, compared to how they work in simulation. Be mindful of the differences that we are trying to highlight here and the implications that they will have on the applications that you develop. 
+Sometimes, the real robots behave in ways that you wouldn't expect. Certain things work differently on the real hardware than they do in a simulation. On this page, we highlight a number of *key things that you should investigate at your earliest convenience*, in order to avoid any nasty surprises in the lab.
 
-As a general rule, when developing code for real-world applications, it's a good idea to get the basics working in simulation first, but **always** test out your code in the real-world... *just because it works in simulation, **doesn't** automatically mean it will work on the real robots!!*
+## Motion and Velocity Control
 
-## :material-pen: Essential Exercise 1: Publishing Velocity Commands {#ex1}
+1. **What happens if you don't tell a robot explicitly to stop moving?**
 
-This one actually applies to both the real Waffles *and* the simulation too. The issue is more critical when working with real thing though, since we're working with real hardware in a real-world environment, where things could get damaged or people could get hurt. 
+    This is no different in the real-world as it is in a simulation, but consider what we had to do **[in this Exercise](./basics.md#exSimpleVelCtrl)** to make the robot stop, and why it's therefore important to [build nodes with proper shutdown procedures in place](../course/part2.md#ex5). 
 
-In the previous exercises you made the robot move using the `teleop_keyboard` node, and also built a Python node to control the robot's velocity. Ultimately, making a robot move is achieved by publishing velocity commands (i.e. `geometry_msgs/msg/Twist` interface messages) to the `/cmd_vel` topic. Another way to do this is by using the `ros2 topic pub` command in a terminal. Run the following command and observe what the robot does:
+1. **What are the robot's maximum velocity limits, and what happens if you exceed them?**
 
-```txt
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "linear:
-  x: 0.0
-  y: 0.0
-  z: 0.0
-angular:
-  x: 0.0
-  y: 0.0
-  z: 0.2"
-```
+    Physical systems have their limits, and no motor can rotate at an unlimited speed! [Our robots therefore have maximum velocity limits](../about/robots.md#max_vels), and it is important that you know what these are. Try issuing a velocity command to a robot that is outside the maximum velocity range... what does the robot do? 
 
-... the robot should turn on the spot.
+1. **What happens if you apply high angular and linear velocity to a robot instantaneously, from a standstill?**
 
-Enter ++ctrl+c++ now to stop the `ros2 topic pub` command, what happens now?
+    It is perfectly feasible for our robots to achieve their maximum velocities, however, they don't necessarily appreciate being asked to go from stationary to full speed instantaneously! Consider testing this out on a real robot to observe what happens. With the robot stationary, **[use the command line](../course/part2.md#ex3)** to publish a velocity command to the robot that contains both a *high* linear *and* angular velocity component. What would you *expect* to observe?[^hint-circle] ... What you *actually* observe might be different. How could you achieve the desired motion (assuming the velocities are within the maximum limits)
 
-... the robot *continues* to turn on the spot!
+    [^hint-circle]: The robot *should* turn in a circle, but if the velocities are close to the maximum limits, does this actually happen?
 
-In order to actually *stop* the robot, we need to run the command again, but this time set all the velocities back to zero:
+## Laser Displacement Readings and the LiDAR Sensor 
 
-```txt
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "linear:
-  x: 0.0
-  y: 0.0
-  z: 0.0
-angular:
-  x: 0.0
-  y: 0.0
-  z: 0.0"
-```
+1. **What are the minimum and maximum distances that the robot's LiDAR sensor can detect?**
 
-### Why Does This Matter?
+    You can use **[the same process as in simulation](../course/part3.md#range_max_min)** to determine this.
 
-If we don't issue a stop command to a robot that is moving, then it will continue to move with the last velocity command that was sent to it. 
+    If our robot arena is 4x4 meters in size, *is it likely that the robot would ever encounter readings outside this range?* 
 
-The same applies to ROS nodes when we shut them down: if a stop command is not sent to `cmd_vel` before the node stops running (i.e. via ++ctrl+c++) the robot will continue to move, which clearly isn't very good!
+1. **What does the sensor report when these limits are exceeded, and how does this differ to a simulation?**
 
-***You must ensure*** that your nodes are programmed with correct shutdown procedures, to ensure that the robot actually stops moving when a node is terminated. This is covered in [Part 2 of Assignment #1](../course/assignment1/part2.md#ex5), but you can also see this in action in [the Velocity Control Node that we created in the previous section](./basics.md#timedSquareCode). 
+    The LiDAR gives us an accurate measure of the distance to obstacles within the robot's environment, provided those obstacles are within the sensor's measurement range (as above). If obstacles are beyond the sensor's measurement range, then an *out-of-range* value is returned by the sensor instead. In our code it's important that we **[detect these *out-of-range* values and discard them](../course/part3/lidar_subscriber.md)**, as if we don't deal with them correctly then this can influence our robot's ability to detect and avoid obstacles effectively. In simulation, the out-of-range value is `inf`, but is this the same on the real robots?[^hint-lidar]
 
-## :material-pen: Essential Exercise 2: Out of Range LiDAR Data {#ex2}
+    [^hint-lidar]: On the real robots, the out-of-range value is **NOT** `inf`, so you need to find out what it is! 
 
-The robot's LiDAR sensor can only obtain measurements from objects within a certain distance range. In Part 3 we look at how to work out what this range is, using the `ros2 topic echo` command. Let's apply the same techniques to the real robot now to discover the **maximum** and **minimum** distances that the real robot's LiDAR sensor can measure:
+1. **The data from a real LiDAR sensor will be "noisy." What are the implications of this for real-world applications?**
 
-```
-ros2 topic echo /scan --field range_min --once
-```
-```
-ros2 topic echo /scan --field range_max --once
-```
+    You may notice if you **[observe the data from a robot's LiDAR sensor in RViz](./basics.md#exViz)** that the green dots move around quite a lot, even when the robot isn't moving, or if nothing in the environment is actually changing. This is called *"measurement noise"*, and it is common to all sensors. It's important then to consider the processing that you perform on this data: say you want to determine the distance to the closest thing in your robot's environment, so perhaps you might consider applying a `min()` function to determine this? This will be very sensitive to measurement noise however: minimum values may not always represent genuine distance measurements. Are there alternative ways that you could handle this data instead?
 
-The LiDAR sensor's measurement range is the same in simulation and on the real robots, **but** how out-of-range values are *reported* is different!
+## The Camera and Image Processing
 
-If the LiDAR sensor detects an object that falls within this range then it will report the exact distance to this object (in meters). Conversely, if it *doesn't* detect anything within this range then it will report a default *out-of-range* value instead. In simulation, the out-of-range value is `inf`.
+1. **What topic is image data published to on the real robots? Is this the same as in a simulation?**
 
-!!! warning
-    The *out-of-range* value reported by the real robot's LiDAR sensor is **not** `inf`!
+    With the real robot to hand, use ROS command-line tools such as `ros2 topic list` and `ros2 topic info` to interrogate the ROS Network and identify the name of the camera image topic used on the real robots. *Is it the same, or different?*
 
-Use the `ros2 topic echo` command to view the raw LiDAR data:
+1. **What is the resolution of the images obtained from a real robot's camera?**
 
-```
-ros2 topic echo /scan --field ranges
-```
+    Having confirmed the name of the camera image topic (as above), use **[the methods discussed here](../course/part6.md#camera-topics-and-data)** to identify the resolution of the images that are being published. It's important to know this, particularly when it comes to applying any cropping to your raw images: if you don't know how big (or small) the images are to begin with, you may end up chopping off more (or less) than you bargained for. 
 
-See if you can position the robot in the environment so that some LiDAR measurements will fall outside the measurement range that you have just determined. How are these values reported in the terminal? 
+1. **Do the same image processing techniques produce the same results in simulation and the real world?**
 
-### Why Does This Matter?
-
-In Part 3 of Course Assignment #1 we illustrate how the LiDAR `ranges` array can be *filtered* to remove any out-of-range values: 
-
-```py
-valid_data = front[front != float("inf")] # (1)!
-```
-
-1. Assuming `front` is a `numpy` array (see [Part 3](../course/assignment1/part3.md)).
-
-If you apply the same technique to a real-world application, then this filtering will be ineffective, because out-of-range values are not `inf` here... You'll need to adapt this for real-world scenarios[^lidar-hint].
-
-[^lidar-hint]: **Exercise 2 Hint**: Out-of-range values on the real robots are actually reported as `0.0`!
-
-## :material-pen: Essential Exercise 3: The Camera Image Topic {#ex3}
-
-In Part 6 of Assignment #1 we work extensively with the robot's camera and the processing of the images that are captured by it. This is done in simulation (of course), where the image data is published to a topic called `/camera/image_raw`. The name of the camera image topic is **not the same** on the real robots!
-
-With the real robot to hand now, use ROS command-line tools such as `ros2 topic list` and `ros2 topic info` to interrogate the real robot ROS Network and identify the name of the camera image topic used by the real robot.
-
-### Why Does This Matter?
-
-You'll likely do a lot of development work for your real-robot applications in simulation, outside the lab sessions. Some of these applications may involve camera data and image processing. If you set up a subscriber to a topic that doesn't exist, then **ROS will not warn you about it**! It will simply sit quietly and wait, assuming that the topic will (sooner or later) become available. As a result, if you are running an application on a real robot, that is subscribing to image data on the `/camera/image_raw` topic, then your application will never receive any image data and any associated callback functions will never execute![^cam-topic-hint]
-
-[^cam-topic-hint]: **Exercise 3 Hint**: On the real robots, the camera image topic is `/camera/color/image_raw`!
-
-## :material-pen: Essential Exercise 4: Camera Image Resolution {#ex4}
-
-In Part 6 of Assignment #1 we also explore how images can be reduced in size by *cropping* them, to make the data processing a bit quicker and easier. We need to be aware of the original image size (i.e. *resolution*) however, in order to apply cropping techniques appropriately. 
-
-As we learn in Part 6, it's possible to discover the resolution of each image that is published to the camera image topic by echoing the `height` and `width` parameters that are published as part of the image message interface (alongside the image data itself). We can of course do this now with `ros2 topic echo`, to determine the resolution of the camera images obtained on the real robot:
-
-```
-ros2 topic echo /camera/color/image_raw --field height --once
-```
-
-```
-ros2 topic echo /camera/color/image_raw --field width --once
-```
-
-The outputs here will indicate the `height` and `width` of the images, in pixels. See how these compare with values that you obtain from the simulation, when you get to Part 6 of the Course.
-
-!!! warning 
-    The real robot's camera captures images at **a lower image resolution**! 
-
-### Why Does This Matter?
-
-We'll learn a lot about image cropping and other image processing techniques through simulation, but (as above) the native image resolution of the simulated robot's camera is *much larger* than that of the real robot. As such, if you apply the same cropping techniques to real-world applications, without adjustment, then you will end up cropping too much of the image out, leaving *nothing* to actually apply any further processing to![^img-res]
-
-[^img-res]: **Exercise 4 Hint**: In *simulation*, camera images have a resolution of **1080x1920** pixels, whereas on the real robots the resolution is **640x480** pixels.
-
-## :material-pen: Essential Exercise 5: Object Detection {#ex5}
-
-In general, image detection gets a little more challenging in the real-world, where the same object might appear (to a robot's camera) to have slightly different colour tones under different light conditions, from different angles, in different levels of shade, etc. In simulation (again in Part 6 of the Course), you may build an extremely effective `colour_search.py` node to detect each of the four coloured pillars in the `tuos_simulations/coloured_pillars` world, but this might not perform as well in the real world without some fine-tuning
-
-### Why Does This Matter?
-
-**Always** test out your code in the real-world, just because it works in simulation, **doesn't** mean it will work on the real robots!!
+    In general, image detection gets a little more challenging in the real-world, where the same object might appear (to a robot's camera) to have slightly different colour tones under different light conditions, from different angles, in different levels of shade, etc. In simulation, you may **[build an extremely effective `colour_search.py` node](../course/part6.md#ex3)** to detect each of the four coloured pillars in a simulated world, but this might not perform as well in the real world without some fine-tuning. It's therefore really important to **always** test out your code in the real-world; just because it works in simulation, **doesn't** mean it will work on the real robots!!
 
 ## Summary
 
-You will naturally do a fair bit of development work in simulation, where it's easier to test things out and less disastrous if things go wrong! Overall, you'll be able to develop things much faster this way, and you can do this outside of your weekly lab sessions too. Whilst you're doing this though, keep in mind all the differences that we have identified above, so that there are less nasty surprises when you come to deploy your ROS applications in the real world. 
-
-Throughout the design phase, think about how your applications could be developed more flexibly to accommodate these variations, or how you could design things so that only small/quick changes/switches need to be made when you transition from testing in simulation, to deploying on a real Waffle. 
+You will naturally do a fair bit of development work in simulation throughout this course, where it's easier to test things out and less disastrous if things go wrong! Overall, you'll be able to develop things much faster this way, and you can do this outside of your weekly lab sessions too. Whilst you're doing this though, keep in mind all the differences that we have identified above, so that there are less nasty surprises when you come to deploy your ROS applications in the real world. 

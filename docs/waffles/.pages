@@ -3,5 +3,5 @@ nav:
   - "Introduction": intro.md
   - launching-ros.md
   - "Waffle (& ROS) Basics": basics.md
-  - essentials.md
-  - "Shutdown Procedures": shutdown.md
+  - "Powering Off": shutdown.md
+  - "<em>Understanding</em> the Waffles: Key things that you MUST investigate ASAP!": essentials.md

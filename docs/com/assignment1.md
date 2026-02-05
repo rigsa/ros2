@@ -1,5 +1,5 @@
 ---
-title: "The ROS Course"
+title: "Assignment #1: An Introduction to ROS 2"
 description: "An individual simulation-based course to teach you all about ROS 2"
 --- 
 

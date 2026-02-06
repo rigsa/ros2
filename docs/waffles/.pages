@@ -4,4 +4,4 @@ nav:
   - launching-ros.md
   - "Waffle (& ROS) Basics": basics.md
   - "Powering Off": shutdown.md
-  - "<em>Understanding</em> the Waffles: Key things that you MUST investigate ASAP!": essentials.md
+  - "<em>Understanding</em> the Waffles: Key Things to Investigate": essentials.md

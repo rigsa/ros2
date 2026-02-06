@@ -2,7 +2,7 @@
 title: Essential Considerations 
 ---
 
-Sometimes, the real robots behave in ways that you wouldn't expect. Certain things work differently on the real hardware than they do in a simulation. On this page, we highlight a number of *key things that you should investigate at your earliest convenience*, in order to avoid any nasty surprises in the lab.
+Sometimes, the real robots behave in ways that you wouldn't expect. Certain things work differently on the real hardware than they do in a simulation. On this page, we highlight a number of *key things that you should investigate ^^as soon as possible^^*, in order to avoid any nasty surprises in the lab.
 
 ## Motion and Velocity Control
 

@@ -8,7 +8,7 @@ hide:
 
 # 
 
-## ROS 2 Lab Courses in The Diamond
+## ROS 2 Labs in The Diamond
 
 Practical Robotics Lab Courses with ROS 2 and the TurtleBot3 Waffle.
 

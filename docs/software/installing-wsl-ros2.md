@@ -32,13 +32,37 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
 3. The email will contain a link to download **WSL-ROS2** to your machine as a `.zip` file (~2 GB).
     
 4. On your computer, create a new folder in the root of your `C:\` drive called `WSL-ROS2`.
-5. Extract the content of the downloaded `.zip` file into to the `C:\WSL-ROS2\` folder.
-6. Launch PowerShell and enter the follow command to install WSL-ROS2 as a WSL distro on your machine:
+5. **Launch PowerShell**, then run the following commands in order:
 
-    ```powershell
-    wsl --import WSL-ROS2 $env:localappdata\WSL-ROS2 `
-    C:\WSL-ROS2\wsl-ros2-v2526.01.tar --version 2
-    ```
+    1. Identify the zip file:
+
+        ```powershell
+        $zipFile = Get-ChildItem "C:\WSL-ROS2\WSL-ROS2_*_SDS.zip" | 
+            Sort-Object Name -Descending | 
+            Select-Object -First 1
+        ```
+
+    2. Extract it:
+
+        ```powershell
+        Expand-Archive -Path $zipFile.FullName `
+            -DestinationPath "C:\WSL-ROS2\" -Force
+        ```
+    
+    3. Identify the extracted `.tar` file:
+
+        ```powershell
+        $tarFile = Get-ChildItem "C:\WSL-ROS2\wsl-ros2-v*.tar" | 
+            Sort-Object Name -Descending | 
+            Select-Object -First 1
+        ```
+    
+    4. Import this as a WSL distro:
+
+        ```powershell
+        wsl --import WSL-ROS2 "$env:localappdata\WSL-ROS2" `
+            $tarFile.FullName --version 2
+        ```
 
 7. This may take a couple of minutes. Once it's done, you can verify that it was successful with the following command:
 

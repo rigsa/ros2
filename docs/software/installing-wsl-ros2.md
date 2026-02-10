@@ -25,14 +25,17 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
 ## Installing
 
 1. Go to the [IT Services Software Downloads](https://www.sheffield.ac.uk/software/){target="_blank"} page (you'll need to log in with your university MUSE credentials).
-2. Scroll down to the bottom, where you should see WSL-ROS listed.
+1. Scroll down to the bottom, where you should see WSL-ROS listed.
     
     Click on the blue "Request WSL-ROS" button and then wait to receive an email to your university email address.
 
-3. The email will contain a link to download **WSL-ROS2** to your machine as a `.zip` file (~2 GB).
+1. The email will contain a link to download **WSL-ROS2** to your machine as a `.zip` file (~2 GB).
     
-4. On your computer, create a new folder in the root of your `C:\` drive called `WSL-ROS2`.
-5. **Launch PowerShell**, then run the following commands in order:
+1. On your computer, create a new folder in the root of your `C:\` drive called `WSL-ROS2`.
+
+1. Save the `.zip` file to this new folder (i.e. `C:\WSL-ROS2\WSL-ROS2_xxx_SDS.zip`)
+
+1. **Launch PowerShell**, then run the following commands in order:
 
     1. Identify the zip file:
 
@@ -64,7 +67,7 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
             $tarFile.FullName --version 2
         ```
 
-7. This may take a couple of minutes. Once it's done, you can verify that it was successful with the following command:
+1. This may take a couple of minutes. Once it's done, you can verify that it was successful with the following command:
 
     ```powershell
     wsl -l -v
@@ -72,7 +75,7 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
 
     Where `WSL-ROS2` should be listed.
 
-8. Next (**optional**), open up the Windows Terminal App, then:
+1. Next (**optional**), open up the Windows Terminal App, then:
     
     1. Go to Settings (++ctrl+comma++)
     1. Under `Profiles` in the left-hand menu, find `WSL-ROS2` (or scroll further down and click the `Add a new profile` button to create it).

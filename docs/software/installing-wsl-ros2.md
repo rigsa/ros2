@@ -33,7 +33,7 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
     
 1. On your computer, create a new folder in the root of your `C:\` drive called `WSL-ROS2`.
 
-1. Save the `.zip` file to this new folder (i.e. `C:\WSL-ROS2\WSL-ROS2_xxx_SDS.zip`)
+1. Save the `.zip` file to this new folder (`C:\WSL-ROS2\`)
 
 1. **Launch PowerShell**, then run the following commands in order:
 

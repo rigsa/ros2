@@ -162,6 +162,24 @@ WSL-ROS2 requires an XServer in order to render graphical applications (such as 
     !!! warning "Important"
         You need to make sure you have the X Server running (by clicking the `wsl_ros_config.xlaunch` shortcut) **every time** you work with WSL-ROS2. 
 
+## Using WSL Native Graphics
+
+If you're having trouble with the dedicated XServer ([as above](#using-a-dedicated-x-server)), you could try using the native GUI functionality baked into WSL instead. To do this, in a WSL-ROS2 instance run the following command:
+
+```bash
+echo "export XSERVER=false" > $HOME/.diamond/xserver.sh
+```
+
+The best thing to do then is to close down any WSL-ROS2 terminal windows that you have open, launch powershell, and *shutdown* the WSL engine:
+
+```powershell
+wsl --shutdown
+```
+
+Then, restart the WSL engine by launching a new WSL-ROS2 terminal instance.
+
+!!! note
+    If you opt for this approach, you don't need to run VcXsrv
 
 <!-- ## Hardware Acceleration
 

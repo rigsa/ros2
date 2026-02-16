@@ -4,7 +4,7 @@ title: "Lab 2: Feedback Control"
 
 ## Introduction
 
-In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quickly recap the key points:
+In Lab 1 we explored how ROS 2 works and how to use this framework to bring a robot to life. Let's quickly recap the key points:
 
 **Nodes**
 
@@ -17,10 +17,10 @@ In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quick
   ![](./lab2/ros_network.png){width=500px}
 </figure>
 
-**Topics and Message interfaces**
+**Topics and Message Interfaces**
 
-* All the ROS Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.
-* ROS Topics are key to this - they are essentially the communication channels (or the plumbing) on which all data is passed around between the nodes.
+* All Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.
+* ROS Topics are key to this - they are essentially the communication channels (or the plumbing) through which all data is passed around between nodes.
 * Different topics communicate different types of information using standardised data structures (called *"Message Interfaces"*).
 * Any Node can publish (*write*) and/or subscribe to (*read*) any ROS Topic in order to pass information around or make things happen.
 
@@ -28,7 +28,7 @@ In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quick
   ![](./lab2/ros_comms.png){width=500px}
 </figure>
 
-One of the key ROS Topics that we worked with last time was `/cmd_vel`, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move, we publish `TwistStamped` *Interface Messages* to the `/cmd_vel` topic. Interfaces messages are *structured data types* defined in ROS, and we will remind ourselves about the structure of the `TwistStamped` data type shortly...
+One of the key ROS Topics that we worked with last time was `/cmd_vel`, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move we publish `TwistStamped` *Interface Messages* to the `/cmd_vel` topic. Interfaces messages are *structured data types* defined in ROS, and we will remind ourselves about the structure of the `TwistStamped` data type shortly...
 
 **Open-Loop Control**
 
@@ -47,16 +47,17 @@ In this lab, we'll build some ROS Nodes (in Python) that incorporate data from s
 By the end of this session you will be able to:
 
 1. Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.
-1. Use feedback from a robot's odometry system to *control* its position in an environment.
 1. Use data from a Robot's LiDAR sensor to make a robot follow a wall.
 1. Analyse images from a Robot's Camera and use this information to follow a coloured line on the floor.
+1. (Optional) Use feedback from a robot's odometry system to *control* its position in an environment.
+
 
 ### Quick Links
 
 * [Exercise 1: Exploring Odometry Data](#ex1)
-* [Exercise 2: Odometry-based Navigation](#ex2)
-* [Exercise 3: Wall Following](#ex3)
-* [Exercise 4: Line Following](#ex4)
+* [Exercise 2: Wall Following](#ex2)
+* [Exercise 3: Line Following](#ex3)
+* [(Optional) Exercise 4: Odometry-based Navigation](#ex4)
 
 ## The Lab
 
@@ -64,7 +65,7 @@ By the end of this session you will be able to:
     This lab is **summatively assessed**.
 
     1. There's a **post-lab quiz** that you'll need to complete after this lab session has taken place, which will be released on Blackboard.
-    1. You'll also be marked on the work that you do **in the lab** for Exercises 3 & 4.
+    1. You'll also be marked on the work that you do **in the lab** for Exercises 2 & 3.
 
 ### Getting Started
 
@@ -222,7 +223,7 @@ Much the same as last time, you'll now need to get ROS up and running on your ro
 
 ### Odometry
 
-First, let's look at our robot's *odometry* system, and what this is useful for.
+To start with we will consider a robot's *odometry* system, and what this is useful for.
 
 > Odometry is the use of data from motion sensors to estimate change in position over time. It is used in robotics by some legged or wheeled robots to estimate their position relative to a starting location. [^wiki]
 
@@ -237,7 +238,7 @@ This data is published to a ROS Topic called `/odom`.
 
 #### :material-pen: Exercise 1: Exploring Odometry Data {#ex1}
 
-In the previous lab we used some ROS commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the `/odom` topic this time.
+In the previous lab we used some `ros2` commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the `/odom` topic this time.
 
 1. Open up a new terminal instance on the laptop (by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before). We’ll call this one **TERMINAL 3**.
 
@@ -369,173 +370,9 @@ Ultimately though, our robots *position* can change in both the `X` and `Y` axes
   ![](../images/waffle/pose.svg){width=700px}
 </figure>
 
-#### :material-pen: Exercise 2: Odometry-based Navigation {#ex2}
+#### Odometry-based Navigation
 
-Now that we know about the odometry system and what it tells us, let's see how this could be used as a feedback signal to inform robot navigation. You may recall that last time you created a ROS Node to make your robot to follow a square motion path on the floor. This was time-based though: for a given speed of motion (turning or moving forwards) how long would it take for the robot to move by a required distance? Having determined this, we then used timers to control the execution of two different motion states: moving forwards and turning on the spot, in order to generate the square motion path (approximately). 
-
-In theory though, we can do all this much more effectively with odometry data instead, so let's have a go at that now...
-
-1. Head back to VS Code, which should still be open from earlier.
-
-1. In the File Explorer on the left-hand side find a folder called `scripts`, and click on the `ex2.py` file in here, to display it in the editor.
-
-1. Have a look through the code and see if you can work out what's going on. There are a few things to be aware of:
-
-    1. Motion control is handled by an external Python class called `Motion`, which is imported on line 7 (along with another class called `Pose` which we'll talk about shortly):
-
-        ```python
-        from amr31001_lab2_modules.tb3_tools import Motion, Pose
-        ```
-
-        The `Motion` class is instantiated on line 15:
-
-        ```python
-        self.motion = Motion(self) # (1)!
-        ```
-
-        1. Most of the code in the `ex2.py` file is contained within a Python class called `Square`. See line 10:
-
-            ```py
-            class Square(Node):
-                ...
-            ```
-
-            `#!py self` allows our class to refer to itself!
-
-            `#!py self.motion` for example allows us to access the `motion` attribute elsewhere within the class (as long as we refer to it as `#!py self.motion`). 
-
-            See this in action below...
-
-        A class *method* called `move_square()` contains the main part of the code, and it's here that we call the `motion` attribute to make the robot move, e.g.:
-
-        1. To make the robot move at a linear velocity of `x` (m/s) and/or an angular velocity of `y` (rad/s):
-
-            ```py
-            self.motion.move_at_velocity(
-                linear = x, angular = y
-            )
-            ```
-
-        1. To make the robot stop moving:
-
-            ```py
-            self.motion.stop()
-            ```
-    
-    1. Obtaining our robot's Odometry data was discussed in the previous exercise, where we learnt that can be done by subscribing to the `/odom` topic, which provides us with this data in a `nav_msgs/msg/Odometry`-type format. This is quite a complex data structure, so to make life easier during this lab, we've done all the hard work for you, inside another class called `Pose` (also imported earlier). This class is instantiated on line 16:
-
-        ```python
-        self.pose = Pose(self)
-        ```
-
-        We can then use this to access the robot's odometry data, by calling the appropriate attribute whenever we need it:
-
-        1. `#!py self.pose.posx` to obtain the robot's current position (in meters) in the `X` axis.
-        1. `#!py self.pose.posy` to obtain the robot's current position (in meters) in the `Y` axis.
-        1. `#!py self.pose.yaw` to obtain the robot's current orientation (in degrees) about the `Z` axis.
-
-1. Run the code in **TERMINAL 3** and observe what happens:
-
-    ***
-    **TERMINAL 3**:
-    ```bash
-    ros2 run amr31001_lab2 ex2.py
-    ```
-    ***
-
-    The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45&deg; the robot should stop. 
-
-1. Stop the Node by entering ++ctrl+c++ in **TERMINAL 3** and then run it again if you missed what happened the first time!
-
-1. **What you need to do**:
-
-    1. The `move_square()` class method is called over and over again at a controlled rate. This was established in the `#!py __init__()` class method: 
-    
-        ```py
-        self.create_timer(
-            timer_period_sec=0.05, # (1)!
-            callback=self.move_square, # (2)!
-        )
-        ```
-
-        1. The rate at which to execute a *"callback function"*. Note: defined in terms of *period* (in seconds), not *frequency* (in Hz).
-        2. The callback function to execute at the specified rate, i.e. `move_square()`.
-
-    1. The `move_square()` class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.
-
-        **It's this part of the code that you will need to modify!**
-        
-        Within this there is an `#!py if` statement that controls whether the robot should be turning or moving forwards: 
-    
-        ```python
-        if self.turn:
-            # Turning State
-            ...
-        else:
-            # Moving Forwards 
-            ...
-        ```
-
-        ... where `#!py self.turn` is a boolean whose value can either be `#!py True` or `#!py False`.
-        
-    1. Within this, look at what happens in the `Turning State`. Consider how the robot's yaw angle is being monitored and updated as the robot turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make sure the robot turns by 90&deg;.
-
-    1. Ultimately, after the robot has turned by the desired angle it needs to move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.
-        
-        Moving forwards is handled in the `Moving Forwards` state.
-
-        See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a>
-        
-        ??? note "Hint"
-            Consider how the turn angle is monitored and updated whist turning (`current_yaw`), and take a similar approach with the linear displacement (`current_distance`). Bear in mind that you'll need to consider the *euclidean distance*, which you'll need to calculate based on the robot's position in both the `x` and `y` axis.
-        
-            <figure markdown>
-              ![](./lab2/euclidean_distance.png){width=500px}
-            </figure>
-
-    1. **Make sure that you've saved any changes to the code (in VS Code) before trying to test it out on the robot!**
-    
-        Do this by using the ++ctrl+s++ keyboard shortcut, or going to `File` > `Save` from the menu at the top of the screen.
-    
-    1. Once you've saved it, you can re-run the code at any time by using the same `ros2 run` command as before:
-
-        ***
-        **TERMINAL 3**:
-        ```bash
-        ros2 run amr31001_lab2 ex2.py
-        ```
-        ***
-
-        ... and you can stop it at any time by entering ++ctrl+c++ in the terminal.
-
-        ??? tip "Python Tips"
-
-            You'll need to do a bit of maths here (see [the "Hint" above](#the_hint)). Here's how to implement a couple of mathematical functions in Python:
-
-            1. **To the power of X**: 
-                
-                Use `**` to raise a number to the power of another number (i.e. $2^{3}$):
-
-                ```py
-                >>> 2**3
-                8
-                ``` 
-
-                Or, use the `#!py pow()` method:
-
-                ```py
-                >>> pow(2, 3)
-                8
-                ```
-
-            1. **Square Root**: 
-                
-                To calculate the square root of a number (i.e. $\sqrt{4}$):
-
-                ```py
-                >>> sqrt(4)
-                2.0 
-                ```
+We can use our robot's odometry as a feedback signal to inform robot navigation and thus implement **closed-loop control**. There's a final (optional) exercise at the end of this lab where you can explore this further (if you have time). For now though, let's consider some other data streams on the robot, and how *these* could be used for closed-loop control instead. 
 
 ### The LiDAR Sensor
 
@@ -561,49 +398,74 @@ ros2 launch tuos_tb3_tools rviz.launch.py environment:=real
 
 The green dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of green dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the dots also move towards or away from the robot on the screen. 
 
-This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. This is, of course, a very valuable skill for a robot to have if we want it to be able to navigate autonomously, and we'll explore this further later on. For now though, we'll look at how we can use the LiDAR data ourselves to build Nodes that make the robot detect and follow walls!
+This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. There's lots of other ways we can use this data too though, and in the next exercise we will look at how we can use this as a feedback signal to make our robot detect and follow walls!
 
 Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**. 
 
-#### :material-pen: Exercise 3: Wall Following {#ex3}
+#### :material-pen: Exercise 2: Wall Following {#ex2}
 
-1. In VS Code, click on the `ex3.py` file in the File Explorer to display it in the editor.
+1. Head back to VS Code, which should still be open from earlier.
 
-1. Have a look through the code and see if you can work out what's going on. Here's a few points to start with:
+1. In the File Explorer on the left-hand side find a folder called `scripts`, and click on the `ex2.py` file in here, to display it in the editor.
 
-    1. Velocity control is handled in the same way as in the previous exercise:
+1. Have a look through the code and see if you can work out what's going on. There are a few things to be aware of:
 
-        1. To make the robot move at a linear velocity of `x` (m/s) and/or an angular velocity of `y` (rad/s):
+    1. **Motion control** is handled by an external Python class called `Motion`, which is imported on line 7 (along with another class called `Lidar` which we'll talk about shortly):
+
+        ```python
+        from amr31001_lab2_modules.tb3_tools import Motion, Lidar
+        ```
+
+        The `Motion` class is instantiated on line 14:
+
+        ```python
+        self.motion = Motion(self) # (1)!
+        ```
+
+        1. Most of the code in the `ex2.py` file is contained within a Python class called `WallFollower`. See line 9:
 
             ```py
-            self.motion.move_at_velocity(
-                linear = x, angular = y
-            )
+            class WallFollower(Node):
+                ...
             ```
 
-        1. To make the robot stop moving:
+            `#!py self` allows our class to refer to itself!
 
-            ```py
-            self.motion.stop()
-            ```
-    
-    1. The data from the LiDAR sensor has been preprocessed and encapsulated in a separate class (much like `Pose` in the previous exercise). This one is called `Lidar`, which is instantiated on line 15:
+            `#!py self.motion` for example allows us to access the `motion` attribute elsewhere within the class (as long as we refer to it as `#!py self.motion`). 
+
+            See this in action below...
+
+        A class *method* called `follow_wall()` contains the main bulk of the code, and it's here (on lines 49-51) that we call the `#!py self.motion` attribute to make the robot move at a linear velocity of `x` (m/s) and/or an angular velocity of `y` (rad/s):
+
+        ``` { .py .no-copy }
+        self.motion.move_at_velocity(
+            linear = x, angular = y
+        )
+        ```
+
+        A class method called `on_shutdown()` handles the shutdown operations that should take place when this Python node is stopped, and it's *here* (line 24) that we call the `#!py self.motion` object again, but this time to make the robot stop:
+
+        ``` { .py .no-copy }
+        self.motion.stop()
+        ```
+   
+    1. **Obtaining LiDAR data** (as discussed above) is achieved by subscribing to the `/scan` topic. What you *hopefully* identified just before starting this exercise is that the `/scan` topic provides us with LiDAR data in a format defined as `sensor_msgs/msg/LaserScan`. This is quite a complex data structure, so to make life easier during this lab, we've done all the hard work for you, inside another class called `Lidar` (also imported earlier). This class is instantiated on line 15:
 
         ```python
         self.lidar = Lidar(self)
         ```
 
-        This class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:
+        This `Lidar` class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:
 
         <figure markdown>
           ![](./lab2/lidar_segments.png){width=500px}
         </figure>
 
-        In the code, we can obtain the distance measurement (in meters) from each of the above zones as follows:
+        In our code, we can obtain the distance measurement (in meters) from each of the above zones as follows:
 
-        1. `self.lidar.distance.front` to obtain the average distance to any object(s) in front of the robot (within the frontal zone).
-        1. `self.lidar.distance.l1` to obtain the average distance to any object(s) located within LiDAR zone L1.
-        1. `self.lidar.distance.r1` to obtain the average distance to any object(s) located within LiDAR zone R1.  
+        1. `#!py self.lidar.distance.front` to obtain the average distance to any object(s) within the *"Front"* zone.
+        1. `#!py self.lidar.distance.l1` to obtain the average distance to any object(s) located within LiDAR zone *"L1"*.
+        1. `#!py self.lidar.distance.r1` to obtain the average distance to any object(s) located within LiDAR zone *"R1"*.  
             and so on...
     
     1. The code template has been developed to detect a wall on the robot's *left-hand side*.
@@ -627,7 +489,7 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
     ***
     **TERMINAL 3**:
     ```bash
-    ros2 run amr31001_lab2 ex3.py
+    ros2 run amr31001_lab2 ex2.py
     ```
     ***
 
@@ -637,16 +499,32 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
     1. The current value of the `wall_slope` parameter, i.e. how well aligned the robot currently is to a wall on its left-hand side.
     1. The decision that has been made by the `#!py if` statement on the appropriate action that should be taken, given the current value of `wall_slope`.
 
-1. Now look at the code. The *"main"* part of the code is once again controlled by a timer.
+1. Now look at the code. 
 
-    !!! info "Post-lab Quiz"
+    1. The `follow_wall()` class method is called over and over again at a controlled rate. This was established in the `#!py __init__()` class method: 
+    
+        ```py
+        self.create_timer(
+            timer_period_sec=0.1, # (1)!
+            callback=self.follow_wall, # (2)!
+        )
+        ```
 
-        * What is the name of the main control method in `ex3.py`?
-        * At what rate (in Hz) will this control method be executed?
+        1. The rate at which to execute a *"callback function"*. Note: defined in terms of *period* (in seconds), not *frequency* (in Hz).
+        2. The callback function to execute at the specified rate, i.e. `follow_wall()`.
+
+    1. The `follow_wall()` class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.
+
+        **It's this part of the code that you will need to modify!**
 
 1. **Adapting the code**:
 
     1. First, modify the `wall_slope` calculation so that the robot observes a wall on its *right-hand side* **NOT** its left. 
+
+    1. **Make sure that you save any changes to the code (in VS Code) before trying to test it out on the robot!**
+        
+            Do this by using the ++ctrl+s++ keyboard shortcut, or going to `File` > `Save` from the menu at the top of the screen.
+
     1. Next, place the robot on the floor with a wall on its right-hand side
     1. Manually vary the alignment of the robot and the wall and observe how the information that is being printed to the terminal changes as you do so.
         
@@ -734,9 +612,9 @@ $$
 
 This is what's referred to as a **"P" Controller**, and the only gain we need to establish here is therefore $K_{P}$.
 
-#### :material-pen: Exercise 4: Line Following {#ex4}
+#### :material-pen: Exercise 3: Line Following {#ex3}
 
-##### Part A: Establishing a Feedback Signal (Detecting the Line) {#ex4a}
+##### Part A: Establishing a Feedback Signal (Detecting the Line) {#ex3a}
 
 1. Launch RViz again in **TERMINAL 3**:
 
@@ -751,12 +629,12 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
 1. Place the robot in the arena so that line on the arena floor is visible in the robot's vision.
 
-1. Now, launch the `ex4_colour_detection.py` node in **TERMINAL 4**:
+1. Now, launch the `ex3_colour_detection.py` node in **TERMINAL 4**:
 
     ***
     **TERMINAL 4**:
     ```
-    ros2 run amr31001_lab2 ex4_colour_detection.py
+    ros2 run amr31001_lab2 ex3_colour_detection.py
     ```
     ***
 
@@ -776,15 +654,15 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
 1. Once you've done this, close the figure by clicking the :material-close-circle: icon in the top right corner, and also close the RViz window too. This should release **TERMINAL 3** and **TERMINAL 4**.
 
-##### Part B: Implementing Proportional Control (Following the Line) {#ex4b}
+##### Part B: Implementing Proportional Control (Following the Line) {#ex3b}
 
-1. In VS Code, click on the `ex4_line_following.py` file in the File Explorer to display it in the editor.
+1. In VS Code, click on the `ex3_line_following.py` file in the File Explorer to display it in the editor.
 
 1. Have a look through the code and see if you can work out what's going on. Here's a few points to start with:
 
-    1. Once again, velocity control is handled in the same way as the previous exercises, using the `#!py Motion()` class and calls to `#!py self.motion.move_at_velocity()` and `#!py self.motion.stop()` commands.
+    1. Once again, velocity control is handled in the same way as the previous exercise, using the `#!py Motion()` class and calls to `#!py self.motion.move_at_velocity()` and `#!py self.motion.stop()` commands.
     
-    1. The data from the robot's camera is once again handled by a separate class (much like `Pose` and `Lidar` in the previous exercises). This one (instantiated on line 15) is called `Camera`:
+    1. The data from the robot's camera is once again handled by a separate class (much like `Lidar` in the previous exercise). This one (instantiated on line 15) is called `Camera`:
 
         ```python
         self.camera = Camera(self)
@@ -792,7 +670,7 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
         We'll look at how to use this shortly...
     
-1. The *"main"* part of the code is once again controlled by a timer and a "callback" function. 
+1. The *"main"* part of the code is again controlled by a timer and a "callback" function. 
     
     !!! info "Post-lab Quiz"
 
@@ -804,7 +682,7 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     ***
     **TERMINAL 3**:
     ```
-    ros2 run amr31001_lab2 ex4_line_following.py
+    ros2 run amr31001_lab2 ex3_line_following.py
     ```
     ***
 
@@ -814,13 +692,13 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
 1. Stop the node with ++ctrl+c++.
 
-1. In VS Code, locate the line in the `ex4_line_following.py` file that reads:
+1. In VS Code, locate the line in the `ex3_line_following.py` file that reads:
 
     ``` { .py .no-copy }
     self.camera.colour_filter()
     ```
 
-    Into this, you can provide the Hue and Saturation ranges that you identified in [Part A](#ex4a):
+    Into this, you can provide the Hue and Saturation ranges that you identified in [Part A](#ex3a):
 
     ``` { .py .no-copy }
     self.camera.colour_filter(
@@ -839,7 +717,7 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
       ![](./lab2/line_following/line_filtered.png){width=400px}
     </figure>
 
-    If the line *isn't* successfully isolated then [go back to Part A](#ex4a) and run the `ex4_colour_detection.py` node again. 
+    If the line *isn't* successfully isolated then [go back to Part A](#ex3a) and run the `ex3_colour_detection.py` node again. 
 
 1. The robot is now able to locate the position of the line in its viewpoint, so we have now successfully established the **Feedback Signal** for our proportional controller. In the code, this can be accessed as follows:
 
@@ -880,6 +758,129 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
 
     !!! info "Post-lab"
         As discussed above, your completion of this exercise will be assessed as part of the post-lab!
+
+If you're all done with time to spare then move on to Exercise 4 below. If you don't have time then please head down to the [Wrapping Up](#wrapping-up) section.
+
+#### :material-pen: (Optional) Exercise 4: Odometry-based Navigation {#ex4}
+
+From our work in [Exercise 1](#ex1) we know about the robot's odometry system and what it tells us, let's see how this could be used as a feedback signal to inform robot navigation. You may recall that when you were last here for [Lab 1](lab1.md) you created a ROS Node to make your robot to follow a square motion path on the floor. This was time-based though: for a given speed of motion (turning or moving forwards) how long would it take for the robot to move by a required distance? Having determined this, we then used timers to control the execution of two different motion states: moving forwards and turning on the spot, in order to generate the square motion path (approximately). 
+
+In theory though, we can do all this much more effectively with odometry data instead, so let's have a go at that now...
+
+1. Head back to VS Code and open up the `ex4.py` file in the editor.
+
+1. Have a look through the code and see if you can work out what's going on. Here's a few points to start with:
+
+    1. Velocity control is handled in the same way as in the previous exercise:
+
+        1. To make the robot move at a linear velocity of `x` (m/s) and/or an angular velocity of `y` (rad/s):
+
+            ```py
+            self.motion.move_at_velocity(
+                linear = x, angular = y
+            )
+            ```
+
+        1. To make the robot stop moving:
+
+            ```py
+            self.motion.stop()
+            ```
+
+    1. Obtaining the robot's Odometry data is once again handled by a separate Python Class much like `Lidar` and `Camera` in the previous exercises. This one is called `Pose`, and is instantiated on line 16:
+
+        ```python
+        self.pose = Pose(self)
+        ```
+
+        We can then call the `#!py self.pose` object to access the robot's odometry data, by calling the appropriate attribute whenever we need it:
+
+        1. `#!py self.pose.posx` to obtain the robot's current position (in meters) in the `X` axis.
+        1. `#!py self.pose.posy` to obtain the robot's current position (in meters) in the `Y` axis.
+        1. `#!py self.pose.yaw` to obtain the robot's current orientation (in degrees) about the `Z` axis.
+
+1. Run the code in **TERMINAL 3** and observe what happens:
+
+    ***
+    **TERMINAL 3**:
+    ```bash
+    ros2 run amr31001_lab2 ex4.py
+    ```
+    ***
+
+    The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45&deg; the robot should stop. 
+
+1. Stop the Node by entering ++ctrl+c++ in **TERMINAL 3** and then run it again if you missed what happened the first time!
+
+1. **What you need to do**:
+
+    1. The *"main"* part of the code is once again controlled by a timer: 
+    
+        ```py
+        self.create_timer(
+            timer_period_sec=0.05,
+            callback=self.move_square,
+        )
+        ```
+
+    1. The `move_square()` class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.
+
+        Within this there is an `#!py if` statement that controls whether the robot should be turning or moving forwards: 
+    
+        ```python
+        if self.turn:
+            # Turning State
+            ...
+        else:
+            # Moving Forwards 
+            ...
+        ```
+
+        ... where `#!py self.turn` is a boolean whose value can either be `#!py True` or `#!py False`.
+        
+    1. Within this, look at what happens in the `Turning State`. Consider how the robot's yaw angle is being monitored and updated as the robot turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make sure the robot turns by 90&deg;.
+
+    1. Ultimately, after the robot has turned by the desired angle it needs to move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.
+        
+        Moving forwards is handled in the `Moving Forwards` state.
+
+        See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a>
+        
+        ??? note "Hint"
+            Consider how the turn angle is monitored and updated whist turning (`current_yaw`), and take a similar approach with the linear displacement (`current_distance`). Bear in mind that you'll need to consider the *euclidean distance*, which you'll need to calculate based on the robot's position in both the `x` and `y` axis.
+        
+            <figure markdown>
+              ![](./lab2/euclidean_distance.png){width=500px}
+            </figure>
+
+        ??? tip "Python Tips"
+
+            You'll need to do a bit of maths here (see [the "Hint" above](#the_hint)). Here's how to implement a couple of mathematical functions in Python:
+
+            1. **To the power of X**: 
+                
+                Use `**` to raise a number to the power of another number (i.e. $2^{3}$):
+
+                ```py
+                >>> 2**3
+                8
+                ``` 
+
+                Or, use the `#!py pow()` method:
+
+                ```py
+                >>> pow(2, 3)
+                8
+                ```
+
+            1. **Square Root**: 
+                
+                To calculate the square root of a number (i.e. $\sqrt{4}$):
+
+                ```py
+                >>> sqrt(4)
+                2.0 
+                ```        
 
 ## Wrapping Up
 

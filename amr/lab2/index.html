@@ -2060,10 +2060,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ex2" class="md-nav__link">
+  <a href="#odometry-based-navigation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Odometry-based Navigation
+        Odometry-based Navigation
       
     </span>
   </a>
@@ -2088,10 +2088,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ex3" class="md-nav__link">
+  <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Wall Following
+        Exercise 2: Wall Following
       
     </span>
   </a>
@@ -2116,19 +2116,19 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ex4" class="md-nav__link">
+  <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Line Following
+        Exercise 3: Line Following
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 4: Line Following">
+    <nav class="md-nav" aria-label="Exercise 3: Line Following">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ex4a" class="md-nav__link">
+  <a href="#ex3a" class="md-nav__link">
     <span class="md-ellipsis">
       
         Part A: Establishing a Feedback Signal (Detecting the Line)
@@ -2139,7 +2139,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ex4b" class="md-nav__link">
+  <a href="#ex3b" class="md-nav__link">
     <span class="md-ellipsis">
       
         Part B: Implementing Proportional Control (Following the Line)
@@ -2151,6 +2151,17 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (Optional) Exercise 4: Odometry-based Navigation
+      
+    </span>
+  </a>
   
 </li>
         
@@ -2581,10 +2592,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ex2" class="md-nav__link">
+  <a href="#odometry-based-navigation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Odometry-based Navigation
+        Odometry-based Navigation
       
     </span>
   </a>
@@ -2609,10 +2620,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ex3" class="md-nav__link">
+  <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Wall Following
+        Exercise 2: Wall Following
       
     </span>
   </a>
@@ -2637,19 +2648,19 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ex4" class="md-nav__link">
+  <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Line Following
+        Exercise 3: Line Following
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 4: Line Following">
+    <nav class="md-nav" aria-label="Exercise 3: Line Following">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ex4a" class="md-nav__link">
+  <a href="#ex3a" class="md-nav__link">
     <span class="md-ellipsis">
       
         Part A: Establishing a Feedback Signal (Detecting the Line)
@@ -2660,7 +2671,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ex4b" class="md-nav__link">
+  <a href="#ex3b" class="md-nav__link">
     <span class="md-ellipsis">
       
         Part B: Implementing Proportional Control (Following the Line)
@@ -2672,6 +2683,17 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (Optional) Exercise 4: Odometry-based Navigation
+      
+    </span>
+  </a>
   
 </li>
         
@@ -2732,7 +2754,7 @@
   <h1>Lab 2: Feedback Control</h1>
 
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>In Lab 1 we explored how ROS works and how to bring a robot to life. Let's quickly recap the key points:</p>
+<p>In Lab 1 we explored how ROS 2 works and how to use this framework to bring a robot to life. Let's quickly recap the key points:</p>
 <p><strong>Nodes</strong></p>
 <ul>
 <li>Are executable programs (Python, C++ scripts) that perform specific robot tasks and operations.</li>
@@ -2743,17 +2765,17 @@
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_network.png" width="500px"></a></p>
 </figure>
-<p><strong>Topics and Message interfaces</strong></p>
+<p><strong>Topics and Message Interfaces</strong></p>
 <ul>
-<li>All the ROS Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.</li>
-<li>ROS Topics are key to this - they are essentially the communication channels (or the plumbing) on which all data is passed around between the nodes.</li>
+<li>All Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.</li>
+<li>ROS Topics are key to this - they are essentially the communication channels (or the plumbing) through which all data is passed around between nodes.</li>
 <li>Different topics communicate different types of information using standardised data structures (called <em>"Message Interfaces"</em>).</li>
 <li>Any Node can publish (<em>write</em>) and/or subscribe to (<em>read</em>) any ROS Topic in order to pass information around or make things happen.</li>
 </ul>
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_comms.png" width="500px"></a></p>
 </figure>
-<p>One of the key ROS Topics that we worked with last time was <code>/cmd_vel</code>, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move, we publish <code>TwistStamped</code> <em>Interface Messages</em> to the <code>/cmd_vel</code> topic. Interfaces messages are <em>structured data types</em> defined in ROS, and we will remind ourselves about the structure of the <code>TwistStamped</code> data type shortly...</p>
+<p>One of the key ROS Topics that we worked with last time was <code>/cmd_vel</code>, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move we publish <code>TwistStamped</code> <em>Interface Messages</em> to the <code>/cmd_vel</code> topic. Interfaces messages are <em>structured data types</em> defined in ROS, and we will remind ourselves about the structure of the <code>TwistStamped</code> data type shortly...</p>
 <p><strong>Open-Loop Control</strong></p>
 <p>We used a time-based method to control the motion of our robot in order to get it to generate a square motion path. This type of control is <em>open-loop</em>: we hoped that the robot had moved (or turned) by the amount that was required, but had no <em>feedback</em> to tell us whether this had actually been achieved.</p>
 <p><strong>Closed-Loop Control</strong></p>
@@ -2764,16 +2786,16 @@
 <p>By the end of this session you will be able to:</p>
 <ol>
 <li>Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.</li>
-<li>Use feedback from a robot's odometry system to <em>control</em> its position in an environment.</li>
 <li>Use data from a Robot's LiDAR sensor to make a robot follow a wall.</li>
 <li>Analyse images from a Robot's Camera and use this information to follow a coloured line on the floor.</li>
+<li>(Optional) Use feedback from a robot's odometry system to <em>control</em> its position in an environment.</li>
 </ol>
 <h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
 <ul>
 <li><a href="#ex1">Exercise 1: Exploring Odometry Data</a></li>
-<li><a href="#ex2">Exercise 2: Odometry-based Navigation</a></li>
-<li><a href="#ex3">Exercise 3: Wall Following</a></li>
-<li><a href="#ex4">Exercise 4: Line Following</a></li>
+<li><a href="#ex2">Exercise 2: Wall Following</a></li>
+<li><a href="#ex3">Exercise 3: Line Following</a></li>
+<li><a href="#ex4">(Optional) Exercise 4: Odometry-based Navigation</a></li>
 </ul>
 <h2 id="the-lab">The Lab<a class="headerlink" href="#the-lab" title="Permanent link">¶</a></h2>
 <div class="admonition info">
@@ -2781,7 +2803,7 @@
 <p>This lab is <strong>summatively assessed</strong>.</p>
 <ol>
 <li>There's a <strong>post-lab quiz</strong> that you'll need to complete after this lab session has taken place, which will be released on Blackboard.</li>
-<li>You'll also be marked on the work that you do <strong>in the lab</strong> for Exercises 3 &amp; 4.</li>
+<li>You'll also be marked on the work that you do <strong>in the lab</strong> for Exercises 2 &amp; 3.</li>
 </ol>
 </div>
 <h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h3>
@@ -2913,7 +2935,7 @@
 </li>
 </ol>
 <h3 id="odometry">Odometry<a class="headerlink" href="#odometry" title="Permanent link">¶</a></h3>
-<p>First, let's look at our robot's <em>odometry</em> system, and what this is useful for.</p>
+<p>To start with we will consider a robot's <em>odometry</em> system, and what this is useful for.</p>
 <blockquote>
 <p>Odometry is the use of data from motion sensors to estimate change in position over time. It is used in robotics by some legged or wheeled robots to estimate their position relative to a starting location. <sup id="fnref:wiki"><a class="footnote-ref" href="#fn:wiki">1</a></sup></p>
 </blockquote>
@@ -2924,7 +2946,7 @@
 </ol>
 <p>This data is published to a ROS Topic called <code>/odom</code>. </p>
 <h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Exploring Odometry Data<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
-<p>In the previous lab we used some ROS commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the <code>/odom</code> topic this time.</p>
+<p>In the previous lab we used some <code>ros2</code> commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the <code>/odom</code> topic this time.</p>
 <ol>
 <li>
 <p>Open up a new terminal instance on the laptop (by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, or clicking the Terminal App desktop icon, as you did before). We’ll call this one <strong>TERMINAL 3</strong>.</p>
@@ -3038,9 +3060,28 @@
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/pose.svg" width="700px"></a></p>
 </figure>
-<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Odometry-based Navigation<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
-<p>Now that we know about the odometry system and what it tells us, let's see how this could be used as a feedback signal to inform robot navigation. You may recall that last time you created a ROS Node to make your robot to follow a square motion path on the floor. This was time-based though: for a given speed of motion (turning or moving forwards) how long would it take for the robot to move by a required distance? Having determined this, we then used timers to control the execution of two different motion states: moving forwards and turning on the spot, in order to generate the square motion path (approximately). </p>
-<p>In theory though, we can do all this much more effectively with odometry data instead, so let's have a go at that now...</p>
+<h4 id="odometry-based-navigation">Odometry-based Navigation<a class="headerlink" href="#odometry-based-navigation" title="Permanent link">¶</a></h4>
+<p>We can use our robot's odometry as a feedback signal to inform robot navigation and thus implement <strong>closed-loop control</strong>. There's a final (optional) exercise at the end of this lab where you can explore this further (if you have time). For now though, let's consider some other data streams on the robot, and how <em>these</em> could be used for closed-loop control instead. </p>
+<h3 id="the-lidar-sensor">The LiDAR Sensor<a class="headerlink" href="#the-lidar-sensor" title="Permanent link">¶</a></h3>
+<p>As you'll know, the black spinning device on the top of your robot is a <em>LiDAR Sensor</em>. As discussed previously, this sensor uses laser pulses to measure the distance to nearby objects. The sensor spins continuously so that it can fire these laser pulses through a full 360° arc, and generate a full 2-dimensional map of the robot's surroundings.</p>
+<p>This data is published onto the ROS network to a topic called <code>/scan</code>. Use the same methods that you used in <a href="#ex1">Exercise 1</a> to find out what data type (<em>"interface"</em>) this topic uses.</p>
+<div class="admonition info">
+<p class="admonition-title">Post-lab Quiz</p>
+<p>Make a note of this, there'll be a post-lab quiz question on it!</p>
+</div>
+<p>Launch RViz, so that we can see the data coming from this sensor in real-time:</p>
+<hr>
+<p><strong>TERMINAL 3</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
+</code></pre></div><p></p>
+<hr>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/real_rviz_vs_arena.png" width="700px"></a></p>
+</figure>
+<p>The green dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of green dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the dots also move towards or away from the robot on the screen. </p>
+<p>This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. There's lots of other ways we can use this data too though, and in the next exercise we will look at how we can use this as a feedback signal to make our robot detect and follow walls!</p>
+<p>Once you're done, close down RViz by hitting <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong>. </p>
+<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Wall Following<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
 <ol>
 <li>
 <p>Head back to VS Code, which should still be open from earlier.</p>
@@ -3052,204 +3093,45 @@
 <p>Have a look through the code and see if you can work out what's going on. There are a few things to be aware of:</p>
 <ol>
 <li>
-<p>Motion control is handled by an external Python class called <code>Motion</code>, which is imported on line 7 (along with another class called <code>Pose</code> which we'll talk about shortly):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">amr31001_lab2_modules.tb3_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Motion</span><span class="p">,</span> <span class="n">Pose</span>
+<p><strong>Motion control</strong> is handled by an external Python class called <code>Motion</code>, which is imported on line 7 (along with another class called <code>Lidar</code> which we'll talk about shortly):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">amr31001_lab2_modules.tb3_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Motion</span><span class="p">,</span> <span class="n">Lidar</span>
 </code></pre></div>
-<p>The <code>Motion</code> class is instantiated on line 15:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span> <span class="o">=</span> <span class="n">Motion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># (1)!</span>
+<p>The <code>Motion</code> class is instantiated on line 14:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span> <span class="o">=</span> <span class="n">Motion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># (1)!</span>
 </code></pre></div>
 <ol>
 <li>
-<p>Most of the code in the <code>ex2.py</code> file is contained within a Python class called <code>Square</code>. See line 10:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Square</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="o">...</span>
+<p>Most of the code in the <code>ex2.py</code> file is contained within a Python class called <code>WallFollower</code>. See line 9:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">WallFollower</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="o">...</span>
 </code></pre></div>
 <p><code class="highlight"><span class="bp">self</span></code> allows our class to refer to itself!</p>
 <p><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> for example allows us to access the <code>motion</code> attribute elsewhere within the class (as long as we refer to it as <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code>). </p>
 <p>See this in action below...</p>
 </li>
 </ol>
-<p>A class <em>method</em> called <code>move_square()</code> contains the main part of the code, and it's here that we call the <code>motion</code> attribute to make the robot move, e.g.:</p>
-<ol>
-<li>
-<p>To make the robot move at a linear velocity of <code>x</code> (m/s) and/or an angular velocity of <code>y</code> (rad/s):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">(</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">linear</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">angular</span> <span class="o">=</span> <span class="n">y</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">)</span>
+<p>A class <em>method</em> called <code>follow_wall()</code> contains the main bulk of the code, and it's here (on lines 49-51) that we call the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> attribute to make the robot move at a linear velocity of <code>x</code> (m/s) and/or an angular velocity of <code>y</code> (rad/s):</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">(</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="n">linear</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">angular</span> <span class="o">=</span> <span class="n">y</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">)</span>
+</code></pre></div>
+<p>A class method called <code>on_shutdown()</code> handles the shutdown operations that should take place when this Python node is stopped, and it's <em>here</em> (line 24) that we call the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> object again, but this time to make the robot stop:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre></div>
 </li>
 <li>
-<p>To make the robot stop moving:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<p><strong>Obtaining LiDAR data</strong> (as discussed above) is achieved by subscribing to the <code>/scan</code> topic. What you <em>hopefully</em> identified just before starting this exercise is that the <code>/scan</code> topic provides us with LiDAR data in a format defined as <code>sensor_msgs/msg/LaserScan</code>. This is quite a complex data structure, so to make life easier during this lab, we've done all the hard work for you, inside another class called <code>Lidar</code> (also imported earlier). This class is instantiated on line 15:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span> <span class="o">=</span> <span class="n">Lidar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
-</li>
-</ol>
-</li>
-<li>
-<p>Obtaining our robot's Odometry data was discussed in the previous exercise, where we learnt that can be done by subscribing to the <code>/odom</code> topic, which provides us with this data in a <code>nav_msgs/msg/Odometry</code>-type format. This is quite a complex data structure, so to make life easier during this lab, we've done all the hard work for you, inside another class called <code>Pose</code> (also imported earlier). This class is instantiated on line 16:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</code></pre></div>
-<p>We can then use this to access the robot's odometry data, by calling the appropriate attribute whenever we need it:</p>
-<ol>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posx</span></code> to obtain the robot's current position (in meters) in the <code>X</code> axis.</li>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posy</span></code> to obtain the robot's current position (in meters) in the <code>Y</code> axis.</li>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">yaw</span></code> to obtain the robot's current orientation (in degrees) about the <code>Z</code> axis.</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<p>Run the code in <strong>TERMINAL 3</strong> and observe what happens:</p>
-<hr>
-<p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex2.py
-</code></pre></div><p></p>
-<hr>
-<p>The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45° the robot should stop. </p>
-</li>
-<li>
-<p>Stop the Node by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> and then run it again if you missed what happened the first time!</p>
-</li>
-<li>
-<p><strong>What you need to do</strong>:</p>
-<ol>
-<li>
-<p>The <code>move_square()</code> class method is called over and over again at a controlled rate. This was established in the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code> class method: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">timer_period_sec</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="c1"># (1)!</span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">move_square</span><span class="p">,</span> <span class="c1"># (2)!</span>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="p">)</span>
-</code></pre></div>
-<ol>
-<li>The rate at which to execute a <em>"callback function"</em>. Note: defined in terms of <em>period</em> (in seconds), not <em>frequency</em> (in Hz).</li>
-<li>The callback function to execute at the specified rate, i.e. <code>move_square()</code>.</li>
-</ol>
-</li>
-<li>
-<p>The <code>move_square()</code> class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.</p>
-<p><strong>It's this part of the code that you will need to modify!</strong></p>
-<p>Within this there is an <code class="highlight"><span class="k">if</span></code> statement that controls whether the robot should be turning or moving forwards: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn</span><span class="p">:</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="c1"># Turning State</span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="o">...</span>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    <span class="c1"># Moving Forwards </span>
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    <span class="o">...</span>
-</code></pre></div>
-<p>... where <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">turn</span></code> is a boolean whose value can either be <code class="highlight"><span class="kc">True</span></code> or <code class="highlight"><span class="kc">False</span></code>.</p>
-</li>
-<li>
-<p>Within this, look at what happens in the <code>Turning State</code>. Consider how the robot's yaw angle is being monitored and updated as the robot turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make sure the robot turns by 90°.</p>
-</li>
-<li>
-<p>Ultimately, after the robot has turned by the desired angle it needs to move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.</p>
-<p>Moving forwards is handled in the <code>Moving Forwards</code> state.</p>
-<p>See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a></p>
-<details class="note">
-<summary>Hint</summary>
-<p>Consider how the turn angle is monitored and updated whist turning (<code>current_yaw</code>), and take a similar approach with the linear displacement (<code>current_distance</code>). Bear in mind that you'll need to consider the <em>euclidean distance</em>, which you'll need to calculate based on the robot's position in both the <code>x</code> and <code>y</code> axis.</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="euclidean_distance.png" width="500px"></a>
-</figure><p></p>
-</details>
-</li>
-<li>
-<p><strong>Make sure that you've saved any changes to the code (in VS Code) before trying to test it out on the robot!</strong></p>
-<p>Do this by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span> keyboard shortcut, or going to <code>File</code> &gt; <code>Save</code> from the menu at the top of the screen.</p>
-</li>
-<li>
-<p>Once you've saved it, you can re-run the code at any time by using the same <code>ros2 run</code> command as before:</p>
-<hr>
-<p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex2.py
-</code></pre></div><p></p>
-<hr>
-<p>... and you can stop it at any time by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in the terminal.</p>
-<details class="tip">
-<summary>Python Tips</summary>
-<p>You'll need to do a bit of maths here (see <a href="#the_hint">the "Hint" above</a>). Here's how to implement a couple of mathematical functions in Python:</p>
-<ol>
-<li>
-<p><strong>To the power of X</strong>: </p>
-<p>Use <code>**</code> to raise a number to the power of another number (i.e. <span class="arithmatex">\(2^{3}\)</span>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="mi">8</span>
-</code></pre></div>
-<p>Or, use the <code class="highlight"><span class="nb">pow</span><span class="p">()</span></code> method:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="mi">8</span>
-</code></pre></div>
-</li>
-<li>
-<p><strong>Square Root</strong>: </p>
-<p>To calculate the square root of a number (i.e. <span class="arithmatex">\(\sqrt{4}\)</span>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="mf">2.0</span> 
-</code></pre></div>
-</li>
-</ol>
-</details>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="the-lidar-sensor">The LiDAR Sensor<a class="headerlink" href="#the-lidar-sensor" title="Permanent link">¶</a></h3>
-<p>As you'll know, the black spinning device on the top of your robot is a <em>LiDAR Sensor</em>. As discussed previously, this sensor uses laser pulses to measure the distance to nearby objects. The sensor spins continuously so that it can fire these laser pulses through a full 360° arc, and generate a full 2-dimensional map of the robot's surroundings.</p>
-<p>This data is published onto the ROS network to a topic called <code>/scan</code>. Use the same methods that you used in <a href="#ex1">Exercise 1</a> to find out what data type (<em>"interface"</em>) this topic uses.</p>
-<div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
-<p>Make a note of this, there'll be a post-lab quiz question on it!</p>
-</div>
-<p>Launch RViz, so that we can see the data coming from this sensor in real-time:</p>
-<hr>
-<p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
-</code></pre></div><p></p>
-<hr>
-<figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/real_rviz_vs_arena.png" width="700px"></a></p>
-</figure>
-<p>The green dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of green dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the dots also move towards or away from the robot on the screen. </p>
-<p>This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. This is, of course, a very valuable skill for a robot to have if we want it to be able to navigate autonomously, and we'll explore this further later on. For now though, we'll look at how we can use the LiDAR data ourselves to build Nodes that make the robot detect and follow walls!</p>
-<p>Once you're done, close down RViz by hitting <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong>. </p>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Wall Following<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
-<ol>
-<li>
-<p>In VS Code, click on the <code>ex3.py</code> file in the File Explorer to display it in the editor.</p>
-</li>
-<li>
-<p>Have a look through the code and see if you can work out what's going on. Here's a few points to start with:</p>
-<ol>
-<li>
-<p>Velocity control is handled in the same way as in the previous exercise:</p>
-<ol>
-<li>
-<p>To make the robot move at a linear velocity of <code>x</code> (m/s) and/or an angular velocity of <code>y</code> (rad/s):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">(</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>    <span class="n">linear</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">angular</span> <span class="o">=</span> <span class="n">y</span>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="p">)</span>
-</code></pre></div>
-</li>
-<li>
-<p>To make the robot stop moving:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-</code></pre></div>
-</li>
-</ol>
-</li>
-<li>
-<p>The data from the LiDAR sensor has been preprocessed and encapsulated in a separate class (much like <code>Pose</code> in the previous exercise). This one is called <code>Lidar</code>, which is instantiated on line 15:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span> <span class="o">=</span> <span class="n">Lidar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</code></pre></div>
-<p>This class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:</p>
+<p>This <code>Lidar</code> class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="lidar_segments.png" width="500px"></a>
 </figure><p></p>
-<p>In the code, we can obtain the distance measurement (in meters) from each of the above zones as follows:</p>
+<p>In our code, we can obtain the distance measurement (in meters) from each of the above zones as follows:</p>
 <ol>
-<li><code>self.lidar.distance.front</code> to obtain the average distance to any object(s) in front of the robot (within the frontal zone).</li>
-<li><code>self.lidar.distance.l1</code> to obtain the average distance to any object(s) located within LiDAR zone L1.</li>
-<li><code>self.lidar.distance.r1</code> to obtain the average distance to any object(s) located within LiDAR zone R1.<br>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">front</span></code> to obtain the average distance to any object(s) within the <em>"Front"</em> zone.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l1</span></code> to obtain the average distance to any object(s) located within LiDAR zone <em>"L1"</em>.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">r1</span></code> to obtain the average distance to any object(s) located within LiDAR zone <em>"R1"</em>.<br>
     and so on...</li>
 </ol>
 </li>
@@ -3259,7 +3141,7 @@
 <li>We use distance measurements from LiDAR zones L3 and L4 to determine the alignment of the robot to a left-hand wall.</li>
 <li>
 <p>This is determined by calculating the difference between the distance measurements reported from these two zones:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">wall_slope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l4</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">wall_slope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l4</span>
 </code></pre></div>
 </li>
 <li>
@@ -3277,7 +3159,7 @@
 <p>Run the node as it is, from <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex3.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex2.py
 </code></pre></div><p></p>
 <hr>
 <p>When you do this, you'll notice that the robot doesn't move at all (yet!), but the following data appears in the terminal:</p>
@@ -3288,20 +3170,40 @@
 </ol>
 </li>
 <li>
-<p>Now look at the code. The <em>"main"</em> part of the code is once again controlled by a timer.</p>
-<div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
-<ul>
-<li>What is the name of the main control method in <code>ex3.py</code>?</li>
-<li>At what rate (in Hz) will this control method be executed?</li>
-</ul>
-</div>
+<p>Now look at the code. </p>
+<ol>
+<li>
+<p>The <code>follow_wall()</code> class method is called over and over again at a controlled rate. This was established in the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code> class method: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">timer_period_sec</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="c1"># (1)!</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">follow_wall</span><span class="p">,</span> <span class="c1"># (2)!</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>The rate at which to execute a <em>"callback function"</em>. Note: defined in terms of <em>period</em> (in seconds), not <em>frequency</em> (in Hz).</li>
+<li>The callback function to execute at the specified rate, i.e. <code>follow_wall()</code>.</li>
+</ol>
+</li>
+<li>
+<p>The <code>follow_wall()</code> class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.</p>
+<p><strong>It's this part of the code that you will need to modify!</strong></p>
+</li>
+</ol>
 </li>
 <li>
 <p><strong>Adapting the code</strong>:</p>
 <ol>
-<li>First, modify the <code>wall_slope</code> calculation so that the robot observes a wall on its <em>right-hand side</em> <strong>NOT</strong> its left. </li>
-<li>Next, place the robot on the floor with a wall on its right-hand side</li>
+<li>
+<p>First, modify the <code>wall_slope</code> calculation so that the robot observes a wall on its <em>right-hand side</em> <strong>NOT</strong> its left. </p>
+</li>
+<li>
+<p><strong>Make sure that you save any changes to the code (in VS Code) before trying to test it out on the robot!</strong></p>
+<div class="highlight"><pre><span></span><code>Do this by using the ++ctrl+s++ keyboard shortcut, or going to `File` &gt; `Save` from the menu at the top of the screen.
+</code></pre></div>
+</li>
+<li>
+<p>Next, place the robot on the floor with a wall on its right-hand side</p>
+</li>
 <li>
 <p>Manually vary the alignment of the robot and the wall and observe how the information that is being printed to the terminal changes as you do so.</p>
 <div class="admonition note">
@@ -3314,7 +3216,7 @@
 <ul>
 <li>
 <p>You'll need to set a constant <em>linear</em> velocity, so that the robot is always moving forwards. Set an appropriate value for this now, by editing the line that currently reads:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">lin_vel</span> <span class="o">=</span> <span class="mf">0.0</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">lin_vel</span> <span class="o">=</span> <span class="mf">0.0</span>
 </code></pre></div>
 </li>
 <li>
@@ -3335,22 +3237,22 @@
 <li>You may need to consider the distance measurements from some other LiDAR zones!</li>
 <li>
 <p>The <code>ex3.py</code> template that was provided to you uses an <code>if</code> statement with three different cases:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>
-<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="k">else</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="k">else</span><span class="p">:</span>
 </code></pre></div>
 <p>You may need to add in some further cases to this to accommodate the additional situations discussed above, e.g.:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>
-<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>
-<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
-<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>
-<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="k">else</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="k">else</span><span class="p">:</span>
 </code></pre></div>
 </li>
 </ol>
@@ -3381,14 +3283,14 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 u(t)=K_{P} e(t)
 \]</div>
 <p>This is what's referred to as a <strong>"P" Controller</strong>, and the only gain we need to establish here is therefore <span class="arithmatex">\(K_{P}\)</span>.</p>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Line Following<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<h5 id="ex4a">Part A: Establishing a Feedback Signal (Detecting the Line)<a class="headerlink" href="#ex4a" title="Permanent link">¶</a></h5>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Line Following<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<h5 id="ex3a">Part A: Establishing a Feedback Signal (Detecting the Line)<a class="headerlink" href="#ex3a" title="Permanent link">¶</a></h5>
 <ol>
 <li>
 <p>Launch RViz again in <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
 </code></pre></div><p></p>
 <hr>
 </li>
@@ -3399,10 +3301,10 @@ u(t)=K_{P} e(t)
 <p>Place the robot in the arena so that line on the arena floor is visible in the robot's vision.</p>
 </li>
 <li>
-<p>Now, launch the <code>ex4_colour_detection.py</code> node in <strong>TERMINAL 4</strong>:</p>
+<p>Now, launch the <code>ex3_colour_detection.py</code> node in <strong>TERMINAL 4</strong>:</p>
 <hr>
 <p><strong>TERMINAL 4</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2 run amr31001_lab2 ex4_colour_detection.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ros2 run amr31001_lab2 ex3_colour_detection.py
 </code></pre></div><p></p>
 <hr>
 <p>After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.</p>
@@ -3421,27 +3323,27 @@ u(t)=K_{P} e(t)
 <p>Once you've done this, close the figure by clicking the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"></path></svg></span> icon in the top right corner, and also close the RViz window too. This should release <strong>TERMINAL 3</strong> and <strong>TERMINAL 4</strong>.</p>
 </li>
 </ol>
-<h5 id="ex4b">Part B: Implementing Proportional Control (Following the Line)<a class="headerlink" href="#ex4b" title="Permanent link">¶</a></h5>
+<h5 id="ex3b">Part B: Implementing Proportional Control (Following the Line)<a class="headerlink" href="#ex3b" title="Permanent link">¶</a></h5>
 <ol>
 <li>
-<p>In VS Code, click on the <code>ex4_line_following.py</code> file in the File Explorer to display it in the editor.</p>
+<p>In VS Code, click on the <code>ex3_line_following.py</code> file in the File Explorer to display it in the editor.</p>
 </li>
 <li>
 <p>Have a look through the code and see if you can work out what's going on. Here's a few points to start with:</p>
 <ol>
 <li>
-<p>Once again, velocity control is handled in the same way as the previous exercises, using the <code class="highlight"><span class="n">Motion</span><span class="p">()</span></code> class and calls to <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">()</span></code> and <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></code> commands.</p>
+<p>Once again, velocity control is handled in the same way as the previous exercise, using the <code class="highlight"><span class="n">Motion</span><span class="p">()</span></code> class and calls to <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">()</span></code> and <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></code> commands.</p>
 </li>
 <li>
-<p>The data from the robot's camera is once again handled by a separate class (much like <code>Pose</code> and <code>Lidar</code> in the previous exercises). This one (instantiated on line 15) is called <code>Camera</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<p>The data from the robot's camera is once again handled by a separate class (much like <code>Lidar</code> in the previous exercise). This one (instantiated on line 15) is called <code>Camera</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
 <p>We'll look at how to use this shortly...</p>
 </li>
 </ol>
 </li>
 <li>
-<p>The <em>"main"</em> part of the code is once again controlled by a timer and a "callback" function. </p>
+<p>The <em>"main"</em> part of the code is again controlled by a timer and a "callback" function. </p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab Quiz</p>
 <ul>
@@ -3454,7 +3356,7 @@ u(t)=K_{P} e(t)
 <p>Run the node as it is, from <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2 run amr31001_lab2 ex4_line_following.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ros2 run amr31001_lab2 ex3_line_following.py
 </code></pre></div><p></p>
 <hr>
 <p>To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera. You should also see a small blue circle hovering around somewhere in the image too.</p>
@@ -3464,14 +3366,14 @@ u(t)=K_{P} e(t)
 <p>Stop the node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
 </li>
 <li>
-<p>In VS Code, locate the line in the <code>ex4_line_following.py</code> file that reads:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">()</span>
+<p>In VS Code, locate the line in the <code>ex3_line_following.py</code> file that reads:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">()</span>
 </code></pre></div>
-<p>Into this, you can provide the Hue and Saturation ranges that you identified in <a href="#ex4a">Part A</a>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">(</span>
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">],</span>
-<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="n">saturation</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">]</span>
-<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="p">)</span>
+<p>Into this, you can provide the Hue and Saturation ranges that you identified in <a href="#ex3a">Part A</a>:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">(</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">],</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">saturation</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">]</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="p">)</span>
 </code></pre></div>
 <p>Replace <code>MIN</code> and <code>MAX</code> with your upper and lower hue and saturation values.</p>
 </li>
@@ -3481,19 +3383,19 @@ u(t)=K_{P} e(t)
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/line_filtered.png" width="400px"></a>
 </figure><p></p>
-<p>If the line <em>isn't</em> successfully isolated then <a href="#ex4a">go back to Part A</a> and run the <code>ex4_colour_detection.py</code> node again. </p>
+<p>If the line <em>isn't</em> successfully isolated then <a href="#ex3a">go back to Part A</a> and run the <code>ex3_colour_detection.py</code> node again. </p>
 </li>
 <li>
 <p>The robot is now able to locate the position of the line in its viewpoint, so we have now successfully established the <strong>Feedback Signal</strong> for our proportional controller. In the code, this can be accessed as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span>
 </code></pre></div>
 <p>Consider the figure from above, once again:</p>
 <p></p><figure markdown>
   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="500px"></a>
 </figure><p></p>
 <p>In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">image_width</span> <span class="o">/</span> <span class="mi">2</span>
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="n">error</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># TODO</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">image_width</span> <span class="o">/</span> <span class="mi">2</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="n">error</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># TODO</span>
 </code></pre></div>
 <p>... and edit the <code class="highlight"><span class="n">error</span> <span class="o">=</span> <span class="o">...</span></code> line to correctly calculate the robot's positional error based on the real-time position of the line in its view point (<code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span></code>).</p>
 </li>
@@ -3503,7 +3405,7 @@ u(t)=K_{P} e(t)
 u(t)=K_{P} e(t)
 \]</div>
 <p>This is reflected in the code by the line that reads:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
 </code></pre></div>
 <p>Modify the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velcity</span><span class="p">()</span></code> line in the code to apply this angular velocity to the robot along with a constant (and <em>moderate</em>) linear velocity too. </p>
 </li>
@@ -3513,6 +3415,124 @@ u(t)=K_{P} e(t)
 <p class="admonition-title">Post-lab</p>
 <p>As discussed above, your completion of this exercise will be assessed as part of the post-lab!</p>
 </div>
+</li>
+</ol>
+<p>If you're all done with time to spare then move on to Exercise 4 below. If you don't have time then please head down to the <a href="#wrapping-up">Wrapping Up</a> section.</p>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> (Optional) Exercise 4: Odometry-based Navigation<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<p>From our work in <a href="#ex1">Exercise 1</a> we know about the robot's odometry system and what it tells us, let's see how this could be used as a feedback signal to inform robot navigation. You may recall that when you were last here for <a href="../lab1/">Lab 1</a> you created a ROS Node to make your robot to follow a square motion path on the floor. This was time-based though: for a given speed of motion (turning or moving forwards) how long would it take for the robot to move by a required distance? Having determined this, we then used timers to control the execution of two different motion states: moving forwards and turning on the spot, in order to generate the square motion path (approximately). </p>
+<p>In theory though, we can do all this much more effectively with odometry data instead, so let's have a go at that now...</p>
+<ol>
+<li>
+<p>Head back to VS Code and open up the <code>ex4.py</code> file in the editor.</p>
+</li>
+<li>
+<p>Have a look through the code and see if you can work out what's going on. Here's a few points to start with:</p>
+<ol>
+<li>
+<p>Velocity control is handled in the same way as in the previous exercise:</p>
+<ol>
+<li>
+<p>To make the robot move at a linear velocity of <code>x</code> (m/s) and/or an angular velocity of <code>y</code> (rad/s):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">(</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>    <span class="n">linear</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">angular</span> <span class="o">=</span> <span class="n">y</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>To make the robot stop moving:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre></div>
+</li>
+</ol>
+</li>
+<li>
+<p>Obtaining the robot's Odometry data is once again handled by a separate Python Class much like <code>Lidar</code> and <code>Camera</code> in the previous exercises. This one is called <code>Pose</code>, and is instantiated on line 16:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>We can then call the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span></code> object to access the robot's odometry data, by calling the appropriate attribute whenever we need it:</p>
+<ol>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posx</span></code> to obtain the robot's current position (in meters) in the <code>X</code> axis.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posy</span></code> to obtain the robot's current position (in meters) in the <code>Y</code> axis.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">yaw</span></code> to obtain the robot's current orientation (in degrees) about the <code>Z</code> axis.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>Run the code in <strong>TERMINAL 3</strong> and observe what happens:</p>
+<hr>
+<p><strong>TERMINAL 3</strong>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex4.py
+</code></pre></div><p></p>
+<hr>
+<p>The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45° the robot should stop. </p>
+</li>
+<li>
+<p>Stop the Node by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> and then run it again if you missed what happened the first time!</p>
+</li>
+<li>
+<p><strong>What you need to do</strong>:</p>
+<ol>
+<li>
+<p>The <em>"main"</em> part of the code is once again controlled by a timer: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    <span class="n">timer_period_sec</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">move_square</span><span class="p">,</span>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>The <code>move_square()</code> class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.</p>
+<p>Within this there is an <code class="highlight"><span class="k">if</span></code> statement that controls whether the robot should be turning or moving forwards: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn</span><span class="p">:</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="c1"># Turning State</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="o">...</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    <span class="c1"># Moving Forwards </span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    <span class="o">...</span>
+</code></pre></div>
+<p>... where <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">turn</span></code> is a boolean whose value can either be <code class="highlight"><span class="kc">True</span></code> or <code class="highlight"><span class="kc">False</span></code>.</p>
+</li>
+<li>
+<p>Within this, look at what happens in the <code>Turning State</code>. Consider how the robot's yaw angle is being monitored and updated as the robot turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make sure the robot turns by 90°.</p>
+</li>
+<li>
+<p>Ultimately, after the robot has turned by the desired angle it needs to move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.</p>
+<p>Moving forwards is handled in the <code>Moving Forwards</code> state.</p>
+<p>See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a></p>
+<details class="note">
+<summary>Hint</summary>
+<p>Consider how the turn angle is monitored and updated whist turning (<code>current_yaw</code>), and take a similar approach with the linear displacement (<code>current_distance</code>). Bear in mind that you'll need to consider the <em>euclidean distance</em>, which you'll need to calculate based on the robot's position in both the <code>x</code> and <code>y</code> axis.</p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="euclidean_distance.png" width="500px"></a>
+</figure><p></p>
+</details>
+<details class="tip">
+<summary>Python Tips</summary>
+<p>You'll need to do a bit of maths here (see <a href="#the_hint">the "Hint" above</a>). Here's how to implement a couple of mathematical functions in Python:</p>
+<ol>
+<li>
+<p><strong>To the power of X</strong>: </p>
+<p>Use <code>**</code> to raise a number to the power of another number (i.e. <span class="arithmatex">\(2^{3}\)</span>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="mi">8</span>
+</code></pre></div>
+<p>Or, use the <code class="highlight"><span class="nb">pow</span><span class="p">()</span></code> method:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="mi">8</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Square Root</strong>: </p>
+<p>To calculate the square root of a number (i.e. <span class="arithmatex">\(\sqrt{4}\)</span>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="mf">2.0</span> 
+</code></pre></div>
+</li>
+</ol>
+</details>
+</li>
+</ol>
 </li>
 </ol>
 <h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
@@ -3569,7 +3589,7 @@ u(t)=K_{P} e(t)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 9, 2026 14:43:23 UTC"><span class="timeago" datetime="2026-01-09T14:43:23+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 9, 2026 14:43:23 UTC">2026-01-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 16, 2026 14:21:43 UTC"><span class="timeago" datetime="2026-02-16T14:21:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 16, 2026 14:21:43 UTC">2026-02-16</span>
   </span>
 
     

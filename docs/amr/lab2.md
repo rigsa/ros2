@@ -523,7 +523,7 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
 
     1. **Make sure that you save any changes to the code (in VS Code) before trying to test it out on the robot!**
         
-            Do this by using the ++ctrl+s++ keyboard shortcut, or going to `File` > `Save` from the menu at the top of the screen.
+        Do this by using the ++ctrl+s++ keyboard shortcut, or going to `File` > `Save` from the menu at the top of the screen.
 
     1. Next, place the robot on the floor with a wall on its right-hand side
     1. Manually vary the alignment of the robot and the wall and observe how the information that is being printed to the terminal changes as you do so.

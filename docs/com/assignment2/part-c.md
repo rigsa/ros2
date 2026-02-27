@@ -45,7 +45,7 @@ You'll need to create your own individual ROS package for this assignment. This 
 1. Click on the green `Use this template` button, and then select `Create a new repository` from the dropdown menu. 
 
     <figure markdown>
-      ![](./assignment2/getting-started/ros2_pkg_template.png){width=700px}
+      ![](../assignment2/getting-started/ros2_pkg_template.png){width=700px}
     </figure>
 
     You should then be presented with a **Create a new repository** screen.

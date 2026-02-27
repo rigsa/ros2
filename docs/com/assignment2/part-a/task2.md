@@ -9,7 +9,6 @@ Develop the ROS node(s) to allow a real TurtleBot3 Waffle to autonomously explor
     The following parts of [The ROS 2 Course](../../assignment1.md) to support your work on this task (in addition to the suggestions for Task 1): 
 
     * [ ] **Part 3**: in full.
-    * [ ] **Part 5**: in full.
 
     <!-- TODO: **See Also**:     -->
     <!-- * Real Waffle Out of Range LiDAR Data? -->

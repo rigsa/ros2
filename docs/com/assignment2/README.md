@@ -15,18 +15,16 @@ Assignment #2 is split into two parts: **Part A** and **Part B**. You will compl
 
 <center>
 
-| Part | Tasks | Marks<br />(/100) | Submission |
+| Part | Description | Marks<br />(/100) | Submission |
 | :---: | :---  | :---: | :---: |
 | **A** | **Task 1**: [Velocity Control](./part-a/task1.md)<br />**Task 2**: [Avoiding Obstacles](./part-a/task2.md) | 20<br />20 | Friday of Week 6 at 6pm (GMT) |
-| **B** | **Tasks 3 & 4**<br />More details coming soon... | 60 | Friday of Week 12 at 6pm (BST) |
+| **B** | **Tasks 3 & Team Viva**<br />More details coming soon... | 60 | Friday of Week 12 at 6pm (BST) |
 
 </center>
 
-As shown above, there are **four tasks** in total that you must complete for Assignment #2, worth a total of **100 marks** overall. Exact submission deadlines will be stated on Blackboard.
+As shown above, there are **three programming tasks** and a **team viva** that you must complete for Assignment #2, worth a total of **100 marks** overall. Exact submission deadlines will be stated on Blackboard.
 
-Tasks **1**, **2** & **3** are *programming tasks*, requiring you to develop ROS nodes for the Waffles in order for them to complete certain real-world objectives in the robot arena in Computer Room 5. 
-
-<!-- All three of these tasks will be marked based on how well the robot completes each of the objectives. Task **4** will require you to produce some *documentation* to describe your approach to Task 3. -->
+The three programming tasks will require you to develop ROS nodes (and a ROS package) to make our real TurtleBot3 Waffle robots complete certain real-world objectives in the robot arena in Computer Room 5. All three of these tasks will be marked based on how well the robot completes each of the objectives. 
 
 ## Assessment
 
@@ -40,7 +38,7 @@ Your ROS package will be assessed by the teaching team in the weeks following th
 
 Each submission will be assessed by deploying your ROS package on one of the *robotics laptops* used extensively throughout the lab sessions. Nodes within your package will then be executed on the laptop to control a real robot in the Diamond Computer Room 5 Robot Arena.
 
-### Task 4 
+### Team Viva 
 
 Details coming soon...
 

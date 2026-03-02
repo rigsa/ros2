@@ -3,25 +3,25 @@ title: "Assignment #2 Part C (COM3009 only)"
 description: "In Simulation, program a Waffle to search an environment, detect a coloured object and beacon towards it."
 ---  
 
-## Overview
-
-Develop ROS node(s) that enable a TurtleBot3 Waffle to search an environment, detect a coloured object and beacon towards it, stopping in proximity without crashing into it!
-
-This is an **individual** assignment, which will be assessed **in simulation** ^^NOT^^ on a real robot.
-
-COM3009 students must complete this additional individual task as part of Assignment #2. The overall distribution of marks is therefore different, as shown below:
+COM3009 students must complete this additional individual task as part of Assignment #2. The overall distribution of marks for Assignment #2 are therefore different, as shown below:
 
 <center>
 
 | Part | Description | Assignment #2 Weighting | Submission |
 | :---: | :---  | :---: | :---: |
-| **A** | **Task 1**: [Velocity Control](./part-a/task1.md)<br />**Task 2**: [Avoiding Obstacles](./part-a/task2.md) | 30% | Friday of Week 6 at 6pm (GMT) |
-| **B** | **Tasks 3 & Team Viva**<br />More details coming soon... | 45% | Friday of Week 12 at 6pm (BST) |
+| **A** | **[Tasks 1 & 2](./part-a/README.md)** | 30% | Friday of Week 6 at 6pm (GMT) |
+| **B** | **[Task 3 & Team Viva](./part-b/README.md)** | 45% | Friday of Week 12 at 6pm (BST) |
 | **C** | **Search, Detection & Beaconing** (in Simulation) | 25% | Friday of Week 12 at 6pm (BST) |
 
 </center>
 
-As above, the **deadline for Part C** is Week 12, Friday 6pm. Assignment #2 is still worth 30% of the overall COM3009 module mark.   
+As above, the **deadline for Part C** is Week 12, Friday 6pm. Assignment #2 is still worth 30% of the overall COM3009 module mark.
+
+## Overview
+
+Develop ROS node(s) that enable a TurtleBot3 Waffle to search an environment, detect a coloured object and beacon towards it, stopping in proximity without crashing into it!
+
+This is an **individual** assignment, which will be assessed **in simulation** ^^NOT^^ on a real robot. 
 
 ## The Task
 

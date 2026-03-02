@@ -9,9 +9,9 @@ COM3009 students must complete this additional individual task as part of Assign
 
 | Part | Description | Assignment #2 Weighting | Submission |
 | :---: | :---  | :---: | :---: |
-| **A** | **[Tasks 1 & 2](./part-a/README.md)**<br />(Team submission) | 30% | Friday of Week 6 at 6pm (GMT) |
-| **B** | **[Task 3 & Team Viva](./part-b/README.md)**<br />(Team submission) | 45% | Friday of Week 12 at 6pm (BST) |
-| **C** | **Search, Detection & Beaconing**<br />(Individual submission, assessed in simulation) | 25% | Friday of Week 12 at 6pm (BST) |
+| **A** | **[Tasks 1 & 2](./part-a/README.md)**<br />Team submission for COM2009 & 3009 | 30% | Friday of Week 6 at 6pm (GMT) |
+| **B** | **[Task 3 & Team Viva](./part-b/README.md)**<br />Team submission for COM2009 & 3009 | 45% | Friday of Week 12 at 6pm (BST) |
+| **C** | **[Search, Detection & Beaconing Task](#overview)**<br />Individual submission for COM3009 only (assessed in simulation) | 25% | Friday of Week 12 at 6pm (BST) |
 
 </center>
 

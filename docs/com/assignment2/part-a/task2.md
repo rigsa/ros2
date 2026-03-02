@@ -6,12 +6,12 @@ Develop the ROS node(s) to allow a real TurtleBot3 Waffle to autonomously explor
 
 !!! success "Assignment #1 Checkpoints"
     
-    The following parts of [The ROS 2 Course](../../assignment1.md) to support your work on this task (in addition to the suggestions for Task 1): 
+    Aim to have completed **up to and including [Part 3 of Assignment #1](../../../course/part3.md)** to support your work on this task. 
 
-    * [ ] **Part 3**: in full.
-
-    <!-- TODO: **See Also**:     -->
-    <!-- * Real Waffle Out of Range LiDAR Data? -->
+    **See Also** - [Understanding the Waffles](../../../waffles/essentials.md): 
+    
+    * [ ] Motion and Velocity Control
+    * [ ] Laser Displacement Readings and the LiDAR Sensor 
 
 ## Summary
 

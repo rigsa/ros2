@@ -12,9 +12,9 @@ Develop a working ROS application to making *a real TurtleBot3 Waffle* follow a 
     * [ ] **Part 2**: up to (and including) [Exercise 5](../../../course/part2.md#ex5).
     * [ ] **Part 3**: [Exercise 1](../../../course/part3.md#ex1).
     
-    <!-- TODO: **See Also**: -->
+    **See Also** - [Understanding the Waffles](../../../waffles/essentials.md): 
     
-    <!-- * Real Waffle Velocity Commands? -->
+    * [ ] Motion and Velocity Control
 
 ## Summary
 

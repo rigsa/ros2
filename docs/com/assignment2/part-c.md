@@ -9,7 +9,7 @@ Develop ROS node(s) that enable a TurtleBot3 Waffle to search an environment, de
 
 This is an **individual** assignment, which will be assessed **in simulation** ^^NOT^^ on a real robot.
 
-For COM3009 students the breakdown of marks for Assignment #2 is therefore different:
+COM3009 students must complete this additional individual task as part of Assignment #2. The overall distribution of marks is therefore different, as shown below:
 
 <center>
 
@@ -21,7 +21,7 @@ For COM3009 students the breakdown of marks for Assignment #2 is therefore diffe
 
 </center>
 
-As above, the **deadline for Part C** is Week 12, Friday 6pm. While the weightings of Assignment #2 Parts **A**, **B** and **C** are different to COM2009, Assignment #2 is still worth 30% of the overall COM3009 module mark.   
+As above, the **deadline for Part C** is Week 12, Friday 6pm. Assignment #2 is still worth 30% of the overall COM3009 module mark.   
 
 ## The Task
 
@@ -104,7 +104,7 @@ You should do this from within your own ROS installation (e.g. WSL-ROS2). [See h
 
 1. Navigate into your package directory using the `cd` command:
 
-    ```bash
+    ``` { .bash .no-copy }
     cd com3009_xxxxxx_2026
     ```
     
@@ -150,7 +150,7 @@ You'll need to make sure Git is configured properly with your name and email add
 
 The arena used for this task will be 5.0 m x 5.0 m and the beacons that you'll be searching for will be coloured boxes or cylinders, all between 200 mm and 400 mm in height. The *Stop Zone* surrounding each beacon will be 500 mm greater than the beacon's dimensions in the `X` and `Y` axis.
 
-There are only **six** possible target colours that will be used in this task, so your ROS application will only need to accommodate these six. The colours are listed below, and there is also a simulation environment in the `tuos_task_sims` package called `beacon_colours` (TODO) to illustrate these too[^update-course-repo].
+There are only **six** possible target colours that will be used in this task, so your ROS application will only need to accommodate these six. The colours are listed below, and there is also a simulation environment in the `tuos_task_sims` package called `beacon_colours` to illustrate these too[^update-course-repo].
 
 [^update-course-repo]: Make sure you have [the most up-to-date version of the Course Repo](./extras/course-repo.md#updating).
 
@@ -159,7 +159,6 @@ ros2 launch tuos_task_sims beacon_colours.launch.py
 ```
 
 <figure markdown>
-  TODO
   ![](./part-c/beacon_colours_table.png){width=600px}
   <figcaption>The range of possible beacon colours that could be used in this assignment.</figcaption>
 </figure>
@@ -168,7 +167,7 @@ As for the task itself:
 
 1. Your robot will first need to determine the *"Target Colour"* by analysing the *"Start Zone"* that it has been placed in within the simulated arena (see below).
 1. The arena will contain three Start Zones, each of a different colour, and your robot could be launched into any of these (selected at random).
-1. Once the colour of the start zone has been determined by the robot a ROS *log* message **must** be printed to the terminal to indicate which beacon colour will be targetted. This log message **must** be formatted *exactly* as follows:
+1. Once the colour of the start zone has been determined by the robot an `INFO`-severity ROS 2 Log Message **must** be printed to the terminal to indicate which beacon colour will be targetted. This log message **must** be formatted *exactly* as follows:
 
     <a name="target_beacon"></a>
 
@@ -179,10 +178,10 @@ As for the task itself:
     Where `{}` is replaced by the *name* of the target colour as defined in the table inset in the figure above.
 
     !!! note
-        You must use `.get_logger().info()` method calls within your node in order to print **ALL** log messages for this assignment. 
+        You must use `#!py get_logger().info()` method calls within your node in order to print **ALL** log messages for this assignment. 
 
 1. The robot then needs to navigate the arena, avoiding contact with any of the objects that are located within it whilst searching for the beacon of the correct colour.
-1. Once the target beacon has been detected, a message **must** be printed to the terminal to indicate that this has happened. The terminal message needs to be clearly visible and readable, and *the robot must be facing the target beacon when it is printed*. This terminal message should be formatted as follows:
+1. Once the target beacon has been detected, another `INFO`-severit Log Message **must** be printed to the terminal to indicate that this has happened. The terminal message needs to be clearly visible and readable, and *the robot must be facing the target beacon when it is printed*. This Log Message should be formatted as follows:
 
     <a name="beacon_detected"></a>
 
@@ -191,10 +190,10 @@ As for the task itself:
     ```
 
     !!! note "Remember"
-        Use `.get_logger().info()` method calls within your node to print this. 
+        Use `#!py get_logger().info()` method calls within your node to print this log message at `INFO` severity. 
 
 1. The robot then needs to start moving towards the beacon, stopping when it is close enough to be within the stop zone surrounding it, but not close enough to actually make contact. As discussed above, the stop zone surrounding each object will be 500 mm greater than the beacon dimensions in the `X-Y` plane.
-1. A further message must be printed to the terminal to indicate that the robot has successfully and *intentionally* stopped within the designated area. This terminal message should be formatted as follows:
+1. A further `INFO`-severity Log Message must be printed to the terminal to indicate that the robot has successfully and *intentionally* stopped within the designated area. This terminal message should be formatted as follows:
 
     <a name="beaconing_complete"></a>
 
@@ -203,23 +202,23 @@ As for the task itself:
     ```
 
     !!! note "Remember"
-        Use `.get_logger().info()`!
+        Use `#!py get_logger().info()`!
 
 1. The robot will have a maximum of 90 seconds to complete this task. 
 
     *Timing will be determined using the "Sim Time" indicator in Gazebo*.
 
-1. Your ROS package must contain a launch file called `assignment3.launch.py`, such that the functionality that you develop can be launched from your package via the command:
+1. Your ROS package must contain a launch file called `part_c.launch.py`, such that the functionality that you develop can be launched from your package via the command:
 
-    ```bash
-    ros2 launch com3009_xxxxxx_2026 partc.launch.py
+    ``` { .bash .no-copy }
+    ros2 launch com3009_xxxxxx_2026 part_c.launch.py
     ```
 
     The robot will already have been launched into the simulated environment before we attempt to execute your launch file.
 
 ## Simulation Resources
 
-Within the `tuos_task_sims` package there is an environment called `beaconing` (TODO), which can be used to develop and test out your ROS node(s) for this task:
+Within the `tuos_task_sims` package there is an environment called `beaconing`, which can be used to develop and test out your ROS node(s) for this task:
 
 ```bash
 ros2 launch tuos_task_sims beaconing.launch.py
@@ -228,14 +227,14 @@ ros2 launch tuos_task_sims beaconing.launch.py
 The arena contains three start zones: **A**, **B** & **C**; each of a different colour, as well as a number of uniquely coloured beacons.  There is one beacon in the arena to match each of the three start zones, plus a couple more to act as decoys! 
 
 <figure markdown>
-  ![](./part-c/beaconing.jpg){width=600px}
+  ![](./part-c/beaconing.png){width=600px}
   <figcaption>The "beaconing" arena.</figcaption>
 </figure>
 
 You can launch the robot into any of the three start zones by supplying an optional `start_zone` argument to the `beaconing.launch.py` file, as illustrated below:
 
 ```bash
-ros2 launch com2009_simulations beaconing.launch.py start_zone:={}
+ros2 launch tuos_task_sims beaconing.launch.py start_zone:={}
 ```
 
 ...where `{}` can be replaced with either `a`, `b` or `c` to select the start zone that you want the robot to be located in when the simulation launches. You can therefore develop and test out your beaconing algorithms in three unique scenarios.
@@ -247,15 +246,15 @@ ros2 launch com2009_simulations beaconing.launch.py start_zone:={}
 
 ## Marking
 
-There are **15 marks** available for this assignment in total, awarded based on the criteria below. No partial credit will be awarded unless specifically stated against any of the criteria.
+There are **15 marks** available for this task in total, awarded based on the criteria below. No partial credit will be awarded unless specifically stated against any of the criteria.
 
 <centre>
 
 | Criteria | Marks | Details |
 | :--- | :---: | :--- |
-| **A**: Identifying the target colour | 2/15 | Whilst the robot is still located within the start zone a ROS node within your package must print a **log message** to the terminal to indicate the target colour that has been determined and that will subsequently be used to identify the target beacon. You will receive the full marks available here provided the message is presented using a `get_logger().info()` method call, **and** [formatted as specified here](#target_beacon). |
-| **B**: Detecting the correct beacon | 3/15 | You will receive the full marks available here for printing a **log message** to the terminal to indicate that the target beacon has been identified within the environment. The message must again be presented using a `get_logger().info()` method call, it must be [formatted as specified here](#beacon_detected), **and** the robot must be looking directly at the beacon when this message is printed. | 
-| **C**: Stopping in the correct stop zone | 5/15 | Your robot must **stop** inside the correct stop zone within the 90-second time limit **and** a **log** message must be printed to the terminal to indicate that this has been done intentionally. You will receive the full marks available here provided this is achieved successfully, and the log message (again using a `get_logger().info()` call) is [formatted as specified here](#beaconing_complete). If your robot manages to stop, but part of its body lies outside the stop zone then you will be awarded half-marks. |
+| **A**: Identifying the target colour | 2/15 | Whilst the robot is still located within the start zone a ROS node within your package must print a **Log Message** to the terminal to indicate the target colour that has been determined and that will subsequently be used to identify the target beacon. You will receive the full marks available here provided the message is presented using a `#!py get_logger().info()` method call, **and** [formatted as specified here](#target_beacon). |
+| **B**: Detecting the correct beacon | 3/15 | You will receive the full marks available here for printing a **Log Message** to the terminal to indicate that the target beacon has been identified within the environment. The message must again be presented using a `#!py get_logger().info()` method call, it must be [formatted as specified here](#beacon_detected), **and** the robot must be looking directly at the beacon when this message is printed. | 
+| **C**: Stopping in the correct stop zone | 5/15 | Your robot must **stop** inside the correct stop zone within the 90-second time limit **and** a **Log Message** must be printed to the terminal to indicate that this has been done intentionally. You will receive the full marks available here provided this is achieved successfully, and the log message (again using a `#!py get_logger().info()` call) is [formatted as specified here](#beaconing_complete). If your robot manages to stop, but part of its body lies outside the stop zone then you will be awarded half-marks. |
 | **D**: An "incident-free-run" | 5/15 | If your robot completes the task (or the 90 seconds elapses) without it making contact with anything in the arena then you will be awarded the maximum marks here. Marks will be deducted for any contact made, to a minimum of 0 (i.e. no negative marking). Your robot must be moving within the arena continually to be eligible for these marks though, simply turning on the spot for 90 seconds is not enough! |
 
 </center>

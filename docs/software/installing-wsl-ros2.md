@@ -90,43 +90,42 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
         This will ensure that each time you open the Windows Terminal App *or* you press the New Tab (:material-plus:) button a WSL-ROS2 Terminal Instance will be launched by default.
 
 
-<!-- ## Initial Setup
+## Initial Setup
 
-With your WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.
+Within a WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.
 
-1. First, update the distro:
-
-    ```bash
-    sudo apt update && sudo apt upgrade -y
-    ```
-
-1. Next, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all [the prerequisites above](#prerequisites)):
+1. First, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all [the prerequisites above](#prerequisites)):
 
     ```bash
     echo "export XSERVER=false" > $HOME/.diamond/xserver.sh
     ```
 
-1. Re-source your `.bashrc` file for this change to take effect:
+1. Then, re-source your `.bashrc` file for this change to take effect:
 
     ```bash
     source ~/.bashrc
     ```
 
-1. Run the following ROS command to see if you can launch the Gazebo GUI, which is crucial for this course:
+1. Run the following ROS command to see if you can launch the Gazebo GUI:
 
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```
 
-    
+    This should hopefully present you with something like this:
 
-    If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead...  -->
+    <figure markdown>
+      ![](../images/gz/tb3_empty_world_top.png){width=600px}
+    </figure>
 
-## Using a Dedicated X Server
+    If this doesn't work, then you could try using a third-party X Server (VcXsrv) instead...
 
-WSL-ROS2 requires an XServer in order to render graphical applications (such as Gazebo and RViz)[^wsl-native-guis]. You need to make sure you have one up and running whenever you're working with WSL-ROS2.
+## Using a Third-Party X Server
 
-[^wsl-native-guis]: WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer slightly better performance. 
+If you are unable to run GUI apps natively (having completed the steps in the section above), then you could try using a third-party X Server (*"VcXsrv"*) instead. In [the prerequisites](#prerequisites), you should have already installed VcXsrv.
+
+!!! note 
+    Only do this if you were **unable** to launch the robot simulation in the previous section.
 
 1. [Having installed VcXsrv in the Prerequisites Section](#prerequisites)...
 1. Download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
@@ -147,56 +146,38 @@ WSL-ROS2 requires an XServer in order to render graphical applications (such as 
       ![](./figures/launch-win-term.png){width=700px}
     </figure>
 
-1. In the WSL-ROS2 terminal instance, try running the empty world Gazebo simulation:
+1. In a WSL-ROS2 Terminal Instance, run the following:
+
+    ```bash
+    echo "export XSERVER=true" > $HOME/.tuos/xserver.sh
+    ```
+
+1. Re-source your `.bashrc` file for this change to take effect:
+
+    ```bash
+    source ~/.bashrc
+    ```
+
+1. Try running the empty world Gazebo simulation again:
 
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```
 
-    This should hopefully present you with something like this:
-
-    <figure markdown>
-      ![](../images/gz/tb3_empty_world_top.png){width=600px}
-    </figure>
-
     !!! warning "Important"
         You need to make sure you have the X Server running (by clicking the `wsl_ros_config.xlaunch` shortcut) **every time** you work with WSL-ROS2. 
 
-## Using WSL Native Graphics
+## Restarting the WSL Engine
 
-If you're having trouble with the dedicated XServer ([as above](#using-a-dedicated-x-server)), you could try using the native GUI functionality baked into WSL instead. To do this, in a WSL-ROS2 instance run the following command:
+If you're having trouble with WSL a restart sometimes helps.  
 
-```bash
-echo "export XSERVER=false" > $HOME/.diamond/xserver.sh
-```
-
-The best thing to do then is to close down any WSL-ROS2 terminal windows that you have open, launch powershell, and *shutdown* the WSL engine:
+First, close down any WSL-ROS2 terminal windows that you have open (and any connections to WSL-ROS2 in VS Code). Then, launch powershell and *shutdown* the WSL engine:
 
 ```powershell
 wsl --shutdown
 ```
 
-Then, restart the WSL engine by launching a new WSL-ROS2 terminal instance.
-
-!!! note
-    If you opt for this approach, you don't need to run VcXsrv
-
-<!-- ## Hardware Acceleration
-
-!!! note
-    Only a (potential) option for those who **aren't** using [VcXsrv](#using-a-dedicated-x-server), and even then, it's not guaranteed that it'll work for everyone!
-
-1. If your graphics card supports it, it **may** be possible to also use hardware acceleration for GUI apps. If you want to try this, then run the following command to enable this:
-
-    ```bash
-    echo "export LIBGL_ALWAYS_SOFTWARE=false" >> $HOME/.bashrc
-    ```
-
-    Then - once again - re-source your `.bashrc` file for this change to take effect:
-
-    ```bash
-    source ~/.bashrc
-    ``` -->
+Restart the WSL engine by launching a new WSL-ROS2 terminal instance.
 
 ## See Also
 

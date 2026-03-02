@@ -754,10 +754,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-a-dedicated-x-server" class="md-nav__link">
+  <a href="#initial-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using a Dedicated X Server
+        Initial Setup
       
     </span>
   </a>
@@ -765,10 +765,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-wsl-native-graphics" class="md-nav__link">
+  <a href="#using-a-third-party-x-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using WSL Native Graphics
+        Using a Third-Party X Server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restarting-the-wsl-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restarting the WSL Engine
       
     </span>
   </a>
@@ -2282,10 +2293,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-a-dedicated-x-server" class="md-nav__link">
+  <a href="#initial-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using a Dedicated X Server
+        Initial Setup
       
     </span>
   </a>
@@ -2293,10 +2304,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-wsl-native-graphics" class="md-nav__link">
+  <a href="#using-a-third-party-x-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using WSL Native Graphics
+        Using a Third-Party X Server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restarting-the-wsl-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restarting the WSL Engine
       
     </span>
   </a>
@@ -2440,36 +2462,36 @@
 </ol>
 </li>
 </ol>
-<!-- ## Initial Setup
-
-With your WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.
-
-1. First, update the distro:
-
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
+<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">¶</a></h2>
+<p>Within a WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.</p>
+<ol>
+<li>
+<p>First, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all <a href="#prerequisites">the prerequisites above</a>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=false"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
 </code></pre></div>
-
-1. Next, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all [the prerequisites above](#prerequisites)):
-
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export XSERVER=false&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
+</li>
+<li>
+<p>Then, re-source your <code>.bashrc</code> file for this change to take effect:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
-
-1. Re-source your `.bashrc` file for this change to take effect:
-
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</li>
+<li>
+<p>Run the following ROS command to see if you can launch the Gazebo GUI:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
-
-1. Run the following ROS command to see if you can launch the Gazebo GUI, which is crucial for this course:
-
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
-</code></pre></div>
-
-
-
-    If this doesn't work, or if performance is poor then you may need to try using a dedicated X Server (VcXsrv) instead...  -->
-
-<h2 id="using-a-dedicated-x-server">Using a Dedicated X Server<a class="headerlink" href="#using-a-dedicated-x-server" title="Permanent link">¶</a></h2>
-<p>WSL-ROS2 requires an XServer in order to render graphical applications (such as Gazebo and RViz)<sup id="fnref:wsl-native-guis"><a class="footnote-ref" href="#fn:wsl-native-guis">1</a></sup>. You need to make sure you have one up and running whenever you're working with WSL-ROS2.</p>
+<p>This should hopefully present you with something like this:</p>
+<p></p><figure markdown>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_top.png" width="600px"></a>
+</figure><p></p>
+<p>If this doesn't work, then you could try using a third-party X Server (VcXsrv) instead...</p>
+</li>
+</ol>
+<h2 id="using-a-third-party-x-server">Using a Third-Party X Server<a class="headerlink" href="#using-a-third-party-x-server" title="Permanent link">¶</a></h2>
+<p>If you are unable to run GUI apps natively (having completed the steps in the section above), then you could try using a third-party X Server (<em>"VcXsrv"</em>) instead. In <a href="#prerequisites">the prerequisites</a>, you should have already installed VcXsrv.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only do this if you were <strong>unable</strong> to launch the robot simulation in the previous section.</p>
+</div>
 <ol>
 <li><a href="#prerequisites">Having installed VcXsrv in the Prerequisites Section</a>...</li>
 <li>
@@ -2491,60 +2513,36 @@ With your WSL-ROS2 terminal instance, you'll need to run some initial commands t
 </figure><p></p>
 </li>
 <li>
-<p>In the WSL-ROS2 terminal instance, try running the empty world Gazebo simulation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
+<p>In a WSL-ROS2 Terminal Instance, run the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=true"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.tuos/xserver.sh
 </code></pre></div>
-<p>This should hopefully present you with something like this:</p>
-<p></p><figure markdown>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_top.png" width="600px"></a>
-</figure><p></p>
+</li>
+<li>
+<p>Re-source your <code>.bashrc</code> file for this change to take effect:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</code></pre></div>
+</li>
+<li>
+<p>Try running the empty world Gazebo simulation again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
+</code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Important</p>
 <p>You need to make sure you have the X Server running (by clicking the <code>wsl_ros_config.xlaunch</code> shortcut) <strong>every time</strong> you work with WSL-ROS2. </p>
 </div>
 </li>
 </ol>
-<h2 id="using-wsl-native-graphics">Using WSL Native Graphics<a class="headerlink" href="#using-wsl-native-graphics" title="Permanent link">¶</a></h2>
-<p>If you're having trouble with the dedicated XServer (<a href="#using-a-dedicated-x-server">as above</a>), you could try using the native GUI functionality baked into WSL instead. To do this, in a WSL-ROS2 instance run the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=false"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
-</code></pre></div>
-<p>The best thing to do then is to close down any WSL-ROS2 terminal windows that you have open, launch powershell, and <em>shutdown</em> the WSL engine:</p>
+<h2 id="restarting-the-wsl-engine">Restarting the WSL Engine<a class="headerlink" href="#restarting-the-wsl-engine" title="Permanent link">¶</a></h2>
+<p>If you're having trouble with WSL a restart sometimes helps.  </p>
+<p>First, close down any WSL-ROS2 terminal windows that you have open (and any connections to WSL-ROS2 in VS Code). Then, launch powershell and <em>shutdown</em> the WSL engine:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">wsl</span> <span class="p">-</span><span class="n">-shutdown</span>
 </code></pre></div>
-<p>Then, restart the WSL engine by launching a new WSL-ROS2 terminal instance.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you opt for this approach, you don't need to run VcXsrv</p>
-</div>
-<!-- ## Hardware Acceleration
-
-!!! note
-    Only a (potential) option for those who **aren't** using [VcXsrv](#using-a-dedicated-x-server), and even then, it's not guaranteed that it'll work for everyone!
-
-1. If your graphics card supports it, it **may** be possible to also use hardware acceleration for GUI apps. If you want to try this, then run the following command to enable this:
-
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export LIBGL_ALWAYS_SOFTWARE=false&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$HOME</span>/.bashrc
-</code></pre></div>
-
-    Then - once again - re-source your `.bashrc` file for this change to take effect:
-
-    ```bash
-    source ~/.bashrc
-    ``` -->
-
+<p>Restart the WSL engine by launching a new WSL-ROS2 terminal instance.</p>
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../using-wsl-ros/vscode/">Setting up VS Code for WSL</a></li>
 <li><a href="../using-wsl-ros/linux-term/">A Quick Introduction to the Linux Terminal</a></li>
 </ul>
-<div class="footnote">
-<hr>
-<ol>
-<li id="fn:wsl-native-guis">
-<p>WSL2 does support GUI applications natively, however we are finding that the latest version of Gazebo (Ignition) doesn't seem to play nicely with this, and performance is generally pretty poor. Using a dedicated XServer seems to offer slightly better performance.&nbsp;<a class="footnote-backref" href="#fnref:wsl-native-guis" title="Jump back to footnote 1 in the text">↩</a></p>
-</li>
-</ol>
-</div>
 
 
 
@@ -2567,7 +2565,7 @@ With your WSL-ROS2 terminal instance, you'll need to run some initial commands t
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 12, 2026 11:36:38 UTC"><span class="timeago" datetime="2026-02-12T11:36:38+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 12, 2026 11:36:38 UTC">2026-02-12</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 2, 2026 16:05:54 UTC"><span class="timeago" datetime="2026-03-02T16:05:54+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 2, 2026 16:05:54 UTC">2026-03-02</span>
   </span>
 
     

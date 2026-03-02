@@ -2301,10 +2301,7 @@
 
   <h1>Assignment #2 Part C (COM3009 only)</h1>
 
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">¶</a></h2>
-<p>Develop ROS node(s) that enable a TurtleBot3 Waffle to search an environment, detect a coloured object and beacon towards it, stopping in proximity without crashing into it!</p>
-<p>This is an <strong>individual</strong> assignment, which will be assessed <strong>in simulation</strong> <ins>NOT</ins> on a real robot.</p>
-<p>COM3009 students must complete this additional individual task as part of Assignment #2. The overall distribution of marks is therefore different, as shown below:</p>
+<p>COM3009 students must complete this additional individual task as part of Assignment #2. The overall distribution of marks for Assignment #2 are therefore different, as shown below:</p>
 <p></p><center><p></p>
 <table>
 <thead>
@@ -2318,13 +2315,13 @@
 <tbody>
 <tr>
 <td style="text-align: center;"><strong>A</strong></td>
-<td style="text-align: left;"><strong>Task 1</strong>: <a href="../part-a/task1/">Velocity Control</a><br><strong>Task 2</strong>: <a href="../part-a/task2/">Avoiding Obstacles</a></td>
+<td style="text-align: left;"><strong><a href="../part-a/">Tasks 1 &amp; 2</a></strong></td>
 <td style="text-align: center;">30%</td>
 <td style="text-align: center;">Friday of Week 6 at 6pm (GMT)</td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>B</strong></td>
-<td style="text-align: left;"><strong>Tasks 3 &amp; Team Viva</strong><br>More details coming soon...</td>
+<td style="text-align: left;"><strong><a href="../part-b/">Task 3 &amp; Team Viva</a></strong></td>
 <td style="text-align: center;">45%</td>
 <td style="text-align: center;">Friday of Week 12 at 6pm (BST)</td>
 </tr>
@@ -2337,7 +2334,10 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<p>As above, the <strong>deadline for Part C</strong> is Week 12, Friday 6pm. Assignment #2 is still worth 30% of the overall COM3009 module mark.   </p>
+<p>As above, the <strong>deadline for Part C</strong> is Week 12, Friday 6pm. Assignment #2 is still worth 30% of the overall COM3009 module mark.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">¶</a></h2>
+<p>Develop ROS node(s) that enable a TurtleBot3 Waffle to search an environment, detect a coloured object and beacon towards it, stopping in proximity without crashing into it!</p>
+<p>This is an <strong>individual</strong> assignment, which will be assessed <strong>in simulation</strong> <ins>NOT</ins> on a real robot. </p>
 <h2 id="the-task">The Task<a class="headerlink" href="#the-task" title="Permanent link">¶</a></h2>
 <p>For this task your robot will be placed in a <em>"Search Arena"</em> containing a number of different coloured objects (<em>"beacons"</em>). Building on the exploration behaviours that you will have developed in your team for the Assignment #2 Tasks, the robot will need to search the arena for a beacon of a particular <em>"Target Colour"</em> (each beacon in the arena will have a unique colour). The arena will contain three <em>"Start Zones"</em>: <strong>A</strong>, <strong>B</strong> and <strong>C</strong> (also uniquely coloured) and your robot will be located in one of these three zones to begin with (selected at random). The colour of the Start Zone indicates the Target Colour for the search task (i.e the colour of the beacon that the robot needs to find). Once the target object has been detected, the robot will need to move towards it (i.e. <em>"beaconing"</em>) and stop within a <em>"Stop Zone"</em> printed on the floor surrounding it. The robot must stop in the Stop Zone without touching the beacon!</p>
 <p>The first thing that your robot will need to do in this task is detect the colour of the zone that it starts in. You learnt about colour-based object detection in <a href="../../../course/part6/#ex2">Part 6 of the ROS 2 Course</a>, where you used OpenCV to analyse the images published to the <code>/camera/image_raw</code> topic. Use what you did here, as well as the further work that you did in <a href="../../../course/part6/#ex3">Part 6 Exercise 3</a>, as a starting point for achieving the desired behaviour for this initial part of the task. Note that in the Part 6 exercises you developed algorithms to detect an object of a certain colour, but here you need to work the other way around and actually establish the colour of the object instead, so you will have to reverse the logic a bit. </p>
@@ -2592,7 +2592,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 2, 2026 16:43:49 UTC"><span class="timeago" datetime="2026-03-02T16:43:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 2, 2026 16:43:49 UTC">2026-03-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 2, 2026 16:52:43 UTC"><span class="timeago" datetime="2026-03-02T16:52:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 2, 2026 16:52:43 UTC">2026-03-02</span>
   </span>
 
     

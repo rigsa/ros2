@@ -13,7 +13,7 @@ The labs for ELE434 are split into two parts:
 
     **Weighting**: 20% of the overall ELE434 module mark.
 
-* [**Real Robot Team-Based Assignment**: "Real-World Exploration"](./robot.md).
+* [**Real Robot Team-Based Assignment**: "Real-World Exploration"](./robot/README.md).
 
     *Here you will work in teams of 3 or 4 to complete a real-world robotics task using our Tutlebot3 Waffle Robots in the Lab (Diamond Computer Room 5).*
 

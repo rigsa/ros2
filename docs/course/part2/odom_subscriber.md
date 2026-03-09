@@ -92,7 +92,29 @@ def quaternion_to_euler(self, orientation):
     return yaw # (in radians)
 ```
 
-This function will receive the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process ([which can be found here](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}). Implement the calculation so that your `quaternion_to_euler()` method actually outputs a correct yaw angle (in radians) for the robot.
+This function will receive the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process. You can see how this is done by looking at the `tb3_tools.py` module within your `part2_navigation` package[^tb3-tools][^auto-addison]:
+
+[^tb3-tools]: `tb3_tools.py` comes from the ROS 2 Package template, so you get this "for free" with every package that you create on this course!
+[^auto-addison]: The Quaternion to Euler conversion process is taken from [this Automatic Addison blog post](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
+
+
+``` { .txt .no-copy }
+.
+├── CMakeLists.txt
+├── package.xml
+├── part2_navigation_modules
+│   ├── __init__.py
+│   └── tb3_tools.py <-- See here!
+└── scripts
+    ├── basic_velocity_control.py
+    ├── odom_subscriber.py
+    └── stop_me.py
+
+```
+
+Implement the calculation so that your `quaternion_to_euler()` method actually outputs a correct yaw angle (in radians) for the robot.
+
+ 
 
 ### Modifying the Message Callback
 

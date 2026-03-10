@@ -133,9 +133,18 @@ ros2 launch tuos_task_sims obstacle_avoidance.launch.py
   <figcaption>A simulation environment to represent the real DIA-CR5 arena layout for Task 2.</figcaption>
 </figure>
 
-!!! warning "Real World vs. Sim"
+!!! danger "Remember"
+    
+    **Arena Layout**:
+    
+    * [As above](#env-vars), this is an *example* of what the environment *might* look like.
+    * **ALL** objects (i.e. the four coloured cylinders and the four wall assemblies) could be in *different positions entirely*. 
+    * The wooden walls *may not be touching the outer edges of the arena*!
+    * The coloured cylinders *could* be inside exploration zones. 
+    * The only things that will remain the same are the arena size, the presence of the outer arena walls and the floor layout (i.e. the location of all the zones).
+    
+    **Real World vs. Sim**:
 
-    Remember: **just because it works in simulation ^^DOESN'T^^ mean it will work in the real world**!
-
-    Make sure you test things out ^^thoroughly^^ on the real robots during the lab sessions.
+    * **Just because it works in simulation ^^DOESN'T^^ mean it will work in the real world**!
+    * Make sure you test things out ^^thoroughly^^ on the real robots during the lab sessions.
     

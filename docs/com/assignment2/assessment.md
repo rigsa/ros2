@@ -70,6 +70,8 @@ In addition to registering your package correctly (as above), you **must** also 
 
     !!! warning "Important"
         You must ensure that **your launch files are named correctly** (as detailed in each of the task pages). We won't use any other method to launch your ROS nodes during the assessment of each programming task. 
+    
+* [ ] Launch files must be correctly defined in a dedicated `launch` directory at the root of your package directory (for guidance, [see Assignment #1 Part 3](../../course/part3.md#ex1)).
 
 * [ ] Any nodes within your package that are executed by the above launch files **must** have been correctly defined as package executables (i.e. in your `CMakeLists.txt`) and must **also** have been assigned the appropriate execute permission (i.e. with `chmod`).  
 

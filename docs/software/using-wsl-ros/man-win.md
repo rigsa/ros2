@@ -16,18 +16,18 @@ title: Getting Started with WSL-ROS2 on the University Managed Desktops
       ![](../figures/win-menu.svg){width=600px}
     </figure>
 
-    Make sure you select **WSL-ROS2**! 
+    If there are multiple options, make sure you select **WSL-ROS2**! 
 
     You'll then be presented with the following screen:
 
     <figure markdown>
-      ![](../figures/wsl-ros-first-install.png){width=600px}
+      ![](../figures/wsl-ros2-first-install.png){width=600px}
     </figure>
 
     WSL-ROS2 is now being installed, which may take a couple of minutes to complete.  Once it's done, the *Windows Terminal* should automatically launch:
 
     <figure markdown>
-      ![](../figures/win-term-welcome.png){width=600px}
+      ![](../figures/win-term-welcome-v2526-03.png){width=600px}
     </figure>
 
 This is a **WSL-ROS2 Terminal Instance**!

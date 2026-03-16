@@ -152,7 +152,7 @@ The arena used for this task will be 5.0 m x 5.0 m and the beacons that you'll b
 
 There are only **six** possible target colours that will be used in this task, so your ROS application will only need to accommodate these six. The colours are listed below, and there is also a simulation environment in the `tuos_task_sims` package called `beacon_colours` to illustrate these too[^update-course-repo].
 
-[^update-course-repo]: Make sure you have [the most up-to-date version of the Course Repo](./extras/course-repo.md#updating).
+[^update-course-repo]: Make sure you have [the most up-to-date version of the Course Repo](../../course/extras/course-repo.md#updating).
 
 ```bash
 ros2 launch tuos_task_sims beacon_colours.launch.py

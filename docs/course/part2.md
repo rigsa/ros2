@@ -348,7 +348,15 @@ For us, it's easier to think about the orientation of our robot in a *"Euler Ang
 * $\theta_{y}$: The angular position about the **Y**-axis, aka **"Pitch"**
 * $\theta_{z}$: The angular position about the **Z**-axis, aka **"Yaw"**
 
-Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward ([see here](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}).
+Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward. The angular position about the Z-axis (aka "Yaw"), for example, is calculated as follows: 
+
+$$
+\theta_{z} = \operatorname{atan2}\left( 2(wz + xy), 1 - 2(y^2 + z^2) \right)
+$$
+
+Where $\theta_{z}$ is the yaw angle (in radians), and $w$, $x$, $y$ and $z$ are the quaternion components of a robot's orientation ($w$ being the scalar (real) part and $x$, $y$ and $z$ being the vector parts)[^auto-addison].
+
+[^auto-addison]: Taken from [this Automatic Addison blog post](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
 
 ### Which Pose Values Apply to our Waffles?
 

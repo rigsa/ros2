@@ -8,11 +8,9 @@ title: "Assignment #2 Part B"
 
 **Submission**: Friday of Week 12 at 6pm (BST)
 
-More details coming soon...
+**Tasks**:
 
-<!-- **Tasks**:
+* Task 3: Exploration & Search (worth 40 marks)
+* Team Viva (worth 20 marks), more details coming soon...
 
-* [Task 3: Exploration & Search](./task3.md)
-* [Task 4: Documentation](./task4.md)
-
-Ensure that you have prepared appropriately for the Part B submission by following [all the instructions here](../assessment.md). -->
+Ensure that you have prepared appropriately for the Part B submission by following [all the instructions here](../assessment.md).

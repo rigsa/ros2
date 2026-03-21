@@ -5,6 +5,15 @@ description: Learn more about the TurtleBot3 Waffle Robots that you'll work with
 
 ## The TurtleBot3 Waffle {#robots}
 
+<!-- suggestion from Alex (20/03/2026):
+
+The Diamond Waffle dimensions
+Length: 30 cm, measured from front to back including the camera.
+Width:  31 cm, measured between the wheels.
+A circular space with a radius of 22 cm is required when turning in place.
+(numbers rounded to a cm)
+maybe add the to this page? https://tom-howard.github.io/ros2/waffles/basics/ -->
+
 ### Turtlebot what?!
 
 To teach ROS here we use the [TurtleBot3 Waffle](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/){target="_blank"} robot, made by Robotis. This is the 3rd Generation Robot in the [TurtleBot family](http://wiki.ros.org/Robots/TurtleBot){target="_blank"} (which has been the reference hardware platform for ROS since 2010). The TurtleBot Robot family exists to provide accessible and relatively low-cost hardware and open-source software on a robot platform, to encourage people to learn robotics and ROS and make it as easy as possible to do so.

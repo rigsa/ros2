@@ -34,15 +34,11 @@ You've become very familiar with the Computer Room 5 Robot Arena by now! Here's 
 </figure>
 
 <a name="env-vars"></a>
-
-!!! danger "Important"
-
-    This is an *example* of what the environment *might* look like:
     
-    * The arena will contain various wooden walls 180 mm tall, 10 mm thick and either 440 mm or 880 mm in length, but they will be arranged differently, and could vary in quantity slightly too (there might be a few more, there might be a few less).
-    * The arena will always contain **four** cylindrical beacons of 200 mm diameter and 250 mm height, each of a different colour: one yellow, one red, one green and one blue.
-    * Gaps between all obstacles will always be big enough for a robot to pass through (with a small amount of clearance). There won't ever be gaps present that are too narrow for a robot to fit through.
-    * The robot could start *anywhere* in the arena, not necessarily (infact, very unlikely) in the location shown above.
+* The arena will contain various wooden walls 180 mm tall, 10 mm thick and either 440 mm or 880 mm in length, but they will be arranged differently, and could vary in quantity slightly too (there might be a few more, there might be a few less).
+* The arena will always contain **four** cylindrical beacons of 200 mm diameter and 250 mm height, each of a different colour: one yellow, one red, one green and one blue.
+* Gaps between all obstacles will always be big enough for a robot to pass through (with a small amount of clearance). There won't ever be gaps present that are too narrow for a robot to fit through.
+* The robot could start *anywhere* in the arena, not necessarily (infact, very unlikely) in the location shown above.
 
 ### Exploration
 

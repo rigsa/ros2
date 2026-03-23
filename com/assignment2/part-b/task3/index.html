@@ -10,10 +10,10 @@
         <link rel="canonical" href="https://tom-howard.github.io/ros2/com/assignment2/part-b/task3/">
       
       
-        <link rel="prev" href="../old_task4/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../../../course/">
+        <link rel="next" href="../../ros-pkg-tips/">
       
       
         
@@ -1631,6 +1631,8 @@
           
         
       
+        
+      
     
     
     
@@ -1663,6 +1665,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_4_3_4" id="__nav_4_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_4_label" aria-expanded="true">
@@ -1676,6 +1683,283 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
             
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task 3: Exploration &amp; Search
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task 3: Exploration &amp; Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-for-a-beacon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Searching for a Beacon
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Searching for a Beacon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saving-the-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saving the Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-the-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping the Environment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapping the Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-a-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saving a Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executing Your Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Executing Your Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-launch-file-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Launch File Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Marking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crit-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C: Searching for a Beacon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crit-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D: Mapping the Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulation Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
               
             
           </ul>
@@ -2360,6 +2644,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#the-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#exploration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2471,6 +2766,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#marking" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2578,22 +2884,26 @@
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
 <p>This task builds on what you did for Task 2. This time however, your robot will need to navigate a more densely populated arena (i.e. more obstacles), so there'll be less room to navigate freely, and more chance of collisions occurring! Once again, the main aim is to <em>safely</em> explore as much of the arena as possible, but with a bit more time to do so now. At the same time, you'll need to search for a beacon of a particular colour and try to capture an image of it. Finally, you'll <em>also</em> need to document your robot's exploration by building a map of the environment (with SLAM) as it explores, and save this map for us to view afterwards.</p>
 <h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">¶</a></h2>
-<p>You've become very familiar with the Computer Room 5 Robot Arena by now! Here's an example of what it <em>could</em> look like for Task 3: </p>
+<h3 id="the-environment">The Environment<a class="headerlink" href="#the-environment" title="Permanent link">¶</a></h3>
+<p>You've become very familiar with the Computer Room 5 Robot Arena by now, and you will be exploring this once more! Here's what to expect for Task 3: </p>
 <p><a name="t3-arena-layout"></a></p>
+<p></p><center><em>Real arena image coming soon, but here's an example in simulation for now (to illustrate the nature of the task).</em></center><p></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src=""></a>
-  Image Coming Soon... 
-  <br>
-  In the meantime, have a look at the <a href="#simulation-resources">Simulation Resources</a> section below.
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task3.png" width="700px"></a>
   </p>
-<figcaption>An example arena layout for Task 3.</figcaption>
+<figcaption>An <strong>example</strong> arena layout for Task 3.</figcaption>
 </figure>
 <p><a name="env-vars"></a></p>
+<p><strong>The above is just an example of what the real arena might look like</strong>, but what we can say is this: </p>
 <ul>
-<li>The arena will contain various wooden walls 180 mm tall, 10 mm thick and either 440 mm or 880 mm in length, but they will be arranged differently, and could vary in quantity slightly too (there might be a few more, there might be a few less).</li>
-<li>The arena will always contain <strong>four</strong> cylindrical beacons of 200 mm diameter and 250 mm height, each of a different colour: one yellow, one red, one green and one blue.</li>
-<li>Gaps between all obstacles will always be big enough for a robot to pass through (with a small amount of clearance). There won't ever be gaps present that are too narrow for a robot to fit through.</li>
-<li>The robot could start <em>anywhere</em> in the arena, not necessarily (infact, very unlikely) in the location shown above.</li>
+<li>The arena will contain various wooden walls 180 mm tall, 10 mm thick and 440 mm <em>or</em> 880 mm in length (a combination of both lengths will be present).</li>
+<li>Walls will be assembled together <em>at least</em> in pairs (since they can't stand up on their own!), but a single wall assembly could comprise more than two walls, and any combination of wall lengths.</li>
+<li>The location and orientation of wall assemblies, as well as the relative angles between walls within each assembly will vary. </li>
+<li>Walls and/or wall assemblies could also vary in quantity slightly too (there might be a few more, there might be a few less).</li>
+<li>The arena will always contain <strong>four</strong> cylindrical beacons of 200 mm diameter and 250 mm height, each of a different colour: one <strong>yellow</strong>, one <strong>red</strong>, one <strong>green</strong> and one <strong>blue</strong>.</li>
+<li>The beacons could also be located <em>anywhere</em> in the arena.</li>
+<li>"Corridors" in the arena (i.e. the free spaces for the robot to explore) will always be sufficient for a robot to pass through with some clearance. You should anticipate some <em>very</em> small gaps to be present however between adjacent walls in wall assemblies for example (due to the hinges), or the "wedges" that form between a beacon placed up against a wall (like in the example above). Your exploration algorithms will need to be robust to these unavoidable small gaps.</li>
+<li>The robot could start <em>anywhere</em> in the arena: any zone, any position within a zone and at any orientation.</li>
 </ul>
 <h3 id="exploration">Exploration<a class="headerlink" href="#exploration" title="Permanent link">¶</a></h3>
 <ol>
@@ -2602,26 +2912,25 @@
 <p><strong>Note</strong>: <em>The timer will start as soon as the robot starts moving within the arena.</em></p>
 </li>
 <li>
-<p>The arena floor will be marked out into <strong>16 equal-sized zones</strong>. You will be awarded marks for each of the zones that your robot enters within the time available (excluding the one it starts in).</p>
+<p>The arena floor will be marked out into <strong>16 equal-sized zones</strong> (each 1 m x 1 m square). You will be awarded marks for each of the zones that your robot enters within the time available (excluding the one it starts in).</p>
 <p><strong>Note</strong>: <em>Exploration marks only count when the robot's <ins>entire body</ins> enters the zone.</em></p>
 </li>
 <li>
 <p>Your robot will need to successfully explore whilst avoiding contact with <em>anything</em> in the environment. </p>
-<p>Any contact with the environment is referred to as an <em>"incident."</em> Once an incident has taken place, we'll move the robot away slightly so that it is free to move again, but after <strong>five</strong> incidents have occurred the assessment will be stopped, regardless of how much time has elapsed.</p>
+<p>Any contact the robot makes with the environment is counted as an <em>"incident."</em> Once an incident has taken place, we'll move the robot away slightly so that it is free to move again, but after <strong>five</strong> incidents have occurred the assessment will be stopped, regardless of how much time has elapsed.</p>
 </li>
 </ol>
-<p>You'll also need to think about a couple of slightly more <strong>advanced features</strong> for this task...</p>
 <h3 id="searching-for-a-beacon">Searching for a Beacon<a class="headerlink" href="#searching-for-a-beacon" title="Permanent link">¶</a></h3>
-<p>As with the previous 2 tasks, we will launch the ROS node(s) from within your package for this task using <code>ros2 launch</code> (<a href="#launch">as discussed below</a>). For this one however, we will <em>also</em> supply an additional argument when we do this:</p>
+<p>As with the previous 2 tasks, we will launch the ROS node(s) from within your package for this task using <code>ros2 launch</code> (<a href="#launch">more details below</a>). For this one however, we will <em>also</em> supply an additional argument when we do this:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>COLOUR
 </code></pre></div>
-<p>...where <code>COLOUR</code> will be replaced with either <code>yellow</code>, <code>red</code>, <code>green</code> or <code>blue</code> (the target colour will be selected randomly). Based on this input, your robot will need to capture an image of the beacon of that colour.</p>
-<p>You will therefore need to define your launch file to accommodate the <code>target_beacon</code> command-line argument. In addition to this, inside your launch file you'll <em>also</em> need to pass the <em>value</em> of this to a ROS node within your package, so that the node knows which beacon to actually look for (i.e. your node needs to know whether to look for a <em>yellow</em>, <em>red</em>, <em>green</em> or <em>blue</em> beacon). This kind of launch file functionality wasn't covered in Assignment #1, but <a href="#advanced-launch-file-features">there are some additional resources available to help you with this</a>.</p>
+<p>...where <code>COLOUR</code> will be replaced with either <code>yellow</code>, <code>red</code>, <code>green</code> or <code>blue</code> (always in lower case). This target colour will be selected randomly. Based on this input, your robot will need to capture an image of the beacon of that colour.</p>
+<p>You will therefore need to define your launch file to accommodate the <code>target_beacon</code> command-line argument. In addition to this, inside your launch file you'll <em>also</em> need to pass the <em>value</em> of this to a ROS node within your package, so that the node knows which beacon to actually look for (i.e. the <em>yellow</em>, <em>red</em>, <em>green</em> or <em>blue</em> beacon). This kind of launch file functionality wasn't covered in Assignment #1, but <a href="#advanced-launch-file-features">there are some additional resources available to help you with this</a>.</p>
 <p><a name="arg_parsing"></a></p>
-<p>Upon launching your <code>task3.launch.py</code> launch file, a Log Message must be generated by one of your ROS nodes to indicate the specified colour for the search task. This log message must be of <code>INFO</code> severity, and must be generated within 10 seconds of executing your launch file. The message should be formatted <em>exactly</em> as follows:</p>
+<p>Upon launching your <code>task3.launch.py</code> launch file, a Log Message must be generated by one of your ROS nodes to indicate the specified colour for the search task. This log message must be of <code>INFO</code> severity (i.e. using a <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> method call), and must be generated within 10 seconds of executing your launch file. The message should be formatted <em>exactly</em> as follows:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TARGET BEACON: Searching for COLOUR.
 </code></pre></div>
-<p>...where <code>COLOUR</code> must be replaced with the actual colour that was passed to your <code>task3.launch.py</code> file (either <code>yellow</code>, <code>red</code>, <code>green</code> or <code>blue</code>). You should use a <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> method call to print this log message.</p>
+<p>...where <code>COLOUR</code> must be replaced with the actual colour that was passed to your <code>task3.launch.py</code> file (either <code>yellow</code>, <code>red</code>, <code>green</code> or <code>blue</code>).</p>
 <h4 id="saving-the-image">Saving the Image<a class="headerlink" href="#saving-the-image" title="Permanent link">¶</a></h4>
 <p>At the root of your package there must be a directory called <code>snaps</code>, and the image must be saved into this directory with the file name: <code>target_beacon.jpg</code>, i.e.:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>~/ros2_ws/src/com2009_teamXX_2026/snaps/target_beacon.jpg
@@ -2657,7 +2966,7 @@
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
 </code></pre></div>
 <p>It's also possible to do this <em>programmatically</em> using the ROS 2 Service framework. Consider <a href="../../../../course/part4/#ex6">Assignment #1 Part 4 Exercise 6</a> for how this could be done from within one of your Task 3 ROS nodes.</p>
-<p>The root of your package directory must contain a directory called <code>maps</code>, and the map file that you obtain must be saved into this directory with the name <code>arena_map.png</code>, i.e.:</p>
+<p>The root of your package directory must contain a directory called <code>maps</code>, and the map that your robot generates during exploration must be saved as a <code>png</code> image into this directory with the name <code>arena_map.png</code>, i.e.:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.png
 </code></pre></div>
 <h2 id="launch">Executing Your Code<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
@@ -2678,6 +2987,8 @@
 </ul>
 <p>All of this is covered in additional section of the ROS 2 Course, see here:</p>
 <p></p><center><a class="md-button" href="../../../../course/extras/launch-files/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"></path></svg></span> Launch Files (Advanced)</a></center><p></p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">¶</a></h2>
+<p>You may draw upon pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2, but <strong>there are restrictions that you must be aware of</strong>. <a href="../../assessment/#dependencies">See here for more details on this</a>.</p>
 <h2 id="marking">Marking<a class="headerlink" href="#marking" title="Permanent link">¶</a></h2>
 <p>There are <strong>40 marks</strong> available for this task in total, awarded based on the criteria outlined below.</p>
 <p></p><center><p></p>
@@ -2767,12 +3078,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;"><strong>D1</strong></td>
-<td style="text-align: left;">By the end of the assessment a map of the robot arena (or any part of it) must have been generated. Two files should exist: a <code>.png</code> and a <code>.yaml</code>, both of which must be called <code>arena_map</code>, and both must be located in a <code>maps</code> folder at the root of your package directory: <code>~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.png</code> and <code>~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.yaml</code>.</td>
+<td style="text-align: left;">A map of <strong>any part</strong> of the robot arena (however small) must have been generated <em>during the assessment</em>. By the end of the assessment, two files should exist: a <code>png</code> and a <code>yaml</code>, both of which must be called <code>arena_map</code>, and both must be located in a <code>maps</code> folder at the root of your package directory: <code>~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.png</code> and <code>~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.yaml</code>.</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>D2</strong></td>
-<td style="text-align: left;">TODO: Your <code>arena_map.png</code> file that is created <em>during the assessment</em> (at the path stated above) is a map that depicts <strong>at least one</strong> of the rooms of the arena, <strong>in full</strong>.</td>
+<td style="text-align: left;">Your <code>arena_map.png</code> file (created during the assessment and at the path stated above) depicts all free/occupied space extending from any one of the outer arena walls to the opposing outer arena wall, uninterrupted (i.e. containing no unmapped regions), across any part of the arena, to a width of at least 0.5 meters. For example, <em>either</em> the red or blue strips in the example map below would do the job:<br><br><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/map_example.png"></a></td>
 <td style="text-align: left;">3</td>
 </tr>
 </tbody>
@@ -2791,23 +3102,11 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>explore.launch.py
 </code></pre></div>
 <figure>
-<p>TODO
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task3.jpg" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task3.png" width="700px"></a></p>
 </figure>
 <p>Make sure you <a href="../../../../course/extras/course-repo/#updating">check for updates to the course repo</a> to ensure that you have the most up-to-date version of this.</p>
-<p>Once again, this is just an <em>example</em> of what the real-world environment <em>could</em> look like:</p>
-<ul>
-<li>Like the simulation, the arena will contain various wooden walls 180 mm tall, 10 mm thick and either 440 mm or 880 mm in length.</li>
-<li>The arena will contain four cylindrical beacons of 200 mm diameter and 250 mm height.</li>
-<li>Walls and beacons could be arranged entirely differently to what's shown here.</li>
-<li>There will always be four beacons, but the number of wooden walls could vary slightly (up or down).</li>
-<li>Gaps between all obstacles will always be big enough for a robot to pass through (with a small amount of clearance). There won't ever be gaps present that are too narrow for a robot to fit through.</li>
-<li>The robot might not necessarily be located at the same starting point as in the simulation, it could start <em>anywhere</em> in the arena</li>
-<li>
-<p>Beacons will be the same shape, size and colour as those in the simulation (yellow, red, green and blue). </p>
-<p><strong>Note</strong>: <em>Detecting colours is a lot harder in the real-world than it is in simulation, so you'll need to do a lot of real-world testing n order to get this working robustly (you will have access to all the beacons during the lab sessions).</em></p>
-</li>
-</ul>
+<p>Once again, this is just an <em>example</em> of what the real-world environment <em>could</em> look like. See the notes above for <a href="#env-vars">the various ways the environment will vary when this task is assessed in the real robot arena</a>. </p>
+<p>In addition to this, note that beacons will be the same shape, size and colour as those in the simulation, <strong>but</strong> detecting colours is a lot harder in the real-world than it is in simulation, so you'll need to do a lot of real-world testing in order to get this working robustly on the real thing (you will have access to all the beacons during the lab sessions).</p>
 
 
 
@@ -2830,7 +3129,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 21, 2026 10:19:14 UTC"><span class="timeago" datetime="2026-03-21T10:19:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 21, 2026 10:19:14 UTC">2026-03-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 23, 2026 16:54:22 UTC"><span class="timeago" datetime="2026-03-23T16:54:22+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 23, 2026 16:54:22 UTC">2026-03-23</span>
   </span>
 
     
@@ -2875,7 +3174,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../old_task4/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Task 4: Documentation">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Assignment #2 Part B">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -2885,20 +3184,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Task 4: Documentation
+                Assignment #2 Part B
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../../../course/" class="md-footer__link md-footer__link--next" aria-label="Next: The ROS 2 Course">
+          <a href="../../ros-pkg-tips/" class="md-footer__link md-footer__link--next" aria-label="Next: Working with your ROS Package (in the Lab)">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                The ROS 2 Course
+                Working with your ROS Package (in the Lab)
               </div>
             </div>
             <div class="md-footer__button md-icon">

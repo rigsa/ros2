@@ -4,7 +4,7 @@ title: "Task 1: Velocity Control"
 
 Develop a working ROS application to making *a real TurtleBot3 Waffle* follow a prescribed motion profile, whilst printing key information to the terminal.
 
-!!! success "Assignment #1 Checkpoints"
+!!! success "Course Checkpoints"
     
     The following parts of [The ROS 2 Course](../../assignment1.md) will support your work on this task: 
 

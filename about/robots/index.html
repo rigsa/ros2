@@ -592,6 +592,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dimensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#software" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2517,6 +2528,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dimensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#software" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2584,15 +2606,6 @@
   <h1>Introducing the Robots</h1>
 
 <h2 id="robots">The TurtleBot3 Waffle<a class="headerlink" href="#robots" title="Permanent link">¶</a></h2>
-<!-- suggestion from Alex (20/03/2026):
-
-The Diamond Waffle dimensions
-Length: 30 cm, measured from front to back including the camera.
-Width:  31 cm, measured between the wheels.
-A circular space with a radius of 22 cm is required when turning in place.
-(numbers rounded to a cm)
-maybe add the to this page? https://tom-howard.github.io/ros2/waffles/basics/ -->
-
 <h3 id="turtlebot-what">Turtlebot what?!<a class="headerlink" href="#turtlebot-what" title="Permanent link">¶</a></h3>
 <p>To teach ROS here we use the <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/" target="_blank" rel="noopener">TurtleBot3 Waffle</a> robot, made by Robotis. This is the 3rd Generation Robot in the <a href="http://wiki.ros.org/Robots/TurtleBot" target="_blank" rel="noopener">TurtleBot family</a> (which has been the reference hardware platform for ROS since 2010). The TurtleBot Robot family exists to provide accessible and relatively low-cost hardware and open-source software on a robot platform, to encourage people to learn robotics and ROS and make it as easy as possible to do so.</p>
 <!-- ### The (Free) TurtleBot3 eBook {#ebook}
@@ -2647,6 +2660,13 @@ We recommend that you have a look at this book to learn more about the concepts 
 <li>A 9-Axis Inertial Measurement Unit (or <em>IMU</em>) on-board the OpenCR Micro Controller board, which uses an accelerometer, gyroscope and magnetometer to measure the robot's specific force, acceleration and orientation. </li>
 <li>Encoders in each of the DYNAMIXEL wheel motors, allowing measurement of speed and rotation count for each of the wheels.</li>
 </ul>
+<h4 id="dimensions">Dimensions<a class="headerlink" href="#dimensions" title="Permanent link">¶</a></h4>
+<p>Some useful dimensions for the Waffles are shown below:</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/dims_and_turning_circle.svg" width="600px"></a>
+  </p>
+<figcaption>Adapted from <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/features/#data-of-turtlebot3-waffle-pi" target="_blank" rel="noopener">ROBOTIS TurtleBot3 e-Manual</a>.</figcaption>
+</figure>
 <h4 id="software">Software<a class="headerlink" href="#software" title="Permanent link">¶</a></h4>
 <p>Our robots currently run <a href="https://docs.ros.org/en/jazzy/index.html" target="_blank" rel="noopener">ROS 2 Jazzy Jalisco</a> (or <em>"Jazzy"</em> for short). The courses here are therefore based around this version of ROS. The easiest way to install Jazzy is via Deb packages for Ubuntu Noble Numbat (24.04). This is the setup we recommend and - as such - all our robotics hardware runs with this OS/Software setup.</p>
 <p>To deliver the simulation-based parts of this course, we've created a custom simulation environment using the <a href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank" rel="noopener">Windows Subsystem for Linux (WSL)</a>. This has been developed primarily to run on University of Sheffield Managed Desktop Computers, which run Windows 11, but it's also possible to run this on other machines too. We call this simulation environment <em>"WSL-ROS2"</em>. <a href="../../software/">See here for more details</a>. (You can find out more about installing ROS on your own system here too).</p>
@@ -2674,7 +2694,7 @@ We recommend that you have a look at this book to learn more about the concepts 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 21, 2026 10:18:30 UTC"><span class="timeago" datetime="2026-03-21T10:18:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 21, 2026 10:18:30 UTC">2026-03-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="April 10, 2026 15:15:34 UTC"><span class="timeago" datetime="2026-04-10T15:15:34+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="April 10, 2026 15:15:34 UTC">2026-04-10</span>
   </span>
 
     

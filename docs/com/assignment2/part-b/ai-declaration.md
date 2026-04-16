@@ -2,6 +2,8 @@
 title: "AI Declaration Template"  
 --- 
 
+<!-- For info: https://ai-declaration.md/en/0.1.2/ -->
+
 All teams **MUST** include an `AI-Declaration.md` file at the root of their package directory:
 
 ``` { .txt .no-copy }
@@ -38,7 +40,7 @@ We acknowledge the use of <!-- (1)! --> for the following purposes:
 
 1. Insert the name of the AI system(s) here.
 
-2. To tick a checkbox using Markdown, put an `x` in it: 
+2. To tick a checkbox using Markdown, put an `x` inside the square brackets: 
     
     ``` { .md .no-copy }
     * [ ] for background research...

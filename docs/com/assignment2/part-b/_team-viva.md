@@ -26,10 +26,12 @@ All teams **MUST** include an `AI-Declaration.md` file at the root of their pack
 com2009_teamXX_2026/AI-Declaration.md
 ```
 
-This file must be named exactly as stated above. The content of this must follow **[the template provided here](./ai-declaration.md)**, and must be completed to accurately reflect your team's use of AI for Task 3.
+This file must be named exactly as stated above. The content of this **must follow the template provided below**, and must be completed *accurately*, to reflect your team's use of AI for Task 3:
+
+<center>[The `AI-Declaration.md` template](./ai-declaration.md){ .md-button target="_blank"}</center>
 
 !!! warning
-    Failure to do this by the Assignment #2 Part B Deadline will result in penalties being applied to your team's mark.
+    Failure to include the AI Declaration file in your package repository by the Assignment #2 Part B deadline will result in penalties being applied to your team's mark.
 
 ## Logistics
 
@@ -43,7 +45,7 @@ Bookings should be made **as a team**, so you should agree with all team members
 
 ### Schedule
 
-We will start each Viva by running the assessment of your Task 3 submission on a robot in the Computer Room 5 robot arena. All team members will be able to observe this assessment of Task 3 along with the Teaching Team (Tom & Alex). This will take up the first 5 minutes of the Viva (at most). There will be no opportunity to modify your code during the Viva, request for the assessment to be restarted, or re-run in its entirety. **The assessment of Task 3 will be done only once**.
+We will start each Viva by running the assessment of your Task 3 submission on a robot in the Computer Room 5 robot arena. All team members will be able to observe this assessment of Task 3 along with the Teaching Team (Tom & Alex). This will take up the first 5 minutes of the Viva (at most). There will be no opportunity to modify your code during the Viva, nor will you be able to request for the assessment to be restarted at any point, or re-run in its entirety. **The assessment of Task 3 will be done only once**.
 
 After your team's Task 3 assessment is complete, we will commence a Q&A session, which will last up to 15 minutes.
 
@@ -75,14 +77,14 @@ Ultimately though, the main aims of the Viva are [as stated above](#overview), a
 
 At a minimum, we will ask teams to describe / discuss the following and support all explanations with examples (i.e. referring to specific parts of your code).
 
-* A high level overview of how your implementation works (i.e. the core strategies / logic in your application).
+* A high level overview of how your implementation works (i.e. the core strategies / logic of your application).
 * The intention behind specific algorithms.
 * An explanation of certain behaviours that were observed during the Task 3 assessment, and indication of the specific parts of your code that were responsible for this.
 * Discussion of potential weak points or edge cases and how these could be improved.
 
 ### Marking Criteria
 
-TODO: A rubric?
+TODO: A rubric... 
 
 ### Release of Marks
 

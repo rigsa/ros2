@@ -6,11 +6,9 @@ title: "Assignment #2 Part B"
 
 **Total Marks**: 60/100
 
-**Submission**: 
+**Submission**: Friday of Week 12 at 6pm (BST) for Task 3. Vivas to take place during the Spring exam period.
 
-Friday of Week 12 at 6pm (BST) for Task 3. Vivas to take place during the Spring exam period.
-
-**Tasks**:
+**Assessment Points**:
 
 * [Task 3: Exploration & Search](./task3.md) (worth 40 marks)
 * [Team Viva](./team-viva.md) (worth 20 marks), more details coming soon...

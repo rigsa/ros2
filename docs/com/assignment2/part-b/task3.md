@@ -2,6 +2,10 @@
 title: "Task 3: Exploration & Search"  
 ---  
 
+!!! info "Update 17/04/2026"
+    * [Photo of the *real* robot arena added](#the-environment).
+    * Number of obstacles slightly reduced! 
+ 
 Develop ROS node(s) to allow a TurtleBot3 Waffle to autonomously explore as much of the full Computer Room 5 robot arena as possible, whilst searching for a beacon and documenting its exploration with a map of the environment as it goes! 
 
 !!! success "Course Checkpoints"
@@ -28,10 +32,8 @@ You've become very familiar with the Computer Room 5 Robot Arena by now, and you
 
 <a name="t3-arena-layout"></a>
 
-<center>*Real arena image coming soon, but here's an example in simulation for now (to illustrate the nature of the task).*</center>
-
 <figure markdown>
-  ![](../figures/task3.png){width=700px}
+  ![](../figures/task3_arena_layout.png){width=700px}
   <figcaption>An <strong>example</strong> arena layout for Task 3.</figcaption>
 </figure>
 
@@ -227,7 +229,7 @@ ros2 launch tuos_task_sims explore.launch.py
 ```
 
 <figure markdown>
-  ![](../figures/task3.png){width=700px}
+  ![](../figures/explore.png){width=700px}
 </figure>
 
 Make sure you [check for updates to the course repo](../../../course/extras/course-repo.md#updating) to ensure that you have the most up-to-date version of this.

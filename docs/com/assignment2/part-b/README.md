@@ -17,4 +17,4 @@ Ensure that you have prepared appropriately for the Part B submission by followi
 
 **Peer Evaluation**:
 
-You will be asked to complete a *Buddycheck* Peer Evaluation for Part B (*"Peer Evaluation 3"*), the deadline for this will be **23:59 on Friday of Week 12**. This will be used to determine individual contributions to the team's work, and how individual marks should be calculated based on final *team* marks.
+You will be asked to complete a *Buddycheck* Peer Evaluation for Part B (*"Peer Evaluation 3"*), the deadline for this will be **23:59 on Friday of Week 12**. This will be used to determine individual contributions to the team's work.

@@ -18,11 +18,11 @@ Assignment #2 is split into two parts: **Part A** and **Part B**. You will compl
 | Part | Description | Marks<br />(/100) | Submission |
 | :---: | :---  | :---: | :---: |
 | **A** | **Task 1**: [Velocity Control](./part-a/task1.md)<br />**Task 2**: [Avoiding Obstacles](./part-a/task2.md) | 20<br />20 | Friday of Week 6 at 6pm (GMT) |
-| **B** | **Task 3 & Team Viva**<br />More details coming soon... | 60 | Friday of Week 12 at 6pm (BST) |
+| **B** | **Task 3**: [Exploration & Search](./part-b/task3.md)<br />**[Team Viva](./part-b/team-viva.md)** | 40<br />20 | Friday of Week 12 at 6pm (BST) |
 
 </center>
 
-As shown above, there are **three programming tasks** and a **team viva** that you must complete for Assignment #2, worth a total of **100 marks** overall. Exact submission deadlines will be stated on Blackboard.
+As shown above, there are **three programming tasks** and a **Team Viva** that you must complete for Assignment #2, worth a total of **100 marks** overall. Exact submission deadlines will be stated on Blackboard.
 
 The three programming tasks will require you to develop ROS nodes (and a ROS package) to make our real TurtleBot3 Waffle robots complete certain real-world objectives in the robot arena in Computer Room 5. All three of these tasks will be marked based on how well the robot completes each of the objectives. 
 
@@ -40,9 +40,7 @@ Each submission will be assessed by deploying your ROS package on one of the *ro
 
 ### Team Viva 
 
-Details coming soon...
-
-<!-- Your package must contain a `README.md` file in the root of your package directory. This README file must document the application that you have developed for Task 3. [Further details can be found on the Task 4 page](./part-b/task4.md).  -->
+The main aim of the *Team Viva* is to give you the opportunity to show off the ROS application that you (*as a team*) have built for Task 3: to tell us about your approach, the main logic, and why you chose to take this approach. It's also a chance to highlight any novel or impressive aspects of your work that you're particularly proud of. [For further details, see here](./part-b/team-viva.md).
 
 ### Submissions
 
@@ -55,7 +53,7 @@ Before you get started on any of the tasks, **as a team** you'll need to create 
 
 ### Launching Your Code
 
-In order to launch the necessary functionality within your package for a given task you will need to include correctly named *launch files*: `task1.launch.py`, `task2.launch.py`, etc. This will allow you to ensure that all the required functionality is executed when your submission is assessed, and also ensures that we know exactly how to launch this functionality in order to assess it. Full details of the requirements for each launch file are provided on the associated task page.
+In order to launch the necessary functionality within your package for a given task you will need to include correctly named *launch files*: `task1.launch.py`, `task2.launch.py` and `task3.launch.py`. This will allow you to ensure that all the required functionality is executed when your submission is assessed, and also ensures that we know exactly how to launch this functionality in order to assess it. Full details of the requirements for each launch file are provided on the associated task page.
 
 For more information on how to create `.launch.py` files, refer to the following resources:
 
@@ -65,4 +63,3 @@ For more information on how to create `.launch.py` files, refer to the following
 ### Preparing for the Deadlines
 
 [You can find all the Key Information regarding assessment of the *programming* tasks on this page](./assessment.md). It's extremely important that you follow all the *Key Requirements* outlined here regarding the structure, content and configuration of your ROS package, so please be sure to **read this page in full** at your earliest convenience!
-

@@ -1,5 +1,5 @@
 ---  
-title: "AI Declaration Template"  
+title: "GenAI Declaration Template"  
 --- 
 
 <!-- For info: https://ai-declaration.md/en/0.1.2/ -->
@@ -13,9 +13,9 @@ com2009_teamXX_2026/AI-Declaration.md
 This file must be written with *Markdown Formatted Text* and must follow the template shown here:
 
 ```html title="AI-Declaration.md"
-# Team XX AI Declaration <!-- (6)! -->
+# Team XX GenAI Declaration <!-- (6)! -->
 
-Declaration of AI usage for Assignment #2 Part B (Task 3). 
+Declaration of Generative AI usage for Assignment #2 Part B (Task 3). 
 
 ## Acknowledge
 
@@ -73,12 +73,12 @@ We acknowledge the use of <!-- (1)! --> for the following purposes:
 
 [For basic Markdown formatting syntax, see here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax){target="_blank"}.
 
-If your team did not use AI in any way for Assignment #2 Part B, then the following `AI-Declaration.md` will suffice:
+If your team did not use GenAI in any way for Assignment #2 Part B, then the following `AI-Declaration.md` will suffice:
 
 ```html title="AI-Declaration.md"
-# Team XX AI Declaration <!-- (1)! -->
+# Team XX GenAI Declaration <!-- (1)! -->
 
-Declaration of AI usage for Assignment #2 Part B (Task 3). 
+Declaration of Generative AI usage for Assignment #2 Part B (Task 3). 
 
 ## Declaration
 <!-- (2)! -->

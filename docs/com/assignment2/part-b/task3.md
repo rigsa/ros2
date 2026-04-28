@@ -169,6 +169,9 @@ All of this is covered in additional section of the ROS 2 Course, see here:
 
 You may draw upon pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2, but **there are restrictions that you must be aware of**. [See here for more details on this](../assessment.md#dependencies).
 
+!!! info "Nav2"
+    The use of Nav2 *is* permitted for Task 3, but you should **proceed with caution** if you opt for this. [See here for more details](./nav2.md). 
+
 ## Marking
 
 There are **40 marks** available for this task in total, awarded based on the criteria outlined below.

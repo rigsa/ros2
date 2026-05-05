@@ -2,6 +2,9 @@
 title: "Team Viva"  
 ---  
 
+!!! info "Update 05/05/2026"
+    [The booking form is now available](#when-where).
+
 ## Overview
 
 The main aim of the *Team Viva* is to give you the opportunity to show off the ROS application that you (*as a team*) have built for Task 3: to tell us about your approach, the main logic, and why you chose to take this approach. It's also a chance to highlight any novel or impressive aspects of your work that you're particularly proud of. It's also a way for us to make sure the work you've submitted for Task 3 is genuinely yours ([more details below](#use-of-generative-ai)).
@@ -12,15 +15,24 @@ The Viva is based entirely on the work you've done for Task 3.[^part-a]
 
 The Viva is assessed independently of Task 3, so even if your Task 3 implementation doesn't quite go to plan when it's assessed, this is your chance to explain your *intentions*: what *should* have happened, and why it might not have worked out quite right on the day. Don't panic! Assessment of the Viva is *independent* of your team's performance in Task 3, so even if you score 0/40 marks in Task 3 you could still get full marks (20/20) for the Viva if you defend your work well. 
 
-## When & Where
+## When & Where {#when-where}
 
 Team Vivas will take place during [the Spring Exam Period](https://sheffield.ac.uk/new-students/standard-exam-dates-venues){target="_blank"}. These will take place in Diamond Computer Room 5.
 
-Once the final Exam Timetable has been released (early May, [more details here](https://students.sheffield.ac.uk/exams/timetables){target="_blank"}), teams will be invited to select a preference for when they'd like their Viva to take place. You'll be able to pick either a morning (between 9 AM and 12 Noon) or afternoon (between 1 and 5 PM) slot on a specific date. There will be 4-5 slots available per morning/afternoon and preferences are first come, first served: once all slots are taken, that's it!
+<!-- Once the final Exam Timetable has been released (early May, [more details here](https://students.sheffield.ac.uk/exams/timetables){target="_blank"}), teams will be invited to select a preference for when they'd like their Viva to take place. You'll be able to pick either a morning (between 9 AM and 12 Noon) or afternoon (between 1 and 5 PM) slot on a specific date. There will be 4-5 slots available per morning/afternoon and preferences are first come, first served: once all slots are taken, that's it! 
 
 There will be a deadline for submitting these preferences and after this deadline (and before the start of the Spring Exam Period) a final timetable will be released. Teams who don't submit a preference will be assigned a slot at random.
+-->
 
-Bookings should be made **as a team**, so be sure to chat with all your team members about date/time preferences (if you have any) before submitting these to us. 
+Following the release of [the final Exam Timetable on 5th May 2026](https://students.sheffield.ac.uk/exams/timetables){target="_blank"}, teams are now invited to select a preference for when they'd like their Viva to take place. You can select either a morning (between 9 AM and 12 Noon) or afternoon (between 1 and 5 PM) slot on a specific date, but please note that bookings are first come, first served: once all slots are taken (for a given date / time), that's it!
+
+The booking form is available here (University login required):
+
+<center>[Team Viva Booking Form - Spring 2026](https://forms.gle/7e5Ab1Zpq3jvUBtz9){ .md-button target="_blank" }</center>
+
+The deadline for submitting any preferences is **Friday 15th May 2026** (Week 11). After this (and before the start of the Spring Exam Period) a final schedule for the Vivas will be released. 
+
+Teams who don't submit a preference will be assigned a slot at random. Bookings should be made **as a team**, so be sure to chat with all your team members about date/time preferences (if you have any) before submitting these to us. 
 
 ### Schedule
 

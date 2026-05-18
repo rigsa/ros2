@@ -3163,9 +3163,29 @@
 </code></pre></div>
 <h2 id="launch">Executing Your Code<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
 <p>Your team's ROS package must contain a launch file named <code>task3.launch.py</code>, such that (for the assessment) we are able to launch all the nodes that you have developed for this task via the following command:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>COLOUR
+<p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>COLOUR
 </code></pre></div>
-... where <code>XX</code> will be replaced with your team number and <code>COLOUR</code> will be replaced with either <code>yellow</code>, <code>red</code>, <code>green</code> or <code>blue</code>.<p></p>
+... where <code>XX</code> will be replaced with your team number and <code>COLOUR</code> will be replaced with either <code>yellow</code>, <code>red</code>, <code>green</code> or <code>blue</code>, e.g.:<p></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Yellow</label><label for="__tabbed_2_2">Red</label><label for="__tabbed_2_3">Green</label><label for="__tabbed_2_4">Blue</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>yellow
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>red
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>green
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task3.launch.py<span class="w"> </span>target_beacon:<span class="o">=</span>blue
+</code></pre></div>
+</div>
+</div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>ROS will already be running on the robot before we attempt to execute your launch file, and <a href="../../../../waffles/launching-ros/#step4">a <em>Zenoh Session</em> will be running on the laptop, to allow nodes running on the laptop to communicate with it</a>.</p>
@@ -3295,7 +3315,7 @@
 </ul>
 </div>
 <p>You can launch the simulation from the <code>tuos_task_sims</code> package with the following <code>ros2 launch</code> command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>explore.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>explore.launch.py
 </code></pre></div>
 <figure>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/explore.png" width="700px"></a></p>
@@ -3325,7 +3345,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="April 28, 2026 10:34:10 UTC"><span class="timeago" datetime="2026-04-28T10:34:10+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="April 28, 2026 10:34:10 UTC">2026-04-28</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 18, 2026 16:09:34 UTC"><span class="timeago" datetime="2026-05-18T16:09:34+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 18, 2026 16:09:34 UTC">2026-05-18</span>
   </span>
 
     

@@ -145,10 +145,34 @@ The root of your package directory must contain a directory called `maps`, and t
 
 Your team's ROS package must contain a launch file named `task3.launch.py`, such that (for the assessment) we are able to launch all the nodes that you have developed for this task via the following command:
   
-```bash
+``` { .bash .no-copy }
 ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=COLOUR
 ```
-... where `XX` will be replaced with your team number and `COLOUR` will be replaced with either `yellow`, `red`, `green` or `blue`.
+... where `XX` will be replaced with your team number and `COLOUR` will be replaced with either `yellow`, `red`, `green` or `blue`, e.g.:
+
+=== "Yellow"
+
+    ```bash
+    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=yellow
+    ```
+
+=== "Red"
+
+    ```bash
+    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=red
+    ```
+
+=== "Green"
+
+    ```bash
+    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=green
+    ```
+
+=== "Blue"
+
+    ```bash
+    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=blue
+    ```
 
 !!! note
     ROS will already be running on the robot before we attempt to execute your launch file, and [a *Zenoh Session* will be running on the laptop, to allow nodes running on the laptop to communicate with it](../../../waffles/launching-ros.md#step4).

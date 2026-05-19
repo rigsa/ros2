@@ -4,6 +4,10 @@ title: "Team Viva"
 
 !!! info "Updates"
 
+    **19/05/2026**:
+
+    * Added [some example features of a 1st Class mark](#example).
+
     **15/05/2026**:
 
     * Added a link to the [Marking Criteria](#marking-criteria).
@@ -105,31 +109,21 @@ Finally, as discussed in the previous section, we will have your code available 
 
 <center>[Access the Marking Criteria for the Team Vivas here (University login required)](https://docs.google.com/spreadsheets/d/1psEso29kaA-QzJ_GjtQOzu7IPFXqrY5GxfFKGiS4j_Y/edit?usp=sharing){ .md-button target="_blank"} </center>
 
-<!-- #### Examples
+#### Example
 
-Below we have put together some examples of what we might expect to see against a few of the marking bands.
+<!--Below we have put together some examples of what we might expect to see against a few of the marking bands. -->
 
-**1st (70-100%)**:
-
-Would be awarded to a team that speak fluently about their application and that are able to explain the various facets of it in great detail, answering **all** questions in depth and backing up their discussions with a range of examples from their code.
+To be awarded a **1st Class** mark for the Viva (70-100%), we would expect a team to be able to speak fluently about their application and explain the various facets of it in great detail, answering **all** questions in depth and backing up their discussions with a range of examples from their code.
 
 From a team such as this, we would expect to see evidence of things like: 
 
 * A detailed discussion of how a recognised robot navigation algorithm (Dijkstra, A*, spiral search, a Braitenberg vehicle etc.) has been implemented using the ROS 2 framework, drawing upon various examples in code to support the explanation.
-* Demonstration of an implementation that uses a variety of facets of ROS 2. Showcasing (for example) a well-designed, distributed/modular system of intercommunicating nodes. Highly effective use of (again, for example) Action servers that encapsulate discrete behaviours for the system and take full advantage of features such as feedback and cancellation.
+* Demonstration of an implementation that uses a variety of facets of ROS 2. Showcasing (for example) a well-designed, distributed/modular system of intercommunicating nodes. Highly effective use of (again, for example) action servers that encapsulate discrete behaviours for the system and take full advantage of features such as feedback and cancellation.
 * Examples of novel aspects to the implementation such as highly optimised feature recognition for pillar detection. 
-* Discussion of known weaknesses in the application to certain edge cases (whether observed or not), and how they could be addressed given more time / research / resources.
+Discussion of known weaknesses in the application to certain edge cases (whether observed or not), and how they could be addressed given more time / research / resources.
 * Consideration made to limitations of the physical system (e.g. latency, camera resolution, LiDAR noise) and examples of features in the application that were designed to address this.
 
 (Note that the above is *not* an exhaustive list!)
-
-**2:1 (60-69%)**:
-
-* e.g.
-
-**2:2 (50-59%)**:
-
-* e.g.  -->
 
 ### Assessing Individual Contributions to Team Work
 

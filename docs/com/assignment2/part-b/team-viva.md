@@ -8,7 +8,7 @@ title: "Team Viva"
 
     * Added a link to the [Marking Criteria](#marking-criteria).
     * New section added: [Bringing Notes, Slides etc.](#bringing-notes).
-    * Other various additions (as ==highlighted==).
+    * Other various additions.
 
     **05/05/2026**:
 
@@ -20,7 +20,7 @@ The main aim of the *Team Viva* is to give you the opportunity to show off the R
 
 The Viva is based entirely on the work you've done for Task 3.[^part-a]
 
-[^part-a]: ==We won't ask you anything related to Assignment #2 Part A (Tasks 1 & 2), but if you used this as the basis for your Task 3 implementation, and you'd like to explain this, then that's fine==.
+[^part-a]: We won't ask you anything related to Assignment #2 Part A (Tasks 1 & 2), but if you used this as the basis for your Task 3 implementation, and you'd like to explain this, then that's fine.
 
 The Viva is assessed independently of Task 3, so even if your Task 3 implementation doesn't quite go to plan when it's assessed, this is your chance to explain your *intentions*: what *should* have happened, and why it might not have worked out quite right on the day. Don't panic! Assessment of the Viva is *independent* of your team's performance in Task 3, so even if you score 0/40 marks in Task 3 you could still get full marks (20/20) for the Viva if you defend your work well. 
 
@@ -74,7 +74,7 @@ If a team member doesn't show up to their team's Viva ([or arrives too late](#sc
 
 ## The Q&A Session {#assessment}
 
-This is the main part of the Viva, and it's **worth 20/60 marks** for [Assignment #2 Part B](README.md). ==In attendance will be the whole of your team (as above), plus Tom Howard and Alex Lucas. No other teams, students, GTAs or staff will be present==. 
+This is the main part of the Viva, and it's **worth 20/60 marks** for [Assignment #2 Part B](README.md). In attendance will be the whole of your team (as above), plus Tom Howard and Alex Lucas. No other teams, students, GTAs or staff will be present. 
 
 ### Core Assessment Points
 
@@ -87,11 +87,11 @@ At a minimum, we will ask team members to describe / discuss the following, and 
 * An explanation of certain behaviours that were observed during the Task 3 assessment, and indication of the specific parts of your code that were responsible for this.
 * Discussion of potential weak points or edge cases and how these could be improved.
 
-==During the Viva we will have your code loaded up (in VS Code) on a screen for us all to see. You'll be able to look through this and highlight key parts to us, to support any of your explanations. We (Tom and Alex) may also pick out certain parts of it ourselves, and ask you to explain this to us. The code will be provided by us and will be the version taken at the submission deadline. The `.git` directory will have been removed, so it won't be possible to roll back to a previous commit or pull any changes made after the deadline!==
+During the Viva we will have your code loaded up (in VS Code) on a screen for us all to see. You'll be able to look through this and highlight key parts to us, to support any of your explanations. We (Tom and Alex) may also pick out certain parts of it ourselves, and ask you to explain this to us. The code will be provided by us and will be the version taken at the submission deadline. The `.git` directory will have been removed, so it won't be possible to roll back to a previous commit or pull any changes made after the deadline!
 
 !!! warning "Note"
     
-    ==Any discussions must be based on the version of code that was taken at the deadline, **as provided by us**!==
+    Any discussions must be based on the version of code that was taken at the deadline, **as provided by us**!
 
 ### Bringing Notes, Slides etc. {#bringing-notes}
 

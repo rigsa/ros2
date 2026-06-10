@@ -122,7 +122,13 @@ There are **25 marks** available for this task (per run), as outlined in the tab
 
 </center>
 
-<!-- Change exploration marks for 26/27? Could see what the MAX was in 25/26 and re-scale the 12 marks accordingly? (i.e. so that whatever the max was gets the 12 marks, or more course marking bands: 10-12 zones gets 12/12, 7-9 gets 9/12, 4-6 gets 6/12, 1-3 gets 3/12 ...)  -->
+<!-- Change exploration marks for 26/27? Could see what the MAX was in 25/26 and re-scale the 12 marks accordingly? (i.e. so that whatever the max was gets the 12 marks, or more course marking bands: 10-12 zones gets 12/12, 7-9 gets 9/12, 4-6 gets 6/12, 1-3 gets 3/12 ...)  
+
+Marks for getting the robot to stop at the end (i.e. via a Ctrl+C)
+
+Update mapping marks, lots of teams do pgm. There's also not a lot of differentiation between the two criteria.
+
+-->
 
 The final overall mark awarded to each team will be based on the marks attained for each of the three runs, but with a weighting applied to each:
 

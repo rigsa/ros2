@@ -1,22 +1,22 @@
 ---
-title: The Part 5 Explore Server Template
+title: La Plantilla del Explore Server de la Parte 5
 ---
 
-## The Code
+## El Código
 
 ```py title="explore_server.py"
 --8<-- "code_templates/explore_server.py"
 ```
 
-1. Some variables to store data from the `/odom` (`posx` and `posy`) and `/scan` (`lidar_reading`) subscribers, and share this data across the class.
-2. A shutdown flag (you've seen this before)
-3. Some flags to determine when we've received data from the `/odom` and `/scan` subscribers, to ensure that our action server's main execution callback doesn't begin until we have some valid data to work with (see usage below).
-4. Here we're creating an object that we can use in our action server's main execution callback to control the rate of execution inside a `#!py while` loop (see usage below).
-5. Refer back to the [Part 2 Odometry Subscriber](../part2/odom_subscriber.md#modifying-the-message-callback) for help with this (if you need it).
-6. Refer back to the [Part 3 Lidar Subscriber](../part3/lidar_subscriber.md) for help with this (if you need it).
-7. Calling this here will block any further code execution until enough time has elapsed. 
+1. Algunas variables para almacenar datos de los subscribers `/odom` (`posx` y `posy`) y `/scan` (`lidar_reading`), y compartir estos datos en toda la clase.
+2. Un flag de apagado (ya lo has visto antes).
+3. Algunos flags para determinar cuándo hemos recibido datos de los subscribers `/odom` y `/scan`, para asegurarnos de que el callback de ejecución principal del action server no comience hasta que tengamos datos válidos con los que trabajar (ver uso a continuación).
+4. Aquí estamos creando un objeto que podemos usar en el callback de ejecución principal de nuestro action server para controlar la velocidad de ejecución dentro de un loop `#!py while` (ver uso a continuación).
+5. Consulta el [Subscriber de Odometría de la Parte 2](../part2/odom_subscriber.md#modifying-the-message-callback) para obtener ayuda con esto (si la necesitas).
+6. Consulta el [Subscriber de LiDAR de la Parte 3](../part3/lidar_subscriber.md) para obtener ayuda con esto (si la necesitas).
+7. Llamar esto aquí bloqueará cualquier ejecución de código adicional hasta que haya transcurrido suficiente tiempo.
     
-    This time is dictated by the `frequency` parameter that we defined when we set this up earlier:
+    Este tiempo está dictado por el parámetro `frequency` que definimos cuando lo configuramos anteriormente:
 
     ```py
     self.loop_rate = self.create_rate(
@@ -25,9 +25,9 @@ title: The Part 5 Explore Server Template
     )
     ```
 
-## Dependencies
+## Dependencias
 
-We're introducing a few more dependencies here, due to the various additional Python modules that the Explore Server imports. Make sure you add these to your `package.xml` file: 
+Aquí se introducen algunas dependencias adicionales, debido a los diversos módulos Python adicionales que importa el Explore Server. Asegúrate de agregar estas a tu archivo `package.xml`:
 
 ```xml title="package.xml"
 <exec_depend>sensor_msgs</exec_depend>

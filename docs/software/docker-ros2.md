@@ -1,17 +1,17 @@
 ---
-title: Installing ROS 2 Using Docker (Linux & Mac)
+title: Instalando ROS 2 Usando Docker (Linux y Mac)
 ---
 
-**Applicable to**: Linux and Mac Users
+**Aplicable a**: Usuarios de Linux y Mac
 
-## Download and Installation
+## Descarga e Instalación
 
-For the `docker-ros2` repo and instructions on how to install it on your machine, see here: 
+Para el repositorio `docker-ros2` y las instrucciones sobre cómo instalarlo en tu máquina, consulta aquí: 
 
 <center>[`github.com/tom-howard/ros2-docker`](https://github.com/tom-howard/ros2-docker){ .md-button target="_blank"}</center>
 
-## Acknowledgments
+## Agradecimientos
 
-This solution was originally developed by Atri Hegde, a COM2009 student from 2024 (and a course demonstrator in 2025!)
+Esta solución fue desarrollada originalmente por Atri Hegde, un estudiante del curso de Robótica de 2024 (¡y demostrador del curso en 2025!)
 
-**Thanks Atri**!!
+**¡Gracias Atri**!!

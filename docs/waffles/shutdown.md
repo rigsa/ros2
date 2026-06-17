@@ -1,29 +1,29 @@
 ---  
-title: Shutdown Procedures 
+title: Procedimientos de Apagado 
 ---
 
 ## Robots
 
-The Waffles are powered by [a Single Board Computer (SBC)](../about/robots.md#our-waffles), which runs a full-blown operating system. As with any operating system, it's important to **shut it down properly**, rather than simply disconnecting the power, to avoid any data loss or other issues. 
+Los Waffles son alimentados por [una Computadora de Placa Única (SBC)](../about/robots.md#our-waffles), que ejecuta un sistema operativo completo. Como con cualquier sistema operativo, es importante **apagarlo correctamente**, en lugar de simplemente desconectar la alimentación, para evitar pérdida de datos u otros problemas.
 
-Therefore, once you've finished working with a robot during a lab session, follow the steps below to shut it down.
+Por lo tanto, una vez que hayas terminado de trabajar con un robot durante una sesión de laboratorio, sigue los pasos a continuación para apagarlo.
 
-1. Open a **new** terminal instance on the laptop (++ctrl+alt+t++), and enter the following:
+1. Abre una **nueva** instancia de terminal en la laptop (++ctrl+alt+t++), e ingresa lo siguiente:
 
     ``` { .bash .no-copy }
     waffle X off
     ```
-    ... replacing `X` with the number of the robot that you have been working with.
+    ... reemplazando `X` con el número del robot con el que has estado trabajando.
     
-1. You'll be asked to confirm that you want to shut the robot down: 
+1. Se te pedirá confirmar que deseas apagar el robot:
 
     ``` { .bash .no-copy }
-    [INPUT] Are you sure you want to shutdown dia-waffleX? [y/n] >> 
+    [INPUT] Are you sure you want to shutdown robot-X? [y/n] >> 
     ```
 
-    Enter ++y++ and hit ++enter++ and the robot's SBC will be shut down. 
+    Ingresa ++y++ y presiona ++enter++ y la SBC del robot se apagará.
 
-1. Once the blue light on the corner of the SBC goes out, it's then safe to slide the power button to the **left** to completely turn off the device. 
+1. Una vez que la luz azul en la esquina de la SBC se apague, es seguro deslizar el botón de encendido hacia la **izquierda** para apagar el dispositivo completamente.
 
     <figure markdown>
       ![](../images/waffle/sbc.png){width=600px}
@@ -31,7 +31,7 @@ Therefore, once you've finished working with a robot during a lab session, follo
 
 ## Laptops
 
-Once you've turned off the robot, **remember to shut down the laptop too**! Do this by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
+Una vez que hayas apagado el robot, **¡recuerda apagar también la laptop!** Haz esto haciendo clic en el ícono de la batería en la parte superior derecha del escritorio y seleccionando la opción "Power Off / Log Out" en el menú desplegable.
 
 <figure markdown>
   ![](../images/laptops/ubuntu_poweroff.svg){width=300px}
@@ -39,6 +39,6 @@ Once you've turned off the robot, **remember to shut down the laptop too**! Do t
 
 <center>
 
-  **Hand your robot and laptop back to a member of the teaching team who will put it away for you!**
+  **¡Entrega tu robot y laptop a un miembro del equipo docente, quien los guardará por ti!**
 
 </center>

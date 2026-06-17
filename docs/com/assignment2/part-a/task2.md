@@ -1,109 +1,106 @@
 ---  
-title: "Task 2: Avoiding Obstacles" 
+title: "Tarea 2: Evasión de Obstáculos" 
 ---  
 
-Develop the ROS node(s) to allow a real TurtleBot3 Waffle to autonomously explore an environment containing various obstacles. The robot must explore as much of the environment as possible in 90 seconds without crashing into anything!
+Desarrolla los nodes de ROS para permitir que un TurtleBot3 Waffle real explore de manera autónoma un entorno que contiene varios obstáculos. ¡El robot debe explorar la mayor parte del entorno posible en 90 segundos sin chocar contra nada!
 
-!!! success "Course Checkpoints"
+!!! success "Puntos de Control del Curso"
     
-    Aim to have completed **up to and including [Part 3 of Assignment #1](../../../course/part3.md)** to support your work on this task. 
+    Aspira a haber completado **hasta e incluyendo la [Parte 3 de la Asignación #1](../../../course/part3.md)** para apoyar tu trabajo en esta tarea.
 
-    **See Also** - [Understanding the Waffles](../../../waffles/essentials.md): 
+    **Ver También** - [Entendiendo los Waffles](../../../waffles/essentials.md):
     
-    * [ ] Motion and Velocity Control
-    * [ ] Laser Displacement Readings and the LiDAR Sensor 
+    * [ ] Control de Movimiento y Velocidad
+    * [ ] Lecturas de Desplazamiento Láser y el Sensor LiDAR 
 
-## Summary
+## Resumen
 
-Assignment #1 Part 3 introduces [the Waffle's LiDAR sensor](../../../course/part3.md#lidar). This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. In [Assignment #1 Part 5](../../../course/part5.md#explore) we look at how this data, in combination with the *ROS Action framework*, can be used as the basis for a basic exploration strategy that would incorporate obstacle avoidance. Building on this in [Part 5 Exercise 6](../../../course/part5.md#ex6), we discuss how this could be developed further by developing an action *client* that could make successive calls to the action server to keep the robot moving randomly, and indefinitely, around an arena whilst avoiding obstacles.
+La Asignación #1 Parte 3 introduce [el sensor LiDAR del Waffle](../../../course/part3.md#lidar). Este sensor es muy útil, ya que nos dice la distancia a cualquier objeto presente en el entorno del robot. En la [Asignación #1 Parte 5](../../../course/part5.md#explore) veremos cómo estos datos, en combinación con el *framework de Acciones de ROS*, pueden usarse como base para una estrategia de exploración básica que incorpora evasión de obstáculos. Ampliando esto en el [Ejercicio 6 de la Parte 5](../../../course/part5.md#ex6), discutimos cómo esto podría desarrollarse más creando un *cliente* de acción que pudiera hacer llamadas sucesivas al servidor de acción para mantener el robot moviéndose aleatoriamente, e indefinidamente, por un arena mientras evita obstáculos.
 
-This is one approach that you could use for this task, but there are other (and potentially simpler) ways that this could be achieved too. 
+Este es un enfoque que podrías usar para esta tarea, pero también hay otras formas (y potencialmente más simples) de lograrlo.
 
-In COM2009 Lecture 3 ("Sensing, Actuation & Control"), for instance, you are introduced to *Cybernetic Control Principles* and some of *Braitenberg's "Vehicles,"* which are discussed and implemented on a Lego robot during the lecture! In particular, *"Vehicle 3b"* might well be relevant to consider as a simple method to achieve an obstacle avoidance behaviour.
+Otro aspecto de esta tarea es la *exploración*: tu robot recibirá más puntos por navegar por más partes del entorno. Considera las estrategias de búsqueda como el *"Movimiento Browniano"* y los *"Paseos de Lévy"*. ¿Podría implementarse algo a lo largo de estas líneas en el Waffle?
 
-Another aspect of this task is *exploration*: your robot will be awarded more marks for navigating around more of the environment. Consider the search strategies that are discussed in Lecture 8 ("Local Guidance Strategies"), such as *"Brownian Motion"* and *"Levy Walks."* Could something along these lines be implemented on the 
-Waffle?
+## Detalles
 
-## Details
+El Arena Robótico es un arena cuadrada de 4x4m. Para la tarea, el arena contendrá varios *"obstáculos"*, es decir: paredes cortas de madera y cilindros de colores. Tu robot necesitará poder detectar estos obstáculos y navegar alrededor de ellos para explorar completamente el espacio.
 
-The Diamond Computer Room 5 Robot Arena is a square arena of 4x4m. For the task, the arena will contain a number of *"obstacles,"* i.e.: short wooden walls and coloured cylinders. Your robot will need to be able to detect these obstacles and navigate around them in order to fully explore the space.
-
-Exploration marks will be awarded when the robot enters each of the 12 outer arena zones (each a 1x1m square), as shown below.
+Los puntos de exploración se otorgarán cuando el robot entre en cada una de las 12 zonas exteriores del arena (cada una de 1x1m cuadrado), como se muestra a continuación.
 
 <a name="cr5-layout"></a>
 <figure markdown>
   ![](../figures/task2_arena_layout.png){width=600px}
-  <figcaption>The DIA-CR5 Robot Arena layout for Task 2.</figcaption>
+  <figcaption>La configuración del Arena Robótico para la Tarea 2.</figcaption>
 </figure>
 
 <a name="env-vars"></a>
 
-!!! danger "Important"
-    This is an *example* of what the environment *might* look like:
+!!! danger "Importante"
+    Este es un *ejemplo* de cómo podría verse el entorno:
     
-    * **ALL** objects (i.e. the four coloured cylinders and the four wall assemblies) could be in *different positions entirely*. 
-    * The wooden walls *may not be touching the outer edges of the arena*!
-    * The coloured cylinders *could* be inside exploration zones. 
-    * The only things that will remain the same are the arena size, the presence of the outer arena walls and the floor layout (i.e. the location of all the zones).
+    * **TODOS** los objetos (es decir, los cuatro cilindros de colores y los cuatro conjuntos de paredes) podrían estar en *posiciones completamente diferentes*.
+    * ¡Las paredes de madera *pueden no estar tocando los bordes exteriores del arena*!
+    * Los cilindros de colores *podrían* estar dentro de zonas de exploración.
+    * Las únicas cosas que permanecerán iguales son el tamaño del arena, la presencia de las paredes exteriores del arena y el diseño del suelo (es decir, la ubicación de todas las zonas).
 
-1. The robot will start in the centre of the arena, perpendicular to one of the four outer walls.
-1. It must explore the environment for 90 seconds without touching **any** of the arena walls or the obstacles within it.
+1. El robot comenzará en el centro del arena, perpendicular a una de las cuatro paredes exteriores.
+1. Debe explorar el entorno durante 90 segundos sin tocar **ninguna** de las paredes del arena ni los obstáculos dentro de él.
 
-    **Note**: *The 90-second timer will start as soon as the robot starts moving within the arena.*
+    **Nota**: *El temporizador de 90 segundos comenzará tan pronto como el robot empiece a moverse dentro del arena.*
 
-1. If the robot makes contact with **anything** before the time has elapsed then the attempt is over, and this time will be recorded to determine a *"Run Time"* mark ([see below](#run-time)).
-1. As shown above, the arena floor will be marked with 12 equal-sized (1x1m) zones and the robot must enter as many of these 12 **exploration zones** as possible during the attempt.
-1. The robot must be moving for the entire duration of the task. Simply just turning on the spot for the whole time doesn't count!
+1. Si el robot hace contacto con **cualquier cosa** antes de que haya transcurrido el tiempo, el intento termina, y este tiempo se registrará para determinar una marca de *"Tiempo de Ejecución"* ([ver abajo](#run-time)).
+1. Como se muestra arriba, el suelo del arena estará marcado con 12 zonas iguales (1x1m) y el robot debe entrar en tantas de estas 12 **zonas de exploración** como sea posible durante el intento.
+1. El robot debe estar en movimiento durante toda la duración de la tarea. ¡Simplemente girar sobre sí mismo durante todo el tiempo no cuenta!
 
-    * What we want to see here is that the robot is constantly making an effort to explore.
-    * It is however OK for the robot to stop moving and turn on the spot for a few seconds whenever required though.
-    * If the robot explores for a while and then stops and doesn't move again for the remainder of the 90-second run, then *Run Time* marks will be awarded up to the point at which the robot ceases to be active.
-    * Further details on the eligibility for *Run Time* marks are provided in [the Marking Section below](#marking).
+    * Lo que queremos ver aquí es que el robot está haciendo constantemente un esfuerzo por explorar.
+    * Sin embargo, está bien que el robot se detenga y gire sobre sí mismo durante unos segundos cuando sea necesario.
+    * Si el robot explora durante un tiempo y luego se detiene y no se mueve durante el resto de los 90 segundos, los puntos de *Tiempo de Ejecución* se otorgarán hasta el punto en que el robot dejó de estar activo.
+    * Los detalles adicionales sobre la elegibilidad para los puntos de *Tiempo de Ejecución* se proporcionan en [la Sección de Marcación a continuación](#marking).
 
-## Executing Your Code {#launch}
+## Ejecutar Tu Código {#launch}
 
-When assessing your code for this task, the teaching team will use the following command to execute all the necessary functionality from within your team's ROS 2 package:
+Al evaluar tu código para esta tarea, el equipo docente usará el siguiente comando para ejecutar toda la funcionalidad necesaria desde dentro del paquete de ROS 2 de tu equipo:
 
 ```bash
-ros2 launch com2009_teamXX_2026 task2.launch.py
+ros2 launch ros2_lab_equipoXX task2.launch.py
 ```
 
-... where `XX` will be replaced with *your team number*.
+... donde `XX` será reemplazado con *tu número de equipo*.
 
-As such, the ROS 2 package that your team submit must contain a launch file called `task2.launch.py`, to execute all the necessary functionality from within your package for this task.
+Por lo tanto, el paquete de ROS 2 que tu equipo entregue debe contener un archivo de lanzamiento llamado `task2.launch.py`, para ejecutar toda la funcionalidad necesaria dentro de tu paquete para esta tarea.
 
 !!! note
-    ROS will already be running on the robot before we attempt to execute your launch file, and [a *Zenoh Session* will be running on the laptop, to allow nodes running on the laptop to communicate with it](../../../waffles/launching-ros.md#step4).
+    ROS ya estará ejecutándose en el robot antes de que intentemos ejecutar tu archivo de lanzamiento, y [una *Sesión Zenoh* estará ejecutándose en la laptop, para permitir que los nodes que se ejecutan en la laptop se comuniquen con él](../../../waffles/launching-ros.md#step4).
 
-## Dependencies
+## Dependencias
 
-You may draw upon pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2, but **there are restrictions that you must be aware of**. [See here for more details on this](../assessment.md#dependencies).
+Puedes hacer uso de bibliotecas de Python preexistentes o paquetes de ROS 2 en tu propio trabajo para la Asignación #2, pero **hay restricciones que debes conocer**. [Consulta aquí para más detalles sobre esto](../assessment.md#dependencies).
 
 !!! failure "Nav2"
-    In addition to the above, **the use of [Nav2](https://docs.nav2.org/){target="_blank"} is ^^not permitted^^ for this task**.
+    Además de lo anterior, **el uso de [Nav2](https://docs.nav2.org/){target="_blank"} ^^no está permitido^^ para esta tarea**.
 
-## Marking
+## Marcación
 
-There are **20 marks** available for Task 2 in total, awarded as follows:
+Hay **20 puntos** disponibles para la Tarea 2 en total, otorgados de la siguiente manera:
 
 <center>
 
-| Criteria | Marks | Details |
+| Criterio | Puntos | Detalles |
 | :--- | :---: | :--- |
-| **A**: Run Time | 8/20 | You will be awarded marks for the amount of time that your robot spends exploring the environment before 90 seconds has elapsed, **or** until the robot makes contact with anything in its environment for the first time ([as per the table below](#run-time)). **The robot must leave the centre zone** (a 1x1m box, denoted in red [in the figure above](#cr5-layout)) in order to be eligible for any of these marks. If the robot does not explore beyond **the "partial exploration" zone** (denoted orange in the figure) then a $0.5\times$ multiplication factor will be applied to the run time marks. |
-| **B**: Exploration | 12/20 | You will be awarded 1 mark for each of the 12 exploration zones that the robot manages to enter. The robot only needs to enter each of the 12 zones once, but its full body must be inside the zone marking to be awarded the mark. |
+| **A**: Tiempo de Ejecución | 8/20 | Se te otorgarán puntos por la cantidad de tiempo que tu robot pase explorando el entorno antes de que transcurran los 90 segundos, **O** hasta que el robot haga contacto con algo en su entorno por primera vez ([según la tabla a continuación](#run-time)). **El robot debe salir de la zona central** (un cuadro de 1x1m, indicado en rojo [en la figura anterior](#cr5-layout)) para ser elegible para cualquiera de estos puntos. Si el robot no explora más allá de **la zona de "exploración parcial"** (indicada en naranja en la figura) se aplicará un factor de multiplicación de $0.5\times$ a los puntos de tiempo de ejecución. |
+| **B**: Exploración | 12/20 | Se te otorgará 1 punto por cada una de las 12 zonas de exploración que el robot logre entrar. El robot solo necesita entrar en cada una de las 12 zonas una vez, pero su cuerpo completo debe estar dentro del marcado de la zona para obtener el punto. |
 
 </center>
 
-### Criterion A: Run Time {#run-time}
+### Criterio A: Tiempo de Ejecución {#run-time}
 
-**Marks:** 8/20
+**Puntos:** 8/20
 
-Marks will be awarded as follows:
+Los puntos se otorgarán de la siguiente manera:
 
 <center>
 
-| Time (Seconds) | Marks |
+| Tiempo (Segundos) | Puntos |
 | :---: | :---: |
 | 0-9 | 0 |
 | 10-19 | 1 |
@@ -112,17 +109,17 @@ Marks will be awarded as follows:
 | 40-49 | 4 |
 | 50-59 | 5 |
 | 60-89 | 6 |
-| The full 90! | 8 |
+| ¡Los 90 completos! | 8 |
 
 </center>
 
-## Simulation Resources
+## Recursos de Simulación
 
-Within the `tuos_task_sims` package there is an example arena that can be used to develop and test out your team's obstacle avoidance node(s) for this task[^update-course-repo]. [As above](#env-vars) however, this is just an *example* of what the real-world environment *might* look like. 
+Dentro del paquete `tuos_task_sims` hay un arena de ejemplo que puede usarse para desarrollar y probar los nodes de evasión de obstáculos de tu equipo para esta tarea[^update-course-repo]. [Como se indicó arriba](#env-vars), sin embargo, esto es solo un *ejemplo* de cómo podría verse el entorno del mundo real.
 
-[^update-course-repo]: Make sure you [check for updates to the Course Repo](../../../course/extras/course-repo.md#updating) to ensure that you have the most up-to-date version of these simulations.
+[^update-course-repo]: Asegúrate de [revisar si hay actualizaciones al Repositorio del Curso](../../../course/extras/course-repo.md#updating) para garantizar que tengas la versión más actualizada de estas simulaciones.
 
-The simulation can be launched using the following `ros2 launch` command:
+La simulación puede lanzarse usando el siguiente comando `ros2 launch`:
 
 ```bash
 ros2 launch tuos_task_sims obstacle_avoidance.launch.py
@@ -130,21 +127,20 @@ ros2 launch tuos_task_sims obstacle_avoidance.launch.py
 
 <figure markdown>
   ![](../figures/task2.png)
-  <figcaption>A simulation environment to represent the real DIA-CR5 arena layout for Task 2.</figcaption>
+  <figcaption>Un entorno de simulación para representar la configuración del arena robótico para la Tarea 2.</figcaption>
 </figure>
 
-!!! danger "Remember"
+!!! danger "Recuerda"
     
-    **Arena Layout**:
+    **Configuración del Arena**:
     
-    * [As above](#env-vars), this is an *example* of what the environment *might* look like.
-    * **ALL** objects (i.e. the four coloured cylinders and the four wall assemblies) could be in *different positions entirely*. 
-    * The wooden walls *may not be touching the outer edges of the arena*!
-    * The coloured cylinders *could* be inside exploration zones. 
-    * The only things that will remain the same are the arena size, the presence of the outer arena walls and the floor layout (i.e. the location of all the zones).
+    * [Como se indicó arriba](#env-vars), esto es un *ejemplo* de cómo podría verse el entorno.
+    * **TODOS** los objetos (es decir, los cuatro cilindros de colores y los cuatro conjuntos de paredes) podrían estar en *posiciones completamente diferentes*.
+    * ¡Las paredes de madera *pueden no estar tocando los bordes exteriores del arena*!
+    * Los cilindros de colores *podrían* estar dentro de zonas de exploración.
+    * Las únicas cosas que permanecerán iguales son el tamaño del arena, la presencia de las paredes exteriores del arena y el diseño del suelo (es decir, la ubicación de todas las zonas).
     
-    **Real World vs. Sim**:
+    **Mundo Real vs. Simulación**:
 
-    * **Just because it works in simulation ^^DOESN'T^^ mean it will work in the real world**!
-    * Make sure you test things out ^^thoroughly^^ on the real robots during the lab sessions.
-    
+    * **¡El hecho de que funcione en simulación ^^NO^^ significa que funcionará en el mundo real!**
+    * ¡Asegúrate de probar las cosas ^^a fondo^^ en los robots reales durante las sesiones de laboratorio!

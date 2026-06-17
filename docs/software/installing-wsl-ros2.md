@@ -1,43 +1,40 @@
 ---
-title: Installing WSL-ROS2 on Windows 
+title: Instalando WSL-ROS2 en Windows 
 ---
 
-**Applicable to**: Windows 10 or 11 personal (unmanaged) computers
+**Aplicable a**: Computadoras personales (no administradas) con Windows 10 u 11
 
-## The WSL-ROS2 Simulation Environment
+## El Entorno de Simulación WSL-ROS2
 
-To support this course we've created a custom ROS 2 environment which runs on Windows 10 or 11 using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. We call this "**WSL-ROS2**" and you can download it via the University of Sheffield [Software Download Service](https://www.sheffield.ac.uk/software/){target="_blank"} (University login required).
+Para apoyar este curso hemos creado un entorno personalizado de ROS 2 que se ejecuta en Windows 10 u 11 usando el [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. Lo llamamos "**WSL-ROS2**" y está disponible a través del equipo del laboratorio.
 
 !!! note
-    When you download WSL-ROS2 from the Software Download Service you will receive an email with installation instructions. We recommend that you follow the instructions provided on *this page* instead, as this page will be kept more up-to-date throughout the semester.
+    Cuando recibas el enlace de descarga de WSL-ROS2, recibirás también instrucciones de instalación. Recomendamos que sigas las instrucciones proporcionadas en *esta página*, ya que esta página se mantendrá más actualizada a lo largo del semestre.
 
-## Prerequisites
+## Requisitos Previos
 
-1. Your computer must be running Windows 10 **Build 19044 or higher**, or Windows 11.
-2. [Update the GPU drivers for your machine](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#install-support-for-linux-gui-apps){target="_blank"}.
-3. Install or update WSL:
-    1. If you don't already have WSL installed on your machine then follow [these instructions to install it](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#fresh-install---no-prior-wsl-installation){target="_blank"}.
-    2. If you *do* already have WSL installed on your machine, then follow [these instructions to update it](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#existing-wsl-install){target="_blank"}.
-4. [Install the Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/install){target="_blank"}.
-5. [Install Visual Studio Code](https://code.visualstudio.com/){target="_blank"} and [the WSL VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl){target="_blank"}.
-1. Install the [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/){target="_blank"}.
+1. Tu computadora debe estar ejecutando Windows 10 **Build 19044 o superior**, o Windows 11.
+2. [Actualiza los controladores de GPU de tu máquina](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#install-support-for-linux-gui-apps){target="_blank"}.
+3. Instala o actualiza WSL:
+    1. Si aún no tienes WSL instalado en tu máquina, sigue [estas instrucciones para instalarlo](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#fresh-install---no-prior-wsl-installation){target="_blank"}.
+    2. Si *ya tienes* WSL instalado en tu máquina, sigue [estas instrucciones para actualizarlo](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#existing-wsl-install){target="_blank"}.
+4. [Instala el Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/install){target="_blank"}.
+5. [Instala Visual Studio Code](https://code.visualstudio.com/){target="_blank"} y [la extensión WSL para VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl){target="_blank"}.
+1. Instala el [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/){target="_blank"}.
 
-## Installing
+## Instalación
 
-1. Go to the [IT Services Software Downloads](https://www.sheffield.ac.uk/software/){target="_blank"} page (you'll need to log in with your university MUSE credentials).
-1. Scroll down to the bottom, where you should see WSL-ROS listed.
+1. Solicita el enlace de descarga al coordinador del laboratorio.
+
+1. El enlace te permitirá descargar **WSL-ROS2** en tu máquina como un archivo `.zip` (~2 GB).
     
-    Click on the blue "Request WSL-ROS" button and then wait to receive an email to your university email address.
+1. En tu computadora, crea una nueva carpeta en la raíz de tu unidad `C:\` llamada `WSL-ROS2`.
 
-1. The email will contain a link to download **WSL-ROS2** to your machine as a `.zip` file (~2 GB).
-    
-1. On your computer, create a new folder in the root of your `C:\` drive called `WSL-ROS2`.
+1. Guarda el archivo `.zip` en esta nueva carpeta (`C:\WSL-ROS2\`)
 
-1. Save the `.zip` file to this new folder (`C:\WSL-ROS2\`)
+1. **Inicia PowerShell**, luego ejecuta los siguientes comandos en orden:
 
-1. **Launch PowerShell**, then run the following commands in order:
-
-    1. Identify the zip file:
+    1. Identifica el archivo zip:
 
         ```powershell
         $zipFile = Get-ChildItem "C:\WSL-ROS2\WSL-ROS2_*_SDS.zip" | 
@@ -45,14 +42,14 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
             Select-Object -First 1
         ```
 
-    2. Extract it:
+    2. Extráelo:
 
         ```powershell
         Expand-Archive -Path $zipFile.FullName `
             -DestinationPath "C:\WSL-ROS2\" -Force
         ```
     
-    3. Identify the extracted `.tar` file:
+    3. Identifica el archivo `.tar` extraído:
 
         ```powershell
         $tarFile = Get-ChildItem "C:\WSL-ROS2\wsl-ros2-v*.tar" | 
@@ -60,126 +57,126 @@ To support this course we've created a custom ROS 2 environment which runs on Wi
             Select-Object -First 1
         ```
     
-    4. Import this as a WSL distro:
+    4. Impórtalo como una distribución WSL:
 
         ```powershell
         wsl --import WSL-ROS2 "$env:localappdata\WSL-ROS2" `
             $tarFile.FullName --version 2
         ```
 
-1. This may take a couple of minutes. Once it's done, you can verify that it was successful with the following command:
+1. Esto puede tardar un par de minutos. Una vez completado, puedes verificar que fue exitoso con el siguiente comando:
 
     ```powershell
     wsl -l -v
     ```
 
-    Where `WSL-ROS2` should be listed.
+    Donde `WSL-ROS2` debería estar listado.
 
-1. Next (**optional**), open up the Windows Terminal App, then:
+1. A continuación (**opcional**), abre la aplicación Windows Terminal, luego:
     
-    1. Go to Settings (++ctrl+comma++)
-    1. Under `Profiles` in the left-hand menu, find `WSL-ROS2` (or scroll further down and click the `Add a new profile` button to create it).
-    1. Configure the settings for the `WSL-ROS2` profile as shown below:
+    1. Ve a Configuración (++ctrl+comma++)
+    1. En `Perfiles` en el menú de la izquierda, encuentra `WSL-ROS2` (o desplázate más abajo y haz clic en el botón `Agregar un nuevo perfil` para crearlo).
+    1. Configura los ajustes para el perfil `WSL-ROS2` como se muestra a continuación:
 
         <figure markdown>
           ![](./figures/win_term_profile_settings.png){width=600px}
         </figure>
 
-    1. Then, in `Startup` (back in the left-hand menu again), under `Default profile` select **WSL-ROS2** from the drop-down list.
+    1. Luego, en `Inicio` (de regreso en el menú de la izquierda), bajo `Perfil predeterminado`, selecciona **WSL-ROS2** de la lista desplegable.
 
-        This will ensure that each time you open the Windows Terminal App *or* you press the New Tab (:material-plus:) button a WSL-ROS2 Terminal Instance will be launched by default.
+        Esto asegurará que cada vez que abras la aplicación Windows Terminal *o* presiones el botón Nueva Pestaña (:material-plus:) se lance por defecto una Instancia de Terminal WSL-ROS2.
 
 
-## Initial Setup
+## Configuración Inicial
 
-Within a WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.
+Dentro de una instancia de terminal WSL-ROS2, necesitarás ejecutar algunos comandos iniciales para configurar las cosas.
 
-1. First, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all [the prerequisites above](#prerequisites)):
+1. Primero, ejecuta el siguiente comando para intentar usar el soporte nativo de Interfaz Gráfica de Usuario (GUI) (que debería funcionar si seguiste todos [los requisitos previos anteriores](#requisitos-previos)):
 
     ```bash
     echo "export XSERVER=false" > $HOME/.diamond/xserver.sh
     ```
 
-1. Then, re-source your `.bashrc` file for this change to take effect:
+1. Luego, vuelve a hacer source de tu archivo `.bashrc` para que este cambio surta efecto:
 
     ```bash
     source ~/.bashrc
     ```
 
-1. Run the following ROS command to see if you can launch the Gazebo GUI:
+1. Ejecuta el siguiente comando de ROS para ver si puedes lanzar la GUI de Gazebo:
 
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```
 
-    This should hopefully present you with something like this:
+    Esto debería presentarte algo como esto:
 
     <figure markdown>
       ![](../images/gz/tb3_empty_world_top.png){width=600px}
     </figure>
 
-    If this doesn't work, then you could try using a third-party X Server (VcXsrv) instead...
+    Si esto no funciona, entonces podrías intentar usar un X Server de terceros (VcXsrv) en su lugar...
 
-## Using a Third-Party X Server
+## Usar un X Server de Terceros
 
-If you are unable to run GUI apps natively (having completed the steps in the section above), then you could try using a third-party X Server (*"VcXsrv"*) instead. In [the prerequisites](#prerequisites), you should have already installed VcXsrv.
+Si no puedes ejecutar aplicaciones GUI de forma nativa (habiendo completado los pasos en la sección anterior), entonces podrías intentar usar un X Server de terceros (*"VcXsrv"*) en su lugar. En [los requisitos previos](#requisitos-previos), ya deberías haber instalado VcXsrv.
 
 !!! note 
-    Only do this if you were **unable** to launch the robot simulation in the previous section.
+    Solo haz esto si **no pudiste** lanzar la simulación del robot en la sección anterior.
 
-1. [Having installed VcXsrv in the Prerequisites Section](#prerequisites)...
-1. Download this [config file for VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} and save it to your desktop as `wsl_ros_config.xlaunch`.
+1. [Habiendo instalado VcXsrv en la Sección de Requisitos Previos](#requisitos-previos)...
+1. Descarga este [archivo de configuración para VcXsrv](https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing){target="_blank"} y guárdalo en tu escritorio como `wsl_ros_config.xlaunch`.
 
     <figure markdown>
       ![](./figures/wsl-ros-config.png)
     </figure>
 
-1. Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray (bottom-right) to indicate that the X Server is running:
+1. Haz doble clic en esto para lanzar VcXsrv con la configuración apropiada. Debería aparecer un ícono en tu bandeja de notificaciones (abajo a la derecha) para indicar que el X Server está en ejecución:
     
     <figure markdown>
       ![](./figures/xlaunch_icon.png){width=25px}
     </figure>
 
-1. Launch the WSL-ROS2 environment by launching the Windows Terminal App:
+1. Lanza el entorno WSL-ROS2 iniciando la aplicación Windows Terminal:
 
     <figure markdown>
       ![](./figures/launch-win-term.png){width=700px}
     </figure>
 
-1. In a WSL-ROS2 Terminal Instance, run the following:
+1. En una Instancia de Terminal WSL-ROS2, ejecuta lo siguiente:
 
     ```bash
     echo "export XSERVER=true" > $HOME/.tuos/xserver.sh
     ```
 
-1. Re-source your `.bashrc` file for this change to take effect:
+1. Vuelve a hacer source de tu archivo `.bashrc` para que este cambio surta efecto:
 
     ```bash
     source ~/.bashrc
     ```
 
-1. Try running the empty world Gazebo simulation again:
+1. Intenta ejecutar la simulación Gazebo de mundo vacío de nuevo:
 
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```
 
-    !!! warning "Important"
-        You need to make sure you have the X Server running (by clicking the `wsl_ros_config.xlaunch` shortcut) **every time** you work with WSL-ROS2. 
+    !!! warning "Importante"
+        Debes asegurarte de tener el X Server en ejecución (haciendo clic en el acceso directo `wsl_ros_config.xlaunch`) **cada vez** que trabajes con WSL-ROS2. 
 
-## Restarting the WSL Engine
+## Reiniciar el Motor WSL
 
-If you're having trouble with WSL a restart sometimes helps.  
+Si tienes problemas con WSL, a veces un reinicio ayuda.  
 
-First, close down any WSL-ROS2 terminal windows that you have open (and any connections to WSL-ROS2 in VS Code). Then, launch powershell and *shutdown* the WSL engine:
+Primero, cierra cualquier ventana de terminal WSL-ROS2 que tengas abierta (y cualquier conexión a WSL-ROS2 en VS Code). Luego, inicia PowerShell y *apaga* el motor WSL:
 
 ```powershell
 wsl --shutdown
 ```
 
-Restart the WSL engine by launching a new WSL-ROS2 terminal instance.
+Reinicia el motor WSL lanzando una nueva instancia de terminal WSL-ROS2.
 
-## See Also
+## Ver También
 
-* [Setting up VS Code for WSL](./using-wsl-ros/vscode.md)
-* [A Quick Introduction to the Linux Terminal](./using-wsl-ros/linux-term.md)
+* [Configurar VS Code para WSL](./using-wsl-ros/vscode.md)
+* [Una Breve Introducción al Terminal de Linux](./using-wsl-ros/linux-term.md)

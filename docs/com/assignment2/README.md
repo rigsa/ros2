@@ -1,65 +1,63 @@
 ---
-title: "Assignment #2: Team Robotics Project"
-description: Apply your ROS2 knowledge to real TurtleBot3 Waffles in the lab.
+title: "Asignación #2: Proyecto de Robótica en Equipo"
+description: Aplica tu conocimiento de ROS 2 a TurtleBot3 Waffles reales en el laboratorio.
 --- 
 
-## Overview
+## Descripción General
 
-In Assignment #2 you will put into practice everything that you are learning about ROS 2 in Assignment #1, and explore the capabilities of the framework further.
+En la Asignación #2 pondrás en práctica todo lo que estás aprendiendo sobre ROS 2 en la Asignación #1, y explorarás las capacidades del framework con mayor profundidad.
 
-You will attend a 2-hour lab session per week in Diamond Computer Room 5 for the full 12-week semester. Here, you will work **in teams** to develop ROS Nodes for our *real* TurtleBot3 Waffles, allowing them to successfully complete a number of robotics tasks in a *real-world environment*. 
+Asistirás a una sesión de laboratorio de 2 horas por semana en el laboratorio de robótica durante el semestre completo de 12 semanas. Aquí trabajarás **en equipos** para desarrollar Nodes de ROS para nuestros TurtleBot3 Waffles *reales*, permitiéndoles completar con éxito varias tareas robóticas en un *entorno del mundo real*.
 
-Assignment #2 is split into two parts: **Part A** and **Part B**. You will complete Part A in the first half of the semester (Weeks 1-6) and then move on to Part B in the second half of the semester (Weeks 7-12). 
+La Asignación #2 está dividida en dos partes: **Parte A** y **Parte B**. Completarás la Parte A en la primera mitad del semestre (Semanas 1-6) y luego pasarás a la Parte B en la segunda mitad del semestre (Semanas 7-12).
 
-## The Tasks
+## Las Tareas
 
 <center>
 
-| Part | Description | Marks<br />(/100) | Submission |
+| Parte | Descripción | Puntos<br />(/100) | Entrega |
 | :---: | :---  | :---: | :---: |
-| **A** | **Task 1**: [Velocity Control](./part-a/task1.md)<br />**Task 2**: [Avoiding Obstacles](./part-a/task2.md) | 20<br />20 | Friday of Week 6 at 6pm (GMT) |
-| **B** | **Task 3**: [Exploration & Search](./part-b/task3.md)<br />**[Team Viva](./part-b/team-viva.md)** | 40<br />20 | Friday of Week 12 at 6pm (BST) |
+| **A** | **Tarea 1**: [Control de Velocidad](./part-a/task1.md)<br />**Tarea 2**: [Evasión de Obstáculos](./part-a/task2.md) | 20<br />20 | Viernes de la Semana 6 a las 6pm |
+| **B** | **Tarea 3**: [Exploración y Búsqueda](./part-b/task3.md)<br />**[Viva de Equipo](./part-b/team-viva.md)** | 40<br />20 | Viernes de la Semana 12 a las 6pm |
 
 </center>
 
-As shown above, there are **three programming tasks** and a **Team Viva** that you must complete for Assignment #2, worth a total of **100 marks** overall. Exact submission deadlines will be stated on Blackboard.
+Como se muestra arriba, hay **tres tareas de programación** y una **Viva de Equipo** que debes completar para la Asignación #2, con un total de **100 puntos** en general. Las fechas límite de entrega exactas se indicarán en la plataforma del curso.
 
-The three programming tasks will require you to develop ROS nodes (and a ROS package) to make our real TurtleBot3 Waffle robots complete certain real-world objectives in the robot arena in Computer Room 5. All three of these tasks will be marked based on how well the robot completes each of the objectives. 
+Las tres tareas de programación requerirán que desarrolles nodes de ROS (y un paquete de ROS) para hacer que nuestros robots reales TurtleBot3 Waffle completen ciertos objetivos del mundo real en el arena del laboratorio de robótica. Las tres tareas serán evaluadas según qué tan bien el robot completa cada uno de los objetivos.
 
-## Assessment
+## Evaluación
 
-This assignment is **worth 30%** of the overall mark for COM2009. As a team you will be assessed on a ROS package that you develop to satisfy the above tasks.
+Como equipo serás evaluado en un paquete de ROS que desarrollas para satisfacer las tareas anteriores.
 
-Your ROS package will be assessed by the teaching team in the weeks following the submission deadlines (as above). You will receive your marks, plus video recordings of the assessment within 3 weeks of submission[^holiday].
+Tu paquete de ROS será evaluado por el equipo docente en las semanas posteriores a las fechas límite de entrega (como se indicó arriba). Recibirás tus calificaciones, más videos de la evaluación dentro de las 3 semanas de la entrega.
 
-[^holiday]: If this falls over a holiday period (i.e. Easter), then the deadline for marking and the return of marks extends to 5 weeks (as per standard University policy).
+### Tareas 1, 2 y 3
 
-### Tasks 1, 2 & 3
+Cada entrega será evaluada desplegando tu paquete de ROS en una de las *laptops de robótica* que usarás extensamente durante las sesiones de laboratorio. Los nodes dentro de tu paquete se ejecutarán entonces en la laptop para controlar un robot real en el arena del laboratorio de robótica.
 
-Each submission will be assessed by deploying your ROS package on one of the *robotics laptops* used extensively throughout the lab sessions. Nodes within your package will then be executed on the laptop to control a real robot in the Diamond Computer Room 5 Robot Arena.
+### Viva de Equipo
 
-### Team Viva 
+El objetivo principal de la *Viva de Equipo* es darte la oportunidad de mostrar la aplicación ROS que (*como equipo*) has construido para la Tarea 3: contarnos sobre tu enfoque, la lógica principal y por qué elegiste adoptarlo. También es una oportunidad para destacar aspectos novedosos o impresionantes de tu trabajo de los que estés particularmente orgulloso. [Para más detalles, consulta aquí](./part-b/team-viva.md).
 
-The main aim of the *Team Viva* is to give you the opportunity to show off the ROS application that you (*as a team*) have built for Task 3: to tell us about your approach, the main logic, and why you chose to take this approach. It's also a chance to highlight any novel or impressive aspects of your work that you're particularly proud of. [For further details, see here](./part-b/team-viva.md).
+### Entregas
 
-### Submissions
-
-Before you get started on any of the tasks, **as a team** you'll need to create a single ROS package and host this on GitHub (which you'll do in [the Week 1 Lab Session](./getting-started.md)). You can then add all the necessary functionality for each task as you go along. On each of the submission deadlines (as summarised above and detailed on Blackboard) we will pull your team's work from your GitHub repo. [See here for further details](./assessment.md).
+Antes de comenzar cualquiera de las tareas, **como equipo** necesitarás crear un único paquete de ROS y alojarlo en GitHub (lo cual harás en [la Sesión de Laboratorio de la Semana 1](./getting-started.md)). Luego puedes agregar toda la funcionalidad necesaria para cada tarea a medida que avanzas. En cada una de las fechas límite de entrega (como se resume arriba y se detalla en la plataforma del curso) obtendremos el trabajo de tu equipo de tu repositorio de GitHub. [Consulta aquí para más detalles](./assessment.md).
 
 !!! note
-    You should work on each task **as a team**, and create only **one** ROS package/GitHub repo **per team** for this assignment.
+    Debes trabajar en cada tarea **como equipo**, y crear solo **un** paquete de ROS/repositorio de GitHub **por equipo** para esta asignación.
 
-## Your ROS Package
+## Tu Paquete de ROS
 
-### Launching Your Code
+### Lanzar Tu Código
 
-In order to launch the necessary functionality within your package for a given task you will need to include correctly named *launch files*: `task1.launch.py`, `task2.launch.py` and `task3.launch.py`. This will allow you to ensure that all the required functionality is executed when your submission is assessed, and also ensures that we know exactly how to launch this functionality in order to assess it. Full details of the requirements for each launch file are provided on the associated task page.
+Para lanzar la funcionalidad necesaria dentro de tu paquete para una tarea determinada necesitarás incluir *archivos de lanzamiento* con el nombre correcto: `task1.launch.py`, `task2.launch.py` y `task3.launch.py`. Esto te permitirá garantizar que toda la funcionalidad requerida se ejecute cuando se evalúe tu entrega, y también asegura que sepamos exactamente cómo lanzar esta funcionalidad para evaluarla. Los detalles completos de los requisitos para cada archivo de lanzamiento se proporcionan en la página de tarea correspondiente.
 
-For more information on how to create `.launch.py` files, refer to the following resources:
+Para más información sobre cómo crear archivos `.launch.py`, consulta los siguientes recursos:
 
-1. [Assignment #1 Part 3](../../course/part3.md#ex1)
-2. [Launch Files (Advanced)](../../course/extras/launch-files.md) 
+1. [Asignación #1 Parte 3](../../course/part3.md#ex1)
+2. [Archivos de Lanzamiento (Avanzado)](../../course/extras/launch-files.md) 
 
-### Preparing for the Deadlines
+### Prepararse para las Fechas Límite
 
-[You can find all the Key Information regarding assessment of the *programming* tasks on this page](./assessment.md). It's extremely important that you follow all the *Key Requirements* outlined here regarding the structure, content and configuration of your ROS package, so please be sure to **read this page in full** at your earliest convenience!
+[Puedes encontrar toda la información clave sobre la evaluación de las tareas de *programación* en esta página](./assessment.md). Es extremadamente importante que sigas todos los *Requisitos Clave* descritos aquí sobre la estructura, contenido y configuración de tu paquete de ROS, así que asegúrate de **leer esta página en su totalidad** a la mayor brevedad posible.

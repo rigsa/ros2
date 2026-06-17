@@ -1,73 +1,74 @@
 ---
-title: "Introducing the Robots"
-description: Learn more about the TurtleBot3 Waffle Robots that you'll work with in the lab.
+title: "Los Robots del Laboratorio"
+description: Conoce más sobre los robots TurtleBot3 Waffle con los que trabajarás en el laboratorio.
 ---
 
-## The TurtleBot3 Waffle {#robots}
+## El TurtleBot3 Waffle {#robots}
 
-### Turtlebot what?!
+### ¿TurtleBot qué?
 
-To teach ROS here we use the [TurtleBot3 Waffle](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/){target="_blank"} robot, made by Robotis. This is the 3rd Generation Robot in the [TurtleBot family](http://wiki.ros.org/Robots/TurtleBot){target="_blank"} (which has been the reference hardware platform for ROS since 2010). The TurtleBot Robot family exists to provide accessible and relatively low-cost hardware and open-source software on a robot platform, to encourage people to learn robotics and ROS and make it as easy as possible to do so.
+Para enseñar ROS utilizamos el robot [TurtleBot3 Waffle](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/){target="_blank"}, fabricado por Robotis. Este es el robot de 3ª generación de la [familia TurtleBot](http://wiki.ros.org/Robots/TurtleBot){target="_blank"} (que ha sido la plataforma de referencia de hardware para ROS desde 2010). La familia de robots TurtleBot existe para proporcionar hardware accesible y de costo relativamente bajo junto con software de código abierto, con el objetivo de facilitar el aprendizaje de robótica y ROS.
 
-<!-- ### The (Free) TurtleBot3 eBook {#ebook}
+### Nuestros Robots
 
-The TurtleBot3 Waffle developers (Robotis) have written a book on programming robots with ROS. This is available as a *free eBook*, which you can [download here](https://www.pishrobot.com/wp-content/uploads/2021/05/ros-robot-programming-book-by-turtlebo3-developers-en.pdf){target="_blank"}, and we recommend that you do so! This is a great resource which provides a detailed introduction to what ROS is and how it works, as well as a comprehensive "Beginners Guide" to ROS programming. The other great thing about this is that it is tailored to the TurtleBot3 Robot specifically, providing examples of how to use a range of TurtleBot3 packages along with a detailed description of how they work.
-
-We recommend that you have a look at this book to learn more about the concepts that you are exploring in this course. -->
-
-### Our Waffles
-
-Here in the Diamond we have a total of 50 *customised* TurtleBot3 Waffles (aka *"The Waffles"*) specifically for teaching the courses here:
+En el laboratorio contamos con robots TurtleBot3 Waffle para las prácticas (también conocidos como *"los Waffles"*):
 
 <figure markdown>
   ![](../images/waffle/cabinet.jpg){width=500px} 
 </figure>
 
-Our robots are an enhanced version of the *TurtleBot3 WafflePi* that you can buy from Robotis. We've made a few adjustments, as shown below:
+Nuestros robots son una versión mejorada del *TurtleBot3 WafflePi* que se puede adquirir en Robotis. Se han realizado algunos ajustes, como se muestra a continuación:
 
 <figure markdown>
   ![](../images/waffle/features.png){width=800px}
 </figure>
 
-The Waffles have the following core hardware elements:
+Los Waffles cuentan con los siguientes componentes de hardware principales:
 
-* An OpenCR Micro-Controller Board to power and control the wheel motors, distribute power to other hardware elements and provide an interface for additional sensors.
-* An [UP Squared Single-Board Computer (SBC)](https://up-board.org/upsquared/specifications/){target="_blank"} with an Intel Processor and 32GB of on-board eMMC storage. This board acts as the "brain" of the robot.
-* Independent left and right wheel motors (DYNAMIXEL XM430’s) to drive the robot using a *differential drive* configuration.
+* Una placa microcontroladora OpenCR para alimentar y controlar los motores de las ruedas, distribuir energía a otros elementos de hardware y proporcionar una interfaz para sensores adicionales.
+* Una [computadora de placa única (SBC) UP Squared](https://up-board.org/upsquared/specifications/){target="_blank"} con procesador Intel y 32 GB de almacenamiento eMMC integrado. Esta placa actúa como el "cerebro" del robot.
+* Motores de rueda izquierda y derecha independientes (DYNAMIXEL XM430) para mover el robot en una configuración de *tracción diferencial*.
 
-This drive configuration allows the robots to move with the following **maximum velocities**: <a name="max_vels"></a>
+Esta configuración de tracción permite que los robots se muevan con las siguientes **velocidades máximas**: <a name="max_vels"></a>
 
 <center>
 
-| Velocity Component | Upper Limit | Units |
+| Componente de velocidad | Límite superior | Unidades |
 | :--- | :---: | :--- |
-| *Linear* | 0.26 | m/s |
+| *Lineal* | 0.26 | m/s |
 | *Angular* | 1.82 | rad/s |
 
 </center>
 
-In addition to this, the robots are equipped with the following sensors:
+Además, los robots están equipados con los siguientes sensores:
 
-* A Light Detection and Ranging (or *LiDAR*) sensor, which spins continuously when the robot is in operation. This uses light in the form of laser pulses to allow the robot to measure the distance to surrounding objects, providing it with a 360&deg; view of its environment.
-* An [Intel RealSense D435 Camera](https://www.intelrealsense.com/depth-camera-d435/){target="_blank"} with left and right imaging sensors, allowing depth sensing as well as standard image capture.
-* A 9-Axis Inertial Measurement Unit (or *IMU*) on-board the OpenCR Micro Controller board, which uses an accelerometer, gyroscope and magnetometer to measure the robot's specific force, acceleration and orientation. 
-* Encoders in each of the DYNAMIXEL wheel motors, allowing measurement of speed and rotation count for each of the wheels.
+* Un sensor de detección y medición de distancia por luz (*LiDAR*), que gira continuamente mientras el robot está en operación. Utiliza luz en forma de pulsos láser para medir la distancia a los objetos circundantes, proporcionando una visión de 360&deg; del entorno.
+* Una [cámara Intel RealSense D435](https://www.intelrealsense.com/depth-camera-d435/){target="_blank"} con sensores de imagen izquierdo y derecho, que permite la detección de profundidad además de la captura estándar de imágenes.
+* Una Unidad de Medición Inercial (IMU) de 9 ejes integrada en la placa microcontroladora OpenCR, que utiliza un acelerómetro, giroscopio y magnetómetro para medir la fuerza específica, aceleración y orientación del robot.
+* Encoders en cada uno de los motores de rueda DYNAMIXEL, que permiten medir la velocidad y el conteo de rotaciones de cada rueda.
 
-#### Dimensions
+#### Dimensiones
 
-Some useful dimensions for the Waffles are shown below:
+Algunas dimensiones útiles de los Waffles se muestran a continuación:
 
 <figure markdown>
   ![](../images/waffle/dims_and_turning_circle.svg){width=600px}
-  <figcaption>Adapted from <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/features/#data-of-turtlebot3-waffle-pi" target="_blank">ROBOTIS TurtleBot3 e-Manual</a>.</figcaption>
+  <figcaption>Adaptado del <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/features/#data-of-turtlebot3-waffle-pi" target="_blank">Manual electrónico TurtleBot3 de ROBOTIS</a>.</figcaption>
 </figure>
 
 #### Software
 
-Our robots currently run [ROS 2 Jazzy Jalisco](https://docs.ros.org/en/jazzy/index.html){target="_blank"} (or *"Jazzy"* for short). The courses here are therefore based around this version of ROS. The easiest way to install Jazzy is via Deb packages for Ubuntu Noble Numbat (24.04). This is the setup we recommend and - as such - all our robotics hardware runs with this OS/Software setup.
+Nuestros robots actualmente ejecutan [ROS 2 Jazzy Jalisco](https://docs.ros.org/en/jazzy/index.html){target="_blank"} (o simplemente *"Jazzy"*). Los materiales del curso están basados en esta versión de ROS. La forma más sencilla de instalar Jazzy es a través de paquetes Deb para Ubuntu Noble Numbat (24.04), que es la configuración que utilizan todos nuestros robots.
 
-To deliver the simulation-based parts of this course, we've created a custom simulation environment using the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}. This has been developed primarily to run on University of Sheffield Managed Desktop Computers, which run Windows 11, but it's also possible to run this on other machines too. We call this simulation environment *"WSL-ROS2"*. [See here for more details](../software/README.md). (You can find out more about installing ROS on your own system here too).
+Para la parte del curso basada en simulación, hemos preparado un entorno de simulación utilizando [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}, que puede ejecutarse en las computadoras del laboratorio con Windows 11, así como en otras máquinas. Este entorno de simulación se denomina *"WSL-ROS2"*. [Consulta aquí para más detalles](../software/README.md). También existe una [opción basada en navegador](../software/browser-ros2.md) que no requiere instalación local.
 
-## Laptops
+!!! tip "¿Trabajando hacia un robot diferente?"
+    Todo lo que se practica aquí se enseña utilizando interfaces estándar de ROS 2, no
+    código específico de TurtleBot3. Si tu objetivo final es una plataforma diferente —
+    por ejemplo, un Unitree Go2 EDU o B2 — consulta
+    [Portando a Unitree Go2/B2](../course/extras/porting-to-unitree.md)
+    para ver cómo los temas y patrones que aprendes aquí son aplicables.
 
-In the Diamond, we have dedicated Robot Laptops running the same OS & ROS version as above. We use these when working with the robots in the lab. [See here for more details](../waffles/intro.md#laptops).
+## Laptops del Laboratorio
+
+En el laboratorio contamos con laptops dedicadas para trabajo con los robots reales, que ejecutan el mismo sistema operativo y versión de ROS mencionados anteriormente. [Consulta aquí para más detalles](../waffles/intro.md#laptops).

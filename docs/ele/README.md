@@ -1,20 +1,16 @@
 ---
-title: The ELE434 Labs
-description: "Lab Material for the ELE434 Robotics Labs"
+title: Los Laboratorios del Curso de Robótica Móvil
+description: "Material de Laboratorio para los Labs del Curso de Robótica Móvil"
 ---
 
-# The ELE434 Labs
+# Los Laboratorios del Curso de Robótica Móvil
 
-The labs for ELE434 are split into two parts:
+Los laboratorios del curso de Robótica Móvil están divididos en dos partes:
 
-* [**Simulation Labs**: "An Introduction to ROS 2 (the Robot Operating System)"](./sim.md).
+* [**Labs de Simulación**: "Una Introducción a ROS 2 (el Robot Operating System)"](./sim.md).
 
-    *Here you will learn what ROS is and how to use it.*
+    *Aquí aprenderás qué es ROS y cómo usarlo.*
 
-    **Weighting**: 20% of the overall ELE434 module mark.
+* [**Asignación en Equipo con Robot Real**: "Exploración en el Mundo Real"](./robot/README.md).
 
-* [**Real Robot Team-Based Assignment**: "Real-World Exploration"](./robot/README.md).
-
-    *Here you will work in teams of 3 or 4 to complete a real-world robotics task using our Tutlebot3 Waffle Robots in the Lab (Diamond Computer Room 5).*
-
-    **Weighting**: 20% of the overall ELE434 module mark
+    *Aquí trabajarás en equipos de 3 o 4 personas para completar una tarea robótica del mundo real usando nuestros robots Turtlebot3 Waffle en el laboratorio de robótica.*

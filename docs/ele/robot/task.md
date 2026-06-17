@@ -1,156 +1,148 @@
 ---
-title: "The Assignment Task"
-description: "Details of the Real-World Exploration task and the marking criteria"
+title: "La Tarea de la Asignación"
+description: "Detalles de la tarea de Exploración en el Mundo Real y los criterios de calificación"
 ---
 
-## Real-World Exploration
+## Exploración en el Mundo Real
 
-Develop the ROS node(s) to allow a TurtleBot3 Waffle to autonomously explore a **real-world environment** containing various obstacles. The robot must explore as much of the environment as possible in 90 seconds without crashing into anything!
+Desarrolla los nodes de ROS para permitir que un TurtleBot3 Waffle explore de manera autónoma un **entorno del mundo real** que contiene varios obstáculos. ¡El robot debe explorar la mayor parte del entorno posible en 90 segundos sin chocar contra nada!
 
-This task is assessed in a real world environment, **^^NOT^^ in simulation**!
+Esta tarea se evalúa en un entorno del mundo real, **^^NO^^ en simulación**.
 
-!!! success "Understanding the Waffles"
+!!! success "Entendiendo los Waffles"
     
-    Please make sure you have read and understood the following sections of the [**"Understanding the Waffles"** page](../../waffles/essentials.md), to ensure you are fully aware of how the real robots work: 
+    Por favor asegúrate de haber leído y entendido las siguientes secciones de la página [**"Entendiendo los Waffles"**](../../waffles/essentials.md), para asegurarte de estar completamente al tanto de cómo funcionan los robots reales:
 
-    * [ ] Motion and Velocity Control
-    * [ ] Laser Displacement Readings and the LiDAR Sensor
+    * [ ] Control de Movimiento y Velocidad
+    * [ ] Lecturas de Desplazamiento Láser y el Sensor LiDAR
 
-## Overview
+## Descripción General
 
-Part 3 of the Simulation Lab Course introduces you to [the Waffle's LiDAR sensor](../../course/part3.md#lidar). This sensor is very useful, as it tells us the distance to any objects that are present in the robot's environment. You should use this as the basis of the exploration and obstacle avoidance algorithms that you develop for this task.
+La Parte 3 del Curso de Lab de Simulación te introduce a [el sensor LiDAR del Waffle](../../course/part3.md#lidar). Este sensor es muy útil, ya que nos dice la distancia a cualquier objeto presente en el entorno del robot. Debes usar esto como base de los algoritmos de exploración y evasión de obstáculos que desarrolles para esta tarea.
 
-Be aware however that the LiDAR may generate *out-of-range* data points, which will need to be filtered. Consider the *"Understanding the Waffles"* Page (linked above) as well as Part 3 Exercise 4 ("[Building a LaserScan Callback Function](../../course/part3.md#ex4)") for ways to address this. You may also want to segment the `ranges` array so that you could focus on a few key zones around the robot (e.g. forward, forward-left, forward-right), and consider the key inputs/states that you may observe for different scenarios in the arena and what actions to take... 
+Sin embargo, ten en cuenta que el LiDAR puede generar puntos de datos *fuera de rango*, que necesitarán ser filtrados. Considera la Página *"Entendiendo los Waffles"* (vinculada arriba) así como el Ejercicio 4 de la Parte 3 ("[Construyendo una Función de Callback LaserScan](../../course/part3.md#ex4)") para formas de abordar esto. También es posible que quieras segmentar el arreglo `ranges` para poder enfocarte en algunas zonas clave alrededor del robot (por ejemplo, adelante, adelante-izquierda, adelante-derecha), y considerar los inputs/estados clave que podrías observar para diferentes escenarios en el arena y qué acciones tomar...
 
-Some concepts introduced in the ELE434 lectures could also be adopted for this. The *Finite State Machine* for instance explicitly defines the actions to take for certain inputs and current state. You could also consider *Artificial Potential Fields* which directly map the robot's movements to its relative position with the obstacles. 
+Algunos conceptos introducidos en las clases del curso también podrían adoptarse para esto. Por ejemplo, la *Máquina de Estado Finito* define explícitamente las acciones a tomar para ciertos inputs y el estado actual. También podrías considerar los *Campos de Potencial Artificial* que mapean directamente los movimientos del robot a su posición relativa con los obstáculos.
 
-The solution for the last Tutorial Question of Unit 1 (Swarm Robotics) may also be useful. Here, a random walk finite-state machine was discussed, which could be used as an obstacle avoidance and exploration strategy.
+La solución para la última pregunta del Tutorial de la Unidad 1 (Robótica de Enjambre) también puede ser útil. Aquí, se discutió una máquina de estado finito de caminata aleatoria, que podría usarse como estrategia de evasión de obstáculos y exploración.
 
-These could also be further integrated with other strategies for improved performance, e.g. *wall following* or *spiral search*.
+Estos también podrían integrarse con otras estrategias para un mejor rendimiento, por ejemplo, el *seguimiento de paredes* o la *búsqueda en espiral*.
 
-Ultimately however, it's up to you! 
+¡Pero en última instancia, ¡depende de ti!
 
-## Details
+## Detalles
 
-The environment that your robot will need to explore for this will be the Diamond Computer Room 5 Robot Arena, which is a square arena of 4x4m. For the task, the arena will contain a number of *"obstacles,"* i.e.: short wooden walls and coloured cylinders. Your robot will need to be able to detect these obstacles and navigate around them in order to fully explore the space.
+El entorno que tu robot necesitará explorar para esto será el Arena Robótico, que es un arena cuadrada de 4x4m. Para la tarea, el arena contendrá varios *"obstáculos"*, es decir: paredes cortas de madera y cilindros de colores. Tu robot necesitará poder detectar estos obstáculos y navegar alrededor de ellos para explorar completamente el espacio.
 
 <figure markdown>
   ![](../../com/assignment2/figures/task2_arena_layout.png){width=600px}
-  <figcaption>The DIA-CR5 Robot Arena layout for this task.</figcaption>
+  <figcaption>La configuración del Arena Robótico para esta tarea.</figcaption>
 </figure>
 
-This is an *example* of what the real-world environment *might* look like. **ALL** objects (i.e. the four coloured cylinders and the four inner wooden wall assemblies) could be in *different positions entirely*. The wooden walls *may not be touching the outer edges of the arena*! The only things that will remain the same are the arena size, the location of the outer arena walls and the floor layout (i.e. the location of the exploration zones). 
+Este es un *ejemplo* de cómo podría verse el entorno del mundo real. **TODOS** los objetos (es decir, los cuatro cilindros de colores y los cuatro conjuntos de paredes de madera interiores) podrían estar en *posiciones completamente diferentes*. ¡Las paredes de madera *pueden no estar tocando los bordes exteriores del arena*! Las únicas cosas que permanecerán iguales son el tamaño del arena, la ubicación de las paredes exteriores del arena y el diseño del suelo (es decir, la ubicación de las zonas de exploración).
 
-1. The robot will start in the centre of the arena, perpendicular to one of the four *outer* arena walls.
-1. It must explore the environment for **90 seconds** without touching **any** of the arena walls or the obstacles within it.
+1. El robot comenzará en el centro del arena, perpendicular a una de las cuatro paredes *exteriores* del arena.
+1. Debe explorar el entorno durante **90 segundos** sin tocar **ninguna** de las paredes del arena ni los obstáculos dentro de él.
 
-    **Note**: *The 90-second timer will start as soon as the robot starts moving within the arena.*
+    **Nota**: *El temporizador de 90 segundos comenzará tan pronto como el robot empiece a moverse dentro del arena.*
 
-1. If the robot makes contact with **anything** before the time has elapsed then the assessment will be stopped, and the time recorded for marking. 
+1. Si el robot hace contacto con **cualquier cosa** antes de que haya transcurrido el tiempo, la evaluación se detendrá y el tiempo registrado para la calificación.
 
-    If the robot runs for *more than* 90 seconds then we will only consider what happens up to the 90-second mark. Anything occurring after this point does not affect the marks.
+    Si el robot funciona durante *más de* 90 segundos, solo consideraremos lo que sucede hasta la marca de los 90 segundos. Cualquier cosa que ocurra después de este punto no afecta las calificaciones.
 
-1. The arena floor will be divided into 16 equal-sized zones and the robot must enter as many of the **outer 12 zones** as possible during the attempt.
+1. El suelo del arena se dividirá en 16 zonas iguales y el robot debe entrar en tantas de las **12 zonas exteriores** como sea posible durante el intento.
 
-1. The robot must be moving for the entire duration of the task. Simply just turning on the spot for the whole time doesn't count! 
+1. El robot debe estar en movimiento durante toda la duración de la tarea. ¡Simplemente girar sobre sí mismo durante todo el tiempo no cuenta!
 
-    * What we want to see here is that the robot is constantly making an effort to explore.
-    * It is however OK for the robot to stop moving and turn on the spot for a few seconds whenever required though.
-    * If the robot explores for a while and then stops and doesn't move again for the remainder of the 90-second run, then *Run Time* marks will be awarded up to the point at which the robot ceased to be active.
-    * Further details on the eligibility for *Run Time* marks are provided in [the Marking Section below](#marking).
+    * Lo que queremos ver aquí es que el robot está haciendo constantemente un esfuerzo por explorar.
+    * Sin embargo, está bien que el robot se detenga y gire sobre sí mismo durante unos segundos cuando sea necesario.
+    * Si el robot explora durante un tiempo y luego se detiene y no se mueve durante el resto de los 90 segundos, los puntos de *Tiempo de Ejecución* se otorgarán hasta el punto en que el robot dejó de estar activo.
+    * Los detalles adicionales sobre la elegibilidad para los puntos de *Tiempo de Ejecución* se proporcionan en [la Sección de Calificación a continuación](#marking).
 
-### Advanced Feature: Mapping with SLAM
+### Característica Avanzada: Cartografía con SLAM
 
-Further marks are available if, whilst your robot is completing this task, you can also run SLAM and generate a map of the environment in the background.
+Se otorgan puntos adicionales si, mientras tu robot está completando esta tarea, también puedes ejecutar SLAM y generar un mapa del entorno en segundo plano.
 
-To launch SLAM on the real robots you should use: 
+Para lanzar SLAM en los robots reales debes usar:
 
 ``` bash
 ros2 launch tuos_tb3_tools slam.launch.py environment:=real
 ```
 
-In the ["Extras" Section of the ROS 2 Course](../../course/extras/launch-files.md#launching-launch-files-from-launch-files) we discussed how to use launch files to launch *other* launch files! Consider how you could take a similar approach to run SLAM from your own `explore.launch.py` file.
+En la [sección "Extras" del Curso de ROS 2](../../course/extras/launch-files.md#launching-launch-files-from-launch-files) discutimos cómo usar archivos de lanzamiento para lanzar *otros* archivos de lanzamiento. ¡Considera cómo podrías adoptar un enfoque similar para ejecutar SLAM desde tu propio archivo `explore.launch.py`!
 
-When it comes to saving the map that has been generated by SLAM, we did this from the command-line in Part 3 Exercise 5, using the following command: 
+Cuando se trate de guardar el mapa que ha sido generado por SLAM, lo hicimos desde la línea de comandos en el Ejercicio 5 de la Parte 3, usando el siguiente comando:
 
 ``` { .bash .no-copy }
 ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 ```
 
-It is also possible however to do this *programmatically* using the ROS 2 Service framework. You'll therefore need to work through [Part 4 of the Simulation Lab Course](../../course/part4.md) if you want to find out how this can be done.
+Sin embargo, también es posible hacer esto *programáticamente* usando el framework de Servicios de ROS 2. Por lo tanto, necesitarás trabajar a través de la [Parte 4 del Curso de Lab de Simulación](../../course/part4.md) si quieres saber cómo se puede hacer esto.
 
-In order to attain the marks for this *advanced feature* of the task, the root of your `ele434_teamXX_2026` package directory must contain a directory called `maps`, and the map file that you obtain must be saved into this directory with the name: `explore_map.png`.
+Para obtener los puntos por esta *característica avanzada* de la tarea, la raíz de tu directorio de paquete `ele_teamXX_2026` debe contener un directorio llamado `maps`, y el archivo de mapa que obtienes debe guardarse en este directorio con el nombre: `explore_map.png`.
 
-### Executing Your Code {#launch}
+### Ejecutar Tu Código {#launch}
 
-The ROS package that you submit must contain a launch file called `explore.launch.py`, such that the functionality that you develop for this task can be launched from your package via the command:
+El paquete de ROS que entregas debe contener un archivo de lanzamiento llamado `explore.launch.py`, de modo que la funcionalidad que desarrolles para esta tarea pueda lanzarse desde tu paquete mediante el comando:
 
 ``` { .bash .no-copy }
-ros2 launch ele434_teamXX_2026 explore.launch.py
+ros2 launch ele_teamXX_2026 explore.launch.py
 ```
 
-For more information regarding the submission process and preparing your package for submission [see here](./submission.md).
+Para más información sobre el proceso de entrega y preparar tu paquete para la entrega [consulta aquí](./submission.md).
 
-!!! note "Notes"
+!!! note "Notas"
 
-    * ROS will already be running on the robot before we attempt to execute your launch file.
+    * ROS ya estará ejecutándose en el robot antes de que intentemos ejecutar tu archivo de lanzamiento.
     
-    * A [*Zenoh Session* will be running on the laptop, to allow nodes running on the laptop to communicate with it](../../waffles/launching-ros.md#step4). 
+    * [Una *Sesión Zenoh* estará ejecutándose en la laptop, para permitir que los nodes que se ejecutan en la laptop se comuniquen con él](../../waffles/launching-ros.md#step4).
 
-    * The location, orientation and quantity of obstacles in the arena will not be revealed beforehand, so the ROS package that you develop will need to be able to accommodate an unknown environment. 
+    * La ubicación, orientación y cantidad de obstáculos en el arena no se revelarán de antemano, por lo que el paquete de ROS que desarrolles necesitará ser capaz de acomodar un entorno desconocido.
 
-### Dependencies
+### Dependencias
 
-You may draw upon any pre-existing Python libraries or ROS 2 packages for this task **as long as they are pre-installed in the WSL-ROS2 environment**. The WSL-ROS2 environment is equivalent to the software setup on the real robotics hardware, so any packages that exist in one will also exist in the other.
+Puedes hacer uso de cualquier biblioteca de Python preexistente o paquete de ROS 2 para esta tarea **siempre que estén preinstalados en el entorno WSL-ROS2**. El entorno WSL-ROS2 es equivalente a la configuración de software en el hardware robótico real, por lo que cualquier paquete que exista en uno también existirá en el otro.
 
-!!! danger "Note"
-    You will not be able to request for any *additional* libraries/packages to be installed! 
+!!! danger "Nota"
+    ¡No podrás solicitar que se instalen *bibliotecas/paquetes adicionales*!
 
-## Marking
+## Calificación {#marking}
 
-Each team's submission will be assessed **three times** for this task. The robot will always start in the centre of the arena, but its orientation will be different for each individual run. The robot's orientation will always be perpendicular to the outer arena walls and the arena layout will be the same each time too.
+La entrega de cada equipo será evaluada **tres veces** para esta tarea. El robot siempre comenzará en el centro del arena, pero su orientación será diferente para cada ejecución individual. La orientación del robot siempre será perpendicular a las paredes exteriores del arena y la disposición del arena será la misma cada vez también.
 
-There are **25 marks** available for this task (per run), as outlined in the table below.
+Hay **25 puntos** disponibles para esta tarea (por ejecución), como se describe en la tabla a continuación.
 
 <center>
 
-| Criteria | Marks | Details |
+| Criterio | Puntos | Detalles |
 | :--- | :---: | :--- |
-| **A**: Exploration | 12/25 | You will be awarded 1 mark for each of the outer 12 arena zones that the robot manages to enter (i.e. excluding the four zones in the middle). The robot only needs to enter each of the 12 zones once per run, but **its full body must be inside the zone marking** to be awarded the mark. |
-| **B**: Run Time | 8/25 | You will be awarded marks for the amount of time that your robot spends exploring the environment before 90 seconds has elapsed, **or** the robot makes contact with anything in its environment ([as per the table below](#run-time)). **The robot must leave the central red zone** (a 1x1m area) in order to be eligible for any of these marks. If the robot does not explore beyond **the central orange zone** then a $0.5\times$ multiplication factor will be applied to the run time marks. |
-| **C**: Mapping with SLAM | 5/25 | [Further details below](#map-marks). |
+| **A**: Exploración | 12/25 | Se te otorgará 1 punto por cada una de las 12 zonas exteriores del arena que el robot logre entrar (es decir, excluyendo las cuatro zonas en el centro). El robot solo necesita entrar en cada una de las 12 zonas una vez por ejecución, pero **su cuerpo completo debe estar dentro del marcado de la zona** para recibir el punto. |
+| **B**: Tiempo de Ejecución | 8/25 | Se te otorgarán puntos por la cantidad de tiempo que tu robot pase explorando el entorno antes de que transcurran los 90 segundos, **O** el robot haga contacto con cualquier cosa en su entorno ([según la tabla a continuación](#run-time)). **El robot debe salir de la zona roja central** (un área de 1x1m) para ser elegible para cualquiera de estos puntos. Si el robot no explora más allá de **la zona naranja central**, se aplicará un factor de multiplicación de $0.5\times$ a los puntos de tiempo de ejecución. |
+| **C**: Cartografía con SLAM | 5/25 | [Detalles adicionales abajo](#map-marks). |
 
 </center>
 
-<!-- Change exploration marks for 26/27? Could see what the MAX was in 25/26 and re-scale the 12 marks accordingly? (i.e. so that whatever the max was gets the 12 marks, or more course marking bands: 10-12 zones gets 12/12, 7-9 gets 9/12, 4-6 gets 6/12, 1-3 gets 3/12 ...)  
+La calificación general final otorgada a cada equipo se basará en los puntos obtenidos para cada una de las tres ejecuciones, pero con una ponderación aplicada a cada una:
 
-Marks for getting the robot to stop at the end (i.e. via a Ctrl+C)
+* **60% de ponderación**: aplicada a la ejecución que obtuvo la calificación **más alta**
+* **10% de ponderación**: aplicada a la ejecución que obtuvo la calificación **más baja**
+* **30% de ponderación**: aplicada a la puntuación de la ejecución restante
 
-Update mapping marks, lots of teams do pgm. There's also not a lot of differentiation between the two criteria.
-
--->
-
-The final overall mark awarded to each team will be based on the marks attained for each of the three runs, but with a weighting applied to each:
-
-* **60% weighting**: applied to the run that scored the **highest** mark
-* **10% weighting**: applied to the run that scored the **lowest** mark
-* **30% weighting**: applied to the score from the remaining run
-
-For example, if your team attains scores of $\frac{23}{25}$, $\frac{8}{25}$ and $\frac{12}{25}$ from runs 1, 2 & 3 respectively, then the final overall mark will be: 
+Por ejemplo, si tu equipo obtiene puntuaciones de $\frac{23}{25}$, $\frac{8}{25}$ y $\frac{12}{25}$ de las ejecuciones 1, 2 y 3 respectivamente, entonces la calificación general final será:
 
 $$
 (23\times0.6)+(12\times0.3)+(8\times0.1)=\frac{18.2}{25} (73\%)
 $$
 
-### Criterion B: Run Time {#run-time}
+### Criterio B: Tiempo de Ejecución {#run-time}
 
-**Marks:** 8/25
+**Puntos:** 8/25
 
-Marks will be awarded as follows:
+Los puntos se otorgarán de la siguiente manera:
 
 <center>
 
-| Time (Seconds) | Marks |
+| Tiempo (Segundos) | Puntos |
 | :---: | :---: |
 | 0-9 | 0 |
 | 10-19 | 1 |
@@ -159,19 +151,19 @@ Marks will be awarded as follows:
 | 40-49 | 4 |
 | 50-59 | 5 |
 | 60-89 | 6 |
-| The full 90! | 8 |
+| ¡Los 90 completos! | 8 |
 
 </center>
 
-### Criterion C: Mapping with SLAM {#map-marks}  
+### Criterio C: Cartografía con SLAM {#map-marks}  
 
-**Marks:** 5/25
+**Puntos:** 5/25
 
 <center>
 
-| Criteria | Details | Marks|
+| Criterio | Detalles | Puntos|
 | :--- | :--- | :--- |
-| **C1** | By the end of the assessment a map of the robot arena (or any part of it) must have been generated. Two files should exist: a `.png` and a `.yaml`, both of which must be called `explore_map`, and both must be located in a `maps` folder at the root of your team's package directory i.e. `ele434_teamXX_2026/maps/explore_map.png` and `ele434_teamXX_2026/maps/explore_map.yaml`. | 2 |
-| **C2** | The `ele434_teamXX_2026/maps/explore_map.png` map that is created *during the assessment* depicts **some part of** the real robot arena. | 3 |   
+| **C1** | Al final de la evaluación, un mapa del arena robótico (o cualquier parte de él) debe haberse generado. Deben existir dos archivos: un `.png` y un `.yaml`, ambos deben llamarse `explore_map`, y ambos deben estar ubicados en una carpeta `maps` en la raíz del directorio de paquete de tu equipo, es decir, `ele_teamXX_2026/maps/explore_map.png` y `ele_teamXX_2026/maps/explore_map.yaml`. | 2 |
+| **C2** | El mapa `ele_teamXX_2026/maps/explore_map.png` que se crea *durante la evaluación* muestra **alguna parte** del arena robótico real. | 3 |   
 
 </center>

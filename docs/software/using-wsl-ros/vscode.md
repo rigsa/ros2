@@ -1,67 +1,67 @@
 ---  
-title: "VS Code and WSL"  
+title: "VS Code y WSL"  
 ---
 
-## Launching VS Code from the Terminal {#the-top}
+## Lanzar VS Code desde el Terminal {#the-top}
 
-1. You can launch VS Code directly from a WSL-ROS2 terminal instance. Simply type `code .` at the terminal prompt and then hit ++enter++ :
+1. Puedes lanzar VS Code directamente desde una instancia de terminal WSL-ROS2. Simplemente escribe `code .` en el prompt del terminal y luego presiona ++enter++:
 
     ```bash
     code .
     ```
 
-1. A warning message may then pop up:
+1. Entonces puede aparecer un mensaje de advertencia:
 
     <figure markdown>
       ![](../figures/code-allow-host.png){width=500px}
     </figure>
 
-    Check the box to "Permanently allow ..." and then click the `Allow` button.
+    Marca la casilla para "Permanently allow ..." y luego haz clic en el botón `Allow`.
 
-1. VS Code should then launch, and you'll be presented with another trust dialogue:
+1. VS Code debería entonces lanzarse, y se te presentará otro diálogo de confianza:
 
     <figure markdown>
       ![](../figures/code-trust-home.png){width=500px}
     </figure>
 
-    Click the blue `Yes, I trust the authors` button.
+    Haz clic en el botón azul `Yes, I trust the authors`.
 
-## Installing the WSL Extension {#wsl-ext}
+## Instalar la Extensión WSL {#wsl-ext}
 
-1. The first time you launch VS Code (as above) you should be presented with a pop-up in the bottom-right of the screen, asking if you would like to "install the recommended 'WSL' extension from Microsoft..."
+1. La primera vez que lances VS Code (como se indicó arriba) debería aparecerte una ventana emergente en la parte inferior derecha de la pantalla, preguntando si deseas "instalar la extensión 'WSL' recomendada de Microsoft..."
 
     <figure markdown>
       ![](../figures/code-install-wsl-ext-prompt.png){width=500px}
     </figure>
 
-    Click on the blue "Install" button.
+    Haz clic en el botón azul "Install".
 
-    ??? bug "Don't see the pop-up?" 
+    ??? bug "¿No ves la ventana emergente?" 
         
-        You can also install the 'WSL' extension manually.
+        También puedes instalar la extensión 'WSL' manualmente.
         
-        Click on the "Extensions" icon in the left-hand toolbar (or hit ++ctrl+shift+x++ ), type "wsl" in the search box and hit the install button on the right extension, as show below:
+        Haz clic en el ícono "Extensions" en la barra de herramientas de la izquierda (o presiona ++ctrl+shift+x++), escribe "wsl" en el cuadro de búsqueda y haz clic en el botón de instalar en la extensión correcta, como se muestra a continuación:
 
         <figure markdown>
           ![](../figures/wsl-ext-manual-install-annt.png){width=600px}
         </figure>
 
-1. Once installed, close down VS Code, go back to the WSL-ROS2 terminal instance and re-launch it using the `code .` command again.
+1. Una vez instalada, cierra VS Code, regresa a la instancia de terminal WSL-ROS2 y vuélvelo a lanzar usando el comando `code .`.
     
-    This time, you'll be presented with *yet another* trust pop-up dialogue. Once again, check the box to "Trust the authors" and then click the blue `Yes, I trust the authors` button. 
+    Esta vez, se te presentará *otro* diálogo emergente de confianza. Una vez más, marca la casilla para "Trust the authors" y luego haz clic en el botón azul `Yes, I trust the authors`. 
 
-1. You can now navigate the WSL-ROS2 filesystem in the explorer window on the left-hand side of the VS Code screen. You'll need to use this to locate the packages and scripts that you create throughout this course!
+1. Ahora puedes navegar por el sistema de archivos WSL-ROS2 en la ventana del explorador en el lado izquierdo de la pantalla de VS Code. ¡Necesitarás usar esto para localizar los packages y scripts que crees a lo largo de este curso!
 
     <figure markdown>
       ![](../figures/code-wsl-explorer-annt.svg){width=600px}
     </figure>
 
-## Always make sure that the "WSL" extension is enabled!! {#verify}
+## ¡Siempre asegúrate de que la extensión "WSL" esté habilitada!! {#verify}
 
-Check that your blue "Remote Window" icon in the bottom-left of the VS Code screen always looks like this:
+Verifica que tu ícono azul de "Remote Window" en la parte inferior izquierda de la pantalla de VS Code siempre se vea así:
 
 <figure markdown>
   ![](../figures/code-wsl-ext-on.svg){width=400px}
 </figure>
 
-If not, then go back to [the top of this page](#the-top) and try again!
+¡Si no es así, regresa al [inicio de esta página](#the-top) e inténtalo de nuevo!

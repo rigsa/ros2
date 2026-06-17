@@ -1,198 +1,198 @@
 ---
-title: "Part 1: Getting Started with ROS 2" 
-description: Learn the basics of ROS 2 and become familiar with some key tools and principles, allowing you to program robots and work with ROS 2 applications effectively. 
+title: "Parte 1: Primeros pasos con ROS 2" 
+description: Aprende los fundamentos de ROS 2 y familiarízate con algunas herramientas y principios clave, lo que te permitirá programar robots y trabajar con aplicaciones ROS 2 de manera efectiva. 
 ---
 
-## Introduction
+## Introducción
 
-:material-pen: **Exercises**: 8  
-:material-timer: **Estimated Completion Time**: 2 hours  
-:material-gauge-low: **Difficulty Level**: Beginner 
+:material-pen: **Ejercicios**: 8  
+:material-timer: **Tiempo estimado de finalización**: 2 horas  
+:material-gauge-low: **Nivel de dificultad**: Principiante 
 
-### Aims
+### Objetivos
 
-In the first part of this lab course you will learn the basics of ROS 2 and become familiar with some key tools and principles of the framework, which will allow you to program robots and work with ROS 2 applications effectively.
+En la primera parte de este laboratorio aprenderás los fundamentos de ROS 2 y te familiarizarás con algunas herramientas y principios clave del framework, lo que te permitirá programar robots y trabajar con aplicaciones ROS 2 de manera efectiva.
 
-Throughout this course, and from herein, we'll refer to ROS 2 as just "ROS" to make things easier!
+A lo largo de este curso, y de aquí en adelante, nos referiremos a ROS 2 simplemente como "ROS" para facilitar las cosas.
 
-For the most part, you will interact with ROS using the *Linux command line* and so you will also become familiar with some key Linux command line tools that will help you.  Finally, you will learn how to create some basic ROS Nodes using Python and get a taste of how communications work via ROS Topics and Interfaces.
+En su mayor parte, interactuarás con ROS usando la *línea de comandos de Linux*, por lo que también te familiarizarás con algunas herramientas clave de la línea de comandos de Linux que te serán de ayuda. Finalmente, aprenderás cómo crear algunos Nodes básicos de ROS usando Python y tendrás un primer vistazo de cómo funciona la comunicación a través de ROS Topics e Interfaces.
 
-### Intended Learning Outcomes
+### Resultados de Aprendizaje Esperados
 
-By the end of this session you will be able to:  
+Al finalizar esta sesión serás capaz de:  
 
-1. Control a TurtleBot3 Robot, in simulation, using ROS.
-1. Launch ROS applications using `ros2 launch` and `ros2 run`.
-1. Interrogate running ROS applications using key ROS command line tools.
-1. Create a ROS package comprised of multiple nodes and program these nodes (in Python) to communicate with one another using ROS Communication Methods.
-1. Create a custom ROS message interface and create Python Nodes to use this.
-1. Navigate a Linux filesystem and learn how to do various filesystem operations from within a Linux Terminal.
+1. Controlar un robot TurtleBot3, en simulación, usando ROS.
+1. Lanzar aplicaciones ROS usando `ros2 launch` y `ros2 run`.
+1. Consultar aplicaciones ROS en ejecución usando herramientas clave de la línea de comandos de ROS.
+1. Crear un package de ROS compuesto por múltiples nodes y programar estos nodes (en Python) para que se comuniquen entre sí usando los métodos de comunicación de ROS.
+1. Crear una interfaz de mensaje personalizada de ROS y crear Nodes Python para usarla.
+1. Navegar por un sistema de archivos Linux y aprender a realizar diversas operaciones del sistema de archivos desde una terminal Linux.
 
-### Quick Links
+### Accesos Rápidos
 
-#### Exercises
+#### Ejercicios
 
-* [Exercise 1: Launching a simulation and making a robot move](#ex1)
-* [Exercise 2: Visualising the ROS Network](#ex2)
-* [Exercise 3: Exploring ROS Topics and Messages](#ex3)
-* [Exercise 4: Creating your own ROS Package](#ex4)
-* [Exercise 5: Creating a publisher node](#ex5)
-* [Exercise 6: Creating a subscriber node](#ex6)
-* [Exercise 7: Defining our own message](#ex7)
-* [Exercise 8: Using a custom ROS Message](#ex8)
+* [Ejercicio 1: Lanzar una simulación y hacer mover un robot](#ex1)
+* [Ejercicio 2: Visualizar la Red ROS](#ex2)
+* [Ejercicio 3: Explorar ROS Topics y Mensajes](#ex3)
+* [Ejercicio 4: Crear tu propio package de ROS](#ex4)
+* [Ejercicio 5: Crear un node publisher](#ex5)
+* [Ejercicio 6: Crear un node subscriber](#ex6)
+* [Ejercicio 7: Definir nuestro propio mensaje](#ex7)
+* [Ejercicio 8: Usar un mensaje ROS personalizado](#ex8)
 
-#### Additional Resources
+#### Recursos Adicionales
 
-* [A Simple Python Publisher (for Exercise 5)](./part1/publisher.md){target="_blank"}
-* [A Simple Python Subscriber (for Exercise 6)](./part1/subscriber.md){target="_blank"}
-* [The `Example` Message Publisher (for Exercise 8)](./part1/custom_msg_pub.md){target="_blank"}
+* [Un Publisher Python simple (para el Ejercicio 5)](./part1/publisher.md){target="_blank"}
+* [Un Subscriber Python simple (para el Ejercicio 6)](./part1/subscriber.md){target="_blank"}
+* [El Publisher del mensaje `Example` (para el Ejercicio 8)](./part1/custom_msg_pub.md){target="_blank"}
 
-## First Steps
+## Primeros Pasos
 
-### Step 1: Accessing a ROS 2 Environment for this Course
+### Paso 1: Acceder a un entorno ROS 2 para este curso
 
-If you haven't done so already, see here for all the details on [how to install or access a ROS environment for this course](../software/README.md).
+Si aún no lo has hecho, consulta aquí todos los detalles sobre [cómo instalar o acceder a un entorno ROS para este curso](../software/README.md).
 
-### Step 2: Launch ROS
+### Paso 2: Lanzar ROS
 
-Launch your ROS environment.
+Inicia tu entorno ROS.
 
-1. If you're using WSL-ROS2 on a university managed desktop machine then follow [the instructions here to launch it](../software/using-wsl-ros/man-win.md).
-1. If you're [running WSL-ROS2 on your own machine](../software/installing-wsl-ros2.md), then you'll need to launch the Windows Terminal to access a WSL-ROS2 terminal instance.
-1. If you're using Docker, then you can find [further instructions here](../software/docker-ros2.md). 
+1. Si estás usando WSL-ROS2 en una computadora del laboratorio, sigue [las instrucciones aquí para iniciarlo](../software/using-wsl-ros/man-win.md).
+1. Si estás [ejecutando WSL-ROS2 en tu propia computadora](../software/installing-wsl-ros2.md), necesitarás abrir la Terminal de Windows para acceder a una instancia de terminal WSL-ROS2.
+1. Si estás usando Docker, puedes encontrar [más instrucciones aquí](../software/docker-ros2.md). 
 
-Either way, you should now have access to ROS 2 via a Linux terminal instance, and we'll refer to this terminal instance as **TERMINAL 1**.
+De cualquier manera, ahora deberías tener acceso a ROS 2 a través de una instancia de terminal Linux, y nos referiremos a esta instancia de terminal como **TERMINAL 1**.
 
-### Step 3: Download The Course Repo
+### Paso 3: Descargar el Repositorio del Curso
 
 <a name="course-repo"></a>
 
-We've put together a few ROS packages specifically for this course. These all live within [this GitHub repo](https://github.com/tom-howard/tuos_ros/tree/jazzy){target="_blank"}, and you'll need to download and install this into your ROS environment now, before going any further.
+Hemos preparado algunos packages de ROS específicamente para este curso. Todos se encuentran en [este repositorio de GitHub](https://github.com/tom-howard/tuos_ros/tree/jazzy){target="_blank"}, y deberás descargarlo e instalarlo en tu entorno ROS ahora, antes de continuar.
 
-1. In **TERMINAL 1**, Navigate into the *"ROS Workspace"* using the `cd` command[^ros2_ws]:
+1. En **TERMINAL 1**, navega hacia el *"ROS Workspace"* usando el comando `cd`[^ros2_ws]:
 
-    [^ros2_ws]: What is a ROS 2 Workspace? [You can find out more here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
+    [^ros2_ws]: ¿Qué es un ROS 2 Workspace? [Puedes encontrar más información aquí](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
 
     ```bash
     cd ~/ros2_ws/src/
     ```
 
-1. Then, run the following command to clone the Course Repo from GitHub:
+1. Luego, ejecuta el siguiente comando para clonar el repositorio del curso desde GitHub:
 
     ```bash
     git clone https://github.com/tom-howard/tuos_ros.git -b jazzy
     ```
 
-1. Once this is done, you'll need to build this using a tool called *"Colcon"*[^colcon]:
+1. Una vez hecho esto, necesitarás compilarlo usando una herramienta llamada *"Colcon"*[^colcon]:
 
-    [^colcon]: What is **Colcon**? [Find out more here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#background){target="_blank"}.
+    [^colcon]: ¿Qué es **Colcon**? [Descubre más aquí](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#background){target="_blank"}.
 
     ```bash
     cd ~/ros2_ws/ && colcon build --packages-up-to tuos_ros && source ~/.bashrc
     ```
 
-Don't worry too much about what you just did right now. We'll cover this in more detail throughout the course. That's it for now though, we'll start using some of the packages that we've just installed a bit later on.
+No te preocupes demasiado por lo que acabas de hacer por ahora. Lo cubriremos con más detalle a lo largo del curso. Por el momento es suficiente; más adelante empezaremos a usar algunos de los packages que acabamos de instalar.
 
-## :material-pen: Exercise 1: Launching a simulation and making a robot move {#ex1}
+## :material-pen: Ejercicio 1: Lanzar una simulación y hacer mover un robot {#ex1}
 
-Now that you're all up and running, let's launch ROS and fire up a simulation of our TurtleBot3 Waffle robot... 
+Ahora que todo está en marcha, lancemos ROS y pongamos en funcionamiento una simulación de nuestro robot TurtleBot3 Waffle...
 
-1. In **TERMINAL 1** enter the following command to launch a simulation of a TurtleBot3 Waffle in an *empty world*:  
+1. En **TERMINAL 1** ingresa el siguiente comando para lanzar una simulación de un TurtleBot3 Waffle en un *mundo vacío*:  
         
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
     ```    
 
-1. A *Gazebo Sim* window should open:
+1. Se debería abrir una ventana de *Gazebo Sim*:
 
     <figure markdown>
       ![](../images/gz/tb3_empty_world_top.png){width=800}
     </figure>
 
-    1. **Zoom in and out** using the scroll wheel on your mouse.  
-    1. **Rotate the camera view** by simultaneously pressing and holding the left mouse button and the ++shift++ key on your keyboard, and then moving your mouse around.
+    1. **Acercar y alejar** usando la rueda de desplazamiento del mouse.  
+    1. **Rotar la vista de la cámara** presionando y manteniendo simultáneamente el botón izquierdo del mouse y la tecla ++shift++ de tu teclado, y luego moviendo el mouse.
     
-    Using both of these methods you should be able to get a better view of the robot, which is an approximate representation of [our real ones](../about/robots.md#our-waffles).
+    Usando ambos métodos deberías poder obtener una mejor vista del robot, que es una representación aproximada de [nuestros robots reales](../about/robots.md#our-waffles).
 
     <figure markdown>
       ![](../images/gz/tb3_empty_world_close.png){width=700px}
     </figure> 
 
-1. With the Gazebo simulation up and running, return to your terminal and open up a *second* terminal instance (**TERMINAL 2**)
+1. Con la simulación de Gazebo en funcionamiento, regresa a tu terminal y abre una *segunda* instancia de terminal (**TERMINAL 2**)
    
-1. In this new terminal instance enter the following command:<a name="teleop"></a>
+1. En esta nueva instancia de terminal ingresa el siguiente comando:<a name="teleop"></a>
 
     ```bash
     ros2 run turtlebot3_teleop teleop_keyboard
     ```
 
-1. Follow the instructions provided in the terminal to drive the robot around using specific buttons on your keyboard:
+1. Sigue las instrucciones proporcionadas en la terminal para controlar el robot usando teclas específicas de tu teclado:
 
     <figure markdown>
       ![](../images/waffle/teleop_keymap.svg)
     </figure>
 
-### Summary
+### Resumen
 
-You just launched a number of different applications on a ROS Network using two different ROS commands - `ros2 launch` and `ros2 run`: 
+Acabas de lanzar varias aplicaciones diferentes en una red ROS usando dos comandos diferentes de ROS: `ros2 launch` y `ros2 run`: 
 
 1. `ros2 launch turtlebot3_gazebo empty_world.launch.py`
 1. `ros2 run turtlebot3_teleop teleop_keyboard`
 
-These two commands have a similar structure, but work slightly differently. 
+Estos dos comandos tienen una estructura similar, pero funcionan de manera ligeramente diferente.
 
-The first command you used was a `launch` command, which has the following two parts to it (after the `launch` bit):
+El primer comando que usaste fue un comando `launch`, que tiene las siguientes dos partes (después de la parte `launch`):
 
 ``` { .bash .no-copy }
-ros2 launch {[1] Package name} {[2] Launch file}
+ros2 launch {[1] Nombre del package} {[2] Archivo launch}
 ```
 
-**Part [1]** is the name of the *ROS package* containing the functionality that we want to execute. **Part [2]** is a file within that package that tells ROS exactly what scripts (*'nodes'*) that we want to launch. *We can launch multiple nodes at the same time from a single launch file*.
+La **Parte [1]** es el nombre del *package de ROS* que contiene la funcionalidad que queremos ejecutar. La **Parte [2]** es un archivo dentro de ese package que le indica a ROS exactamente qué scripts (*'nodes'*) queremos lanzar. *Podemos lanzar múltiples nodes al mismo tiempo desde un único archivo launch*.
 
-The second command was a `run` command, which has a structure similar to `launch`:
+El segundo comando fue un comando `run`, que tiene una estructura similar a `launch`:
 
 ``` { .bash .no-copy }
-ros2 run {[1] Package name} {[2] Node name}
+ros2 run {[1] Nombre del package} {[2] Nombre del node}
 ```    
 
-Here, **Part [1]** is the same as the `launch` command, but **Part [2]** is slightly different: `{[2] Node name}`. Here we are directly specifying a single script that we want to execute. We therefore use `ros2 run` if we only want to launch a **single node** on the ROS network: the `teleop_keyboard` node (a Python script), in this case.
+Aquí, la **Parte [1]** es la misma que en el comando `launch`, pero la **Parte [2]** es ligeramente diferente: `{[2] Nombre del node}`. Aquí estamos especificando directamente un único script que queremos ejecutar. Por lo tanto, usamos `ros2 run` si solo queremos lanzar un **único node** en la red ROS: el node `teleop_keyboard` (un script Python), en este caso.
 
-## ROS Packages & Nodes
+## Packages y Nodes de ROS
 
 ### Packages
 
-ROS applications are organised into *packages*. Packages are basically collections containing scripts, configurations and launch files (ways to launch those scripts and configurations), all of which relate to some common robot functionality. ROS uses packages as a way to organise all the programs running on a robot. 
+Las aplicaciones ROS se organizan en *packages*. Los packages son básicamente colecciones que contienen scripts, configuraciones y archivos launch (formas de lanzar esos scripts y configuraciones), todos relacionados con alguna funcionalidad robótica común. ROS usa packages como una manera de organizar todos los programas que se ejecutan en un robot.
 
 !!! info  
-    The package system is a fundamental concept in ROS and all ROS programs are organised in this way.
+    El sistema de packages es un concepto fundamental en ROS y todos los programas de ROS se organizan de esta manera.
 
-You will create a number of packages throughout this course, each containing different nodes, launch files and other things too. We'll start to explore this later on.
+Crearás varios packages a lo largo de este curso, cada uno conteniendo diferentes nodes, archivos launch y otras cosas más. Comenzaremos a explorar esto más adelante.
 
 ### Nodes
 
-ROS *Nodes* are executables that perform specific robot tasks and operations. Earlier on (for example) we used `ros2 run` to execute a node called `teleop_keyboard`, which allowed us to remotely control (or *"teleoperate"*) the robot. 
+Los *Nodes* de ROS son ejecutables que realizan tareas y operaciones específicas del robot. Antes (por ejemplo) usamos `ros2 run` para ejecutar un node llamado `teleop_keyboard`, que nos permitió controlar remotamente (o *"teleop"*) el robot.
 
 !!! question
-    What was the name of the ROS *package* that contained the `teleop_keyboard` node? (Remember: `ros2 run {[1] Package name} {[2] Node name}`)
+    ¿Cuál era el nombre del *package* de ROS que contenía el node `teleop_keyboard`? (Recuerda: `ros2 run {[1] Nombre del package} {[2] Nombre del node}`)
 
-A ROS robot might have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses *ROS communication methods* to share data with the other nodes on the ROS Network.
+Un robot ROS podría tener cientos de nodes individuales ejecutándose simultáneamente para llevar a cabo todas sus operaciones y acciones necesarias. Cada node se ejecuta de forma independiente, pero usa *métodos de comunicación de ROS* para compartir datos con los demás nodes en la red ROS.
 
-## The ROS Network
+## La Red ROS
 
-We can use the `ros2 node` command to view all the nodes that are currently active on a ROS Network.
+Podemos usar el comando `ros2 node` para ver todos los nodes que están actualmente activos en una red ROS.
 
-#### :material-pen: Exercise 2: Visualising the ROS Network {#ex2}
+#### :material-pen: Ejercicio 2: Visualizar la Red ROS {#ex2}
 
-You should currently have two terminal instances active: the first in which you launched the Gazebo simulation (**TERMINAL 1**) and the second with your `teleop_keyboard` node active (**TERMINAL 2**).
+Actualmente deberías tener dos instancias de terminal activas: la primera en la que lanzaste la simulación de Gazebo (**TERMINAL 1**) y la segunda con tu node `teleop_keyboard` activo (**TERMINAL 2**).
 
-1. Open up a new terminal instance now (**TERMINAL 3**).
-1. Use the following command to have a look at which nodes are currently active on the network:
+1. Abre una nueva instancia de terminal ahora (**TERMINAL 3**).
+1. Usa el siguiente comando para ver qué nodes están actualmente activos en la red:
 
     ```bash
     ros2 node list
     ```
 
-    Only a handful of nodes should be listed:
+    Solo debería aparecer una pequeña cantidad de nodes:
 
     ``` { .bash .no-copy }
     /robot_state_publisher
@@ -201,48 +201,48 @@ You should currently have two terminal instances active: the first in which you 
     /teleop_keyboard
     ```
 
-1. We can visualise the connections between the active nodes by using an application called *RQT*. RQT is a collection of graphical tools that allow us to interact with and interrogate the ROS network. Launch the main RQT application by entering `rqt` in **TERMINAL 3** (you might see some warnings in the terminal when you do this, but don't worry about them):
+1. Podemos visualizar las conexiones entre los nodes activos usando una aplicación llamada *RQT*. RQT es una colección de herramientas gráficas que nos permiten interactuar e interrogar la red ROS. Lanza la aplicación principal de RQT ingresando `rqt` en **TERMINAL 3** (es posible que veas algunas advertencias en la terminal al hacerlo, pero no te preocupes por ellas):
 
     ```bash
     rqt
     ```
 
-    A window should then open:
+    Debería abrirse una ventana:
 
     <figure markdown>
       ![](../images/rqt/main.png){width=600}
     </figure>
 
-1. From here, we then want to load the *Node Graph* plugin. From the top menu select `Plugins` > `Introspection` > `Node Graph`.
+1. Desde aquí, queremos cargar el plugin *Node Graph*. Desde el menú superior selecciona `Plugins` > `Introspection` > `Node Graph`.
 
-1. Select `Nodes/Topics (all)` from the top-left most dropdown, and in the **`Hide`** section uncheck everything except `Debug` and `Params` (you may then need to hit the refresh button):
+1. Selecciona `Nodes/Topics (all)` del menú desplegable superior izquierdo, y en la sección **`Hide`** desmarca todo excepto `Debug` y `Params` (puede que necesites presionar el botón de actualizar):
 
     <figure markdown>
       ![](../images/rqt/node_graph.png){width=600}
-      <figcaption>(Click on the image to enlarge it.)</figcaption>
+      <figcaption>(Haz clic en la imagen para ampliarla.)</figcaption>
     </figure>
 
-    Here, *nodes* are represented by ellipses and *topics* by rectangles (hover over a region of the graph to enable colour highlighting).
+    Aquí, los *nodes* están representados por elipses y los *topics* por rectángulos (pasa el cursor sobre una región del gráfico para activar el resaltado de color).
 
-    This tool shows us that (amongst other things) the `/teleop_keyboard` node is communicating with another node called `/ros_gz_bridge`. The direction of the arrow tells us that `/teleop_keyboard` is a *Publisher* and `/ros_gz_bridge` is a *Subscriber*. The two nodes communicate via a **ROS Topic** called `/cmd_vel`. 
+    Esta herramienta nos muestra que (entre otras cosas) el node `/teleop_keyboard` se está comunicando con otro node llamado `/ros_gz_bridge`. La dirección de la flecha nos indica que `/teleop_keyboard` es un *Publisher* y `/ros_gz_bridge` es un *Subscriber*. Los dos nodes se comunican a través de un **ROS Topic** llamado `/cmd_vel`. 
 
-## Publishers and Subscribers: A *ROS Communication Method* 
+## Publishers y Subscribers: Un *Método de Comunicación de ROS* 
 
-ROS Topics are key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics using *ROS Messages*. As we've just learnt, the `teleop_keyboard` node was publishing messages to a topic (`/cmd_vel`) to make the robot move.
+Los ROS Topics son fundamentales para hacer que las cosas sucedan en un robot. Los nodes pueden publicar (*escribir*) y/o subscribirse a (*leer*) ROS Topics para compartir datos a través de la red ROS. Los datos se publican en los topics usando *ROS Messages*. Como acabamos de aprender, el node `teleop_keyboard` estaba publicando mensajes en un topic (`/cmd_vel`) para hacer mover el robot.
 
-Let's have a look at this in a bit more detail...
+Veamos esto con un poco más de detalle...
 
-#### :material-pen: Exercise 3: Exploring ROS Topics and Messages {#ex3}
+#### :material-pen: Ejercicio 3: Explorar ROS Topics y Mensajes {#ex3}
 
-We can find out more about the `/cmd_vel` topic by using the `ros2 topic` command.
+Podemos encontrar más información sobre el topic `/cmd_vel` usando el comando `ros2 topic`.
 
-1. Open up yet *another* new terminal instance (**TERMINAL 4**) and type the following:
+1. Abre *otra* nueva instancia de terminal (**TERMINAL 4**) y escribe lo siguiente:
 
     ```bash
     ros2 topic list
     ```
 
-    This shows us all the topics that are currently available on the ROS network (a lot of which we saw in the RQT Node Graph above):
+    Esto nos muestra todos los topics que están actualmente disponibles en la red ROS (muchos de los cuales vimos en el Node Graph de RQT arriba):
 
     ``` { .txt .no-copy }
     /camera/camera_info
@@ -264,15 +264,15 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
     /tf_static
     ```
 
-    Let's find out a bit more about `/cmd_vel`...
+    Averiguemos un poco más sobre `/cmd_vel`...
 
-1. Use the `topic info` command now:
+1. Usa el comando `topic info` ahora:
 
     ```bash
     ros2 topic info /cmd_vel
     ```
     
-    This should provide the following output:
+    Esto debería proporcionar la siguiente salida:
     
     ``` { .txt .no-copy }
     Type: geometry_msgs/msg/TwistStamped
@@ -280,29 +280,29 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
     Subscription count: 1
     ```
 
-    We've now established the following information about `/cmd_vel`: <a name="msg-interface-struct"></a>
+    Ahora hemos establecido la siguiente información sobre `/cmd_vel`: <a name="msg-interface-struct"></a>
     
-    1. The topic has 1 publisher *writing* data to it (the `/teleop_keyboard` node, as established from the RQT Graph)
-    1. The topic also has 1 subscriber *reading* this data (the `ros_gz_bridge` node)
-    1. Data is transmitted on the `/cmd_vel` topic using an [Interface](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html){target="_blank"}. This particular interface is defined as: `geometry_msgs/msg/TwistStamped`. 
+    1. El topic tiene 1 publisher *escribiendo* datos en él (el node `/teleop_keyboard`, como se estableció a partir del RQT Graph)
+    1. El topic también tiene 1 subscriber *leyendo* estos datos (el node `ros_gz_bridge`)
+    1. Los datos se transmiten en el topic `/cmd_vel` usando una [Interface](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html){target="_blank"}. Esta interface particular se define como: `geometry_msgs/msg/TwistStamped`. 
 
-        **Interface Definitions**
+        **Definiciones de Interfaces**
 
-        **Interfaces** are *standardised data structures* that are used to broadcast data across the ROS network. The interface definition above (and, indeed, *every* interface definition) has three parts to it:
+        Las **Interfaces** son *estructuras de datos estandarizadas* que se usan para transmitir datos a través de la red ROS. La definición de interface anterior (y, de hecho, *toda* definición de interface) tiene tres partes:
         
-        1. `geometry_msgs`: the name of the ROS package that this interface belongs to.
-        1. `msg`: that this is a *topic message* rather than another type of interface (there are **three** types of interface, and we'll learn about the other two later in this course).
-        1. `TwistStamped`: the actual interface name
+        1. `geometry_msgs`: el nombre del package de ROS al que pertenece esta interface.
+        1. `msg`: indica que esto es un *topic message* en lugar de otro tipo de interface (hay **tres** tipos de interface, y aprenderemos sobre los otros dos más adelante en este curso).
+        1. `TwistStamped`: el nombre real de la interface
 
-        In summary then, we've established that if we want to make the robot move we need to publish `TwistStamped` messages to the `/cmd_vel` topic.
+        En resumen, hemos establecido que si queremos hacer mover el robot necesitamos publicar mensajes `TwistStamped` en el topic `/cmd_vel`.
 
-1. Still in **TERMINAL 4**, use the `ros2 interface` command to show us the (standardised) data structure used by the `TwistStamped` Interface:
+1. Todavía en **TERMINAL 4**, usa el comando `ros2 interface` para mostrarnos la estructura de datos (estandarizada) usada por la Interface `TwistStamped`:
 
     ```bash
     ros2 interface show geometry_msgs/msg/TwistStamped
     ```
 
-    From this, we obtain the following:
+    De esto, obtenemos lo siguiente:
 
     ``` { .txt .no-copy }
     std_msgs/Header header
@@ -321,79 +321,79 @@ We can find out more about the `/cmd_vel` topic by using the `ros2 topic` comman
                 float64 z
     ```
 
-    We'll learn more about what this means in Part 2.
+    Aprenderemos más sobre lo que esto significa en la Parte 2.
 
-1. To finish, enter ++ctrl+c++ in each of the three terminals that should currently have ROS processes running (Terminals **1**, **2** and **3**). The associated Gazebo and RQT Node Graph windows should close as a result of this too.
+1. Para finalizar, ingresa ++ctrl+c++ en cada una de las tres terminales que actualmente deberían tener procesos ROS en ejecución (Terminales **1**, **2** y **3**). Las ventanas de Gazebo y del Node Graph de RQT deberían cerrarse como resultado de esto también.
 
     !!! tip
-        Whenever you need to stop any ROS process use ++ctrl+c++ in the terminal it's running in. 
+        Siempre que necesites detener cualquier proceso ROS usa ++ctrl+c++ en la terminal donde está ejecutándose. 
 
-## Creating Your First ROS Applications
+## Creando tus Primeras Aplicaciones ROS
 
-Shortly we'll create some simple publisher and subscriber nodes in Python and send simple data between them. As we learnt earlier though, ROS nodes must always live within *packages*, and so we need to create a package first in order to start creating our own ROS nodes. 
+En breve crearemos algunos nodes simples de publisher y subscriber en Python y enviaremos datos simples entre ellos. Como aprendimos antes, los nodes de ROS siempre deben vivir dentro de *packages*, por lo que necesitamos crear un package primero para poder comenzar a crear nuestros propios nodes de ROS.
 
-It's important to work in a specific filesystem location when we create and work on our own ROS packages. These are called *"Workspaces"* and you should already have one ready to go within your local ROS environment called `ros2_ws`[^workspaces], with a subdirectory within it called `src`:
+Es importante trabajar en una ubicación específica del sistema de archivos cuando creamos y trabajamos en nuestros propios packages de ROS. Estos se llaman *"Workspaces"* y ya deberías tener uno listo para usar dentro de tu entorno ROS local llamado `ros2_ws`[^workspaces], con un subdirectorio dentro de él llamado `src`:
 
 ``` { .bash .no-copy }
 ~/ros2_ws/src/
 ```
 
-**All new packages ^^MUST^^ be located inside the `src` folder of the workspace!!**
+**¡Todos los nuevos packages ^^DEBEN^^ estar ubicados dentro de la carpeta `src` del workspace!**
 
 !!! note 
-    `~` is an alias for your home directory. So `cd ~/ros2_ws/src/` is the same as typing `cd /home/{your username}/ros2_ws/src/`.
+    `~` es un alias para tu directorio home. Entonces `cd ~/ros2_ws/src/` es lo mismo que escribir `cd /home/{tu nombre de usuario}/ros2_ws/src/`.
 
-[^workspaces]: `ros2_ws` is a common name used for a ROS 2 workspace in many online tutorials, the name doesn't really matter, it could be called anything. [You can learn more about ROS 2 Workspaces here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
+[^workspaces]: `ros2_ws` es un nombre común utilizado para un ROS 2 workspace en muchos tutoriales en línea, el nombre no importa realmente, podría llamarse de cualquier manera. [Puedes aprender más sobre los ROS 2 Workspaces aquí](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html#background){target="_blank"}. 
 
-#### :material-pen: Exercise 4: Creating your own ROS Package {#ex4}
+#### :material-pen: Ejercicio 4: Crear tu propio package de ROS {#ex4}
 
-The `ros2` Command Line Interface (CLI) that we've been using so far includes a tool to create new ROS packages: `ros2 pkg create`[^ros2-pkg-create]. We'll actually take a slightly different approach to package creation for this course however, to provide us with a little more flexibility and ease of use (particularly for things we'll do later on)[^cpp-py-pkg]. We've therefore created our own [ROS 2 Package Template](https://github.com/tom-howard/ros2_pkg_template){target="_blank"} (on GitHub), and we'll walk through how to use this to create new packages now...
+La interfaz de línea de comandos (CLI) `ros2` que hemos estado usando hasta ahora incluye una herramienta para crear nuevos packages de ROS: `ros2 pkg create`[^ros2-pkg-create]. Sin embargo, para este curso adoptaremos un enfoque ligeramente diferente para la creación de packages, para brindarnos un poco más de flexibilidad y facilidad de uso (especialmente para cosas que haremos más adelante)[^cpp-py-pkg]. Por lo tanto, hemos creado nuestra propia [Plantilla de Package ROS 2](https://github.com/tom-howard/ros2_pkg_template){target="_blank"} (en GitHub), y ahora veremos cómo usarla para crear nuevos packages...
 
-[^ros2-pkg-create]: You can learn more about all this from the [Official ROS 2 Tutorials](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html){target="_blank"} (if you're interested).
+[^ros2-pkg-create]: Puedes aprender más sobre todo esto en los [Tutoriales Oficiales de ROS 2](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html){target="_blank"} (si te interesa).
 
-[^cpp-py-pkg]: The approach we take is based on [this tutorial (courtesy of the Robotics Backend)](https://roboticsbackend.com/ros2-package-for-both-python-and-cpp-nodes/){target="_blank"}, so feel free to look at this if you'd like to find out more.
+[^cpp-py-pkg]: El enfoque que adoptamos está basado en [este tutorial (cortesía de Robotics Backend)](https://roboticsbackend.com/ros2-package-for-both-python-and-cpp-nodes/){target="_blank"}, así que no dudes en revisarlo si deseas obtener más información.
 
-1. Navigate into the `ros2_ws/src` directory using the Linux `cd` command (**c**hange **d**irectory). In **TERMINAL 1** enter the following:
+1. Navega hacia el directorio `ros2_ws/src` usando el comando `cd` de Linux (**c**ambiar **d**irectorio). En **TERMINAL 1** ingresa lo siguiente:
 
     ```bash
     cd ~/ros2_ws/src/
     ```
 
-1. From here, use `git` to *clone* our *ROS 2 Package Template* from GitHub:
+1. Desde aquí, usa `git` para *clonar* nuestra *Plantilla de Package ROS 2* desde GitHub:
 
     ```bash
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
     
-1. This package template contains a script called `init_pkg.sh`, which we'll use to turn the template into our first ROS 2 package. Run the script as follows, to convert the template into a ROS 2 package called `part1_pubsub`:
+1. Esta plantilla de package contiene un script llamado `init_pkg.sh`, que usaremos para convertir la plantilla en nuestro primer package de ROS 2. Ejecuta el script de la siguiente manera, para convertir la plantilla en un package de ROS 2 llamado `part1_pubsub`:
 
     ```bash
     ./ros2_pkg_template/init_pkg.sh part1_pubsub
     ```
 
-    As a result of doing this, the `ros2_pkg_template` directory has now been renamed to `part1_pubsub`, and various other things within the package have been updated too, to initialise the package with the name that we specified. 
+    Como resultado de hacer esto, el directorio `ros2_pkg_template` ha sido renombrado a `part1_pubsub`, y varias otras cosas dentro del package también han sido actualizadas, para inicializar el package con el nombre que especificamos.
 
-1. Navigate into the package directory (using `cd`):
+1. Navega hacia el directorio del package (usando `cd`):
 
     ```bash
     cd part1_pubsub/
     ```
 
-1. `tree` is a **Linux command** which shows us the content of the current directory in a nice tree-like format. Use `tree` now to show the current content of the `part1_pubsub` directory:
+1. `tree` es un **comando de Linux** que nos muestra el contenido del directorio actual en un formato de árbol. Usa `tree` ahora para mostrar el contenido actual del directorio `part1_pubsub`:
 
     ```bash
     tree
     ```
 
-    ...which should yield:
+    ...lo que debería mostrar:
 
     ``` { .txt .no-copy }
     .
     ├── CMakeLists.txt
     ├── package.xml
     ├── part1_pubsub_modules
-    │   ├── __init__.py
-    │   └── tb3_tools.py
+    │   ├── __init__.py
+    │   └── tb3_tools.py
     └── scripts
         ├── basic_velocity_control.py
         └── stop_me.py
@@ -401,34 +401,34 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     3 directories, 6 files
     ```
 
-    * `scripts`: is a *directory* that will contain all the Python Nodes that we'll create (you'll notice a couple in there already).
-    * `part1_pubsub_modules`: is a *directory* that we can use to store Python *modules*, that we can then import into our main Python nodes
+    * `scripts`: es un *directorio* que contendrá todos los Nodes Python que crearemos (notarás que ya hay un par allí).
+    * `part1_pubsub_modules`: es un *directorio* que podemos usar para almacenar *módulos* Python, que luego podemos importar en nuestros nodes Python principales
         
-        (`#!py from part1_pubsub_modules.tb3_tools import ...`, for example)
+        (`#!py from part1_pubsub_modules.tb3_tools import ...`, por ejemplo)
     
-    * `package.xml` and `CMakeLists.txt`: are both *files* that define our package, and how it must be built (using `colcon build`). We'll explore these more shortly... 
+    * `package.xml` y `CMakeLists.txt`: son ambos *archivos* que definen nuestro package y cómo debe compilarse (usando `colcon build`). Los exploraremos más en breve... 
 
-#### :material-pen: Exercise 5: Creating a publisher node {#ex5}
+#### :material-pen: Ejercicio 5: Crear un node publisher {#ex5}
 
-1. From the root of your `part1_pubsub` package, navigate to the `scripts` folder using the `cd` command.
+1. Desde la raíz de tu package `part1_pubsub`, navega hacia la carpeta `scripts` usando el comando `cd`.
 
     ```bash
     cd scripts
     ```
 
-1. `touch` is a **Linux command** that we can use to create an empty file. Use this to create an empty file called `publisher.py`, which we will add content to shortly:
+1. `touch` es un **comando de Linux** que podemos usar para crear un archivo vacío. Úsalo para crear un archivo vacío llamado `publisher.py`, al que añadiremos contenido en breve:
 
     ```bash
     touch publisher.py
     ```
 
-1. Use `ls` to verify that the file has been created, but use the `-l` option with this, so that the command provides its output in *"a long listing format"*:
+1. Usa `ls` para verificar que el archivo ha sido creado, pero usa la opción `-l` con esto, para que el comando muestre su salida en *"formato de lista larga"*:
 
     ```bash
     ls -l
     ```
 
-    This should output something similar to the following: <a name="no-exec-perms"></a>
+    Esto debería mostrar algo similar a lo siguiente: <a name="no-exec-perms"></a>
 
     ``` { .txt .no-copy }
     -rwxr-xr-x 1 student student 1500 MMM DD HH:MM minimal_node.py
@@ -436,26 +436,26 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     -rwxrwxr-x 1 student student  816 MMM DD HH:MM stop_me.py
     ```
 
-    This confirms that the `publisher.py` file exists, and the `0` on that line indicates that the file is empty (i.e. its current size is 0 bytes), which is what we'd expect.
+    Esto confirma que el archivo `publisher.py` existe, y el `0` en esa línea indica que el archivo está vacío (es decir, su tamaño actual es de 0 bytes), lo cual es lo esperado.
 
-1. We therefore now need to open the file and add content to it. We'd recommend using Visual Studio Code (VS Code) as an IDE for this course. Launch VS Code and access your ROS 2 environment (how you do this will vary based on how you have ROS installed on your machine).
+1. Por lo tanto, ahora necesitamos abrir el archivo y añadirle contenido. Recomendamos usar Visual Studio Code (VS Code) como IDE para este curso. Lanza VS Code y accede a tu entorno ROS 2 (cómo hacerlo variará según cómo tengas ROS instalado en tu computadora).
 
-1. Using the VS Code File Explorer, locate the empty `publisher.py` file that you have just created (`~/ros2_ws/src/part1_pubsub/scripts/`) and click on the file to open it in the main editor. 
+1. Usando el Explorador de Archivos de VS Code, localiza el archivo `publisher.py` vacío que acabas de crear (`~/ros2_ws/src/part1_pubsub/scripts/`) y haz clic en el archivo para abrirlo en el editor principal.
 
-1. The `publisher.py` code is provided here:
+1. El código de `publisher.py` se proporciona aquí:
 
-    <center>[:material-file-code-outline: The `publisher.py` code](./part1/publisher.md){ .md-button target="_blank"}</center><a name="pub_ret"></a>
+    <center>[:material-file-code-outline: El código de `publisher.py`](./part1/publisher.md){ .md-button target="_blank"}</center><a name="pub_ret"></a>
 
-    Take a look at this and be aware of the following additional content on this page too:
+    Échale un vistazo y ten en cuenta el siguiente contenido adicional de esta página también:
     
-    * Click on the :material-plus-circle: icons to expand the annotations in the code. **It's important that you understand how the code works, so make sure you read these annotations!**
-    * There's a further section underneath the code called **"Defining Package Dependencies"**. Make sure you follow the steps outlined here too!
+    * Haz clic en los íconos :material-plus-circle: para expandir las anotaciones en el código. **Es importante que entiendas cómo funciona el código, ¡así que asegúrate de leer estas anotaciones!**
+    * Hay una sección adicional debajo del código llamada **"Definición de Dependencias del Package"**. ¡Asegúrate de seguir también los pasos descritos allí!
 
-1. Once you've reviewed the code take a copy of it, paste it into your `publisher.py` file and save it. 
+1. Una vez que hayas revisado el código, toma una copia de él, pégalo en tu archivo `publisher.py` y guárdalo.
 
-1. Now, we need to add our `publisher.py` file as an executable to our package's `CMakeLists.txt`. This will ensure that it then gets built when we run `colcon build` (in the next step).
+1. Ahora, necesitamos añadir nuestro archivo `publisher.py` como un ejecutable al `CMakeLists.txt` de nuestro package. Esto asegurará que se compile cuando ejecutemos `colcon build` (en el siguiente paso).
 
-    In VS Code, open the `CMakeLists.txt` file that is at the root of your `part1_pubsub` package directory (`ros2_ws/src/part1_pubsub/CMakeLists.txt`). Locate the lines (near the bottom of the file) that read:
+    En VS Code, abre el archivo `CMakeLists.txt` que está en la raíz del directorio de tu package `part1_pubsub` (`ros2_ws/src/part1_pubsub/CMakeLists.txt`). Localiza las líneas (cerca del final del archivo) que dicen:
 
     ``` { .txt .no-copy}
     # Install Python executables
@@ -466,7 +466,7 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     )
     ```
     
-    Add the `publisher.py` Node as follows:
+    Añade el Node `publisher.py` de la siguiente manera:
 
     ``` { .txt .no-copy }
     # Install Python executables
@@ -478,42 +478,42 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
     )
     ```
 
-1. Now, use `colcon` to build your package.
+1. Ahora, usa `colcon` para compilar tu package.
     
-    1. You **MUST** run this from the **root** of your Colcon Workspace (i.e.: `~/ros2_ws/`), **NOT** the `src` directory (`~/ros2_ws/src/`), so navigate there now using `cd`:
+    1. **DEBES** ejecutar esto desde la **raíz** de tu Colcon Workspace (es decir: `~/ros2_ws/`), **NO** el directorio `src` (`~/ros2_ws/src/`), así que navega allí ahora usando `cd`:
 
         ```bash
         cd ~/ros2_ws/
         ```
 
-    1. Then, use the following `colcon` command to build your package:
+    1. Luego, usa el siguiente comando `colcon` para compilar tu package:
 
         ```bash
         colcon build --packages-select part1_pubsub --symlink-install
         ```
 
-        !!! info "What do the additional arguments above do?"
+        !!! info "¿Qué hacen los argumentos adicionales anteriores?"
 
-            * `--packages-select`: Build *only* the `part1_pubsub` package, nothing else (without this `colcon` would attempt to build *every* package in the workspace).
-            * `--symlink-install`: Ensures that you don't have to re-run `colcon build` every time you make a change to your package's executables (i.e. your Python nodes in the `scripts` directory).
+            * `--packages-select`: Compila *únicamente* el package `part1_pubsub`, nada más (sin esto, `colcon` intentaría compilar *cada* package en el workspace).
+            * `--symlink-install`: Asegura que no tengas que volver a ejecutar `colcon build` cada vez que realices un cambio en los ejecutables de tu package (es decir, tus nodes Python en el directorio `scripts`).
     
-    1. Finally, "re-source" your `bashrc`[^source-bashrc]:
+    1. Finalmente, "re-sourcea" tu `bashrc`[^source-bashrc]:
 
-        [^source-bashrc]: What does `source ~/.bashrc` do? [See here for an explanation](https://devconnected.com/source-command-on-linux-explained/#Source_to_update_your_current_shell_environment_bashrc){target="_blank"}.
+        [^source-bashrc]: ¿Qué hace `source ~/.bashrc`? [Consulta aquí para una explicación](https://devconnected.com/source-command-on-linux-explained/#Source_to_update_your_current_shell_environment_bashrc){target="_blank"}.
 
         ```bash
         source ~/.bashrc
         ```
 
-1. We should now be able to run this node using the `ros2 run` command. 
+1. Ahora deberíamos poder ejecutar este node usando el comando `ros2 run`.
     
-    Remember: `ros2 run {package name} {script name}`, so:
+    Recuerda: `ros2 run {nombre del package} {nombre del script}`, entonces:
 
     ```bash
     ros2 run part1_pubsub publisher.py
     ```
 
-    ... Hmm, something not quite right? If you typed the command exactly as above and then tried to run it, you probably just received the following error:
+    ... ¿Hmm, algo no está del todo bien? Si escribiste el comando exactamente como arriba y luego intentaste ejecutarlo, probablemente acabas de recibir el siguiente error:
 
     ``` { .txt .no-copy }
     No executable found
@@ -521,71 +521,71 @@ The `ros2` Command Line Interface (CLI) that we've been using so far includes a 
 
     <a name="chmod"></a>
 
-    When we create a file using `touch` it is given certain *permissions* by default. Recall the output of the `ls -l` command that we ran before ([click here to go back to this for a reminder](#no-exec-perms)):
+    Cuando creamos un archivo usando `touch`, se le asignan ciertos *permisos* por defecto. Recuerda la salida del comando `ls -l` que ejecutamos antes ([haz clic aquí para volver a esto como recordatorio](#no-exec-perms)):
 
     ``` { .txt .no-copy }
     -rw-r--r-- 1 student student   0 MMM DD HH:MM publisher.py
     ```
         
-    The first bit tells us about the permissions that are currently assigned to the `publisher.py` file:  
+    La primera parte nos indica sobre los permisos que actualmente están asignados al archivo `publisher.py`:  
     
     <center>`-rw-r--r--`</center>  
     
-    This tells us *who* has permission to do *what* with this file and (currently) the first bit: `-rw-`, tells us that we have permission to **r**ead or **w**rite to it. There is a *third* option we can set too though, which is the *execute* permission, and we can set this using the `chmod` **Linux command**...
+    Esto nos indica *quién* tiene permiso para hacer *qué* con este archivo y (actualmente) la primera parte: `-rw-`, nos indica que tenemos permiso para **l**eer o **e**scribir en él. Sin embargo, hay una *tercera* opción que también podemos configurar, que es el permiso de *ejecución*, y podemos configurarlo usando el **comando de Linux** `chmod`...
 
-1. Use `cd` to navigate back to our package's `scripts` directory (where the `publisher.py` file is located):
+1. Usa `cd` para navegar de vuelta al directorio `scripts` de nuestro package (donde se encuentra el archivo `publisher.py`):
 
     ```bash
     cd ~/ros2_ws/src/part1_pubsub/scripts/
     ```
 
-    Then run the `chmod` command as follows to give the `publisher.py` file *execute* permissions:
+    Luego ejecuta el comando `chmod` de la siguiente manera para dar al archivo `publisher.py` permisos de *ejecución*:
 
     ```bash
     chmod +x publisher.py
     ```
 
-1. Now, run `ls -l` again to see what has changed:
+1. Ahora, ejecuta `ls -l` nuevamente para ver qué ha cambiado:
     
     ```bash
     ls -l
     ```
 
-    We have now granted permission for the file to be e**x**ecuted too:
+    Ahora hemos otorgado permiso para que el archivo también sea e**j**ecutado:
     
     ``` { .txt .no-copy }
     -rwxr-xr-x 1 student student 1195 MMM DD HH:MM publisher.py
     ```
 
-1. OK, now use `ros2 run` again to (*hopefully!*) run the `publisher.py` node (remember: `ros2 run {package name} {script name}`).
+1. Bien, ahora usa `ros2 run` nuevamente para (*¡con suerte!*) ejecutar el node `publisher.py` (recuerda: `ros2 run {nombre del package} {nombre del script}`).
     
-    If you see a message in the terminal similar to the following then the node has been launched successfully:
+    Si ves un mensaje en la terminal similar al siguiente, entonces el node se ha lanzado exitosamente:
         
     ``` { .txt .no-copy }
     [INFO] [#####] [simple_publisher]: The 'simple_publisher' node is initialised.
     ```
 
-    Phew!
+    ¡Genial!
 
-1. We can further verify that our publisher node is running using a number of different tools. Try running the following commands in **TERMINAL 2**:
+1. Podemos verificar adicionalmente que nuestro node publisher está en ejecución usando varias herramientas diferentes. Intenta ejecutar los siguientes comandos en **TERMINAL 2**:
 
-    1. `ros2 node list`: This will provide a list of all the *nodes* that are currently active on the system. Verify that the name of our publisher node is visible in this list (it's probably the *only* item in the list at the moment!)
-    1. `ros2 topic list`: This will provide a list of the *topics* that are currently being used by nodes on the system. Verify that the name of the topic that our publisher is publishing messages to (`/my_topic`) is present within this list.
+    1. `ros2 node list`: Esto proporcionará una lista de todos los *nodes* que están actualmente activos en el sistema. Verifica que el nombre de nuestro node publisher sea visible en esta lista (¡probablemente es el *único* elemento en la lista en este momento!).
+    1. `ros2 topic list`: Esto proporcionará una lista de los *topics* que actualmente están siendo usados por los nodes del sistema. Verifica que el nombre del topic al que nuestro publisher está publicando mensajes (`/my_topic`) esté presente en esta lista.
 
-### Interrogating ROS Topics {#rostopic}
+### Interrogando ROS Topics {#rostopic}
 
-So far we have used the `ros2 topic` ROS command with two additional arguments:
+Hasta ahora hemos usado el comando ROS `ros2 topic` con dos argumentos adicionales:
 
-* `list`: to provide us with a *list* of all the topics that are active on our ROS system, and
-* `info`: to provide us with *information* on a particular topic of interest.
+* `list`: para proporcionarnos una *lista* de todos los topics que están activos en nuestro sistema ROS, y
+* `info`: para proporcionarnos *información* sobre un topic de interés en particular.
 
-We can find out what other *sub-commands* are available for us to use with `ros2 topic` by calling for *help*! Run the following in **TERMINAL 2**:
+Podemos averiguar qué otros *sub-comandos* están disponibles para usar con `ros2 topic` solicitando *ayuda*. Ejecuta lo siguiente en **TERMINAL 2**:
 
 ```bash
 ros2 topic --help
 ```
 
-Which should provide us with a list of all the options:
+Lo que debería proporcionarnos una lista de todas las opciones:
 
 ``` { .txt .no-copy }
 Commands:
@@ -602,58 +602,58 @@ Commands:
   Call `ros2 topic <command> -h` for more detailed usage.
 ```
 
-Let's talk about a few of these:
+Hablemos de algunos de estos:
 
-* `ros2 topic hz {topic name}` provides information on the frequency (in Hz) at which messages are being published to a topic:
+* `ros2 topic hz {nombre del topic}` proporciona información sobre la frecuencia (en Hz) a la que se están publicando mensajes en un topic:
 
     ```bash
     ros2 topic hz /my_topic
     ```
 
-    This should tell us that our publisher node is publishing messages to the `/my_topic` topic at (or close to) 1 Hz, which is exactly what we ask for in the `publisher.py` file (in the `__init__` part of our `Publisher` class). Enter ++ctrl+c++ to stop this command.
+    Esto debería decirnos que nuestro node publisher está publicando mensajes en el topic `/my_topic` a (o cerca de) 1 Hz, que es exactamente lo que solicitamos en el archivo `publisher.py` (en la parte `__init__` de nuestra clase `Publisher`). Ingresa ++ctrl+c++ para detener este comando.
 
-* `ros2 topic echo {topic name}` shows the messages being published to a topic:
+* `ros2 topic echo {nombre del topic}` muestra los mensajes que se están publicando en un topic:
 
     ```bash
     ros2 topic echo /my_topic
     ```
 
-    This will provide a live stream of the messages that our `publisher.py` node is publishing to the `/my_topic` topic. Enter ++ctrl+c++ to stop this.
+    Esto proporcionará un flujo en vivo de los mensajes que nuestro node `publisher.py` está publicando en el topic `/my_topic`. Ingresa ++ctrl+c++ para detener esto.
 
-* We can see some additional options for the `echo` command by viewing the help documentation for this too:
+* Podemos ver algunas opciones adicionales para el comando `echo` viendo la documentación de ayuda para este también:
 
     ```bash
     ros2 topic echo --help
     ```
 
-    From here, for instance, we can learn that if we just wanted to print the first message that was received we could use the `--once` option, for example:
+    Desde aquí, por ejemplo, podemos aprender que si solo quisiéramos imprimir el primer mensaje que se recibió podríamos usar la opción `--once`, por ejemplo:
 
     ```bash
     ros2 topic echo /my_topic --once
     ```
 
-#### :material-pen: Exercise 6: Creating a subscriber node {#ex6}
+#### :material-pen: Ejercicio 6: Crear un node subscriber {#ex6}
 
-To illustrate how information can be passed from one node to another (via topics and messages) we'll now create another node to *subscribe* to the topic that our publisher node is broadcasting messages to.
+Para ilustrar cómo se puede pasar información de un node a otro (a través de topics y mensajes) ahora crearemos otro node para *subscribirse* al topic al que nuestro node publisher está transmitiendo mensajes.
 
-1. In **TERMINAL 2** use the filesystem commands that were introduced earlier (`cd`, `ls`, etc.) to navigate to the `scripts` folder of your `part1_pubsub` package.
+1. En **TERMINAL 2** usa los comandos del sistema de archivos que se introdujeron antes (`cd`, `ls`, etc.) para navegar hacia la carpeta `scripts` de tu package `part1_pubsub`.
 
-1. Use the same procedure as before to create a new empty Python file called `subscriber.py` and remember to make it executable! <a name="sub_ret"></a>
+1. Usa el mismo procedimiento que antes para crear un nuevo archivo Python vacío llamado `subscriber.py` ¡y recuerda hacerlo ejecutable! <a name="sub_ret"></a>
 
-1. Then, open this newly created `subscriber.py` file in VS Code.
+1. Luego, abre este archivo `subscriber.py` recién creado en VS Code.
 
-1. The code for the `subscriber.py` file is provided here:
+1. El código del archivo `subscriber.py` se proporciona aquí:
 
-    <center>[:material-file-code-outline: The `subscriber.py` code](./part1/subscriber.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: El código de `subscriber.py`](./part1/subscriber.md){ .md-button target="_blank"}</center>
     
-    Once again, it's important that you understand how this code works, so **make sure you read the code annotations**! 
+    Una vez más, es importante que entiendas cómo funciona este código, ¡así que **asegúrate de leer las anotaciones del código**!
 
-    !!! warning "Fill in the `{BLANK}`!"
-        This code won't work *out-of-the-box*! Look out for a `{BLANK}`, which is a prompt for you to replace this text with something else! 
+    !!! warning "¡Completa el `{BLANK}`!"
+        ¡Este código no funcionará *de inmediato*! Busca un `{BLANK}`, que es una indicación para que reemplaces este texto con algo más. 
 
-1. We now need to add this as an *additional* package executable. 
+1. Ahora necesitamos añadir esto como un ejecutable *adicional* del package.
 
-    Open up the `CMakeLists.txt` file at the root of your `part1_pubsub` package directory again, head back to the `# Install Python executables` section and add the `subscriber.py` file as illustrated below:
+    Abre el archivo `CMakeLists.txt` en la raíz del directorio de tu package `part1_pubsub` nuevamente, regresa a la sección `# Install Python executables` y añade el archivo `subscriber.py` como se ilustra a continuación:
 
     ``` { .txt .no-copy }
     # Install Python executables
@@ -666,53 +666,53 @@ To illustrate how information can be passed from one node to another (via topics
     )
     ```
 
-1. Now we need to `colcon build` again.
+1. Ahora necesitamos ejecutar `colcon build` nuevamente.
     
-    1. Make sure you're at the **root** of the Colcon Workspace:
+    1. Asegúrate de estar en la **raíz** del Colcon Workspace:
 
         ```bash
         cd ~/ros2_ws/
         ```
 
-    1. Run `colcon build` on *only* the `part1_pubsub` package:
+    1. Ejecuta `colcon build` solo en el package `part1_pubsub`:
 
         ```bash
         colcon build --packages-select part1_pubsub --symlink-install
         ```
 
-    1. And then re-source the `bashrc`:
+    1. Y luego re-sourcea el `bashrc`:
 
         ```bash
         source ~/.bashrc
         ```
 
-1. Use `ros2 run` (in **TERMINAL 2**) to execute your newly created `subscriber.py` node (remember: `ros2 run {package name} {script name}`). If your publisher and subscriber nodes are working correctly you should see an output like this:
+1. Usa `ros2 run` (en **TERMINAL 2**) para ejecutar tu node `subscriber.py` recién creado (recuerda: `ros2 run {nombre del package} {nombre del script}`). Si tus nodes publisher y subscriber están funcionando correctamente deberías ver una salida como esta:
     
     <figure markdown>
       ![](part1/subscriber_output.gif){width=700px}
     </figure>
 
-1. Interrogate your ROS network:
+1. Interroga tu red ROS:
 
-    1. As before, we can find out what nodes are running on our system by using the `ros2 node list` command. Run this in **TERMINAL 3**, you should see both your publisher *and* subscriber nodes listed there.
+    1. Como antes, podemos saber qué nodes están ejecutándose en nuestro sistema usando el comando `ros2 node list`. Ejecuta esto en **TERMINAL 3**, deberías ver tanto tu node publisher *como* tu node subscriber listados allí.
 
-    1. Use the `ros2 topic` command to *list* all the topics that are available on the network. You should see `/my_topic` listed there.
+    1. Usa el comando `ros2 topic` para *listar* todos los topics que están disponibles en la red. Deberías ver `/my_topic` listado allí.
 
-    1. Use the `ros2 topic` command again to find more *info* on `my_topic`. 
+    1. Usa el comando `ros2 topic` nuevamente para encontrar más *info* sobre `my_topic`.
     
-    1. Use the `ros2 interface` command to *show* you what type of data is being sent between the two nodes.
+    1. Usa el comando `ros2 interface` para *mostrar* qué tipo de datos se están enviando entre los dos nodes.
 
-1. Finally, close down your publisher and subscriber nodes by entering ++ctrl+c++ in the terminals where they are running (should be 1 & 2).
+1. Finalmente, cierra tus nodes publisher y subscriber ingresando ++ctrl+c++ en las terminales donde están ejecutándose (deberían ser 1 y 2).
 
-#### :material-pen: Exercise 7: Defining our own message {#ex7}
+#### :material-pen: Ejercicio 7: Definir nuestro propio mensaje {#ex7}
 
-We've just created a publisher and subscriber that were able to communicate with one another via a topic. 
+Acabamos de crear un publisher y un subscriber que pudieron comunicarse entre sí a través de un topic.
 
 <figure markdown>
   ![](./part1/pub_sub_rosgraph.png)
 </figure>
 
-The data that the publisher was sending to the topic was very simple: a `example_interfaces/msg/String` type message.
+Los datos que el publisher enviaba al topic eran muy simples: un mensaje de tipo `example_interfaces/msg/String`.
 
 ``` { .txt .no-copy }
 ros2 topic info /my_topic
@@ -723,7 +723,7 @@ Subscription count: 1
 ```
 
 
-This message just has one *field* called `data` of the type `string`:
+Este mensaje solo tiene un *campo* llamado `data` de tipo `string`:
 
 ``` { .txt .no-copy }
 ros2 interface show ros2 topic info -t /my_topic
@@ -731,51 +731,51 @@ ros2 interface show ros2 topic info -t /my_topic
 string data
 ```
 
-ROS messages will generally be more complex than this, typically containing several fields in a single message. We'll define our own custom message now, this time with two fields, so you can see how things work with *slightly* more complex data structures. 
+Los mensajes ROS generalmente serán más complejos que esto, típicamente conteniendo varios campos en un solo mensaje. Ahora definiremos nuestro propio mensaje personalizado, esta vez con dos campos, para que puedas ver cómo funcionan las cosas con estructuras de datos *un poco* más complejas.
 
-1. Message interfaces must be defined within a `msg` folder at the root of our package directory, so let's create this folder now in **TERMINAL 1**:
+1. Las interfaces de mensajes deben definirse dentro de una carpeta `msg` en la raíz de nuestro directorio del package, así que vamos a crear esta carpeta ahora en **TERMINAL 1**:
 
-    1. First, navigate into your package:
+    1. Primero, navega hacia tu package:
 
         ``` bash
         cd ~/ros2_ws/src/part1_pubsub
         ```
     
-    1. Then use `mkdir` to make a new directory:
+    1. Luego usa `mkdir` para crear un nuevo directorio:
 
         ```bash
         mkdir msg
         ```
 
-1. We'll create a message called `Example`, and to do this we'll need to create a new file called `Example.msg` inside the `msg` folder:
+1. Crearemos un mensaje llamado `Example`, y para hacerlo necesitaremos crear un nuevo archivo llamado `Example.msg` dentro de la carpeta `msg`:
 
     ```bash
     touch msg/Example.msg
     ```
 
-1. To define the data structure of this message, we now need to open up the file and add the following content:
+1. Para definir la estructura de datos de este mensaje, ahora necesitamos abrir el archivo y añadir el siguiente contenido:
 
     ```txt title="Example.msg"
     string info
     int32 time
     ```
 
-    The message will therefore have two fields:
+    El mensaje tendrá por lo tanto dos campos:
 
     <center>
 
-    | # | Field Name | Data Type |
+    | # | Nombre del Campo | Tipo de Dato |
     | :---: | :---: | :---: |
     | 1 | `info` | `string` |
     | 2 | `time` | `int32` |
 
     </center>
 
-    We can give our fields any names that we want, but the data types must be either [built-in-types](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html#field-types){target="_blank"} or other pre-existing ROS interfaces.
+    Podemos dar a nuestros campos cualquier nombre que queramos, pero los tipos de datos deben ser [tipos incorporados](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html#field-types){target="_blank"} u otras interfaces ROS preexistentes.
 
-1. We now need to declare this message in our package's `CMakeLists.txt` file, so that the necessary Python code can be created (by `colcon build`) to allow us to import this message into our own Python files.
+1. Ahora necesitamos declarar este mensaje en el archivo `CMakeLists.txt` de nuestro package, para que el código Python necesario pueda ser creado (por `colcon build`) y nos permita importar este mensaje en nuestros propios archivos Python.
 
-    Add the following lines to your `part1_pubsub/CMakeLists.txt` file, above the `ament_package()` line:
+    Añade las siguientes líneas a tu archivo `part1_pubsub/CMakeLists.txt`, encima de la línea `ament_package()`:
 
     ```txt title="CMakeLists.txt"
     find_package(rosidl_default_generators REQUIRED)
@@ -784,7 +784,7 @@ ROS messages will generally be more complex than this, typically containing seve
     )
     ```
 
-1. We also need to modify our `package.xml` file. Add the following lines to this one, just above the `#!xml <export>` line:
+1. También necesitamos modificar nuestro archivo `package.xml`. Añade las siguientes líneas a este, justo encima de la línea `#!xml <export>`:
 
     ```xml title="package.xml"
     <buildtool_depend>rosidl_default_generators</buildtool_depend>
@@ -792,67 +792,67 @@ ROS messages will generally be more complex than this, typically containing seve
     <member_of_group>rosidl_interface_packages</member_of_group>
     ```
 
-1. We can now use Colcon to generate the necessary source code for the message:
+1. Ahora podemos usar Colcon para generar el código fuente necesario para el mensaje:
 
-    1. First, make sure you're in the root of the ROS 2 Workspace:
+    1. Primero, asegúrate de estar en la raíz del ROS 2 Workspace:
         
         ```bash
         cd ~/ros2_ws/
         ```
     
-    1. Then run `colcon build`:
+    1. Luego ejecuta `colcon build`:
 
         ```bash
         colcon build --packages-select part1_pubsub --symlink-install 
         ```
     
-    1. And finally re-source the `.bashrc`:
+    1. Y finalmente re-sourcea el `.bashrc`:
 
         ```bash
         source ~/.bashrc
         ```
 
-1. We can now verify that this worked with some more `ros2` command line tools:
+1. Ahora podemos verificar que esto funcionó con más herramientas de línea de comandos de `ros2`:
 
-    1. First, *list* all the ROS messages that are available to us on our system:
+    1. Primero, *lista* todos los mensajes ROS que están disponibles para nosotros en nuestro sistema:
 
         ```bash
         ros2 interface list -m
         ```
 
-        Scroll through this list and see if you can find our message in there (it'll be listed as `part1_pubsub/msg/Example`)
+        Desplázate por esta lista y comprueba si puedes encontrar nuestro mensaje allí (estará listado como `part1_pubsub/msg/Example`)
 
-    1. Next, *show* the data structure of the interface:
+    1. Luego, *muestra* la estructura de datos de la interface:
 
         ```bash
         ros2 interface show part1_pubsub/msg/Example
         ```
 
-        This should match with how we defined it in our `part1_pubsub/msg/Example.msg` file.
+        Esto debería coincidir con cómo lo definimos en nuestro archivo `part1_pubsub/msg/Example.msg`.
 
-#### :material-pen: Exercise 8: Using a custom ROS Message {#ex8}
+#### :material-pen: Ejercicio 8: Usar un mensaje ROS personalizado {#ex8}
 
-1. Create a copy of the `publisher.py` file from [Exercise 5](#ex5). Let's do this from the command line too (in **TERMINAL 1**):
+1. Crea una copia del archivo `publisher.py` del [Ejercicio 5](#ex5). También hagamos esto desde la línea de comandos (en **TERMINAL 1**):
 
-    1. Navigate into your package's `scripts` folder:
+    1. Navega hacia la carpeta `scripts` de tu package:
 
         ```bash
         cd ~/ros2_ws/src/part1_pubsub/scripts
         ```
     
-    1. And use the `cp` command to make a copy of the `publisher.py` file and call this new file `custom_msg_publisher.py`:
+    1. Y usa el comando `cp` para hacer una copia del archivo `publisher.py` y llamar a este nuevo archivo `custom_msg_publisher.py`:
 
         ```bash
         cp publisher.py custom_msg_publisher.py
         ```
     
-    1. Let's create a copy of the `subscriber.py` file too, while we're here:
+    1. También hagamos una copia del archivo `subscriber.py`, ya que estamos aquí:
 
         ```bash
         cp subscriber.py custom_msg_subscriber.py
         ```
 
-1. Declare these two new files as additional executables in our `CMakeLists.txt`:
+1. Declara estos dos nuevos archivos como ejecutables adicionales en nuestro `CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -861,65 +861,65 @@ ROS messages will generally be more complex than this, typically containing seve
       scripts/stop_me.py
       scripts/publisher.py
       scripts/subscriber.py
-      scripts/custom_msg_publisher.py  # ADD THIS 
-      scripts/custom_msg_subscriber.py # AND THIS
+      scripts/custom_msg_publisher.py  # AÑADIR ESTO 
+      scripts/custom_msg_subscriber.py # Y ESTO
     DESTINATION lib/${PROJECT_NAME}
     )
     ```
 
-1. Run Colcon again (last time now!):
+1. Ejecuta Colcon nuevamente (¡última vez!):
 
-    1. First:
+    1. Primero:
         ```bash
         cd ~/ros2_ws
         ```
-    1. Then:
+    1. Luego:
         ```bash
         colcon build --packages-select part1_pubsub --symlink-install
         ```
-    1. And finally:
+    1. Y finalmente:
         ```bash
         source ~/.bashrc
         ```
 
-1. Now modify your `custom_msg_publisher.py` file according to the code provided below:
+1. Ahora modifica tu archivo `custom_msg_publisher.py` según el código proporcionado a continuación:
 
-    <center>[:material-file-code-outline: The `custom_msg_publisher.py` code](./part1/custom_msg_pub.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: El código de `custom_msg_publisher.py`](./part1/custom_msg_pub.md){ .md-button target="_blank"}</center>
     
-1. **Final Task**:
+1. **Tarea Final**:
 
-    Modify the `custom_msg_subscriber.py` node now to accommodate the new interface messages that are being published to `/my_topic`. 
+    Modifica el node `custom_msg_subscriber.py` ahora para adaptarlo a los nuevos mensajes de interface que se están publicando en `/my_topic`.
 
-## Wrapping Up
+## Conclusión
 
-In this session we've covered the basics of ROS, and learnt about some key concepts such as *Packages*; *Nodes*; and how to send data across a ROS Network using *Topics*, *Messages*, and the *Publisher-Subscriber Communication Method*.
+En esta sesión hemos cubierto los fundamentos de ROS, y aprendido sobre algunos conceptos clave como *Packages*; *Nodes*; y cómo enviar datos a través de una red ROS usando *Topics*, *Messages* y el *Método de Comunicación Publisher-Subscriber*.
 
-We've learnt how to use some key `ros2` commands:  
+Hemos aprendido cómo usar algunos comandos clave de `ros2`:
 
-* `launch`: to launch multiple ROS Nodes via launch files.
-* `run`: to run executables within a ROS package.
-* `node`: to display information about active ROS Nodes.
-* `topic`: to display information about active ROS topics.
-* `interface`: to display information about *all* ROS Interfaces that are available to use in a ROS application.
+* `launch`: para lanzar múltiples Nodes de ROS a través de archivos launch.
+* `run`: para ejecutar ejecutables dentro de un package de ROS.
+* `node`: para mostrar información sobre los Nodes de ROS activos.
+* `topic`: para mostrar información sobre los topics de ROS activos.
+* `interface`: para mostrar información sobre *todas* las Interfaces de ROS que están disponibles para usar en una aplicación ROS.
 
-We have also learnt how to work in the Linux Terminal and navigate a Linux filesystem using key commands such as:
+También hemos aprendido cómo trabajar en la Terminal de Linux y navegar por un sistema de archivos Linux usando comandos clave como:
 
-* `ls`: lists the files in the current directory.
-* `cd`: change directory to move around the file system.
-* `mkdir`: make a new directory (`mkdir {new_folder}`).
-* `chmod`: modify file permissions (i.e. to add execute permissions to a file for all users: `chmod +x {file}`).
-* `touch`: create a file without any content.
+* `ls`: lista los archivos en el directorio actual.
+* `cd`: cambiar directorio para moverse por el sistema de archivos.
+* `mkdir`: crear un nuevo directorio (`mkdir {nueva_carpeta}`).
+* `chmod`: modificar permisos de archivos (es decir, para añadir permisos de ejecución a un archivo para todos los usuarios: `chmod +x {archivo}`).
+* `touch`: crear un archivo sin ningún contenido.
 
-In addition to this we've also learnt how to create a ROS 2 package, and how to create simple Python nodes that can *publish* and *subscribe* to topics on a ROS network. 
+Además de esto, también hemos aprendido cómo crear un package de ROS 2, y cómo crear nodes Python simples que pueden *publicar* y *subscribirse* a topics en una red ROS.
 
-We've worked with pre-made ROS messages to do this and also created our own custom message interface to offer more advanced functionality.
+Hemos trabajado con mensajes ROS prefabricados para hacer esto y también hemos creado nuestra propia interface de mensaje personalizada para ofrecer una funcionalidad más avanzada.
 
-### WSL-ROS2 Managed Desktop Users: Save your work! {#backup}
+### Usuarios de WSL-ROS2 con Computadoras del Laboratorio: ¡Guarda tu trabajo! {#backup}
 
-Remember, the work you have done in the WSL-ROS2 environment during this session **will not be preserved** for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS2 Terminal Instance:
+Recuerda, el trabajo que has realizado en el entorno WSL-ROS2 durante esta sesión **no se preservará** automáticamente para futuras sesiones o en diferentes computadoras del laboratorio. Para guardar el trabajo que has realizado hoy deberías ejecutar ahora el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:
 
 ```bash
 wsl_ros backup
 ```
 
-This will export your home directory to your University `U:\` Drive, allowing you to restore it on another managed desktop machine the next time you fire up WSL-ROS2.  
+Esto exportará tu directorio home a tu unidad `U:\`, permitiéndote restaurarlo en otra computadora del laboratorio la próxima vez que inicies WSL-ROS2.

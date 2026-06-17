@@ -1,20 +1,20 @@
 ---
-title: A Quick Introduction to the Linux Terminal
+title: Una Breve Introducción al Terminal de Linux
 ---
 
-You'll work extensively with the Linux Terminal throughout this course. An *idle* WSL-ROS2 terminal instance will look like this:
+Trabajarás extensamente con el Terminal de Linux a lo largo de este curso. Una instancia de terminal WSL-ROS2 *inactiva* se verá así:
 
 <figure markdown>
   ![](../figures/wsl-ros-term-antd.svg){width=700px}
 </figure>
 
-Here, the presence of the `$` symbol indicates that the terminal is ready to accept a command. Text before the `$` symbol has two parts separated by the `:` symbol:
+Aquí, la presencia del símbolo `$` indica que el terminal está listo para aceptar un comando. El texto antes del símbolo `$` tiene dos partes separadas por el símbolo `:`:
 
-* Text to the **left** of the `:` tells us the name of the Linux user ("student" in this case) followed by the WSL-ROS2 version that you are working with.
+* El texto a la **izquierda** del `:` nos indica el nombre del usuario de Linux ("student" en este caso) seguido de la versión de WSL-ROS2 con la que estás trabajando.
 
     !!! note
-        The current WSL-ROS2 version is `2526`.
+        La versión actual de WSL-ROS2 es `2526`.
 
-* Text to the **right** of the `:` tells us where in the Linux Filesystem we are currently located (`~` means *"The Home Directory"*, which is an alias for the path: `/home/student/`).
+* El texto a la **derecha** del `:` nos indica dónde en el Sistema de Archivos de Linux estamos ubicados actualmente (`~` significa *"El Directorio de Inicio"*, que es un alias para la ruta: `/home/student/`).
 
-If you don't see the `$` symbol at all, then this means that a process is currently running. To stop any running process enter ++ctrl+c++ simultaneously on your keyboard.
+Si no ves el símbolo `$` en absoluto, entonces significa que hay un proceso en ejecución actualmente. Para detener cualquier proceso en ejecución presiona ++ctrl+c++ simultáneamente en tu teclado.

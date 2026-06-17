@@ -1,10 +1,10 @@
 ---
-title: AMR31001 Industry 4.0
+title: Industry 4.0
 ---
 
 # Industry 4.0
 
-As part of this module you will take part in two lab sessions in the Diamond, where you will learn about how ROS can be used to program and control robots. You'll do some Python programming and look at how sensor data can be used to control a robot's actions. 
+Como parte del curso Industry 4.0, participarás en dos sesiones de laboratorio donde aprenderás cómo se puede usar ROS para programar y controlar robots. Realizarás programación en Python y explorarás cómo los datos de sensores pueden utilizarse para controlar las acciones de un robot.
 
-* [Lab 1: Mobile Robotics](./lab1.md)  
-* [Lab 2: Feedback Control](./lab2.md)
+* [Lab 1: Robótica Móvil](./lab1.md)  
+* [Lab 2: Control con Retroalimentación](./lab2.md)

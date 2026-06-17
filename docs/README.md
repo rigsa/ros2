@@ -8,16 +8,16 @@ hide:
 
 # 
 
-## ROS 2 Labs in The Diamond
+## Laboratorio de Robótica con ROS 2
 
-Practical Robotics Lab Courses with ROS 2 and the TurtleBot3 Waffle.
+Cursos prácticos de robótica con ROS 2 y el TurtleBot3 Waffle.
 
 <figure markdown>
-  ![A picture of a TurtleBot3 Waffle in the Diamond Computer Room 3 Robot Arena](./images/waffle/arena_shot.jpg){width=1000}
-  <figcaption>A TurtleBot3 Waffle<br />
-  <small>Image courtesy of <a href="https://www.andybrownphoto.co.uk/" target="_blank">Andy Brown</a></small></figcaption> 
+  ![Una fotografía de un TurtleBot3 Waffle en el Laboratorio de Robótica](./images/waffle/arena_shot.jpg){width=1000}
+  <figcaption>Un TurtleBot3 Waffle<br />
+  <small>Imagen cortesía de <a href="https://www.andybrownphoto.co.uk/" target="_blank">Andy Brown</a></small></figcaption> 
 </figure>
 
-[Find out more...](./about/README.md)
+[Más información...](./about/README.md)
 
 </center>

@@ -1,22 +1,22 @@
 ---
-title: "Part 6 Line Following (Setup)"  
+title: "Parte 6: Configuración del Seguimiento de Línea"  
 ---
 
-# Part 6 Line Following (Setup)
+# Parte 6: Configuración del Seguimiento de Línea
 
-Use this code as a starting point for Part A of the Line Following exercise.
+Usa este código como punto de partida para la Parte A del ejercicio de Seguimiento de Línea.
 
 ```py title="line_follower.py"
 --8<-- "code_templates/line_follower.py"
 ```
 
-1. **Image Cropping** 
+1. **Recorte de Imagen** 
 
-    Apply some cropping to the raw camera image (`cv_img`). 
+    Aplica algo de recorte a la imagen sin procesar de la cámara (`cv_img`). 
     
-    Crop it to around 1/5 of its original **height**, and to a **width** so that the pink line is just visible at the edge of the image. 
+    Recórtala a alrededor de 1/5 de su **altura** original, y a un **ancho** tal que la línea rosa sea apenas visible en el borde de la imagen. 
 
-    Call your new cropped image something like `cropped_img`. You could then use the `cv2.imshow()` method to display this in an additional pop-up window when the node is run: 
+    Llama a tu nueva imagen recortada algo como `cropped_img`. Luego puedes usar el método `cv2.imshow()` para mostrarla en una ventana emergente adicional cuando se ejecute el node: 
     
     ```python
     cv2.imshow("cropped_image", cropped_img)
@@ -26,19 +26,19 @@ Use this code as a starting point for Part A of the Line Following exercise.
       ![](line_following/partA_todo1.png)
     </figure>
 
-2. **Colour Detection**
+2. **Detección de Color**
 
-    Filter the cropped image by selecting appropriate HSV values so that the pink line can be isolated from the rest of the image.
+    Filtra la imagen recortada seleccionando valores HSV apropiados para que la línea rosa pueda aislarse del resto de la imagen.
     
-    You may need to use the `tuos_examples\image_colours.py` node again to help you identify the correct Hue and Saturation value range.
+    Es posible que necesites usar el node `tuos_examples\image_colours.py` nuevamente para ayudarte a identificar el rango correcto de valores de Tono y Saturación.
 
-    Use `cv2.cvtColor()` to convert your `cropped_img` into an HSV colour representation:
+    Usa `cv2.cvtColor()` para convertir tu `cropped_img` en una representación de color HSV:
 
     ```python
     hsv_img = cv2.cvtColor(cropped_img, cv2.COLOR_BGR2HSV)
     ```
 
-    Use `cv2.inRange()` to create a mask with the HSV value range that you have determined:
+    Usa `cv2.inRange()` para crear una máscara con el rango de valores HSV que has determinado:
 
     ```python
     line_mask = cv2.inRange(
@@ -46,7 +46,7 @@ Use this code as a starting point for Part A of the Line Following exercise.
     )
     ```
     
-    And then use `cv2.bitwise_and()` to create a new image with the mask applied, so that the coloured line is isolated:
+    Y luego usa `cv2.bitwise_and()` para crear una nueva imagen con la máscara aplicada, de modo que la línea de color quede aislada:
 
     ```python
     line_isolated = cv2.bitwise_and(
@@ -58,25 +58,25 @@ Use this code as a starting point for Part A of the Line Following exercise.
       ![](line_following/partA_todo2.jpg)
     </figure>
 
-3. **Locating the line**
+3. **Localización de la línea**
 
-    Finally, find the horizontal position of the line in the robot's viewpoint.
+    Finalmente, encuentra la posición horizontal de la línea en el campo de visión del robot.
     
-    Calculate the image moments of the pink colour blob that represents the line (`line_mask`) using the `cv2.moments()` method. Remember that it's the $c_{y}$ component that we're interested in here:
+    Calcula los momentos de imagen del blob de color rosa que representa la línea (`line_mask`) usando el método `cv2.moments()`. Recuerda que es el componente $c_{y}$ el que nos interesa aquí:
     
     $$
     c_{y}=\dfrac{M_{10}}{M_{00}}
     $$
 
-    Ultimately, this will provide us with the feedback signal that we can use for a **proportional controller** that we will implement in the next part of the exercise.
+    En última instancia, esto nos proporcionará la señal de retroalimentación que podemos usar para un **controlador proporcional** que implementaremos en la siguiente parte del ejercicio.
 
-    Once you've obtained the image moments (and `cy`), use `cv2.circle()` to mark the centroid of the line on the filtered image (`line_isolated`) with a circle. For this, you'll also need to calculate the $c_{z}$ component of the centroid:
+    Una vez que hayas obtenido los momentos de imagen (y `cy`), usa `cv2.circle()` para marcar el centroide de la línea en la imagen filtrada (`line_isolated`) con un círculo. Para esto, también necesitarás calcular el componente $c_{z}$ del centroide:
 
     $$
     c_{z}=\dfrac{M_{01}}{M_{00}}
     $$
 
-    Remember that once you've done all this you can display the filtered image of the isolated line (with the circle to denote the centroid location) using `cv2.imshow()` again:
+    Recuerda que una vez que hayas hecho todo esto, puedes mostrar la imagen filtrada de la línea aislada (con el círculo para indicar la ubicación del centroide) usando `cv2.imshow()` nuevamente:
     
     ```python
     cv2.imshow("filtered line", line_isolated)
@@ -85,4 +85,3 @@ Use this code as a starting point for Part A of the Line Following exercise.
     <figure markdown>
       ![](line_following/partA_todo3.jpg)
     </figure>
-

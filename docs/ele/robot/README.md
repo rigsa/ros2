@@ -1,79 +1,77 @@
 ---
-title: "The Real Robot Lab Assignment"
-description: Apply your ROS 2 knowledge to real TurtleBot3 Waffles in the lab.
+title: "La Asignación de Lab con Robot Real"
+description: Aplica tu conocimiento de ROS 2 a TurtleBot3 Waffles reales en el laboratorio.
 --- 
 
-## Overview
+## Descripción General
 
-In Weeks 8-12 you will attend weekly two-hour lab sessions in **Diamond Computer Room 5 (DIA-CR5)**, where you will work **in teams** with our **Real TurtleBot3 Waffle Robots**, and program them to complete a *"Real World Exploration"* task. You'll use the ROS 2 knowledge gained throughout [the Simulation Labs](../sim.md), as well as the theory you are learning in the ELE434 lectures to help you with this.
+En las Semanas 8-12 asistirás a sesiones de laboratorio semanales de dos horas en el **laboratorio de robótica**, donde trabajarás **en equipos** con nuestros **Robots TurtleBot3 Waffle Reales** y los programarás para completar una tarea de *"Exploración en el Mundo Real"*. Utilizarás el conocimiento de ROS 2 adquirido a lo largo de los [Labs de Simulación](../sim.md), así como la teoría que estás aprendiendo en las clases del curso de Robótica Móvil para ayudarte con esto.
 
-In preparation, you will form your teams by Week 5, and should aim to work together during the Simulation Lab in Week 6 to start thinking about this assignment and the necessary control algorithms *in simulation* first. 
+En preparación, formarás tus equipos para la Semana 5, y deberías aspirar a trabajar juntos durante el Lab de Simulación en la Semana 6 para empezar a pensar en esta asignación y los algoritmos de control necesarios *en simulación* primero.
 
-Unlike the Simulation Labs in Weeks 3-5, there won’t be any taught content or weekly exercises for you to work through for the Real-Robot Labs: from Week 6 onwards you should aim to work more *autonomously* ^^in your teams^^. 
+A diferencia de los Labs de Simulación en las Semanas 3-5, no habrá contenido enseñado ni ejercicios semanales para trabajar en los Labs de Robot Real: a partir de la Semana 6 deberías aspirar a trabajar de manera más *autónoma* ^^en tus equipos^^.
 
-## Logistics
+## Logística
 
-### Lab Sessions
+### Sesiones de Laboratorio
 
-The lab schedule is summarised in the table below.
+El programa de laboratorio se resume en la tabla a continuación.
 
 <center>
 
-| Semester Week | Location | Details |
+| Semana del Semestre | Ubicación | Detalles |
 | :---:         | :---     | :---    |
-| 6  | DIA-CR6 | Work in teams on the Real World Exploration task, *in simulation*.  | 
-| 7  | DIA-CR6 | Individual Assessment for the Simulation Labs | 
-| 8 - 12 | **DIA-CR5** | Work in teams on the Real World Exploration task, with the **real Waffles**.  | 
+| 6  | Laboratorio de Simulación | Trabajar en equipos en la tarea de Exploración en el Mundo Real, *en simulación*. | 
+| 7  | Laboratorio de Simulación | Evaluación Individual de los Labs de Simulación | 
+| 8 - 12 | **Laboratorio de Robótica** | Trabajar en equipos en la tarea de Exploración en el Mundo Real, con los **Waffles reales**. | 
 
 </center>
 
-From Week 8 onwards the class is divided into two groups: **1** and **2**, each group attending a *different* weekly lab session in Diamond Computer Room 5. Check your timetable to find out which weekly lab session to attend and **ONLY** attend the lab session that you are supposed to attend. You will attend the same weekly lab session as the rest of your team.
+A partir de la Semana 8, la clase se divide en dos grupos: **1** y **2**, cada grupo asistiendo a una sesión de laboratorio semanal *diferente* en el laboratorio de robótica. Revisa tu horario para saber a qué sesión de laboratorio semanal debes asistir y **SOLO** asiste a la sesión de laboratorio a la que se supone que debes asistir. Asistirás a la misma sesión de laboratorio semanal que el resto de tu equipo.
 
-### Teams & Team Working
+### Equipos y Trabajo en Equipo
 
-You are expected to actively work together with your team members to complete this assignment. Details on the teams can be found in the **Labs** >  **Real Robot Labs** section on Blackboard.
+Se espera que trabajes activamente con los miembros de tu equipo para completar esta asignación. Los detalles sobre los equipos se pueden encontrar en la plataforma del curso.
 
-It is up to you to decide on the best way to work effectively within your teams, but you should try to communicate regularly, not only during the scheduled lab sessions, but at other times as well.
+Depende de ti decidir la mejor manera de trabajar efectivamente dentro de tus equipos, pero debes intentar comunicarte regularmente, no solo durante las sesiones de laboratorio programadas, sino también en otros momentos.
 
-Each team member will need to complete a peer evaluation at the end of this assignment. This will be available on Blackboard, and due by the end of Week 12.
+Cada miembro del equipo deberá completar una evaluación entre pares al final de esta asignación. Esta estará disponible en la plataforma del curso, y tendrá una fecha límite al final de la Semana 12.
 
-### Managing Your Time
+### Gestionar tu Tiempo
 
-!!! warning "Important"
-    You will only have **FIVE lab sessions** to work with the real robots, so you should use your time well.
+!!! warning "Importante"
+    Solo tendrás **CINCO sesiones de laboratorio** para trabajar con los robots reales, así que debes usar bien tu tiempo.
     
-It is vital that you work together in your teams, both in the lab **and** in your own time (with your team) **in advance of Week 8** to develop your ROS package for the assignment task, so that you have something ready to go in time for the first real-robot lab.
+Es vital que trabajes junto a tus equipos, tanto en el laboratorio **como** en tu propio tiempo (con tu equipo) **antes de la Semana 8** para desarrollar tu paquete de ROS para la tarea de la asignación, para que tengas algo listo a tiempo para el primer laboratorio con robots reales.
 
-## Assessment
+## Evaluación
 
-This assignment is **worth 20%** of your overall mark for the ELE434 course.
+Tu equipo necesitará entregar un paquete de ROS a través de la plataforma del curso antes de la fecha límite al final de la Semana 12 (**consulta la plataforma del curso para la fecha y hora exactas**). [Consulta aquí para detalles completos del proceso de entrega](./submission.md).
 
-Your team will need to submit a ROS package via Blackboard before the deadline at the end of Week 12 (**see Blackboard for the exact date and time**). [See here for full details of the submission process](./submission.md). 
+Tu paquete de ROS entregado será evaluado por el equipo docente fuera de línea durante el Período de Exámenes. Antes del final del período de exámenes recibirás tus puntos, más videos de tu paquete de ROS siendo ejecutado en un robot real en el arena robótico.
 
-Your submitted ROS package will then be assessed by the teaching team off-line during the Spring Exam Period. Before the end of the exam period you will receive your marks, plus video recordings of your ROS package being run on a real robot in the Diamond Computer Room 5 robot arena.
+Ejecutaremos tu paquete de ROS tres veces, y el rendimiento del robot durante las tres ejecuciones se considerará en la calificación. [Consulta aquí para más detalle sobre esto](./task.md#marking).
 
-We will run your ROS package three times, and the performance of the robot during all three runs will be considered in the marking. [See here for more detail on this](./task.md#marking). 
+## Obtener Apoyo
 
-## Getting Support
+La mejor manera de obtener apoyo es asistir a las sesiones de laboratorio semanales, donde el equipo docente estará presente para responder cualquier pregunta que puedas tener. Aunque estamos más que felices de discutir las cosas y ayudarte, no es nuestro trabajo depurar todo tu código en tu nombre en el momento.
 
-The best way for you to get support is to attend the weekly lab sessions, where the teaching team will be present to answer any questions that you may have. Although we are more than happy to discuss things and help you, it is not our job to debug your entire code on your behalf on the spot.
+Recuerda usar el [Curso de Lab de Simulación](../sim.md) como referencia a lo largo de este trabajo: tomando las cosas que trabajamos aquí y aplicándolas a tu paquete de ROS del equipo.
 
-Remember to use the [Simulation Lab Course](../sim.md) as a reference throughout this work: taking the things that we worked on here and applying them to your team’s ROS package.
+## Primeros Pasos (desde la Semana 6)
 
-## Getting Started (from Week 6)
+Como se discutió anteriormente, debes aspirar a comenzar esta asignación durante el Lab de Simulación de la Semana 6, **antes** de tener en tus manos el hardware del robot real (en las Semanas 8-12). Necesitarás empezar a trabajar en tus equipos desde la Semana 6 en adelante, tanto dentro como fuera de las sesiones de laboratorio, para asegurarte de estar apropiadamente preparado.
 
-As discussed above, you should aim to make a start on this assignment during the Week 6 Simulation Lab, **before** you actually get your hands on the real robot hardware (in Weeks 8-12). You'll need to start working in your teams from Week 6 onwards, both in and out of the lab sessions, in order to ensure that you are appropriately prepared. 
+A continuación encontrarás una lista de cosas que debes hacer **antes de la Semana 8**.
 
-Below you'll find a list of things that you need to do **before Week 8**.
+* [ ] Configurar el Paquete de ROS de tu Equipo (siguiendo [las instrucciones aquí](./getting-started.md))
+* [ ] Leer el Brief de la Tarea ([disponible aquí](./task.md))
+* [ ] Comenzar a desarrollar tu aplicación de ROS usando [los recursos de simulación](./sim.md).
+* [ ] Completar el *"Cuestionario de Seguridad y Salud de Robot Real"*
 
-* [ ] Set up your Team's ROS package (by following [the instructions here](./getting-started.md))
-* [ ] Read the Task Brief ([available here](./task.md))
-* [ ] Start developing your ROS application using [the simulation resources](./sim.md).
-* [ ] Complete the *"Real-Robot Health and Safety Quiz"*
+### Cuestionario de Seguridad y Salud del Robot Real
 
-### Real Robot Health & Safety Quiz
-
-Before working with the real robots in Week 8, it's important that everyone completes a *Health & Safety Quiz*. The quiz is available on Blackboard.
+Antes de trabajar con los robots reales en la Semana 8, es importante que todos completen un *Cuestionario de Seguridad y Salud*. El cuestionario está disponible en la plataforma del curso.
 
 !!! warning
-    Your team won't be provided with a real robot until **ALL** team members have completed this quiz (and attained a score of 10/10)!
+    ¡Tu equipo no recibirá un robot real hasta que **TODOS** los miembros del equipo hayan completado este cuestionario (y obtenido una puntuación de 10/10)!

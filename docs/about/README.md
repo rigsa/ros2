@@ -1,17 +1,15 @@
 ---
-title: About this Site
+title: Acerca de este sitio
 ---
 
-# About this Site
+# Acerca de este sitio
 
-This is the home of ROS 2 course materials developed by [Tom Howard](https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard){target="_blank"}. Tom is a University Teacher in the [Multidisciplinary Engineering Education (MEE) Team](https://www.sheffield.ac.uk/engineering/diamond-engineering/about-us){target="_blank"} at the University of Sheffield.
+Este sitio contiene materiales de aprendizaje de ROS 2 adaptados para su uso en Panamá. Los recursos están diseñados para enseñar a los estudiantes cómo utilizar ROS 2 (Robot Operating System, Versión 2) con robots TurtleBot3 Waffle, mediante una combinación de aprendizaje en simulación y trabajo con hardware real. La mayor parte del aprendizaje inicial se realiza en simulación, tras lo cual los estudiantes pueden aplicar sus conocimientos de ROS 2 en nuestros [robots TurtleBot3 Waffle reales](./robots.md). El laboratorio también cuenta con robots Unitree Go2 EDU para prácticas avanzadas.
 
-These resources are designed to support a number of *practical robotics lab courses* run in **The Diamond**: 
+## Atribución
 
-* **Robotics** (COM2009): an undergraduate module for [The School of Computer Science](https://www.sheffield.ac.uk/cs){target="_blank"}
-* **Mobile Robotics and Autonomous Systems** (ELE434): a masters-level Mechatronic and Robotic Engineering module in [The School of Electrical and Electronic Engineering](https://www.sheffield.ac.uk/eee){target="_blank"}
-* **Industry 4.0** (AMR31001): A third-year module on [the AMRC Training Centre Degree Apprenticeship](https://amrctraining.co.uk/apprenticeships/degree-apprenticeships-level-6)
+Este curso está basado en el trabajo original de [Tom Howard](https://github.com/tom-howard) en la Universidad de Sheffield. El material original se encuentra disponible en el repositorio: [https://github.com/tom-howard/tuos_ros](https://github.com/tom-howard/tuos_ros){target="_blank"}.
 
-These courses are designed to teach students how to use ROS 2 (The Robot Operating System, Version 2) with TurtleBot3 Waffle robots, using a mix of simulation-based learning and real robot hardware. Most of the initial learning is done in simulation, after which students are able to apply their new-found ROS 2 knowledge to our [real TurtleBot3 Waffle Robots](./robots.md).
+## Licencia
 
-[This is an Open Educational Resource (OER)](./license.md).
+[Este es un Recurso Educativo Abierto (REA)](./license.md), distribuido bajo la licencia [CC BY-SA 4.0](./license.md).

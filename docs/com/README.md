@@ -1,20 +1,16 @@
 ---
-title: COM2009 Course Assignments
-description: "Course Material for Assignments #1 and #2"
+title: Asignaciones del Curso de Robótica
+description: "Material del Curso para las Asignaciones #1 y #2"
 ---
 
-# COM2009 Course Assignments
+# Asignaciones del Curso de Robótica
 
-For the COM2009 Robotics course you must complete two lab assignments:
+Para el curso de Robótica debes completar dos asignaciones de laboratorio:
 
-* [**Assignment #1**: "An Introduction to ROS (the Robot Operating System)"](./assignment1.md).
+* [**Asignación #1**: "Una Introducción a ROS (el Robot Operating System)"](./assignment1.md).
 
-    *Here you will learn what ROS is and how to use it. You will complete this assignment individually, and in your own time.*
+    *Aquí aprenderás qué es ROS y cómo usarlo. Completarás esta asignación de forma individual y en tu propio tiempo.*
 
-    **Weighting**: 25% of the overall COM2009 module mark.
+* [**Asignación #2**: "Proyecto de Robótica en Equipo"](./assignment2/README.md).
 
-* [**Assignment #2**: "Team Robotics Project"](./assignment2/README.md).
-
-    *Here you will work in teams of 3-4 to complete a series of real-world robotics tasks using our Tutlebot3 Waffle Robots in the Lab (Diamond Computer Room 5).*
-
-    **Weighting**: 30% of the overall COM2009 module mark
+    *Aquí trabajarás en equipos de 3-4 personas para completar una serie de tareas robóticas del mundo real usando nuestros robots Turtlebot3 Waffle en el laboratorio de robótica.*

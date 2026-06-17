@@ -1,7 +1,7 @@
 ---
-title: Additional Resources
+title: Recursos Adicionales
 --- 
 
-# Additional Resources
+# Recursos Adicionales
 
-Additional resources to help you in your work with ROS 2 and the Waffles.
+Recursos adicionales para ayudarte en tu trabajo con ROS 2 y los Waffles.

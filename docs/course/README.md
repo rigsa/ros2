@@ -1,36 +1,40 @@
 ---
-title: "The ROS 2 Course"
-description: "An individual simulation-based course to teach you all about ROS 2"
+title: "El Curso de ROS 2"
+description: "Un curso individual basado en simulación para enseñarte todo sobre ROS 2"
 --- 
 
-## Overview
+## Descripción General
 
-This is a 6-part course, designed to teaching you all about ROS 2 and how to use it. The course is designed to be completed in simulation, so you will therefore need access to a ROS 2 installation which can either be installed on your own machine, or accessed on a range of managed computers across the University of Sheffield campus. [See here for more information on how to access or install ROS 2](../software/README.md).
+Este es un curso de 6 partes, diseñado para enseñarte todo sobre ROS 2 y cómo utilizarlo. El curso está diseñado para completarse en simulación, por lo que necesitarás acceso a una instalación de ROS 2 que puede instalarse en tu propia máquina o accederse en las computadoras del laboratorio. [Consulta aquí para más información sobre cómo acceder o instalar ROS 2](../software/README.md).
 
-Each part of the course comprises a series of step-by-step instructions and exercises to teach you how ROS works, and introduces you to the core principles of the framework. The exercises give you the opportunity to see how to apply these principles to practical robotic applications. Completing this course (either in part or in full) will provide you with the necessary skills for [working with our real TurtleBot3 Waffle robots](../waffles/README.md) in the Diamond.  
+Cada parte del curso comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS, y te introduce a los principios fundamentales del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones robóticas prácticas. Completar este curso (en parte o en su totalidad) te proporcionará las habilidades necesarias para [trabajar con nuestros robots reales TurtleBot3 Waffle](../waffles/README.md) en el laboratorio.  
 
-## The Course
+## El Curso
 
-* [Part 1: Getting Started with ROS 2](./part1.md)
+* [Parte 1: Introducción a ROS 2](./part1.md)
 
-    *Learn the basics of ROS 2 and become familiar with some key tools and principles, allowing you to program robots and work with ROS 2 applications effectively.*
+    *Aprende los fundamentos de ROS 2 y familiarízate con algunas herramientas y principios clave, lo que te permitirá programar robots y trabajar con aplicaciones de ROS 2 de manera efectiva.*
 
-* [Part 2: Odometry & Navigation](./part2.md)
+* [Parte 2: Odometría y Navegación](./part2.md)
 
-    *Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle.*
+    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad en lazo abierto y cerrado a un Waffle.*
 
-* [Part 3: Beyond the Basics](./part3.md)
+* [Parte 3: Más Allá de los Fundamentos](./part3.md)
 
-    *Execute ROS applications more efficiently using launch files, and learn how to affect the behaviour of nodes during run-time using parameters. Learn about the LiDAR sensor, the data that it generates, and see the benefits of this for tools like "SLAM".*
+    *Ejecuta aplicaciones de ROS de manera más eficiente usando launch files, y aprende cómo afectar el comportamiento de los nodes durante el tiempo de ejecución usando parámetros. Aprende sobre el sensor LiDAR, los datos que genera, y observa los beneficios de esto para herramientas como "SLAM".*
 
-* [Part 4: Services](./part4.md)
+* [Parte 4: Services](./part4.md)
 
-    *Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.*
+    *Aprende sobre una forma alternativa en que los nodes de ROS pueden comunicarse a través de una red de ROS, y las situaciones en las que esto puede ser útil.*
 
-* [Part 5: Actions](./part5.md)
+* [Parte 5: Actions](./part5.md)
 
-    *Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.*
+    *Aprende sobre otro método de comunicación clave de ROS que es similar a un ROS Service, pero con algunos beneficios clave y casos de uso alternativos.*
 
-* [Part 6: Cameras, Machine Vision & OpenCV](./part6.md)
+* [Parte 6: Cámaras, Visión por Computadora y OpenCV](./part6.md)
 
-    *Learn how to work with images from a robot's camera. Learn techniques to detect features within these images, and use this to inform robot decision-making.*
+    *Aprende a trabajar con imágenes de la cámara de un robot. Aprende técnicas para detectar características dentro de estas imágenes y úsalas para informar la toma de decisiones del robot.*
+
+---
+
+> Este material está basado en el curso de ROS 2 de la Universidad de Sheffield, creado por Tom Howard, y está adaptado para su uso en Panamá bajo la licencia CC BY-SA 4.0.

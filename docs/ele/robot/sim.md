@@ -1,14 +1,14 @@
 ---
-title: "Simulation Resources"
-description: "Details of the simulation environment that you can use to test out your algorithms"
+title: "Recursos de Simulación"
+description: "Detalles del entorno de simulación que puedes usar para probar tus algoritmos"
 ---
 
-Within the `tuos_task_sims` package there is an example arena which can be used to develop and test out your team's work for this task.
+Dentro del paquete `tuos_task_sims` hay un arena de ejemplo que puede usarse para desarrollar y probar el trabajo de tu equipo para esta tarea.
 
 !!! info 
-    Make sure you [check for updates to the Course Repo](../../course/extras/course-repo.md#updating) to ensure that you have the most up-to-date version of this.
+    Asegúrate de [revisar si hay actualizaciones al Repositorio del Curso](../../course/extras/course-repo.md#updating) para garantizar que tengas la versión más actualizada de esto.
 
-The simulation can be launched using the following `ros2 launch` command:
+La simulación puede lanzarse usando el siguiente comando `ros2 launch`:
 
 ```bash
 ros2 launch tuos_task_sims obstacle_avoidance.launch.py
@@ -16,33 +16,33 @@ ros2 launch tuos_task_sims obstacle_avoidance.launch.py
 
 <figure markdown>
   ![](../../com/assignment2/figures/task2.png){width=700px}
-  <figcaption>A development arena for the Real-World Exploration Task.</figcaption>
+  <figcaption>Un arena de desarrollo para la Tarea de Exploración en el Mundo Real.</figcaption>
 </figure>
 
 !!! warning
-    The location and orientation of obstacles **will be different** to those in this simulation!
+    ¡La ubicación y orientación de los obstáculos **serán diferentes** a las de esta simulación!
 
-By default, the robot will spawn into the arena in the orientation shown in the figure above, however you can test out *different* starting orientations for the robot by supplying an additional command line argument to the `obstacle_avoidance.launch.py` file: 
+Por defecto, el robot aparecerá en el arena en la orientación mostrada en la figura anterior; sin embargo, puedes probar *diferentes* orientaciones de inicio para el robot suministrando un argumento de línea de comandos adicional al archivo `obstacle_avoidance.launch.py`:
 
 ``` { .bash .no-copy }
 ros2 launch tuos_task_sims obstacle_avoidance.launch.py yaw:=X
 ```
 
-Where the value of `X` can be any orientation angle, in radians. Remember that for the assessment of this task, the robot will **always** be oriented *perpendicular* to one of the four outer arena walls at the start of the task, therefore only four `yaw` values are really relevant to you here:
+Donde el valor de `X` puede ser cualquier ángulo de orientación, en radianes. Recuerda que para la evaluación de esta tarea, el robot **siempre** estará orientado *perpendicular* a una de las cuatro paredes exteriores del arena al inicio de la tarea; por lo tanto, solo cuatro valores de `yaw` son realmente relevantes para ti:
 
 <center>
 
-| `yaw:=` | Orientation |
+| `yaw:=` | Orientación |
 | :---: | :--- |
-| `0.0` | The robot is facing the **Blue** pillar when spawned (default) |
-| `1.571` | The robot is facing the **Green** pillar when spawned |
-| `-1.571` | The robot is facing the **Red** pillar when spawned |
-| `3.142` | The robot is facing the **Yellow** pillar when spawned |
+| `0.0` | El robot está mirando hacia la baliza **Azul** al aparecer (por defecto) |
+| `1.571` | El robot está mirando hacia la baliza **Verde** al aparecer |
+| `-1.571` | El robot está mirando hacia la baliza **Roja** al aparecer |
+| `3.142` | El robot está mirando hacia la baliza **Amarilla** al aparecer |
 
 </center>
 
-## Simulation vs the Real World
+## Simulación vs. el Mundo Real
 
-This simulation is provided as a way for you to develop your algorithms in simulation, and to allow you to do some work on this assignment outside the lab sessions. However, **just because it works in simulation ^^DOESN'T^^ mean it will work in the real world**!
+Esta simulación se proporciona como una forma de desarrollar tus algoritmos en simulación, y para permitirte hacer algo de trabajo en esta asignación fuera de las sesiones de laboratorio. Sin embargo, **¡el hecho de que funcione en simulación ^^NO^^ significa que funcionará en el mundo real**!
 
-Make sure you test things out thoroughly during the real robot lab sessions in Weeks 8-11.
+Asegúrate de probar las cosas a fondo durante las sesiones de laboratorio con robots reales en las Semanas 8-11.

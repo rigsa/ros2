@@ -1,66 +1,66 @@
 ---  
-title: Building a Basic LaserScan Subscriber Node
+title: Construyendo un Node Subscriber Básico para LaserScan
 ---
 
-## The Code
+## El Código
 
-Copy **all** the code below into your `lidar_subscriber.py` file and then **review the annotations** to understand how it all works.
+Copia **todo** el código a continuación en tu archivo `lidar_subscriber.py` y luego **revisa las anotaciones** para entender cómo funciona todo.
 
 ```python title="lidar_subscriber.py"
 --8<-- "code_templates/lidar_subscriber.py"
 ```
 
-1. None of this should be new to you by now. [Remember from Part 2](../part2.md#ex5) that we're using `SignalHandlerOptions` to handle shutdown requests (triggered by ++ctrl+c++).
-2. We're building a `/scan` subscriber here, and we know that this topic uses the `sensor_msgs/msg/LaserScan` interface type, so we import this here.
-3. `numpy` is a Python library that allows us to work with numeric data, very useful for big arrays like `ranges`.
-4. We construct a subscriber in much the same way as we have done in Parts 1 and 2, this time targetting the `/scan` topic though.
-5. From the front of the robot, we obtain a 20&deg; arc of scan data either side of the x-axis (see the figure below).
+1. Nada de esto debería ser nuevo para ti en este punto. [Recuerda de la Parte 2](../part2.md#ex5) que estamos usando `SignalHandlerOptions` para manejar solicitudes de apagado (activadas con ++ctrl+c++).
+2. Aquí estamos construyendo un subscriber para el topic `/scan`, y sabemos que este topic usa el tipo de interfaz `sensor_msgs/msg/LaserScan`, así que lo importamos aquí.
+3. `numpy` es una librería Python que nos permite trabajar con datos numéricos, muy útil para arreglos grandes como `ranges`.
+4. Construimos un subscriber de la misma manera que lo hemos hecho en las Partes 1 y 2, pero esta vez apuntando al topic `/scan`.
+5. Desde el frente del robot, obtenemos un arco de 20&deg; de datos de escaneo a cada lado del eje x (consulta la figura a continuación).
 
-6. Then, we combine the `left_20_deg` and `right_20_deg` data arrays, and convert this from a Python list to a `numpy` array (see the figure below).
+6. Luego combinamos los arreglos de datos `left_20_deg` y `right_20_deg`, y los convertimos de una lista Python a un arreglo `numpy` (consulta la figura a continuación).
 
-7. This illustrates one of the great features of `numpy` arrays: we can filter them.
+7. Esto ilustra una de las grandes características de los arreglos `numpy`: podemos filtrarlos.
 
-    Remember that `front` is now a `numpy` array containing 40 data points.
+    Recuerda que `front` ahora es un arreglo `numpy` que contiene 40 puntos de datos.
     
-    Remember *also*, that there will typically be several `inf` values scattered around the LaserScan array, resulting from sensor readings that are outside the sensor's measurement range (i.e. *greater than* `range_max` or *less than* `range_min`). We need to get rid of these, so we ask `numpy` to filter our array as follows:
+    Recuerda *también* que típicamente habrá varios valores `inf` dispersos en el arreglo LaserScan, resultado de lecturas del sensor que están fuera del rango de medición del sensor (es decir, *mayores que* `range_max` o *menores que* `range_min`). Necesitamos eliminar estos, así que le pedimos a `numpy` que filtre nuestro arreglo de la siguiente manera:
 
-    1. Of all the values in the `front` array, determine which ones are **not equal** to `inf`: 
+    1. De todos los valores en el arreglo `front`, determina cuáles **no son iguales** a `inf`: 
         
         `#!py front != float("inf")`
 
-    1. Use this *filter* to remove these `inf` values from the `front` array:
+    1. Usa este *filtro* para eliminar los valores `inf` del arreglo `front`:
         
         `#!py front[front != float("inf")]`
     
-    1. Return this as a *new* `numpy` array called `valid_data`:
+    1. Devuelve esto como un *nuevo* arreglo `numpy` llamado `valid_data`:
 
         `#!py valid_data = front[front != float("inf")]`
 
-8. In certain situations (i.e. in very sparse environments) *all* values could be equal to`inf` (imagine the "empty world" simulation). Here we're checking the size of the `valid_data` array to make sure that we haven't just removed *all* values through the above filtering process!
+8. En ciertas situaciones (por ejemplo, en entornos muy vacíos) *todos* los valores podrían ser iguales a `inf` (imagina la simulación "empty world"). Aquí verificamos el tamaño del arreglo `valid_data` para asegurarnos de no haber eliminado *todos* los valores con el filtrado anterior.
 
-9. If the array is not empty, then use the `mean()` method to determine the *average* of all readings within the dataset
-10. If the array *is* empty, then return *"not a number"* (aka "nan") instead 
-11. Print this value to the terminal, but throttle the messages so that only one is displayed every second
+9. Si el arreglo no está vacío, usa el método `mean()` para determinar el *promedio* de todas las lecturas dentro del conjunto de datos.
+10. Si el arreglo *está* vacío, devuelve *"not a number"* (es decir, "nan") en su lugar. 
+11. Imprime este valor en el terminal, pero limita los mensajes para que solo se muestre uno por segundo.
 
     !!! question
-        If we *didn't* throttle this, what rate would the messages be printed at?
+        Si *no* limitáramos esto, ¿a qué tasa se imprimirían los mensajes?
 
-The data processing is illustrated in the figure below:
+El procesamiento de datos se ilustra en la figura a continuación:
 
 <figure markdown>
   ![](./scandata.png){width=600px}
 </figure>
 
-## Package Dependencies
+## Dependencias del Package
 
-This node has dependencies on two external Python libraries (in addition to `rclpy`): 
+Este node tiene dependencias en dos librerías Python externas (además de `rclpy`): 
 
 ```py
 from sensor_msgs.msg import LaserScan
 import numpy as np
 ```
 
-As such, you should include these in the `package.xml` file (under the `#!xml <exec_depend>rclpy</exec_depend>` line):
+Por lo tanto, debes incluirlas en el archivo `package.xml` (bajo la línea `#!xml <exec_depend>rclpy</exec_depend>`):
 
 ```xml title="package.xml"
 <exec_depend>sensor_msgs</exec_depend>

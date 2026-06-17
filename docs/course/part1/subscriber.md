@@ -1,57 +1,57 @@
 ---  
-title: "A Simple Subscriber Node"  
+title: "Un Node Subscriber Simple"  
 ---
 
-## The Code
+## El Código
 
-Copy **all** the code below into your `subscriber.py` file and (again) *make sure you read the annotations to understand how it all works!*
+Copia **todo** el código a continuación en tu archivo `subscriber.py` y (de nuevo) *¡asegúrate de leer las anotaciones para entender cómo funciona todo!*
 
 ```python title="subscriber.py"
 --8<-- "code_templates/subscriber.py"
 ```
 
-1. As with our publisher node, we need to import the `rclpy` client library and the `String` message type from the `example_interfaces.msg` library in order to write a Python ROS Node and use the relevant ROS messages:
+1. Al igual que con nuestro node publisher, necesitamos importar la biblioteca cliente `rclpy` y el tipo de mensaje `String` de la biblioteca `example_interfaces.msg` para escribir un Node ROS Python y usar los mensajes ROS relevantes:
 
-2. This time, we create a Python Class called `SimpleSubscriber()` instead, but which still inherits the `Node` class from `rclpy` as we did with the Publisher before.
+2. Esta vez, creamos una Clase Python llamada `SimpleSubscriber()` en su lugar, pero que aún hereda la clase `Node` de `rclpy` como lo hicimos con el Publisher antes.
 
-3. Once again, using the `#!python super()` method we call the `#!python __init__()` method from the parent Node class that our `SimpleSubscriber` class is derived from, and provide a name to use to register in on the network.
+3. Una vez más, usando el método `#!python super()` llamamos al método `#!python __init__()` de la clase Node padre de la que deriva nuestra clase `SimpleSubscriber`, y proporcionamos un nombre para registrarlo en la red.
 
-4. We're now using the `#!python create_subscription()` method here, which will allow this node to *subscribe* to messages on a ROS Topic. When calling this we provide 4 key bits of information:
+4. Ahora estamos usando el método `#!python create_subscription()` aquí, que le permitirá a este node *subscribirse* a los mensajes en un ROS Topic. Al llamar a esto proporcionamos 4 datos clave:
 
-    1. `msg_type`: The **type** of message that the topic uses (which we could obtain by running the `ros2 topic info` command).
+    1. `msg_type`: El **tipo** de mensaje que usa el topic (que podríamos obtener ejecutando el comando `ros2 topic info`).
         
-        We know (having just created the publisher), that our topic uses `String` messages (from `example_interfaces`).
+        Sabemos (habiendo creado el publisher), que nuestro topic usa mensajes `String` (de `example_interfaces`).
     
-    1. `topic`: The **name of the topic** that we want to listen (or subscribe) to.
+    1. `topic`: El **nombre del topic** al que queremos escuchar (o subscribirnos).
         
-        !!! warning "Fill in the Blank!"
-            Replace the `??` in the code above with the name of the topic that our [`publisher.py` node](./publisher.md) was set up to publish to!
+        !!! warning "¡Completa el espacio en blanco!"
+            ¡Reemplaza los `??` en el código anterior con el nombre del topic al que el node [`publisher.py`](./publisher.md) fue configurado para publicar!
     
-    1. `callback`: When building a subscriber, we need a *callback function*, which is a function that will execute every time a new message is received from the topic.
+    1. `callback`: Al construir un subscriber, necesitamos una *función callback*, que es una función que se ejecutará cada vez que se reciba un nuevo mensaje del topic.
 
-        At this stage, we define what this callback function is called (`self.msg_callback`), and we'll actually define the function itself further down within the Class.
+        En esta etapa, definimos cómo se llama esta función callback (`self.msg_callback`), y definiremos la función en sí misma más adelante dentro de la Clase.
     
-    1. `qos_profile`: As before, a **queue size** to limit the amount of messages that are *queued* in a buffer. 
+    1. `qos_profile`: Como antes, un **tamaño de cola** para limitar la cantidad de mensajes que se *ponen en cola* en un buffer.
 
-5. Print a Log message to the terminal to indicate that the initialisation process has taken place.
+5. Imprime un mensaje de Log en la terminal para indicar que el proceso de inicialización ha tenido lugar.
 
-6. Here we're defining what will happen each time our subscriber receives a new message. This callback function must have only one argument (other than `self`), which will contain the message data that has been received:
+6. Aquí estamos definiendo qué sucederá cada vez que nuestro subscriber reciba un nuevo mensaje. Esta función callback debe tener solo un argumento (además de `self`), que contendrá los datos del mensaje que se han recibido:
 
-    We're also using [a Python Type Annotation](https://docs.python.org/3/library/typing.html){target="_blank"} here too, which informs the interpreter that the `topic_message` that is received by the `msg_callback` function will be of the `String` data type.
+    También estamos usando [una Anotación de Tipo Python](https://docs.python.org/3/library/typing.html){target="_blank"} aquí también, que informa al intérprete que el `topic_message` recibido por la función `msg_callback` será del tipo de datos `String`.
     
-    (All this really does is allow autocomplete functionality to work within our text editor, so that whenever we want to pull an attribute from the `toic_message` object it will tell us what attributes actually exist within the object.)
+    (Todo esto realmente hace es permitir que la funcionalidad de autocompletado funcione dentro de nuestro editor de texto, de modo que cada vez que queramos extraer un atributo del objeto `topic_message` nos dirá qué atributos existen realmente dentro del objeto.)
 
-7. In this simple example, all we're going to do on receipt of a message is to print a couple of log messages to the terminal, to include: 
+7. En este ejemplo simple, todo lo que vamos a hacer al recibir un mensaje es imprimir un par de mensajes de log en la terminal, para incluir:
 
-    1. The name of this node (using the `self.get_name()` method)
+    1. El nombre de este node (usando el método `self.get_name()`)
 
-    1. The message that has been received (`topic_mesage.data`)
+    1. El mensaje que se ha recibido (`topic_message.data`)
 
-8. The rest of this is exactly the same as before with our publisher.
+8. El resto de esto es exactamente igual que antes con nuestro publisher.
 
-## Don't Forget the Shebang! {#dfts}
+## ¡No Olvides el Shebang! {#dfts}
 
-Remember: **don't forget the shebang**, it's very important!
+Recuerda: **no olvides el shebang**, ¡es muy importante!
 
 ```python
 #!/usr/bin/env python3

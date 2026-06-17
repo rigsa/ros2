@@ -1,199 +1,199 @@
 ---  
-title: Working with your ROS Package (in the Lab)
+title: Trabajar con tu Paquete de ROS (en el Laboratorio)
 ---  
 
-Having followed [the instructions on the Getting Started page](./getting-started.md) (in Week 1), your team's ROS package will be hosted on GitHub, which makes it much easier to collaborate and transfer your work to the real hardware during the lab sessions[^rse].
+Habiendo seguido [las instrucciones en la página de Primeros Pasos](./getting-started.md) (en la Semana 1), el paquete de ROS de tu equipo estará alojado en GitHub, lo que hace mucho más fácil colaborar y transferir tu trabajo al hardware real durante las sesiones de laboratorio[^rse].
 
-[^rse]: **Remember**: If you're not already familiar with how to use tools like Git and GitHub, we would strongly recommend that you have a look at [This Course by the University of Sheffield's Research Software Engineering (RSE) Team](https://srse-git-github-zero2hero.netlify.app/){target="_blank"}. 
+[^rse]: **Recuerda**: Si aún no estás familiarizado con cómo usar herramientas como Git y GitHub, te recomendamos encarecidamente que consultes [este curso sobre Git y GitHub](https://srse-git-github-zero2hero.netlify.app/){target="_blank"}.
 
-You'll need to transfer your ROS package to a robot laptop whenever you want to work on a real robot during the labs. 
+Necesitarás transferir tu paquete de ROS a una laptop de robot siempre que quieras trabajar en un robot real durante los laboratorios.
 
-## Getting Started in Each Lab Session {#getting-started}
+## Primeros Pasos en Cada Sesión de Laboratorio {#getting-started}
 
-Your team should be provided with the same laptop for every lab session. Having completed all the steps to set up SSH Keys (as described in the sections below), you should be able to return to the laptop, re-clone your package and continue working with relative ease at the start of each and every lab session.
+Tu equipo debería tener la misma laptop para cada sesión de laboratorio. Habiendo completado todos los pasos para configurar las Claves SSH (como se describe en las secciones a continuación), deberías poder regresar a la laptop, re-clonar tu paquete y continuar trabajando con relativa facilidad al inicio de cada sesión de laboratorio.
 
-1. **Check if you already have an SSH Key**: You'll save a private SSH Key (private to you and the rest of your team) on the laptop that has been designated to you for each lab session. The first step is to check whether this exists on your laptop:
+1. **Verificar si ya tienes una Clave SSH**: Guardarás una clave SSH privada (privada para ti y el resto de tu equipo) en la laptop que se te ha designado para cada sesión de laboratorio. El primer paso es verificar si esta existe en tu laptop:
 
     ``` { .txt .no-copy }
-    ls -al ~/.ssh | grep com2009_teamXX_2026
+    ls -al ~/.ssh | grep ros2_lab_equipoXX
     ```
 
-    Replace `XX` with your team number.
+    Reemplaza `XX` con tu número de equipo.
 
-    If your team's ssh key is presented then you're good to go, continue to Step 2. If not, go to the **[Setting up SSH Keys](#setting-up-ssh-keys)** section below.
+    Si se presenta la clave ssh de tu equipo, entonces puedes continuar con el Paso 2. Si no, ve a la sección **[Configurar Claves SSH](#setting-up-ssh-keys)** a continuación.
 
-1. **If your team's SSH Key exists**: start the laptop's ssh-agent and activate your key:
+1. **Si existe la Clave SSH de tu equipo**: inicia el agente ssh de la laptop y activa tu clave:
 
     ```bash
     eval "$(ssh-agent -s)"
     ```
     
     ``` { .bash .no-copy }
-    ssh-add ~/.ssh/com2009_teamXX_2026
+    ssh-add ~/.ssh/ros2_lab_equipoXX
     ```
 
-    Replacing `XX` with your team number.
+    Reemplazando `XX` con tu número de equipo.
 
-1. Then, [clone your package onto the laptop](#ssh-clone).
+1. Luego, [clona tu paquete en la laptop](#ssh-clone).
 
-    You'll be asked for your secret passphrase, hopefully you remember it!
+    Se te pedirá tu frase de contraseña secreta, ¡con suerte la recuerdas!
 
     !!! warning
-        We strongly recommend that you [delete your team's package from the laptop](#deleting-your-ros-package-after-a-lab-session) at the end of each lab session.
+        Te recomendamos encarecidamente que [elimines el paquete de tu equipo de la laptop](#deleting-your-ros-package-after-a-lab-session) al final de cada sesión de laboratorio.
 
-## Setting Up SSH Keys
+## Configurar Claves SSH {#setting-up-ssh-keys}
 
-Using *SSH keys*, you can clone your team's ROS package to the robot laptops, make commits and push these back up to GitHub during the labs, without needing to provide your GitHub username and a personal access token every time. This makes life a lot easier! The following steps describe the process you should follow to achieve this[^github-docs].
+Usando *claves SSH*, puedes clonar el paquete de ROS de tu equipo en las laptops de robots, hacer commits y publicarlos de vuelta a GitHub durante los laboratorios, sin necesidad de proporcionar tu nombre de usuario de GitHub y un token de acceso personal cada vez. ¡Esto hace la vida mucho más fácil! Los siguientes pasos describen el proceso que debes seguir para lograrlo[^github-docs].
 
-[^github-docs]: Adapted from [GitHub Docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh){target="_blank"}
+[^github-docs]: Adaptado de [GitHub Docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh){target="_blank"}
 
-### Step 1: Generating an SSH key (on the Laptop) {#ssh-keygen}
+### Paso 1: Generar una clave SSH (en la Laptop) {#ssh-keygen}
 
-1. From a terminal instance on the laptop navigate to the `~/.ssh` folder:
+1. Desde una instancia de terminal en la laptop navega a la carpeta `~/.ssh`:
 
     ```bash
     cd ~/.ssh
     ```
 
-1. Create a new SSH key on the laptop, using your GitHub email address:
+1. Crea una nueva clave SSH en la laptop, usando tu dirección de correo de GitHub:
 
     ``` { .txt .no-copy }
-    ssh-keygen -t ed25519 -C "your.email@sheffield.ac.uk"
+    ssh-keygen -t ed25519 -C "tu.correo@institucion.edu"
     ```
 
-    Replacing `your.email@sheffield.ac.uk` with **your GitHub email address**.
+    Reemplazando `tu.correo@institucion.edu` con **tu dirección de correo de GitHub**.
 
     <a name="ssh-key-name"></a>
 
-1. You'll then be asked to `Enter a file in which to save the key`. This needs to be unique, so enter the name of your ROS package, e.g.: `com2009_teamXX_2026` (where `XX` is replaced with your team number).
+1. Luego se te pedirá que `Ingreses un archivo en el que guardar la clave`. Esto debe ser único, así que introduce el nombre de tu paquete de ROS, por ejemplo: `ros2_lab_equipoXX` (donde `XX` es reemplazado con tu número de equipo).
 
-1. You'll then be asked to `enter a passphrase`. This is how you make your SSH key secure, so that no other teams using the same laptop can access and make changes to your team's package/GitHub repo. You'll be asked to enter this whenever you try to commit/push new changes to your ROS package on GitHub. Decide on a passphrase and share this **ONLY** with your fellow team members. 
+1. Luego se te pedirá que `ingreses una frase de contraseña`. Esta es la forma de hacer segura tu clave SSH, para que ningún otro equipo que use la misma laptop pueda acceder y hacer cambios en el paquete/repositorio de GitHub de tu equipo. Se te pedirá que la ingreses siempre que intentes hacer commit/publicar nuevos cambios en tu paquete de ROS en GitHub. Decide una frase de contraseña y compártela **SOLO** con tus compañeros de equipo.
 
-1. Next, start the laptop's ssh-agent:
+1. A continuación, inicia el agente ssh de la laptop:
 
     ```bash
     eval "$(ssh-agent -s)"
     ```
 
-1. Add your SSH private key to the laptop's ssh-agent. You'll need to enter the name of the SSH key file that you created in the earlier step (e.g.: `com2009_teamXX_2026`)
+1. Agrega tu clave privada SSH al agente ssh de la laptop. Necesitarás ingresar el nombre del archivo de clave SSH que creaste en el paso anterior (por ejemplo: `ros2_lab_equipoXX`)
 
     ``` { .txt .no-copy }
-    ssh-add ~/.ssh/com2009_teamXX_2026
+    ssh-add ~/.ssh/ros2_lab_equipoXX
     ```
 
-    Replacing `XX` with your team number of course!
+    ¡Reemplazando `XX` con tu número de equipo por supuesto!
 
-1. Then, you'll need to add the SSH key to your account on GitHub...
+1. Luego necesitarás agregar la clave SSH a tu cuenta en GitHub...
 
-### Step 2: Adding an SSH key to your GitHub account
+### Paso 2: Agregar una clave SSH a tu cuenta de GitHub
 
-*These instructions are replicated from [this GitHub Docs page](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux){target="_blank"}*.
+*Estas instrucciones están replicadas de [esta página de GitHub Docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux){target="_blank"}*.
 
-1. On the laptop, copy the SSH public key that you created in the previous steps to your clipboard.
+1. En la laptop, copia la clave pública SSH que creaste en los pasos anteriores a tu portapapeles.
     
-    Do this from a terminal on the laptop, using `cat`:
+    Haz esto desde una terminal en la laptop, usando `cat`:
 
     ``` { .txt .no-copy }
-    cat ~/.ssh/com2009_teamXX_2026.pub
+    cat ~/.ssh/ros2_lab_equipoXX.pub
     ```
 
-    Replacing `XX` with your team number once again.
+    Reemplazando `XX` con tu número de equipo una vez más.
 
-    The content of the file will then be displayed in the terminal... copy it from here.
+    El contenido del archivo se mostrará entonces en la terminal... cópialo desde aquí.
 
-    !!! tip "Tips"
-        1. To copy text from inside a terminal window use ++ctrl+shift+c++
-        2. You could also open the file in VS Code and copy it from there:
+    !!! tip "Consejos"
+        1. Para copiar texto desde dentro de una ventana de terminal usa ++ctrl+shift+c++
+        2. También podrías abrir el archivo en VS Code y copiarlo desde allí:
 
             ``` { .txt .no-copy }
-            code ~/.ssh/com2009_teamXX_2026.pub
+            code ~/.ssh/ros2_lab_equipoXX.pub
             ```
 
-2. Go to your GitHub account in a web browser. In the upper-right corner of any page, click your profile photo, then click **Settings**.
+2. Ve a tu cuenta de GitHub en un navegador web. En la esquina superior derecha de cualquier página, haz clic en tu foto de perfil, luego haz clic en **Settings**.
 
-3. In the "Access" section of the sidebar, click **SSH and GPG keys**.
+3. En la sección "Access" de la barra lateral, haz clic en **SSH and GPG keys**.
 
-4. Click **New SSH key**.
+4. Haz clic en **New SSH key**.
 
-5. Enter a descriptive name for the key in the "Title" field, e.g. `com2009_dia_laptop1`.
+5. Introduce un nombre descriptivo para la clave en el campo "Title", por ejemplo `ros2_lab_laptop1`.
 
-6. Select `Authentication Key` as the "Key Type."
+6. Selecciona `Authentication Key` como el "Key Type."
 
-7. Paste the text from your SSH Public Key file into the "Key" field.
+7. Pega el texto de tu archivo de Clave Pública SSH en el campo "Key".
 
-8. Finally, click the "Add SSH Key" button.
+8. Finalmente, haz clic en el botón "Add SSH Key".
 
-## Cloning your ROS package onto the Laptop {#ssh-clone}
+## Clonar tu paquete de ROS en la Laptop {#ssh-clone}
 
-With your SSH keys all set up, you'll be able to clone your ROS package onto the laptop. 
+Con tus claves SSH configuradas, podrás clonar tu paquete de ROS en la laptop.
 
-There's a ROS 2 Workspace on each of the robot laptops and (much the same as in your own local ROS environment) your package **must** reside within this workspace!
+Hay un Espacio de Trabajo de ROS 2 en cada una de las laptops de robots y (al igual que en tu propio entorno local de ROS) ¡tu paquete **debe** residir dentro de este espacio de trabajo!
 
-1. From a terminal on the laptop, navigate to the ROS 2 Workspace `src` directory:
+1. Desde una terminal en la laptop, navega al directorio `src` del Espacio de Trabajo de ROS 2:
 
     ```bash
     cd ~/ros2_ws/src/
     ```
 
-1. Go to your ROS package on GitHub. Click the Code button and then select the SSH option to reveal the SSH address of your repo. Copy this. 
+1. Ve a tu paquete de ROS en GitHub. Haz clic en el botón Code y luego selecciona la opción SSH para revelar la dirección SSH de tu repositorio. Cópiala.
 
-1. Head back to the terminal instance on the laptop to then clone your package into the `ros2_ws/src/` directory using `git`:
+1. Regresa a la instancia de terminal en la laptop para luego clonar tu paquete en el directorio `ros2_ws/src/` usando `git`:
 
     ```bash
     git clone REMOTE_SSH_ADDRESS
     ```
 
-    Where `REMOTE_SSH_ADDRESS` is the SSH address that you have just copied from GitHub.
+    Donde `REMOTE_SSH_ADDRESS` es la dirección SSH que acabas de copiar de GitHub.
 
-1. Run Colcon to build your package, which is a **three-step process**:
+1. Ejecuta Colcon para construir tu paquete, que es un **proceso de tres pasos**:
 	
-    1. Navigate into the **root** of the ROS Workspace:
+    1. Navega a la **raíz** del Espacio de Trabajo de ROS:
 
         ```bash
         cd ~/ros2_ws
         ```
     
-    1. Run the `colcon build` command, targetting your package only:
+    1. Ejecuta el comando `colcon build`, apuntando solo a tu paquete:
     
         ``` { .txt .no-copy }
-        colcon build --packages-select com2009_teamXX_2026 --symlink-install
+        colcon build --packages-select ros2_lab_equipoXX --symlink-install
         ```
-        (Again, replacing `XX` with *your* team number.)
+        (Nuevamente, reemplazando `XX` con *tu* número de equipo.)
         
-    1. Then, re-source your environment:
+    1. Luego, recarga el entorno:
 	
         ```bash
         source ~/.bashrc
         ```
 
-1. Navigate into your package: 
+1. Navega a tu paquete:
 
     ``` { .txt .no-copy }
-    cd ~/ros2_ws/src/com2009_teamXX_2026/
+    cd ~/ros2_ws/src/ros2_lab_equipoXX/
     ```
 
-    ... and then run the following commands to set your identity (which will allow you to make commits to your package repo):
+    ... y luego ejecuta los siguientes comandos para establecer tu identidad (lo que te permitirá hacer commits en el repositorio de tu paquete):
 
     ``` { .txt .no-copy }
-    git config user.name "your name"
+    git config user.name "tu nombre"
     ```
     ``` { .txt .no-copy }
-    git config user.email "your email address"
+    git config user.email "tu dirección de correo"
     ```
 
-You should then be able to commit and push any updates that you make to your ROS package while working on the laptop, back to your remote repository using the secret passphrase that you defined earlier!
+¡Luego deberías poder hacer commit y publicar cualquier actualización que hagas en tu paquete de ROS mientras trabajas en la laptop, de vuelta a tu repositorio remoto usando la frase de contraseña secreta que definiste anteriormente!
 
-## Deleting your ROS package after a lab session
+## Eliminar tu paquete de ROS después de una sesión de laboratorio
 
-Remember that the Robotics Laptops use an account that everyone in the class has access to. You might therefore want to delete your package from the laptop at the end of each lab session. It's very easy to clone it back onto the laptop again by following [the steps above](#getting-started) at the start of each lab session. Deleting your package (by following the instructions below) **won't** delete your SSH key from the laptop though, so you won't need to do all that again, and your SSH key will still be protected with the secret passphrase that you set up when generating the SSH Key to begin with (assuming that you are working on the same laptop, of course!) 
+Recuerda que las Laptops de Robótica usan una cuenta a la que todos en la clase tienen acceso. Por lo tanto, es posible que quieras eliminar tu paquete de la laptop al final de cada sesión de laboratorio. Es muy fácil volver a clonarlo en la laptop siguiendo [los pasos anteriores](#getting-started) al inicio de cada sesión de laboratorio. Eliminar tu paquete (siguiendo las instrucciones a continuación) **no** eliminará tu clave SSH de la laptop, por lo que no necesitarás hacer todo eso de nuevo, y tu clave SSH seguirá estando protegida con la frase de contraseña secreta que configuraste cuando generaste la clave SSH para comenzar (¡suponiendo que estés trabajando en la misma laptop, por supuesto!)
 
 !!! warning
-    Make sure you've pushed any changes to GitHub before deleting your package!
+    ¡Asegúrate de haber publicado todos los cambios en GitHub antes de eliminar tu paquete!
 
-Delete your package by simply running the following command from any terminal on the laptop:
+Elimina tu paquete simplemente ejecutando el siguiente comando desde cualquier terminal en la laptop:
 
 ```bash
-rm -rf ~/ros2_ws/src/com2009_teamXX_2026
+rm -rf ~/ros2_ws/src/ros2_lab_equipoXX
 ```
 
-... replacing `XX` with your own team's number!
+... ¡reemplazando `XX` con el número de tu propio equipo!

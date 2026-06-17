@@ -1,0 +1,8 @@
+nav:
+  - README.md
+  - u1-introduccion.md
+  - u2-locomocion.md
+  - u3-odometria.md
+  - u4-comportamientos.md
+  - u5-lidar.md
+  - u6-autonomia.md

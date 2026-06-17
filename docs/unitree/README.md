@@ -41,6 +41,8 @@ Tu código del curso
 
 ## Módulos de este curso
 
+### Fundamentos (U1–U6)
+
 | Módulo | Tema | Archivo semilla |
 |---|---|---|
 | [U1 — Introducción](u1-introduccion.md) | Arquitectura, bridge, comparación | — |
@@ -50,6 +52,17 @@ Tu código del curso
 | [U5 — LiDAR](u5-lidar.md) | `/scan`, detección de obstáculos | `unitree_lidar.py` |
 | [U6 — Autonomía](u6-autonomia.md) | Integración: odom + LiDAR + movimiento | `unitree_autonomy.py` |
 
+### Soluciones industriales (U7–U12)
+
+| Módulo | Tema | Archivo semilla |
+|---|---|---|
+| [U7 — SLAM](u7-slam.md) | Mapeado con slam_toolbox, árbol de TF, guardado de mapa | `unitree_slam.py` |
+| [U8 — Navegación con Mapa](u8-navegacion-mapa.md) | POIs en YAML, ruta de inspección, controlador proporcional | `unitree_waypoint_nav.py` |
+| [U9 — Rutinas de Inspección](u9-rutinas-inspeccion.md) | FSM completa, parámetros ROS 2, reintentos, logging | `unitree_inspection.py` |
+| [U10 — Tags ArUco](u10-aruco.md) | Detección visual de marcadores, pose estimation, acercamiento fino | `unitree_aruco.py` |
+| [U11 — Gestión de Batería](u11-bateria.md) | `BatteryState`, umbrales, retorno autónomo al dock | `unitree_battery.py` |
+| [U12 — Logging y Reportes](u12-logging.md) | CSV, JSON, rosbag2, niveles de log, análisis offline | `unitree_logger.py` |
+
 ## Entorno de práctica
 
 Todos los módulos se pueden trabajar en el sandbox del curso (en el navegador) con
@@ -58,6 +71,7 @@ Todos los módulos se pueden trabajar en el sandbox del curso (en el navegador) 
 
 - **U1–U4**: mundo `unitree_empty` — espacio abierto, motor holonómico
 - **U5–U6**: mundo `unitree_obstacles` — campo con obstáculos, motor holonómico
+- **U7–U12**: mundo `unitree_inspection` — planta industrial con 4 estaciones (ArUco), dock de carga y POIs etiquetados
 
 Los mismos archivos `.py` funcionan sin cambios en el robot real una vez que
 `unitree_ros2_bridge.py` esté corriendo en el mismo host que el robot.

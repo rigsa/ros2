@@ -1,6 +1,6 @@
-site_name: "ROS 2 Labs in The Diamond"
-site_url: https://tom-howard.github.io/ros2/
-site_description: Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.  
+site_name: "Laboratorio de Robótica con ROS 2"
+site_url: https://rigsa.github.io/ros2/
+site_description: Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.
 theme:
   name: material
   icon:
@@ -42,10 +42,10 @@ theme:
     - content.action.view
 
 copyright: >
-  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /> 
-  &copy; <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
-repo_url: https://github.com/tom-howard/ros2
-repo_name: tom-howard/ros2
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
+  Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+repo_url: https://github.com/rigsa/ros2
+repo_name: rigsa/ros2
 edit_uri: ./edit/main/docs
 
 plugins:

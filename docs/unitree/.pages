@@ -6,3 +6,9 @@ nav:
   - u4-comportamientos.md
   - u5-lidar.md
   - u6-autonomia.md
+  - u7-slam.md
+  - u8-navegacion-mapa.md
+  - u9-rutinas-inspeccion.md
+  - u10-aruco.md
+  - u11-bateria.md
+  - u12-logging.md

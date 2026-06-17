@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
+        <meta name="description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/amr/lab1/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/amr/lab1/">
       
       
         <link rel="prev" href="../">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Lab 1: Mobile Robotics - ROS 2 Labs in The Diamond</title>
+        <title>Lab 1: Robótica Móvil - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lab 1: Mobile Robotics - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/amr/lab1.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/amr/lab1/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Lab 1: Mobile Robotics - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/amr/lab1.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#introduccion" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lab 1: Mobile Robotics
+              Lab 1: Robótica Móvil
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1000,7 +1037,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1028,7 +1065,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1056,7 +1093,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1084,7 +1121,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1112,7 +1149,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1140,7 +1177,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1165,6 +1202,8 @@
       
         
           
+        
+      
         
       
         
@@ -1239,7 +1278,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1267,7 +1306,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1486,7 +1553,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1585,7 +1652,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1613,7 +1680,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -1720,7 +1787,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -1748,7 +1815,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -1784,7 +1851,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -1812,7 +1879,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2031,7 +2098,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2059,7 +2126,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2087,7 +2154,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2115,7 +2182,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2143,7 +2210,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2309,22 +2376,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2332,10 +2399,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje
       
     </span>
   </a>
@@ -2343,10 +2410,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#acceso-rapido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Acceso rápido
       
     </span>
   </a>
@@ -2359,34 +2426,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-lab" class="md-nav__link">
+  <a href="#el-laboratorio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Lab
+        El Laboratorio
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Lab">
+    <nav class="md-nav" aria-label="El Laboratorio">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros pasos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+    <nav class="md-nav" aria-label="Primeros pasos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Launching ROS and Making your Robot Move
+        Ejercicio 1: Lanzar ROS y hacer mover al robot
       
     </span>
   </a>
@@ -2399,34 +2466,34 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#packages-and-nodes" class="md-nav__link">
+  <a href="#paquetes-y-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Packages and Nodes
+        Paquetes y Nodes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Packages and Nodes">
+    <nav class="md-nav" aria-label="Paquetes y Nodes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Seeing the Waffle's Sensors in Action!
+        Ejercicio 2: ¡Los sensores del Waffle en acción!
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 2: Seeing the Waffle's Sensors in Action!">
+    <nav class="md-nav" aria-label="Ejercicio 2: ¡Los sensores del Waffle en acción!">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#part-1-the-camera" class="md-nav__link">
+  <a href="#parte-1-la-camara" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 1: The Camera
+        Parte 1: La Cámara
       
     </span>
   </a>
@@ -2434,10 +2501,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-2-the-lidar-sensor" class="md-nav__link">
+  <a href="#parte-2-el-sensor-lidar" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 2: The LiDAR Sensor
+        Parte 2: El Sensor LiDAR
       
     </span>
   </a>
@@ -2453,7 +2520,7 @@
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Visualising the ROS Network
+        Ejercicio 3: Visualizar la red ROS
       
     </span>
   </a>
@@ -2466,22 +2533,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#publishers-and-subscribers-a-ros-communication-method" class="md-nav__link">
+  <a href="#publicadores-y-suscriptores-un-metodo-de-comunicacion-ros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Publishers and Subscribers: A ROS Communication Method
+        Publicadores y Suscriptores: Un Método de Comunicación ROS
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Publishers and Subscribers: A ROS Communication Method">
+    <nav class="md-nav" aria-label="Publicadores y Suscriptores: Un Método de Comunicación ROS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Exploring ROS Topics and Interfaces
+        Ejercicio 4: Explorar Topics e Interfaces de ROS
       
     </span>
   </a>
@@ -2494,22 +2561,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#velocity-control" class="md-nav__link">
+  <a href="#control-de-velocidad" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Velocity Control
+        Control de Velocidad
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Velocity Control">
+    <nav class="md-nav" aria-label="Control de Velocidad">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Publishing Velocity Commands to the "cmd_vel" Topic
+        Ejercicio 5: Publicar comandos de velocidad en el topic "cmd_vel"
       
     </span>
   </a>
@@ -2520,7 +2587,7 @@
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6: Creating a ROS Package
+        Ejercicio 6: Crear un paquete ROS
       
     </span>
   </a>
@@ -2531,7 +2598,7 @@
   <a href="#ex7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 7: A Python node to make the robot move
+        Ejercicio 7: Un node de Python para hacer mover al robot
       
     </span>
   </a>
@@ -2542,7 +2609,7 @@
   <a href="#ex8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 8 (Advanced): Alternative Motion Paths
+        Ejercicio 8 (Avanzado): Trayectorias de movimiento alternativas
       
     </span>
   </a>
@@ -2560,10 +2627,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#cierre" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Cierre
       
     </span>
   </a>
@@ -2733,7 +2800,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2838,6 +2905,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2863,22 +3364,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2886,10 +3387,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje
       
     </span>
   </a>
@@ -2897,10 +3398,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#acceso-rapido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Acceso rápido
       
     </span>
   </a>
@@ -2913,34 +3414,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-lab" class="md-nav__link">
+  <a href="#el-laboratorio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Lab
+        El Laboratorio
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Lab">
+    <nav class="md-nav" aria-label="El Laboratorio">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros pasos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+    <nav class="md-nav" aria-label="Primeros pasos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Launching ROS and Making your Robot Move
+        Ejercicio 1: Lanzar ROS y hacer mover al robot
       
     </span>
   </a>
@@ -2953,34 +3454,34 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#packages-and-nodes" class="md-nav__link">
+  <a href="#paquetes-y-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Packages and Nodes
+        Paquetes y Nodes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Packages and Nodes">
+    <nav class="md-nav" aria-label="Paquetes y Nodes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Seeing the Waffle's Sensors in Action!
+        Ejercicio 2: ¡Los sensores del Waffle en acción!
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 2: Seeing the Waffle's Sensors in Action!">
+    <nav class="md-nav" aria-label="Ejercicio 2: ¡Los sensores del Waffle en acción!">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#part-1-the-camera" class="md-nav__link">
+  <a href="#parte-1-la-camara" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 1: The Camera
+        Parte 1: La Cámara
       
     </span>
   </a>
@@ -2988,10 +3489,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-2-the-lidar-sensor" class="md-nav__link">
+  <a href="#parte-2-el-sensor-lidar" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 2: The LiDAR Sensor
+        Parte 2: El Sensor LiDAR
       
     </span>
   </a>
@@ -3007,7 +3508,7 @@
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Visualising the ROS Network
+        Ejercicio 3: Visualizar la red ROS
       
     </span>
   </a>
@@ -3020,22 +3521,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#publishers-and-subscribers-a-ros-communication-method" class="md-nav__link">
+  <a href="#publicadores-y-suscriptores-un-metodo-de-comunicacion-ros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Publishers and Subscribers: A ROS Communication Method
+        Publicadores y Suscriptores: Un Método de Comunicación ROS
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Publishers and Subscribers: A ROS Communication Method">
+    <nav class="md-nav" aria-label="Publicadores y Suscriptores: Un Método de Comunicación ROS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Exploring ROS Topics and Interfaces
+        Ejercicio 4: Explorar Topics e Interfaces de ROS
       
     </span>
   </a>
@@ -3048,22 +3549,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#velocity-control" class="md-nav__link">
+  <a href="#control-de-velocidad" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Velocity Control
+        Control de Velocidad
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Velocity Control">
+    <nav class="md-nav" aria-label="Control de Velocidad">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Publishing Velocity Commands to the "cmd_vel" Topic
+        Ejercicio 5: Publicar comandos de velocidad en el topic "cmd_vel"
       
     </span>
   </a>
@@ -3074,7 +3575,7 @@
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6: Creating a ROS Package
+        Ejercicio 6: Crear un paquete ROS
       
     </span>
   </a>
@@ -3085,7 +3586,7 @@
   <a href="#ex7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 7: A Python node to make the robot move
+        Ejercicio 7: Un node de Python para hacer mover al robot
       
     </span>
   </a>
@@ -3096,7 +3597,7 @@
   <a href="#ex8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 8 (Advanced): Alternative Motion Paths
+        Ejercicio 8 (Avanzado): Trayectorias de movimiento alternativas
       
     </span>
   </a>
@@ -3114,10 +3615,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#cierre" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Cierre
       
     </span>
   </a>
@@ -3141,7 +3642,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/amr/lab1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/amr/lab1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3150,7 +3651,7 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/amr/lab1.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/amr/lab1.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
@@ -3161,140 +3662,140 @@
 
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>You should be able to complete exercises 1-7 on this page within a two-hour lab session.</p>
+<p>Deberías poder completar los ejercicios 1 al 7 de esta página dentro de una sesión de laboratorio de dos horas.</p>
 </div>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>In this first AMR31001 <em>'Industry 4.0'</em> Lab you will learn how to use ROS 2 (the latest version of <a href="https://www.ros.org/" target="_blank" rel="noopener">the Robot Operating System</a>) to control a robot's motion.</p>
-<p>ROS 2 is an open-source, industry-standard robot programming framework, used in a range of industries such as agriculture, warehouse and factory automation and advanced manufacturing. </p>
-<p>ROS 2 allows us to programme robots using a range of different programming languages (including C++, Java, MATLAB etc.), but we'll be using Python for these labs. In addition to this, ROS 2 runs on top of a Linux operating system called <em>'Ubuntu'</em>, and so we'll also learn a bit about how to use this too.</p>
-<p>We'll be working with robots called <em>'TurtleBot3 Waffles'</em>, which you can <a href="../../about/robots/">find out a bit more about here</a>. </p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">¶</a></h2>
+<p>En este primer lab del curso <em>'Industry 4.0'</em> aprenderás a usar ROS 2 (la versión más reciente de <a href="https://www.ros.org/" target="_blank">el Robot Operating System</a>) para controlar el movimiento de un robot.</p>
+<p>ROS 2 es un framework de programación robótica de código abierto y estándar industrial, utilizado en una variedad de industrias como la agricultura, la automatización de almacenes y fábricas, y la manufactura avanzada.</p>
+<p>ROS 2 nos permite programar robots utilizando diferentes lenguajes de programación (incluyendo C++, Java, MATLAB, etc.), pero usaremos Python en estos laboratorios. Además, ROS 2 se ejecuta sobre un sistema operativo Linux llamado <em>'Ubuntu'</em>, por lo que también aprenderemos un poco sobre cómo usarlo.</p>
+<p>Trabajaremos con robots llamados <em>'TurtleBot3 Waffles'</em>, sobre los cuales puedes <a href="../../about/robots/">encontrar más información aquí</a>.</p>
 <div class="admonition warning">
-<p class="admonition-title">Pre-Lab Work</p>
-<p>You <strong>must</strong> have completed the Pre-Lab Test before you can make a start on this lab. This is available on the AMR31001 Blackboard Course Page.</p>
+<p class="admonition-title">Trabajo previo al laboratorio</p>
+<p>Debes haber completado el test previo al laboratorio antes de comenzar. Este está disponible en la plataforma del curso.</p>
 </div>
-<h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
-<p>In this lab you'll learn how to use ROS 2 to make a robot move, and we'll also look at how to create our own basic ROS 2 script (or <em>'Node'</em>), using Python.</p>
-<p>From here on, we'll refer to ROS 2 as <em>"ROS"</em> for convenience!</p>
-<h3 id="intended-learning-outcomes">Intended Learning Outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Permanent link">¶</a></h3>
-<p>By the end of this session you will be able to:</p>
+<h3 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">¶</a></h3>
+<p>En este laboratorio aprenderás a usar ROS 2 para hacer que un robot se mueva, y también veremos cómo crear nuestro propio script básico de ROS 2 (o <em>'Node'</em>), usando Python.</p>
+<p>De aquí en adelante, nos referiremos a ROS 2 simplemente como <em>"ROS"</em> por comodidad.</p>
+<h3 id="resultados-de-aprendizaje">Resultados de Aprendizaje<a class="headerlink" href="#resultados-de-aprendizaje" title="Permanent link">¶</a></h3>
+<p>Al finalizar esta sesión serás capaz de:</p>
 <ol>
-<li>Control a TurtleBot3 Waffle Robot, from a laptop, using ROS.</li>
-<li>Launch ROS applications on the laptop and the robot using <code>ros2 launch</code> and <code>ros2 run</code>.</li>
-<li>Interrogate a ROS network using ROS <em>command-line</em> and <em>graphical</em> tools.</li>
-<li>Use ROS Communication Methods to publish messages.</li>
-<li>Use a Linux operating system and work within a Linux Terminal.</li>
+<li>Controlar un robot TurtleBot3 Waffle desde una laptop usando ROS.</li>
+<li>Lanzar aplicaciones ROS en la laptop y el robot usando <code>ros2 launch</code> y <code>ros2 run</code>.</li>
+<li>Interrogar una red ROS usando herramientas <em>de línea de comandos</em> y <em>gráficas</em>.</li>
+<li>Usar métodos de comunicación de ROS para publicar mensajes.</li>
+<li>Usar un sistema operativo Linux y trabajar dentro de una terminal Linux.</li>
 </ol>
-<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
+<h3 id="acceso-rapido">Acceso rápido<a class="headerlink" href="#acceso-rapido" title="Permanent link">¶</a></h3>
 <ul>
-<li><a href="#ex1">Exercise 1: Launching ROS and Making your Robot Move</a></li>
-<li><a href="#ex2">Exercise 2: Seeing the Waffle's Sensors in Action!</a></li>
-<li><a href="#ex3">Exercise 3: Visualising the ROS Network</a></li>
-<li><a href="#ex4">Exercise 4: Exploring ROS Topics and Messages</a></li>
-<li><a href="#ex5">Exercise 5: Publishing Velocity Commands to the <code>/cmd_vel</code> Topic</a></li>
-<li><a href="#ex6">Exercise 6: Creating a ROS Package</a></li>
-<li><a href="#ex7">Exercise 7: A Python node to make the robot move</a></li>
-<li><a href="#ex8">Exercise 8 (Advanced): Alternative Motion Paths</a></li>
+<li><a href="#ex1">Ejercicio 1: Lanzar ROS y hacer mover al robot</a></li>
+<li><a href="#ex2">Ejercicio 2: ¡Los sensores del Waffle en acción!</a></li>
+<li><a href="#ex3">Ejercicio 3: Visualizar la red ROS</a></li>
+<li><a href="#ex4">Ejercicio 4: Explorar Topics y Mensajes de ROS</a></li>
+<li><a href="#ex5">Ejercicio 5: Publicar comandos de velocidad en el topic <code>/cmd_vel</code></a></li>
+<li><a href="#ex6">Ejercicio 6: Crear un paquete ROS</a></li>
+<li><a href="#ex7">Ejercicio 7: Un node de Python para hacer mover al robot</a></li>
+<li><a href="#ex8">Ejercicio 8 (Avanzado): Trayectorias de movimiento alternativas</a></li>
 </ul>
-<h2 id="the-lab">The Lab<a class="headerlink" href="#the-lab" title="Permanent link">¶</a></h2>
+<h2 id="el-laboratorio">El Laboratorio<a class="headerlink" href="#el-laboratorio" title="Permanent link">¶</a></h2>
 <div class="admonition info">
-<p class="admonition-title">Assessment Info</p>
-<p>This lab is <strong>summatively assessed</strong>.</p>
+<p class="admonition-title">Evaluación</p>
+<p>Este laboratorio es <strong>evaluado de forma sumativa</strong>.</p>
 <ol>
-<li>There's a <strong>post-lab quiz</strong> that you'll need to complete after this lab session has taken place, which will be released on Blackboard.</li>
-<li>You'll also be marked on the work that you do <strong>in the lab</strong> for <a href="#ex7">Exercise 7</a>.</li>
+<li>Existe un <strong>cuestionario post-lab</strong> que deberás completar después de esta sesión, el cual será publicado en la plataforma del curso.</li>
+<li>También serás evaluado por el trabajo que realices <strong>en el laboratorio</strong> para el <a href="#ex7">Ejercicio 7</a>.</li>
 </ol>
 </div>
-<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h3>
-<p>Before you do anything, you'll need to get your robot up and running, and make sure ROS is launched.</p>
-<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Launching ROS and Making your Robot Move<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
-<p>You should have already been provided with a Robot and a Laptop (in fact, you're probably already reading this on the laptop!) </p>
+<h3 id="primeros-pasos">Primeros pasos<a class="headerlink" href="#primeros-pasos" title="Permanent link">¶</a></h3>
+<p>Antes de hacer cualquier cosa, necesitarás poner en marcha tu robot y asegurarte de que ROS esté funcionando.</p>
+<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Lanzar ROS y hacer mover al robot<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
+<p>Ya deberías tener un robot y una laptop disponibles (¡de hecho, probablemente ya estés leyendo esto en la laptop!)</p>
 <ol>
 <li>
-<p>First, identify the robot that you have been provided with. Each of our robots are uniquely named: <code>dia-waffleX</code>, where <code>X</code> is the <em>'Robot Number'</em> (a number between 1 and 50). Check the label printed on top of the robot to find out which one you have!</p>
+<p>Primero, identifica el robot que tienes asignado. Cada uno de nuestros robots tiene un nombre único: <code>robot-X</code>, donde <code>X</code> es el <em>'Número de Robot'</em>. Revisa la etiqueta impresa en la parte superior del robot para saber cuál te corresponde.</p>
 </li>
 <li>
-<p>Open up a terminal instance on the laptop, either by pressing the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> buttons on your keyboard all at the same time, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:</p>
+<p>Abre una instancia de terminal en la laptop, ya sea presionando las teclas <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> simultáneamente, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg?width=60px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/terminal_icon.svg?width=60px" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg?width=60px"></a>
 </figure><p></p>
-<p>We'll refer to this terminal as <strong>TERMINAL 1</strong>.</p>
+<p>Nos referiremos a esta terminal como <strong>TERMINAL 1</strong>.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 1</strong> type the following command to <em>pair</em> the laptop and robot, so that they can work together:</p>
+<p>En <strong>TERMINAL 1</strong> escribe el siguiente comando para <em>vincular</em> la laptop y el robot, de modo que puedan trabajar juntos:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>pair
 </code></pre></div>
-<strong>... replacing <code>X</code> with the number of the robot that you have been provided with</strong>.<p></p>
+<strong>... reemplazando <code>X</code> con el número del robot que te ha sido asignado</strong>.<p></p>
 <hr>
 </li>
 <li>
-<p>Enter the password for the robot when requested (we'll tell you what this is in the lab).</p>
-<p>You <em>may</em> see a message like this early on in the pairing process:</p>
+<p>Ingresa la contraseña del robot cuando se te solicite (te la indicaremos en el laboratorio).</p>
+<p>Es posible que veas un mensaje como este durante el proceso de vinculación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ssh_auth.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
 </figure><p></p>
-<p>If so, just type <code>yes</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm that you want to continue.</p>
+<p>Si es así, simplemente escribe <code>yes</code> y presiona <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar que deseas continuar.</p>
 </li>
 <li>
-<p>Once the pairing process is finished you should see a message saying <code>pairing complete</code>, displayed in blue in the terminal. </p>
+<p>Una vez que el proceso de vinculación haya finalizado, deberías ver el mensaje <code>pairing complete</code>, mostrado en azul en la terminal.</p>
 </li>
 <li>
-<p>Then, in the same terminal (<strong>TERMINAL 1</strong>), enter the following command:</p>
+<p>Luego, en la misma terminal (<strong>TERMINAL 1</strong>), introduce el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>term
 </code></pre></div>
-(again, replacing <code>X</code> with the number of <strong>your</strong> robot).<p></p>
+(nuevamente, reemplazando <code>X</code> con el número de <strong>tu</strong> robot).<p></p>
 <hr>
-<p>Any text that was in the terminal should now disappear, and a green banner should appear across the bottom of the terminal window:</p>
+<p>El texto que había en la terminal debería desaparecer y aparecerá un banner verde en la parte inferior de la ventana:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/tmux.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
 </figure><p></p>
-<p>This is a terminal instance running <strong>on the robot</strong>, and any commands that you enter here will be <strong>executed on the robot</strong> (not the laptop!)</p>
+<p>Esta es una instancia de terminal ejecutándose <strong>en el robot</strong>, y cualquier comando que ingreses aquí se <strong>ejecutará en el robot</strong> (¡no en la laptop!)</p>
 </li>
 <li>
-<p>Now, launch ROS on the robot by entering the following command:</p>
+<p>Ahora, lanza ROS en el robot ingresando el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py<span class="w"> </span>enable_depth:<span class="o">=</span><span class="nb">true</span>
 </code></pre></div><p></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To paste text into a Linux terminal you'll need to use the Control + <strong>Shift</strong> + V keyboard keys: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
+<p>Para pegar texto en una terminal Linux deberás usar las teclas Control + <strong>Shift</strong> + V: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
 </div>
 <hr>
-<p>If all is well then the robot will play a nice <em>"do-re-me"</em> sound and a message like this should appear (amongst all the other text):</p>
+<p>Si todo va bien, el robot reproducirá un sonido <em>"do-re-mi"</em> y aparecerá un mensaje como este (entre todo el otro texto):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[tb3_status.py-#] ######################################
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[tb3_status.py-#] ### dia-waffleX is up and running! ###
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[tb3_status.py-#] ### robot-X is up and running! ###
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[tb3_status.py-#] ######################################
 </code></pre></div>
-<p>You shouldn't need to interact with this terminal instance any more now, but the screen will provide you with some regular real-time info related to the status of the robot. As such, keep this terminal open in the background and check on the <code>Battery</code> indicator every now and then:</p>
+<p>No necesitarás interactuar con esta instancia de terminal, pero la pantalla te proporcionará información en tiempo real sobre el estado del robot. Déjala abierta en segundo plano y revisa el indicador de <code>Battery</code> de vez en cuando:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Battery: 12.40V [100%]
 </code></pre></div>
 <div class="admonition info">
-<p class="admonition-title">Low Battery <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6z"></path></svg></span></p>
-<p><strong>The robot's battery won't last a full 2-hour lab session!!</strong></p>
-<p>When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)</p>
+<p class="admonition-title">Batería baja <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6z"></path></svg></span></p>
+<p><strong>¡La batería del robot no durará una sesión completa de 2 horas!</strong></p>
+<p>Cuando el indicador de capacidad llegue a alrededor del 15%, comenzará a emitir pitidos, y cuando llegue al ~10%, dejará de funcionar por completo. Informa a un miembro del equipo de enseñanza cuando la batería esté baja y la reemplazarán. (Es más fácil hacerlo cuando llega al 15%, en lugar de esperar hasta que baje del 10%.)</p>
 </div>
-<p>ROS is now up and running on the robot, and we're ready to go!</p>
-<p>You should leave <strong>TERMINAL 1</strong> alone now, just leave it running in the background for the rest of the lab.</p>
+<p>¡ROS ya está funcionando en el robot y estamos listos para comenzar!</p>
+<p>Deja <strong>TERMINAL 1</strong> como está, ejecutándose en segundo plano durante el resto del laboratorio.</p>
 </li>
 <li>
-<p>The next <strong>crucial step</strong> is to connect the laptop to the ROS network that we've just established on the robot. The two devices will communicate with one another via the University Wireless network, but there's one more step required to link them together. </p>
-<p>Open up <strong>a new terminal instance</strong> on the laptop (either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:</p>
+<p>El siguiente <strong>paso crucial</strong> es conectar la laptop a la red ROS que acabamos de establecer en el robot. Los dos dispositivos se comunicarán entre sí a través de la red inalámbrica, pero se requiere un paso más para vincularlos.</p>
+<p>Abre <strong>una nueva instancia de terminal</strong> en la laptop (ya sea con el atajo <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> o haciendo clic en el ícono de la terminal) e ingresa el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 2:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rmw_zenoh_cpp<span class="w"> </span>rmw_zenohd
 </code></pre></div>
 <hr>
-<p>Leave both of these terminals alone, but <strong>keep them running in the background at all times</strong> while working with your robot.</p>
+<p>Deja ambas terminales ejecutándose en segundo plano <strong>en todo momento</strong> mientras trabajas con tu robot.</p>
 </li>
 <li>
-<p>Next, open up a <em>new terminal instance</em> on the laptop (by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> or clicking the Terminal App desktop icon, as you did before). We'll call this one <strong>TERMINAL 3</strong>.</p>
+<p>A continuación, abre una <em>nueva instancia de terminal</em> en la laptop (presionando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> o haciendo clic en el ícono de la terminal). La llamaremos <strong>TERMINAL 3</strong>.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 3</strong> enter the following command:</p>
+<p>En <strong>TERMINAL 3</strong> ingresa el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
@@ -3302,44 +3803,44 @@
 <hr>
 </li>
 <li>
-<p>Follow the instructions provided in the terminal to drive the robot around using specific buttons on the keyboard:</p>
+<p>Sigue las instrucciones proporcionadas en la terminal para conducir el robot usando las teclas del teclado:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/cli/teleop_keymap.svg" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> to stop the Teleop node when you've had enough fun.</p>
+<p>Presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> para detener el node Teleop cuando hayas terminado.</p>
 </li>
 </ol>
-<h3 id="packages-and-nodes">Packages and Nodes<a class="headerlink" href="#packages-and-nodes" title="Permanent link">¶</a></h3>
-<p>ROS applications are organised into <em>packages</em>. Packages are basically folders containing scripts, configurations and launch files (ways to launch those scripts and configurations).  </p>
-<p><em>Scripts</em> tell the robot what to do and how to act. In ROS, these scripts are called <em>nodes</em>. <em>ROS Nodes</em> are executable programs that perform specific robot tasks and operations. These are typically written in C++ or Python, but it's possible to write ROS Nodes using other programming languages too.</p>
-<p>In Exercise 1 you launched a whole range of different nodes on the ROS Network using the <code>ros2 launch</code> and <code>ros2 run</code> commands: </p>
+<h3 id="paquetes-y-nodes">Paquetes y Nodes<a class="headerlink" href="#paquetes-y-nodes" title="Permanent link">¶</a></h3>
+<p>Las aplicaciones ROS se organizan en <em>paquetes</em>. Los paquetes son básicamente carpetas que contienen scripts, configuraciones y archivos de lanzamiento (formas de ejecutar esos scripts y configuraciones).</p>
+<p>Los <em>scripts</em> le dicen al robot qué hacer y cómo actuar. En ROS, estos scripts se llaman <em>nodes</em>. Los <em>ROS Nodes</em> son programas ejecutables que realizan tareas y operaciones específicas del robot. Generalmente se escriben en C++ o Python, aunque es posible escribir ROS Nodes en otros lenguajes de programación también.</p>
+<p>En el Ejercicio 1 lanzaste una amplia variedad de nodes en la red ROS usando los comandos <code>ros2 launch</code> y <code>ros2 run</code>:</p>
 <ol>
-<li><code>ros2 launch tuos_tb3_tools ros.launch.py ...</code> (on the <em>robot</em>, in <strong>TERMINAL 1</strong>)</li>
-<li><code>ros2 run rmw_zenoh_cpp rmw_zenohd</code> (on the <em>laptop</em>, in <strong>TERMINAL 2</strong>)</li>
-<li><code>ros2 run turtlebot3_teleop teleop_keyboard</code> (on the <em>laptop</em>, in <strong>TERMINAL 3</strong>)</li>
+<li><code>ros2 launch tuos_tb3_tools ros.launch.py ...</code> (en el <em>robot</em>, en <strong>TERMINAL 1</strong>)</li>
+<li><code>ros2 run rmw_zenoh_cpp rmw_zenohd</code> (en la <em>laptop</em>, en <strong>TERMINAL 2</strong>)</li>
+<li><code>ros2 run turtlebot3_teleop teleop_keyboard</code> (en la <em>laptop</em>, en <strong>TERMINAL 3</strong>)</li>
 </ol>
-<p>The first of the above was a ROS <code>launch</code> command, which has the following key parts to it (after the <code>ros2 launch</code> bit):</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span><span class="o">{[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Package<span class="w"> </span>name<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span>Launch<span class="w"> </span>file<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">3</span><span class="o">]</span><span class="w"> </span>Arguments<span class="w"> </span><span class="o">(</span>optional<span class="o">)}</span>
+<p>El primero de los anteriores fue un comando ROS <code>launch</code>, que tiene las siguientes partes clave (después de la parte <code>ros2 launch</code>):</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span><span class="o">{[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Nombre<span class="w"> </span>del<span class="w"> </span>paquete<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span>Archivo<span class="w"> </span>de<span class="w"> </span>lanzamiento<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">3</span><span class="o">]</span><span class="w"> </span>Argumentos<span class="w"> </span><span class="o">(</span>opcional<span class="o">)}</span>
 </code></pre></div>
-<p>The first <strong>two</strong> of these are the most important: </p>
-<p><strong>Part [1]</strong> specifies the name of the <em>ROS package</em> containing the functionality that we want to execute.<br>
-<strong>Part [2]</strong> is a file within that package that tells ROS exactly what scripts (<em>'nodes'</em>) that we want to launch. We can launch multiple nodes at the same time from a single launch file.  </p>
-<p>The second and third commands were ROS <code>run</code> commands: <a name="ros2-run"></a></p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span><span class="o">{[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Package<span class="w"> </span>name<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span>Node<span class="w"> </span>name<span class="o">}</span>
+<p>Los primeros <strong>dos</strong> son los más importantes:</p>
+<p><strong>Parte [1]</strong> especifica el nombre del <em>paquete ROS</em> que contiene la funcionalidad que queremos ejecutar.<br>
+<strong>Parte [2]</strong> es un archivo dentro de ese paquete que le dice a ROS exactamente qué scripts (<em>'nodes'</em>) queremos lanzar. Podemos lanzar múltiples nodes al mismo tiempo desde un solo archivo de lanzamiento.</p>
+<p>El segundo y tercer comando fueron comandos ROS <code>run</code>: <a name="ros2-run"></a></p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span><span class="o">{[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Nombre<span class="w"> </span>del<span class="w"> </span>paquete<span class="o">}</span><span class="w"> </span><span class="o">{[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span>Nombre<span class="w"> </span>del<span class="w"> </span>node<span class="o">}</span>
 </code></pre></div>
-<p>Here, <strong>Part [1]</strong> is the same as the <code>ros2 launch</code> command, but <strong>Part [2]</strong> is slightly different: <code>{[2] Node name}</code>. Here we are directly specifying a single script that we want to execute. We therefore use <code>ros2 run</code> if we only want to launch a <strong>single node</strong> on the ROS network (e.g. <code>teleop_keyboard</code>, which is a Python script).</p>
+<p>Aquí, <strong>la Parte [1]</strong> es igual que el comando <code>ros2 launch</code>, pero <strong>la Parte [2]</strong> es ligeramente diferente: <code>{[2] Nombre del node}</code>. Aquí especificamos directamente un solo script que queremos ejecutar. Por lo tanto, usamos <code>ros2 run</code> si solo queremos lanzar <strong>un único node</strong> en la red ROS (por ejemplo, <code>teleop_keyboard</code>, que es un script de Python).</p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>What were the names of the three packages that we invoked in Exercise 1?</p>
+<p>¿Cuáles fueron los nombres de los tres paquetes que invocamos en el Ejercicio 1?</p>
 </div>
-<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Seeing the Waffle's Sensors in Action!<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
-<p>Our Waffles have some pretty sophisticated sensors on them, allowing them to "see" the world around them. We won't really make much use of these during this lab, but this next exercise will allow you to see how the data from these devices could be used to help our robots do some very advanced things (with some clever programming, of course!)</p>
-<h5 id="part-1-the-camera">Part 1: The Camera<a class="headerlink" href="#part-1-the-camera" title="Permanent link">¶</a></h5>
+<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 2: ¡Los sensores del Waffle en acción!<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
+<p>Nuestros Waffles tienen sensores bastante sofisticados que les permiten "ver" el mundo a su alrededor. No los utilizaremos mucho durante este laboratorio, pero este ejercicio te permitirá ver cómo los datos de estos dispositivos podrían usarse para que nuestros robots hagan cosas muy avanzadas (¡con una programación inteligente, por supuesto!)</p>
+<h5 id="parte-1-la-camara">Parte 1: La Cámara<a class="headerlink" href="#parte-1-la-camara" title="Permanent link">¶</a></h5>
 <ol>
 <li>
-<p>There shouldn't be anything running in <strong>TERMINAL 3</strong> now, after you closed down the <code>teleop_keyboard</code> node at the end of the previous exercise (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>). Return to this terminal and launch the <code>rqt_image_view</code> node:</p>
+<p>No debería haber nada ejecutándose en <strong>TERMINAL 3</strong> ahora, después de haber cerrado el node <code>teleop_keyboard</code> al final del ejercicio anterior (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>). Regresa a esta terminal y lanza el node <code>rqt_image_view</code>:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_view
@@ -3348,62 +3849,62 @@
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
 <ol>
-<li>We're using <code>ros2 run</code> here again, what does this mean?</li>
-<li>Why did we have to type <code>rqt_image_view</code> twice?</li>
+<li>Estamos usando <code>ros2 run</code> de nuevo aquí, ¿qué significa esto?</li>
+<li>¿Por qué tuvimos que escribir <code>rqt_image_view</code> dos veces?</li>
 </ol>
 </div>
 </li>
 <li>
-<p>A new window should open. Maximise this (if it isn't already) and then select <code>/camera/color/image_raw</code> from the dropdown menu at the top-left of the application window.</p>
+<p>Debería abrirse una nueva ventana. Maximízala (si aún no lo está) y selecciona <code>/camera/color/image_raw</code> del menú desplegable en la parte superior izquierda de la ventana de la aplicación.</p>
 </li>
-<li>Live images from the robot's camera should now be visible! Stick your face in front of the camera and see yourself appear on the laptop screen!</li>
+<li>¡Las imágenes en vivo de la cámara del robot deberían ser visibles ahora! Pon tu cara frente a la cámara y verte aparecer en la pantalla de la laptop.</li>
 <li>
-<p>Close down the window once you've had enough (enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong>). This should release <strong>TERMINAL 3</strong> so that you can enter commands in it again.</p>
-<p>The camera on the robot is quite a clever device. Inside the unit is two separate image sensors, giving it - effectively - both a left and right eye. The device then combines the data from both of these sensors and uses the combined information to infer depth from the images as well. Let's have a look at that in action now...</p>
+<p>Cierra la ventana cuando hayas visto suficiente (presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong>). Esto debería liberar <strong>TERMINAL 3</strong> para que puedas ingresar comandos nuevamente.</p>
+<p>La cámara del robot es un dispositivo bastante inteligente. Dentro de la unidad hay dos sensores de imagen separados, lo que le da efectivamente un ojo izquierdo y un ojo derecho. El dispositivo combina los datos de ambos sensores y usa la información combinada para inferir también la profundidad de las imágenes. Veamos eso en acción ahora...</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 3</strong> enter the following command:</p>
+<p>En <strong>TERMINAL 3</strong> ingresa el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py
 </code></pre></div><p></p>
 <hr>
-<p>This will launch an application called <em>RViz</em>, which is a handy tool that allows us to <em>visualise</em> the data from all the sensors on-board our robots. When RViz opens, you should see something similar to the following:</p>
+<p>Esto lanzará una aplicación llamada <em>RViz</em>, que es una herramienta útil que nos permite <em>visualizar</em> los datos de todos los sensores a bordo de nuestros robots. Cuando se abra RViz, deberías ver algo similar a lo siguiente:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz.png" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/waffle_rviz.png" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz.png" width="700px"></a>
 </figure><p></p>
-<p>In the "Displays" menu on the left-hand side, click on the tick box next to the "DepthCloud" item. </p>
+<p>En el menú "Displays" del lado izquierdo, haz clic en la casilla junto al elemento "DepthCloud".</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz_depth_cloud.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/waffle_rviz_depth_cloud.png" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz_depth_cloud.png" width="600px"></a>
 </figure><p></p>
-<p>The strange wobbly sheet of colour that should appear in front of the robot is the live image stream from the camera with depth applied to it at the same time. The camera is able to determine how far away each image pixel is from the camera lens, and then uses that to generate this 3-dimensional representation. </p>
+<p>La extraña hoja ondulante de colores que debería aparecer frente al robot es la transmisión de imágenes en vivo de la cámara con profundidad aplicada al mismo tiempo. La cámara puede determinar qué tan lejos está cada píxel de imagen del objetivo de la cámara y luego usa eso para generar esta representación tridimensional.</p>
 </li>
 <li>
-<p>Again, place your hand or your face in front of the camera and hold steady for a few seconds (there may be a bit of a lag as all of this data is transmitted over the WiFi network). You should see yourself rendered in 3D in front of the robot! </p>
+<p>Nuevamente, coloca tu mano o tu cara frente a la cámara y mantén la posición durante unos segundos (puede haber algo de retraso ya que todos estos datos se transmiten a través de la red WiFi). ¡Deberías verte renderizado en 3D frente al robot!</p>
 </li>
 </ol>
-<h5 id="part-2-the-lidar-sensor">Part 2: The LiDAR Sensor<a class="headerlink" href="#part-2-the-lidar-sensor" title="Permanent link">¶</a></h5>
-<p>In RViz you may have also noticed a lot of green dots scattered around the robot. This is a representation of the <em>displacement data</em> coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.</p>
-<p>The LiDAR sensor spins and performs this process continuously at 1° increments, so a full 360° scan of the environment can be generated. This data is therefore really useful for things like <em>obstacle avoidance</em> and <em>mapping</em>. We'll have a quick look at the latter now.</p>
+<h5 id="parte-2-el-sensor-lidar">Parte 2: El Sensor LiDAR<a class="headerlink" href="#parte-2-el-sensor-lidar" title="Permanent link">¶</a></h5>
+<p>En RViz es posible que también hayas notado muchos puntos verdes dispersos alrededor del robot. Esta es una representación de los <em>datos de desplazamiento</em> provenientes del sensor LiDAR (el dispositivo negro en la parte superior del robot). El sensor LiDAR gira continuamente, enviando pulsos láser al entorno a medida que lo hace. Cuando un pulso golpea un objeto, se refleja de vuelta al sensor, y el tiempo que tarda en ocurrir esto se usa para calcular qué tan lejos está el objeto.</p>
+<p>El sensor LiDAR gira y realiza este proceso continuamente en incrementos de 1°, por lo que se puede generar un escaneo completo de 360° del entorno. Por lo tanto, estos datos son muy útiles para cosas como la <em>evasión de obstáculos</em> y la <em>cartografía</em>. Echemos un vistazo rápido a esto último ahora.</p>
 <ol>
 <li>
-<p>Close down RViz (click the "Close without saving" button, if asked).</p>
+<p>Cierra RViz (haz clic en el botón "Close without saving" si se te solicita).</p>
 </li>
 <li>
-<p>Head back to <strong>TERMINAL 3</strong> and run the following command:</p>
+<p>Regresa a <strong>TERMINAL 3</strong> y ejecuta el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>slam.launch.py
 </code></pre></div><p></p>
 <hr>
-<p>A new RViz screen will open up, this time showing the robot from a top-down view, and with the LiDAR data represented by multi-coloured dots this time instead.</p>
+<p>Se abrirá una nueva pantalla de RViz, esta vez mostrando el robot desde una vista superior, y con los datos del LiDAR representados por puntos multicolores.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_slam.png" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/waffle_slam.png" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_slam.png" width="700px"></a>
 </figure><p></p>
-<p>Underneath the LiDAR dots you should notice a map starting to form, with black lines representing fixed objects in the environment and white areas representing free space that the robot could travel around. ROS is using a process called <em>SLAM</em> (Simultaneous Localisation and Mapping) to generate a map of the environment, using the data from the LiDAR sensor.</p>
+<p>Debajo de los puntos del LiDAR deberías notar que se está formando un mapa, con líneas negras que representan objetos fijos en el entorno y áreas blancas que representan espacio libre por el que el robot podría desplazarse. ROS está usando un proceso llamado <em>SLAM</em> (Localización y Cartografía Simultáneas) para generar un mapa del entorno utilizando los datos del sensor LiDAR.</p>
 </li>
 <li>
-<p>Open up a new terminal instance now, we'll call this one <strong>TERMINAL 4</strong>. Launch the <code>teleop_keyboard</code> node in this one, in the same way that you did earlier:</p>
+<p>Abre una nueva instancia de terminal, la llamaremos <strong>TERMINAL 4</strong>. Lanza el node <code>teleop_keyboard</code> en esta, de la misma forma que lo hiciste antes:</p>
 <hr>
 <p><strong>TERMINAL 4:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
@@ -3411,30 +3912,30 @@
 <hr>
 </li>
 <li>
-<p>Drive the robot around a bit and watch how the map in RViz is updated as the robot explores new parts of the environment.</p>
+<p>Conduce el robot un poco y observa cómo el mapa en RViz se actualiza a medida que el robot explora nuevas partes del entorno.</p>
 </li>
 <li>
-<p>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 4</strong> to stop the <code>teleop_keyboard</code> node.</p>
+<p>Presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 4</strong> para detener el node <code>teleop_keyboard</code>.</p>
 </li>
 <li>
-<p>Close down the RViz window, or enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> to stop it too.</p>
+<p>Cierra la ventana de RViz, o presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> para detenerla también.</p>
 </li>
 </ol>
-<p>We've now used both <code>ros2 launch</code> and <code>ros2 run</code> to launch ROS applications. These are both ROS <em>command-line tools</em>, and there are many others at our disposal. </p>
-<p>Using <code>ros2 run</code> and <code>ros2 launch</code>, as we have done so far, it's easy to end up with a lot of different processes or <em>ROS Nodes</em> running on the network, some of which we will interact with, but others may just be running in the background. It is often useful to know exactly what <em>is</em> running on the ROS network, and there are a number of ways to do this.</p>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Visualising the ROS Network<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<p>Ya hemos usado tanto <code>ros2 launch</code> como <code>ros2 run</code> para lanzar aplicaciones ROS. Estas son <em>herramientas de línea de comandos</em> de ROS, y hay muchas más a nuestra disposición.</p>
+<p>Al usar <code>ros2 run</code> y <code>ros2 launch</code> como hemos hecho hasta ahora, es fácil terminar con muchos procesos o <em>ROS Nodes</em> diferentes ejecutándose en la red, algunos de los cuales interactuaremos directamente, pero otros pueden simplemente estar ejecutándose en segundo plano. A menudo es útil saber exactamente qué <em>está</em> ejecutándose en la red ROS, y hay varias formas de hacerlo.</p>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 3: Visualizar la red ROS<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>There shouldn't be anything running in <strong>TERMINAL 3</strong> now, so return to this terminal and use the <code>ros2 node</code> command to <em>list</em> the nodes that are currently running on the robot:</p>
+<p>No debería haber nada ejecutándose en <strong>TERMINAL 3</strong> ahora, así que regresa a esta terminal y usa el comando <code>ros2 node</code> para <em>listar</em> los nodes que están actualmente en ejecución en el robot:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ros2<span class="w"> </span>node<span class="w"> </span>list
 </code></pre></div><p></p>
 <hr>
-<p>You should see a list of 6 items.</p>
+<p>Deberías ver una lista de 6 elementos.</p>
 </li>
 <li>
-<p>We can visualise the connections between the active nodes by using a ROS node called <code>rqt_graph</code>. Launch this as follows:</p>
+<p>Podemos visualizar las conexiones entre los nodes activos usando un node ROS llamado <code>rqt_graph</code>. Lánzalo de la siguiente manera:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_graph<span class="w"> </span>rqt_graph
@@ -3442,15 +3943,15 @@
 <hr>
 </li>
 <li>
-<p>In the window that opens, select <code>Nodes/Topics (active)</code> from the dropdown menu in the top left. </p>
-<p>What you should then see is a map of all the nodes in the list from above (as ovals), and arrows to illustrate the flow of information between them. This is a visual representation of the ROS network!</p>
+<p>En la ventana que se abre, selecciona <code>Nodes/Topics (active)</code> del menú desplegable en la parte superior izquierda.</p>
+<p>Lo que deberías ver es un mapa de todos los nodes de la lista anterior (como óvalos), y flechas para ilustrar el flujo de información entre ellos. ¡Esta es una representación visual de la red ROS!</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/graph_waffle.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle.png" width="600px"></a>
 </figure><p></p>
-<p>Items that have a rectangular border are <em>ROS Topics</em>. ROS Topics are essentially communication channels, and ROS nodes can read (<em>subscribe</em>) or write (<em>publish</em>) to these topics to access sensor data, pass information around the network and make things happen.</p>
+<p>Los elementos con un borde rectangular son <em>ROS Topics</em>. Los Topics de ROS son esencialmente canales de comunicación, y los nodes ROS pueden leer (<em>suscribirse</em>) o escribir (<em>publicar</em>) en estos topics para acceder a datos de sensores, pasar información por la red y hacer que sucedan cosas.</p>
 </li>
 <li>
-<p>Return to <strong>TERMINAL 4</strong> and launch the <code>teleop_keyboard</code> node again:</p>
+<p>Regresa a <strong>TERMINAL 4</strong> y lanza el node <code>teleop_keyboard</code> nuevamente:</p>
 <hr>
 <p><strong>TERMINAL 4:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
@@ -3458,73 +3959,73 @@
 <hr>
 </li>
 <li>
-<p>Go back to the RQT Graph window now and hit the refresh icon (to the left of the <code>Nodes/Topics (active)</code> dropdown menu). </p>
+<p>Regresa a la ventana de RQT Graph y presiona el ícono de actualización (a la izquierda del menú desplegable <code>Nodes/Topics (active)</code>).</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle_teleop.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/graph_waffle_teleop.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle_teleop.png" width="600px"></a>
 </figure><p></p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>What's changed? Make sure you know how to interpret these graphs.</p>
+<p>¿Qué ha cambiado? Asegúrate de saber cómo interpretar estos gráficos.</p>
 </div>
 </li>
 </ol>
-<p>A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses <em>ROS communication methods</em> to communicate and share data with the other nodes on the ROS Network.</p>
-<h3 id="publishers-and-subscribers-a-ros-communication-method">Publishers and Subscribers: A <em>ROS Communication Method</em><a class="headerlink" href="#publishers-and-subscribers-a-ros-communication-method" title="Permanent link">¶</a></h3>
-<p>ROS Topics are key to making things happen on a robot. Nodes can publish (<em>write</em>) and/or subscribe to (<em>read</em>) ROS Topics in order to share data around the ROS network. We have to use standardised data structures in ROS in order for this to all work. Different topics use different data structures, and there are a lot of different data structure <em>types</em> available for us to use (we can even define our own, but this is beyond the scope if this lab session). Let's have a look at Topics and their data structures in a bit more detail now...</p>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Exploring ROS Topics and Interfaces<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<p>Much like the <code>ros2 node list</code> command, we can use <code>ros2 topic list</code> to list all the <em>topics</em> that are currently active on the network.</p>
+<p>Un robot ROS podría tener cientos de nodes individuales ejecutándose simultáneamente para llevar a cabo todas sus operaciones y acciones necesarias. Cada node se ejecuta de forma independiente, pero usa <em>métodos de comunicación ROS</em> para comunicarse y compartir datos con los otros nodes en la red ROS.</p>
+<h3 id="publicadores-y-suscriptores-un-metodo-de-comunicacion-ros">Publicadores y Suscriptores: Un <em>Método de Comunicación ROS</em><a class="headerlink" href="#publicadores-y-suscriptores-un-metodo-de-comunicacion-ros" title="Permanent link">¶</a></h3>
+<p>Los topics de ROS son clave para hacer que las cosas sucedan en un robot. Los nodes pueden publicar (<em>escribir</em>) y/o suscribirse a (<em>leer</em>) topics de ROS para compartir datos en la red ROS. Debemos usar estructuras de datos estandarizadas en ROS para que todo esto funcione. Diferentes topics usan diferentes estructuras de datos, y hay muchos <em>tipos</em> de estructuras de datos disponibles para usar (incluso podemos definir las nuestras propias, pero esto va más allá del alcance de esta sesión de laboratorio). Echemos un vistazo más detallado a los topics y sus estructuras de datos ahora...</p>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 4: Explorar Topics e Interfaces de ROS<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<p>Al igual que el comando <code>ros2 node list</code>, podemos usar <code>ros2 topic list</code> para listar todos los <em>topics</em> que están actualmente activos en la red.</p>
 <ol>
 <li>
-<p>Close down the <code>rqt_graph</code> window if you haven't done so already. This will release <strong>TERMINAL 3</strong> so that we can enter commands in it again. Leave the <code>teleop_keyboard</code> node in <strong>TERMINAL 4</strong> running. Return to <strong>TERMINAL 3</strong> and enter the following:</p>
+<p>Cierra la ventana <code>rqt_graph</code> si aún no lo has hecho. Esto liberará <strong>TERMINAL 3</strong> para que podamos ingresar comandos en ella nuevamente. Deja el node <code>teleop_keyboard</code> en <strong>TERMINAL 4</strong> ejecutándose. Regresa a <strong>TERMINAL 3</strong> e introduce lo siguiente:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
 </code></pre></div><p></p>
 <hr>
-<p>A much larger list of items should be printed to the terminal now. See if you can spot <code>/cmd_vel</code> in the list.</p>
-<p>This topic is used to control the velocity of the robot (<em>'command velocity'</em>).</p>
+<p>Ahora debería imprimirse en la terminal una lista mucho más grande de elementos. Ve si puedes encontrar <code>/cmd_vel</code> en la lista.</p>
+<p>Este topic se usa para controlar la velocidad del robot (<em>'command velocity'</em>).</p>
 </li>
 <li>
-<p>Let's find out more about this using the <code>ros2 topic info</code> command.</p>
+<p>Averigüemos más sobre esto usando el comando <code>ros2 topic info</code>.</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
 </code></pre></div><p></p>
 <hr>
-<p>This should provide an output similar to the following: </p>
+<p>Esto debería proporcionar una salida similar a la siguiente:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Type: geometry_msgs/msg/TwistStamped
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Publisher count: 1
 <a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>Subscription count: 1
 </code></pre></div>
-<p>This tells us a few things: <a name="rostopic_info_explained"></a></p>
+<p>Esto nos dice varias cosas: <a name="rostopic_info_explained"></a></p>
 <ol>
-<li>The <code>/cmd_vel</code> topic currently has 1 publisher (i.e. 1 node writing data to the topic).</li>
-<li>There's also 1 <em>subscriber</em> (i.e. another node reading the data being written to the topic).</li>
-<li>If we think back to <code>rqt_graph</code> (from the previous exercise), we know that the publisher is the <code>/teleop_keyboard</code> node, and the subscriber is a node called <code>/turtlebot3_node</code>. This node turns the topic data into motor commands, resulting in actual motion of the robot's wheels.</li>
+<li>El topic <code>/cmd_vel</code> actualmente tiene 1 publicador (es decir, 1 node escribiendo datos en el topic).</li>
+<li>También hay 1 <em>suscriptor</em> (es decir, otro node leyendo los datos que se escriben en el topic).</li>
+<li>Si pensamos en <code>rqt_graph</code> (del ejercicio anterior), sabemos que el publicador es el node <code>/teleop_keyboard</code>, y el suscriptor es un node llamado <code>/turtlebot3_node</code>. Este node convierte los datos del topic en comandos de motor, resultando en el movimiento real de las ruedas del robot.</li>
 <li>
-<p>The <em>type</em> of data structure used by the <code>/cmd_vel</code> topic is defined as:  </p>
+<p>El <em>tipo</em> de estructura de datos que usa el topic <code>/cmd_vel</code> se define como:  </p>
 <p></p><center><code>geometry_msgs/msg/TwistStamped</code></center><p></p>
-<p>This is a ROS <em>"Interface"</em>. </p>
+<p>Esta es una <em>"Interface"</em> de ROS.</p>
 <p><strong>Interfaces</strong></p>
-<p>Data structures in ROS 2 are called <em>Interfaces</em>. </p>
-<p>From the output above, <code>Type</code> refers to the <em>type</em> of data structure (i.e. the type of interface). The <code>Type</code> definition has three parts to it: <code>geometry_msgs</code>, <code>msg</code> and <code>TwistStamped</code>:</p>
+<p>Las estructuras de datos en ROS 2 se llaman <em>Interfaces</em>.</p>
+<p>De la salida anterior, <code>Type</code> se refiere al <em>tipo</em> de estructura de datos (es decir, el tipo de interface). La definición de <code>Type</code> tiene tres partes: <code>geometry_msgs</code>, <code>msg</code> y <code>TwistStamped</code>:</p>
 <ol>
-<li><code>geometry_msgs</code> is the name of the ROS package that this interface (data structure) belongs to</li>
-<li><code>msg</code> tells us that it's a topic <em>message</em> interface (rather than another interface type, of which there are others, but we don't need to worry about them here)</li>
-<li><code>TwistStamped</code> is the <em>name</em> of the message interface. </li>
+<li><code>geometry_msgs</code> es el nombre del paquete ROS al que pertenece esta interface (estructura de datos).</li>
+<li><code>msg</code> nos indica que es una interface de <em>mensaje</em> de topic (en lugar de otro tipo de interface).</li>
+<li><code>TwistStamped</code> es el <em>nombre</em> de la interface de mensaje.</li>
 </ol>
-<p>We have just learnt then, that if we want to make the robot move we need to publish <code>TwistStamped</code> interface <em>messages</em> to the <code>/cmd_vel</code> topic. </p>
+<p>Hemos aprendido entonces que, si queremos hacer que el robot se mueva, necesitamos publicar mensajes de interface <code>TwistStamped</code> al topic <code>/cmd_vel</code>.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>We can use the <code>ros2 interface</code> command to find out more about the <code>TwistStamped</code> message:</p>
+<p>Podemos usar el comando <code>ros2 interface</code> para encontrar más información sobre el mensaje <code>TwistStamped</code>:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>geometry_msgs/msg/TwistStamped
 </code></pre></div><p></p>
 <hr>
-<p>From this, the bottom bit is of most interest to us: <a name="show-twist"></a></p>
+<p>De esto, la parte inferior es la que más nos interesa: <a name="show-twist"></a></p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Twist twist
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>        Vector3  linear
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>                float64 x
@@ -3535,215 +4036,215 @@
 <a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>                float64 y
 <a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>                float64 z
 </code></pre></div>
-<p>Hmmm, this looks complicated. Let's find out what it all means...</p>
+<p>Hmm, esto parece complicado. Averigüemos qué significa todo esto...</p>
 </li>
 </ol>
-<h3 id="velocity-control">Velocity Control<a class="headerlink" href="#velocity-control" title="Permanent link">¶</a></h3>
-<p>The motion of any mobile robot can be defined in terms of its three <em>principal axes</em>: <code>X</code>, <code>Y</code> and <code>Z</code>. In the context of our TurtleBot3 Waffle, these axes (and the motion about them) are defined as follows:</p>
+<h3 id="control-de-velocidad">Control de Velocidad<a class="headerlink" href="#control-de-velocidad" title="Permanent link">¶</a></h3>
+<p>El movimiento de cualquier robot móvil se puede definir en términos de sus tres <em>ejes principales</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto de nuestro TurtleBot3 Waffle, estos ejes (y el movimiento alrededor de ellos) se definen de la siguiente manera:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="700px"></a></p>
 </figure>
-<p>In theory then, a robot can move <em>linearly</em> or <em>angularly</em> about any of these three axes, as shown by the arrows in the figure. That's six <em>Degrees of Freedom</em> (DOFs) in total, achieved based on a robot's design and the actuators it is equipped with. Take a look back at the <code>ros2 interface show</code> output in <strong>TERMINAL 3</strong>. Hopefully it's a bit clearer now that these topic messages are formatted to give a ROS Programmer the ability to <em>ask</em> a robot to move in any one of its six DOFs. </p>
+<p>En teoría, un robot puede moverse <em>linealmente</em> o <em>angularmente</em> alrededor de cualquiera de estos tres ejes, como se muestra por las flechas en la figura. Eso son seis <em>Grados de Libertad</em> (DOFs) en total, logrados según el diseño del robot y los actuadores con los que está equipado. Vuelve a ver la salida de <code>ros2 interface show</code> en <strong>TERMINAL 3</strong>. Esperemos que ahora esté más claro que estos mensajes de topic están formateados para darle a un programador de ROS la capacidad de <em>pedirle</em> a un robot que se mueva en cualquiera de sus seis DOFs.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Vector3  linear
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>        float64 x  &lt;-- Forwards (or Backwards)
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>        float64 y  &lt;-- Left (or Right)
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>        float64 z  &lt;-- Up (or Down)
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>        float64 x  &lt;-- Adelante (o Atrás)
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>        float64 y  &lt;-- Izquierda (o Derecha)
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>        float64 z  &lt;-- Arriba (o Abajo)
 <a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>Vector3  angular
-<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        float64 x  &lt;-- "Roll"
-<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        float64 y  &lt;-- "Pitch"
-<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        float64 z  &lt;-- "Yaw"
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        float64 x  &lt;-- "Alabeo" (Roll)
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        float64 y  &lt;-- "Cabeceo" (Pitch)
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        float64 z  &lt;-- "Guiñada" (Yaw)
 </code></pre></div>
-<p>Our TurtleBot3 only has two motors, so it doesn't actually have six DOFs! These two motors can be controlled independently, in a <em>"differential drive"</em> configuration, but this still only allows it to move with <strong>two degrees of freedom</strong> in total, as illustrated below.</p>
+<p>¡Nuestro TurtleBot3 solo tiene dos motores, así que en realidad no tiene seis DOFs! Estos dos motores pueden controlarse de forma independiente, en una configuración de <em>"accionamiento diferencial"</em>, pero esto aún solo le permite moverse con <strong>dos grados de libertad</strong> en total, como se ilustra a continuación.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/velocities.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="700px"></a></p>
 </figure>
-<p>Velocity can therefore only be applied <strong>linearly</strong> in the <strong>x-axis</strong> (<em>Forwards/Backwards</em>) and <strong>angularly</strong> in the <strong>z-axis</strong> (<em>Yaw</em>). </p>
+<p>Por lo tanto, la velocidad solo puede aplicarse <strong>linealmente</strong> en el <strong>eje x</strong> (<em>Adelante/Atrás</em>) y <strong>angularmente</strong> en el <strong>eje z</strong> (<em>Guiñada/Yaw</em>).</p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>Take note of all this, there may be a question on it!</p>
+<p>Toma nota de todo esto, ¡puede haber una pregunta sobre ello!</p>
 </div>
-<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: Publishing Velocity Commands to the "cmd_vel" Topic<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
+<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 5: Publicar comandos de velocidad en el topic "cmd_vel"<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
 <ol>
-<li>Stop the <code>teleop_keyboard</code> node now by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 4</strong>. We're going to use another graphical tool to help us publish messages to the <code>/cmd_vel</code> topic <em>directly</em> now.</li>
+<li>Detén el node <code>teleop_keyboard</code> ahora presionando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 4</strong>. Vamos a usar otra herramienta gráfica para ayudarnos a publicar mensajes en el topic <code>/cmd_vel</code> <em>directamente</em>.</li>
 <li>
-<p>Go back to <strong>TERMINAL 3</strong> and enter the following command to launch the <em>RQT Message Publisher</em> node:</p>
+<p>Regresa a <strong>TERMINAL 3</strong> e ingresa el siguiente comando para lanzar el node <em>RQT Message Publisher</em>:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_publisher<span class="w"> </span>rqt_publisher
 </code></pre></div><p></p>
 <hr>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/msg_pub.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub.png" width="600px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>In the "<strong>Topic</strong>" dropdown menu select <code>/cmd_vel</code>.</p>
+<p>En el menú desplegable "<strong>Topic</strong>" selecciona <code>/cmd_vel</code>.</p>
 </li>
 <li>
-<p>Move along to the right and enter a value of <code>10</code> in the box next to the "<strong>Freq.</strong>" label.</p>
+<p>Muévete hacia la derecha e ingresa un valor de <code>10</code> en el cuadro junto a la etiqueta "<strong>Freq.</strong>".</p>
 </li>
 <li>
-<p>Further to the right, click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"></path></svg></span> box to add this as a publisher to the main <em>"Publisher Table"</em>.</p>
+<p>Más a la derecha, haz clic en el cuadro <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"></path></svg></span> para añadir esto como publicador a la <em>"Tabla de Publicadores"</em> principal.</p>
 </li>
 <li>
-<p>In the Publisher Table, click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> next to <code>/cmd_vel</code>, to expand the item and reveal two further items: <code>header</code> and <code>twist</code>:</p>
+<p>En la Tabla de Publicadores, haz clic en el <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> junto a <code>/cmd_vel</code> para expandir el elemento y revelar dos elementos adicionales: <code>header</code> y <code>twist</code>:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub_cmd_vel.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/msg_pub_cmd_vel.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub_cmd_vel.png" width="600px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> icon next to <code>twist</code>, and then the subsequent <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> icons next to the <code>linear</code> and <code>angular</code> items that appear below this. Finally, you'll see some values in the "<strong>expression</strong>" column:</p>
+<p>Haz clic en el ícono <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> junto a <code>twist</code>, y luego en los íconos <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> subsiguientes junto a los elementos <code>linear</code> y <code>angular</code> que aparecen debajo. Finalmente, verás algunos valores en la columna "<strong>expression</strong>":</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub_cmd_vel_values.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/msg_pub_cmd_vel_values.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub_cmd_vel_values.png" width="600px"></a>
 </figure><p></p>
-<p>Does this look familiar to <a href="#show-twist">the interface definition as we viewed it in the terminal before</a>?</p>
+<p>¿Se parece esto a <a href="#show-twist">la definición de la interface que vimos en la terminal antes</a>?</p>
 </li>
 <li>
-<p>Using what we learnt above about the way the robot can actually move, change <strong>one</strong> of the six values in the "expression" column that you think might make robot <strong><em>rotate on the spot</em></strong>. Before you do this, it's worth noting the following things:</p>
+<p>Usando lo que aprendimos anteriormente sobre la forma en que el robot puede moverse, cambia <strong>uno</strong> de los seis valores en la columna "expression" que creas que podría hacer que el robot <strong><em>gire sobre sí mismo</em></strong>. Antes de hacerlo, vale la pena tener en cuenta lo siguiente:</p>
 <ol>
-<li>The unit of <em>linear</em> velocity is meters per second (m/s).</li>
-<li>The unit of <em>angular</em> velocity is radians per second (rad/s).</li>
-<li>Our Waffle robots can move with a <strong>maximum linear velocity</strong> of 0.26 m/s and a <strong>maximum angular velocity</strong> of 1.82 rad/s.</li>
+<li>La unidad de velocidad <em>lineal</em> es metros por segundo (m/s).</li>
+<li>La unidad de velocidad <em>angular</em> es radianes por segundo (rad/s).</li>
+<li>Nuestros robots Waffle pueden moverse con una <strong>velocidad lineal máxima</strong> de 0.26 m/s y una <strong>velocidad angular máxima</strong> de 1.82 rad/s.</li>
 </ol>
 </li>
 <li>
-<p>Once you've entered a value, click on the checkbox to the left of <code>/cmd_vel</code> to start publishing these values to the topic. Observe what your robot does!</p>
+<p>Una vez que hayas ingresado un valor, haz clic en la casilla de verificación a la izquierda de <code>/cmd_vel</code> para comenzar a publicar estos valores en el topic. ¡Observa qué hace tu robot!</p>
 </li>
 <li>
-<p>Set the value back to <code>0.0</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to make the robot stop moving.</p>
+<p>Vuelve el valor a <code>0.0</code> y presiona <span class="keys"><kbd class="key-enter">Enter</kbd></span> para detener el robot.</p>
 </li>
 <li>
-<p>Next, find an alternative velocity value that you can set in order to make the robot <strong><em>move forwards</em></strong> this time. (Don't forget to set the value back to <code>0.0</code> to make the robot stop moving again afterwards.)</p>
+<p>A continuación, encuentra un valor de velocidad alternativo que puedas configurar para hacer que el robot <strong><em>avance</em></strong>. (No olvides volver el valor a <code>0.0</code> para detener el robot nuevamente después.)</p>
 </li>
 <li>
-<p>Finally, enter a <em>combination</em> of velocity values to make the robot <strong><em>move in a circle</em></strong>.</p>
+<p>Finalmente, introduce una <em>combinación</em> de valores de velocidad para hacer que el robot <strong><em>se mueva en círculo</em></strong>.</p>
 </li>
 <li>
-<p>Once you're finished, set all velocities back to <code>0.0</code>, make sure the robot is no longer moving, and then uncheck the box next to <code>/cmd_vel</code> to stop publishing messages. Click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"></path></svg></span> button in the top right-hand corner of the Message Publisher window to close it down.</p>
+<p>Una vez que hayas terminado, vuelve todas las velocidades a <code>0.0</code>, asegúrate de que el robot ya no se esté moviendo, y luego desmarca la casilla junto a <code>/cmd_vel</code> para dejar de publicar mensajes. Haz clic en el botón <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"></path></svg></span> en la esquina superior derecha de la ventana del Message Publisher para cerrarlo.</p>
 </li>
 </ol>
-<p>Hopefully you can see now that, in order to make a robot move, it's simply a case of publishing the right ROS Interface Message (<code>TwistStamped</code>) to the right ROS Topic (<code>/cmd_vel</code>). Earlier on in the lab we used the <code>teleop_keyboard</code> node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the <code>/cmd_vel</code> topic. In the previous exercise we looked at this in a bit more detail by actually directly applying values to the right message attributes and using the RQT Message Publisher to publish these for us. As I'm sure you can appreciate though, there's a limit to what we can achieve by working in this way though(circular and straight line motion is about it!)</p>
-<p>In reality, robots need to be able to move around complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this in the following exercises, starting by building a simple Node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex approaches used by robotics engineers to <em>really</em> bring robots to life!</p>
-<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 6: Creating a ROS Package<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
-<p>As we learnt earlier, all ROS nodes must be contained within <em>packages</em>, so in order for us to create our own node, we first need to create our own package.</p>
+<p>Con suerte ya puedes ver que, para hacer mover a un robot, simplemente se trata de publicar el Interface Message de ROS correcto (<code>TwistStamped</code>) en el topic de ROS correcto (<code>/cmd_vel</code>). Al principio del laboratorio usamos el node <code>teleop_keyboard</code> para conducir el robot, un poco como un carro de control remoto. En el fondo, todo lo que realmente estaba sucediendo era que el node convertía las pulsaciones de teclas de nuestro teclado en comandos de velocidad y los publicaba en el topic <code>/cmd_vel</code>. En el ejercicio anterior examinamos esto con más detalle aplicando directamente valores a los atributos correctos del mensaje y usando el RQT Message Publisher para publicarlos. Sin embargo, hay un límite en lo que podemos lograr trabajando de esta manera (¡el movimiento circular y en línea recta es básicamente todo!)</p>
+<p>En realidad, los robots necesitan poder moverse por entornos complejos de forma autónoma, lo cual es una tarea bastante difícil y requiere que construyamos aplicaciones específicas. Podemos construir estas aplicaciones usando Python, y veremos los conceptos básicos detrás de esto en los siguientes ejercicios, comenzando por construir un Node simple que nos permita hacer que nuestro robot sea un poco más "autónomo". Lo que haremos aquí forma la base de los enfoques más complejos utilizados por los ingenieros de robótica para realmente dar vida a los robots.</p>
+<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 6: Crear un paquete ROS<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
+<p>Como aprendimos antes, todos los nodes ROS deben estar contenidos dentro de <em>paquetes</em>, por lo que para crear nuestro propio node, primero necesitamos crear nuestro propio paquete.</p>
 <ol>
 <li>
-<p>In <strong>TERMINAL 3</strong> run the following command to navigate to a folder called the <em>"ROS Workspace"</em> using the <code>cd</code> ("change directory") command:</p>
+<p>En <strong>TERMINAL 3</strong> ejecuta el siguiente comando para navegar a una carpeta llamada el <em>"Espacio de Trabajo ROS"</em> usando el comando <code>cd</code> ("cambiar directorio"):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src
 </code></pre></div>
 </li>
 <li>
-<p>Next run the following command to copy a package template from GitHub into the ROS Workspace folder:</p>
+<p>A continuación, ejecuta el siguiente comando para copiar una plantilla de paquete de GitHub en la carpeta del Espacio de Trabajo ROS:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tom-howard/ros2_pkg_template.git
 </code></pre></div>
 </li>
 <li>
-<p>Now, run a script from within this template, to initialise the package for use:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>./ros2_pkg_template/init_pkg.sh<span class="w"> </span>amr31001_lab1
+<p>Ahora, ejecuta un script desde dentro de esta plantilla para inicializar el paquete:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>./ros2_pkg_template/init_pkg.sh<span class="w"> </span>robotics_lab1
 </code></pre></div>
 </li>
 <li>
-<p>We're going to open this package in a text editor called <em>Visual Studio Code</em> (aka "VS Code") now, so that we can start making changes to it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>code<span class="w"> </span>./amr31001_lab1
+<p>Abriremos este paquete en un editor de texto llamado <em>Visual Studio Code</em> (también conocido como "VS Code") ahora, para que podamos empezar a hacer cambios:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>code<span class="w"> </span>./robotics_lab1
 </code></pre></div>
 </li>
 <li>
-<p>When VS Code opens, you should see a <em>File Explorer</em> on the left-hand side which allows you to access all the files and folders within your package. </p>
+<p>Cuando se abra VS Code, deberías ver un <em>Explorador de Archivos</em> en el lado izquierdo que te permite acceder a todos los archivos y carpetas dentro de tu paquete.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="vscode_explorer_package_xml.png" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
 </figure><p></p>
-<p>Look for a file here called <code>package.xml</code> and click on it. This will open this file in the main VS Code window, to allow you to edit it.</p>
+<p>Busca un archivo llamado <code>package.xml</code> aquí y haz clic en él. Esto abrirá este archivo en la ventana principal de VS Code para que puedas editarlo.</p>
 </li>
 <li>
-<p>Look for the following lines in the <code>package.xml</code> file:</p>
-<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>&lt;maintainer email="your.name.1@sheffield.ac.uk"&gt;Name 1&lt;/maintainer&gt;
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>&lt;maintainer email="your.name.2@sheffield.ac.uk"&gt;Name 2&lt;/maintainer&gt;
+<p>Busca las siguientes líneas en el archivo <code>package.xml</code>:</p>
+<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>&lt;maintainer email="nombre.apellido1@institucion.edu"&gt;Nombre 1&lt;/maintainer&gt;
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>&lt;maintainer email="nombre.apellido2@institucion.edu"&gt;Nombre 2&lt;/maintainer&gt;
 </code></pre></div>
-<p>Change <code>Name 1</code> to your name, and then change <code>your.name.1@sheffield.ac.uk</code> to your Sheffield email address! Then, do the same for your other Group member on the line below it. (If you're working in a group of more than 2 people, then you can add additional lines below this for your other group members.)</p>
+<p>Cambia <code>Nombre 1</code> a tu nombre completo, y <code>nombre.apellido1@institucion.edu</code> a tu correo institucional. Haz lo mismo para el otro miembro de tu grupo en la línea inferior. (Si están trabajando en un grupo de más de 2 personas, pueden agregar líneas adicionales debajo de esta para los demás miembros del grupo.)</p>
 <div class="admonition warning">
 <p class="admonition-title">Post-lab</p>
-<p><strong>This is important for the post-lab</strong>!</p>
-<p>We'll be assessing your work here as part of the post-lab, so it's important that we can identify each member of your group. If any group members aren't listed here, then they won't receive any marks for this! </p>
-<p>When entering your names, make sure you provide first names <strong>AND</strong> surnames for each group member.</p>
+<p><strong>¡Esto es importante para el post-lab!</strong></p>
+<p>Evaluaremos tu trabajo aquí como parte del post-lab, por lo que es importante que podamos identificar a cada miembro de tu grupo. Si algún miembro del grupo no está listado aquí, ¡no recibirá calificación por esto!</p>
+<p>Al ingresar los nombres, asegúrate de proporcionar nombres <strong>Y</strong> apellidos para cada miembro del grupo.</p>
 </div>
 </li>
 <li>
-<p>Go back to <strong>TERMINAL 3</strong> now and run the following three commands:</p>
+<p>Regresa a <strong>TERMINAL 3</strong> ahora y ejecuta los siguientes tres comandos:</p>
 <ol>
 <li>
-<p>First: </p>
+<p>Primero: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
 </code></pre></div>
 </li>
 <li>
-<p>Then:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--packages-select<span class="w"> </span>amr31001_lab1
+<p>Luego:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--packages-select<span class="w"> </span>robotics_lab1
 </code></pre></div>
 </li>
 <li>
-<p>And finally:</p>
+<p>Y finalmente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 </ol>
-<p>OK, <strong>package creation is now complete</strong>, so we're ready to start some Python programming...</p>
-<h4 id="ex7"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 7: A Python node to make the robot move<a class="headerlink" href="#ex7" title="Permanent link">¶</a></h4>
-<p>Go back to VS Code now, and (in the File Explorer) look for a folder called <code>scripts</code>. Click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg></span> icon next to this to expand the folder and reveal its content. A file called <code>basic_velocity_control.py</code> should be revealed. Click on this to open it in the main editor window.</p>
+<p>Bien, <strong>la creación del paquete ya está completa</strong>, así que estamos listos para comenzar con la programación en Python...</p>
+<h4 id="ex7"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 7: Un node de Python para hacer mover al robot<a class="headerlink" href="#ex7" title="Permanent link">¶</a></h4>
+<p>Regresa a VS Code ahora, y (en el Explorador de Archivos) busca una carpeta llamada <code>scripts</code>. Haz clic en el ícono <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg></span> junto a esta para expandir la carpeta y revelar su contenido. Se debería revelar un archivo llamado <code>basic_velocity_control.py</code>. Haz clic en él para abrirlo en la ventana principal del editor.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_scripts.png" width="400px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="vscode_explorer_scripts.png" data-desc-position="bottom"><img alt="" src="vscode_explorer_scripts.png" width="400px"></a></p>
 </figure>
-<p>This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through it:</p>
+<p>Este es un Node de Python de ROS 2 (bastante) básico que controlará la velocidad del robot. Analicémoslo:</p>
 <ol>
 <li>
-<p>First, we have some imports:</p>
+<p>Primero, tenemos algunas importaciones:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwistStamped</span> <span class="c1"># (2)!</span>
 <a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span> <span class="c1"># (3)!</span>
 </code></pre></div>
 <ol>
-<li><code>rclpy</code> is the ROS client library for Python. We need this so that our Python node can interact with ROS.</li>
-<li><a href="#ex4">We know from earlier</a> that in order to make a robot move we need to publish messages to the <code>/cmd_vel</code> topic, and that this topic uses a data structure (or Interface) called <code>geometry_msgs/msg/TwistStamped</code>. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)</li>
-<li>We'll use this to control timing in our node.</li>
+<li><code>rclpy</code> es la biblioteca cliente de ROS para Python. La necesitamos para que nuestro node de Python pueda interactuar con ROS.</li>
+<li><a href="#ex4">Sabemos de antes</a> que para hacer mover a un robot necesitamos publicar mensajes en el topic <code>/cmd_vel</code>, y que este topic usa una estructura de datos (o Interface) llamada <code>geometry_msgs/msg/TwistStamped</code>. Así es como importamos la interface en nuestro node de Python para poder crear comandos de velocidad para nuestro robot (a lo que llegaremos en breve...).</li>
+<li>Usaremos esto para controlar el tiempo en nuestro node.</li>
 </ol>
-<p>Click on the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> icons above to reveal more information about each line of the code.</p>
+<p>Haz clic en los íconos <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> de arriba para revelar más información sobre cada línea del código.</p>
 </li>
 <li>
-<p>Next, we declare some variables that we can use and adapt during the main execution of our code:</p>
+<p>A continuación, declaramos algunas variables que podemos usar y adaptar durante la ejecución principal de nuestro código:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="n">vel</span> <span class="o">=</span> <span class="n">TwistStamped</span><span class="p">()</span> <span class="c1"># (2)!</span>
 </code></pre></div>
 <ol>
-<li>Inside the <code class="highlight"><span class="k">while</span></code> loop (explained shortly) we define two different operational states for the robot, and we can control which one is active by changing this value from <code>1</code> to <code>2</code> (and visa-versa).</li>
+<li>Dentro del bucle <code class="highlight"><span class="k">while</span></code> (explicado próximamente) definimos dos estados operativos diferentes para el robot, y podemos controlar cuál está activo cambiando este valor de <code>1</code> a <code>2</code> (y viceversa).</li>
 <li>
-<p>We're instantiating a <code>TwistStamped</code> Interface message here and calling it <code>vel</code>. We'll assign velocity values to this in the <code class="highlight"><span class="k">while</span></code> loop later on.</p>
-<p>Recall that a <code>TwistStamped</code> message contains six different components that we can assign values to. <a href="#velocity-control">Which <em>two</em> are relevant to our robot</a>?</p>
+<p>Estamos instanciando un mensaje de Interface <code>TwistStamped</code> aquí y lo llamamos <code>vel</code>. Asignaremos valores de velocidad a esto en el bucle <code class="highlight"><span class="k">while</span></code> más adelante.</p>
+<p>Recuerda que un mensaje <code>TwistStamped</code> contiene seis componentes diferentes a los que podemos asignar valores. <a href="#velocity-control">¿Cuáles <em>dos</em> son relevantes para nuestro robot?</a></p>
 </li>
 </ol>
 </li>
 <li>
-<p>Next we configure some important ROS-related things:</p>
+<p>A continuación, configuramos algunas cosas importantes relacionadas con ROS:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="n">node</span> <span class="o">=</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">"basic_velocity_control"</span><span class="p">)</span>  <span class="c1"># (2)!</span>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="n">vel_pub</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">TwistStamped</span><span class="p">,</span> <span class="s2">"cmd_vel"</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># (3)!</span>
 </code></pre></div>
 <ol>
-<li>Initialise <code>rclpy</code> and all the ROS communications that are necessary for our node. </li>
-<li>Initialise this Python script as an actual ROS node, providing a name for it to be registered on the ROS network with ("basic_velocity_control" in this case).</li>
-<li>Here we're setting up a publisher to the <code>/cmd_vel</code> topic so that the node can send velocity commands to the robot (using <code>TwistStamped</code> data).</li>
+<li>Inicializa <code>rclpy</code> y todas las comunicaciones ROS necesarias para nuestro node.</li>
+<li>Inicializa este script de Python como un node ROS real, proporcionando un nombre para que se registre en la red ROS ("basic_velocity_control" en este caso).</li>
+<li>Aquí estamos configurando un publicador en el topic <code>/cmd_vel</code> para que el node pueda enviar comandos de velocidad al robot (usando datos <code>TwistStamped</code>).</li>
 </ol>
 </li>
 <li>
-<p>After this, we're defining another variable:</p>
+<p>Después de esto, definimos otra variable:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">timestamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (1)!</span>
 </code></pre></div>
 <ol>
-<li>What time is it right now? This tells us the current "ROS Time" (in nanoseconds), which will be useful to compare against in the while loop.</li>
+<li>¿Qué hora es ahora mismo? Esto nos indica el "Tiempo ROS" actual (en nanosegundos), que será útil para comparar en el bucle while.</li>
 </ol>
 </li>
 <li>
-<p>Now, we enter into a <code class="highlight"><span class="k">while</span></code> loop, which is where our code will spend the majority of its time once it's running:</p>
+<p>Ahora, entramos en un bucle <code class="highlight"><span class="k">while</span></code>, donde nuestro código pasará la mayor parte de su tiempo una vez que esté en ejecución:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    <span class="n">time_now</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (2)!</span>
 <a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">elapsed_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_now</span> <span class="o">-</span> <span class="n">timestamp</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-9</span> <span class="c1"># (3)!</span>
@@ -3751,17 +4252,17 @@
 <a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>    <span class="o">...</span>
 </code></pre></div>
 <ol>
-<li>This returns <code class="highlight"><span class="kc">True</span></code> as long as the node is alive, so all the code inside the <code class="highlight"><span class="k">while</span></code> loop will continue to execute as long as this is the case.</li>
-<li>What time is it <em>now</em>? Check the time at the start of each iteration of the <code class="highlight"><span class="k">while</span></code> loop, and assign this to a variable called <code>time_now</code>.</li>
-<li>Determine how much time has elapsed (in seconds) since the <code>timestamp</code> was last updated.</li>
+<li>Esto devuelve <code class="highlight"><span class="kc">True</span></code> mientras el node esté vivo, por lo que todo el código dentro del bucle <code class="highlight"><span class="k">while</span></code> continuará ejecutándose mientras ese sea el caso.</li>
+<li>¿Qué hora es <em>ahora</em>? Verifica la hora al comienzo de cada iteración del bucle <code class="highlight"><span class="k">while</span></code> y asígnala a una variable llamada <code>time_now</code>.</li>
+<li>Determina cuánto tiempo ha transcurrido (en segundos) desde que se actualizó por última vez el <code>timestamp</code>.</li>
 </ol>
-<p>Everything that's indented below the <code class="highlight"><span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span></code> line will continue to be executed over and over again until we ask our node to stop. The code will execute line-by-line from top-to-bottom within this <code class="highlight"><span class="k">while</span></code> loop, and will then go back to the top again and repeat it all over and over and <em>over</em> again! Each repeat is called an <em>"iteration"</em>.</p>
+<p>Todo lo que está sangrado debajo de la línea <code class="highlight"><span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span></code> continuará ejecutándose una y otra vez hasta que le pidamos que nuestro node se detenga. El código se ejecutará línea por línea de arriba a abajo dentro de este bucle <code class="highlight"><span class="k">while</span></code>, y luego regresará al principio y lo repetirá todo una y otra y <em>otra</em> vez. Cada repetición se llama una <em>"iteración"</em>.</p>
 <ol>
 <li>
-<p>An <code class="highlight"><span class="k">if</span></code> statement now controls the state of operation for our robot. </p>
+<p>Una instrucción <code class="highlight"><span class="k">if</span></code> ahora controla el estado de operación para nuestro robot.</p>
 <ol>
 <li>
-<p>In state <code>1</code> we set velocities that will make the robot move forwards (linear X velocity only) for a certain amount of time and then stop. How long will the robot move forwards for, and at what velocity?</p>
+<p>En el estado <code>1</code> establecemos velocidades que harán que el robot avance (solo velocidad lineal X) durante un cierto tiempo y luego se detenga. ¿Cuánto tiempo avanzará el robot y a qué velocidad?</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>    <span class="k">if</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># (2)!</span>
@@ -3773,16 +4274,16 @@
 <a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (6)!</span>
 </code></pre></div>
 <ol>
-<li>If the elapsed time is less than 2 seconds...</li>
-<li>Set a linear velocity so that the robot will move forwards.</li>
-<li>If the elapsed time has <em>exceeded</em> 2 seconds...</li>
-<li>Set our robot's velocities to <code>0.0</code> to make it stop.</li>
-<li>In the next loop iteration, go into state 2 instead.</li>
-<li>Reset the timestamp to start counting up again. </li>
+<li>Si el tiempo transcurrido es menor a 2 segundos...</li>
+<li>Establece una velocidad lineal para que el robot avance.</li>
+<li>Si el tiempo transcurrido ha <em>superado</em> los 2 segundos...</li>
+<li>Establece las velocidades de nuestro robot a <code>0.0</code> para detenerlo.</li>
+<li>En la próxima iteración del bucle, pasa al estado 2.</li>
+<li>Reinicia el timestamp para comenzar a contar de nuevo.</li>
 </ol>
 </li>
 <li>
-<p>In state <code>2</code> we set velocities that will make the robot turn on the spot (angular Z velocity only) for a certain amount of time and then stop. How long will it do this for, and at what velocity?</p>
+<p>En el estado <code>2</code> establecemos velocidades que harán que el robot gire sobre sí mismo (solo velocidad angular Z) durante un cierto tiempo y luego se detenga. ¿Durante cuánto tiempo hará esto y a qué velocidad?</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>    <span class="k">if</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>        <span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -3794,18 +4295,18 @@
 <a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="c1"># (6)!</span>
 </code></pre></div>
 <ol>
-<li>While the elapsed time is less than 4 seconds...</li>
-<li>Apply an angular velocity to the robot to make it turn on the spot.</li>
-<li>Once the elapsed time has <em>exceeded</em> 4 seconds...</li>
-<li>Set the robot's velocities back to <code>0.0</code> to make it stop.</li>
-<li>In the next loop iteration, go back into state 1 again (moving forwards).</li>
-<li>Reset the timestamp to start counting up once more. </li>
+<li>Mientras el tiempo transcurrido sea menor a 4 segundos...</li>
+<li>Aplica una velocidad angular al robot para que gire sobre sí mismo.</li>
+<li>Una vez que el tiempo transcurrido haya <em>superado</em> los 4 segundos...</li>
+<li>Vuelve las velocidades del robot a <code>0.0</code> para detenerlo.</li>
+<li>En la próxima iteración del bucle, vuelve al estado 1 (avanzar).</li>
+<li>Reinicia el timestamp una vez más.</li>
 </ol>
 </li>
 </ol>
 </li>
 <li>
-<p>And after the <code class="highlight"><span class="k">if</span></code> statement:</p>
+<p>Y después de la instrucción <code class="highlight"><span class="k">if</span></code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">node</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[State = </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">] Publishing velocities:</span><span class="se">\n</span><span class="s2">"</span>
 <a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>    <span class="sa">f</span><span class="s2">"  - linear.x: </span><span class="si">{</span><span class="n">vel</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> [m/s]</span><span class="se">\n</span><span class="s2">"</span>
@@ -3815,62 +4316,62 @@
 <a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="n">vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span> <span class="c1"># (2)!</span>
 </code></pre></div>
 <ol>
-<li>This (and the following 5 lines) will print a message to the terminal, to provide us with regular updates on what state the node is currently in and what velocities have been set (in the <code class="highlight"><span class="k">if</span></code> statement above).</li>
+<li>Esto (y las siguientes 5 líneas) imprimirá un mensaje en la terminal para proporcionarnos actualizaciones regulares sobre el estado actual del node y qué velocidades se han establecido (en la instrucción <code class="highlight"><span class="k">if</span></code> anterior).</li>
 <li>
-<p>This line is crucial: this operation actual publishes the velocity commands to the <code>/cmd_vel</code> topic, to make the robot actual act on our instructions.</p>
-<p>Regardless of what happens in the <code>if</code> states above, we <em>always</em> publish a velocity command to the <code>/cmd_vel</code> topic here (every loop iteration).</p>
+<p>Esta línea es crucial: esta operación publica los comandos de velocidad en el topic <code>/cmd_vel</code>, para que el robot actúe según nuestras instrucciones.</p>
+<p>Independientemente de lo que suceda en los estados <code>if</code> anteriores, <em>siempre</em> publicamos un comando de velocidad en el topic <code>/cmd_vel</code> aquí (cada iteración del bucle).</p>
 </li>
 </ol>
 </li>
 </ol>
 </li>
 <li>
-<p>Go back to <strong>TERMINAL 3</strong> now, run the code and see what happens. <em>Make sure the robot is on the floor and has enough room to roam around before you do this</em>!</p>
+<p>Regresa a <strong>TERMINAL 3</strong> ahora, ejecuta el código y observa lo que sucede. <em>¡Asegúrate de que el robot esté en el suelo y tenga suficiente espacio para moverse antes de hacer esto!</em></p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab1<span class="w"> </span>basic_velocity_control.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>robotics_lab1<span class="w"> </span>basic_velocity_control.py
 </code></pre></div><p></p>
 <hr>
-<p>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> to stop the node from running once you've seen enough.</p>
+<p>Presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> para detener el node cuando hayas visto suficiente.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The robot will continue to move even after you've stopped the node! Run the following command to stop it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab1<span class="w"> </span>stop_me.py
+<p>¡El robot seguirá moviéndose incluso después de que hayas detenido el node! Ejecuta el siguiente comando para detenerlo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>robotics_lab1<span class="w"> </span>stop_me.py
 </code></pre></div>
 </div>
 </li>
 <li>
-<p><strong>Your Task</strong>:</p>
-<p>The aim here is to make the robot follow a <strong>square motion path</strong> of dimensions <strong>0.5m x 0.5m</strong>. As it is though, the <code>basic_velocity_control.py</code> node doesn't actually do this yet, and you need to fix it!</p>
-<p>Edit the code so that the robot actually follows a <strong>0.5m x 0.5m square motion path</strong>!</p>
+<p><strong>Tu tarea</strong>:</p>
+<p>El objetivo aquí es hacer que el robot siga una <strong>trayectoria cuadrada</strong> de dimensiones <strong>0.5m x 0.5m</strong>. Sin embargo, tal como está, el node <code>basic_velocity_control.py</code> no hace esto aún, ¡y necesitas arreglarlo!</p>
+<p>¡Edita el código para que el robot siga realmente una <strong>trayectoria cuadrada de 0.5m x 0.5m</strong>!</p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>As discussed above, your completion of this exercise will be assessed as part of the post-lab!</p>
+<p>Como se discutió anteriormente, ¡tu completitud de este ejercicio será evaluada como parte del post-lab!</p>
 </div>
 </li>
 </ol>
-<h4 id="ex8"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 8 (Advanced): Alternative Motion Paths<a class="headerlink" href="#ex8" title="Permanent link">¶</a></h4>
-<p><em>If you have time, have a go at this now...</em></p>
-<p>How could you adapt the code further to achieve some more interesting motion profiles?</p>
+<h4 id="ex8"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 8 (Avanzado): Trayectorias de movimiento alternativas<a class="headerlink" href="#ex8" title="Permanent link">¶</a></h4>
+<p><em>Si tienes tiempo, inténtalo ahora...</em></p>
+<p>¿Cómo podrías adaptar el código para lograr perfiles de movimiento más interesantes?</p>
 <ol>
 <li>
-<p>First, go back to <strong>TERMINAL 3</strong> and make sure you're in the right file system location:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/amr31001_lab1/scripts
+<p>Primero, regresa a <strong>TERMINAL 3</strong> y asegúrate de estar en la ubicación correcta del sistema de archivos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/robotics_lab1/scripts
 </code></pre></div>
 </li>
 <li>
-<p>Then, make a copy of the <code>basic_velocity_control.py</code> code using the <code>cp</code> command (<strong>c</strong>o<strong>p</strong>y):</p>
+<p>Luego, haz una copia del código <code>basic_velocity_control.py</code> usando el comando <code>cp</code> (<strong>c</strong>o<strong>p</strong>iar):</p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>cp<span class="w"> </span>basic_velocity_control.py<span class="w"> </span>alt_velocity_control.py
 </code></pre></div>
-Which will create a copy called <code>alt_velocity_control.py</code><p></p>
+Esto creará una copia llamada <code>alt_velocity_control.py</code><p></p>
 </li>
 <li>
-<p>Use the following command to open up a text file in VS Code:</p>
+<p>Usa el siguiente comando para abrir un archivo de texto en VS Code:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>code<span class="w"> </span>../CMakeLists.txt
 </code></pre></div>
 </li>
 <li>
-<p>In this file, locate the lines (near the bottom of the file) that read:</p>
+<p>En este archivo, ubica las líneas (cerca del final del archivo) que dicen:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a># Install Python executables
 <a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>install(PROGRAMS
 <a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>  scripts/basic_velocity_control.py
@@ -3878,7 +4379,7 @@ Which will create a copy called <code>alt_velocity_control.py</code><p></p>
 <a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>  DESTINATION lib/${PROJECT_NAME}
 <a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>)
 </code></pre></div>
-<p>Insert a new line below the one that reads <code>scripts/basic_velocity_control.py</code>, so that it now looks like this:</p>
+<p>Inserta una nueva línea debajo de la que dice <code>scripts/basic_velocity_control.py</code>, de modo que ahora se vea así:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a># Install Python executables
 <a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>install(PROGRAMS
 <a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>  scripts/basic_velocity_control.py
@@ -3887,75 +4388,75 @@ Which will create a copy called <code>alt_velocity_control.py</code><p></p>
 <a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>  DESTINATION lib/${PROJECT_NAME}
 <a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>)
 </code></pre></div>
-<p>You've just added <code>alt_velocity_control.py</code> as a new node within your package. </p>
-<p>Save the file and close it.</p>
+<p>Acabas de agregar <code>alt_velocity_control.py</code> como un nuevo node dentro de tu paquete.</p>
+<p>Guarda el archivo y ciérralo.</p>
 </li>
 <li>
-<p>Go back to <strong>TERMINAL 3</strong> and run the following 3 commands again, in order:</p>
+<p>Regresa a <strong>TERMINAL 3</strong> y ejecuta los siguientes 3 comandos nuevamente, en orden:</p>
 <ol>
 <li>
-<p>First: </p>
+<p>Primero: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
 </code></pre></div>
 </li>
 <li>
-<p>Then:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--packages-select<span class="w"> </span>amr31001_lab1
+<p>Luego:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--packages-select<span class="w"> </span>robotics_lab1
 </code></pre></div>
 </li>
 <li>
-<p>And finally:</p>
+<p>Y finalmente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Go back to VS Code and find your new <code>alt_velocity_control.py</code> file. Click on it to open it in the editor.</p>
+<p>Regresa a VS Code y encuentra tu nuevo archivo <code>alt_velocity_control.py</code>. Haz clic en él para abrirlo en el editor.</p>
 </li>
 <li>
-<p><strong>NOW</strong> see if you can edit this to achieve either of the more complex motion profiles illustrated below.</p>
+<p><strong>AHORA</strong> intenta editarlo para lograr alguno de los perfiles de movimiento más complejos ilustrados a continuación.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="move_alt.png"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="move_alt.png" data-desc-position="bottom"><img alt="" src="move_alt.png"></a>
 </figure><p></p>
 <ol>
-<li><strong>Profile (a):</strong> The robot needs to follow a <em>figure-of-eight</em> shaped path, where a linear and angular velocity command are set simultaneously to generate circular motion. Velocities will need to be defined in order to achieve <strong>a path diameter of 1m</strong> for each of the two loops. Having set the velocities appropriately, you'll then need to work out how long it would take the robot to complete each loop, so that you can determine when the robot should have got back to its starting point. At this point you'll need to change the turn direction, so that the robot switches from anti-clockwise to clockwise turning. </li>
-<li><strong>Profile (b):</strong> The robot needs to start and end in the same position, but move through intermediate points 1-7, in sequence, to generate the <em>stacked square</em> profile as shown. Each of the two squares must be <strong>1m x 1m in size</strong>, so you'll need to find the right velocity and duration pairs for moving forward and turning. You'll also need to change the turn direction once the robot reaches Point 3, and then again at Point 7!</li>
+<li><strong>Perfil (a):</strong> El robot necesita seguir una trayectoria en forma de <em>figura ocho</em>, donde un comando de velocidad lineal y angular se establece simultáneamente para generar movimiento circular. Se deberán definir velocidades para lograr <strong>un diámetro de trayectoria de 1m</strong> para cada uno de los dos bucles. Habiendo establecido las velocidades apropiadamente, necesitarás calcular cuánto tiempo tardaría el robot en completar cada bucle, para poder determinar cuándo el robot habrá regresado a su punto de partida. En ese momento necesitarás cambiar la dirección de giro, para que el robot pase del giro en sentido antihorario al giro en sentido horario.</li>
+<li><strong>Perfil (b):</strong> El robot necesita comenzar y terminar en la misma posición, pero moverse por los puntos intermedios 1-7, en secuencia, para generar el perfil de <em>cuadrados apilados</em> como se muestra. Cada uno de los dos cuadrados debe ser de <strong>1m x 1m</strong>, por lo que necesitarás encontrar los pares correctos de velocidad y duración para avanzar y girar. ¡También necesitarás cambiar la dirección de giro cuando el robot llegue al Punto 3, y luego nuevamente en el Punto 7!</li>
 </ol>
 </li>
 <li>
-<p>To run the file and test it out, you'll need to use <code>ros2 run ...</code>. How would you format this command (<a href="#ros2-run">recall this</a>)?<sup id="fnref:run-alt"><a class="footnote-ref" href="#fn:run-alt">1</a></sup></p>
-<p>Whenever you need to stop the node, enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in the terminal.</p>
+<p>Para ejecutar el archivo y probarlo, necesitarás usar <code>ros2 run ...</code>. ¿Cómo formatearías este comando (<a href="#ros2-run">recuerda esto</a>)?<sup id="fnref:run-alt"><a class="footnote-ref" href="#fn:run-alt">1</a></sup></p>
+<p>Siempre que necesites detener el node, presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en la terminal.</p>
 <div class="admonition warning">
-<p class="admonition-title">Remember</p>
-<p>The robot will continue to move even after you've stopped the node! Run the following command to stop it whenever you need to:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab1<span class="w"> </span>stop_me.py
+<p class="admonition-title">Recuerda</p>
+<p>¡El robot seguirá moviéndose incluso después de que hayas detenido el node! Ejecuta el siguiente comando para detenerlo cuando lo necesites:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>robotics_lab1<span class="w"> </span>stop_me.py
 </code></pre></div>
 </div>
 </li>
 </ol>
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
-<p>Before you leave, please shut down your robot! Enter the following command in <strong>TERMINAL 3</strong> to do so:</p>
+<h2 id="cierre">Cierre<a class="headerlink" href="#cierre" title="Permanent link">¶</a></h2>
+<p>Antes de irte, ¡por favor apaga tu robot! Introduce el siguiente comando en <strong>TERMINAL 3</strong> para hacerlo:</p>
 <hr>
 <p><strong>TERMINAL 3:</strong>
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>off
 </code></pre></div>
-... again, replacing <code>X</code> with the number of the robot that you have been working with today.<p></p>
+... nuevamente, reemplazando <code>X</code> con el número del robot con el que has estado trabajando hoy.<p></p>
 <hr>
-<p>You'll need to enter <code>y</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm this.</p>
-<p>Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop, clicking the Power icon (illustrated below) and then selecting "Power Off..." in the menu.</p>
+<p>Necesitarás ingresar <code>y</code> y luego presionar <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar.</p>
+<p>Luego apaga la laptop, lo cual puedes hacer haciendo clic en el ícono de batería en la parte superior derecha del escritorio, haciendo clic en el ícono de energía y seleccionando "Power Off..." en el menú.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ubuntu_poweroff.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
 </figure>
 <p></p><center><p></p>
-<p><strong>AMR31001 Lab 1 Complete!</strong><br>
-<em>See you in the new year for Lab 2!</em></p>
+<p><strong>¡Lab 1 de Industry 4.0 Completado!</strong><br>
+<em>¡Nos vemos en el Lab 2!</em></p>
 <p></p></center><p></p>
 <div class="footnote">
 <hr>
 <ol>
 <li id="fn:run-alt">
-<p><code class="highlight">ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab1<span class="w"> </span>alt_velocity_control.py</code>&nbsp;<a class="footnote-backref" href="#fnref:run-alt" title="Jump back to footnote 1 in the text">↩</a></p>
+<p><code class="highlight">ros2<span class="w"> </span>run<span class="w"> </span>robotics_lab1<span class="w"> </span>alt_velocity_control.py</code>&nbsp;<a class="footnote-backref" href="#fnref:run-alt" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -3967,37 +4468,8 @@ Which will create a copy called <code>alt_velocity_control.py</code><p></p>
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 1, 2025 09:49:27 UTC"><span class="timeago" datetime="2025-12-01T09:49:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 1, 2025 09:49:27 UTC">2025-12-01</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 17, 2025 14:15:56 UTC"><span class="timeago" datetime="2025-07-17T14:15:56+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 17, 2025 14:15:56 UTC">2025-07-17</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -4066,7 +4538,7 @@ Which will create a copy called <code>alt_velocity_control.py</code><p></p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4096,30 +4568,14 @@ Which will create a copy called <code>alt_velocity_control.py</code><p></p>
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

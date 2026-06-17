@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.">
+        <meta name="description" content="Aprende sobre otro método de comunicación clave de ROS que es similar a un ROS Service, pero con algunas ventajas clave y casos de uso alternativos.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/course/part5/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/course/part5/">
       
       
         <link rel="prev" href="../part4/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Part 5: Actions - ROS 2 Labs in The Diamond</title>
+        <title>Parte 5: Actions - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Part 5: Actions - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/course/part5.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/course/part5/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Part 5: Actions - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/course/part5.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#introduccion" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Part 5: Actions
+              Parte 5: Actions
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1003,7 +1040,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1031,7 +1068,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1059,7 +1096,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1087,7 +1124,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1122,7 +1159,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1140,7 +1177,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1164,22 +1201,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -1187,10 +1224,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje-esperados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje Esperados
       
     </span>
   </a>
@@ -1198,22 +1235,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercises
+        Ejercicios
       
     </span>
   </a>
@@ -1221,10 +1258,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#recursos-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Resources
+        Recursos Adicionales
       
     </span>
   </a>
@@ -1242,10 +1279,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros Pasos
       
     </span>
   </a>
@@ -1253,22 +1290,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#calling-an-action-server" class="md-nav__link">
+  <a href="#llamar-a-un-action-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Calling an Action Server
+        Llamar a un Action Server
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Calling an Action Server">
+    <nav class="md-nav" aria-label="Llamar a un Action Server">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Launching an Action Server and calling it from the command-line
+        Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos
       
     </span>
   </a>
@@ -1281,22 +1318,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-is-a-ros-action" class="md-nav__link">
+  <a href="#que-es-un-ros-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is a ROS Action?
+        ¿Qué es un ROS Action?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="What is a ROS Action?">
+    <nav class="md-nav" aria-label="¿Qué es un ROS Action?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-format-of-action-interfaces" class="md-nav__link">
+  <a href="#el-formato-de-las-interfaces-de-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Format of Action Interfaces
+        El Formato de las Interfaces de Action
       
     </span>
   </a>
@@ -1309,34 +1346,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-python-action-clients" class="md-nav__link">
+  <a href="#creacion-de-python-action-clients" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating Python Action Clients
+        Creación de Python Action Clients
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Python Action Clients">
+    <nav class="md-nav" aria-label="Creación de Python Action Clients">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Building a Python Action Client Node
+        Ejercicio 2: Construir un Node Python Action Client
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 2: Building a Python Action Client Node">
+    <nav class="md-nav" aria-label="Ejercicio 2: Construir un Node Python Action Client">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#part-1-a-minimal-action-client" class="md-nav__link">
+  <a href="#parte-1-un-action-client-minimo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 1: A Minimal Action Client
+        Parte 1: Un Action Client Mínimo
       
     </span>
   </a>
@@ -1344,10 +1381,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-2-handling-a-result" class="md-nav__link">
+  <a href="#parte-2-manejo-de-un-result" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 2: Handling a Result
+        Parte 2: Manejo de un Result
       
     </span>
   </a>
@@ -1355,10 +1392,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-3-handling-feedback" class="md-nav__link">
+  <a href="#parte-3-manejo-de-feedback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 3: Handling Feedback
+        Parte 3: Manejo de Feedback
       
     </span>
   </a>
@@ -1366,10 +1403,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-4-cancelling-an-action" class="md-nav__link">
+  <a href="#parte-4-cancelar-un-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 4: Cancelling an Action
+        Parte 4: Cancelar un Action
       
     </span>
   </a>
@@ -1382,10 +1419,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-summary-of-ros-actions" class="md-nav__link">
+  <a href="#un-resumen-de-los-ros-actions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A Summary of ROS Actions
+        Un Resumen de los ROS Actions
       
     </span>
   </a>
@@ -1398,34 +1435,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-your-own-action-servers-clients-and-interfaces" class="md-nav__link">
+  <a href="#creacion-de-tus-propios-action-servers-clients-e-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating Your Own Action Servers, Clients and Interfaces
+        Creación de tus Propios Action Servers, Clients e Interfaces
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Your Own Action Servers, Clients and Interfaces">
+    <nav class="md-nav" aria-label="Creación de tus Propios Action Servers, Clients e Interfaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#explore" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Implementing an "Exploration" strategy using the Action Framework
+        Implementación de una Estrategia de "Exploración" usando el Marco de Actions
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementing an &quot;Exploration&quot; strategy using the Action Framework">
+    <nav class="md-nav" aria-label="Implementación de una Estrategia de &quot;Exploración&quot; usando el Marco de Actions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Creating an Action Interface
+        Ejercicio 3: Crear una Interface de Action
       
     </span>
   </a>
@@ -1436,7 +1473,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Building the "ExploreForward" Action Server
+        Ejercicio 4: Construir el Action Server "ExploreForward"
       
     </span>
   </a>
@@ -1447,7 +1484,7 @@
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Building a Basic "ExploreForward" Client
+        Ejercicio 5: Construir un Client Básico "ExploreForward"
       
     </span>
   </a>
@@ -1458,7 +1495,7 @@
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6 (Advanced): Implementing an Exploration Strategy
+        Ejercicio 6 (Avanzado): Implementar una Estrategia de Exploración
       
     </span>
   </a>
@@ -1476,22 +1513,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Conclusión
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Wrapping Up">
+    <nav class="md-nav" aria-label="Conclusión">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#topics-services-or-actions-which-to-choose" class="md-nav__link">
+  <a href="#topics-services-o-actions-cual-elegir" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics, Services or Actions: Which to Choose?
+        Topics, Services o Actions: ¿Cuál Elegir?
       
     </span>
   </a>
@@ -1502,7 +1539,7 @@
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WSL-ROS2 Managed Desktop Users: Save your work!
+        Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -1537,7 +1574,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1562,6 +1599,8 @@
       
         
           
+        
+      
         
       
         
@@ -1636,7 +1675,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1664,7 +1703,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1883,7 +1950,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1982,7 +2049,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -2010,7 +2077,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -2117,7 +2184,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -2145,7 +2212,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -2181,7 +2248,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -2209,7 +2276,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2428,7 +2495,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2456,7 +2523,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2484,7 +2551,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2512,7 +2579,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2540,7 +2607,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2822,7 +2889,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2927,6 +2994,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2952,22 +3453,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2975,10 +3476,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje-esperados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje Esperados
       
     </span>
   </a>
@@ -2986,22 +3487,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercises
+        Ejercicios
       
     </span>
   </a>
@@ -3009,10 +3510,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#recursos-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Resources
+        Recursos Adicionales
       
     </span>
   </a>
@@ -3030,10 +3531,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros Pasos
       
     </span>
   </a>
@@ -3041,22 +3542,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#calling-an-action-server" class="md-nav__link">
+  <a href="#llamar-a-un-action-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Calling an Action Server
+        Llamar a un Action Server
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Calling an Action Server">
+    <nav class="md-nav" aria-label="Llamar a un Action Server">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Launching an Action Server and calling it from the command-line
+        Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos
       
     </span>
   </a>
@@ -3069,22 +3570,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-is-a-ros-action" class="md-nav__link">
+  <a href="#que-es-un-ros-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is a ROS Action?
+        ¿Qué es un ROS Action?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="What is a ROS Action?">
+    <nav class="md-nav" aria-label="¿Qué es un ROS Action?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-format-of-action-interfaces" class="md-nav__link">
+  <a href="#el-formato-de-las-interfaces-de-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Format of Action Interfaces
+        El Formato de las Interfaces de Action
       
     </span>
   </a>
@@ -3097,34 +3598,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-python-action-clients" class="md-nav__link">
+  <a href="#creacion-de-python-action-clients" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating Python Action Clients
+        Creación de Python Action Clients
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Python Action Clients">
+    <nav class="md-nav" aria-label="Creación de Python Action Clients">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Building a Python Action Client Node
+        Ejercicio 2: Construir un Node Python Action Client
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 2: Building a Python Action Client Node">
+    <nav class="md-nav" aria-label="Ejercicio 2: Construir un Node Python Action Client">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#part-1-a-minimal-action-client" class="md-nav__link">
+  <a href="#parte-1-un-action-client-minimo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 1: A Minimal Action Client
+        Parte 1: Un Action Client Mínimo
       
     </span>
   </a>
@@ -3132,10 +3633,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-2-handling-a-result" class="md-nav__link">
+  <a href="#parte-2-manejo-de-un-result" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 2: Handling a Result
+        Parte 2: Manejo de un Result
       
     </span>
   </a>
@@ -3143,10 +3644,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-3-handling-feedback" class="md-nav__link">
+  <a href="#parte-3-manejo-de-feedback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 3: Handling Feedback
+        Parte 3: Manejo de Feedback
       
     </span>
   </a>
@@ -3154,10 +3655,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#part-4-cancelling-an-action" class="md-nav__link">
+  <a href="#parte-4-cancelar-un-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 4: Cancelling an Action
+        Parte 4: Cancelar un Action
       
     </span>
   </a>
@@ -3170,10 +3671,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-summary-of-ros-actions" class="md-nav__link">
+  <a href="#un-resumen-de-los-ros-actions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A Summary of ROS Actions
+        Un Resumen de los ROS Actions
       
     </span>
   </a>
@@ -3186,34 +3687,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-your-own-action-servers-clients-and-interfaces" class="md-nav__link">
+  <a href="#creacion-de-tus-propios-action-servers-clients-e-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating Your Own Action Servers, Clients and Interfaces
+        Creación de tus Propios Action Servers, Clients e Interfaces
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Your Own Action Servers, Clients and Interfaces">
+    <nav class="md-nav" aria-label="Creación de tus Propios Action Servers, Clients e Interfaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#explore" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Implementing an "Exploration" strategy using the Action Framework
+        Implementación de una Estrategia de "Exploración" usando el Marco de Actions
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementing an &quot;Exploration&quot; strategy using the Action Framework">
+    <nav class="md-nav" aria-label="Implementación de una Estrategia de &quot;Exploración&quot; usando el Marco de Actions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Creating an Action Interface
+        Ejercicio 3: Crear una Interface de Action
       
     </span>
   </a>
@@ -3224,7 +3725,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Building the "ExploreForward" Action Server
+        Ejercicio 4: Construir el Action Server "ExploreForward"
       
     </span>
   </a>
@@ -3235,7 +3736,7 @@
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Building a Basic "ExploreForward" Client
+        Ejercicio 5: Construir un Client Básico "ExploreForward"
       
     </span>
   </a>
@@ -3246,7 +3747,7 @@
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6 (Advanced): Implementing an Exploration Strategy
+        Ejercicio 6 (Avanzado): Implementar una Estrategia de Exploración
       
     </span>
   </a>
@@ -3264,22 +3765,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Conclusión
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Wrapping Up">
+    <nav class="md-nav" aria-label="Conclusión">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#topics-services-or-actions-which-to-choose" class="md-nav__link">
+  <a href="#topics-services-o-actions-cual-elegir" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics, Services or Actions: Which to Choose?
+        Topics, Services o Actions: ¿Cuál Elegir?
       
     </span>
   </a>
@@ -3290,7 +3791,7 @@
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WSL-ROS2 Managed Desktop Users: Save your work!
+        Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -3319,7 +3820,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/course/part5.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/course/part5.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3328,72 +3829,72 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/course/part5.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/course/part5.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-  <h1>Part 5: Actions</h1>
+  <h1>Parte 5: Actions</h1>
 
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Exercises</strong>: 6 (5 <em>core</em>, 1 <em>advanced</em>)<br>
-<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Estimated Completion Time</strong>: 3 hours (core exercises only)<br>
-<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m-2 2a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m4 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m3.09 2.94c-.13 0-.25.03-.39.06l-3.2 1.32-.27.11c-.56-.43-1.32-.55-1.98-.28a1.99 1.99 0 0 0-1.1 2.6 1.99 1.99 0 0 0 2.6 1.1c.66-.26 1.13-.85 1.25-1.57l.23-.1 3.22-1.3.02-.01c.53-.21.76-.79.56-1.31a1 1 0 0 0-.94-.62M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Difficulty Level</strong>: Advanced </p>
-<h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
-<p>In this part of the course we'll learn about a third method of communication available in ROS: <em>Actions</em>.  Actions are essentially an advanced version of Services, and we'll look at exactly how these two differ and why you might choose to employ an action over a service for certain tasks. </p>
-<h3 id="intended-learning-outcomes">Intended Learning Outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Permanent link">¶</a></h3>
-<p>By the end of this session you will be able to:</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">¶</a></h2>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Ejercicios</strong>: 6 (5 <em>básicos</em>, 1 <em>avanzado</em>)<br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Tiempo Estimado de Finalización</strong>: 3 horas (solo ejercicios básicos)<br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m-2 2a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m4 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m3.09 2.94c-.13 0-.25.03-.39.06l-3.2 1.32-.27.11c-.56-.43-1.32-.55-1.98-.28a1.99 1.99 0 0 0-1.1 2.6 1.99 1.99 0 0 0 2.6 1.1c.66-.26 1.13-.85 1.25-1.57l.23-.1 3.22-1.3.02-.01c.53-.21.76-.79.56-1.31a1 1 0 0 0-.94-.62M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Nivel de Dificultad</strong>: Avanzado </p>
+<h3 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">¶</a></h3>
+<p>En esta parte del curso aprenderemos sobre un tercer método de comunicación disponible en ROS: los <em>Actions</em>. Los Actions son esencialmente una versión avanzada de los Services, y veremos exactamente en qué difieren estos dos y por qué podrías elegir emplear un action en lugar de un service para ciertas tareas.</p>
+<h3 id="resultados-de-aprendizaje-esperados">Resultados de Aprendizaje Esperados<a class="headerlink" href="#resultados-de-aprendizaje-esperados" title="Permanent link">¶</a></h3>
+<p>Al finalizar esta sesión podrás:</p>
 <ol>
-<li>Recognise how ROS Actions differ from ROS Services and explain where this method might be useful in robot applications.</li>
-<li>Explain the structure of Action interfaces and identify the relevant information within them, enabling you to build Action Servers and Clients.</li>
-<li>Implement Python Action <em>Client</em> nodes that can handle <em>feedback</em> and <em>results</em> and can also <em>cancel</em> an action part-way through.</li>
-<li>Develop Action Server &amp; Client nodes that could be used as the basis for a robotic exploration strategy.</li>
+<li>Reconocer cómo los ROS Actions difieren de los ROS Services y explicar dónde este método podría ser útil en aplicaciones robóticas.</li>
+<li>Explicar la estructura de las interfaces de Action e identificar la información relevante dentro de ellas, permitiéndote construir Action Servers y Clients.</li>
+<li>Implementar nodes Python Action <em>Client</em> que puedan manejar <em>feedback</em> y <em>results</em> y también puedan <em>cancelar</em> un action a mitad de camino.</li>
+<li>Desarrollar nodes Action Server y Client que podrían usarse como base para una estrategia de exploración robótica.</li>
 </ol>
-<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
-<h4 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">¶</a></h4>
+<h3 id="enlaces-rapidos">Enlaces Rápidos<a class="headerlink" href="#enlaces-rapidos" title="Permanent link">¶</a></h3>
+<h4 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="#ex1">Exercise 1: Launching an Action Server and calling it from the command-line</a></li>
-<li><a href="#ex2">Exercise 2: Building a Python Action Client Node</a></li>
-<li><a href="#ex3">Exercise 3: Creating an Action Interface</a></li>
-<li><a href="#ex4">Exercise 4: Building the "ExploreForward" Action Server</a></li>
-<li><a href="#ex5">Exercise 5: Building a Basic "ExploreForward" Client</a></li>
-<li><a href="#ex6">Exercise 6 (Advanced): Implementing an Exploration Strategy</a></li>
+<li><a href="#ex1">Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos</a></li>
+<li><a href="#ex2">Ejercicio 2: Construir un Node Python Action Client</a></li>
+<li><a href="#ex3">Ejercicio 3: Crear una Interface de Action</a></li>
+<li><a href="#ex4">Ejercicio 4: Construir el Action Server "ExploreForward"</a></li>
+<li><a href="#ex5">Ejercicio 5: Construir un Client Básico "ExploreForward"</a></li>
+<li><a href="#ex6">Ejercicio 6 (Avanzado): Implementar una Estrategia de Exploración</a></li>
 </ul>
-<h4 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h4>
+<h4 id="recursos-adicionales">Recursos Adicionales<a class="headerlink" href="#recursos-adicionales" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="minimal_action_client/" target="_blank">A Minimal Action Client (for Exercise 2)</a></li>
-<li><a href="explore_server/" target="_blank">The Explore Server Template (for Exercise 4)</a></li>
+<li><a href="minimal_action_client/" target="_blank">Un Action Client Mínimo (para el Ejercicio 2)</a></li>
+<li><a href="explore_server/" target="_blank">La Plantilla del Explore Server (para el Ejercicio 4)</a></li>
 </ul>
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
-<p><strong>Step 1: Launch your ROS Environment</strong></p>
-<p>Launch your ROS environment now so that you have access to a Linux terminal instance (aka <strong>TERMINAL 1</strong>).</p>
-<p><strong>Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)</strong></p>
-<p>Remember that any work that you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers, and so you should be backing up your work to your <code>U:\</code> drive regularly. When prompted (on first launch of WSL-ROS2 in <strong>TERMINAL 1</strong>) enter <code>Y</code> to restore this<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
-<p><strong>Step 3: Launch VS Code</strong>  </p>
-<p><em>WSL users</em> <a href="../../software/using-wsl-ros/vscode/#verify">remember to check for this</a>.</p>
-<p><strong>Step 4: Make Sure The Course Repo is Up-To-Date</strong></p>
-<p>Check that the Course Repo is up-to-date before you start on these exercises. <a href="../extras/course-repo/">See here for how to install and/or update</a>.</p>
-<h2 id="calling-an-action-server">Calling an Action Server<a class="headerlink" href="#calling-an-action-server" title="Permanent link">¶</a></h2>
-<p>Before we talk about what actions actually are, we're going to dive straight in and see one in <em>action</em> (excuse the pun). </p>
+<h2 id="primeros-pasos">Primeros Pasos<a class="headerlink" href="#primeros-pasos" title="Permanent link">¶</a></h2>
+<p><strong>Paso 1: Lanza tu Entorno de ROS</strong></p>
+<p>Lanza tu entorno de ROS ahora para que tengas acceso a una instancia de terminal Linux (también conocida como <strong>TERMINAL 1</strong>).</p>
+<p><strong>Paso 2: Restaura tu trabajo (Solo para Usuarios de Computadoras del Laboratorio con WSL-ROS2)</strong></p>
+<p>Recuerda que cualquier trabajo que realices dentro del Entorno WSL-ROS2 no se conservará entre sesiones ni en diferentes computadoras del laboratorio, por lo que debes hacer una copia de seguridad de tu trabajo en tu unidad <code>U:\</code> regularmente. Cuando se te solicite (al primer lanzamiento de WSL-ROS2 en <strong>TERMINAL 1</strong>) ingresa <code>Y</code> para restaurarlo<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p><strong>Paso 3: Lanza VS Code</strong>  </p>
+<p><em>Usuarios de WSL</em> <a href="../../software/using-wsl-ros/vscode/#verify">recuerda verificar esto</a>.</p>
+<p><strong>Paso 4: Asegúrate de que el Repositorio del Curso esté Actualizado</strong></p>
+<p>Verifica que el Repositorio del Curso esté actualizado antes de comenzar con estos ejercicios. <a href="../extras/course-repo/">Consulta aquí cómo instalar y/o actualizar</a>.</p>
+<h2 id="llamar-a-un-action-server">Llamar a un Action Server<a class="headerlink" href="#llamar-a-un-action-server" title="Permanent link">¶</a></h2>
+<p>Antes de hablar sobre qué son realmente los actions, vamos a ir directo al grano y ver uno en <em>action</em> (perdona el juego de palabras).</p>
 <!-- As you may remember from Part 3, you actually used a ROS Action to make your robot navigate autonomously in [Exercise 3](./part3.md#ex3), by calling an action server from the command-line. We will do a similar thing now, in a different context, and this time we'll also look at what's going on in a bit more detail. -->
 
-<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Launching an Action Server and calling it from the command-line<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
-<p>We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a <em>mystery environment</em> now, and we're going to do this by launching Gazebo <em>headless</em> i.e. Gazebo will be running behind the scenes, but there'll be no Graphical User Interface (GUI) to show us what the environment actually looks like.  Then, we'll use an <em>action server</em> to make our robot scan the environment and take pictures for us, to reveal its surroundings!</p>
+<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
+<p>Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle en un <em>entorno misterioso</em> ahora, y lo haremos lanzando Gazebo en modo <em>headless</em>, es decir, Gazebo se ejecutará en segundo plano, pero no habrá Interfaz Gráfica de Usuario (GUI) para mostrarnos cómo es realmente el entorno. Luego, usaremos un <em>action server</em> para hacer que nuestro robot escanee el entorno y tome fotos por nosotros, ¡para revelar su entorno!</p>
 <ol>
 <li>
-<p>To launch the TurtleBot3 Waffle in this <em>mystery environment</em>, use the following <code>ros2 launch</code> command in <strong>TERMINAL 1</strong>:</p>
+<p>Para lanzar el TurtleBot3 Waffle en este <em>entorno misterioso</em>, usa el siguiente comando <code>ros2 launch</code> en <strong>TERMINAL 1</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>mystery_world.launch.py
 </code></pre></div>
-<p>... nothing will <em>appear</em> to happen (for now!)</p>
+<p>... ¡aparentemente no ocurrirá <em>nada</em> (por ahora)!</p>
 </li>
 <li>
-<p>Next, open up a new terminal (<strong>TERMINAL 2</strong>), and have a look at all the topics that are currently active on the ROS network (you should know exactly how to do this by now!)</p>
-<p>The output of this should confirm that ROS and our robot are indeed active...</p>
+<p>A continuación, abre una nueva terminal (<strong>TERMINAL 2</strong>) y echa un vistazo a todos los topics que están actualmente activos en la red de ROS (¡ya deberías saber exactamente cómo hacer esto!).</p>
+<p>La salida de esto debería confirmar que ROS y nuestro robot están efectivamente activos...</p>
 <details class="question">
-<summary>How?</summary>
-<p>When the robot is active, the output of the <code>ros2 topic list</code> command should provide a long list of topics, a number of which we've been working with throughout this course so far, such as <code>cmd_vel</code>, <code>odom</code>, <code>scan</code>, and so on. If the Waffle simulation <em>isn't</em> active then we would be presented with a much smaller list, containing only the core ROS topics:</p>
+<summary>¿Cómo?</summary>
+<p>Cuando el robot está activo, la salida del comando <code>ros2 topic list</code> debería proporcionar una larga lista de topics, varios de los cuales hemos estado trabajando a lo largo de este curso, como <code>cmd_vel</code>, <code>odom</code>, <code>scan</code>, y así sucesivamente. Si la simulación del Waffle <em>no</em> está activa, se nos presentaría una lista mucho más pequeña, que contiene solo los topics básicos de ROS:</p>
 <hr>
 <p><strong>TERMINAL 2:</strong>
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
@@ -3404,19 +3905,19 @@
 </details>
 </li>
 <li>
-<p>Next (still in <strong>TERMINAL 2</strong>), run the following command to launch an <em>Action Server</em> on the network:</p>
+<p>A continuación (aún en <strong>TERMINAL 2</strong>), ejecuta el siguiente comando para lanzar un <em>Action Server</em> en la red:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 </li>
 <li>
-<p>Now, open up <em>another</em> new terminal instance (<strong>TERMINAL 3</strong>), but so that you can view this and <strong>TERMINAL 2</strong> side-by-side. Enter the following command to <em>list</em> all actions that are active on the ROS network:</p>
+<p>Ahora, abre <em>otra</em> nueva instancia de terminal (<strong>TERMINAL 3</strong>), de manera que puedas ver esta y la <strong>TERMINAL 2</strong> lado a lado. Ingresa el siguiente comando para <em>listar</em> todos los actions que están activos en la red de ROS:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>list
 </code></pre></div>
-<p>There should be an item here called <code>/camera_sweep</code>, use the <code>info</code> command to find out more about this:</p>
+<p>Debería haber un elemento aquí llamado <code>/camera_sweep</code>. Usa el comando <code>info</code> para obtener más información sobre este:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>info<span class="w"> </span>/camera_sweep
 </code></pre></div>
-<p>This tells us the <em>name</em> of the action: <code>Action: /camera_sweep</code>, as well as the number of client and server nodes this action has. Currently, the action should have 0 <em>clients</em> and 1 <em>server</em>, and the node acting as the server here should be listed as <code>/camera_sweep_action_server_node</code> (the node that we just launched with the <code>ros2 run</code> command in <strong>TERMINAL 2</strong>).</p>
-<p>Finally, call the <code>ros2 action info</code> command again, but this time providing an additional argument:</p>
+<p>Esto nos indica el <em>nombre</em> del action: <code>Action: /camera_sweep</code>, así como el número de nodes client y server que tiene este action. Actualmente, el action debería tener 0 <em>clients</em> y 1 <em>server</em>, y el node que actúa como servidor aquí debería aparecer como <code>/camera_sweep_action_server_node</code> (el node que acabamos de lanzar con el comando <code>ros2 run</code> en <strong>TERMINAL 2</strong>).</p>
+<p>Finalmente, llama al comando <code>ros2 action info</code> nuevamente, pero esta vez proporcionando un argumento adicional:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2 action info -t /camera_sweep
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Action: /camera_sweep
@@ -3424,13 +3925,13 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Action servers: 1
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    /camera_sweep_action_server [tuos_interfaces/action/CameraSweep]
 </code></pre></div>
-<p>The <code>-t</code> argument additionally shows the action <em>type</em> against the server node, indicating to us the type of <em>interface</em> used by the server.</p>
+<p>El argumento <code>-t</code> muestra adicionalmente el <em>tipo</em> de action frente al node servidor, indicándonos el tipo de <em>interface</em> utilizada por el servidor.</p>
 </li>
 <li>
-<p>Let's now find out more about the interface itself. As with any interface (message, service or action) we can use the <code>ros2 interface</code> command to do this. In <strong>TERMINAL 3</strong> enter the following:</p>
+<p>Ahora busquemos más información sobre la interface en sí. Al igual que con cualquier interface (mensaje, service o action) podemos usar el comando <code>ros2 interface</code> para esto. En <strong>TERMINAL 3</strong> ingresa lo siguiente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>tuos_interfaces/action/CameraSweep
 </code></pre></div>
-<p>Which should present us with the following:</p>
+<p>Lo cual debería presentarnos lo siguiente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#goal
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>int32 image_count     # Number of images to capture during the sweep
@@ -3442,15 +3943,15 @@
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>int32 current_image   # Number of images taken
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>float32 current_angle # Current angular position of the robot (in degrees)
 </code></pre></div>
-<p>There are three parts to an action interface, and we'll talk about these in a bit more detail later on, but for now, all we need to know is that in order to <em>call</em> an action, we need to send the action server a <strong>Goal</strong>.</p>
+<p>Hay tres partes en una interface de action, y hablaremos sobre estas con más detalle en breve, pero por ahora, todo lo que necesitamos saber es que para <em>llamar</em> a un action, necesitamos enviar al action server un <strong>Goal</strong>.</p>
 <details class="info">
-<summary>Comparing with ROS Services</summary>
-<p>This is a bit like sending a <strong>Request</strong> to a ROS Service Server, like we did in the previous session.</p>
+<summary>Comparación con ROS Services</summary>
+<p>Esto es un poco como enviar una <strong>Request</strong> a un ROS Service Server, como hicimos en la sesión anterior.</p>
 </details>
 </li>
 <li>
-<p>We can issue a goal to an action server from the command-line using the <code>ros2 action</code> command again. Let's give this a go in <strong>TERMINAL 3</strong>.</p>
-<p>First, let's identify the right <code>ros2 action</code> sub-command:</p>
+<p>Podemos emitir un goal a un action server desde la línea de comandos usando el comando <code>ros2 action</code> nuevamente. Vamos a intentarlo en <strong>TERMINAL 3</strong>.</p>
+<p>Primero, identifiquemos el sub-comando correcto de <code>ros2 action</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>--help
 </code></pre></div>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Commands:
@@ -3458,34 +3959,34 @@
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  list       Output a list of action names
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  send_goal  Send an action goal
 </code></pre></div>
-<p>As above, there are three sub-commands to choose from, and we've already used the first two! Clearly, the <code>send_goal</code> command is the one we want now.</p>
-<p>Let's get some help on this one:</p>
+<p>Como se muestra arriba, hay tres sub-comandos para elegir, ¡y ya hemos usado los dos primeros! Claramente, el comando <code>send_goal</code> es el que necesitamos ahora.</p>
+<p>Obtengamos ayuda sobre este:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>--help
 </code></pre></div>
-<p>From this, we learn that there are three <em>positional arguments</em>, which must be supplied in the correct order:</p>
+<p>A partir de esto, aprendemos que hay tres <em>argumentos posicionales</em>, que deben suministrarse en el orden correcto:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>&lt;action_name&gt;<span class="w"> </span>&lt;action_type&gt;<span class="w"> </span>&lt;goal&gt;
 </code></pre></div>
-<p>We know from our earlier interrogation with the <code>ros2 action list</code>, <code>info</code> and <code>ros2 interface show</code> commands how to provide the right data here:</p>
+<p>Sabemos por nuestra investigación anterior con los comandos <code>ros2 action list</code>, <code>info</code> y <code>ros2 interface show</code> cómo proporcionar los datos correctos aquí:</p>
 <ol>
 <li><code>action_name</code>: <code>/camera_sweep</code></li>
 <li><code>action_type</code>: <code>tuos_interfaces/action/CameraSweep</code></li>
-<li><code>goal</code>: a data packet (in YAML format) containing two parameters:<ol>
-<li><code>sweep_angle</code>: the angle (in degrees) that the robot will rotate on the spot (i.e. 'sweep')</li>
-<li><code>image_count</code>: the number of images it will capture from its front-facing camera while 'sweeping'</li>
+<li><code>goal</code>: un paquete de datos (en formato YAML) que contiene dos parámetros:<ol>
+<li><code>sweep_angle</code>: el ángulo (en grados) que el robot rotará en su lugar (es decir, el 'barrido')</li>
+<li><code>image_count</code>: el número de imágenes que capturará desde su cámara frontal mientras realiza el 'barrido'</li>
 </ol>
 </li>
 </ol>
 </li>
 <li>
-<p>Now, again in <strong>TERMINAL 3</strong>, have a go at using the <code>ros2 action send_goal</code> command, but keep an eye on <strong>TERMINAL 2</strong> as you do this:</p>
+<p>Ahora, de nuevo en <strong>TERMINAL 3</strong>, intenta usar el comando <code>ros2 action send_goal</code>, pero vigila la <strong>TERMINAL 2</strong> mientras lo haces:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>/camera_sweep<span class="w"> </span>tuos_interfaces/action/CameraSweep<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="s2">"{sweep_angle: 0, image_count: 0}"</span>
 </code></pre></div>
-<p>Having called the action, you should then be presented with a message (in <strong>TERMINAL 3</strong>) that the <code>Goal was rejected.</code> In <strong>TERMINAL 2</strong> (where the action server is running), we should see some additional information about why this was the case. Read this, and then head back to <strong>TERMINAL 3</strong> and have another go at sending a goal to the action server, by supplying valid inputs this time!</p>
-<p>Once valid goal parameters have been supplied, the action server (in <strong>TERMINAL 2</strong>), will respond to inform you of what it's going to do. You'll then need to wait for it to do its job...</p>
+<p>Después de llamar al action, se te debería presentar un mensaje (en <strong>TERMINAL 3</strong>) indicando que el <code>Goal was rejected.</code> En <strong>TERMINAL 2</strong> (donde se está ejecutando el action server), deberíamos ver información adicional sobre por qué fue así. Lee esto y luego regresa a <strong>TERMINAL 3</strong> e intenta de nuevo enviar un goal al action server, ¡esta vez suministrando entradas válidas!</p>
+<p>Una vez que se hayan suministrado parámetros de goal válidos, el action server (en <strong>TERMINAL 2</strong>) responderá para informarte de lo que va a hacer. Luego deberás esperar a que complete su tarea...</p>
 </li>
 <li>
-<p>Once the action has completed (it could up to 20 seconds), a message should appear in <strong>TERMINAL 3</strong> to inform us of the outcome:</p>
+<p>Una vez que el action haya completado (podría tardar hasta 20 segundos), debería aparecer un mensaje en <strong>TERMINAL 3</strong> para informarnos del resultado:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Result:
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    image_paths: 
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>- ~/ros_action_examples/img01.jpg
@@ -3495,7 +3996,7 @@
 <a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
 <a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>Goal finished with status: SUCCEEDED
 </code></pre></div>
-<p>Additionally, we should see some further text in <strong>TERMINAL 2</strong> as well:</p>
+<p>Adicionalmente, también deberíamos ver algo más de texto en <strong>TERMINAL 2</strong>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[INFO] [#####] [camera_sweep_action_server_node]: camera_sweep_action_server_node completed successfully:
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  - Angular sweep = # degrees
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  - Images captured = #
@@ -3503,45 +4004,45 @@
 </code></pre></div>
 <ol>
 <li>
-<p>The <em>result</em> of the action (presented to us in <strong>TERMINAL 3</strong>) is a series file paths, illustrating the images that have been captured, and where they have been saved on the filesystem. Navigate to this directory in <strong>TERMINAL 3</strong> (using <code>cd</code>) and have a look at the content using <code>ll</code> (a handy alias for the <code>ls</code> command):</p>
+<p>El <em>result</em> del action (presentado en <strong>TERMINAL 3</strong>) es una serie de rutas de archivos, que ilustran las imágenes que han sido capturadas y dónde se han guardado en el sistema de archivos. Navega a este directorio en <strong>TERMINAL 3</strong> (usando <code>cd</code>) y echa un vistazo al contenido usando <code>ll</code> (un alias útil para el comando <code>ls</code>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros_action_examples
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ll
 </code></pre></div>
-<p>You should see the same number of image files in there as was requested with the <code>image_count</code> parameter.</p>
+<p>Deberías ver el mismo número de archivos de imagen que el solicitado con el parámetro <code>image_count</code>.</p>
 </li>
 <li>
-<p>Launch <code>eog</code> in this directory and click through all the images to reveal your robot's <em>mystery environment</em>:</p>
+<p>Lanza <code>eog</code> en este directorio y navega por todas las imágenes para revelar el <em>entorno misterioso</em> de tu robot:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>eog<span class="w"> </span>.
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Let's do this one more time. Close down the <code>eog</code> window, head back to <strong>TERMINAL 3</strong> and issue the <code>ros2 action send_goal</code> command again, but this time use the optional <code>-f</code> flag: <a name="send_goal_cli"></a></p>
+<p>Hagamos esto una vez más. Cierra la ventana de <code>eog</code>, regresa a <strong>TERMINAL 3</strong> y emite el comando <code>ros2 action send_goal</code> nuevamente, pero esta vez usa el flag opcional <code>-f</code>: <a name="send_goal_cli"></a></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>-f<span class="w"> </span>/camera_sweep<span class="w"> </span>tuos_interfaces/action/CameraSweep<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="s2">"{sweep_angle: 0, image_count: 0}"</span><span class="w"> </span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Don't forget to supply valid goal parameters again!</p>
+<p>¡No olvides suministrar nuevamente parámetros de goal válidos!</p>
 </div>
-<p><em>Now</em>, as well as being provided with a result once the action has completed, we're <em>also</em> provided with some regular updates while the action is in progress (aka <em>"feedback"</em>)! </p>
+<p><em>Ahora</em>, además de recibir un result una vez que el action haya completado, ¡<em>también</em> recibimos algunas actualizaciones regulares mientras el action está en progreso (también conocido como <em>"feedback"</em>)!</p>
 </li>
 <li>
-<p>To finish off, close down the action server in <strong>TERMINAL 2</strong> and the headless Gazebo process in <strong>TERMINAL 1</strong> by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in each terminal. </p>
+<p>Para terminar, cierra el action server en <strong>TERMINAL 2</strong> y el proceso de Gazebo headless en <strong>TERMINAL 1</strong> ingresando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en cada terminal.</p>
 </li>
 </ol>
-<h2 id="what-is-a-ros-action">What is a ROS Action?<a class="headerlink" href="#what-is-a-ros-action" title="Permanent link">¶</a></h2>
-<p>In the above exercise we launched an action server and then called it from the command-line using the <code>ros2 action send_goal</code> sub-command. In the same way as a ROS Service, the action also provided us with a <strong>result</strong> once the task had been completed.</p>
-<p>Using the <code>-f</code> flag we were able to ask the server to provide us with <em>real-time feedback</em> on how it was getting on (in <strong>TERMINAL 3</strong>).  <strong>Feedback</strong> is one of the key features that differentiates a ROS Action from a ROS Service: An Action Server provides <strong>feedback</strong> at regular intervals whilst working towards its <strong>goal</strong>. Another feature of ROS Actions is that they can be <em>cancelled</em> part-way through (which we'll play around with shortly).</p>
+<h2 id="que-es-un-ros-action">¿Qué es un ROS Action?<a class="headerlink" href="#que-es-un-ros-action" title="Permanent link">¶</a></h2>
+<p>En el ejercicio anterior lanzamos un action server y luego lo llamamos desde la línea de comandos usando el sub-comando <code>ros2 action send_goal</code>. De la misma manera que un ROS Service, el action también nos proporcionó un <strong>result</strong> una vez que la tarea se completó.</p>
+<p>Usando el flag <code>-f</code> pudimos pedir al servidor que nos proporcionara <em>feedback en tiempo real</em> sobre cómo iba (en <strong>TERMINAL 3</strong>). El <strong>Feedback</strong> es una de las características clave que diferencia a un ROS Action de un ROS Service: un Action Server proporciona <strong>feedback</strong> a intervalos regulares mientras trabaja hacia su <strong>goal</strong>. Otra característica de los ROS Actions es que pueden <em>cancelarse</em> a mitad de camino (con lo que jugaremos en breve).</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="action_interface.png" width="400px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="action_interface.png" data-desc-position="bottom"><img alt="" src="action_interface.png" width="400px"></a></p>
 </figure>
-<p>Ultimately, Actions use a combination of both Topic- <em>and</em> Service-based communication, to create a more advanced messaging protocol. Building on ROS Services, <em>Actions</em> are designed to be used for <strong>longer running tasks</strong>, due to the provision of <em>feedback</em> and the ability to <em>cancel</em> a process part-way through. You can read more about Actions in <a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html" target="_blank" rel="noopener">the official ROS 2 documentation here</a> (which also includes a nice animation to explain how they work).</p>
-<h3 id="the-format-of-action-interfaces">The Format of Action Interfaces<a class="headerlink" href="#the-format-of-action-interfaces" title="Permanent link">¶</a></h3>
-<p>Like Services, Action Interfaces have multiple parts to them, and we need to know what format these action messages take in order to be able to use them.</p>
-<p>We ran <code>ros2 interface show</code> in the previous exercise, to interrogate the action interface used by the <code>/camera_sweep</code> action server:</p>
+<p>En última instancia, los Actions usan una combinación de comunicación basada tanto en Topics <em>como</em> en Services, para crear un protocolo de mensajería más avanzado. Basándose en los ROS Services, los <em>Actions</em> están diseñados para ser usados en <strong>tareas de larga duración</strong>, debido a la provisión de <em>feedback</em> y la capacidad de <em>cancelar</em> un proceso a mitad de camino. Puedes leer más sobre Actions en <a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html" target="_blank">la documentación oficial de ROS 2 aquí</a> (que también incluye una animación muy buena para explicar cómo funcionan).</p>
+<h3 id="el-formato-de-las-interfaces-de-action">El Formato de las Interfaces de Action<a class="headerlink" href="#el-formato-de-las-interfaces-de-action" title="Permanent link">¶</a></h3>
+<p>Al igual que los Services, las Interfaces de Action tienen múltiples partes, y necesitamos saber qué formato tienen estos mensajes de action para poder usarlos.</p>
+<p>Ejecutamos <code>ros2 interface show</code> en el ejercicio anterior, para interrogar la interface de action utilizada por el action server <code>/camera_sweep</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ros2 interface show tuos_interfaces/action/CameraSweep
 </code></pre></div>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>#goal
@@ -3555,54 +4056,54 @@
 <a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>int32 current_image   # Number of images taken
 <a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>float32 current_angle # Current angular position of the robot (in degrees)
 </code></pre></div>
-<p>As we know from Exercise 1, in order to call this action server we need to send a <strong>goal</strong>, and (in this case) there are <strong>two</strong> goal parameters that must be provided:</p>
+<p>Como sabemos del Ejercicio 1, para llamar a este action server necesitamos enviar un <strong>goal</strong>, y (en este caso) hay <strong>dos</strong> parámetros de goal que deben proporcionarse:</p>
 <ol>
-<li><code>sweep_angle</code>: a 32-bit floating-point value</li>
-<li><code>image_count</code>: a 32-bit integer</li>
+<li><code>sweep_angle</code>: un valor de punto flotante de 32 bits</li>
+<li><code>image_count</code>: un entero de 32 bits</li>
 </ol>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ul>
-<li>What are the names of the <strong>result</strong> and <strong>feedback</strong> interface parameters? (There are three in total.)</li>
-<li>What data types do these parameters use?</li>
+<li>¿Cuáles son los nombres de los parámetros de interface de <strong>result</strong> y <strong>feedback</strong>? (Hay tres en total.)</li>
+<li>¿Qué tipos de datos usan estos parámetros?</li>
 </ul>
 </div>
-<p>You'll learn how we use this information to develop Python Action Server &amp; Client nodes in the following exercises.</p>
-<h2 id="creating-python-action-clients">Creating Python Action Clients<a class="headerlink" href="#creating-python-action-clients" title="Permanent link">¶</a></h2>
-<p>In the previous exercise we <em>called</em> a pre-existing Action Server from the command-line, by sending a goal to it. Let's look at how we can do this from within a Python ROS node now.</p>
-<h3 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Building a Python Action Client Node<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h3>
+<p>Aprenderás cómo usamos esta información para desarrollar nodes Python Action Server y Client en los siguientes ejercicios.</p>
+<h2 id="creacion-de-python-action-clients">Creación de Python Action Clients<a class="headerlink" href="#creacion-de-python-action-clients" title="Permanent link">¶</a></h2>
+<p>En el ejercicio anterior <em>llamamos</em> a un Action Server preexistente desde la línea de comandos, enviándole un goal. Veamos ahora cómo podemos hacer esto desde dentro de un node Python de ROS.</p>
+<h3 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 2: Construir un Node Python Action Client<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h3>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong> launch the <em>mystery world</em> simulation again, but this time with an additional argument:</p>
+<p>En <strong>TERMINAL 1</strong> lanza la simulación del <em>mundo misterioso</em> nuevamente, pero esta vez con un argumento adicional:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
 </code></pre></div>
-<p>With the <code>with_gui</code> switch set to <code>true</code>, we should now be able to actually <em>see</em> the simulated world this time.</p>
+<p>Con el switch <code>with_gui</code> configurado en <code>true</code>, ahora deberíamos poder <em>ver</em> realmente el mundo simulado esta vez.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/gz/coloured_pillars.png" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a>
 </figure>
-<center><em>(Not really that exciting is it!?)</em></center><p></p>
+<center><em>(¡No es muy emocionante que digamos!)</em></center><p></p>
 </li>
 <li>
-<p>Then, in <strong>TERMINAL 2</strong>, launch the Camera Sweep Action Server again: </p>
+<p>Luego, en <strong>TERMINAL 2</strong>, lanza el Camera Sweep Action Server nuevamente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 </li>
 </ol>
-<h4 id="part-1-a-minimal-action-client">Part 1: A Minimal Action Client<a class="headerlink" href="#part-1-a-minimal-action-client" title="Permanent link">¶</a></h4>
+<h4 id="parte-1-un-action-client-minimo">Parte 1: Un Action Client Mínimo<a class="headerlink" href="#parte-1-un-action-client-minimo" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Now, in <strong>TERMINAL 3</strong>, create a new package called <code>part5_actions</code> using <a href="../part1/#ex4">the approach that we've been using to create packages throughout this course</a>.</p>
+<p>Ahora, en <strong>TERMINAL 3</strong>, crea un nuevo paquete llamado <code>part5_actions</code> usando <a href="../part1/#ex4">el enfoque que hemos estado usando para crear paquetes a lo largo de este curso</a>.</p>
 </li>
 <li>
-<p>Navigate into the <code>scripts</code> folder of your package using the <code>cd</code> command:</p>
+<p>Navega a la carpeta <code>scripts</code> de tu paquete usando el comando <code>cd</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part5_actions/scripts/
 </code></pre></div>
 </li>
 <li>
-<p>In here, create a new Python file called <code>camera_sweep_action_client.py</code> (using the <code>touch</code> command) and make it executable (<a href="../part1/#chmod">using <code>chmod</code></a>). </p>
+<p>Aquí, crea un nuevo archivo Python llamado <code>camera_sweep_action_client.py</code> (usando el comando <code>touch</code>) y hazlo ejecutable (<a href="../part1/#chmod">usando <code>chmod</code></a>).</p>
 </li>
 <li>
-<p>Then, declare this as an executable in the package's <code>CMakeLists.txt</code>:</p>
+<p>Luego, declara esto como un ejecutable en el <code>CMakeLists.txt</code> del paquete:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a># Install Python executables
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>install(PROGRAMS
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>  scripts/basic_velocity_control.py
@@ -3613,50 +4114,50 @@
 </code></pre></div>
 </li>
 <li>
-<p>At an <em>absolute minimum</em>, the Action Client can be constructed as follows:</p>
-<p></p><center><a class="md-button" href="minimal_action_client/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> The <code>camera_sweep_action_client.py</code> Node</a></center><p></p>
+<p>Como <em>mínimo absoluto</em>, el Action Client puede construirse de la siguiente manera:</p>
+<p></p><center><a class="md-button" href="minimal_action_client/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> El Node <code>camera_sweep_action_client.py</code></a></center><p></p>
 </li>
 <li>
-<p>Let's build the Node now, so that we can run it. Head back to <strong>TERMINAL 3</strong> and use Colcon to build the package: <a name="colcon"></a></p>
+<p>Construyamos el Node ahora, para poder ejecutarlo. Regresa a <strong>TERMINAL 3</strong> y usa Colcon para construir el paquete: <a name="colcon"></a></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install
 </code></pre></div>
 </li>
 <li>
-<p>Re-source the <code>.bashrc</code>:</p>
+<p>Vuelve a cargar el <code>.bashrc</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 <li>
-<p>Run your node with <code>ros2 run</code>:</p>
+<p>Ejecuta tu node con <code>ros2 run</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ros2 run part5_actions camera_sweep_action_client.py
 </code></pre></div>
-<p>With the command above as it is, the server will reject the goal (check back in <strong>TERMINAL 2</strong> to find out why). How can you modify the above command (by adding some additional arguments), so that the <code>camera_sweep_action_client.py</code> node actually sends a valid goal?<sup id="fnref:goal_params"><a class="footnote-ref" href="#fn:goal_params">2</a></sup></p>
+<p>Con el comando anterior tal como está, el servidor rechazará el goal (vuelve a <strong>TERMINAL 2</strong> para averiguar por qué). ¿Cómo puedes modificar el comando anterior (agregando algunos argumentos adicionales), para que el node <code>camera_sweep_action_client.py</code> envíe realmente un goal válido?<sup id="fnref:goal_params"><a class="footnote-ref" href="#fn:goal_params">2</a></sup></p>
 </li>
 <li>
-<p>Having modified the <code>ros2 run</code> command to successfully send a <em>valid</em> goal to the <code>camera_sweep</code> action server, the robot should start to turn, capturing images as it goes. </p>
-<p>The Client that we've created here makes a call to the action server and then exits, it doesn't even wait for the server to finish its task! The only way that we'd know if the action was successful, is if we were to keep an eye on <strong>TERMINAL 2</strong>, to see the action <em>server</em> respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...</p>
+<p>Habiendo modificado el comando <code>ros2 run</code> para enviar exitosamente un <em>goal</em> válido al action server <code>camera_sweep</code>, el robot debería comenzar a girar, capturando imágenes a medida que avanza.</p>
+<p>El Client que hemos creado aquí hace una llamada al action server y luego termina, ¡ni siquiera espera a que el servidor complete su tarea! La única manera de saber si el action fue exitoso sería vigilar <strong>TERMINAL 2</strong>, para ver al <em>server</em> del action responder al goal que se le envió... El client en sí no proporciona feedback durante el action, ni el result al final. Veamos cómo incorporar eso ahora...</p>
 </li>
 </ol>
-<h4 id="part-2-handling-a-result">Part 2: Handling a Result<a class="headerlink" href="#part-2-handling-a-result" title="Permanent link">¶</a></h4>
+<h4 id="parte-2-manejo-de-un-result">Parte 2: Manejo de un Result<a class="headerlink" href="#parte-2-manejo-de-un-result" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Go back to the <code>camera_sweep_action_client.py</code> file in VS Code.</p>
+<p>Regresa al archivo <code>camera_sweep_action_client.py</code> en VS Code.</p>
 </li>
 <li>
-<p>In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends to the goal itself.</p>
-<p>Within the <code>send_goal()</code> method of the <code>CameraSweepActionClient()</code> class, find the line that reads:</p>
+<p>Para poder manejar el result que se envía desde un action server, primero necesitamos manejar la respuesta que el servidor envía al goal en sí.</p>
+<p>Dentro del método <code>send_goal()</code> de la clase <code>CameraSweepActionClient()</code>, encuentra la línea que dice:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
 </code></pre></div>
-<p>and change this to:</p>
+<p>y cámbiala a:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
 </code></pre></div>
-<p>This method is no longer returning the <em>future</em> that is sent from <code>send_goal_async()</code>, but is now handling this and adding a callback to it: <code>goal_response_callback</code>. This callback can now be used to inform the client of whether the server has <em>accepted</em> the goal or not.</p>
+<p>Este método ya no retorna el <em>future</em> que se envía desde <code>send_goal_async()</code>, sino que ahora lo maneja y le agrega un callback: <code>goal_response_callback</code>. Este callback ahora puede usarse para informar al client de si el servidor ha <em>aceptado</em> el goal o no.</p>
 </li>
 <li>
-<p>We therefore need to define this callback now. Define it as a <em>new</em> class method of the <code>CameraSweepActionClient()</code> class (i.e. underneath the <code>send_goal()</code> class method that has already been defined)...</p>
+<p>Por lo tanto, necesitamos definir este callback ahora. Defínelo como un <em>nuevo</em> método de clase de la clase <code>CameraSweepActionClient()</code> (es decir, debajo del método de clase <code>send_goal()</code> que ya ha sido definido)...</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
 <a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>    <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 <a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
@@ -3668,14 +4169,14 @@
 <a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
 <a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
 </code></pre></div>
-<p>The <em>input</em> to this method will be the <em>future</em> that is created by the <code>send_goal_async()</code> call. We assign this to an attribute called <code>goal_handle</code> here, and can then use this for two purposes:</p>
+<p>La <em>entrada</em> a este método será el <em>future</em> que crea la llamada <code>send_goal_async()</code>. Lo asignamos a un atributo llamado <code>goal_handle</code> aquí, y podemos usarlo para dos propósitos:</p>
 <ol>
-<li>To check if the goal that we sent was accepted by the server</li>
-<li>If it <em>was</em> accepted, then we can get the result (using <code>get_result_async()</code>) and we can attach <em>another</em> callback to this to actually process that result: <code>get_result_callback</code>.</li>
+<li>Verificar si el goal que enviamos fue aceptado por el servidor.</li>
+<li>Si <em>fue</em> aceptado, entonces podemos obtener el result (usando <code>get_result_async()</code>) y podemos adjuntar <em>otro</em> callback para procesar realmente ese result: <code>get_result_callback</code>.</li>
 </ol>
 </li>
 <li>
-<p>Now we need to define this callback too. Define <code>get_result_callback</code> as another new method of the <code>CameraSweepActionClient()</code> class (i.e. underneath the <code>goal_response_callback()</code> class method that we have just defined)...</p>
+<p>Ahora también necesitamos definir este callback. Define <code>get_result_callback</code> como otro nuevo método de la clase <code>CameraSweepActionClient()</code> (es decir, debajo del método de clase <code>goal_response_callback()</code> que acabamos de definir)...</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
@@ -3685,53 +4186,53 @@
 <a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>    <span class="p">)</span>
 <a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </code></pre></div>
-<p>The input to <em>this</em> class method is another future object which contains the actual result sent from the server. We assign this to <code>result</code> and use a <code>get_logger().info()</code> call to print this to the terminal when the action has finished.</p>
-<p>As we know from our work earlier, the <code>CameraSweep</code> Action interface contains one <em>Result</em> parameter called <code>image_paths</code>.</p>
+<p>La entrada a <em>este</em> método de clase es otro objeto future que contiene el result real enviado desde el servidor. Lo asignamos a <code>result</code> y usamos una llamada <code>get_logger().info()</code> para imprimirlo en el terminal cuando el action haya finalizado.</p>
+<p>Como sabemos de nuestro trabajo anterior, la interface de Action <code>CameraSweep</code> contiene un parámetro de <em>Result</em> llamado <code>image_paths</code>.</p>
 </li>
 <li>
-<p>Finally, in the <code>main</code> method, change this:</p>
+<p>Finalmente, en el método <code>main</code>, cambia esto:</p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">future</span> <span class="o">=</span> <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">()</span>
 </code></pre></div>
-to just this:
+a solo esto:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">()</span>
 </code></pre></div>
-(because <code class="highlight"><span class="n">send_goal</span><span class="p">()</span></code> no longer returns a <code>future</code>)<p></p>
+(porque <code class="highlight"><span class="n">send_goal</span><span class="p">()</span></code> ya no retorna un <code>future</code>)<p></p>
 </li>
 <li>
-<p>And then also change: 
+<p>Y luego también cambia:
     </p><div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">action_client</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
 </code></pre></div><p></p>
-<p>to this:</p>
+<p>a esto:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
-<p>Save all your changes!</p>
+<p>¡Guarda todos tus cambios!</p>
 </li>
 <li>
-<p>Run this node again now (with the <code>ros2 run</code> command) and observe the changes in action.</p>
-<p>Our client node now presents us with the <em>result</em> that is sent by the server on completion of the action, but wouldn't it be nice if we could see the real-time <em>feedback</em> as the action takes place? Let's add this in now...</p>
+<p>Ejecuta este node nuevamente ahora (con el comando <code>ros2 run</code>) y observa los cambios en acción.</p>
+<p>Nuestro node client ahora nos presenta el <em>result</em> que envía el servidor al completarse el action, pero ¿no sería bueno poder ver el <em>feedback</em> en tiempo real mientras el action tiene lugar? Agreguemos esto ahora...</p>
 </li>
 </ol>
-<h4 id="part-3-handling-feedback">Part 3: Handling Feedback<a class="headerlink" href="#part-3-handling-feedback" title="Permanent link">¶</a></h4>
+<h4 id="parte-3-manejo-de-feedback">Parte 3: Manejo de Feedback<a class="headerlink" href="#parte-3-manejo-de-feedback" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Go back to the <code>camera_sweep_action_client.py</code> file in VS Code.</p>
+<p>Regresa al archivo <code>camera_sweep_action_client.py</code> en VS Code.</p>
 </li>
 <li>
-<p>In order to be able to handle the feedback that is sent from an action server, we need to add yet another callback! Go back to the <code>send_goal()</code> method and the line where we are actually sending the goal to the server:</p>
+<p>Para poder manejar el feedback que se envía desde un action server, ¡necesitamos agregar otro callback! Regresa al método <code>send_goal()</code> y a la línea donde realmente estamos enviando el goal al servidor:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
 </code></pre></div>
-<p>As it stands, all we're doing here is sending the goal, but we can also add a <em>feedback callback</em> to this too:</p>
+<p>Tal como está, todo lo que hacemos aquí es enviar el goal, pero también podemos agregar un <em>feedback callback</em> a esto:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionclient</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>    <span class="n">goal</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span> 
 <a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>    <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span>
 <a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="p">)</span>
 </code></pre></div>
-<p>The <code>feedback_callback</code> will be executed every time a new feedback message is received from the server.</p>
+<p>El <code>feedback_callback</code> se ejecutará cada vez que se reciba un nuevo mensaje de feedback del servidor.</p>
 </li>
 <li>
-<p>In order to define what we want to do with these feedback messages we need to add <em>yet another</em> new method to the <code>CameraSweepActionClient()</code> class. Underneath the <code>get_result_callback()</code> class method that we defined earlier, add this new one as well:</p>
+<p>Para definir qué queremos hacer con estos mensajes de feedback, necesitamos agregar <em>otro nuevo</em> método a la clase <code>CameraSweepActionClient()</code>. Debajo del método de clase <code>get_result_callback()</code> que definimos antes, agrega también este nuevo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>    <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
 <a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>    <span class="n">fdbk_current_angle</span> <span class="o">=</span> <span class="n">feedback</span><span class="o">.</span><span class="n">current_angle</span>
@@ -3742,40 +4243,40 @@ to just this:
 <a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>        <span class="sa">f</span><span class="s2">"  - Image(s) captured so far = </span><span class="si">{</span><span class="n">fdbk_current_image</span><span class="si">}</span><span class="s2">."</span>
 <a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>    <span class="p">)</span>
 </code></pre></div>
-<p>As we know from our work earlier, the <code>CameraSweep</code> interface contains two <em>feedback</em> parameters: <code>current_angle</code> and <code>current_image</code>.</p>
+<p>Como sabemos de nuestro trabajo anterior, la interface <code>CameraSweep</code> contiene dos parámetros de <em>feedback</em>: <code>current_angle</code> y <code>current_image</code>.</p>
 </li>
 <li>
-<p>Save all your changes once again, run the node again with the <code>ros2 run</code> command and observe the changes in action.</p>
-<p>The node we've now built can send a <em>goal</em> to an action server, process the <em>feedback</em> returned from the server as the action is in progress, and present the <em>result</em> to us once everything is complete.</p>
-<p>As discussed earlier though, the <em>other</em> key feature of Actions is the ability to <em>cancel</em> them part-way through. So let's look at how to incorporate this now as well.</p>
+<p>Guarda todos tus cambios nuevamente, ejecuta el node nuevamente con el comando <code>ros2 run</code> y observa los cambios en acción.</p>
+<p>El node que hemos construido ahora puede enviar un <em>goal</em> a un action server, procesar el <em>feedback</em> devuelto por el servidor mientras el action está en progreso, y presentarnos el <em>result</em> una vez que todo esté completo.</p>
+<p>Como se discutió anteriormente, la <em>otra</em> característica clave de los Actions es la capacidad de <em>cancelarlos</em> a mitad de camino. Veamos también cómo incorporar esto ahora.</p>
 </li>
 </ol>
-<h4 id="part-4-cancelling-an-action">Part 4: Cancelling an Action<a class="headerlink" href="#part-4-cancelling-an-action" title="Permanent link">¶</a></h4>
+<h4 id="parte-4-cancelar-un-action">Parte 4: Cancelar un Action<a class="headerlink" href="#parte-4-cancelar-un-action" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>First, create a copy of your <code>camera_sweep_action_client.py</code> node and call it <code>cancel_camera_sweep.py</code>. Make sure <strong>TERMINAL 3</strong> is located in the <code>scripts</code> directory of your <code>part5_actions</code> package before running the following:</p>
+<p>Primero, crea una copia de tu node <code>camera_sweep_action_client.py</code> y llámala <code>cancel_camera_sweep.py</code>. Asegúrate de que <strong>TERMINAL 3</strong> esté ubicada en el directorio <code>scripts</code> de tu paquete <code>part5_actions</code> antes de ejecutar lo siguiente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>cp<span class="w"> </span>camera_sweep_action_client.py<span class="w"> </span>cancel_camera_sweep.py
 </code></pre></div>
 </li>
 <li>
-<p>Don't forget to declare this as an <em>additional</em> executable in the package's <code>CMakeLists.txt</code>. You'll then also need to re-build the package with <code>colcon build</code> (<a href="#colcon">go back for a reminder</a>).</p>
+<p>No olvides declarar esto como un ejecutable <em>adicional</em> en el <code>CMakeLists.txt</code> del paquete. También necesitarás reconstruir el paquete con <code>colcon build</code> (<a href="#colcon">regresa para un recordatorio</a>).</p>
 </li>
 <li>
-<p>Open the <code>cancel_camera_sweep.py</code> file in VS Code.</p>
+<p>Abre el archivo <code>cancel_camera_sweep.py</code> en VS Code.</p>
 </li>
 <li>
-<p>We want this client to be able to cancel the goal under two different circumstances:</p>
+<p>Queremos que este client pueda cancelar el goal en dos circunstancias diferentes:</p>
 <ol>
-<li>The client itself is shutdown by the user (via a <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in the terminal)</li>
-<li>A conditional event that happens as the action is underway.</li>
+<li>El client en sí es apagado por el usuario (mediante un <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en el terminal).</li>
+<li>Un evento condicional que ocurre mientras el action está en curso.</li>
 </ol>
-<p>In order to address item 1 first, we need to draw upon some of the work we did in Part 2 in <a href="../part2/#ex5">the implementation of <em>safe shutdown procedures</em></a>...</p>
+<p>Para abordar el punto 1 primero, necesitamos recurrir a parte del trabajo que hicimos en la Parte 2 en <a href="../part2/#ex5">la implementación de <em>procedimientos de apagado seguro</em></a>...</p>
 </li>
 <li>
-<p>As you hopefully recall, we first need to import <code>SignalHandlerOptions</code> into our node, so add this as an additional import at the start of the code:</p>
+<p>Como esperamos que recuerdes, primero necesitamos importar <code>SignalHandlerOptions</code> en nuestro node, así que agrega esto como una importación adicional al comienzo del código:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.signals</span><span class="w"> </span><span class="kn">import</span> <span class="n">SignalHandlerOptions</span>
 </code></pre></div>
-<p>Then, in the <code>main()</code> node function, modify the <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">()</span></code> call:</p>
+<p>Luego, en la función del node <code>main()</code>, modifica la llamada <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">()</span></code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
 <a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
 <a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    <span class="n">signal_handler_options</span><span class="o">=</span><span class="n">SignalHandlerOptions</span><span class="o">.</span><span class="n">NO</span>
@@ -3783,31 +4284,31 @@ to just this:
 </code></pre></div>
 </li>
 <li>
-<p>Inside the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code> method of our <code>CameraSweepActionClient()</code> class we now need to add some additional flags:</p>
+<p>Dentro del método <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code> de nuestra clase <code>CameraSweepActionClient()</code> ahora necesitamos agregar algunos flags adicionales:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_succeeded</span> <span class="o">=</span> <span class="kc">False</span>
 <a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_cancelled</span> <span class="o">=</span> <span class="kc">False</span>
 <a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="kc">False</span>
 </code></pre></div>
-<p>In the <code>get_result_callback()</code> class method, we can then ensure that the <code>self.goal_succeeded</code> flag is set to <code>True</code> when a result is received. In this class method, locate the <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span></code> line and add the following <em>additional</em> line just above it:</p>
+<p>En el método de clase <code>get_result_callback()</code>, podemos entonces asegurarnos de que el flag <code>self.goal_succeeded</code> se establezca en <code>True</code> cuando se recibe un result. En este método de clase, localiza la línea <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span></code> y agrega la siguiente línea <em>adicional</em> justo encima de ella:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_succeeded</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
 </li>
 <li>
-<p>Actions can be cancelled using a <code>cancel_goal_async()</code> method of the <code>goal_handle</code> that is obtained from the <code>goal_response_callback()</code>. As such, we need to make this accessible across our entire <code>CameraSweepActionClient()</code> class. Locate the <code>goal_response_callback()</code> class method, and add this line at the bottom as the last line of the <code>goal_response_callback()</code> method:</p>
+<p>Los Actions pueden cancelarse usando un método <code>cancel_goal_async()</code> del <code>goal_handle</code> que se obtiene del <code>goal_response_callback()</code>. Por ello, necesitamos hacerlo accesible en toda nuestra clase <code>CameraSweepActionClient()</code>. Localiza el método de clase <code>goal_response_callback()</code> y agrega esta línea al final como la última línea del método <code>goal_response_callback()</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span> <span class="o">=</span> <span class="n">goal_handle</span>
 </code></pre></div>
-<p>This makes <code>goal_handle</code> accessible across the entire <code>CameraSweepActionClient()</code> class as <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span></code>. </p>
+<p>Esto hace que <code>goal_handle</code> sea accesible en toda la clase <code>CameraSweepActionClient()</code> como <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span></code>.</p>
 </li>
 <li>
-<p>We can only attempt to cancel an Action when it's in progress, therefore the <em>feedback callback</em> is the best place to trigger this. Locate the <code>feedback_callback()</code> class method and place the following at the end of it:</p>
+<p>Solo podemos intentar cancelar un Action cuando está en progreso, por lo tanto, el <em>feedback callback</em> es el mejor lugar para activar esto. Localiza el método de clase <code>feedback_callback()</code> y coloca lo siguiente al final de él:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_handle</span><span class="o">.</span><span class="n">cancel_goal_async</span><span class="p">()</span>
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>    <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_goal</span><span class="p">)</span>
 </code></pre></div>
-<p>Here, we call the <code>cancel_goal_async()</code> method from <code>self.goal_handle</code>, and add another new callback (<code>cancel_goal()</code>) to it (i.e. to encapsulate what we want to happen when the action is cancelled).</p>
+<p>Aquí, llamamos al método <code>cancel_goal_async()</code> desde <code>self.goal_handle</code> y agregamos otro nuevo callback (<code>cancel_goal()</code>) a él (es decir, para encapsular lo que queremos que suceda cuando el action sea cancelado).</p>
 </li>
 <li>
-<p>Now, let's define this as another new (and final!) class method:</p>
+<p>Ahora, definamos esto como otro nuevo (¡y final!) método de clase:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">cancel_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
 <a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>    <span class="n">cancel_response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 <a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cancel_response</span><span class="o">.</span><span class="n">goals_canceling</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -3816,10 +4317,10 @@ to just this:
 <a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>    <span class="k">else</span><span class="p">:</span>
 <a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal failed to cancel'</span><span class="p">)</span>
 </code></pre></div>
-<p>The input to this callback is another <em>future</em>, which we can use to determine if the goal has been cancelled (as shown above). If it <em>has</em>, then we set our <code>self.goal_cancelled</code> flag to <code>True</code>.</p>
+<p>La entrada a este callback es otro <em>future</em>, que podemos usar para determinar si el goal ha sido cancelado (como se muestra arriba). Si <em>lo ha sido</em>, entonces establecemos nuestro flag <code>self.goal_cancelled</code> en <code>True</code>.</p>
 </li>
 <li>
-<p><strong>Finally</strong>, go back the <code>main()</code> function of the node. We're going to replace the <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span></code> line now, with a <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">()</span></code>, wrapped inside a <code class="highlight"><span class="k">try</span></code> - <code class="highlight"><span class="k">except</span></code>, wrapped inside a <code class="highlight"><span class="k">while</span></code> loop!</p>
+<p><strong>Finalmente</strong>, regresa a la función <code>main()</code> del node. Vamos a reemplazar la línea <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span></code> ahora, con un <code class="highlight"><span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">()</span></code>, envuelto dentro de un <code class="highlight"><span class="k">try</span></code> - <code class="highlight"><span class="k">except</span></code>, ¡envuelto dentro de un loop <code class="highlight"><span class="k">while</span></code>!</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="k">while</span> <span class="ow">not</span> <span class="n">action_client</span><span class="o">.</span><span class="n">goal_succeeded</span><span class="p">:</span>
 <a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>    <span class="k">try</span><span class="p">:</span>
 <a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
@@ -3829,46 +4330,46 @@ to just this:
 <a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Ctrl+C"</span><span class="p">)</span>
 <a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>        <span class="n">action_client</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
-<p>The <code class="highlight"><span class="k">while</span></code> loop will execute until the action completes successfully, <em>or</em> until the goal is <em>cancelled</em>, <em>or</em> we shutdown the node with a <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> interrupt.</p>
-<p>Look back through the node to see how all this will flow through your class.</p>
+<p>El loop <code class="highlight"><span class="k">while</span></code> se ejecutará hasta que el action complete exitosamente, <em>o</em> hasta que el goal sea <em>cancelado</em>, <em>o</em> apaguemos el node con una interrupción <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
+<p>Revisa el node para ver cómo todo esto fluirá a través de tu clase.</p>
 </li>
 <li>
-<p>We may wish to cancel a goal <em>conditionally</em> if - say - too much time has elapsed since the call was made, or the caller has been made aware of something else that has happened in the meantime (perhaps we're running out of storage space on the robot and can't save any more images!). </p>
-<p>For the purposes of this exercise, we want to modify our node so that the action is always cancelled after a total of <strong>5 images</strong> have been captured. This can be done by making a fairly small modification to the <code>feedback_callback()</code>. <strong>Have a go at implementing this now</strong>. </p>
+<p>Es posible que deseemos cancelar un goal <em>condicionalmente</em> si, por ejemplo, ha transcurrido demasiado tiempo desde que se realizó la llamada, o si el caller ha sido informado de algo más que ha ocurrido mientras tanto (¡quizás nos estamos quedando sin espacio de almacenamiento en el robot y no podemos guardar más imágenes!).</p>
+<p>Para los propósitos de este ejercicio, queremos modificar nuestro node para que el action siempre sea cancelado después de que se hayan capturado un total de <strong>5 imágenes</strong>. Esto puede hacerse realizando una modificación bastante pequeña al <code>feedback_callback()</code>. <strong>Intenta implementar esto ahora</strong>.</p>
 <ul>
-<li>Have a go now at introducing a conditional call to the <code>cancel_goal()</code> method once a total of <strong>5 images</strong> have been captured.</li>
-<li>You could use the <code>current_image</code> attribute from the <code>CameraSweepFeedback</code> message to trigger this.</li>
+<li>Intenta ahora introducir una llamada condicional al método <code>cancel_goal()</code> una vez que se hayan capturado un total de <strong>5 imágenes</strong>.</li>
+<li>Podrías usar el atributo <code>current_image</code> del mensaje <code>CameraSweepFeedback</code> para activar esto.</li>
 </ul>
 </li>
 </ol>
-<h3 id="a-summary-of-ros-actions">A Summary of ROS Actions<a class="headerlink" href="#a-summary-of-ros-actions" title="Permanent link">¶</a></h3>
-<p>ROS Actions work a lot like ROS Services, but they have the following key differences:</p>
+<h3 id="un-resumen-de-los-ros-actions">Un Resumen de los ROS Actions<a class="headerlink" href="#un-resumen-de-los-ros-actions" title="Permanent link">¶</a></h3>
+<p>Los ROS Actions funcionan de manera muy similar a los ROS Services, pero tienen las siguientes diferencias clave:</p>
 <ol>
-<li>They can be <strong>cancelled</strong>: If something is taking too long, or if something else has happened, then an Action Client can cancel an Action whenever it needs to.</li>
-<li>They provide <strong>feedback</strong>: so that a client can monitor what is happening and act accordingly (i.e. cancel the action, if necessary).</li>
+<li>Pueden <strong>cancelarse</strong>: Si algo tarda demasiado, o si ha ocurrido algo más, entonces un Action Client puede cancelar un Action cuando lo necesite.</li>
+<li>Proporcionan <strong>feedback</strong>: para que un client pueda monitorear lo que está sucediendo y actuar en consecuencia (es decir, cancelar el action, si es necesario).</li>
 </ol>
-<p>This mechanism is therefore useful for operations that may take a long time to execute, and where intervention might be necessary.</p>
-<h2 id="creating-your-own-action-servers-clients-and-interfaces">Creating Your Own Action Servers, Clients and Interfaces<a class="headerlink" href="#creating-your-own-action-servers-clients-and-interfaces" title="Permanent link">¶</a></h2>
+<p>Por lo tanto, este mecanismo es útil para operaciones que pueden tardar mucho en ejecutarse, y donde podría ser necesaria una intervención.</p>
+<h2 id="creacion-de-tus-propios-action-servers-clients-e-interfaces">Creación de tus Propios Action Servers, Clients e Interfaces<a class="headerlink" href="#creacion-de-tus-propios-action-servers-clients-e-interfaces" title="Permanent link">¶</a></h2>
 <div class="admonition info">
-<p class="admonition-title">Important</p>
-<p>Cancel <em>all</em> active processes that you may have running before moving on.</p>
+<p class="admonition-title">Importante</p>
+<p>Cancela <em>todos</em> los procesos activos que puedas tener en ejecución antes de continuar.</p>
 </div>
-<p>So far we have looked at how to call a pre-existing action server, but what about if we actually want to set up our own, and use our own custom Action Interfaces too? </p>
-<p>To start with, have a look at the Action Server that you've been working with in the previous exercises. You've been launching this with the following command:</p>
+<p>Hasta ahora hemos visto cómo llamar a un action server preexistente, pero ¿qué pasa si realmente queremos configurar el nuestro propio, y también usar nuestras propias Interfaces de Action personalizadas?</p>
+<p>Para empezar, echa un vistazo al Action Server con el que has estado trabajando en los ejercicios anteriores. Has estado lanzándolo con el siguiente comando:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ul>
-<li>Which <em>package</em> does the action server node belong to?</li>
-<li>Where (in that package directory) is this node likely to be located?</li>
+<li>¿A qué <em>paquete</em> pertenece el node del action server?</li>
+<li>¿Dónde (en el directorio de ese paquete) es probable que esté ubicado este node?</li>
 </ul>
 </div>
-<p>Once you've identified the name and the location of the source code, open it up in VS Code and have a look through it to see how it all works. Don't worry too much about all the content associated with obtaining and manipulating camera images in there, we'll learn more about this in <a href="../part6/">the next part of this course</a>. Instead, focus on the general overall structure of the code and the way that the action server is implemented.</p>
-<p>Some things to review:</p>
+<p>Una vez que hayas identificado el nombre y la ubicación del código fuente, ábrelo en VS Code y revísalo para ver cómo funciona todo. No te preocupes demasiado por todo el contenido relacionado con la obtención y manipulación de imágenes de cámara, aprenderemos más sobre esto en <a href="../part6/">la siguiente parte de este curso</a>. En cambio, enfócate en la estructura general del código y en la manera en que se implementa el action server.</p>
+<p>Algunas cosas a revisar:</p>
 <ol>
 <li>
-<p>The way the server is initialised and the numerous callbacks that are attached to it:</p>
+<p>La manera en que el servidor se inicializa y los numerosos callbacks que se le adjuntan:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">actionserver</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
 <a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>    <span class="n">node</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> 
 <a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>    <span class="n">action_type</span><span class="o">=</span><span class="n">CameraSweep</span><span class="p">,</span>
@@ -3880,53 +4381,53 @@ to just this:
 <a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a><span class="p">)</span>
 </code></pre></div>
 <ol>
-<li>This callback contains all the code that will be executed by the server once a valid goal is sent to it (i.e. the core functionality of the Action)</li>
-<li>This server node is set up as a <em>Multi-threaded Executor</em> (see the setup in <code>main()</code>), to control the execution of the various callbacks that we need. Here, we're assigning the Action Server to a <em>Reentrant Callback Group</em>, allowing all its callbacks to run in parallel, as well as other subscriber callbacks too. </li>
-<li>This callback is used to check the goal parameters that have been sent to the server, to decide whether to accept or reject a request. </li>
-<li>This callback contains everything that needs to happen in the event that the Action is <em>cancelled</em> part-way through.</li>
+<li>Este callback contiene todo el código que ejecutará el servidor una vez que se le envíe un goal válido (es decir, la funcionalidad principal del Action).</li>
+<li>Este node servidor se configura como un <em>Executor Multi-hilo</em> (consulta la configuración en <code>main()</code>), para controlar la ejecución de los diversos callbacks que necesitamos. Aquí, asignamos el Action Server a un <em>Reentrant Callback Group</em>, permitiendo que todos sus callbacks se ejecuten en paralelo, así como otros callbacks de subscriber también.</li>
+<li>Este callback se usa para verificar los parámetros del goal que se han enviado al servidor, para decidir si aceptar o rechazar una solicitud.</li>
+<li>Este callback contiene todo lo que necesita suceder en caso de que el Action sea <em>cancelado</em> a mitad de camino.</li>
 </ol>
 </li>
 <li>
-<p>Take a look at the various Action callbacks to see what's happening in each:</p>
+<p>Echa un vistazo a los diversos callbacks de Action para ver qué sucede en cada uno:</p>
 <ol>
-<li>How are <strong>goal</strong> parameters checked, and subsequently accepted or rejected?</li>
-<li>How are <strong>cancellations</strong> implemented, and how is this monitored in the main <code>server_execution_callback()</code>?</li>
-<li>How is <strong>feedback</strong> handled and published?</li>
-<li>How is the <strong>result</strong> handled and published too?</li>
+<li>¿Cómo se verifican los parámetros de <strong>goal</strong> y, consecuentemente, se aceptan o rechazan?</li>
+<li>¿Cómo se implementan las <strong>cancelaciones</strong> y cómo se monitorea esto en el <code>server_execution_callback()</code> principal?</li>
+<li>¿Cómo se maneja y publica el <strong>feedback</strong>?</li>
+<li>¿Cómo se maneja y publica también el <strong>result</strong>?</li>
 </ol>
 </li>
 <li>
-<p>Finally, consider the shutdown operations.</p>
+<p>Finalmente, considera las operaciones de apagado.</p>
 </li>
 </ol>
-<h3 id="explore">Implementing an "Exploration" strategy using the Action Framework<a class="headerlink" href="#explore" title="Permanent link">¶</a></h3>
-<p>An exploration strategy allows a robot to autonomously navigate an unknown environment while simultaneously avoiding crashing into things! One way to achieve this is to utilise two distinct motion states: moving forwards and turning on the spot, and repeatedly switching between them. <em>Brownian Motion</em> and <em>Levy Flight</em> are examples of this kind of approach. Randomising the time spent in either, or both, of these two states will result in a navigation strategy that allows a robot to slowly and randomly explore an environment. Forward motion could be performed until - say - a certain distance has been travelled, a set time has elapsed or something gets in the way. Likewise, the direction, speed and/or duration of turning could also be randomised to achieve this.</p>
-<p>Over the next few exercises we'll construct our own Action Interface, Server and Client nodes with the aim of creating the <em>basis</em> for a basic exploration behaviour. Having completed these exercises you'll have something that - with further development - could be turned into an exploration type behaviour such as the above.</p>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Creating an Action Interface<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
-<p>In Exercise 2 we created the <code>part5_actions</code> package. Inside this package we will now define an Action <em>Interface</em> to be used by the subsequent Action Server and Client that we will create in the later exercises. </p>
+<h3 id="explore">Implementación de una Estrategia de "Exploración" usando el Marco de Actions<a class="headerlink" href="#explore" title="Permanent link">¶</a></h3>
+<p>Una estrategia de exploración permite a un robot navegar autónomamente por un entorno desconocido mientras simultáneamente evita colisiones. Una manera de lograr esto es utilizar dos estados de movimiento distintos: moverse hacia adelante y girar en su lugar, alternando repetidamente entre ellos. El <em>Movimiento Browniano</em> y el <em>Levy Flight</em> son ejemplos de este tipo de enfoque. Aleatorizar el tiempo pasado en uno o ambos de estos dos estados resultará en una estrategia de navegación que permite al robot explorar lenta y aleatoriamente un entorno. El movimiento hacia adelante podría realizarse hasta que, por ejemplo, se haya recorrido cierta distancia, haya transcurrido un tiempo determinado o algo se interponga en el camino. De manera similar, la dirección, velocidad y/o duración del giro también podría aleatorizarse para lograr esto.</p>
+<p>En los próximos ejercicios construiremos nuestra propia Interface de Action, y nodes Server y Client con el objetivo de crear la <em>base</em> para un comportamiento de exploración básico. Habiendo completado estos ejercicios tendrás algo que, con mayor desarrollo, podría convertirse en un tipo de comportamiento de exploración como el descrito arriba.</p>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 3: Crear una Interface de Action<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<p>En el Ejercicio 2 creamos el paquete <code>part5_actions</code>. Dentro de este paquete ahora definiremos una <em>Interface</em> de Action para ser usada por el Action Server y Client subsiguientes que crearemos en los ejercicios posteriores.</p>
 <ol>
 <li>
-<p>Action interfaces must be defined within an <code>action</code> folder at the root of the package directory, so let's create this now in <strong>TERMINAL 1</strong>:</p>
+<p>Las interfaces de action deben definirse dentro de una carpeta <code>action</code> en la raíz del directorio del paquete, así que vamos a crearla ahora en <strong>TERMINAL 1</strong>:</p>
 <ol>
 <li>
-<p>First, navigate into your package:</p>
+<p>Primero, navega a tu paquete:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part5_actions
 </code></pre></div>
 </li>
 <li>
-<p>Then use <code>mkdir</code> to make a new directory:</p>
+<p>Luego usa <code>mkdir</code> para crear un nuevo directorio:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>mkdir<span class="w"> </span>action
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>In here we'll now define an Action Interface called <code>ExploreForward</code>:</p>
+<p>Aquí ahora definiremos una Interface de Action llamada <code>ExploreForward</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>touch<span class="w"> </span>action/ExploreForward.action
 </code></pre></div>
 </li>
 <li>
-<p>Open this up in VS Code and define the data structure of the Interface as follows:</p>
+<p>Ábrela en VS Code y define la estructura de datos de la Interface de la siguiente manera:</p>
 <div class="highlight"><span class="filename">ExploreForward.action</span><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>#goal
 <a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>float32 fwd_velocity               # The speed at which the robot should move forwards (m/s)
 <a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>float32 stopping_distance          # Minimum distance of an approaching obstacle before the robot stops (meters) 
@@ -3938,24 +4439,24 @@ to just this:
 <a id="__codelineno-55-9" name="__codelineno-55-9" href="#__codelineno-55-9"></a>#feedback
 <a id="__codelineno-55-10" name="__codelineno-55-10" href="#__codelineno-55-10"></a>float32 current_distance_travelled # Distance travelled so far during the action (meters)
 </code></pre></div>
-<p>This interface therefore has <strong>two</strong> goal parameters, <strong>one</strong> feedback parameter, and <strong>two</strong> result parameters:</p>
+<p>Esta interface tiene por lo tanto <strong>dos</strong> parámetros de goal, <strong>uno</strong> de feedback y <strong>dos</strong> de result:</p>
 <p><strong>Goal</strong>:</p>
 <ol>
-<li><code>fwd_velocity</code>: The speed (in m/s) at which the robot should move forwards when the action server is called. </li>
-<li><code>stopping_distance</code>: The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it (this data will come from <code>LaserScan</code> data from the robot's LiDAR sensor).</li>
+<li><code>fwd_velocity</code>: La velocidad (en m/s) a la que el robot debe moverse hacia adelante cuando se llama al action server.</li>
+<li><code>stopping_distance</code>: La distancia (en metros) a la que el robot debe detenerse frente a cualquier objeto o pared límite que esté delante de él (estos datos provendrán de los datos <code>LaserScan</code> del sensor LiDAR del robot).</li>
 </ol>
 <p><strong>Feedback</strong>:</p>
 <ol>
-<li><code>current_distance_travelled</code>: The distance travelled (in meters) since the current action was initiated (based on <code>Odometry</code> data).</li>
+<li><code>current_distance_travelled</code>: La distancia recorrida (en metros) desde que se inició el action actual (basada en datos de <code>Odometry</code>).</li>
 </ol>
 <p><strong>Result</strong>:</p>
 <ol>
-<li><code>total_distance_travelled</code>: The <em>total</em> distance travelled (in meters) over the course of the action (based on <code>Odometry</code> data).</li>
-<li><code>closest_obstacle</code>: The distance to the closest obstacle up ahead of the robot when the action completes.</li>
+<li><code>total_distance_travelled</code>: La distancia <em>total</em> recorrida (en metros) durante el transcurso del action (basada en datos de <code>Odometry</code>).</li>
+<li><code>closest_obstacle</code>: La distancia al obstáculo más cercano por delante del robot cuando el action se completa.</li>
 </ol>
 </li>
 <li>
-<p>Now, declare this interface in the package's <code>CMakeLists.txt</code> file, so that the necessary Python code can be created:</p>
+<p>Ahora, declara esta interface en el archivo <code>CMakeLists.txt</code> del paquete, para que se pueda crear el código Python necesario:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>find_package(rosidl_default_generators REQUIRED)
 <a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>rosidl_generate_interfaces(${PROJECT_NAME}
 <a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>  "action/ExploreForward.action" 
@@ -3963,190 +4464,190 @@ to just this:
 </code></pre></div>
 </li>
 <li>
-<p>Also modify the <code>package.xml</code> file (above the <code class="highlight"><span class="nt">&lt;export&gt;</span></code> line) to include the necessary <code>rosidl</code> dependencies:</p>
+<p>También modifica el archivo <code>package.xml</code> (encima de la línea <code class="highlight"><span class="nt">&lt;export&gt;</span></code>) para incluir las dependencias <code>rosidl</code> necesarias:</p>
 <div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="nt">&lt;buildtool_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/buildtool_depend&gt;</span>
 <a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
 <a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
 </code></pre></div>
 </li>
 <li>
-<p>Now run <code>colcon</code> to generate the necessary source code for this new interface: <a name="colcon-build-steps"></a></p>
+<p>Ahora ejecuta <code>colcon</code> para generar el código fuente necesario para esta nueva interface: <a name="colcon-build-steps"></a></p>
 <ol>
 <li>
-<p>First, <strong>always</strong> make sure you're in the root of the Workspace:</p>
+<p>Primero, <strong>siempre</strong> asegúrate de estar en la raíz del Workspace:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 </li>
 <li>
-<p>Then run <code>colcon build</code>:</p>
+<p>Luego ejecuta <code>colcon build</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install<span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
-<p>And finally re-source the <code>.bashrc</code>:</p>
+<p>Y finalmente vuelve a cargar el <code>.bashrc</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>We can now verify that it worked. </p>
+<p>Ahora podemos verificar que funcionó.</p>
 <ol>
 <li>
-<p>Use <code>ros2 interface</code> to list all available interface types, but use the <code>-a</code> option to display only action-type interfaces:</p>
+<p>Usa <code>ros2 interface</code> para listar todos los tipos de interface disponibles, pero usa la opción <code>-a</code> para mostrar solo las interfaces de tipo action:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-a
 </code></pre></div>
-<p>Look for a message with the prefix "<code>part5_actions</code>".</p>
+<p>Busca un mensaje con el prefijo "<code>part5_actions</code>".</p>
 </li>
 <li>
-<p>Next, <em>show</em> the data structure of the interface:</p>
+<p>A continuación, <em>muestra</em> la estructura de datos de la interface:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>part5_actions/action/ExploreForward
 </code></pre></div>
-<p>This should match the content of the <code>part5_actions/action/ExploreForward.action</code> file that we created above.</p>
+<p>Esto debería coincidir con el contenido del archivo <code>part5_actions/action/ExploreForward.action</code> que creamos arriba.</p>
 </li>
 </ol>
 </li>
 </ol>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Building the "ExploreForward" Action Server<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 4: Construir el Action Server "ExploreForward"<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong> navigate to the <code>scripts</code> folder of your <code>part5_actions</code> package, then:</p>
+<p>En <strong>TERMINAL 1</strong> navega a la carpeta <code>scripts</code> de tu paquete <code>part5_actions</code>, luego:</p>
 <ol>
-<li>Create a Python script called <code>explore_server.py</code></li>
-<li>Make it executable</li>
-<li>Declare it as an executable in <code>CMakeLists.txt</code></li>
+<li>Crea un script Python llamado <code>explore_server.py</code></li>
+<li>Hazlo ejecutable</li>
+<li>Decláralo como un ejecutable en <code>CMakeLists.txt</code></li>
 </ol>
 </li>
 <li>
-<p>Open up the file in VS Code.</p>
+<p>Abre el archivo en VS Code.</p>
 </li>
 <li>
-<p>The job of the Server node is as follows:</p>
+<p>La tarea del node Server es la siguiente:</p>
 <ul>
-<li>The action server should make the robot move forwards until it detects an obstacle up ahead.</li>
-<li>It should use the <code>ExploreForward.action</code> Interface that we created in the previous exercise. </li>
+<li>El action server debe hacer que el robot se mueva hacia adelante hasta detectar un obstáculo por delante.</li>
+<li>Debe usar la Interface <code>ExploreForward.action</code> que creamos en el ejercicio anterior.</li>
 <li>
-<p>The Server will therefore need to be configured to accept two <strong>goal</strong> parameters:</p>
+<p>El Server deberá configurarse para aceptar dos parámetros de <strong>goal</strong>:</p>
 <ol>
-<li>The speed (in m/s) at which the robot should move forwards when the action server is called. </li>
+<li>La velocidad (en m/s) a la que el robot debe moverse hacia adelante cuando se llama al action server.</li>
 <li>
-<p>The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it.</p>
-<p>To do this you'll need to subscribe to the <code>/scan</code> topic. Be aware that an object won't necessarily be directly in front of the robot, so you may need to monitor a range of <code>LaserScan</code> data points (within the <code>ranges</code> array) to make the collision avoidance effective (recall the <a href="../part3/lidar_subscriber/">LaserScan callback example from Part 3</a>).</p>
+<p>La distancia (en metros) a la que el robot debe detenerse frente a cualquier objeto o pared límite que esté delante de él.</p>
+<p>Para hacer esto necesitarás suscribirte al topic <code>/scan</code>. Ten en cuenta que un objeto no estará necesariamente directamente frente al robot, por lo que puede que necesites monitorear un rango de puntos de datos de <code>LaserScan</code> (dentro del arreglo <code>ranges</code>) para que la evasión de colisiones sea efectiva (recuerda el <a href="../part3/lidar_subscriber/">ejemplo de callback de LaserScan de la Parte 3</a>).</p>
 </li>
 </ol>
 </li>
 <li>
-<p>Be sure to do some error checking on the goal parameters to ensure that a valid request is made. This is done by attaching a <code>goal_callback</code> to the Action Server. </p>
+<p>Asegúrate de hacer algunas verificaciones de errores en los parámetros del goal para garantizar que se realice una solicitud válida. Esto se hace adjuntando un <code>goal_callback</code> al Action Server.</p>
 <ul>
-<li><code>fwd_velocity</code>: Should be a velocity that is moderate, and within <a href="../part2/#velocity_limits">the robot's velocity limits</a>.</li>
-<li><code>stopping_distance</code>: Should be greater than the <a href="../part3/#range_max_min">minimum detectable limit of the LiDAR Sensor</a>, large enough to safely avoid collisions. </li>
+<li><code>fwd_velocity</code>: Debe ser una velocidad moderada, dentro de <a href="../part2/#velocity_limits">los límites de velocidad del robot</a>.</li>
+<li><code>stopping_distance</code>: Debe ser mayor que el <a href="../part3/#range_max_min">límite mínimo detectable del Sensor LiDAR</a>, lo suficientemente grande para evitar colisiones de manera segura.</li>
 </ul>
 </li>
 <li>
-<p>Whilst your server performs its task it should provide the following <strong>feedback</strong> to a Client:</p>
+<p>Mientras tu servidor realiza su tarea debe proporcionar el siguiente <strong>feedback</strong> a un Client:</p>
 <ol>
 <li>
-<p>The distance travelled (in meters) since the current action was initiated.</p>
-<p>To do this you'll need to subscribe to the <code>/odom</code> topic. Remember the work that you did in Part 2 on this. </p>
+<p>La distancia recorrida (en metros) desde que se inició el action actual.</p>
+<p>Para hacer esto necesitarás suscribirte al topic <code>/odom</code>. Recuerda el trabajo que hiciste en la Parte 2 sobre esto.</p>
 <div class="admonition tip">
-<p class="admonition-title">Tips</p>
+<p class="admonition-title">Consejos</p>
 <ul>
-<li>The robot's orientation shouldn't change over the course of a single action call, only its <code>linear.x</code> and <code>linear.y</code> positions should vary.</li>
-<li>Bear in mind however that the robot won't necessarily be moving along the <code>X</code> or <code>Y</code> axis, so you will need to consider the total distance travelled in the <code>X-Y</code> plane.</li>
-<li>We did this in the <a href="../part2/#ex6">Part 2 <code>move_square</code> exercise</a>, so refer to this if you need a reminder.</li>
+<li>La orientación del robot no debería cambiar durante el transcurso de una sola llamada al action, solo sus posiciones <code>linear.x</code> y <code>linear.y</code> deberían variar.</li>
+<li>Ten en cuenta, sin embargo, que el robot no necesariamente se moverá a lo largo del eje <code>X</code> o <code>Y</code>, por lo que necesitarás considerar la distancia total recorrida en el plano <code>X-Y</code>.</li>
+<li>Hicimos esto en el <a href="../part2/#ex6">ejercicio <code>move_square</code> de la Parte 2</a>, así que consúltalo si necesitas un recordatorio.</li>
 </ul>
 </div>
 </li>
 </ol>
 </li>
 <li>
-<p>Finally, on completion of the action, your server should be configured to provide the following <strong>two</strong> <em>result</em> parameters:</p>
+<p>Finalmente, al completarse el action, tu servidor debe estar configurado para proporcionar los siguientes <strong>dos</strong> parámetros de <em>result</em>:</p>
 <ol>
-<li>The <em>total</em> distance travelled (in meters) over the course of the action.</li>
-<li>The distance to the obstacle that made the robot stop (if the action server has done its job properly, then this should be very similar to the <code>stopping_distance</code> that was provided by the Action Client in the <strong>goal</strong>).</li>
+<li>La distancia <em>total</em> recorrida (en metros) durante el transcurso del action.</li>
+<li>La distancia al obstáculo que hizo que el robot se detuviera (si el action server ha hecho su trabajo correctamente, esto debería ser muy similar al <code>stopping_distance</code> que proporcionó el Action Client en el <strong>goal</strong>).</li>
 </ol>
 </li>
 </ul>
 </li>
 <li>
-<p>There's some template code to help you with this:</p>
-<p></p><center><a class="md-button" href="explore_server/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> The <code>explore_server.py</code> Template</a></center><p></p>
-<p>You might also want to take a look at the <code>camera_sweep_action_server.py</code> code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).  </p>
+<p>Hay código de plantilla para ayudarte con esto:</p>
+<p></p><center><a class="md-button" href="explore_server/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> La Plantilla <code>explore_server.py</code></a></center><p></p>
+<p>También puede que quieras echar un vistazo al código de <code>camera_sweep_action_server.py</code> de los ejercicios anteriores para ayudarte a construir esto: muchas de las técnicas usadas aquí serán similares (excluyendo todo lo relacionado con la cámara).</p>
 </li>
 </ol>
-<p><strong>Testing</strong></p>
-<p>When you want to test things out, why not use the <em>Nav World</em> environment from Part 3 (in <strong>TERMINAL 1</strong>):</p>
+<p><strong>Pruebas</strong></p>
+<p>Cuando quieras probar las cosas, ¿por qué no usar el entorno <em>Nav World</em> de la Parte 3 (en <strong>TERMINAL 1</strong>)?:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/nav_world.png" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="600px"></a></p>
 </figure>
-<p>Don't forget that in order to launch the server you'll need to have built everything with <code>colcon</code> by following <a href="#colcon-build-steps">the usual <strong>three stage</strong> process</a>.</p>
-<p>Do this in <strong>TERMINAL 2</strong>, and you'll then be able to run it:</p>
+<p>No olvides que para lanzar el servidor necesitarás haber construido todo con <code>colcon</code> siguiendo <a href="#colcon-build-steps">el proceso habitual de <strong>tres etapas</strong></a>.</p>
+<p>Haz esto en <strong>TERMINAL 2</strong> y luego podrás ejecutarlo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part5_actions<span class="w"> </span>explore_server.py
 </code></pre></div>
-<p>Also, don't forget that <strong>you don't need to have developed a Python Client Node in order to test the server</strong>. Use the <code>ros2 action send_goal</code> CLI tool to make calls to the server (like we did in <a href="#send_goal_cli">Exercise 1</a>).</p>
-<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: Building a Basic "ExploreForward" Client<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
+<p>Además, no olvides que <strong>no necesitas haber desarrollado un Node Python Client para probar el servidor</strong>. Usa la herramienta CLI <code>ros2 action send_goal</code> para hacer llamadas al servidor (como lo hicimos en el <a href="#send_goal_cli">Ejercicio 1</a>).</p>
+<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 5: Construir un Client Básico "ExploreForward"<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>In <strong>TERMINAL 3</strong> navigate to the <code>scripts</code> folder of your <code>part5_actions</code> package, create a Python script called <code>explore_client.py</code>, make it executable, and add this to your <code>CMakeLists.txt</code>.</p>
+<p>En <strong>TERMINAL 3</strong> navega a la carpeta <code>scripts</code> de tu paquete <code>part5_actions</code>, crea un script Python llamado <code>explore_client.py</code>, hazlo ejecutable y agrégalo a tu <code>CMakeLists.txt</code>.</p>
 </li>
 <li>
-<p>Run <code>colcon build</code> on it now, so you don't have to worry about it later (again, following the <a href="#colcon-build-steps"><strong>three stage</strong> process as above</a>)...</p>
-<p>Here it is again, for good measure:</p>
+<p>Ejecuta <code>colcon build</code> ahora, para que no tengas que preocuparte por ello más tarde (de nuevo, siguiendo el <a href="#colcon-build-steps">proceso de <strong>tres etapas</strong> como arriba</a>)...</p>
+<p>Aquí está de nuevo, por si acaso:</p>
 <ol>
 <li>
-<p>Step 1:</p>
+<p>Paso 1:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
 </code></pre></div>
 </li>
 <li>
-<p>Step 2:</p>
+<p>Paso 2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part5_actions<span class="w"> </span>--symlink-install
 </code></pre></div>
 </li>
 <li>
-<p>Step 3:</p>
+<p>Paso 3:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Open up the <code>explore_client.py</code> file in VS Code.</p>
+<p>Abre el archivo <code>explore_client.py</code> en VS Code.</p>
 </li>
 <li>
-<p>The job of the Action Client is as follows:</p>
+<p>La tarea del Action Client es la siguiente:</p>
 <ul>
-<li>The client needs to issue a correctly formatted <strong>goal</strong> to the server.</li>
-<li>The client should be programmed to monitor the <strong>feedback</strong> data from the Server.  If it detects (from the feedback) that the robot has travelled a distance <em>greater than 2 meters</em> without detecting an obstacle, then it should <strong>cancel</strong> the current action call.</li>
+<li>El client necesita emitir un <strong>goal</strong> correctamente formateado al servidor.</li>
+<li>El client debe programarse para monitorear los datos de <strong>feedback</strong> del Server. Si detecta (a partir del feedback) que el robot ha recorrido una distancia <em>mayor de 2 metros</em> sin detectar un obstáculo, entonces debe <strong>cancelar</strong> la llamada al action actual.</li>
 </ul>
 </li>
 <li>
-<p>Use the techniques that we used in the Client node from <a href="#ex2">Exercise 2</a> as a guide to help you with this. </p>
+<p>Usa las técnicas que usamos en el node Client del <a href="#ex2">Ejercicio 2</a> como guía para ayudarte con esto.</p>
 <!-- There's also <a href="./part5/search_client.md">a code template here</a> to help you get started. <a name="ex4c_ret"></a> -->
 </li>
 <li>
-<p>Once you have everything in place, launch the action client with <code>ros2 run</code> as below:</p>
+<p>Una vez que tengas todo en su lugar, lanza el action client con <code>ros2 run</code> como se muestra a continuación:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part5_actions<span class="w"> </span>explore_client.py
 </code></pre></div>
-<p>If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it gets a certain distance away from an obstacle up ahead (<code>stopping_distance</code>), at which point the robot will stop, and your client node should then stop too. Once this happens, reorient your robot (using the <code>teleop_keyboard</code> node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. </p>
+<p>Si todo está bien, este node client debería llamar al action server, que (a su vez) hará que el robot se mueva hacia adelante hasta que esté a cierta distancia de un obstáculo por delante (<code>stopping_distance</code>), momento en el que el robot se detendrá, y tu node client también debería detenerse. Una vez que esto suceda, reorienta tu robot (usando el node <code>teleop_keyboard</code>) y lanza el node client nuevamente para asegurarte de que esté deteniéndose de manera robusta frente a los obstáculos repetidamente, y cuando se aproxime desde diferentes ángulos.</p>
 <div class="admonition warning">
-<p class="admonition-title">Important</p>
-<p>Make sure that your cancellation functionality works correctly too, ensuring that:</p>
+<p class="admonition-title">Importante</p>
+<p>Asegúrate de que tu funcionalidad de cancelación también funcione correctamente, garantizando que:</p>
 <ol>
-<li>The robot never moves any further than 2 meters during a given action call</li>
-<li>An action is aborted mid-way through if the client node is shut down with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span></li>
+<li>El robot nunca se mueva más de 2 metros durante una llamada al action determinada.</li>
+<li>Un action se aborta a mitad de camino si el node client se apaga con <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</li>
 </ol>
 </div>
 </li>
 </ol>
-<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 6 (Advanced): Implementing an Exploration Strategy<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
-<p>Up to now, your Action Client node should have the capability to call the <code>ExploreForward.action</code> server to make the robot move forwards by 2 meters, or until it reaches an obstacle (whichever occurs first), but you <em>could</em> build on this now and turn it into a full exploration behaviour:</p>
+<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 6 (Avanzado): Implementar una Estrategia de Exploración<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
+<p>Hasta ahora, tu node Action Client debería tener la capacidad de llamar al servidor <code>ExploreForward.action</code> para hacer que el robot se mueva hacia adelante 2 metros, o hasta que llegue a un obstáculo (lo que ocurra primero), pero <em>podrías</em> construir sobre esto ahora y convertirlo en un comportamiento de exploración completo:</p>
 <ul>
-<li>Between action calls, your <em>client</em> node could make the robot turn on the spot to face a different direction and then issue a further action call to make the robot move forwards once again.</li>
-<li>The turning process could be done at random (<em>ideally</em>), or by a fixed amount every time.</li>
-<li>By programming your client node to repeat this process over and over again, the robot would (somewhat randomly) travel around its environment safely, stopping before it crashes into any obstacles and reorienting itself every time it stops moving forwards. </li>
+<li>Entre llamadas al action, tu node <em>client</em> podría hacer que el robot gire en su lugar para enfrentar una dirección diferente y luego emitir otra llamada al action para hacer que el robot se mueva hacia adelante nuevamente.</li>
+<li>El proceso de giro podría hacerse aleatoriamente (<em>idealmente</em>), o en una cantidad fija cada vez.</li>
+<li>Programando tu node client para repetir este proceso una y otra vez, el robot (de manera algo aleatoria) recorrería su entorno de forma segura, deteniéndose antes de chocar con cualquier obstáculo y reorientándose cada vez que deje de moverse hacia adelante.</li>
 </ul>
 <!-- !!! success "Assignment #2 Checkpoint"
     Having completed Assignment #1 up to this point, you should have everything you need to tackle [Assignment #2 Task 2](../assignment2/parta/task2.md). -->
@@ -4159,42 +4660,42 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 * Your node could monitor the status of the `move_base_simple` action call to know when the robot has reached a zone marker, so that it knows when to issue a further action call to move on to the next one.
 * You could refer to [the launch file that you created in Part 3](./part3.md#launch_file) to launch all the navigation processes that need to be running in order to enable and configure the ROS Navigation Stack appropriately for the TurtleBot3 robot. -->
 
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
-<p>In Part 5 of this course you've learnt:</p>
+<h2 id="conclusion">Conclusión<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>En la Parte 5 de este curso has aprendido:</p>
 <ul>
-<li>How ROS Actions work and why they might be useful.</li>
-<li>How to develop Action Client Nodes in Python which can monitor the action in real-time (via <em>feedback</em>), and which can also <em>cancel</em> the requested action, if required.</li>
-<li>How to use standard ROS tools to interrogate action interfaces, thus allowing us to build clients to call them</li>
-<li>How to build custom Action servers, clients and interfaces.</li>
-<li>How to harness this framework to implement an <em>exploration strategy</em>. </li>
+<li>Cómo funcionan los ROS Actions y por qué pueden ser útiles.</li>
+<li>Cómo desarrollar Action Client Nodes en Python que pueden monitorear el action en tiempo real (a través de <em>feedback</em>), y que también pueden <em>cancelar</em> el action solicitado, si es necesario.</li>
+<li>Cómo usar las herramientas estándar de ROS para interrogar interfaces de action, permitiéndonos así construir clients para llamarlas.</li>
+<li>Cómo construir action servers, clients e interfaces personalizados.</li>
+<li>Cómo aprovechar este marco para implementar una <em>estrategia de exploración</em>.</li>
 </ul>
-<h3 id="topics-services-or-actions-which-to-choose">Topics, Services or Actions: <em>Which to Choose?</em><a class="headerlink" href="#topics-services-or-actions-which-to-choose" title="Permanent link">¶</a></h3>
-<p>You should now have developed a good understanding of the three communication methods that are available within ROS to facilitate communication between ROS Nodes:</p>
+<h3 id="topics-services-o-actions-cual-elegir">Topics, Services o Actions: <em>¿Cuál Elegir?</em><a class="headerlink" href="#topics-services-o-actions-cual-elegir" title="Permanent link">¶</a></h3>
+<p>Ahora deberías haber desarrollado una buena comprensión de los tres métodos de comunicación disponibles dentro de ROS para facilitar la comunicación entre ROS Nodes:</p>
 <ol>
-<li>Topic-based messaging.</li>
+<li>Mensajería basada en Topics.</li>
 <li>ROS Services.</li>
 <li>ROS Actions.</li>
 </ol>
-<p>Through this course you've gained some practical experience using all three of these, but you may still be wondering how to select the appropriate one for a certain robot task... </p>
-<p><a href="https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html" target="_blank" rel="noopener">This ROS.org webpage</a> summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:</p>
+<p>A través de este curso has adquirido algo de experiencia práctica usando los tres, pero puede que aún te preguntes cómo seleccionar el apropiado para cierta tarea robótica...</p>
+<p><a href="https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html" target="_blank">Esta página web de ROS.org</a> resume todo esto muy bien (y brevemente), así que deberías leerla para asegurarte de saber qué es qué. En resumen:</p>
 <ul>
-<li><strong>Topics</strong>: Are most appropriate for broadcasting continuous data-streams such as sensor data and robot state information, and for publishing data that is likely to be required by a range of Nodes across a ROS network.</li>
-<li><strong>Services</strong>: Are most appropriate for very short procedures like <em>quick</em> calculations (inverse kinematics etc.) and performing short discrete actions that are unlikely to go wrong or will not need intervention (e.g. turning on a warning LED when a battery is low).</li>
-<li><strong>Actions</strong>: Are most appropriate for longer running tasks (like moving a robot), or for operations where we <em>might</em> need to change our mind and do something different or cancel an invoked behaviour part way through.</li>
+<li><strong>Topics</strong>: Son más apropiados para transmitir flujos de datos continuos como datos de sensores e información del estado del robot, y para publicar datos que probablemente sean requeridos por una variedad de Nodes en una red de ROS.</li>
+<li><strong>Services</strong>: Son más apropiados para procedimientos muy cortos como cálculos <em>rápidos</em> (cinemática inversa, etc.) y para realizar acciones discretas cortas que es poco probable que salgan mal o que no necesitarán intervención (p. ej., encender un LED de advertencia cuando la batería está baja).</li>
+<li><strong>Actions</strong>: Son más apropiados para tareas de larga duración (como mover un robot), o para operaciones donde <em>podríamos</em> necesitar cambiar de opinión y hacer algo diferente o cancelar un comportamiento invocado a mitad de camino.</li>
 </ul>
-<h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
-<p>Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:</p>
+<h3 id="backup">Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
+<p>Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva ahora:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
-<p>You'll then be able to restore it to a fresh WSL-ROS2 environment next time you fire one up (<code>wsl_ros restore</code>).  </p>
+<p>Luego podrás restaurarlo en un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (<code>wsl_ros restore</code>).</p>
 <div class="footnote">
 <hr>
 <ol>
 <li id="fn:1">
-<p>Remember: you can also use the <code>wsl_ros restore</code> command at any time.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>Recuerda: también puedes usar el comando <code>wsl_ros restore</code> en cualquier momento.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:goal_params">
-<p>You need to explicitly set the <code>goal_images</code> and <code>goal_angle</code> parameters at runtime, <a href="../part4/#ex5">much like we did here with the <code>number_game_client.py</code> service client</a>.&nbsp;<a class="footnote-backref" href="#fnref:goal_params" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>Necesitas establecer explícitamente los parámetros <code>goal_images</code> y <code>goal_angle</code> en tiempo de ejecución, <a href="../part4/#ex5">de manera similar a como lo hicimos aquí con el service client <code>number_game_client.py</code></a>.&nbsp;<a class="footnote-backref" href="#fnref:goal_params" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -4206,37 +4707,8 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 29, 2025 12:14:19 UTC"><span class="timeago" datetime="2025-10-29T12:14:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 29, 2025 12:14:19 UTC">2025-10-29</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 2, 2025 12:39:08 UTC"><span class="timeago" datetime="2025-01-02T12:39:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 2, 2025 12:39:08 UTC">2025-01-02</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -4265,7 +4737,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../part4/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Part 4: Services">
+          <a href="../part4/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Parte 4: Services">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -4275,20 +4747,20 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
                 Previous
               </span>
               <div class="md-ellipsis">
-                Part 4: Services
+                Parte 4: Services
               </div>
             </div>
           </a>
         
         
           
-          <a href="../part6/" class="md-footer__link md-footer__link--next" aria-label="Next: Part 6: Cameras, Machine Vision &amp; OpenCV">
+          <a href="../part6/" class="md-footer__link md-footer__link--next" aria-label="Next: Parte 6: Cámaras, Visión Artificial y OpenCV">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Part 6: Cameras, Machine Vision &amp; OpenCV
+                Parte 6: Cámaras, Visión Artificial y OpenCV
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -4305,7 +4777,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4335,30 +4807,14 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

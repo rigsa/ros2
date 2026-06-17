@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
+        <meta name="description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/software/installing-wsl-ros2/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/software/installing-wsl-ros2/">
       
       
         <link rel="prev" href="../">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Installing WSL-ROS2 on Windows - ROS 2 Labs in The Diamond</title>
+        <title>Instalando WSL-ROS2 en Windows - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Installing WSL-ROS2 on Windows - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/software/installing-wsl-ros2.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/software/installing-wsl-ros2/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Installing WSL-ROS2 on Windows - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/software/installing-wsl-ros2.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-wsl-ros2-simulation-environment" class="md-skip">
+        <a href="#el-entorno-de-simulacion-wsl-ros2" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installing WSL-ROS2 on Windows
+              Instalando WSL-ROS2 en Windows
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -617,6 +624,8 @@
       
         
           
+        
+      
         
       
         
@@ -701,7 +710,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -719,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -743,10 +752,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#the-wsl-ros2-simulation-environment" class="md-nav__link">
+  <a href="#el-entorno-de-simulacion-wsl-ros2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The WSL-ROS2 Simulation Environment
+        El Entorno de Simulación WSL-ROS2
       
     </span>
   </a>
@@ -754,10 +763,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#requisitos-previos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Requisitos Previos
       
     </span>
   </a>
@@ -765,10 +774,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing" class="md-nav__link">
+  <a href="#instalacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installing
+        Instalación
       
     </span>
   </a>
@@ -776,10 +785,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
+  <a href="#configuracion-inicial" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Initial Setup
+        Configuración Inicial
       
     </span>
   </a>
@@ -787,10 +796,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-a-third-party-x-server" class="md-nav__link">
+  <a href="#usar-un-x-server-de-terceros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using a Third-Party X Server
+        Usar un X Server de Terceros
       
     </span>
   </a>
@@ -798,10 +807,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#restarting-the-wsl-engine" class="md-nav__link">
+  <a href="#reiniciar-el-motor-wsl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Restarting the WSL Engine
+        Reiniciar el Motor WSL
       
     </span>
   </a>
@@ -809,10 +818,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#ver-tambien" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Ver También
       
     </span>
   </a>
@@ -915,7 +924,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -943,7 +952,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -971,7 +980,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -1007,7 +1016,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1123,7 +1160,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1151,7 +1188,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1179,7 +1216,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1207,7 +1244,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1235,7 +1272,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1263,7 +1300,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1288,6 +1325,8 @@
       
         
           
+        
+      
         
       
         
@@ -1362,7 +1401,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1390,7 +1429,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1609,7 +1676,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1708,7 +1775,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1736,7 +1803,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -1843,7 +1910,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -1871,7 +1938,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -1907,7 +1974,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -1935,7 +2002,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2154,7 +2221,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2182,7 +2249,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2210,7 +2277,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2238,7 +2305,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2266,7 +2333,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2548,7 +2615,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2653,6 +2720,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2678,10 +3179,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#the-wsl-ros2-simulation-environment" class="md-nav__link">
+  <a href="#el-entorno-de-simulacion-wsl-ros2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The WSL-ROS2 Simulation Environment
+        El Entorno de Simulación WSL-ROS2
       
     </span>
   </a>
@@ -2689,10 +3190,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#requisitos-previos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Requisitos Previos
       
     </span>
   </a>
@@ -2700,10 +3201,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing" class="md-nav__link">
+  <a href="#instalacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installing
+        Instalación
       
     </span>
   </a>
@@ -2711,10 +3212,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
+  <a href="#configuracion-inicial" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Initial Setup
+        Configuración Inicial
       
     </span>
   </a>
@@ -2722,10 +3223,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-a-third-party-x-server" class="md-nav__link">
+  <a href="#usar-un-x-server-de-terceros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using a Third-Party X Server
+        Usar un X Server de Terceros
       
     </span>
   </a>
@@ -2733,10 +3234,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#restarting-the-wsl-engine" class="md-nav__link">
+  <a href="#reiniciar-el-motor-wsl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Restarting the WSL Engine
+        Reiniciar el Motor WSL
       
     </span>
   </a>
@@ -2744,10 +3245,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#ver-tambien" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Ver También
       
     </span>
   </a>
@@ -2771,7 +3272,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/software/installing-wsl-ros2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/software/installing-wsl-ros2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2780,76 +3281,74 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/software/installing-wsl-ros2.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/software/installing-wsl-ros2.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-  <h1>Installing WSL-ROS2 on Windows</h1>
+  <h1>Instalando WSL-ROS2 en Windows</h1>
 
-<p><strong>Applicable to</strong>: Windows 10 or 11 personal (unmanaged) computers</p>
-<h2 id="the-wsl-ros2-simulation-environment">The WSL-ROS2 Simulation Environment<a class="headerlink" href="#the-wsl-ros2-simulation-environment" title="Permanent link">¶</a></h2>
-<p>To support this course we've created a custom ROS 2 environment which runs on Windows 10 or 11 using the <a href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank" rel="noopener">Windows Subsystem for Linux (WSL)</a>. We call this "<strong>WSL-ROS2</strong>" and you can download it via the University of Sheffield <a href="https://www.sheffield.ac.uk/software/" target="_blank" rel="noopener">Software Download Service</a> (University login required).</p>
+<p><strong>Aplicable a</strong>: Computadoras personales (no administradas) con Windows 10 u 11</p>
+<h2 id="el-entorno-de-simulacion-wsl-ros2">El Entorno de Simulación WSL-ROS2<a class="headerlink" href="#el-entorno-de-simulacion-wsl-ros2" title="Permanent link">¶</a></h2>
+<p>Para apoyar este curso hemos creado un entorno personalizado de ROS 2 que se ejecuta en Windows 10 u 11 usando el <a href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank">Windows Subsystem for Linux (WSL)</a>. Lo llamamos "<strong>WSL-ROS2</strong>" y está disponible a través del equipo del laboratorio.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When you download WSL-ROS2 from the Software Download Service you will receive an email with installation instructions. We recommend that you follow the instructions provided on <em>this page</em> instead, as this page will be kept more up-to-date throughout the semester.</p>
+<p>Cuando recibas el enlace de descarga de WSL-ROS2, recibirás también instrucciones de instalación. Recomendamos que sigas las instrucciones proporcionadas en <em>esta página</em>, ya que esta página se mantendrá más actualizada a lo largo del semestre.</p>
 </div>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<h2 id="requisitos-previos">Requisitos Previos<a class="headerlink" href="#requisitos-previos" title="Permanent link">¶</a></h2>
 <ol>
-<li>Your computer must be running Windows 10 <strong>Build 19044 or higher</strong>, or Windows 11.</li>
-<li><a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#install-support-for-linux-gui-apps" target="_blank" rel="noopener">Update the GPU drivers for your machine</a>.</li>
-<li>Install or update WSL:<ol>
-<li>If you don't already have WSL installed on your machine then follow <a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#fresh-install---no-prior-wsl-installation" target="_blank" rel="noopener">these instructions to install it</a>.</li>
-<li>If you <em>do</em> already have WSL installed on your machine, then follow <a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#existing-wsl-install" target="_blank" rel="noopener">these instructions to update it</a>.</li>
+<li>Tu computadora debe estar ejecutando Windows 10 <strong>Build 19044 o superior</strong>, o Windows 11.</li>
+<li><a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#install-support-for-linux-gui-apps" target="_blank">Actualiza los controladores de GPU de tu máquina</a>.</li>
+<li>Instala o actualiza WSL:<ol>
+<li>Si aún no tienes WSL instalado en tu máquina, sigue <a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#fresh-install---no-prior-wsl-installation" target="_blank">estas instrucciones para instalarlo</a>.</li>
+<li>Si <em>ya tienes</em> WSL instalado en tu máquina, sigue <a href="https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#existing-wsl-install" target="_blank">estas instrucciones para actualizarlo</a>.</li>
 </ol>
 </li>
-<li><a href="https://learn.microsoft.com/en-us/windows/terminal/install" target="_blank" rel="noopener">Install the Windows Terminal</a>.</li>
-<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Install Visual Studio Code</a> and <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" target="_blank" rel="noopener">the WSL VS Code extension</a>.</li>
-<li>Install the <a href="https://sourceforge.net/projects/vcxsrv/" target="_blank" rel="noopener">VcXsrv Windows X Server</a>.</li>
+<li><a href="https://learn.microsoft.com/en-us/windows/terminal/install" target="_blank">Instala el Windows Terminal</a>.</li>
+<li><a href="https://code.visualstudio.com/" target="_blank">Instala Visual Studio Code</a> y <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" target="_blank">la extensión WSL para VS Code</a>.</li>
+<li>Instala el <a href="https://sourceforge.net/projects/vcxsrv/" target="_blank">VcXsrv Windows X Server</a>.</li>
 </ol>
-<h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">¶</a></h2>
-<ol>
-<li>Go to the <a href="https://www.sheffield.ac.uk/software/" target="_blank" rel="noopener">IT Services Software Downloads</a> page (you'll need to log in with your university MUSE credentials).</li>
-<li>
-<p>Scroll down to the bottom, where you should see WSL-ROS listed.</p>
-<p>Click on the blue "Request WSL-ROS" button and then wait to receive an email to your university email address.</p>
-</li>
-<li>
-<p>The email will contain a link to download <strong>WSL-ROS2</strong> to your machine as a <code>.zip</code> file (~2 GB).</p>
-</li>
-<li>
-<p>On your computer, create a new folder in the root of your <code>C:\</code> drive called <code>WSL-ROS2</code>.</p>
-</li>
-<li>
-<p>Save the <code>.zip</code> file to this new folder (<code>C:\WSL-ROS2\</code>)</p>
-</li>
-<li>
-<p><strong>Launch PowerShell</strong>, then run the following commands in order:</p>
+<h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">¶</a></h2>
 <ol>
 <li>
-<p>Identify the zip file:</p>
+<p>Solicita el enlace de descarga al coordinador del laboratorio.</p>
+</li>
+<li>
+<p>El enlace te permitirá descargar <strong>WSL-ROS2</strong> en tu máquina como un archivo <code>.zip</code> (~2 GB).</p>
+</li>
+<li>
+<p>En tu computadora, crea una nueva carpeta en la raíz de tu unidad <code>C:\</code> llamada <code>WSL-ROS2</code>.</p>
+</li>
+<li>
+<p>Guarda el archivo <code>.zip</code> en esta nueva carpeta (<code>C:\WSL-ROS2\</code>)</p>
+</li>
+<li>
+<p><strong>Inicia PowerShell</strong>, luego ejecuta los siguientes comandos en orden:</p>
+<ol>
+<li>
+<p>Identifica el archivo zip:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">$zipFile</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="s2">"C:\WSL-ROS2\WSL-ROS2_*_SDS.zip"</span> <span class="p">|</span> 
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="nb">Sort-Object</span> <span class="n">Name</span> <span class="n">-Descending</span> <span class="p">|</span> 
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span>
 </code></pre></div>
 </li>
 <li>
-<p>Extract it:</p>
+<p>Extráelo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">Expand-Archive</span> <span class="n">-Path</span> <span class="nv">$zipFile</span><span class="p">.</span><span class="n">FullName</span> <span class="p">`</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">-DestinationPath</span> <span class="s2">"C:\WSL-ROS2\"</span> <span class="n">-Force</span>
 </code></pre></div>
 </li>
 <li>
-<p>Identify the extracted <code>.tar</code> file:</p>
+<p>Identifica el archivo <code>.tar</code> extraído:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">$tarFile</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="s2">"C:\WSL-ROS2\wsl-ros2-v*.tar"</span> <span class="p">|</span> 
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="nb">Sort-Object</span> <span class="n">Name</span> <span class="n">-Descending</span> <span class="p">|</span> 
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span>
 </code></pre></div>
 </li>
 <li>
-<p>Import this as a WSL distro:</p>
+<p>Impórtalo como una distribución WSL:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">wsl</span> <span class="p">-</span><span class="n">-import</span> <span class="n">WSL-ROS2</span> <span class="s2">"$env:localappdata\WSL-ROS2"</span> <span class="p">`</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nv">$tarFile</span><span class="p">.</span><span class="n">FullName</span> <span class="p">-</span><span class="n">-version</span> <span class="n">2</span>
 </code></pre></div>
@@ -2857,109 +3356,109 @@
 </ol>
 </li>
 <li>
-<p>This may take a couple of minutes. Once it's done, you can verify that it was successful with the following command:</p>
+<p>Esto puede tardar un par de minutos. Una vez completado, puedes verificar que fue exitoso con el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">wsl</span> <span class="n">-l</span> <span class="n">-v</span>
 </code></pre></div>
-<p>Where <code>WSL-ROS2</code> should be listed.</p>
+<p>Donde <code>WSL-ROS2</code> debería estar listado.</p>
 </li>
 <li>
-<p>Next (<strong>optional</strong>), open up the Windows Terminal App, then:</p>
+<p>A continuación (<strong>opcional</strong>), abre la aplicación Windows Terminal, luego:</p>
 <ol>
-<li>Go to Settings (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-comma">,</kbd></span>)</li>
-<li>Under <code>Profiles</code> in the left-hand menu, find <code>WSL-ROS2</code> (or scroll further down and click the <code>Add a new profile</code> button to create it).</li>
+<li>Ve a Configuración (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-comma">,</kbd></span>)</li>
+<li>En <code>Perfiles</code> en el menú de la izquierda, encuentra <code>WSL-ROS2</code> (o desplázate más abajo y haz clic en el botón <code>Agregar un nuevo perfil</code> para crearlo).</li>
 <li>
-<p>Configure the settings for the <code>WSL-ROS2</code> profile as shown below:</p>
+<p>Configura los ajustes para el perfil <code>WSL-ROS2</code> como se muestra a continuación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/win_term_profile_settings.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../figures/win_term_profile_settings.png" data-desc-position="bottom"><img alt="" src="../figures/win_term_profile_settings.png" width="600px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Then, in <code>Startup</code> (back in the left-hand menu again), under <code>Default profile</code> select <strong>WSL-ROS2</strong> from the drop-down list.</p>
-<p>This will ensure that each time you open the Windows Terminal App <em>or</em> you press the New Tab (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span>) button a WSL-ROS2 Terminal Instance will be launched by default.</p>
+<p>Luego, en <code>Inicio</code> (de regreso en el menú de la izquierda), bajo <code>Perfil predeterminado</code>, selecciona <strong>WSL-ROS2</strong> de la lista desplegable.</p>
+<p>Esto asegurará que cada vez que abras la aplicación Windows Terminal <em>o</em> presiones el botón Nueva Pestaña (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span>) se lance por defecto una Instancia de Terminal WSL-ROS2.</p>
 </li>
 </ol>
 </li>
 </ol>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">¶</a></h2>
-<p>Within a WSL-ROS2 terminal instance, you'll need to run some initial commands to get things set up.</p>
+<h2 id="configuracion-inicial">Configuración Inicial<a class="headerlink" href="#configuracion-inicial" title="Permanent link">¶</a></h2>
+<p>Dentro de una instancia de terminal WSL-ROS2, necesitarás ejecutar algunos comandos iniciales para configurar las cosas.</p>
 <ol>
 <li>
-<p>First, run the following command to attempt to use native Graphical User Interface (GUI) support (which should work if you followed all <a href="#prerequisites">the prerequisites above</a>):</p>
+<p>Primero, ejecuta el siguiente comando para intentar usar el soporte nativo de Interfaz Gráfica de Usuario (GUI) (que debería funcionar si seguiste todos <a href="#requisitos-previos">los requisitos previos anteriores</a>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=false"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.diamond/xserver.sh
 </code></pre></div>
 </li>
 <li>
-<p>Then, re-source your <code>.bashrc</code> file for this change to take effect:</p>
+<p>Luego, vuelve a hacer source de tu archivo <code>.bashrc</code> para que este cambio surta efecto:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 <li>
-<p>Run the following ROS command to see if you can launch the Gazebo GUI:</p>
+<p>Ejecuta el siguiente comando de ROS para ver si puedes lanzar la GUI de Gazebo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
-<p>This should hopefully present you with something like this:</p>
+<p>Esto debería presentarte algo como esto:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_top.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/gz/tb3_empty_world_top.png" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_top.png" width="600px"></a>
 </figure><p></p>
-<p>If this doesn't work, then you could try using a third-party X Server (VcXsrv) instead...</p>
+<p>Si esto no funciona, entonces podrías intentar usar un X Server de terceros (VcXsrv) en su lugar...</p>
 </li>
 </ol>
-<h2 id="using-a-third-party-x-server">Using a Third-Party X Server<a class="headerlink" href="#using-a-third-party-x-server" title="Permanent link">¶</a></h2>
-<p>If you are unable to run GUI apps natively (having completed the steps in the section above), then you could try using a third-party X Server (<em>"VcXsrv"</em>) instead. In <a href="#prerequisites">the prerequisites</a>, you should have already installed VcXsrv.</p>
+<h2 id="usar-un-x-server-de-terceros">Usar un X Server de Terceros<a class="headerlink" href="#usar-un-x-server-de-terceros" title="Permanent link">¶</a></h2>
+<p>Si no puedes ejecutar aplicaciones GUI de forma nativa (habiendo completado los pasos en la sección anterior), entonces podrías intentar usar un X Server de terceros (<em>"VcXsrv"</em>) en su lugar. En <a href="#requisitos-previos">los requisitos previos</a>, ya deberías haber instalado VcXsrv.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only do this if you were <strong>unable</strong> to launch the robot simulation in the previous section.</p>
+<p>Solo haz esto si <strong>no pudiste</strong> lanzar la simulación del robot en la sección anterior.</p>
 </div>
 <ol>
-<li><a href="#prerequisites">Having installed VcXsrv in the Prerequisites Section</a>...</li>
+<li><a href="#requisitos-previos">Habiendo instalado VcXsrv en la Sección de Requisitos Previos</a>...</li>
 <li>
-<p>Download this <a href="https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing" target="_blank" rel="noopener">config file for VcXsrv</a> and save it to your desktop as <code>wsl_ros_config.xlaunch</code>.</p>
+<p>Descarga este <a href="https://drive.google.com/file/d/1CMJZ6xVXJ2cKZ0NmdYaxUw9RfPsIGLX9/view?usp=sharing" target="_blank">archivo de configuración para VcXsrv</a> y guárdalo en tu escritorio como <code>wsl_ros_config.xlaunch</code>.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/wsl-ros-config.png"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../figures/wsl-ros-config.png" data-desc-position="bottom"><img alt="" src="../figures/wsl-ros-config.png"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Double click this to launch VcXsrv with the appropriate settings. An icon should then appear in your notification tray (bottom-right) to indicate that the X Server is running:</p>
+<p>Haz doble clic en esto para lanzar VcXsrv con la configuración apropiada. Debería aparecer un ícono en tu bandeja de notificaciones (abajo a la derecha) para indicar que el X Server está en ejecución:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/xlaunch_icon.png" width="25px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../figures/xlaunch_icon.png" data-desc-position="bottom"><img alt="" src="../figures/xlaunch_icon.png" width="25px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Launch the WSL-ROS2 environment by launching the Windows Terminal App:</p>
+<p>Lanza el entorno WSL-ROS2 iniciando la aplicación Windows Terminal:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../figures/launch-win-term.png" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../figures/launch-win-term.png" data-desc-position="bottom"><img alt="" src="../figures/launch-win-term.png" width="700px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>In a WSL-ROS2 Terminal Instance, run the following:</p>
+<p>En una Instancia de Terminal WSL-ROS2, ejecuta lo siguiente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"export XSERVER=true"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$HOME</span>/.tuos/xserver.sh
 </code></pre></div>
 </li>
 <li>
-<p>Re-source your <code>.bashrc</code> file for this change to take effect:</p>
+<p>Vuelve a hacer source de tu archivo <code>.bashrc</code> para que este cambio surta efecto:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 <li>
-<p>Try running the empty world Gazebo simulation again:</p>
+<p>Intenta ejecutar la simulación Gazebo de mundo vacío de nuevo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
 <div class="admonition warning">
-<p class="admonition-title">Important</p>
-<p>You need to make sure you have the X Server running (by clicking the <code>wsl_ros_config.xlaunch</code> shortcut) <strong>every time</strong> you work with WSL-ROS2. </p>
+<p class="admonition-title">Importante</p>
+<p>Debes asegurarte de tener el X Server en ejecución (haciendo clic en el acceso directo <code>wsl_ros_config.xlaunch</code>) <strong>cada vez</strong> que trabajes con WSL-ROS2. </p>
 </div>
 </li>
 </ol>
-<h2 id="restarting-the-wsl-engine">Restarting the WSL Engine<a class="headerlink" href="#restarting-the-wsl-engine" title="Permanent link">¶</a></h2>
-<p>If you're having trouble with WSL a restart sometimes helps.  </p>
-<p>First, close down any WSL-ROS2 terminal windows that you have open (and any connections to WSL-ROS2 in VS Code). Then, launch powershell and <em>shutdown</em> the WSL engine:</p>
+<h2 id="reiniciar-el-motor-wsl">Reiniciar el Motor WSL<a class="headerlink" href="#reiniciar-el-motor-wsl" title="Permanent link">¶</a></h2>
+<p>Si tienes problemas con WSL, a veces un reinicio ayuda.  </p>
+<p>Primero, cierra cualquier ventana de terminal WSL-ROS2 que tengas abierta (y cualquier conexión a WSL-ROS2 en VS Code). Luego, inicia PowerShell y <em>apaga</em> el motor WSL:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">wsl</span> <span class="p">-</span><span class="n">-shutdown</span>
 </code></pre></div>
-<p>Restart the WSL engine by launching a new WSL-ROS2 terminal instance.</p>
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">¶</a></h2>
+<p>Reinicia el motor WSL lanzando una nueva instancia de terminal WSL-ROS2.</p>
+<h2 id="ver-tambien">Ver También<a class="headerlink" href="#ver-tambien" title="Permanent link">¶</a></h2>
 <ul>
-<li><a href="../using-wsl-ros/vscode/">Setting up VS Code for WSL</a></li>
-<li><a href="../using-wsl-ros/linux-term/">A Quick Introduction to the Linux Terminal</a></li>
+<li><a href="../using-wsl-ros/vscode/">Configurar VS Code para WSL</a></li>
+<li><a href="../using-wsl-ros/linux-term/">Una Breve Introducción al Terminal de Linux</a></li>
 </ul>
 
 
@@ -2969,37 +3468,8 @@
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 2, 2026 16:05:54 UTC"><span class="timeago" datetime="2026-03-02T16:05:54+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 2, 2026 16:05:54 UTC">2026-03-02</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -3028,7 +3498,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Accessing or Installing ROS 2">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Acceder o Instalar ROS 2">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -3038,20 +3508,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Accessing or Installing ROS 2
+                Acceder o Instalar ROS 2
               </div>
             </div>
           </a>
         
         
           
-          <a href="../using-wsl-ros/" class="md-footer__link md-footer__link--next" aria-label="Next: Accessing WSL-ROS2 on University Computers">
+          <a href="../using-wsl-ros/" class="md-footer__link md-footer__link--next" aria-label="Next: Acceder a WSL-ROS2 en las Computadoras del Laboratorio">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Accessing WSL-ROS2 on University Computers
+                Acceder a WSL-ROS2 en las Computadoras del Laboratorio
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3068,7 +3538,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -3098,30 +3568,14 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

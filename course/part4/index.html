@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.">
+        <meta name="description" content="Aprende sobre una forma alternativa en que los nodos de ROS pueden comunicarse a través de una red ROS, y las situaciones en las que esto puede ser útil.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/course/part4/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/course/part4/">
       
       
         <link rel="prev" href="../part3/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Part 4: Services - ROS 2 Labs in The Diamond</title>
+        <title>Parte 4: Services - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Part 4: Services - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/course/part4.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/course/part4/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Part 4: Services - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/course/part4.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#introduccion" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Part 4: Services
+              Parte 4: Services
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1003,7 +1040,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1031,7 +1068,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1059,7 +1096,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1094,7 +1131,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1112,7 +1149,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1136,22 +1173,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -1159,10 +1196,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje-esperados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje Esperados
       
     </span>
   </a>
@@ -1170,22 +1207,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercises
+        Ejercicios
       
     </span>
   </a>
@@ -1193,10 +1230,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#recursos-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Resources
+        Recursos Adicionales
       
     </span>
   </a>
@@ -1214,10 +1251,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros Pasos
       
     </span>
   </a>
@@ -1225,10 +1262,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-introduction-to-services" class="md-nav__link">
+  <a href="#introduccion-a-los-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        An Introduction to Services
+        Introducción a los Services
       
     </span>
   </a>
@@ -1236,22 +1273,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interrogating-a-service" class="md-nav__link">
+  <a href="#interrogar-un-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interrogating a Service
+        Interrogar un Service
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Interrogating a Service">
+    <nav class="md-nav" aria-label="Interrogar un Service">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface
+        Ejercicio 1: Usar Herramientas de Línea de Comandos para Interrogar un Service y su Interface
       
     </span>
   </a>
@@ -1264,22 +1301,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-format-of-service-interfaces" class="md-nav__link">
+  <a href="#el-formato-de-las-interfaces-de-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Format of Service Interfaces
+        El Formato de las Interfaces de Service
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Format of Service Interfaces">
+    <nav class="md-nav" aria-label="El Formato de las Interfaces de Service">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Playing the Number Game (from the Command-line)
+        Ejercicio 2: Jugar el Juego de Números (desde la Línea de Comandos)
       
     </span>
   </a>
@@ -1292,22 +1329,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-our-own-services" class="md-nav__link">
+  <a href="#crear-nuestros-propios-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating Our Own Services
+        Crear Nuestros Propios Services
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Our Own Services">
+    <nav class="md-nav" aria-label="Crear Nuestros Propios Services">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Creating a Service Interface
+        Ejercicio 3: Crear una Interface de Service
       
     </span>
   </a>
@@ -1318,7 +1355,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Adapting the Number Game Server
+        Ejercicio 4: Adaptar el Server del Juego de Números
       
     </span>
   </a>
@@ -1329,7 +1366,7 @@
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Creating a Python Service Client
+        Ejercicio 5: Crear un Python Service Client
       
     </span>
   </a>
@@ -1342,22 +1379,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-map-saver-service" class="md-nav__link">
+  <a href="#el-map-saver-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Map Saver Service
+        El Map Saver Service
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Map Saver Service">
+    <nav class="md-nav" aria-label="El Map Saver Service">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6: Developing A Map Saver Service Client
+        Ejercicio 6: Desarrollar un Map Saver Service Client
       
     </span>
   </a>
@@ -1365,10 +1402,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-map-saver-service" class="md-nav__link">
+  <a href="#resumen-del-map-saver-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary of the Map Saver Service
+        Resumen del Map Saver Service
       
     </span>
   </a>
@@ -1381,22 +1418,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Conclusión
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Wrapping Up">
+    <nav class="md-nav" aria-label="Conclusión">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WSL-ROS2 Managed Desktop Users: Save your work!
+        Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -1431,7 +1468,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1459,7 +1496,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1484,6 +1521,8 @@
       
         
           
+        
+      
         
       
         
@@ -1558,7 +1597,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1586,7 +1625,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1805,7 +1872,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1904,7 +1971,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1932,7 +1999,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -2039,7 +2106,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -2067,7 +2134,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -2103,7 +2170,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -2131,7 +2198,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2350,7 +2417,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2378,7 +2445,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2406,7 +2473,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2434,7 +2501,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2462,7 +2529,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2744,7 +2811,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2849,6 +2916,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2874,22 +3375,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2897,10 +3398,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje-esperados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje Esperados
       
     </span>
   </a>
@@ -2908,22 +3409,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercises
+        Ejercicios
       
     </span>
   </a>
@@ -2931,10 +3432,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#recursos-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Resources
+        Recursos Adicionales
       
     </span>
   </a>
@@ -2952,10 +3453,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros Pasos
       
     </span>
   </a>
@@ -2963,10 +3464,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-introduction-to-services" class="md-nav__link">
+  <a href="#introduccion-a-los-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        An Introduction to Services
+        Introducción a los Services
       
     </span>
   </a>
@@ -2974,22 +3475,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#interrogating-a-service" class="md-nav__link">
+  <a href="#interrogar-un-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interrogating a Service
+        Interrogar un Service
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Interrogating a Service">
+    <nav class="md-nav" aria-label="Interrogar un Service">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface
+        Ejercicio 1: Usar Herramientas de Línea de Comandos para Interrogar un Service y su Interface
       
     </span>
   </a>
@@ -3002,22 +3503,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-format-of-service-interfaces" class="md-nav__link">
+  <a href="#el-formato-de-las-interfaces-de-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Format of Service Interfaces
+        El Formato de las Interfaces de Service
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Format of Service Interfaces">
+    <nav class="md-nav" aria-label="El Formato de las Interfaces de Service">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Playing the Number Game (from the Command-line)
+        Ejercicio 2: Jugar el Juego de Números (desde la Línea de Comandos)
       
     </span>
   </a>
@@ -3030,22 +3531,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-our-own-services" class="md-nav__link">
+  <a href="#crear-nuestros-propios-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating Our Own Services
+        Crear Nuestros Propios Services
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating Our Own Services">
+    <nav class="md-nav" aria-label="Crear Nuestros Propios Services">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Creating a Service Interface
+        Ejercicio 3: Crear una Interface de Service
       
     </span>
   </a>
@@ -3056,7 +3557,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Adapting the Number Game Server
+        Ejercicio 4: Adaptar el Server del Juego de Números
       
     </span>
   </a>
@@ -3067,7 +3568,7 @@
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Creating a Python Service Client
+        Ejercicio 5: Crear un Python Service Client
       
     </span>
   </a>
@@ -3080,22 +3581,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-map-saver-service" class="md-nav__link">
+  <a href="#el-map-saver-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Map Saver Service
+        El Map Saver Service
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Map Saver Service">
+    <nav class="md-nav" aria-label="El Map Saver Service">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6: Developing A Map Saver Service Client
+        Ejercicio 6: Desarrollar un Map Saver Service Client
       
     </span>
   </a>
@@ -3103,10 +3604,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-map-saver-service" class="md-nav__link">
+  <a href="#resumen-del-map-saver-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary of the Map Saver Service
+        Resumen del Map Saver Service
       
     </span>
   </a>
@@ -3119,22 +3620,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Conclusión
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Wrapping Up">
+    <nav class="md-nav" aria-label="Conclusión">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WSL-ROS2 Managed Desktop Users: Save your work!
+        Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -3163,7 +3664,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/course/part4.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/course/part4.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3172,153 +3673,153 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/course/part4.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/course/part4.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-  <h1>Part 4: Services</h1>
+  <h1>Parte 4: Services</h1>
 
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Exercises</strong>: 6<br>
-<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Estimated Completion Time</strong>: 2 hours<br>
-<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Difficulty Level</strong>: Intermediate  </p>
-<h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
-<p>In this part you'll learn about <em>Services</em>: an alternative communication method that can be used to transmit data/information or invoke actions on a ROS Network. You'll learn how this works, and why it might be useful. You'll also look at some practical applications of this.</p>
-<h3 id="intended-learning-outcomes">Intended Learning Outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Permanent link">¶</a></h3>
-<p>By the end of this session you will be able to:</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">¶</a></h2>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Ejercicios</strong>: 6<br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Tiempo estimado de finalización</strong>: 2 horas<br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Nivel de dificultad</strong>: Intermedio  </p>
+<h3 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">¶</a></h3>
+<p>En esta parte aprenderás sobre los <em>Services</em>: un método de comunicación alternativo que se puede usar para transmitir datos/información o invocar acciones en una red ROS. Aprenderás cómo funciona esto y por qué puede ser útil. También explorarás algunas aplicaciones prácticas de esto.</p>
+<h3 id="resultados-de-aprendizaje-esperados">Resultados de Aprendizaje Esperados<a class="headerlink" href="#resultados-de-aprendizaje-esperados" title="Permanent link">¶</a></h3>
+<p>Al finalizar esta sesión serás capaz de:</p>
 <ol>
-<li>Recognise how ROS Services differ from the standard topic-based publisher-subscriber approach, and identify appropriate use-cases for this type of messaging system.</li>
-<li>Identify the services that are available on a ROS network, and use ROS command-line tools to interrogate and <em>call</em> them.</li>
-<li>Develop Python Service Client Nodes.</li>
-<li>Invoke different services using various service-type interfaces.</li>
+<li>Reconocer cómo los ROS Services difieren del enfoque estándar de publisher-subscriber basado en topics, e identificar casos de uso apropiados para este tipo de sistema de mensajería.</li>
+<li>Identificar los services disponibles en una red ROS, y usar las herramientas de línea de comandos de ROS para interrogarlos y <em>llamarlos</em>.</li>
+<li>Desarrollar Nodos Python de tipo Service Client.</li>
+<li>Invocar diferentes services usando diversas interfaces de tipo service.</li>
 </ol>
-<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
-<h4 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">¶</a></h4>
+<h3 id="enlaces-rapidos">Enlaces Rápidos<a class="headerlink" href="#enlaces-rapidos" title="Permanent link">¶</a></h3>
+<h4 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="#ex1">Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface</a></li>
-<li><a href="#ex2">Exercise 2: Playing the Number Game (from the Command-line)</a></li>
-<li><a href="#ex3">Exercise 3: Creating a Service Interface</a></li>
-<li><a href="#ex4">Exercise 4: Adapting the Number Game Server</a></li>
-<li><a href="#ex5">Exercise 5: Creating a Python Service Client</a></li>
-<li><a href="#ex6">Exercise 6: Developing A Map Saver Service Client</a></li>
+<li><a href="#ex1">Ejercicio 1: Usar Herramientas de Línea de Comandos para Interrogar un Service y su Interface</a></li>
+<li><a href="#ex2">Ejercicio 2: Jugar el Juego de Números (desde la Línea de Comandos)</a></li>
+<li><a href="#ex3">Ejercicio 3: Crear una Interface de Service</a></li>
+<li><a href="#ex4">Ejercicio 4: Adaptar el Server del Juego de Números</a></li>
+<li><a href="#ex5">Ejercicio 5: Crear un Python Service Client</a></li>
+<li><a href="#ex6">Ejercicio 6: Desarrollar un Map Saver Service Client</a></li>
 </ul>
-<h4 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h4>
+<h4 id="recursos-adicionales">Recursos Adicionales<a class="headerlink" href="#recursos-adicionales" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="number_game_client/" target="_blank">The <code>number_game_client.py</code> Node (for Exercise 5)</a></li>
+<li><a href="number_game_client/" target="_blank">El Nodo <code>number_game_client.py</code> (para el Ejercicio 5)</a></li>
 </ul>
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
-<p><strong>Step 1: Launch your ROS2 Environment</strong></p>
-<p>If you haven't done so already, launch your ROS environment now. Having done this, you should now have access to a Linux terminal instance (aka <strong>TERMINAL 1</strong>).</p>
-<p><strong>Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)</strong></p>
-<p>Remember that any work you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers, so you should be backing up your work to your <code>U:\</code> drive regularly. When prompted (on first launch of WSL-ROS2 in <strong>TERMINAL 1</strong>) enter <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> to restore your data<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<h2 id="primeros-pasos">Primeros Pasos<a class="headerlink" href="#primeros-pasos" title="Permanent link">¶</a></h2>
+<p><strong>Paso 1: Iniciar tu Entorno ROS2</strong></p>
+<p>Si aún no lo has hecho, inicia tu entorno ROS ahora. Una vez hecho esto, deberías tener acceso a una instancia de terminal de Linux (también conocida como <strong>TERMINAL 1</strong>).</p>
+<p><strong>Paso 2: Restaurar tu trabajo (Solo para Usuarios de Escritorio Administrado WSL-ROS2)</strong></p>
+<p>Recuerda que cualquier trabajo que realices dentro del Entorno WSL-ROS2 no se conservará entre sesiones ni en diferentes computadoras del laboratorio, por lo que debes hacer copias de seguridad de tu trabajo en tu unidad <code>U:\</code> regularmente. Cuando se te solicite (al primer inicio de WSL-ROS2 en <strong>TERMINAL 1</strong>) ingresa <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> para restaurar tus datos<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>It looks like you already have a backup from a previous session:
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  U:\wsl-ros\ros2-backup-XXX.tar.gz
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Do you want to restore this now? [y/n]
 </code></pre></div>
-<p><strong>Step 3: Launch VS Code</strong>  </p>
-<p>It's also worth launching VS Code now. </p>
+<p><strong>Paso 3: Iniciar VS Code</strong>  </p>
+<p>También vale la pena iniciar VS Code ahora. </p>
 <details class="warning">
-<summary>WSL Users...</summary>
-<p>It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: </p>
+<summary>Usuarios de WSL...</summary>
+<p>Es importante iniciar VS Code dentro de tu entorno ROS usando la extensión "WSL". Recuerda siempre verificar esto: </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../software/figures/code-wsl-ext-on.svg" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
 </figure><p></p>
 </details>
-<p><strong>Step 4: Make Sure The Course Repo is Up-To-Date</strong></p>
-<p>Once again, it's worth quickly checking that the Course Repo is up-to-date before you start on the Part 4 exercises. Go back to <a href="../part1/#course-repo">Part 1</a> if you haven't installed it yet (really?!) or - alternatively - <a href="../extras/course-repo/#updating">see here for how to update</a>.</p>
-<h2 id="an-introduction-to-services">An Introduction to Services<a class="headerlink" href="#an-introduction-to-services" title="Permanent link">¶</a></h2>
-<p>So far, we've learnt about ROS <em>topics</em> and the <em>message</em>-type interfaces that we use to transmit data on them. We've also learnt how individual nodes can access data on a robot by simply <em>subscribing</em> to topics that another node on the ROS network is publishing messages to. In addition to this, we know that any node can <em>publish</em> messages to any topic, which broadcasts data across the ROS network, making it available to any other node on the network that may wish to access it.</p>
-<p>Another way to pass data between ROS Nodes is by using <em>Services</em>. These are based on a <em>call and response</em> type of communication:</p>
+<p><strong>Paso 4: Asegurarse de que el Repositorio del Curso Esté Actualizado</strong></p>
+<p>Una vez más, vale la pena verificar rápidamente que el Repositorio del Curso esté actualizado antes de comenzar con los ejercicios de la Parte 4. Vuelve a la <a href="../part1/#course-repo">Parte 1</a> si aún no lo has instalado (¿en serio?!) o, alternativamente, <a href="../extras/course-repo/#updating">consulta aquí cómo actualizarlo</a>.</p>
+<h2 id="introduccion-a-los-services">Introducción a los Services<a class="headerlink" href="#introduccion-a-los-services" title="Permanent link">¶</a></h2>
+<p>Hasta ahora, hemos aprendido sobre los <em>topics</em> de ROS y las interfaces de tipo <em>message</em> que usamos para transmitir datos en ellos. También hemos aprendido cómo los nodos individuales pueden acceder a datos de un robot simplemente <em>suscribiéndose</em> a topics en los que otro nodo de la red ROS está publicando mensajes. Además, sabemos que cualquier nodo puede <em>publicar</em> mensajes en cualquier topic, lo que transmite datos a través de la red ROS, poniéndolos a disposición de cualquier otro nodo de la red que desee acceder a ellos.</p>
+<p>Otra forma de pasar datos entre Nodos ROS es usando <em>Services</em>. Estos se basan en un tipo de comunicación de <em>llamada y respuesta</em>:</p>
 <ul>
-<li>A Service <strong>Client</strong> sends a <strong>Request</strong> to a Service <strong>Server</strong>.</li>
-<li>The Service <strong>Server</strong> processes that request and sends back a <strong>Response</strong>.</li>
+<li>Un <strong>Client</strong> de Service envía una <strong>Request</strong> a un <strong>Server</strong> de Service.</li>
+<li>El <strong>Server</strong> de Service procesa esa request y envía de vuelta una <strong>Response</strong>.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The difference between topic-based messaging and the ROS Service protocol" src="topic_vs_service.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="topic_vs_service.png" data-desc-position="bottom"><img alt="La diferencia entre la mensajería basada en topics y el protocolo de ROS Service" src="topic_vs_service.png" width="600px"></a></p>
 </figure>
-<p>This is a bit like a transaction: one node requests something, and another node fulfils that request and responds. This is good for <strong>quick, short duration tasks</strong>, e.g.:</p>
+<p>Esto es similar a una transacción: un nodo solicita algo, y otro nodo cumple esa solicitud y responde. Esto es útil para <strong>tareas rápidas y de corta duración</strong>, por ejemplo:</p>
 <ol>
-<li>Turning a device on or off.</li>
-<li>Grabbing some data and saving it to a file (a map for example).</li>
-<li>Performing a calculation and returning a result.</li>
-<li>Making a sound<sup id="fnref:tb3_sound"><a class="footnote-ref" href="#fn:tb3_sound">2</a></sup>.</li>
+<li>Encender o apagar un dispositivo.</li>
+<li>Obtener algunos datos y guardarlos en un archivo (un mapa, por ejemplo).</li>
+<li>Realizar un cálculo y devolver un resultado.</li>
+<li>Emitir un sonido<sup id="fnref:tb3_sound"><a class="footnote-ref" href="#fn:tb3_sound">2</a></sup>.</li>
 </ol>
-<p>A single service can have many clients, but you can only have a <em>single</em> Server providing that particular service at any one time.</p>
+<p>Un único service puede tener muchos clients, pero solo puede haber un <em>único</em> Server proporcionando ese service en particular en un momento dado.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="service_clients.png"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="service_clients.png" data-desc-position="bottom"><img alt="" src="service_clients.png"></a>
   </p>
-<figcaption>Multiple Clients to a single Service Server</figcaption>
+<figcaption>Múltiples Clients hacia un único Service Server</figcaption>
 </figure>
-<p>Let's see how this all works in practice now, by playing a number game! We don't need a simulation up and running for this one, so in <strong>TERMINAL 1</strong> use the following command to launch the <em>Guess the Number</em> Service: </p>
+<p>Veamos ahora cómo funciona todo esto en la práctica, ¡jugando un juego de números! No necesitamos una simulación en ejecución para este, así que en <strong>TERMINAL 1</strong> usa el siguiente comando para iniciar el Service <em>Adivina el Número</em>: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>number_game.py
 </code></pre></div>
-<p>Having launched the service successfully, you should be presented with the following:</p>
+<p>Habiendo iniciado el service exitosamente, deberías ver lo siguiente:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[INFO] [#####] [number_game_service]: The '/guess_the_number' service is active.
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[INFO] [#####] [number_game_service]: A secret number has been set... Game on!
 </code></pre></div>
-<p>We need to interrogate this now, in order to work out how to play the game...</p>
-<h2 id="interrogating-a-service">Interrogating a Service<a class="headerlink" href="#interrogating-a-service" title="Permanent link">¶</a></h2>
-<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
+<p>Ahora necesitamos interrogar esto para averiguar cómo jugar el juego...</p>
+<h2 id="interrogar-un-service">Interrogar un Service<a class="headerlink" href="#interrogar-un-service" title="Permanent link">¶</a></h2>
+<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Usar Herramientas de Línea de Comandos para Interrogar un Service y su Interface<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Open up a new terminal instance (<strong>TERMINAL 2</strong>) and use the <code>ros2 service</code> command to list all active ROS services:</p>
+<p>Abre una nueva instancia de terminal (<strong>TERMINAL 2</strong>) y usa el comando <code>ros2 service</code> para listar todos los ROS services activos:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>list
 </code></pre></div>
-<p>There'll be a few items in this list, most of them with the prefix: <code>/number_game_service</code>. This is the name of the <em>node</em> that is providing the service (i.e. the <strong>Server</strong>) and these items are all automatically generated by ROS. What we're really interested in is the service itself, which should be listed as <code>/guess_the_number</code>. </p>
+<p>Habrá algunos elementos en esta lista, la mayoría con el prefijo: <code>/number_game_service</code>. Este es el nombre del <em>nodo</em> que está proporcionando el service (es decir, el <strong>Server</strong>), y estos elementos son generados automáticamente por ROS. Lo que realmente nos interesa es el service en sí, que debería aparecer en la lista como <code>/guess_the_number</code>. </p>
 </li>
 <li>
-<p>Next, we need to find the <em>interface type</em> used by this service, which we can do a couple of ways:</p>
+<p>A continuación, necesitamos encontrar el <em>tipo de interface</em> utilizado por este service, lo cual podemos hacer de un par de maneras:</p>
 <ol>
 <li>
-<p>Use the <code>type</code> sub-command:</p>
+<p>Usar el subcomando <code>type</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ros2 service type /guess_the_number
 </code></pre></div>
 </li>
 <li>
-<p>Use the <code>list</code> sub-command again, but with the <code>-t</code> flag:</p>
+<p>Usar el subcomando <code>list</code> nuevamente, pero con la bandera <code>-t</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>list<span class="w"> </span>-t
 </code></pre></div>
-<p>The latter will provide the same list of services as before, but each one will now have its interface type provided alongside it.</p>
+<p>Este último proporcionará la misma lista de services que antes, pero ahora cada uno tendrá su tipo de interface listado junto a él.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>Regardless of the method that you used above, you should have discovered that the interface type used by the <code>/guess_the_number</code> service is:</p>
+<p>Independientemente del método que hayas usado arriba, deberías haber descubierto que el tipo de interface utilizado por el service <code>/guess_the_number</code> es:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>tuos_interfaces/srv/NumberGame
 </code></pre></div>
-<p>Notice how (<a href="../part1/#msg-interface-struct">much like with message interfaces used by <em>topics</em></a>), there are three fields to this type definition:</p>
+<p>Observa cómo (<a href="../part1/#msg-interface-struct">de manera muy similar a las interfaces de tipo message usadas por los <em>topics</em></a>), hay tres campos en esta definición de tipo:</p>
 <ol>
-<li><code>tuos_interfaces</code>: the name of the ROS package that this interface belongs to.</li>
-<li><code>srv</code>: that this is a <em>service</em> interface, the second interface type we've covered now (we'll learn about the third and final one in Part 5).</li>
-<li><code>NumberGame</code>: the data structure.</li>
+<li><code>tuos_interfaces</code>: el nombre del package de ROS al que pertenece esta interface.</li>
+<li><code>srv</code>: que esto es una interface de tipo <em>service</em>, el segundo tipo de interface que hemos visto (aprenderemos sobre el tercero y último en la Parte 5).</li>
+<li><code>NumberGame</code>: la estructura de datos.</li>
 </ol>
-<p>We need to know the data structure in order to make a call to the service, so let's identify this next.</p>
+<p>Necesitamos conocer la estructura de datos para poder hacer una llamada al service, así que vamos a identificarla a continuación.</p>
 </li>
 <li>
-<p>We can use the <code>ros2 interface list</code> command to list <em>all</em> interface types available to us on our ROS system, but this will provide us with a long list!</p>
+<p>Podemos usar el comando <code>ros2 interface list</code> para listar <em>todos</em> los tipos de interface disponibles en nuestro sistema ROS, ¡pero esto nos dará una lista muy larga!</p>
 <ol>
 <li>
-<p>We can use the <code>-m</code> flag to filter for <em>message</em> interfaces, or the <code>-s</code> flag to filter for <em>service</em> interfaces. Try the latter:</p>
+<p>Podemos usar la bandera <code>-m</code> para filtrar por interfaces de tipo <em>message</em>, o la bandera <code>-s</code> para filtrar por interfaces de tipo <em>service</em>. Prueba la última:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s
 </code></pre></div>
 <p><a name="grep"></a></p>
 </li>
 <li>
-<p>Still quite a lot there, right!? Let's filter this further with <a href="https://en.wikipedia.org/wiki/Grep" target="_blank" rel="noopener">Grep</a> to identify <em>only</em> interfaces that belong to the <code>tuos_interfaces</code> package:</p>
+<p>¡Todavía hay bastante ahí, verdad!? Filtremos esto aún más con <a href="https://en.wikipedia.org/wiki/Grep" target="_blank">Grep</a> para identificar <em>solo</em> las interfaces que pertenecen al package <code>tuos_interfaces</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tuos_interfaces
 </code></pre></div>
-<p>Hopefully, the <code>srv/NumberGame</code> interface is now listed.</p>
+<p>Con suerte, la interface <code>srv/NumberGame</code> ahora aparece en la lista.</p>
 </li>
 <li>
-<p>Use the <code>show</code> sub-command to <em>show</em> the message structure:</p>
+<p>Usa el subcomando <code>show</code> para <em>mostrar</em> la estructura del mensaje:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>tuos_interfaces/srv/NumberGame
 </code></pre></div>
 </li>
 </ol>
-<p>The interface structure should be shown as follows:</p>
+<p>La estructura de la interface debería mostrarse de la siguiente manera:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>int32 guess
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>---
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>int32 guesses
@@ -3327,104 +3828,104 @@
 </code></pre></div>
 </li>
 </ol>
-<h2 id="the-format-of-service-interfaces">The Format of Service Interfaces<a class="headerlink" href="#the-format-of-service-interfaces" title="Permanent link">¶</a></h2>
-<p>Service interfaces have two parts to them, separated by three hyphens (<code>---</code>). Above the separator is the Service <strong>Request</strong>, and below it is the Service <strong>Response</strong>:</p>
+<h2 id="el-formato-de-las-interfaces-de-service">El Formato de las Interfaces de Service<a class="headerlink" href="#el-formato-de-las-interfaces-de-service" title="Permanent link">¶</a></h2>
+<p>Las interfaces de service tienen dos partes, separadas por tres guiones (<code>---</code>). Sobre el separador está la <strong>Request</strong> del Service, y debajo está la <strong>Response</strong> del Service:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>int32 guess      &lt;-- Request
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>---
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>int32 guesses    &lt;-- Response (1 of 3)
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>string hint      &lt;-- Response (2 of 3)
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>bool success     &lt;-- Response (3 of 3)
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>int32 guesses    &lt;-- Response (1 de 3)
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>string hint      &lt;-- Response (2 de 3)
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>bool success     &lt;-- Response (3 de 3)
 </code></pre></div>
-<p>In order to <em>Call</em> a service, we need to provide data to it in the format specified in the <strong>Request</strong> section of the interface. A service <em>Server</em> will then send data back to the caller in the format specified in the <strong>Response</strong> section of the interface.</p>
-<p>The <code>tuos_interfaces/srv/NumberGame</code> service interface has only <strong>one</strong> request parameter:</p>
+<p>Para <em>llamar</em> a un service, necesitamos proporcionarle datos en el formato especificado en la sección de <strong>Request</strong> de la interface. El <em>Server</em> del service enviará datos de vuelta al llamante en el formato especificado en la sección de <strong>Response</strong> de la interface.</p>
+<p>La interface de service <code>tuos_interfaces/srv/NumberGame</code> tiene solo <strong>un</strong> parámetro de request:</p>
 <ol>
-<li><code>guess</code>: a <code>int32</code> (32-bit integer)<br>
-    ...which is the only thing we need to send to the <code>/number_game_service</code> Service Server in order to call it.</li>
+<li><code>guess</code>: un <code>int32</code> (entero de 32 bits)<br>
+    ...que es lo único que necesitamos enviar al Service Server <code>/number_game_service</code> para llamarlo.</li>
 </ol>
-<p>There are then <strong>three</strong> response parameters:</p>
+<p>Luego hay <strong>tres</strong> parámetros de response:</p>
 <ol>
-<li>A <em>32-bit integer</em> called <code>guesses</code></li>
-<li>A text <em>string</em> called <code>hint</code>  </li>
+<li>Un <em>entero de 32 bits</em> llamado <code>guesses</code></li>
+<li>Una <em>cadena de texto</em> llamada <code>hint</code>  </li>
 <li>
-<p>A <em>boolean</em> flag called <code>success</code></p>
-<p>...all of which will be returned by the server, once it has processed our request.</p>
+<p>Una bandera <em>booleana</em> llamada <code>success</code></p>
+<p>...todos los cuales serán devueltos por el server una vez que haya procesado nuestra request.</p>
 </li>
 </ol>
-<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Playing the Number Game (from the Command-line)<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
-<p>We're now ready to make a call to the service, and we can do this using the <code>ros2 service</code> command again (from <strong>TERMINAL 2</strong>):</p>
+<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 2: Jugar el Juego de Números (desde la Línea de Comandos)<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
+<p>Ahora estamos listos para hacer una llamada al service, y podemos hacerlo usando el comando <code>ros2 service</code> nuevamente (desde <strong>TERMINAL 2</strong>):</p>
 <ol>
 <li>
-<p>To start, let's send an initial guess of <code>0</code> and see what happens:</p>
+<p>Para empezar, enviemos una suposición inicial de <code>0</code> y veamos qué sucede:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>tuos_interfaces/srv/NumberGame<span class="w"> </span><span class="s2">"{guess: 0}"</span>
 </code></pre></div>
-<p>The request will be echoed back to us, followed by a response, which will likely look something like this, and which shows us the value of the three response parameters that we identified above:</p>
+<p>La request nos será devuelta como eco, seguida de una response, que probablemente se verá algo así, y que nos muestra el valor de los tres parámetros de response que identificamos arriba:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>response:
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>tuos_interfaces.srv.NumberGame_Response(guesses=1, hint='Higher', success=False)
 </code></pre></div>
 <ol>
-<li><code>guesses</code>: tells us how many times we've tried to guess the number in total (just once so far)</li>
-<li><code>hint</code>: tells us if we should go "higher" or "lower" on our next guess in order to get closer to the <em>secret number</em></li>
-<li><code>success</code>: tells us if we guessed the right number or not (unlikely on the first attempt!)</li>
+<li><code>guesses</code>: nos dice cuántas veces hemos intentado adivinar el número en total (solo una vez hasta ahora)</li>
+<li><code>hint</code>: nos dice si deberíamos ir "más alto" o "más bajo" en nuestra próxima suposición para acercarnos al <em>número secreto</em></li>
+<li><code>success</code>: nos dice si adivinamos el número correcto o no (¡poco probable en el primer intento!)</li>
 </ol>
 </li>
 <li>
-<p>Make another service call, this time changing the value of your <code>guess</code>, e.g.:</p>
+<p>Realiza otra llamada al service, esta vez cambiando el valor de tu <code>guess</code>, por ejemplo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>tuos_interfaces/srv/NumberGame<span class="w"> </span><span class="s2">"{guess: 10}"</span>
 </code></pre></div>
 </li>
 <li>
-<p>Try making a guess of 500 next.</p>
-<p>The service should respond with the hint <code>'Error'</code> now. Have a look back in <strong>TERMINAL 1</strong> (where the Server is running) to get more information on this.</p>
+<p>Intenta hacer una suposición de 500 ahora.</p>
+<p>El service debería responder con el hint <code>'Error'</code> ahora. Vuelve a mirar en <strong>TERMINAL 1</strong> (donde el Server está corriendo) para obtener más información sobre esto.</p>
 </li>
 <li>
-<p>Keep going until you guess the magic number, how many guesses does it take you?! </p>
+<p>Continúa hasta que adivines el número mágico, ¿cuántos intentos te toma?! </p>
 </li>
 <li>
-<p>Stop the server, by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 1</strong>.</p>
+<p>Detén el server, ingresando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 1</strong>.</p>
 </li>
 </ol>
-<h2 id="creating-our-own-services">Creating Our Own Services<a class="headerlink" href="#creating-our-own-services" title="Permanent link">¶</a></h2>
-<p>Over the next three exercises, we'll learn how to create a service interface of our own, and build a Server and Client (in Python) that use this.</p>
-<p>First though, we need to create a new package, so follow the same procedure as you have in the previous parts of this course to create another new package called <code>part4_services</code>.</p>
-<p>In <strong>TERMINAL 1</strong>:</p>
+<h2 id="crear-nuestros-propios-services">Crear Nuestros Propios Services<a class="headerlink" href="#crear-nuestros-propios-services" title="Permanent link">¶</a></h2>
+<p>A lo largo de los próximos tres ejercicios, aprenderemos cómo crear una interface de service propia, y construir un Server y un Client (en Python) que la usen.</p>
+<p>Primero, sin embargo, necesitamos crear un nuevo package, así que sigue el mismo procedimiento que has seguido en las partes anteriores de este curso para crear otro nuevo package llamado <code>part4_services</code>.</p>
+<p>En <strong>TERMINAL 1</strong>:</p>
 <ol>
 <li>
-<p>Head to the ROS 2 workspace <code>src</code> folder:</p>
+<p>Dirígete a la carpeta <code>src</code> del workspace de ROS 2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
 </code></pre></div>
 </li>
 <li>
-<p>Clone the package template:</p>
+<p>Clona la plantilla del package:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tom-howard/ros2_pkg_template.git
 </code></pre></div>
 </li>
 <li>
-<p>Call the <code>init_pkg.sh</code> script and specify your package name:</p>
+<p>Ejecuta el script <code>init_pkg.sh</code> y especifica el nombre de tu package:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>./ros2_pkg_template/init_pkg.sh<span class="w"> </span>part4_services
 </code></pre></div>
 </li>
 </ol>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Creating a Service Interface<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
-<p>Let's create a service interface now which has a <em>similar</em> structure to the one used by the <code>/guess_the_number</code> service, but this time with <em>two</em> request parameters, rather than just one...</p>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 3: Crear una Interface de Service<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<p>Creemos ahora una interface de service que tenga una estructura <em>similar</em> a la usada por el service <code>/guess_the_number</code>, pero esta vez con <em>dos</em> parámetros de request, en lugar de solo uno...</p>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong>, navigate into the root of your <code>part4_services</code> package directory:</p>
+<p>En <strong>TERMINAL 1</strong>, navega hasta la raíz del directorio de tu package <code>part4_services</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part4_services/
 </code></pre></div>
 </li>
 <li>
-<p>Create a new directory there called <code>srv</code>:</p>
+<p>Crea un nuevo directorio llamado <code>srv</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>mkdir<span class="w"> </span>srv
 </code></pre></div>
 </li>
 <li>
-<p>Create a new file in this directory called <code>MyNumberGame.srv</code>:</p>
+<p>Crea un nuevo archivo en este directorio llamado <code>MyNumberGame.srv</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>touch<span class="w"> </span>srv/MyNumberGame.srv
 </code></pre></div>
-<p>In here is where we will define the structure of our own <code>MyNumberGame</code> service interface.</p>
+<p>Aquí es donde definiremos la estructura de nuestra propia interface de service <code>MyNumberGame</code>.</p>
 </li>
 <li>
-<p>Open up this file in VS Code, enter the following content and save the file:</p>
+<p>Abre este archivo en VS Code, ingresa el siguiente contenido y guarda el archivo:</p>
 <div class="highlight"><span class="filename">MyNumberGame.srv</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>int32 guess
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>bool cheat
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>---
@@ -3432,14 +3933,14 @@
 <a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>string hint
 <a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>bool correct
 </code></pre></div>
-<p>The <strong>Request</strong> will therefore have two fields now:</p>
+<p>La <strong>Request</strong> tendrá por tanto dos campos ahora:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field Name</th>
-<th style="text-align: center;">Data Type</th>
+<th style="text-align: center;">Nombre del Campo</th>
+<th style="text-align: center;">Tipo de Dato</th>
 </tr>
 </thead>
 <tbody>
@@ -3458,8 +3959,8 @@
 <p></p></center><p></p>
 </li>
 <li>
-<p>The rest of the process now is very similar to creating a <em>message</em> interface, <a href="../part1/#ex7">like we did in Part 1</a>. </p>
-<p>First, we need to declare the interface in our <code>CMakeLists.txt</code> file, by adding the following above the <code>ament_package()</code> line:</p>
+<p>El resto del proceso es ahora muy similar a crear una interface de tipo <em>message</em>, <a href="../part1/#ex7">como hicimos en la Parte 1</a>. </p>
+<p>Primero, necesitamos declarar la interface en nuestro archivo <code>CMakeLists.txt</code>, agregando lo siguiente encima de la línea <code>ament_package()</code>:</p>
 <div class="highlight"><span class="filename">part4_services/CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>find_package(rosidl_default_generators REQUIRED)
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>rosidl_generate_interfaces(${PROJECT_NAME}
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  "srv/MyNumberGame.srv" 
@@ -3467,66 +3968,66 @@
 </code></pre></div>
 </li>
 <li>
-<p>Next, we need to modify the <code>package.xml</code> file. Add the following lines to this one, just above the <code class="highlight"><span class="nt">&lt;export&gt;</span></code> line:</p>
+<p>A continuación, necesitamos modificar el archivo <code>package.xml</code>. Agrega las siguientes líneas a este, justo encima de la línea <code class="highlight"><span class="nt">&lt;export&gt;</span></code>:</p>
 <div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nt">&lt;buildtool_depend&gt;</span>rosidl_default_generators<span class="nt">&lt;/buildtool_depend&gt;</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nt">&lt;exec_depend&gt;</span>rosidl_default_runtime<span class="nt">&lt;/exec_depend&gt;</span>
 <a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
 </code></pre></div>
 </li>
 <li>
-<p>And finally, we use Colcon to generate the necessary source code for the service interface:</p>
+<p>Y finalmente, usamos Colcon para generar el código fuente necesario para la interface de service:</p>
 <ol>
 <li>
-<p>Navigate to the root of the ROS2 Workspace:</p>
+<p>Navega hasta la raíz del Workspace de ROS2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 </li>
 <li>
-<p>Run <code>colcon build</code>:</p>
+<p>Ejecuta <code>colcon build</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part4_services<span class="w"> </span>--symlink-install<span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
-<p>And re-source the <code>.bashrc</code>:</p>
+<p>Y vuelve a cargar el <code>.bashrc</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Let's verify that this worked, using the <code>ros2</code> CLI (the same way as we did earlier when interrogating <code>tuos_interfaces/srv/NumberGame</code>):</p>
+<p>Verifiquemos que esto funcionó, usando el CLI de <code>ros2</code> (de la misma manera que hicimos antes cuando interrogamos <code>tuos_interfaces/srv/NumberGame</code>):</p>
 <ol>
 <li>
-<p>First, <em>list</em> all the ROS service interfaces that are available on the system (<code>-s</code> to filter for <em>service</em> interface types remember!):</p>
+<p>Primero, <em>lista</em> todas las interfaces de service de ROS disponibles en el sistema (¡recuerda usar <code>-s</code> para filtrar por tipos de interfaces de <em>service</em>!):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s
 </code></pre></div>
-<p>Scroll through this list and see if you can find <code>part4_services/srv/MyNumberGame</code> (or, <a href="#grep">use <code>grep</code> again</a>).</p>
+<p>Desplázate por esta lista y mira si puedes encontrar <code>part4_services/srv/MyNumberGame</code> (o, <a href="#grep">usa <code>grep</code> nuevamente</a>).</p>
 </li>
 <li>
-<p>If it's there, use the <code>show</code> sub-command to <em>show</em> the data structure:</p>
+<p>Si está ahí, usa el subcomando <code>show</code> para <em>mostrar</em> la estructura de datos:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>part4_services/srv/MyNumberGame
 </code></pre></div>
 </li>
 </ol>
-<p>Does it match with the definition in our <code>MyNumberGame.srv</code> file?</p>
+<p>¿Coincide con la definición en nuestro archivo <code>MyNumberGame.srv</code>?</p>
 </li>
 </ol>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Adapting the Number Game Server<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<p>We're going to take a copy of the <code>tuos_examples/number_game.py</code> server node now, and adapt it to use the service interface that we created above.</p>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 4: Adaptar el Server del Juego de Números<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<p>Vamos a tomar una copia del nodo server <code>tuos_examples/number_game.py</code> ahora, y adaptarlo para usar la interface de service que creamos arriba.</p>
 <ol>
 <li>
-<p>In <strong>TERMINAL 1</strong> still, navigate into the <code>part4_services/scripts</code> directory:</p>
+<p>Todavía en <strong>TERMINAL 1</strong>, navega hasta el directorio <code>part4_services/scripts</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part4_services/scripts/
 </code></pre></div>
 </li>
 <li>
-<p>Copy the <code>number_game.py</code> script from the course repo into here, renaming it to <code>my_number_game.py</code> at the same time:</p>
+<p>Copia el script <code>number_game.py</code> del repositorio del curso aquí, renombrándolo como <code>my_number_game.py</code> al mismo tiempo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cp<span class="w"> </span>../../tuos_ros/tuos_examples/scripts/number_game.py<span class="w"> </span>./my_number_game.py
 </code></pre></div>
-<p>This file should already have <em>execute</em> permissions, but <a href="../part1/#chmod">it's always worth checking</a>...</p>
+<p>Este archivo ya debería tener permisos de <em>ejecución</em>, pero <a href="../part1/#chmod">siempre vale la pena verificarlo</a>...</p>
 </li>
 <li>
-<p>Declare this as a package executable by going back to the <code>CMakeLists.txt</code> file and adding <code>my_number_game.py</code> to your list of Python executables:</p>
+<p>Declara esto como un ejecutable del package volviendo al archivo <code>CMakeLists.txt</code> y agregando <code>my_number_game.py</code> a tu lista de ejecutables Python:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a># Install Python executables
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>install(PROGRAMS
 <a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>  scripts/basic_velocity_control.py
@@ -3537,7 +4038,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>Build and re-source now: <a name="colcon-build-steps"></a></p>
+<p>Compila y vuelve a cargar ahora: <a name="colcon-build-steps"></a></p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part4_services<span class="w"> </span>--symlink-install
@@ -3546,16 +4047,16 @@
 </code></pre></div><p></p>
 </li>
 <li>
-<p>Now, let's look at the code, and see what needs to be adapted:</p>
+<p>Ahora, veamos el código y qué necesita ser adaptado:</p>
 <ol>
 <li>
-<p>Open up the <code>my_number_game.py</code> node in VS Code and review it.</p>
+<p>Abre el nodo <code>my_number_game.py</code> en VS Code y revísalo.</p>
 </li>
 <li>
-<p>As it stands, the node imports the <code>NumberGame</code> service interface from <code>tuos_interfaces</code>, so you'll need to change this to use the interface from your own package now:</p>
+<p>Tal como está, el nodo importa la interface de service <code>NumberGame</code> de <code>tuos_interfaces</code>, así que necesitarás cambiar esto para usar la interface de tu propio package ahora:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">part4_services.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyNumberGame</span>
 </code></pre></div>
-<p>You'll also need to change the <code>srv_type</code> definition, when the service is created in the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code>:</p>
+<p>También necesitarás cambiar la definición de <code>srv_type</code>, cuando el service se crea en <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">srv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_service</span><span class="p">(</span>
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>    <span class="n">srv_type</span><span class="o">=</span><span class="n">MyNumberGame</span><span class="p">,</span>
 <a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>    <span class="n">srv_name</span><span class="o">=</span><span class="s1">'guess_the_number'</span><span class="p">,</span>
@@ -3564,62 +4065,62 @@
 </code></pre></div>
 </li>
 <li>
-<p>Everything that this service <em>does</em> (when a <strong>Request</strong> is sent to it), is contained within the <code>srv_callback()</code> method. </p>
-<p>In here, <code>request</code> parameters are processed, <code>response</code> parameters are defined and the overall <code>response</code> is returned once the callback tasks have been completed.</p>
+<p>Todo lo que este service <em>hace</em> (cuando se le envía una <strong>Request</strong>) está contenido dentro del método <code>srv_callback()</code>. </p>
+<p>Aquí, los parámetros de <code>request</code> son procesados, los parámetros de <code>response</code> son definidos y la <code>response</code> general es devuelta una vez que las tareas del callback han sido completadas.</p>
 </li>
 <li>
-<p>You may have noticed that when we created our <code>MyNumberGame</code> interface in the previous exercise, the <strong>Response</strong> parameters were <em>almost</em> the same as those from Exercises 1 &amp; 2, <em>except</em> that some of their names had been changed slightly!</p>
-<p>Work through the <code>srv_callback()</code> method and make sure that all <code>response</code> attributes are renamed to match the new names that we've given them in our <code>part4_services/srv/MyNumberGame</code> interface. </p>
+<p>Es posible que hayas notado que cuando creamos nuestra interface <code>MyNumberGame</code> en el ejercicio anterior, los parámetros de <strong>Response</strong> eran <em>casi</em> los mismos que los de los Ejercicios 1 y 2, <em>excepto</em> que algunos de sus nombres habían cambiado ligeramente.</p>
+<p>Trabaja a través del método <code>srv_callback()</code> y asegúrate de que todos los atributos de <code>response</code> sean renombrados para coincidir con los nuevos nombres que les hemos dado en nuestra interface <code>part4_services/srv/MyNumberGame</code>. </p>
 </li>
 <li>
-<p>Remember that our <code>MyNumberGame</code> interface has an additional <strong>Request</strong> parameter too: </p>
+<p>Recuerda que nuestra interface <code>MyNumberGame</code> también tiene un parámetro de <strong>Request</strong> adicional: </p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>bool cheat
 </code></pre></div>
-<p>... i.e. a <em>boolean</em> flag with the attribute name <code>cheat</code>.</p>
-<p>Adapt the <code>srv_callback()</code> method further now to read this value as well. </p>
+<p>... es decir, una bandera <em>booleana</em> con el nombre de atributo <code>cheat</code>.</p>
+<p>Adapta el método <code>srv_callback()</code> aún más ahora para leer este valor también. </p>
 <ul>
 <li>
-<p>If (when a <strong>request</strong> is made to the server) the value of <code>cheat</code> is <code>True</code> the hint that the server returns should contain the actual secret number! E.g.:</p>
+<p>Si (cuando se realiza una <strong>request</strong> al server) el valor de <code>cheat</code> es <code>True</code>, el hint que devuelve el server debería contener ¡el número secreto real! Por ejemplo:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>hint='The answer is 67!'
 </code></pre></div>
 </li>
 <li>
-<p>In such situations, the value of <code>response.num_guesses</code> should still go up by one, and the <code>correct</code> flag should still return <code>False</code>.</p>
+<p>En tales situaciones, el valor de <code>response.num_guesses</code> aún debería incrementarse en uno, y la bandera <code>correct</code> aún debería devolver <code>False</code>.</p>
 </li>
 </ul>
 </li>
 </ol>
 </li>
 <li>
-<p>Once you've adapted the node, test it out by running it:</p>
+<p>Una vez que hayas adaptado el nodo, pruébalo ejecutándolo:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>my_number_game.py
 </code></pre></div><p></p>
 <hr>
-<p>You should then be able to make calls to this from <strong>TERMINAL 2</strong> using the <code>ros2 service call</code> sub-command, as we did in <a href="#ex2">Exercise 2</a>.</p>
+<p>Luego deberías poder hacer llamadas a este desde <strong>TERMINAL 2</strong> usando el subcomando <code>ros2 service call</code>, como hicimos en el <a href="#ex2">Ejercicio 2</a>.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>There are <strong>two</strong> request parameters now, so when sending a request from the command-line <strong>both</strong> need to be supplied. Do this by including them both within the braces (<code>{}</code>) and separated with a comma, e.g.</p>
+<p>Ahora hay <strong>dos</strong> parámetros de request, así que al enviar una request desde la línea de comandos <strong>ambos</strong> deben ser suministrados. Haz esto incluyéndolos a ambos dentro de las llaves (<code>{}</code>) separados por una coma, por ejemplo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>part4_services/srv/MyNumberGame<span class="w"> </span><span class="s2">"{guess: X, cheat: Y}"</span><span class="w"> </span>
 </code></pre></div>
 </div>
 </li>
 </ol>
-<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: Creating a Python Service Client<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
-<p>So far we've been making service calls from the command-line, but we can also call services from within Python Nodes. When a node <em>calls</em> (i.e. <em>requests</em>) a service, it becomes a Service <em>"Client"</em>.</p>
+<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 5: Crear un Python Service Client<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
+<p>Hasta ahora hemos estado haciendo llamadas a services desde la línea de comandos, pero también podemos llamar services desde dentro de Nodos Python. Cuando un nodo <em>llama</em> (es decir, <em>solicita</em>) un service, se convierte en un <em>"Client"</em> de Service.</p>
 <ol>
 <li>
-<p>Make sure your <code>my_number_game.py</code> node is still active in <strong>TERMINAL 1</strong> for this exercise.</p>
+<p>Asegúrate de que tu nodo <code>my_number_game.py</code> siga activo en <strong>TERMINAL 1</strong> para este ejercicio.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 2</strong>, create a new file in the <code>part4_services/scripts</code> directory called <code>number_game_client.py</code> (using the <code>touch</code> command).</p>
+<p>En <strong>TERMINAL 2</strong>, crea un nuevo archivo en el directorio <code>part4_services/scripts</code> llamado <code>number_game_client.py</code> (usando el comando <code>touch</code>).</p>
 </li>
 <li>
-<p><a href="../part1/#chmod">Make this executable (with <code>chmod</code>)</a>.</p>
+<p><a href="../part1/#chmod">Hazlo ejecutable (con <code>chmod</code>)</a>.</p>
 </li>
 <li>
-<p>Add this to your package's <em>Python executables</em> list in the <code>CMakeLists.txt</code> file:</p>
+<p>Agrégalo a la lista de <em>ejecutables Python</em> de tu package en el archivo <code>CMakeLists.txt</code>:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a># Install Python executables
 <a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>install(PROGRAMS
 <a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>  scripts/basic_velocity_control.py
@@ -3631,23 +4132,23 @@
 </code></pre></div>
 </li>
 <li>
-<p>Re-build your package (as before), remembering that there are <a href="#colcon-build-steps">three steps to this</a>:</p>
+<p>Vuelve a compilar tu package (como antes), recordando que hay <a href="#colcon-build-steps">tres pasos para esto</a>:</p>
 <ol>
-<li>Navigate to the <strong>root</strong> of the ROS2 workspace,</li>
-<li>Run <code>colcon build</code> (with the necessary additional arguments), </li>
-<li>Re-source your <code>~/.bashrc</code>.</li>
+<li>Navega hasta la <strong>raíz</strong> del workspace de ROS2,</li>
+<li>Ejecuta <code>colcon build</code> (con los argumentos adicionales necesarios), </li>
+<li>Vuelve a cargar tu <code>~/.bashrc</code>.</li>
 </ol>
 </li>
 <li>
-<p>Now, open up the <code>number_game_client.py</code> file in VS Code, then take a look at the following:</p>
-<p></p><center><a class="md-button" href="number_game_client/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> The <code>number_game_client.py</code> Node</a></center><p></p>
-<p>Review the above code carefully (<strong>including all the annotations</strong>), before taking a copy of it and pasting it into your own <code>number_game_client.py</code> file.</p>
+<p>Ahora, abre el archivo <code>number_game_client.py</code> en VS Code, y luego echa un vistazo a lo siguiente:</p>
+<p></p><center><a class="md-button" href="number_game_client/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> El Nodo <code>number_game_client.py</code></a></center><p></p>
+<p>Revisa el código anterior cuidadosamente (<strong>incluyendo todas las anotaciones</strong>), antes de tomar una copia y pegarlo en tu propio archivo <code>number_game_client.py</code>.</p>
 </li>
 <li>
-<p>You should now be able to run the code with <code>ros2 run</code>. To begin with, use a standard <code>ros2 run</code> call as follows:</p>
+<p>Ahora deberías poder ejecutar el código con <code>ros2 run</code>. Para empezar, usa una llamada estándar de <code>ros2 run</code> de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py
 </code></pre></div>
-<p>You should then get an output like this:</p>
+<p>Luego deberías obtener una salida como esta:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>[INFO] [#####] [number_game_client]: Sending the request:
 <a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a> - guess: 0
 <a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a> - cheat: False
@@ -3657,177 +4158,177 @@
 <a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a> - Number of attempts so far: 1
 <a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a> - A hint: 'Higher'.
 </code></pre></div>
-<p>Notice how the request parameters <code>guess</code> and <code>cheat</code> have defaulted to <code>0</code> and <code>False</code> respectively?</p>
+<p>¿Notas cómo los parámetros de request <code>guess</code> y <code>cheat</code> han tomado los valores predeterminados <code>0</code> y <code>False</code> respectivamente?</p>
 </li>
 <li>
-<p>The main reason for using parameters in our <code>number_game_client</code> node is so that we can actually change the value of the guess from the command-line. We can do this by adding some additional arguments to the <code>ros2 run</code> call:</p>
+<p>La razón principal de usar parámetros en nuestro nodo <code>number_game_client</code> es para poder cambiar el valor de la suposición desde la línea de comandos. Podemos hacer esto agregando algunos argumentos adicionales a la llamada de <code>ros2 run</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>guess:<span class="o">=</span>X
 </code></pre></div>
-<p>... replace <code>X</code> with an actual number!</p>
+<p>... ¡reemplaza <code>X</code> con un número real!</p>
 </li>
 <li>
-<p>Have a go at cheating now too:</p>
+<p>Intenta hacer trampa también ahora:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part4_services<span class="w"> </span>number_game_client.py<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>cheat:<span class="o">=</span>True
 </code></pre></div>
 </li>
 <li>
-<p>We can also set the two parameters simultaneously using multiple <code>-p</code> flags:</p>
+<p>También podemos establecer los dos parámetros simultáneamente usando múltiples banderas <code>-p</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>ros2 run part4_services number_game_client.py \
 <a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>    --ros-args -p guess:=99 -p cheat:=True
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>\</code> above just allows us to split the command across two separate lines, handy for when these things start to get a bit long!</p>
+<p>El <code>\</code> de arriba nos permite dividir el comando en dos líneas separadas, ¡útil para cuando estas cosas empiezan a ser un poco largas!</p>
 </div>
 </li>
 </ol>
-<h2 id="the-map-saver-service">The Map Saver Service<a class="headerlink" href="#the-map-saver-service" title="Permanent link">¶</a></h2>
-<p>Clearly the examples that we've been working with here so far have been fairly trivial: it's unlikely that you'll <em>ever</em> need to program a robot to play the number game! The aim however has been to illustrate how ROS Services work, and how to develop your own. </p>
-<p>One application that you <em>might</em> find useful however is <em>map saving</em>. In Part 3 we learnt about SLAM, where we drove a robot around in an environment while SLAM algorithms were working in the background to generate a map of the world using data from the robot's LiDAR sensor and its odometry system:</p>
+<h2 id="el-map-saver-service">El Map Saver Service<a class="headerlink" href="#el-map-saver-service" title="Permanent link">¶</a></h2>
+<p>Claramente, los ejemplos con los que hemos estado trabajando hasta ahora han sido bastante triviales: ¡es poco probable que alguna vez necesites programar un robot para jugar el juego de números! Sin embargo, el objetivo ha sido ilustrar cómo funcionan los ROS Services y cómo desarrollar los propios. </p>
+<p>Sin embargo, una aplicación que <em>puede</em> resultarte útil es el <em>guardado de mapas</em>. En la Parte 3 aprendimos sobre SLAM, donde condujimos un robot por un entorno mientras los algoritmos SLAM trabajaban en segundo plano para generar un mapa del mundo usando datos del sensor LiDAR del robot y su sistema de odometría:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_steps.png" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/slam_steps.png" data-desc-position="bottom"><img alt="" src="../part3/slam_steps.png" width="500px"></a></p>
 </figure>
-<p>Having mapped out the environment, we called up the <code>map_saver_cli</code> node from the <code>nav2_map_server</code> package, to save a copy of that map to a file:</p>
+<p>Habiendo mapeado el entorno, llamamos al nodo <code>map_saver_cli</code> del package <code>nav2_map_server</code>, para guardar una copia de ese mapa en un archivo:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
 </code></pre></div>
-<p>... wouldn't it be nice if there was a way to be able to do this <em>programmatically</em> (i.e. from within a Python node, for example) rather than having to run the above command manually? Well, there is a way, and guess what? ... <em>It involves Services</em>!</p>
-<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 6: Developing A Map Saver Service Client<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
+<p>... ¿no sería conveniente tener una manera de poder hacer esto <em>programáticamente</em> (es decir, desde dentro de un nodo Python, por ejemplo) en lugar de tener que ejecutar el comando anterior manualmente? Bueno, hay una manera, ¿y adivina qué? ... ¡<em>Involucra Services</em>!</p>
+<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 6: Desarrollar un Map Saver Service Client<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Make sure everything in <strong>TERMINALS 1</strong> and <strong>2</strong> from the previous exercises are closed down now.</p>
+<p>Asegúrate de que todo en <strong>TERMINALES 1</strong> y <strong>2</strong> de los ejercicios anteriores esté cerrado ahora.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 1</strong>, let's fire up the <em>Nav World</em> again, like we did in Part 3:</p>
+<p>En <strong>TERMINAL 1</strong>, volvamos a iniciar el <em>Nav World</em>, como lo hicimos en la Parte 3:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/nav_world.png" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>In <strong>TERMINAL 2</strong>, let's also fire up <em>Cartographer</em> again (the SLAM algorithms):</p>
+<p>En <strong>TERMINAL 2</strong>, también volvamos a iniciar <em>Cartographer</em> (los algoritmos SLAM):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>slam.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/cartographer_rviz1.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/cartographer_rviz1.png" data-desc-position="bottom"><img alt="" src="../part3/cartographer_rviz1.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Open up <em>another</em> terminal instance now (<strong>TERMINAL 3</strong>), and use this one to fire up the <em>Map Saver Service</em> (wouldn't it be nice if we could launch all of these launch files at once?<sup id="fnref:launch-adv"><a class="footnote-ref" href="#fn:launch-adv">3</a></sup>):</p>
+<p>Abre <em>otra</em> instancia de terminal ahora (<strong>TERMINAL 3</strong>), y úsala para iniciar el <em>Map Saver Service</em> (¿no sería conveniente poder iniciar todos estos launch files a la vez?<sup id="fnref:launch-adv"><a class="footnote-ref" href="#fn:launch-adv">3</a></sup>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_server.launch.py
 </code></pre></div>
-<p>This will add a number of <code>/map_saver</code> services to our ROS network.</p>
+<p>Esto agregará una serie de services <code>/map_saver</code> a nuestra red ROS.</p>
 </li>
 <li>
-<p>In <em>yet</em> another new terminal instance (<strong>TERMINAL 4</strong>), use a <code>ros2 service</code> sub-command to identify all the <code>/map_saver</code> services (like we did in <a href="#ex1">Exercise 1</a>).</p>
+<p>En <em>otra</em> nueva instancia de terminal (<strong>TERMINAL 4</strong>), usa un subcomando de <code>ros2 service</code> para identificar todos los services <code>/map_saver</code> (como lo hicimos en el <a href="#ex1">Ejercicio 1</a>).</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>Do you see an item in this list that could be related to saving a map? (It has a <code>/map_saver</code> prefix!<sup id="fnref:save-map"><a class="footnote-ref" href="#fn:save-map">4</a></sup>)</p>
+<p>¿Ves un elemento en esta lista que podría estar relacionado con guardar un mapa? (¡Tiene el prefijo <code>/map_saver</code>!<sup id="fnref:save-map"><a class="footnote-ref" href="#fn:save-map">4</a></sup>)</p>
 </div>
 </li>
 <li>
-<p>Use another <code>ros2 service</code> sub-command to determine the type of interface used by this service (again, like we did in Exercise 1).</p>
+<p>Usa otro subcomando de <code>ros2 service</code> para determinar el tipo de interface utilizada por este service (nuevamente, como lo hicimos en el Ejercicio 1).</p>
 </li>
 <li>
-<p>Next, use a <code>ros2 interface</code> command to discover the structure of this service interface.</p>
+<p>A continuación, usa un comando <code>ros2 interface</code> para descubrir la estructura de esta interface de service.</p>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ol>
-<li>How many <strong>Request</strong> parameters does this interface have?</li>
-<li>How many <strong>Response</strong> parameters are there too?<sup id="fnref:save-map-interface"><a class="footnote-ref" href="#fn:save-map-interface">5</a></sup></li>
-<li>What are their data types?</li>
+<li>¿Cuántos parámetros de <strong>Request</strong> tiene esta interface?</li>
+<li>¿Cuántos parámetros de <strong>Response</strong> hay también?<sup id="fnref:save-map-interface"><a class="footnote-ref" href="#fn:save-map-interface">5</a></sup></li>
+<li>¿Cuáles son sus tipos de datos?</li>
 </ol>
 </div>
 </li>
 <li>
-<p><strong>Develop a Python Service Client to make calls to this service</strong>:</p>
+<p><strong>Desarrolla un Python Service Client para hacer llamadas a este service</strong>:</p>
 <ol>
 <li>
-<p>Create a new Node in your <code>part4_services</code> package called <code>map_saver_client.py</code> for this. </p>
-<p>Things to remember when doing this:</p>
+<p>Crea un nuevo Nodo en tu package <code>part4_services</code> llamado <code>map_saver_client.py</code> para esto. </p>
+<p>Cosas a recordar al hacer esto:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Create this in your <code>part4_services/scripts</code> directory.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Make sure it has <em>execute</em> permissions.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Declare it as a package executable in your <code>CMakeLists.txt</code>.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Re-build your package with <code>colcon</code>, making sure you follow <a href="#colcon-build-steps">the full <strong>three-step</strong> process</a> </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Créalo en tu directorio <code>part4_services/scripts</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Asegúrate de que tenga permisos de <em>ejecución</em>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Declárao como un ejecutable del package en tu <code>CMakeLists.txt</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Vuelve a compilar tu package con <code>colcon</code>, asegurándote de seguir <a href="#colcon-build-steps">el proceso completo de <strong>tres pasos</strong></a> </li>
 </ul>
 </li>
 <li>
-<p>Use <a href="number_game_client/">the <code>number_game_client.py</code> Node from Exercise 5</a> as a starting point when building your new <code>map_saver_client.py</code> node... all the same principals will apply here, you are just applying them to a different service (and therefore you need to account for a different service interface).</p>
+<p>Usa <a href="number_game_client/">el Nodo <code>number_game_client.py</code> del Ejercicio 5</a> como punto de partida al construir tu nuevo nodo <code>map_saver_client.py</code>... todos los mismos principios aplicarán aquí, solo los estás aplicando a un service diferente (y por lo tanto necesitas tener en cuenta una interface de service diferente).</p>
 </li>
 <li>
-<p><em>Declare a parameter for your node</em> to allow you to specify a file name for your map when the <code>map_saver_client.py</code> node is called e.g.:</p>
+<p><em>Declara un parámetro para tu nodo</em> para permitirte especificar un nombre de archivo para tu mapa cuando se llame al nodo <code>map_saver_client.py</code>, por ejemplo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>ros2 run part4_services map_saver_client.py \ 
 <a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>    --ros-args -p map_file:=my_amazing_map
 </code></pre></div>
-<p>Follow the same approach as in Exercise 5 for this, and ensure that you specify a default value, for situations where the parameter value is not explicitly defined when the node is called.</p>
+<p>Sigue el mismo enfoque que en el Ejercicio 5 para esto, y asegúrate de especificar un valor predeterminado, para situaciones en las que el valor del parámetro no se defina explícitamente cuando se llame al nodo.</p>
 </li>
 <li>
-<p>When constructing service requests, consider the following tips:</p>
+<p>Al construir requests de service, considera los siguientes consejos:</p>
 <ol>
-<li>The SLAM map data (as generated by Cartographer) is published to a topic called <code>/map</code>. </li>
+<li>Los datos del mapa SLAM (generados por Cartographer) se publican en un topic llamado <code>/map</code>. </li>
 <li>
-<p>When providing a name for the map file:</p>
+<p>Al proporcionar un nombre para el archivo del mapa:</p>
 <ul>
-<li>You don't need to include a file extension</li>
+<li>No necesitas incluir una extensión de archivo</li>
 <li>
-<p>File names are interpreted relative to your home directory, so:</p>
-<p><code>my_amazing_map</code> would result in a map file at <code>~/my_amazing_map.yaml</code></p>
-<p><code>my/amazing/map</code> would result in a map file at <code>~/my/amazing/map.yaml</code> (assuming the directory structure already exists!)</p>
+<p>Los nombres de archivo se interpretan en relación con tu directorio home, así que:</p>
+<p><code>my_amazing_map</code> resultaría en un archivo de mapa en <code>~/my_amazing_map.yaml</code></p>
+<p><code>my/amazing/map</code> resultaría en un archivo de mapa en <code>~/my/amazing/map.yaml</code> (¡asumiendo que la estructura de directorios ya existe!)</p>
 </li>
 </ul>
 </li>
 <li>
-<p>For further guidance <a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services" target="_blank" rel="noopener">see here for a usage example</a>.</p>
+<p>Para más orientación <a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services" target="_blank">consulta aquí para un ejemplo de uso</a>.</p>
 </li>
-<li>The server will apply <a href="https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html" target="_blank" rel="noopener">its own defaults to certain request attributes</a>, if they aren't defined explicitly by a client.</li>
+<li>El server aplicará <a href="https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html" target="_blank">sus propios valores predeterminados a ciertos atributos de la request</a>, si no son definidos explícitamente por un client.</li>
 </ol>
 </li>
 </ol>
 </li>
 </ol>
-<h3 id="summary-of-the-map-saver-service">Summary of the Map Saver Service<a class="headerlink" href="#summary-of-the-map-saver-service" title="Permanent link">¶</a></h3>
-<p><a href="../part3/#map-saver-cli">Back in Part 3</a> we saved our SLAM map once via a command-line call after we had <em>fully explored and mapped out the environment</em>:</p>
+<h3 id="resumen-del-map-saver-service">Resumen del Map Saver Service<a class="headerlink" href="#resumen-del-map-saver-service" title="Permanent link">¶</a></h3>
+<p><a href="../part3/#map-saver-cli">De regreso en la Parte 3</a> guardamos nuestro mapa SLAM una vez mediante una llamada de línea de comandos después de haber <em>explorado y mapeado completamente el entorno</em>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
 </code></pre></div>
-<p>... which resulted in something like:</p>
+<p>... lo que resultó en algo como:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_map.png" width="300px"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/slam_map.png" data-desc-position="bottom"><img alt="" src="../part3/slam_map.png" width="300px"></a>
   </p>
-<figcaption>The <code>MAP_NAME.pgm</code> file</figcaption>
+<figcaption>El archivo <code>MAP_NAME.pgm</code></figcaption>
 </figure>
-<p>In real-world tasks however (i.e. tasks that you might need to complete in the lab!), your robot might be exploring an environment <em>autonomously</em>, and you don't necessarily know when the full environment has been explored, nor are you always going to be there to run the <code>map_saver_cli</code> node manually! You might therefore want to program your robot with the ability to save a map <em>incrementally</em> and <em>periodically</em> as more and more of the environment is explored.</p>
-<p>The process that we explored in the previous exercise allows you to do just that! In the example, our client node was programmed to make only one request to the server and then stop. It <em>could</em> however be programmed to make regular service requests (say, once every 5 or 10 seconds) in order to continuously update its map as the robot explores further and further.</p>
-<p>Think about how you might adapt the <code>map_saver_client.py</code> node to achieve this, drawing upon other exercises that you have worked through in previous parts of this course.  </p>
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
-<p>In Part 4 we've learnt about ROS Services and why they might be useful for robot applications:</p>
+<p>Sin embargo, en tareas del mundo real (¡es decir, tareas que podrías necesitar completar en el laboratorio!), tu robot podría estar explorando un entorno <em>de forma autónoma</em>, y no necesariamente sabes cuándo se ha explorado el entorno completo, ¡ni siempre estarás ahí para ejecutar el nodo <code>map_saver_cli</code> manualmente! Por lo tanto, es posible que desees programar tu robot con la capacidad de guardar un mapa <em>de forma incremental</em> y <em>periódica</em> a medida que se explora más y más del entorno.</p>
+<p>¡El proceso que exploramos en el ejercicio anterior te permite hacer exactamente eso! En el ejemplo, nuestro nodo client fue programado para hacer solo una request al server y luego detenerse. Sin embargo, <em>podría</em> ser programado para hacer requests de service regulares (digamos, una vez cada 5 o 10 segundos) para actualizar continuamente su mapa a medida que el robot explora más y más.</p>
+<p>Piensa en cómo podrías adaptar el nodo <code>map_saver_client.py</code> para lograr esto, apoyándote en otros ejercicios que has trabajado en partes anteriores de este curso.  </p>
+<h2 id="conclusion">Conclusión<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>En la Parte 4 hemos aprendido sobre los ROS Services y por qué pueden ser útiles para aplicaciones robóticas:</p>
 <ul>
-<li>Services differ from standard topic-based communication methods in ROS in that they are a <em>call and response</em> type of communication, taking place between one node and another.  </li>
-<li>Typically, a service <em>Caller</em> will <strong>request</strong> a service, and then wait for a <strong>response</strong> (although it is possible to do other things in the meantime).</li>
-<li>In general however, Services are useful for controlling <em>quick</em>, <em>short-duration</em> tasks or <em>calculations</em>.</li>
+<li>Los Services difieren de los métodos de comunicación estándar basados en topics en ROS en que son un tipo de comunicación de <em>llamada y respuesta</em>, que tiene lugar entre un nodo y otro.  </li>
+<li>Típicamente, un <em>Caller</em> de service hará una <strong>request</strong> a un service, y luego esperará una <strong>response</strong> (aunque es posible hacer otras cosas mientras tanto).</li>
+<li>En general, sin embargo, los Services son útiles para controlar tareas <em>rápidas</em>, de <em>corta duración</em> o <em>cálculos</em>.</li>
 </ul>
-<h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
-<p>Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:</p>
+<h3 id="backup">Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
+<p>Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier Instancia de Terminal WSL-ROS2 inactiva ahora:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
-<p>You'll then be able to restore it to a fresh WSL-ROS2 environment next time you fire one up (<code>wsl_ros restore</code>).  </p>
+<p>Luego podrás restaurarlo a un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (<code>wsl_ros restore</code>).</p>
 <div class="footnote">
 <hr>
 <ol>
 <li id="fn:1">
-<p>Remember: you can also use the <code>wsl_ros restore</code> command at any time.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>Recuerda: también puedes usar el comando <code>wsl_ros restore</code> en cualquier momento.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:tb3_sound">
-<p>On the real Waffles, there's a service called <code>/sound</code>. Have a look at this next time you're in the lab... Once you've worked through the whole of Part 4 you'll know exactly how to interrogate this service and leverage the functionality that it provides!&nbsp;<a class="footnote-backref" href="#fnref:tb3_sound" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>En los Waffles reales, existe un service llamado <code>/sound</code>. Échale un vistazo la próxima vez que estés en el laboratorio... Una vez que hayas trabajado toda la Parte 4, sabrás exactamente cómo interrogar este service y aprovechar la funcionalidad que proporciona.&nbsp;<a class="footnote-backref" href="#fnref:tb3_sound" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 <li id="fn:launch-adv">
-<p>You can! We can use launch files to launch <em>other</em> launch files, <a href="../extras/launch-files/">see here for more info</a>.&nbsp;<a class="footnote-backref" href="#fnref:launch-adv" title="Jump back to footnote 3 in the text">↩</a></p>
+<p>¡Puedes! Podemos usar launch files para iniciar <em>otros</em> launch files, <a href="../extras/launch-files/">consulta aquí para más información</a>.&nbsp;<a class="footnote-backref" href="#fnref:launch-adv" title="Jump back to footnote 3 in the text">↩</a></p>
 </li>
 <li id="fn:save-map">
-<p>There should be one in the list called <code>/map_saver/save_map</code>&nbsp;<a class="footnote-backref" href="#fnref:save-map" title="Jump back to footnote 4 in the text">↩</a></p>
+<p>Debería haber uno en la lista llamado <code>/map_saver/save_map</code>&nbsp;<a class="footnote-backref" href="#fnref:save-map" title="Jump back to footnote 4 in the text">↩</a></p>
 </li>
 <li id="fn:save-map-interface">
-<p>The <code>nav2_msgs/srv/SaveMap</code> Service Interface has <strong>6</strong> Requests (<code>map_topic</code>, <code>map_url</code>, <code>image_format</code>, <code>map_mode</code>, <code>free_thresh</code>, <code>occupied_thresh</code>) and <strong>1</strong> Response (<code>result</code>).&nbsp;<a class="footnote-backref" href="#fnref:save-map-interface" title="Jump back to footnote 5 in the text">↩</a></p>
+<p>La Interface de Service <code>nav2_msgs/srv/SaveMap</code> tiene <strong>6</strong> Requests (<code>map_topic</code>, <code>map_url</code>, <code>image_format</code>, <code>map_mode</code>, <code>free_thresh</code>, <code>occupied_thresh</code>) y <strong>1</strong> Response (<code>result</code>).&nbsp;<a class="footnote-backref" href="#fnref:save-map-interface" title="Jump back to footnote 5 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -3839,37 +4340,8 @@
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 18, 2025 09:55:46 UTC"><span class="timeago" datetime="2025-11-18T09:55:46+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 18, 2025 09:55:46 UTC">2025-11-18</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -3898,7 +4370,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../part3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Part 3: Beyond the Basics">
+          <a href="../part3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Parte 3: Más Allá de los Fundamentos">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -3908,20 +4380,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Part 3: Beyond the Basics
+                Parte 3: Más Allá de los Fundamentos
               </div>
             </div>
           </a>
         
         
           
-          <a href="../part5/" class="md-footer__link md-footer__link--next" aria-label="Next: Part 5: Actions">
+          <a href="../part5/" class="md-footer__link md-footer__link--next" aria-label="Next: Parte 5: Actions">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Part 5: Actions
+                Parte 5: Actions
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3938,7 +4410,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -3968,30 +4440,14 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

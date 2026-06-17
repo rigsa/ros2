@@ -1,40 +1,42 @@
-# ROS 2 Labs at The University of Sheffield
+# Laboratorio de Robótica con ROS 2
 
-## With the TurtleBot3 Waffle and ROS 2 Jazzy
+## Con el TurtleBot3 Waffle, Go2 EDU y ROS 2 Jazzy
 
-Teaching material for Tom's ROS 2 Labs at The University of Sheffield.
+Material de enseñanza para el laboratorio de ROS 2, adaptado para Panamá.
 
-Access the site here: https://tom-howard.github.io/ros2/
+Accede al sitio aquí: https://rigsa.github.io/ros2/
 
-## Contributing
+> Este material está basado en el curso original de [Tom Howard](https://github.com/tom-howard) (Universidad de Sheffield), disponible en [https://github.com/tom-howard/tuos_ros](https://github.com/tom-howard/tuos_ros), y está licenciado bajo [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
 
-### Setting up a Python Environment
+## Contribuir
 
-Site is built using [Material for MKDocs](https://squidfunk.github.io/mkdocs-material/)
+### Configurar el entorno Python
 
-First, create a Python virtual environment (ideally 3.9 or higher):
+El sitio se construye con [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+
+Primero, crea un entorno virtual de Python (3.9 o superior):
 
 ```
 python3 -m venv venv
 ```
 
-**[Activate the environment](https://realpython.com/what-is-pip/#using-pip-in-a-python-virtual-environment)** and install from [`requirements.txt`](./requirements.txt):
+**[Activa el entorno](https://realpython.com/what-is-pip/#using-pip-in-a-python-virtual-environment)** e instala las dependencias desde [`requirements.txt`](./requirements.txt):
 
 ```
-pip install -r requirements.txt 
+pip install -r requirements.txt
 ```
 
-### Editing
+### Edición
 
-Site content is located in the "docs" directory. See here for guidance on how to write site content:
+El contenido del sitio se encuentra en el directorio `docs/`. Referencias útiles:
 
-* General Guidance on Writing in Markdown: [A Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/)
-* Material for MkDocs Documentation: https://squidfunk.github.io/mkdocs-material/reference/
+* Guía general de Markdown: [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/)
+* Documentación de Material for MkDocs: https://squidfunk.github.io/mkdocs-material/reference/
 
-To preview the site as you write use the following command (make sure the Python environment is active!):
+Para previsualizar el sitio mientras editas (¡asegúrate de tener el entorno activo!):
 
 ```
 mkdocs serve
 ```
 
-Then go to http://localhost:8000/ros2/ in a browser.
+Luego abre http://localhost:8000/ros2/ en el navegador.

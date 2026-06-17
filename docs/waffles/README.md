@@ -1,10 +1,10 @@
 ---
-title: Working with our Real TurtleBot3 Waffles
+title: Trabajando con los TurtleBot3 Waffles Reales
 ---
 
-# Working with our Real TurtleBot3 Waffles
+# Trabajando con los TurtleBot3 Waffles Reales
 
-This section of the Course Site contains a range of resources to support your work with our real TurtleBot3 Waffles in the Diamond. 
+Esta sección del sitio del curso contiene una serie de recursos para apoyar tu trabajo con los TurtleBot3 Waffles reales en el laboratorio.
 
 <figure markdown>
   ![](../images/waffle/cr3.jpg){width=800px}

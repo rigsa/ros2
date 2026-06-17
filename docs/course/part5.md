@@ -1,87 +1,87 @@
 ---  
-title: "Part 5: Actions"  
-description: Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.
+title: "Parte 5: Actions"  
+description: Aprende sobre otro método de comunicación clave de ROS que es similar a un ROS Service, pero con algunas ventajas clave y casos de uso alternativos.
 ---
 
-## Introduction
+## Introducción
 
-:material-pen: **Exercises**: 6 (5 *core*, 1 *advanced*)  
-:material-timer: **Estimated Completion Time**: 3 hours (core exercises only)  
-:material-gauge-full: **Difficulty Level**: Advanced 
+:material-pen: **Ejercicios**: 6 (5 *básicos*, 1 *avanzado*)  
+:material-timer: **Tiempo Estimado de Finalización**: 3 horas (solo ejercicios básicos)  
+:material-gauge-full: **Nivel de Dificultad**: Avanzado 
 
-### Aims
+### Objetivos
 
-In this part of the course we'll learn about a third method of communication available in ROS: *Actions*.  Actions are essentially an advanced version of Services, and we'll look at exactly how these two differ and why you might choose to employ an action over a service for certain tasks. 
+En esta parte del curso aprenderemos sobre un tercer método de comunicación disponible en ROS: los *Actions*. Los Actions son esencialmente una versión avanzada de los Services, y veremos exactamente en qué difieren estos dos y por qué podrías elegir emplear un action en lugar de un service para ciertas tareas.
 
-### Intended Learning Outcomes
+### Resultados de Aprendizaje Esperados
 
-By the end of this session you will be able to:
+Al finalizar esta sesión podrás:
 
-1. Recognise how ROS Actions differ from ROS Services and explain where this method might be useful in robot applications.
-1. Explain the structure of Action interfaces and identify the relevant information within them, enabling you to build Action Servers and Clients.
-1. Implement Python Action *Client* nodes that can handle *feedback* and *results* and can also *cancel* an action part-way through.
-1. Develop Action Server & Client nodes that could be used as the basis for a robotic exploration strategy.
+1. Reconocer cómo los ROS Actions difieren de los ROS Services y explicar dónde este método podría ser útil en aplicaciones robóticas.
+1. Explicar la estructura de las interfaces de Action e identificar la información relevante dentro de ellas, permitiéndote construir Action Servers y Clients.
+1. Implementar nodes Python Action *Client* que puedan manejar *feedback* y *results* y también puedan *cancelar* un action a mitad de camino.
+1. Desarrollar nodes Action Server y Client que podrían usarse como base para una estrategia de exploración robótica.
 
-### Quick Links
+### Enlaces Rápidos
 
-#### Exercises
+#### Ejercicios
 
-* [Exercise 1: Launching an Action Server and calling it from the command-line](#ex1)
-* [Exercise 2: Building a Python Action Client Node](#ex2)
-* [Exercise 3: Creating an Action Interface](#ex3)
-* [Exercise 4: Building the "ExploreForward" Action Server](#ex4)
-* [Exercise 5: Building a Basic "ExploreForward" Client](#ex5)
-* [Exercise 6 (Advanced): Implementing an Exploration Strategy](#ex6)
+* [Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos](#ex1)
+* [Ejercicio 2: Construir un Node Python Action Client](#ex2)
+* [Ejercicio 3: Crear una Interface de Action](#ex3)
+* [Ejercicio 4: Construir el Action Server "ExploreForward"](#ex4)
+* [Ejercicio 5: Construir un Client Básico "ExploreForward"](#ex5)
+* [Ejercicio 6 (Avanzado): Implementar una Estrategia de Exploración](#ex6)
 
-#### Additional Resources
+#### Recursos Adicionales
 
-* [A Minimal Action Client (for Exercise 2)](./part5/minimal_action_client.md){target="_blank"}
-* [The Explore Server Template (for Exercise 4)](./part5/explore_server.md){target="_blank"}
+* [Un Action Client Mínimo (para el Ejercicio 2)](./part5/minimal_action_client.md){target="_blank"}
+* [La Plantilla del Explore Server (para el Ejercicio 4)](./part5/explore_server.md){target="_blank"}
 
-## Getting Started
+## Primeros Pasos
 
-**Step 1: Launch your ROS Environment**
+**Paso 1: Lanza tu Entorno de ROS**
 
-Launch your ROS environment now so that you have access to a Linux terminal instance (aka **TERMINAL 1**).
+Lanza tu entorno de ROS ahora para que tengas acceso a una instancia de terminal Linux (también conocida como **TERMINAL 1**).
 
-**Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)**
+**Paso 2: Restaura tu trabajo (Solo para Usuarios de Computadoras del Laboratorio con WSL-ROS2)**
 
-Remember that any work that you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers, and so you should be backing up your work to your `U:\` drive regularly. When prompted (on first launch of WSL-ROS2 in **TERMINAL 1**) enter `Y` to restore this[^1].
+Recuerda que cualquier trabajo que realices dentro del Entorno WSL-ROS2 no se conservará entre sesiones ni en diferentes computadoras del laboratorio, por lo que debes hacer una copia de seguridad de tu trabajo en tu unidad `U:\` regularmente. Cuando se te solicite (al primer lanzamiento de WSL-ROS2 en **TERMINAL 1**) ingresa `Y` para restaurarlo[^1].
 
-[^1]: Remember: you can also use the `wsl_ros restore` command at any time.
+[^1]: Recuerda: también puedes usar el comando `wsl_ros restore` en cualquier momento.
 
-**Step 3: Launch VS Code**  
+**Paso 3: Lanza VS Code**  
 
-*WSL users* [remember to check for this](../software/using-wsl-ros/vscode.md#verify).
+*Usuarios de WSL* [recuerda verificar esto](../software/using-wsl-ros/vscode.md#verify).
 
-**Step 4: Make Sure The Course Repo is Up-To-Date**
+**Paso 4: Asegúrate de que el Repositorio del Curso esté Actualizado**
 
-Check that the Course Repo is up-to-date before you start on these exercises. [See here for how to install and/or update](./extras/course-repo.md).
+Verifica que el Repositorio del Curso esté actualizado antes de comenzar con estos ejercicios. [Consulta aquí cómo instalar y/o actualizar](./extras/course-repo.md).
 
-## Calling an Action Server
+## Llamar a un Action Server
 
-Before we talk about what actions actually are, we're going to dive straight in and see one in *action* (excuse the pun). 
+Antes de hablar sobre qué son realmente los actions, vamos a ir directo al grano y ver uno en *action* (perdona el juego de palabras).
 
 <!-- As you may remember from Part 3, you actually used a ROS Action to make your robot navigate autonomously in [Exercise 3](./part3.md#ex3), by calling an action server from the command-line. We will do a similar thing now, in a different context, and this time we'll also look at what's going on in a bit more detail. -->
 
-#### :material-pen: Exercise 1: Launching an Action Server and calling it from the command-line {#ex1}
+#### :material-pen: Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos {#ex1}
 
-We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a *mystery environment* now, and we're going to do this by launching Gazebo *headless* i.e. Gazebo will be running behind the scenes, but there'll be no Graphical User Interface (GUI) to show us what the environment actually looks like.  Then, we'll use an *action server* to make our robot scan the environment and take pictures for us, to reveal its surroundings!
+Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle en un *entorno misterioso* ahora, y lo haremos lanzando Gazebo en modo *headless*, es decir, Gazebo se ejecutará en segundo plano, pero no habrá Interfaz Gráfica de Usuario (GUI) para mostrarnos cómo es realmente el entorno. Luego, usaremos un *action server* para hacer que nuestro robot escanee el entorno y tome fotos por nosotros, ¡para revelar su entorno!
 
-1. To launch the TurtleBot3 Waffle in this *mystery environment*, use the following `ros2 launch` command in **TERMINAL 1**:
+1. Para lanzar el TurtleBot3 Waffle en este *entorno misterioso*, usa el siguiente comando `ros2 launch` en **TERMINAL 1**:
 
     ```bash
     ros2 launch tuos_simulations mystery_world.launch.py
     ```
     
-    ... nothing will *appear* to happen (for now!)
+    ... ¡aparentemente no ocurrirá *nada* (por ahora)!
 
-1. Next, open up a new terminal (**TERMINAL 2**), and have a look at all the topics that are currently active on the ROS network (you should know exactly how to do this by now!)
+1. A continuación, abre una nueva terminal (**TERMINAL 2**) y echa un vistazo a todos los topics que están actualmente activos en la red de ROS (¡ya deberías saber exactamente cómo hacer esto!).
 
-    The output of this should confirm that ROS and our robot are indeed active...
+    La salida de esto debería confirmar que ROS y nuestro robot están efectivamente activos...
 
-    ??? question "How?"
-        When the robot is active, the output of the `ros2 topic list` command should provide a long list of topics, a number of which we've been working with throughout this course so far, such as `cmd_vel`, `odom`, `scan`, and so on. If the Waffle simulation *isn't* active then we would be presented with a much smaller list, containing only the core ROS topics:
+    ??? question "¿Cómo?"
+        Cuando el robot está activo, la salida del comando `ros2 topic list` debería proporcionar una larga lista de topics, varios de los cuales hemos estado trabajando a lo largo de este curso, como `cmd_vel`, `odom`, `scan`, y así sucesivamente. Si la simulación del Waffle *no* está activa, se nos presentaría una lista mucho más pequeña, que contiene solo los topics básicos de ROS:
 
         ***
         **TERMINAL 2:**
@@ -92,27 +92,27 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
         ```
         ***
 
-1. Next (still in **TERMINAL 2**), run the following command to launch an *Action Server* on the network:
+1. A continuación (aún en **TERMINAL 2**), ejecuta el siguiente comando para lanzar un *Action Server* en la red:
 
     ```bash
     ros2 run tuos_examples camera_sweep_action_server.py
     ```
     
-1. Now, open up *another* new terminal instance (**TERMINAL 3**), but so that you can view this and **TERMINAL 2** side-by-side. Enter the following command to *list* all actions that are active on the ROS network:
+1. Ahora, abre *otra* nueva instancia de terminal (**TERMINAL 3**), de manera que puedas ver esta y la **TERMINAL 2** lado a lado. Ingresa el siguiente comando para *listar* todos los actions que están activos en la red de ROS:
 
     ```bash
     ros2 action list
     ```
 
-    There should be an item here called `/camera_sweep`, use the `info` command to find out more about this:
+    Debería haber un elemento aquí llamado `/camera_sweep`. Usa el comando `info` para obtener más información sobre este:
 
     ```bash
     ros2 action info /camera_sweep
     ```
 
-    This tells us the *name* of the action: `Action: /camera_sweep`, as well as the number of client and server nodes this action has. Currently, the action should have 0 *clients* and 1 *server*, and the node acting as the server here should be listed as `/camera_sweep_action_server_node` (the node that we just launched with the `ros2 run` command in **TERMINAL 2**).
+    Esto nos indica el *nombre* del action: `Action: /camera_sweep`, así como el número de nodes client y server que tiene este action. Actualmente, el action debería tener 0 *clients* y 1 *server*, y el node que actúa como servidor aquí debería aparecer como `/camera_sweep_action_server_node` (el node que acabamos de lanzar con el comando `ros2 run` en **TERMINAL 2**).
     
-    Finally, call the `ros2 action info` command again, but this time providing an additional argument:
+    Finalmente, llama al comando `ros2 action info` nuevamente, pero esta vez proporcionando un argumento adicional:
     
     ```
     ros2 action info -t /camera_sweep
@@ -125,28 +125,28 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
         /camera_sweep_action_server [tuos_interfaces/action/CameraSweep]
     ```
 
-    The `-t` argument additionally shows the action *type* against the server node, indicating to us the type of *interface* used by the server.
+    El argumento `-t` muestra adicionalmente el *tipo* de action frente al node servidor, indicándonos el tipo de *interface* utilizada por el servidor.
 
-1. Let's now find out more about the interface itself. As with any interface (message, service or action) we can use the `ros2 interface` command to do this. In **TERMINAL 3** enter the following:
+1. Ahora busquemos más información sobre la interface en sí. Al igual que con cualquier interface (mensaje, service o action) podemos usar el comando `ros2 interface` para esto. En **TERMINAL 3** ingresa lo siguiente:
 
     ```bash
     ros2 interface show tuos_interfaces/action/CameraSweep
     ```
     
-    Which should present us with the following:
+    Lo cual debería presentarnos lo siguiente:
 
     ```txt
     --8<-- "https://raw.githubusercontent.com/tom-howard/tuos_ros/refs/heads/jazzy/tuos_interfaces/action/CameraSweep.action"
     ```
     
-    There are three parts to an action interface, and we'll talk about these in a bit more detail later on, but for now, all we need to know is that in order to *call* an action, we need to send the action server a **Goal**.
+    Hay tres partes en una interface de action, y hablaremos sobre estas con más detalle en breve, pero por ahora, todo lo que necesitamos saber es que para *llamar* a un action, necesitamos enviar al action server un **Goal**.
 
-    ??? info "Comparing with ROS Services"
-        This is a bit like sending a **Request** to a ROS Service Server, like we did in the previous session.
+    ??? info "Comparación con ROS Services"
+        Esto es un poco como enviar una **Request** a un ROS Service Server, como hicimos en la sesión anterior.
     
-1. We can issue a goal to an action server from the command-line using the `ros2 action` command again. Let's give this a go in **TERMINAL 3**.
+1. Podemos emitir un goal a un action server desde la línea de comandos usando el comando `ros2 action` nuevamente. Vamos a intentarlo en **TERMINAL 3**.
     
-    First, let's identify the right `ros2 action` sub-command:
+    Primero, identifiquemos el sub-comando correcto de `ros2 action`:
 
     ```bash
     ros2 action --help
@@ -159,40 +159,40 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
       send_goal  Send an action goal
     ```
 
-    As above, there are three sub-commands to choose from, and we've already used the first two! Clearly, the `send_goal` command is the one we want now.
+    Como se muestra arriba, hay tres sub-comandos para elegir, ¡y ya hemos usado los dos primeros! Claramente, el comando `send_goal` es el que necesitamos ahora.
 
-    Let's get some help on this one:
+    Obtengamos ayuda sobre este:
 
     ```bash
     ros2 action send_goal --help
     ```
     
-    From this, we learn that there are three *positional arguments*, which must be supplied in the correct order:
+    A partir de esto, aprendemos que hay tres *argumentos posicionales*, que deben suministrarse en el orden correcto:
     
     ``` { .bash .no-copy }
     ros2 action send_goal <action_name> <action_type> <goal>
     ```
 
-    We know from our earlier interrogation with the `ros2 action list`, `info` and `ros2 interface show` commands how to provide the right data here:
+    Sabemos por nuestra investigación anterior con los comandos `ros2 action list`, `info` y `ros2 interface show` cómo proporcionar los datos correctos aquí:
     
     1. `action_name`: `/camera_sweep`
     1. `action_type`: `tuos_interfaces/action/CameraSweep`
-    1. `goal`: a data packet (in YAML format) containing two parameters:
-        1. `sweep_angle`: the angle (in degrees) that the robot will rotate on the spot (i.e. 'sweep')
-        1. `image_count`: the number of images it will capture from its front-facing camera while 'sweeping'
+    1. `goal`: un paquete de datos (en formato YAML) que contiene dos parámetros:
+        1. `sweep_angle`: el ángulo (en grados) que el robot rotará en su lugar (es decir, el 'barrido')
+        1. `image_count`: el número de imágenes que capturará desde su cámara frontal mientras realiza el 'barrido'
     
-1. Now, again in **TERMINAL 3**, have a go at using the `ros2 action send_goal` command, but keep an eye on **TERMINAL 2** as you do this:
+1. Ahora, de nuevo en **TERMINAL 3**, intenta usar el comando `ros2 action send_goal`, pero vigila la **TERMINAL 2** mientras lo haces:
 
     ``` { .bash .no-copy }
     ros2 action send_goal /camera_sweep tuos_interfaces/action/CameraSweep \
         "{sweep_angle: 0, image_count: 0}"
     ```
 
-    Having called the action, you should then be presented with a message (in **TERMINAL 3**) that the `Goal was rejected.` In **TERMINAL 2** (where the action server is running), we should see some additional information about why this was the case. Read this, and then head back to **TERMINAL 3** and have another go at sending a goal to the action server, by supplying valid inputs this time!
+    Después de llamar al action, se te debería presentar un mensaje (en **TERMINAL 3**) indicando que el `Goal was rejected.` En **TERMINAL 2** (donde se está ejecutando el action server), deberíamos ver información adicional sobre por qué fue así. Lee esto y luego regresa a **TERMINAL 3** e intenta de nuevo enviar un goal al action server, ¡esta vez suministrando entradas válidas!
 
-    Once valid goal parameters have been supplied, the action server (in **TERMINAL 2**), will respond to inform you of what it's going to do. You'll then need to wait for it to do its job...
+    Una vez que se hayan suministrado parámetros de goal válidos, el action server (en **TERMINAL 2**) responderá para informarte de lo que va a hacer. Luego deberás esperar a que complete su tarea...
 
-1. Once the action has completed (it could up to 20 seconds), a message should appear in **TERMINAL 3** to inform us of the outcome:
+1. Una vez que el action haya completado (podría tardar hasta 20 segundos), debería aparecer un mensaje en **TERMINAL 3** para informarnos del resultado:
         
     ``` { .txt .no-copy }
     Result:
@@ -205,7 +205,7 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
     Goal finished with status: SUCCEEDED
     ```
 
-    Additionally, we should see some further text in **TERMINAL 2** as well:
+    Adicionalmente, también deberíamos ver algo más de texto en **TERMINAL 2**:
 
     ``` { .txt .no-copy }
     [INFO] [#####] [camera_sweep_action_server_node]: camera_sweep_action_server_node completed successfully:
@@ -214,7 +214,7 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
       - Time taken = # seconds
     ```
 
-    1. The *result* of the action (presented to us in **TERMINAL 3**) is a series file paths, illustrating the images that have been captured, and where they have been saved on the filesystem. Navigate to this directory in **TERMINAL 3** (using `cd`) and have a look at the content using `ll` (a handy alias for the `ls` command):
+    1. El *result* del action (presentado en **TERMINAL 3**) es una serie de rutas de archivos, que ilustran las imágenes que han sido capturadas y dónde se han guardado en el sistema de archivos. Navega a este directorio en **TERMINAL 3** (usando `cd`) y echa un vistazo al contenido usando `ll` (un alias útil para el comando `ls`):
 
         ```bash
         cd ~/ros_action_examples
@@ -224,15 +224,15 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
         ll
         ```
             
-        You should see the same number of image files in there as was requested with the `image_count` parameter.
+        Deberías ver el mismo número de archivos de imagen que el solicitado con el parámetro `image_count`.
     
-    1. Launch `eog` in this directory and click through all the images to reveal your robot's *mystery environment*:
+    1. Lanza `eog` en este directorio y navega por todas las imágenes para revelar el *entorno misterioso* de tu robot:
 
         ```bash
         eog .
         ```
 
-1. Let's do this one more time. Close down the `eog` window, head back to **TERMINAL 3** and issue the `ros2 action send_goal` command again, but this time use the optional `-f` flag: <a name="send_goal_cli"></a>
+1. Hagamos esto una vez más. Cierra la ventana de `eog`, regresa a **TERMINAL 3** y emite el comando `ros2 action send_goal` nuevamente, pero esta vez usa el flag opcional `-f`: <a name="send_goal_cli"></a>
 
     ```bash
     ros2 action send_goal -f /camera_sweep tuos_interfaces/action/CameraSweep \
@@ -240,29 +240,29 @@ We'll play a little game here. We're going to launch our TurtleBot3 Waffle in a 
     ```
 
     !!! tip
-        Don't forget to supply valid goal parameters again!
+        ¡No olvides suministrar nuevamente parámetros de goal válidos!
 
-    *Now*, as well as being provided with a result once the action has completed, we're *also* provided with some regular updates while the action is in progress (aka *"feedback"*)! 
+    *Ahora*, además de recibir un result una vez que el action haya completado, ¡*también* recibimos algunas actualizaciones regulares mientras el action está en progreso (también conocido como *"feedback"*)!
 
-1. To finish off, close down the action server in **TERMINAL 2** and the headless Gazebo process in **TERMINAL 1** by entering ++ctrl+c++ in each terminal. 
+1. Para terminar, cierra el action server en **TERMINAL 2** y el proceso de Gazebo headless en **TERMINAL 1** ingresando ++ctrl+c++ en cada terminal.
 
-## What is a ROS Action?
+## ¿Qué es un ROS Action?
 
-In the above exercise we launched an action server and then called it from the command-line using the `ros2 action send_goal` sub-command. In the same way as a ROS Service, the action also provided us with a **result** once the task had been completed.
+En el ejercicio anterior lanzamos un action server y luego lo llamamos desde la línea de comandos usando el sub-comando `ros2 action send_goal`. De la misma manera que un ROS Service, el action también nos proporcionó un **result** una vez que la tarea se completó.
 
-Using the `-f` flag we were able to ask the server to provide us with *real-time feedback* on how it was getting on (in **TERMINAL 3**).  **Feedback** is one of the key features that differentiates a ROS Action from a ROS Service: An Action Server provides **feedback** at regular intervals whilst working towards its **goal**. Another feature of ROS Actions is that they can be *cancelled* part-way through (which we'll play around with shortly).
+Usando el flag `-f` pudimos pedir al servidor que nos proporcionara *feedback en tiempo real* sobre cómo iba (en **TERMINAL 3**). El **Feedback** es una de las características clave que diferencia a un ROS Action de un ROS Service: un Action Server proporciona **feedback** a intervalos regulares mientras trabaja hacia su **goal**. Otra característica de los ROS Actions es que pueden *cancelarse* a mitad de camino (con lo que jugaremos en breve).
 
 <figure markdown>
   ![](./part5/action_interface.png){width=400px}
 </figure>
 
-Ultimately, Actions use a combination of both Topic- *and* Service-based communication, to create a more advanced messaging protocol. Building on ROS Services, *Actions* are designed to be used for **longer running tasks**, due to the provision of *feedback* and the ability to *cancel* a process part-way through. You can read more about Actions in [the official ROS 2 documentation here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html){target="_blank"} (which also includes a nice animation to explain how they work).
+En última instancia, los Actions usan una combinación de comunicación basada tanto en Topics *como* en Services, para crear un protocolo de mensajería más avanzado. Basándose en los ROS Services, los *Actions* están diseñados para ser usados en **tareas de larga duración**, debido a la provisión de *feedback* y la capacidad de *cancelar* un proceso a mitad de camino. Puedes leer más sobre Actions en [la documentación oficial de ROS 2 aquí](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html){target="_blank"} (que también incluye una animación muy buena para explicar cómo funcionan).
 
-### The Format of Action Interfaces
+### El Formato de las Interfaces de Action
 
-Like Services, Action Interfaces have multiple parts to them, and we need to know what format these action messages take in order to be able to use them.
+Al igual que los Services, las Interfaces de Action tienen múltiples partes, y necesitamos saber qué formato tienen estos mensajes de action para poder usarlos.
 
-We ran `ros2 interface show` in the previous exercise, to interrogate the action interface used by the `/camera_sweep` action server:
+Ejecutamos `ros2 interface show` en el ejercicio anterior, para interrogar la interface de action utilizada por el action server `/camera_sweep`:
 
 ```txt
 ros2 interface show tuos_interfaces/action/CameraSweep
@@ -272,55 +272,55 @@ ros2 interface show tuos_interfaces/action/CameraSweep
 --8<-- "https://raw.githubusercontent.com/tom-howard/tuos_ros/refs/heads/jazzy/tuos_interfaces/action/CameraSweep.action"
 ```
 
-As we know from Exercise 1, in order to call this action server we need to send a **goal**, and (in this case) there are **two** goal parameters that must be provided:
+Como sabemos del Ejercicio 1, para llamar a este action server necesitamos enviar un **goal**, y (en este caso) hay **dos** parámetros de goal que deben proporcionarse:
 
-1. `sweep_angle`: a 32-bit floating-point value
-1. `image_count`: a 32-bit integer
+1. `sweep_angle`: un valor de punto flotante de 32 bits
+1. `image_count`: un entero de 32 bits
 
-!!! question "Questions"
-    * What are the names of the **result** and **feedback** interface parameters? (There are three in total.)
-    * What data types do these parameters use?
+!!! question "Preguntas"
+    * ¿Cuáles son los nombres de los parámetros de interface de **result** y **feedback**? (Hay tres en total.)
+    * ¿Qué tipos de datos usan estos parámetros?
 
-You'll learn how we use this information to develop Python Action Server & Client nodes in the following exercises.
+Aprenderás cómo usamos esta información para desarrollar nodes Python Action Server y Client en los siguientes ejercicios.
 
-## Creating Python Action Clients
+## Creación de Python Action Clients
 
-In the previous exercise we *called* a pre-existing Action Server from the command-line, by sending a goal to it. Let's look at how we can do this from within a Python ROS node now.
+En el ejercicio anterior *llamamos* a un Action Server preexistente desde la línea de comandos, enviándole un goal. Veamos ahora cómo podemos hacer esto desde dentro de un node Python de ROS.
 
-### :material-pen: Exercise 2: Building a Python Action Client Node {#ex2}
+### :material-pen: Ejercicio 2: Construir un Node Python Action Client {#ex2}
 
-1. In **TERMINAL 1** launch the *mystery world* simulation again, but this time with an additional argument:
+1. En **TERMINAL 1** lanza la simulación del *mundo misterioso* nuevamente, pero esta vez con un argumento adicional:
 
     ```txt
     ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
     ```
 
-    With the `with_gui` switch set to `true`, we should now be able to actually *see* the simulated world this time.
+    Con el switch `with_gui` configurado en `true`, ahora deberíamos poder *ver* realmente el mundo simulado esta vez.
 
     <figure markdown>
       ![](../images/gz/coloured_pillars.png){width=600px}
     </figure>
-    <center>*(Not really that exciting is it!?)*</center>
+    <center>*(¡No es muy emocionante que digamos!)*</center>
 
-1. Then, in **TERMINAL 2**, launch the Camera Sweep Action Server again: 
+1. Luego, en **TERMINAL 2**, lanza el Camera Sweep Action Server nuevamente:
 
     ```bash
     ros2 run tuos_examples camera_sweep_action_server.py
     ```
 
-#### Part 1: A Minimal Action Client
+#### Parte 1: Un Action Client Mínimo
 
-1. Now, in **TERMINAL 3**, create a new package called `part5_actions` using [the approach that we've been using to create packages throughout this course](part1.md#ex4).
+1. Ahora, en **TERMINAL 3**, crea un nuevo paquete llamado `part5_actions` usando [el enfoque que hemos estado usando para crear paquetes a lo largo de este curso](part1.md#ex4).
 
-1. Navigate into the `scripts` folder of your package using the `cd` command:
+1. Navega a la carpeta `scripts` de tu paquete usando el comando `cd`:
 
     ```bash
     cd ~/ros2_ws/src/part5_actions/scripts/
     ```
 
-1. In here, create a new Python file called `camera_sweep_action_client.py` (using the `touch` command) and make it executable ([using `chmod`](./part1.md#chmod)). 
+1. Aquí, crea un nuevo archivo Python llamado `camera_sweep_action_client.py` (usando el comando `touch`) y hazlo ejecutable ([usando `chmod`](./part1.md#chmod)).
 
-1. Then, declare this as an executable in the package's `CMakeLists.txt`:
+1. Luego, declara esto como un ejecutable en el `CMakeLists.txt` del paquete:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -332,11 +332,11 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     )
     ```
 
-1. At an *absolute minimum*, the Action Client can be constructed as follows:
+1. Como *mínimo absoluto*, el Action Client puede construirse de la siguiente manera:
 
-    <center>[:material-file-code-outline: The `camera_sweep_action_client.py` Node](./part5/minimal_action_client.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: El Node `camera_sweep_action_client.py`](./part5/minimal_action_client.md){ .md-button target="_blank"}</center>
 
-1. Let's build the Node now, so that we can run it. Head back to **TERMINAL 3** and use Colcon to build the package: <a name="colcon"></a>
+1. Construyamos el Node ahora, para poder ejecutarlo. Regresa a **TERMINAL 3** y usa Colcon para construir el paquete: <a name="colcon"></a>
 
     ```bash
     cd ~/ros2_ws/ 
@@ -346,48 +346,48 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     colcon build --packages-select part5_actions --symlink-install
     ```
 
-1. Re-source the `.bashrc`:
+1. Vuelve a cargar el `.bashrc`:
 
     ```bash
     source ~/.bashrc
     ```
 
-1. Run your node with `ros2 run`:
+1. Ejecuta tu node con `ros2 run`:
 
     ```
     ros2 run part5_actions camera_sweep_action_client.py
     ```
 
-    With the command above as it is, the server will reject the goal (check back in **TERMINAL 2** to find out why). How can you modify the above command (by adding some additional arguments), so that the `camera_sweep_action_client.py` node actually sends a valid goal?[^goal_params]
+    Con el comando anterior tal como está, el servidor rechazará el goal (vuelve a **TERMINAL 2** para averiguar por qué). ¿Cómo puedes modificar el comando anterior (agregando algunos argumentos adicionales), para que el node `camera_sweep_action_client.py` envíe realmente un goal válido?[^goal_params]
 
-    [^goal_params]: You need to explicitly set the `goal_images` and `goal_angle` parameters at runtime, [much like we did here with the `number_game_client.py` service client](./part4.md#ex5).
+    [^goal_params]: Necesitas establecer explícitamente los parámetros `goal_images` y `goal_angle` en tiempo de ejecución, [de manera similar a como lo hicimos aquí con el service client `number_game_client.py`](./part4.md#ex5).
 
-1. Having modified the `ros2 run` command to successfully send a *valid* goal to the `camera_sweep` action server, the robot should start to turn, capturing images as it goes. 
+1. Habiendo modificado el comando `ros2 run` para enviar exitosamente un *goal* válido al action server `camera_sweep`, el robot debería comenzar a girar, capturando imágenes a medida que avanza.
 
-    The Client that we've created here makes a call to the action server and then exits, it doesn't even wait for the server to finish its task! The only way that we'd know if the action was successful, is if we were to keep an eye on **TERMINAL 2**, to see the action *server* respond to the goal that was sent to it... The client itself provides no feedback during the action, nor the result at the end. Let's look to incorporate that now...
+    El Client que hemos creado aquí hace una llamada al action server y luego termina, ¡ni siquiera espera a que el servidor complete su tarea! La única manera de saber si el action fue exitoso sería vigilar **TERMINAL 2**, para ver al *server* del action responder al goal que se le envió... El client en sí no proporciona feedback durante el action, ni el result al final. Veamos cómo incorporar eso ahora...
 
-#### Part 2: Handling a Result
+#### Parte 2: Manejo de un Result
 
-1. Go back to the `camera_sweep_action_client.py` file in VS Code.
+1. Regresa al archivo `camera_sweep_action_client.py` en VS Code.
 
-1. In order to be able to handle the result that is sent from an action server, we first need to handle the response that the server sends to the goal itself.
+1. Para poder manejar el result que se envía desde un action server, primero necesitamos manejar la respuesta que el servidor envía al goal en sí.
 
-    Within the `send_goal()` method of the `CameraSweepActionClient()` class, find the line that reads:
+    Dentro del método `send_goal()` de la clase `CameraSweepActionClient()`, encuentra la línea que dice:
 
     ```py
     return self.actionclient.send_goal_async(goal)
     ```
 
-    and change this to:
+    y cámbiala a:
 
     ```py
     self.send_goal_future = self.actionclient.send_goal_async(goal)
     self.send_goal_future.add_done_callback(self.goal_response_callback)
     ```
 
-    This method is no longer returning the *future* that is sent from `send_goal_async()`, but is now handling this and adding a callback to it: `goal_response_callback`. This callback can now be used to inform the client of whether the server has *accepted* the goal or not.
+    Este método ya no retorna el *future* que se envía desde `send_goal_async()`, sino que ahora lo maneja y le agrega un callback: `goal_response_callback`. Este callback ahora puede usarse para informar al client de si el servidor ha *aceptado* el goal o no.
 
-1. We therefore need to define this callback now. Define it as a *new* class method of the `CameraSweepActionClient()` class (i.e. underneath the `send_goal()` class method that has already been defined)...
+1. Por lo tanto, necesitamos definir este callback ahora. Defínelo como un *nuevo* método de clase de la clase `CameraSweepActionClient()` (es decir, debajo del método de clase `send_goal()` que ya ha sido definido)...
 
     ```py
     def goal_response_callback(self, future):
@@ -402,12 +402,12 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
         self.get_result_future.add_done_callback(self.get_result_callback)
     ```
 
-    The *input* to this method will be the *future* that is created by the `send_goal_async()` call. We assign this to an attribute called `goal_handle` here, and can then use this for two purposes:
+    La *entrada* a este método será el *future* que crea la llamada `send_goal_async()`. Lo asignamos a un atributo llamado `goal_handle` aquí, y podemos usarlo para dos propósitos:
 
-    1. To check if the goal that we sent was accepted by the server
-    1. If it *was* accepted, then we can get the result (using `get_result_async()`) and we can attach *another* callback to this to actually process that result: `get_result_callback`.
+    1. Verificar si el goal que enviamos fue aceptado por el servidor.
+    1. Si *fue* aceptado, entonces podemos obtener el result (usando `get_result_async()`) y podemos adjuntar *otro* callback para procesar realmente ese result: `get_result_callback`.
 
-1. Now we need to define this callback too. Define `get_result_callback` as another new method of the `CameraSweepActionClient()` class (i.e. underneath the `goal_response_callback()` class method that we have just defined)...
+1. Ahora también necesitamos definir este callback. Define `get_result_callback` como otro nuevo método de la clase `CameraSweepActionClient()` (es decir, debajo del método de clase `goal_response_callback()` que acabamos de definir)...
 
     ```py
     def get_result_callback(self, future):
@@ -420,49 +420,49 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
         rclpy.shutdown()
     ``` 
 
-    The input to *this* class method is another future object which contains the actual result sent from the server. We assign this to `result` and use a `get_logger().info()` call to print this to the terminal when the action has finished.
+    La entrada a *este* método de clase es otro objeto future que contiene el result real enviado desde el servidor. Lo asignamos a `result` y usamos una llamada `get_logger().info()` para imprimirlo en el terminal cuando el action haya finalizado.
 
-    As we know from our work earlier, the `CameraSweep` Action interface contains one *Result* parameter called `image_paths`.
+    Como sabemos de nuestro trabajo anterior, la interface de Action `CameraSweep` contiene un parámetro de *Result* llamado `image_paths`.
 
-1. Finally, in the `main` method, change this:
+1. Finalmente, en el método `main`, cambia esto:
 
     ```py
     future = action_client.send_goal()
     ```
-    to just this:
+    a solo esto:
     ```py
     action_client.send_goal()
     ```
-    (because `#!py send_goal()` no longer returns a `future`)
+    (porque `#!py send_goal()` ya no retorna un `future`)
 
-1. And then also change: 
+1. Y luego también cambia:
     ```py
     rclpy.spin_until_future_complete(action_client, future)
     ```
 
-    to this:
+    a esto:
 
     ```py
     rclpy.spin(action_client)
     ```
 
-1. Save all your changes!
+1. ¡Guarda todos tus cambios!
 
-1. Run this node again now (with the `ros2 run` command) and observe the changes in action.
+1. Ejecuta este node nuevamente ahora (con el comando `ros2 run`) y observa los cambios en acción.
 
-    Our client node now presents us with the *result* that is sent by the server on completion of the action, but wouldn't it be nice if we could see the real-time *feedback* as the action takes place? Let's add this in now...
+    Nuestro node client ahora nos presenta el *result* que envía el servidor al completarse el action, pero ¿no sería bueno poder ver el *feedback* en tiempo real mientras el action tiene lugar? Agreguemos esto ahora...
 
-#### Part 3: Handling Feedback
+#### Parte 3: Manejo de Feedback
 
-1. Go back to the `camera_sweep_action_client.py` file in VS Code.
+1. Regresa al archivo `camera_sweep_action_client.py` en VS Code.
 
-1. In order to be able to handle the feedback that is sent from an action server, we need to add yet another callback! Go back to the `send_goal()` method and the line where we are actually sending the goal to the server:
+1. Para poder manejar el feedback que se envía desde un action server, ¡necesitamos agregar otro callback! Regresa al método `send_goal()` y a la línea donde realmente estamos enviando el goal al servidor:
 
     ```py
     self.send_goal_future = self.actionclient.send_goal_async(goal)
     ```
 
-    As it stands, all we're doing here is sending the goal, but we can also add a *feedback callback* to this too:
+    Tal como está, todo lo que hacemos aquí es enviar el goal, pero también podemos agregar un *feedback callback* a esto:
 
     ```py
     self.send_goal_future = self.actionclient.send_goal_async(
@@ -471,9 +471,9 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     )
     ```
 
-    The `feedback_callback` will be executed every time a new feedback message is received from the server.
+    El `feedback_callback` se ejecutará cada vez que se reciba un nuevo mensaje de feedback del servidor.
 
-1. In order to define what we want to do with these feedback messages we need to add *yet another* new method to the `CameraSweepActionClient()` class. Underneath the `get_result_callback()` class method that we defined earlier, add this new one as well:
+1. Para definir qué queremos hacer con estos mensajes de feedback, necesitamos agregar *otro nuevo* método a la clase `CameraSweepActionClient()`. Debajo del método de clase `get_result_callback()` que definimos antes, agrega también este nuevo:
 
     ```py
     def feedback_callback(self, feedback_msg):
@@ -487,40 +487,40 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
         )
     ``` 
 
-    As we know from our work earlier, the `CameraSweep` interface contains two *feedback* parameters: `current_angle` and `current_image`.
+    Como sabemos de nuestro trabajo anterior, la interface `CameraSweep` contiene dos parámetros de *feedback*: `current_angle` y `current_image`.
 
-1. Save all your changes once again, run the node again with the `ros2 run` command and observe the changes in action.
+1. Guarda todos tus cambios nuevamente, ejecuta el node nuevamente con el comando `ros2 run` y observa los cambios en acción.
 
-    The node we've now built can send a *goal* to an action server, process the *feedback* returned from the server as the action is in progress, and present the *result* to us once everything is complete.
+    El node que hemos construido ahora puede enviar un *goal* a un action server, procesar el *feedback* devuelto por el servidor mientras el action está en progreso, y presentarnos el *result* una vez que todo esté completo.
     
-    As discussed earlier though, the *other* key feature of Actions is the ability to *cancel* them part-way through. So let's look at how to incorporate this now as well.
+    Como se discutió anteriormente, la *otra* característica clave de los Actions es la capacidad de *cancelarlos* a mitad de camino. Veamos también cómo incorporar esto ahora.
 
-#### Part 4: Cancelling an Action
+#### Parte 4: Cancelar un Action
 
-1. First, create a copy of your `camera_sweep_action_client.py` node and call it `cancel_camera_sweep.py`. Make sure **TERMINAL 3** is located in the `scripts` directory of your `part5_actions` package before running the following:
+1. Primero, crea una copia de tu node `camera_sweep_action_client.py` y llámala `cancel_camera_sweep.py`. Asegúrate de que **TERMINAL 3** esté ubicada en el directorio `scripts` de tu paquete `part5_actions` antes de ejecutar lo siguiente:
 
     ```bash
     cp camera_sweep_action_client.py cancel_camera_sweep.py
     ```
     
-1. Don't forget to declare this as an *additional* executable in the package's `CMakeLists.txt`. You'll then also need to re-build the package with `colcon build` ([go back for a reminder](#colcon)).
+1. No olvides declarar esto como un ejecutable *adicional* en el `CMakeLists.txt` del paquete. También necesitarás reconstruir el paquete con `colcon build` ([regresa para un recordatorio](#colcon)).
 
-1. Open the `cancel_camera_sweep.py` file in VS Code.
+1. Abre el archivo `cancel_camera_sweep.py` en VS Code.
 
-1. We want this client to be able to cancel the goal under two different circumstances:
+1. Queremos que este client pueda cancelar el goal en dos circunstancias diferentes:
 
-    1. The client itself is shutdown by the user (via a ++ctrl+c++ in the terminal)
-    1. A conditional event that happens as the action is underway.
+    1. El client en sí es apagado por el usuario (mediante un ++ctrl+c++ en el terminal).
+    1. Un evento condicional que ocurre mientras el action está en curso.
 
-    In order to address item 1 first, we need to draw upon some of the work we did in Part 2 in [the implementation of *safe shutdown procedures*](part2.md#ex5)...
+    Para abordar el punto 1 primero, necesitamos recurrir a parte del trabajo que hicimos en la Parte 2 en [la implementación de *procedimientos de apagado seguro*](part2.md#ex5)...
 
-1. As you hopefully recall, we first need to import `SignalHandlerOptions` into our node, so add this as an additional import at the start of the code:
+1. Como esperamos que recuerdes, primero necesitamos importar `SignalHandlerOptions` en nuestro node, así que agrega esto como una importación adicional al comienzo del código:
 
     ```py
     from rclpy.signals import SignalHandlerOptions
     ```
 
-    Then, in the `main()` node function, modify the `#!py rclpy.init()` call:
+    Luego, en la función del node `main()`, modifica la llamada `#!py rclpy.init()`:
 
     ```py
     rclpy.init(
@@ -529,7 +529,7 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     )
     ```
 
-1. Inside the `#!py __init__()` method of our `CameraSweepActionClient()` class we now need to add some additional flags:
+1. Dentro del método `#!py __init__()` de nuestra clase `CameraSweepActionClient()` ahora necesitamos agregar algunos flags adicionales:
 
     ```py
     self.goal_succeeded = False
@@ -537,21 +537,21 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
     self.stop = False
     ```
 
-    In the `get_result_callback()` class method, we can then ensure that the `self.goal_succeeded` flag is set to `True` when a result is received. In this class method, locate the `#!py rclpy.shutdown()` line and add the following *additional* line just above it:
+    En el método de clase `get_result_callback()`, podemos entonces asegurarnos de que el flag `self.goal_succeeded` se establezca en `True` cuando se recibe un result. En este método de clase, localiza la línea `#!py rclpy.shutdown()` y agrega la siguiente línea *adicional* justo encima de ella:
 
     ```py
     self.goal_succeeded = True
     ```
 
-1. Actions can be cancelled using a `cancel_goal_async()` method of the `goal_handle` that is obtained from the `goal_response_callback()`. As such, we need to make this accessible across our entire `CameraSweepActionClient()` class. Locate the `goal_response_callback()` class method, and add this line at the bottom as the last line of the `goal_response_callback()` method:
+1. Los Actions pueden cancelarse usando un método `cancel_goal_async()` del `goal_handle` que se obtiene del `goal_response_callback()`. Por ello, necesitamos hacerlo accesible en toda nuestra clase `CameraSweepActionClient()`. Localiza el método de clase `goal_response_callback()` y agrega esta línea al final como la última línea del método `goal_response_callback()`:
 
     ```py
     self.goal_handle = goal_handle
     ```
 
-    This makes `goal_handle` accessible across the entire `CameraSweepActionClient()` class as `#!py self.goal_handle`. 
+    Esto hace que `goal_handle` sea accesible en toda la clase `CameraSweepActionClient()` como `#!py self.goal_handle`.
 
-1. We can only attempt to cancel an Action when it's in progress, therefore the *feedback callback* is the best place to trigger this. Locate the `feedback_callback()` class method and place the following at the end of it:
+1. Solo podemos intentar cancelar un Action cuando está en progreso, por lo tanto, el *feedback callback* es el mejor lugar para activar esto. Localiza el método de clase `feedback_callback()` y coloca lo siguiente al final de él:
 
     ```py
     if self.stop:
@@ -559,9 +559,9 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
         future.add_done_callback(self.cancel_goal)
     ```
 
-    Here, we call the `cancel_goal_async()` method from `self.goal_handle`, and add another new callback (`cancel_goal()`) to it (i.e. to encapsulate what we want to happen when the action is cancelled).
+    Aquí, llamamos al método `cancel_goal_async()` desde `self.goal_handle` y agregamos otro nuevo callback (`cancel_goal()`) a él (es decir, para encapsular lo que queremos que suceda cuando el action sea cancelado).
 
-1. Now, let's define this as another new (and final!) class method:
+1. Ahora, definamos esto como otro nuevo (¡y final!) método de clase:
 
     ```py
     def cancel_goal(self, future):
@@ -573,9 +573,9 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
             self.get_logger().info('Goal failed to cancel')
     ```
 
-    The input to this callback is another *future*, which we can use to determine if the goal has been cancelled (as shown above). If it *has*, then we set our `self.goal_cancelled` flag to `True`.
+    La entrada a este callback es otro *future*, que podemos usar para determinar si el goal ha sido cancelado (como se muestra arriba). Si *lo ha sido*, entonces establecemos nuestro flag `self.goal_cancelled` en `True`.
 
-1. **Finally**, go back the `main()` function of the node. We're going to replace the `#!py rclpy.spin(action_client)` line now, with a `#!py rclpy.spin_once()`, wrapped inside a `#!py try` - `#!py except`, wrapped inside a `#!py while` loop!
+1. **Finalmente**, regresa a la función `main()` del node. Vamos a reemplazar la línea `#!py rclpy.spin(action_client)` ahora, con un `#!py rclpy.spin_once()`, envuelto dentro de un `#!py try` - `#!py except`, ¡envuelto dentro de un loop `#!py while`!
     
     ```py
     while not action_client.goal_succeeded:
@@ -588,48 +588,48 @@ In the previous exercise we *called* a pre-existing Action Server from the comma
             action_client.stop = True
     ```
 
-    The `#!py while` loop will execute until the action completes successfully, *or* until the goal is *cancelled*, *or* we shutdown the node with a ++ctrl+c++ interrupt.
+    El loop `#!py while` se ejecutará hasta que el action complete exitosamente, *o* hasta que el goal sea *cancelado*, *o* apaguemos el node con una interrupción ++ctrl+c++.
 
-    Look back through the node to see how all this will flow through your class.
+    Revisa el node para ver cómo todo esto fluirá a través de tu clase.
 
-1. We may wish to cancel a goal *conditionally* if - say - too much time has elapsed since the call was made, or the caller has been made aware of something else that has happened in the meantime (perhaps we're running out of storage space on the robot and can't save any more images!). 
+1. Es posible que deseemos cancelar un goal *condicionalmente* si, por ejemplo, ha transcurrido demasiado tiempo desde que se realizó la llamada, o si el caller ha sido informado de algo más que ha ocurrido mientras tanto (¡quizás nos estamos quedando sin espacio de almacenamiento en el robot y no podemos guardar más imágenes!).
 
-    For the purposes of this exercise, we want to modify our node so that the action is always cancelled after a total of **5 images** have been captured. This can be done by making a fairly small modification to the `feedback_callback()`. **Have a go at implementing this now**. 
+    Para los propósitos de este ejercicio, queremos modificar nuestro node para que el action siempre sea cancelado después de que se hayan capturado un total de **5 imágenes**. Esto puede hacerse realizando una modificación bastante pequeña al `feedback_callback()`. **Intenta implementar esto ahora**.
 
-    * Have a go now at introducing a conditional call to the `cancel_goal()` method once a total of **5 images** have been captured.
-    * You could use the `current_image` attribute from the `CameraSweepFeedback` message to trigger this.
+    * Intenta ahora introducir una llamada condicional al método `cancel_goal()` una vez que se hayan capturado un total de **5 imágenes**.
+    * Podrías usar el atributo `current_image` del mensaje `CameraSweepFeedback` para activar esto.
 
-### A Summary of ROS Actions
+### Un Resumen de los ROS Actions
 
-ROS Actions work a lot like ROS Services, but they have the following key differences:
+Los ROS Actions funcionan de manera muy similar a los ROS Services, pero tienen las siguientes diferencias clave:
 
-1. They can be **cancelled**: If something is taking too long, or if something else has happened, then an Action Client can cancel an Action whenever it needs to.
-1. They provide **feedback**: so that a client can monitor what is happening and act accordingly (i.e. cancel the action, if necessary).
+1. Pueden **cancelarse**: Si algo tarda demasiado, o si ha ocurrido algo más, entonces un Action Client puede cancelar un Action cuando lo necesite.
+1. Proporcionan **feedback**: para que un client pueda monitorear lo que está sucediendo y actuar en consecuencia (es decir, cancelar el action, si es necesario).
 
-This mechanism is therefore useful for operations that may take a long time to execute, and where intervention might be necessary.
+Por lo tanto, este mecanismo es útil para operaciones que pueden tardar mucho en ejecutarse, y donde podría ser necesaria una intervención.
 
-## Creating Your Own Action Servers, Clients and Interfaces
+## Creación de tus Propios Action Servers, Clients e Interfaces
 
-!!! info "Important"
-    Cancel *all* active processes that you may have running before moving on.
+!!! info "Importante"
+    Cancela *todos* los procesos activos que puedas tener en ejecución antes de continuar.
 
-So far we have looked at how to call a pre-existing action server, but what about if we actually want to set up our own, and use our own custom Action Interfaces too? 
+Hasta ahora hemos visto cómo llamar a un action server preexistente, pero ¿qué pasa si realmente queremos configurar el nuestro propio, y también usar nuestras propias Interfaces de Action personalizadas?
 
-To start with, have a look at the Action Server that you've been working with in the previous exercises. You've been launching this with the following command:
+Para empezar, echa un vistazo al Action Server con el que has estado trabajando en los ejercicios anteriores. Has estado lanzándolo con el siguiente comando:
 
 ``` { .bash .no-copy }
 ros2 run tuos_examples camera_sweep_action_server.py
 ```
 
-!!! question "Questions"
-    * Which *package* does the action server node belong to?
-    * Where (in that package directory) is this node likely to be located?
+!!! question "Preguntas"
+    * ¿A qué *paquete* pertenece el node del action server?
+    * ¿Dónde (en el directorio de ese paquete) es probable que esté ubicado este node?
 
-Once you've identified the name and the location of the source code, open it up in VS Code and have a look through it to see how it all works. Don't worry too much about all the content associated with obtaining and manipulating camera images in there, we'll learn more about this in [the next part of this course](./part6.md). Instead, focus on the general overall structure of the code and the way that the action server is implemented.
+Una vez que hayas identificado el nombre y la ubicación del código fuente, ábrelo en VS Code y revísalo para ver cómo funciona todo. No te preocupes demasiado por todo el contenido relacionado con la obtención y manipulación de imágenes de cámara, aprenderemos más sobre esto en [la siguiente parte de este curso](./part6.md). En cambio, enfócate en la estructura general del código y en la manera en que se implementa el action server.
 
-Some things to review:
+Algunas cosas a revisar:
 
-1. The way the server is initialised and the numerous callbacks that are attached to it:
+1. La manera en que el servidor se inicializa y los numerosos callbacks que se le adjuntan:
     
     ```py
     self.actionserver = ActionServer(
@@ -643,52 +643,52 @@ Some things to review:
     )
     ```
 
-    1. This callback contains all the code that will be executed by the server once a valid goal is sent to it (i.e. the core functionality of the Action)
-    2. This server node is set up as a *Multi-threaded Executor* (see the setup in `main()`), to control the execution of the various callbacks that we need. Here, we're assigning the Action Server to a *Reentrant Callback Group*, allowing all its callbacks to run in parallel, as well as other subscriber callbacks too. 
-    3. This callback is used to check the goal parameters that have been sent to the server, to decide whether to accept or reject a request. 
-    4. This callback contains everything that needs to happen in the event that the Action is *cancelled* part-way through.
+    1. Este callback contiene todo el código que ejecutará el servidor una vez que se le envíe un goal válido (es decir, la funcionalidad principal del Action).
+    2. Este node servidor se configura como un *Executor Multi-hilo* (consulta la configuración en `main()`), para controlar la ejecución de los diversos callbacks que necesitamos. Aquí, asignamos el Action Server a un *Reentrant Callback Group*, permitiendo que todos sus callbacks se ejecuten en paralelo, así como otros callbacks de subscriber también.
+    3. Este callback se usa para verificar los parámetros del goal que se han enviado al servidor, para decidir si aceptar o rechazar una solicitud.
+    4. Este callback contiene todo lo que necesita suceder en caso de que el Action sea *cancelado* a mitad de camino.
 
 
-1. Take a look at the various Action callbacks to see what's happening in each:
+1. Echa un vistazo a los diversos callbacks de Action para ver qué sucede en cada uno:
 
-    1. How are **goal** parameters checked, and subsequently accepted or rejected?
-    1. How are **cancellations** implemented, and how is this monitored in the main `server_execution_callback()`?
-    1. How is **feedback** handled and published?
-    1. How is the **result** handled and published too?
+    1. ¿Cómo se verifican los parámetros de **goal** y, consecuentemente, se aceptan o rechazan?
+    1. ¿Cómo se implementan las **cancelaciones** y cómo se monitorea esto en el `server_execution_callback()` principal?
+    1. ¿Cómo se maneja y publica el **feedback**?
+    1. ¿Cómo se maneja y publica también el **result**?
 
-1. Finally, consider the shutdown operations.
+1. Finalmente, considera las operaciones de apagado.
 
-### Implementing an "Exploration" strategy using the Action Framework {#explore}
+### Implementación de una Estrategia de "Exploración" usando el Marco de Actions {#explore}
 
-An exploration strategy allows a robot to autonomously navigate an unknown environment while simultaneously avoiding crashing into things! One way to achieve this is to utilise two distinct motion states: moving forwards and turning on the spot, and repeatedly switching between them. *Brownian Motion* and *Levy Flight* are examples of this kind of approach. Randomising the time spent in either, or both, of these two states will result in a navigation strategy that allows a robot to slowly and randomly explore an environment. Forward motion could be performed until - say - a certain distance has been travelled, a set time has elapsed or something gets in the way. Likewise, the direction, speed and/or duration of turning could also be randomised to achieve this.
+Una estrategia de exploración permite a un robot navegar autónomamente por un entorno desconocido mientras simultáneamente evita colisiones. Una manera de lograr esto es utilizar dos estados de movimiento distintos: moverse hacia adelante y girar en su lugar, alternando repetidamente entre ellos. El *Movimiento Browniano* y el *Levy Flight* son ejemplos de este tipo de enfoque. Aleatorizar el tiempo pasado en uno o ambos de estos dos estados resultará en una estrategia de navegación que permite al robot explorar lenta y aleatoriamente un entorno. El movimiento hacia adelante podría realizarse hasta que, por ejemplo, se haya recorrido cierta distancia, haya transcurrido un tiempo determinado o algo se interponga en el camino. De manera similar, la dirección, velocidad y/o duración del giro también podría aleatorizarse para lograr esto.
 
-Over the next few exercises we'll construct our own Action Interface, Server and Client nodes with the aim of creating the *basis* for a basic exploration behaviour. Having completed these exercises you'll have something that - with further development - could be turned into an exploration type behaviour such as the above.
+En los próximos ejercicios construiremos nuestra propia Interface de Action, y nodes Server y Client con el objetivo de crear la *base* para un comportamiento de exploración básico. Habiendo completado estos ejercicios tendrás algo que, con mayor desarrollo, podría convertirse en un tipo de comportamiento de exploración como el descrito arriba.
 
-#### :material-pen: Exercise 3: Creating an Action Interface {#ex3}
+#### :material-pen: Ejercicio 3: Crear una Interface de Action {#ex3}
 
-In Exercise 2 we created the `part5_actions` package. Inside this package we will now define an Action *Interface* to be used by the subsequent Action Server and Client that we will create in the later exercises. 
+En el Ejercicio 2 creamos el paquete `part5_actions`. Dentro de este paquete ahora definiremos una *Interface* de Action para ser usada por el Action Server y Client subsiguientes que crearemos en los ejercicios posteriores.
 
-1. Action interfaces must be defined within an `action` folder at the root of the package directory, so let's create this now in **TERMINAL 1**:
+1. Las interfaces de action deben definirse dentro de una carpeta `action` en la raíz del directorio del paquete, así que vamos a crearla ahora en **TERMINAL 1**:
 
-    1. First, navigate into your package:
+    1. Primero, navega a tu paquete:
 
         ```bash
         cd ~/ros2_ws/src/part5_actions
         ```
     
-    1. Then use `mkdir` to make a new directory:
+    1. Luego usa `mkdir` para crear un nuevo directorio:
 
         ```bash
         mkdir action
         ```
 
-1. In here we'll now define an Action Interface called `ExploreForward`:
+1. Aquí ahora definiremos una Interface de Action llamada `ExploreForward`:
 
     ```bash
     touch action/ExploreForward.action
     ```
 
-1. Open this up in VS Code and define the data structure of the Interface as follows:
+1. Ábrela en VS Code y define la estructura de datos de la Interface de la siguiente manera:
 
     ```txt title="ExploreForward.action"
     #goal
@@ -703,23 +703,23 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
     float32 current_distance_travelled # Distance travelled so far during the action (meters)
     ```
 
-    This interface therefore has **two** goal parameters, **one** feedback parameter, and **two** result parameters:
+    Esta interface tiene por lo tanto **dos** parámetros de goal, **uno** de feedback y **dos** de result:
 
     **Goal**:
 
-    1. `fwd_velocity`: The speed (in m/s) at which the robot should move forwards when the action server is called. 
-    1. `stopping_distance`: The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it (this data will come from `LaserScan` data from the robot's LiDAR sensor).
+    1. `fwd_velocity`: La velocidad (en m/s) a la que el robot debe moverse hacia adelante cuando se llama al action server.
+    1. `stopping_distance`: La distancia (en metros) a la que el robot debe detenerse frente a cualquier objeto o pared límite que esté delante de él (estos datos provendrán de los datos `LaserScan` del sensor LiDAR del robot).
     
     **Feedback**:
 
-    1. `current_distance_travelled`: The distance travelled (in meters) since the current action was initiated (based on `Odometry` data).
+    1. `current_distance_travelled`: La distancia recorrida (en metros) desde que se inició el action actual (basada en datos de `Odometry`).
 
     **Result**:
 
-    1. `total_distance_travelled`: The *total* distance travelled (in meters) over the course of the action (based on `Odometry` data).
-    1. `closest_obstacle`: The distance to the closest obstacle up ahead of the robot when the action completes.
+    1. `total_distance_travelled`: La distancia *total* recorrida (en metros) durante el transcurso del action (basada en datos de `Odometry`).
+    1. `closest_obstacle`: La distancia al obstáculo más cercano por delante del robot cuando el action se completa.
 
-1. Now, declare this interface in the package's `CMakeLists.txt` file, so that the necessary Python code can be created:
+1. Ahora, declara esta interface en el archivo `CMakeLists.txt` del paquete, para que se pueda crear el código Python necesario:
 
     ```txt title="CMakeLists.txt"
     find_package(rosidl_default_generators REQUIRED)
@@ -728,7 +728,7 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
     )
     ```
 
-1. Also modify the `package.xml` file (above the `#!xml <export>` line) to include the necessary `rosidl` dependencies:
+1. También modifica el archivo `package.xml` (encima de la línea `#!xml <export>`) para incluir las dependencias `rosidl` necesarias:
 
     ```xml title="package.xml"
     <buildtool_depend>rosidl_default_generators</buildtool_depend>
@@ -736,95 +736,95 @@ In Exercise 2 we created the `part5_actions` package. Inside this package we wil
     <member_of_group>rosidl_interface_packages</member_of_group>
     ```
 
-1. Now run `colcon` to generate the necessary source code for this new interface: <a name="colcon-build-steps"></a>
+1. Ahora ejecuta `colcon` para generar el código fuente necesario para esta nueva interface: <a name="colcon-build-steps"></a>
 
-    1. First, **always** make sure you're in the root of the Workspace:
+    1. Primero, **siempre** asegúrate de estar en la raíz del Workspace:
         
         ```bash
         cd ~/ros2_ws/
         ```
     
-    1. Then run `colcon build`:
+    1. Luego ejecuta `colcon build`:
 
         ```bash
         colcon build --packages-select part5_actions --symlink-install 
         ```
     
-    1. And finally re-source the `.bashrc`:
+    1. Y finalmente vuelve a cargar el `.bashrc`:
 
         ```bash
         source ~/.bashrc
         ```
 
-1. We can now verify that it worked. 
+1. Ahora podemos verificar que funcionó.
 
-    1. Use `ros2 interface` to list all available interface types, but use the `-a` option to display only action-type interfaces:
+    1. Usa `ros2 interface` para listar todos los tipos de interface disponibles, pero usa la opción `-a` para mostrar solo las interfaces de tipo action:
 
         ```bash
         ros2 interface list -a
         ```
 
-        Look for a message with the prefix "`part5_actions`".
+        Busca un mensaje con el prefijo "`part5_actions`".
 
-    1. Next, *show* the data structure of the interface:
+    1. A continuación, *muestra* la estructura de datos de la interface:
 
         ```bash
         ros2 interface show part5_actions/action/ExploreForward
         ```
 
-        This should match the content of the `part5_actions/action/ExploreForward.action` file that we created above.
+        Esto debería coincidir con el contenido del archivo `part5_actions/action/ExploreForward.action` que creamos arriba.
 
-#### :material-pen: Exercise 4: Building the "ExploreForward" Action Server {#ex4}
+#### :material-pen: Ejercicio 4: Construir el Action Server "ExploreForward" {#ex4}
 
-1. In **TERMINAL 1** navigate to the `scripts` folder of your `part5_actions` package, then:
+1. En **TERMINAL 1** navega a la carpeta `scripts` de tu paquete `part5_actions`, luego:
     
-    1. Create a Python script called `explore_server.py`
-    1. Make it executable
-    1. Declare it as an executable in `CMakeLists.txt`
+    1. Crea un script Python llamado `explore_server.py`
+    1. Hazlo ejecutable
+    1. Decláralo como un ejecutable en `CMakeLists.txt`
 
-1. Open up the file in VS Code.
+1. Abre el archivo en VS Code.
 
-1. The job of the Server node is as follows:
+1. La tarea del node Server es la siguiente:
 
-    * The action server should make the robot move forwards until it detects an obstacle up ahead.
-    * It should use the `ExploreForward.action` Interface that we created in the previous exercise. 
-    * The Server will therefore need to be configured to accept two **goal** parameters:
+    * El action server debe hacer que el robot se mueva hacia adelante hasta detectar un obstáculo por delante.
+    * Debe usar la Interface `ExploreForward.action` que creamos en el ejercicio anterior.
+    * El Server deberá configurarse para aceptar dos parámetros de **goal**:
         
-        1. The speed (in m/s) at which the robot should move forwards when the action server is called. 
-        1. The distance (in meters) at which the robot should stop ahead of any objects or boundary walls that are in front of it.
-        
-            To do this you'll need to subscribe to the `/scan` topic. Be aware that an object won't necessarily be directly in front of the robot, so you may need to monitor a range of `LaserScan` data points (within the `ranges` array) to make the collision avoidance effective (recall the [LaserScan callback example from Part 3](./part3/lidar_subscriber.md)).
-    
-    * Be sure to do some error checking on the goal parameters to ensure that a valid request is made. This is done by attaching a `goal_callback` to the Action Server. 
-
-        * `fwd_velocity`: Should be a velocity that is moderate, and within [the robot's velocity limits](./part2.md#velocity_limits).
-        * `stopping_distance`: Should be greater than the [minimum detectable limit of the LiDAR Sensor](./part3.md#range_max_min), large enough to safely avoid collisions. 
-
-    * Whilst your server performs its task it should provide the following **feedback** to a Client:
-
-        1. The distance travelled (in meters) since the current action was initiated.
-
-            To do this you'll need to subscribe to the `/odom` topic. Remember the work that you did in Part 2 on this. 
+        1. La velocidad (en m/s) a la que el robot debe moverse hacia adelante cuando se llama al action server.
+        1. La distancia (en metros) a la que el robot debe detenerse frente a cualquier objeto o pared límite que esté delante de él.
             
-            !!! tip "Tips" 
-            
-                * The robot's orientation shouldn't change over the course of a single action call, only its `linear.x` and `linear.y` positions should vary.
-                * Bear in mind however that the robot won't necessarily be moving along the `X` or `Y` axis, so you will need to consider the total distance travelled in the `X-Y` plane.
-                * We did this in the [Part 2 `move_square` exercise](./part2.md#ex6), so refer to this if you need a reminder.
-
-    * Finally, on completion of the action, your server should be configured to provide the following **two** *result* parameters:
-        1. The *total* distance travelled (in meters) over the course of the action.
-        1. The distance to the obstacle that made the robot stop (if the action server has done its job properly, then this should be very similar to the `stopping_distance` that was provided by the Action Client in the **goal**).
-
-1. There's some template code to help you with this:
-
-    <center>[:material-file-code-outline: The `explore_server.py` Template](./part5/explore_server.md){ .md-button target="_blank"}</center>
+            Para hacer esto necesitarás suscribirte al topic `/scan`. Ten en cuenta que un objeto no estará necesariamente directamente frente al robot, por lo que puede que necesites monitorear un rango de puntos de datos de `LaserScan` (dentro del arreglo `ranges`) para que la evasión de colisiones sea efectiva (recuerda el [ejemplo de callback de LaserScan de la Parte 3](./part3/lidar_subscriber.md)).
     
-    You might also want to take a look at the `camera_sweep_action_server.py` code from the earlier exercises to help you construct this: a lot of the techniques used here will be similar (excluding all the camera related stuff).  
+    * Asegúrate de hacer algunas verificaciones de errores en los parámetros del goal para garantizar que se realice una solicitud válida. Esto se hace adjuntando un `goal_callback` al Action Server.
 
-**Testing**
+        * `fwd_velocity`: Debe ser una velocidad moderada, dentro de [los límites de velocidad del robot](./part2.md#velocity_limits).
+        * `stopping_distance`: Debe ser mayor que el [límite mínimo detectable del Sensor LiDAR](./part3.md#range_max_min), lo suficientemente grande para evitar colisiones de manera segura.
 
-When you want to test things out, why not use the *Nav World* environment from Part 3 (in **TERMINAL 1**):
+    * Mientras tu servidor realiza su tarea debe proporcionar el siguiente **feedback** a un Client:
+
+        1. La distancia recorrida (en metros) desde que se inició el action actual.
+
+            Para hacer esto necesitarás suscribirte al topic `/odom`. Recuerda el trabajo que hiciste en la Parte 2 sobre esto.
+            
+            !!! tip "Consejos" 
+            
+                * La orientación del robot no debería cambiar durante el transcurso de una sola llamada al action, solo sus posiciones `linear.x` y `linear.y` deberían variar.
+                * Ten en cuenta, sin embargo, que el robot no necesariamente se moverá a lo largo del eje `X` o `Y`, por lo que necesitarás considerar la distancia total recorrida en el plano `X-Y`.
+                * Hicimos esto en el [ejercicio `move_square` de la Parte 2](./part2.md#ex6), así que consúltalo si necesitas un recordatorio.
+
+    * Finalmente, al completarse el action, tu servidor debe estar configurado para proporcionar los siguientes **dos** parámetros de *result*:
+        1. La distancia *total* recorrida (en metros) durante el transcurso del action.
+        1. La distancia al obstáculo que hizo que el robot se detuviera (si el action server ha hecho su trabajo correctamente, esto debería ser muy similar al `stopping_distance` que proporcionó el Action Client en el **goal**).
+
+1. Hay código de plantilla para ayudarte con esto:
+
+    <center>[:material-file-code-outline: La Plantilla `explore_server.py`](./part5/explore_server.md){ .md-button target="_blank"}</center>
+    
+    También puede que quieras echar un vistazo al código de `camera_sweep_action_server.py` de los ejercicios anteriores para ayudarte a construir esto: muchas de las técnicas usadas aquí serán similares (excluyendo todo lo relacionado con la cámara).
+
+**Pruebas**
+
+Cuando quieras probar las cosas, ¿por qué no usar el entorno *Nav World* de la Parte 3 (en **TERMINAL 1**)?:
 
 ```bash
 ros2 launch tuos_simulations nav_world.launch.py
@@ -834,74 +834,74 @@ ros2 launch tuos_simulations nav_world.launch.py
   ![](./part3/nav_world.png){width=600px}
 </figure>
 
-Don't forget that in order to launch the server you'll need to have built everything with `colcon` by following [the usual **three stage** process](#colcon-build-steps).
+No olvides que para lanzar el servidor necesitarás haber construido todo con `colcon` siguiendo [el proceso habitual de **tres etapas**](#colcon-build-steps).
 
-Do this in **TERMINAL 2**, and you'll then be able to run it:
+Haz esto en **TERMINAL 2** y luego podrás ejecutarlo:
 
 ```bash
 ros2 run part5_actions explore_server.py
 ```
 
-Also, don't forget that **you don't need to have developed a Python Client Node in order to test the server**. Use the `ros2 action send_goal` CLI tool to make calls to the server (like we did in [Exercise 1](#send_goal_cli)).
+Además, no olvides que **no necesitas haber desarrollado un Node Python Client para probar el servidor**. Usa la herramienta CLI `ros2 action send_goal` para hacer llamadas al servidor (como lo hicimos en el [Ejercicio 1](#send_goal_cli)).
 
-#### :material-pen: Exercise 5: Building a Basic "ExploreForward" Client {#ex5}
+#### :material-pen: Ejercicio 5: Construir un Client Básico "ExploreForward" {#ex5}
 
-1. In **TERMINAL 3** navigate to the `scripts` folder of your `part5_actions` package, create a Python script called `explore_client.py`, make it executable, and add this to your `CMakeLists.txt`.
+1. En **TERMINAL 3** navega a la carpeta `scripts` de tu paquete `part5_actions`, crea un script Python llamado `explore_client.py`, hazlo ejecutable y agrégalo a tu `CMakeLists.txt`.
 
-1. Run `colcon build` on it now, so you don't have to worry about it later (again, following the [**three stage** process as above](#colcon-build-steps))...
+1. Ejecuta `colcon build` ahora, para que no tengas que preocuparte por ello más tarde (de nuevo, siguiendo el [proceso de **tres etapas** como arriba](#colcon-build-steps))...
 
-    Here it is again, for good measure:
+    Aquí está de nuevo, por si acaso:
 
-    1. Step 1:
+    1. Paso 1:
     
         ```bash
         cd ~/ros2_ws
         ```
 
-    1. Step 2:
+    1. Paso 2:
 
         ```bash
         colcon build --packages-select part5_actions --symlink-install
         ```
 
-    1. Step 3:
+    1. Paso 3:
 
         ```bash
         source ~/.bashrc
         ```
     
-1. Open up the `explore_client.py` file in VS Code.
+1. Abre el archivo `explore_client.py` en VS Code.
 
-1. The job of the Action Client is as follows:
+1. La tarea del Action Client es la siguiente:
 
-    * The client needs to issue a correctly formatted **goal** to the server.
-    * The client should be programmed to monitor the **feedback** data from the Server.  If it detects (from the feedback) that the robot has travelled a distance *greater than 2 meters* without detecting an obstacle, then it should **cancel** the current action call.
+    * El client necesita emitir un **goal** correctamente formateado al servidor.
+    * El client debe programarse para monitorear los datos de **feedback** del Server. Si detecta (a partir del feedback) que el robot ha recorrido una distancia *mayor de 2 metros* sin detectar un obstáculo, entonces debe **cancelar** la llamada al action actual.
 
-1. Use the techniques that we used in the Client node from [Exercise 2](#ex2) as a guide to help you with this. 
-    
+1. Usa las técnicas que usamos en el node Client del [Ejercicio 2](#ex2) como guía para ayudarte con esto.
+
     <!-- There's also [a code template here](./part5/search_client.md) to help you get started. <a name="ex4c_ret"></a> -->
 
-1. Once you have everything in place, launch the action client with `ros2 run` as below:
+1. Una vez que tengas todo en su lugar, lanza el action client con `ros2 run` como se muestra a continuación:
 
     ```bash
     ros2 run part5_actions explore_client.py
     ```
 
-    If all is good, then this client node should call the action server, which will (in turn) make the robot move forwards until it gets a certain distance away from an obstacle up ahead (`stopping_distance`), at which point the robot will stop, and your client node should then stop too. Once this happens, reorient your robot (using the `teleop_keyboard` node) and launch the client node again to make sure that it is robustly stopping in front of obstacles repeatedly, and when approaching them from a range of different angles. 
+    Si todo está bien, este node client debería llamar al action server, que (a su vez) hará que el robot se mueva hacia adelante hasta que esté a cierta distancia de un obstáculo por delante (`stopping_distance`), momento en el que el robot se detendrá, y tu node client también debería detenerse. Una vez que esto suceda, reorienta tu robot (usando el node `teleop_keyboard`) y lanza el node client nuevamente para asegurarte de que esté deteniéndose de manera robusta frente a los obstáculos repetidamente, y cuando se aproxime desde diferentes ángulos.
 
-    !!! warning "Important"
-        Make sure that your cancellation functionality works correctly too, ensuring that:
+    !!! warning "Importante"
+        Asegúrate de que tu funcionalidad de cancelación también funcione correctamente, garantizando que:
             
-        1. The robot never moves any further than 2 meters during a given action call
-        1. An action is aborted mid-way through if the client node is shut down with ++ctrl+c++
+        1. El robot nunca se mueva más de 2 metros durante una llamada al action determinada.
+        1. Un action se aborta a mitad de camino si el node client se apaga con ++ctrl+c++.
 
-#### :material-pen: Exercise 6 (Advanced): Implementing an Exploration Strategy {#ex6}
+#### :material-pen: Ejercicio 6 (Avanzado): Implementar una Estrategia de Exploración {#ex6}
 
-Up to now, your Action Client node should have the capability to call the `ExploreForward.action` server to make the robot move forwards by 2 meters, or until it reaches an obstacle (whichever occurs first), but you *could* build on this now and turn it into a full exploration behaviour:
+Hasta ahora, tu node Action Client debería tener la capacidad de llamar al servidor `ExploreForward.action` para hacer que el robot se mueva hacia adelante 2 metros, o hasta que llegue a un obstáculo (lo que ocurra primero), pero *podrías* construir sobre esto ahora y convertirlo en un comportamiento de exploración completo:
 
-* Between action calls, your *client* node could make the robot turn on the spot to face a different direction and then issue a further action call to make the robot move forwards once again.
-* The turning process could be done at random (*ideally*), or by a fixed amount every time.
-* By programming your client node to repeat this process over and over again, the robot would (somewhat randomly) travel around its environment safely, stopping before it crashes into any obstacles and reorienting itself every time it stops moving forwards. 
+* Entre llamadas al action, tu node *client* podría hacer que el robot gire en su lugar para enfrentar una dirección diferente y luego emitir otra llamada al action para hacer que el robot se mueva hacia adelante nuevamente.
+* El proceso de giro podría hacerse aleatoriamente (*idealmente*), o en una cantidad fija cada vez.
+* Programando tu node client para repetir este proceso una y otra vez, el robot (de manera algo aleatoria) recorrería su entorno de forma segura, deteniéndose antes de chocar con cualquier obstáculo y reorientándose cada vez que deje de moverse hacia adelante.
 
 <!-- !!! success "Assignment #2 Checkpoint"
     Having completed Assignment #1 up to this point, you should have everything you need to tackle [Assignment #2 Task 2](../assignment2/parta/task2.md). -->
@@ -914,38 +914,38 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 * Your node could monitor the status of the `move_base_simple` action call to know when the robot has reached a zone marker, so that it knows when to issue a further action call to move on to the next one.
 * You could refer to [the launch file that you created in Part 3](./part3.md#launch_file) to launch all the navigation processes that need to be running in order to enable and configure the ROS Navigation Stack appropriately for the TurtleBot3 robot. -->
 
-## Wrapping Up
+## Conclusión
 
-In Part 5 of this course you've learnt:
+En la Parte 5 de este curso has aprendido:
 
-* How ROS Actions work and why they might be useful.
-* How to develop Action Client Nodes in Python which can monitor the action in real-time (via *feedback*), and which can also *cancel* the requested action, if required.
-* How to use standard ROS tools to interrogate action interfaces, thus allowing us to build clients to call them
-* How to build custom Action servers, clients and interfaces.
-* How to harness this framework to implement an *exploration strategy*. 
+* Cómo funcionan los ROS Actions y por qué pueden ser útiles.
+* Cómo desarrollar Action Client Nodes en Python que pueden monitorear el action en tiempo real (a través de *feedback*), y que también pueden *cancelar* el action solicitado, si es necesario.
+* Cómo usar las herramientas estándar de ROS para interrogar interfaces de action, permitiéndonos así construir clients para llamarlas.
+* Cómo construir action servers, clients e interfaces personalizados.
+* Cómo aprovechar este marco para implementar una *estrategia de exploración*.
 
-### Topics, Services or Actions: *Which to Choose?*
+### Topics, Services o Actions: *¿Cuál Elegir?*
 
-You should now have developed a good understanding of the three communication methods that are available within ROS to facilitate communication between ROS Nodes:
+Ahora deberías haber desarrollado una buena comprensión de los tres métodos de comunicación disponibles dentro de ROS para facilitar la comunicación entre ROS Nodes:
 
-1. Topic-based messaging.
+1. Mensajería basada en Topics.
 1. ROS Services.
 1. ROS Actions.
 
-Through this course you've gained some practical experience using all three of these, but you may still be wondering how to select the appropriate one for a certain robot task... 
+A través de este curso has adquirido algo de experiencia práctica usando los tres, pero puede que aún te preguntes cómo seleccionar el apropiado para cierta tarea robótica...
 
-[This ROS.org webpage](https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html){target="_blank"} summarises all of this very nicely (and briefly), so you should have a read through this to make sure you know what's what. In summary though:
+[Esta página web de ROS.org](https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html){target="_blank"} resume todo esto muy bien (y brevemente), así que deberías leerla para asegurarte de saber qué es qué. En resumen:
 
-* **Topics**: Are most appropriate for broadcasting continuous data-streams such as sensor data and robot state information, and for publishing data that is likely to be required by a range of Nodes across a ROS network.
-* **Services**: Are most appropriate for very short procedures like *quick* calculations (inverse kinematics etc.) and performing short discrete actions that are unlikely to go wrong or will not need intervention (e.g. turning on a warning LED when a battery is low).
-* **Actions**: Are most appropriate for longer running tasks (like moving a robot), or for operations where we *might* need to change our mind and do something different or cancel an invoked behaviour part way through.
+* **Topics**: Son más apropiados para transmitir flujos de datos continuos como datos de sensores e información del estado del robot, y para publicar datos que probablemente sean requeridos por una variedad de Nodes en una red de ROS.
+* **Services**: Son más apropiados para procedimientos muy cortos como cálculos *rápidos* (cinemática inversa, etc.) y para realizar acciones discretas cortas que es poco probable que salgan mal o que no necesitarán intervención (p. ej., encender un LED de advertencia cuando la batería está baja).
+* **Actions**: Son más apropiados para tareas de larga duración (como mover un robot), o para operaciones donde *podríamos* necesitar cambiar de opinión y hacer algo diferente o cancelar un comportamiento invocado a mitad de camino.
     
-### WSL-ROS2 Managed Desktop Users: Save your work! {#backup}
+### Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo! {#backup}
 
-Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:
+Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva ahora:
 
 ```bash
 wsl_ros backup
 ```
 
-You'll then be able to restore it to a fresh WSL-ROS2 environment next time you fire one up (`wsl_ros restore`).  
+Luego podrás restaurarlo en un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (`wsl_ros restore`).

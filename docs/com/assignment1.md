@@ -1,40 +1,40 @@
 ---
-title: "Assignment #1: An Introduction to ROS 2"
-description: "An individual simulation-based course to teach you all about ROS 2"
+title: "Asignación #1: Una Introducción a ROS 2"
+description: "Un curso individual basado en simulación para enseñarte todo sobre ROS 2"
 --- 
 
-## Overview
+## Descripción General
 
-For Assignment #1 you will complete [the 6-part ROS 2 course](../course/README.md) **in full** and **in order**. The course is designed to be completed in simulation, so you will therefore need access to a ROS 2 installation which can either be installed on your own machine, or accessed on a range of managed desktop computers across the University of Sheffield campus. [See here for more information on how to access or install ROS 2](../software/README.md).
+Para la Asignación #1 completarás [el curso de ROS 2 de 6 partes](../course/README.md) **en su totalidad** y **en orden**. El curso está diseñado para completarse en simulación, por lo que necesitarás acceso a una instalación de ROS 2, que puede instalarse en tu propia máquina o accederse en una variedad de computadoras del laboratorio. [Consulta aquí para más información sobre cómo acceder o instalar ROS 2](../software/README.md).
 
-Each part of the course comprises a series of step-by-step instructions and exercises to teach you how ROS works, and introduces you to the core principles of the framework. The exercises give you the opportunity to see how to apply these principles to practical robotic applications. Completing this course is **essential** for obtaining all the necessary skills for [Assignment #2: the *Team Robotics Project*](./assignment2/README.md), where you will work in teams to program our *real TurtleBot3 Waffle robots*.  
+Cada parte del curso comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS e introducirte a los principios básicos del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones robóticas prácticas. Completar este curso es **esencial** para obtener todas las habilidades necesarias para la [Asignación #2: el *Proyecto de Robótica en Equipo*](./assignment2/README.md), donde trabajarás en equipos para programar nuestros *robots reales TurtleBot3 Waffle*.
 
-## The Course
+## El Curso
 
-* [Part 1: Getting Started with ROS 2](../course/part1.md)
+* [Parte 1: Primeros Pasos con ROS 2](../course/part1.md)
 
-    *Learn the basics of ROS 2 and become familiar with some key tools and principles, allowing you to program robots and work with ROS 2 applications effectively.*
+    *Aprende los conceptos básicos de ROS 2 y familiarízate con algunas herramientas y principios clave, permitiéndote programar robots y trabajar con aplicaciones ROS 2 de manera efectiva.*
 
-* [Part 2: Odometry & Navigation](../course/part2.md)
+* [Parte 2: Odometría y Navegación](../course/part2.md)
 
-    *Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle.*
+    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto de lazo abierto como cerrado a un Waffle.*
 
-* [Part 3: Beyond the Basics](../course/part3.md)
+* [Parte 3: Más Allá de los Conceptos Básicos](../course/part3.md)
 
-    *Execute ROS applications more efficiently using launch files, and learn how to affect the behaviour of nodes during run-time using parameters. Learn about the LiDAR sensor, the data that it generates, and see the benefits of this for tools like "SLAM".*
+    *Ejecuta aplicaciones ROS de manera más eficiente usando archivos de lanzamiento, y aprende cómo afectar el comportamiento de los nodes durante el tiempo de ejecución usando parámetros. Aprende sobre el sensor LiDAR, los datos que genera, y ve los beneficios de esto para herramientas como "SLAM".*
 
-* [Part 4: Services](../course/part4.md)
+* [Parte 4: Servicios](../course/part4.md)
 
-    *Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.*
+    *Aprende sobre una forma alternativa en que los nodes de ROS pueden comunicarse a través de una red ROS, y las situaciones en que esto podría ser útil.*
 
-* [Part 5: Actions](../course/part5.md)
+* [Parte 5: Acciones](../course/part5.md)
 
-    *Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.*
+    *Aprende sobre otro método de comunicación clave de ROS que es similar a un Servicio de ROS, pero con algunos beneficios clave y casos de uso alternativos.*
 
-* [Part 6: Cameras, Machine Vision & OpenCV](../course/part6.md)
+* [Parte 6: Cámaras, Visión por Computadora y OpenCV](../course/part6.md)
 
-    *Learn how to work with images from a robot's camera. Learn techniques to detect features within these images, and use this to inform robot decision-making.*
+    *Aprende a trabajar con imágenes de la cámara de un robot. Aprende técnicas para detectar características dentro de estas imágenes, y usa esto para informar la toma de decisiones del robot.*
 
-## Assessment
+## Evaluación
 
-This assignment is worth 25% of the overall mark for COM2009, and is assessed via an on-campus Blackboard-based test taking place in week 7 or 8 of the Spring Semester (see Blackboard and/or your timetable for the exact date & time). 
+Esta asignación se evalúa mediante un examen en el laboratorio que se realiza en la semana 7 u 8 del semestre (consulta la plataforma del curso y/o tu horario para la fecha y hora exactas).

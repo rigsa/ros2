@@ -1,113 +1,111 @@
 ---
-title: Key Assessment Info & Requirements
+title: Información y Requisitos Clave de Evaluación
 ---
 
 !!! warning
-    Failure to follow all the requirements listed on this page could result in **penalties** being applied to your mark, or **zero marks** being awarded for a submission point and/or assignment task!
+    ¡No cumplir con todos los requisitos listados en esta página podría resultar en **penalizaciones** aplicadas a tu calificación, o en **cero puntos** otorgados para un punto de entrega y/o tarea de la asignación!
 
-Your ROS package should be hosted on GitHub, it should be setup as a private repository, and you should have added `tom-howard` and `AlexandrLucas` as collaborators. 
+Tu paquete de ROS debe estar alojado en GitHub, configurado como repositorio privado, y debes haber agregado a los colaboradores del equipo docente.
 
-In addition to this, [you should have registered your package with the teaching team (via the Google Form)](./getting-started.md#pkg-reg), so that we know where to find it on the submission deadlines.
+Además de esto, [debes haber registrado tu paquete con el equipo docente](./getting-started.md#pkg-reg), para que sepamos dónde encontrarlo en las fechas límite de entrega.
 
-All the above was covered in [the Getting Started section](./getting-started.md), which you should have completed in the Week 1 Lab.
+Todo lo anterior fue cubierto en [la sección de Primeros Pasos](./getting-started.md), que debías haber completado en el Lab de la Semana 1.
 
-Having completed all of this *successfully*, we'll be able to pull your package on each of the submission dates so that your team's Assignment #2 work can be assessed. If you *haven't* completed all this, then you could receive zero marks!
+Habiendo completado todo esto *exitosamente*, podremos obtener tu paquete en cada una de las fechas de entrega para que el trabajo de Asignación #2 de tu equipo pueda ser evaluado. ¡Si *no* has completado todo esto, podrías recibir cero puntos!
 
-!!! note "Hello :wave:"
-    At some point within the first few weeks of the course a `hello.md` file will be pushed to your repo (by Tom) to confirm that it has been registered correctly.
+!!! note "Confirmación :wave:"
+    En algún momento dentro de las primeras semanas del curso se enviará un archivo `hello.md` a tu repositorio para confirmar que ha sido registrado correctamente.
 
-## Submission Points
+## Puntos de Entrega
 
-[As discussed here](./README.md#the-tasks), there are **two submission points** for Assignment #2 and **four tasks** to complete overall: 
+[Como se discute aquí](./README.md#the-tasks), hay **dos puntos de entrega** para la Asignación #2 y **cuatro tareas** que completar en total:
 
 <center>
 
-| Part | Tasks | Marks<br />(/100) | Submission |
+| Parte | Tareas | Puntos<br />(/100) | Entrega |
 | :---: | :---  | :---: | :---: |
-| **A** | **Tasks 1 & 2** | 40 | Friday of Week 6 at 6pm (GMT) |
-| **B** | **Task 3 & Team Viva** | 60 | Friday of Week 12 at 6pm (BST) |
+| **A** | **Tareas 1 y 2** | 40 | Viernes de la Semana 6 a las 6pm |
+| **B** | **Tarea 3 y Viva de Equipo** | 60 | Viernes de la Semana 12 a las 6pm |
 
 </center>
 
-See the task pages for full details on each of the four tasks.
+Consulta las páginas de cada tarea para ver los detalles completos.
 
-## Dependencies
+## Dependencias
 
-<!-- Use rosdep?? -->
+Puedes hacer uso de cualquier biblioteca de Python preexistente o paquete de ROS 2 en tu propio trabajo para la Asignación #2 **siempre que estén preinstalados en el hardware robótico real** (es decir, las laptops Linux en el laboratorio). El entorno WSL-ROS2 es equivalente a la configuración de software en el hardware robótico real, por lo que cualquier paquete que exista en uno también existirá en el otro.
 
-You may draw upon any pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2 **as long as they are pre-installed on the real robotics hardware** (i.e. the Linux laptops in the lab). The WSL-ROS2 environment is equivalent to the software setup on the real robotics hardware, so any packages that exist in one will also exist in the other.
+!!! danger "Nota"
+    No podrás solicitar que se instalen *bibliotecas/paquetes adicionales*.
 
-!!! danger "Note"
-    You will not be able to request for any *additional* libraries/packages to be installed.
+## Requisitos Clave
 
-##  Key Requirements
+Además de registrar tu paquete correctamente (como se indicó arriba), **debes** asegurarte también de que los siguientes *Requisitos Clave* se cumplan para cada uno de los puntos de entrega (**A** y **B**):
 
-In addition to registering your package correctly (as above), you **must** also ensure that the following *Key Requirements* are met for each of the submission points (**A** and **B**): 
-
-* [ ] The name of your ROS package must be:
+* [ ] El nombre de tu paquete de ROS debe ser:
 
     ``` { .txt .no-copy }
-    com2009_teamXX_2026
+    ros2_lab_equipoXX
     ```
 
-    ... where `XX` should be replaced with your team number.
+    ... donde `XX` debe reemplazarse con tu número de equipo.
 
-* [ ] It must be possible to build your package by running the following command from the root of the local ROS 2 Workspace, and this must build without errors:
+* [ ] Debe ser posible construir tu paquete ejecutando el siguiente comando desde la raíz del Espacio de Trabajo de ROS 2 local, y esto debe construirse sin errores:
     
     ``` { .bash .no-copy }
-    colcon build --packages-select com2009_teamXX_2026
+    colcon build --packages-select ros2_lab_equipoXX
     ```
 
-* [ ] You must ensure that a launch file exists for each of the *programming* tasks (Tasks 1, 2 & 3) and that these are *callable* (after having run the above `colcon build` command) so that we are able to launch your work using `ros2 launch` as follows[^launch-files]:
+* [ ] Debes asegurarte de que exista un archivo de lanzamiento para cada una de las tareas de *programación* (Tareas 1, 2 y 3) y que estos sean *ejecutables* (después de haber ejecutado el comando `colcon build` anterior) para que podamos lanzar tu trabajo usando `ros2 launch` de la siguiente manera[^launch-files]:
     
-    [^launch-files]: Make sure you have [defined an appropriate `install` directory in your package's `CMakeLists.txt`](../../course/part3.md#ex1) 
+    [^launch-files]: Asegúrate de haber [definido un directorio `install` apropiado en el `CMakeLists.txt` de tu paquete](../../course/part3.md#ex1) 
 
     ``` { .bash .no-copy }
-    ros2 launch com2009_teamXX_2026 taskY.launch.py
+    ros2 launch ros2_lab_equipoXX tareaY.launch.py
     ```
 
-    ... where `XX` will be replaced by your team number, and `Y` will be replaced by the appropriate task number.
+    ... donde `XX` será reemplazado por tu número de equipo, y `Y` será reemplazado por el número de tarea apropiado.
 
-    !!! warning "Important"
-        You must ensure that **your launch files are named correctly** (as detailed in each of the task pages). We won't use any other method to launch your ROS nodes during the assessment of each programming task. 
+    !!! warning "Importante"
+        Debes asegurarte de que **tus archivos de lanzamiento tengan el nombre correcto** (como se detalla en cada una de las páginas de tareas). No usaremos ningún otro método para lanzar tus nodes de ROS durante la evaluación de cada tarea de programación.
     
-* [ ] Launch files must be correctly defined in a dedicated `launch` directory at the root of your package directory (for guidance, [see Assignment #1 Part 3](../../course/part3.md#ex1)).
+* [ ] Los archivos de lanzamiento deben estar correctamente definidos en un directorio dedicado `launch` en la raíz del directorio de tu paquete (para orientación, [consulta la Asignación #1 Parte 3](../../course/part3.md#ex1)).
 
-* [ ] Any nodes within your package that are executed by the above launch files **must** have been correctly defined as package executables (i.e. in your `CMakeLists.txt`) and must **also** have been assigned the appropriate execute permission (i.e. with `chmod`).  
+* [ ] Cualquier node dentro de tu paquete que sea ejecutado por los archivos de lanzamiento anteriores **debe** haber sido definido correctamente como ejecutable del paquete (es decir, en tu `CMakeLists.txt`) y también **debe** haber recibido el permiso de ejecución apropiado (es decir, con `chmod`).  
 
-    !!! warning "Important"
-        It's up to **you** to ensure that your code launches as intended for a given task. If it doesn't, then you'll be awarded zero marks, so **make sure you test it all out prior to submission**!
+    !!! warning "Importante"
+        Depende **de ti** asegurarte de que tu código se lance según lo previsto para una tarea dada. Si no es así, se te otorgarán cero puntos, así que **asegúrate de probarlo todo antes de la entrega**.
     
     <a name="build-files"></a>
 
-* [ ] Your package must contain **no build files** (`build/`, `install/`, `log/`) that would be generated as a result of (incorrectly) running `colcon build` from inside your package.
+* [ ] Tu paquete no debe contener **archivos de construcción** (`build/`, `install/`, `log/`) que se generarían como resultado de ejecutar incorrectamente `colcon build` desde dentro de tu paquete.
 
-    !!! tip "Remember"
-        **Always** run `colcon build` from the **root** of the ROS workspace (e.g. `~/ros2_ws/`), to ensure that all build files are generated in the right location in the filesystem (`~/ros2_ws/build/`, `~/ros2_ws/install/`, `~/ros2_ws/log/`).
+    !!! tip "Recuerda"
+        **Siempre** ejecuta `colcon build` desde la **raíz** del espacio de trabajo de ROS (por ejemplo, `~/ros2_ws/`), para asegurarte de que todos los archivos de construcción se generen en la ubicación correcta en el sistema de archivos (`~/ros2_ws/build/`, `~/ros2_ws/install/`, `~/ros2_ws/log/`).
 
-* [ ] On each of the deadlines, we will pull your work from the `main` branch of your package repository. We will **ONLY** assess work on your `main` branch!
+* [ ] En cada una de las fechas límite, obtendremos tu trabajo de la rama `main` de tu repositorio de paquetes. ¡Solo evaluaremos el trabajo en tu rama `main`!
 
-* [ ] Your package's `package.xml` file must contain a `#!xml <maintainer>` tag for each member of your team. Add these as necessary, e.g.:
+* [ ] El archivo `package.xml` de tu paquete debe contener una etiqueta `#!xml <maintainer>` para cada miembro de tu equipo. Agrégalos según sea necesario, por ejemplo:
 
     ```xml
-    <maintainer email="member.1@sheffield.ac.uk">Member 1's Name</maintainer>
-    <maintainer email="member.2@sheffield.ac.uk">Member 2's Name</maintainer>
+    <maintainer email="correo@institucion.edu">Nombre del Miembro 1</maintainer>
+    <maintainer email="correo@institucion.edu">Nombre del Miembro 2</maintainer>
     ...
     ```
-    (providing each team member's full name and **Sheffield** email address.)
+    (proporcionando el nombre completo y dirección de correo de cada miembro del equipo.)
 
-For the assessment of each Assignment #2 Task, your package will be built and deployed on one of the Robotics Laptops that you'll have been working with extensively during the lab sessions. We will use the standard `student` user account, and your package will be downloaded to the `~/ros2_ws/src/` directory. 
+Para la evaluación de cada Tarea de la Asignación #2, tu paquete será construido y desplegado en una de las Laptops de Robótica con las que habrás trabajado extensamente durante las sesiones de laboratorio. Usaremos la cuenta de usuario `student` estándar, y tu paquete será descargado al directorio `~/ros2_ws/src/`.
 
-## Other Important Information 
+## Otra Información Importante 
 
-* The [`tuos_ros` Course Repo](../../course/extras/course-repo.md) will be installed and up-to-date on the Robotics Laptop that we use to assess your work with.
+* El [Repositorio del Curso `tuos_ros`](../../course/extras/course-repo.md) estará instalado y actualizado en la Laptop de Robótica que usemos para evaluar tu trabajo.
 
-* The Robotics Laptop that we use for the assessment will be selected at random.
+* La Laptop de Robótica que usemos para la evaluación será seleccionada al azar.
 
-* This laptop will have been paired with a robot prior to us attempting to run your submission.
+* Esta laptop habrá sido vinculada con un robot antes de que intentemos ejecutar tu entrega.
 
-* The robot will also be selected at random.
+* El robot también será seleccionado al azar.
 
-* We will have already [launched the *bringup* on the robot](../../waffles/launching-ros.md#step3), so ROS will be up and running, and the robot will be ready to go in the arena.
+* Ya habremos [lanzado el *bringup* en el robot](../../waffles/launching-ros.md#step3), por lo que ROS estará funcionando y el robot estará listo para operar en el arena.
 
-* [A Zenoh Session will already be running on the laptop](../../waffles/launching-ros.md#step4) to connect to the Robot's Zenoh *Router*, and **communications will have been tested** prior to us attempting to launch your work for each task.
+* [Una Sesión Zenoh ya estará funcionando en la laptop](../../waffles/launching-ros.md#step4) para conectarse al *Router* Zenoh del Robot, y **las comunicaciones habrán sido probadas** antes de que intentemos lanzar tu trabajo para cada tarea.

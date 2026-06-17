@@ -1,61 +1,61 @@
 ---
-title: Getting Started with WSL-ROS2 on the University Managed Desktops
+title: Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
 ---
 
-## Prerequisites
+## Requisitos Previos
 
-* [Accessing WSL-ROS2 on a University Managed Desktop Computer](./README.md)
+* [Acceder a WSL-ROS2 en una Computadora del Laboratorio](./README.md)
 
-## Launching WSL-ROS2
+## Lanzar WSL-ROS2
 
-1. Click the Windows Start Menu button: ![](../figures/win-logo.svg)
+1. Haz clic en el botón del Menú Inicio de Windows: ![](../figures/win-logo.svg)
     
-1. Then, start typing `wsl-ros` and click on the application shortcut that should appear in the list:
+1. Luego, comienza a escribir `wsl-ros` y haz clic en el acceso directo de la aplicación que debería aparecer en la lista:
 
     <figure markdown>
       ![](../figures/win-menu.svg){width=600px}
     </figure>
 
-    If there are multiple options, make sure you select **WSL-ROS2**! 
+    Si hay múltiples opciones, ¡asegúrate de seleccionar **WSL-ROS2**! 
 
-    You'll then be presented with the following screen:
+    Luego se te presentará la siguiente pantalla:
 
     <figure markdown>
       ![](../figures/wsl-ros2-first-install.png){width=600px}
     </figure>
 
-    WSL-ROS2 is now being installed, which may take a couple of minutes to complete.  Once it's done, the *Windows Terminal* should automatically launch:
+    WSL-ROS2 se está instalando ahora, lo que puede tardar un par de minutos en completarse. Una vez hecho, el *Windows Terminal* debería lanzarse automáticamente:
 
     <figure markdown>
       ![](../figures/win-term-welcome-v2526-03.png){width=600px}
     </figure>
 
-This is a **WSL-ROS2 Terminal Instance**!
+¡Esta es una **Instancia de Terminal WSL-ROS2**!
 
-<!-- ## Configuring Visual Studio Code {#configure-vscode}
+<!-- ## Configurar Visual Studio Code {#configure-vscode}
 
-*Visual Studio Code* (or *"VS Code,"* for short) should be installed on all the University of Sheffield Managed Desktop Computers that have WSL-ROS2 pre-installed on. This is a great *Integrated Development Environment (IDE)* that we'll use extensively throughout the course. You'll first need to make sure it's set up correctly though, so follow the instructions below in preparation for later:
+*Visual Studio Code* (o *"VS Code"*, para abreviar) debería estar instalado en todas las computadoras del laboratorio que tienen WSL-ROS2 preinstalado. Este es un excelente *Entorno de Desarrollo Integrado (IDE)* que usaremos extensamente a lo largo del curso. Sin embargo, primero deberás asegurarte de que esté configurado correctamente, así que sigue las instrucciones a continuación en preparación para más adelante:
 
-<center>[Setting up Visual Studio Code](./vscode.md){ .md-button }</center>
+<center>[Configurar Visual Studio Code](./vscode.md){ .md-button }</center>
 
 !!! tip
-    You should only ever need to do this bit once: the configurations should be saved to your user profile, and should be carried over to any other University Desktop Computer that you log into! -->
+    Solo necesitarás hacer esto una vez: las configuraciones deberían guardarse en tu perfil de usuario, ¡y deberían transferirse a cualquier otra computadora del laboratorio en la que inicies sesión! -->
 
-## Backing-Up (and Restoring) your Data
+## Hacer Copia de Seguridad (y Restaurar) tus Datos
 
-If you're working with WSL-ROS on a university managed desktop machine, the WSL-ROS Environment will only be preserved for a limited time on the machine that you installed it on. As such, any work that you do within WSL-ROS **will not be preserved** between sessions or across different machines automatically! It's therefore *really important* that you run a backup script before you close WSL-ROS down. To do so is very easy, simply run the command below from any WSL-ROS Terminal Instance:
+Si estás trabajando con WSL-ROS en una computadora del laboratorio, el entorno WSL-ROS solo se conservará por un tiempo limitado en la máquina en la que lo instalaste. Por lo tanto, ¡cualquier trabajo que hagas dentro de WSL-ROS **no se conservará** entre sesiones o en diferentes máquinas automáticamente! Por eso es *muy importante* que ejecutes un script de copia de seguridad antes de cerrar WSL-ROS. Hacerlo es muy fácil, simplemente ejecuta el siguiente comando desde cualquier Instancia de Terminal WSL-ROS:
 
 ```bash
 wsl_ros backup
 ```
 
-This will create an archive of your *Home Directory* ([more detail here](./linux-term.md)) and save it to your University `U:` Drive. Whenever you launch a *fresh* WSL-ROS2 Environment again on another day, or on a different machine, simply run the following command to restore your work to it:
+Esto creará un archivo de tu *Directorio de Inicio* ([más detalles aquí](./linux-term.md)) y lo guardará en tu unidad `U:`. Cada vez que lances un *entorno WSL-ROS2 nuevo* en otro día, o en una máquina diferente, simplemente ejecuta el siguiente comando para restaurar tu trabajo en él:
 
 ```bash
 wsl_ros restore
 ```
 
-To make things a little easier, on launching WSL-ROS the system will check to see if a backup file already exists from a previous session. If it does, then you will be asked if you want to restore it straight away:
+Para hacer las cosas un poco más fáciles, al lanzar WSL-ROS el sistema verificará si ya existe un archivo de copia de seguridad de una sesión anterior. Si existe, entonces se te preguntará si deseas restaurarlo de inmediato:
 
 ``` { .txt .no-copy }
 It looks like you already have a backup from a previous session:
@@ -63,17 +63,17 @@ It looks like you already have a backup from a previous session:
 Do you want to restore this now? [y/n]
 ```
 
-Enter ++y+enter++ to restore your data from this backup file, or ++n+enter++ to leave the backup file alone and work from fresh (none of your previous work will be restored). 
+Ingresa ++y+enter++ para restaurar tus datos desde este archivo de copia de seguridad, o ++n+enter++ para dejar el archivo de copia de seguridad tal como está y trabajar desde cero (no se restaurará ninguno de tu trabajo anterior). 
 
-## Re-Launching the Environment
+## Volver a Lanzar el Entorno
 
-As discussed above, the WSL-ROS2 environment is not preserved on the university managed desktops indefinitely. If you log back in to the same machine within a few hours however, then it may still be there, and you'll be presented with the following message when you launch it:
+Como se discutió anteriormente, el entorno WSL-ROS2 no se conserva en las computadoras del laboratorio indefinidamente. Sin embargo, si vuelves a iniciar sesión en la misma máquina dentro de unas pocas horas, es posible que todavía esté allí, y se te presentará el siguiente mensaje cuando lo lances:
 
 <figure markdown>
   ![](../figures/resume.png){width=700px}
 </figure>
 
-Enter ++y+enter++ to continue where you left things previously, or ++n+enter++ to start from a fresh installation.
+Ingresa ++y+enter++ para continuar donde dejaste las cosas anteriormente, o ++n+enter++ para comenzar desde una instalación nueva.
 
 !!! warning
-    If you select ++n++ then any work that you have created in the existing environment will be deleted! Always make sure you back up your work using [the procedure outlined above](#backing-up-and-restoring-your-data)!
+    ¡Si seleccionas ++n++ entonces cualquier trabajo que hayas creado en el entorno existente será eliminado! ¡Siempre asegúrate de hacer una copia de seguridad de tu trabajo usando [el procedimiento descrito anteriormente](#hacer-copia-de-seguridad-y-restaurar-tus-datos)!

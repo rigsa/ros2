@@ -1,118 +1,118 @@
 ---  
-title: "Waffle (& ROS) Basics"  
+title: "Waffle (& ROS) Básico"  
 ---
 
-# Waffle (& ROS) Basics
+# Waffle (& ROS) Básico
 
-Having completed the steps on [the previous page](./launching-ros.md), your robot and laptop should now be paired, and ROS should be up and running (on the robot). Now, you're ready to bring the robot to life! 
+Habiendo completado los pasos de [la página anterior](./launching-ros.md), tu robot y laptop ya deben estar emparejados y ROS debe estar en funcionamiento (en el robot). ¡Ahora estás listo para darle vida al robot!
 
-On this page are a series of exercises for you to work through, to see how the robots work. We'll also talk through some core ROS concepts and use some key ROS tools, in case you haven't had a chance to explore these in simulation yet.
+En esta página encontrarás una serie de ejercicios para trabajar, ver cómo funcionan los robots, explorar algunos conceptos fundamentales de ROS y utilizar herramientas clave de ROS, en caso de que aún no hayas tenido la oportunidad de explorarlas en simulación.
 
-### Quick Links
+### Enlaces Rápidos
 
-* [Exercise 1: Making the Robot Move](#exMove)
-* [Exercise 2: Seeing the Sensors in Action](#exViz)
-* [Exercise 3: Visualising the ROS Network](#exNet)
-* [Exercise 4: Exploring ROS Topics and Interfaces](#exTopicMsg)
-* [Exercise 5: A Python Velocity Control Node](#exSimpleVelCtrl)
-* [Exercise 6: Using SLAM to create a map of the environment](#exSlam)
+* [Ejercicio 1: Hacer que el Robot se Mueva](#exMove)
+* [Ejercicio 2: Ver los Sensores en Acción](#exViz)
+* [Ejercicio 3: Visualizar la Red de ROS](#exNet)
+* [Ejercicio 4: Explorar Topics e Interfaces de ROS](#exTopicMsg)
+* [Ejercicio 5: Un Nodo de Control de Velocidad en Python](#exSimpleVelCtrl)
+* [Ejercicio 6: Usar SLAM para crear un mapa del entorno](#exSlam)
 
-## Manual Control
+## Control Manual
 
-#### :material-pen: Exercise 1: Making the Robot Move {#exMove}
+#### :material-pen: Ejercicio 1: Hacer que el Robot se Mueva {#exMove}
 
-There's a very useful ready-made ROS application called `teleop_keyboard` (from the `turtlebot3_teleop` package) that we will use to drive a Waffle around. This node works in exactly the same way in both simulation and in the real-world!
+Existe una aplicación ROS ya lista muy útil llamada `teleop_keyboard` (del paquete `turtlebot3_teleop`) que usaremos para conducir un Waffle. ¡Este nodo funciona exactamente de la misma manera tanto en simulación como en el mundo real!
 
-1. You should already have two terminal instances active:
+1. Ya deberías tener dos instancias de terminal activas:
 
-    * **TERMINAL 1**: The *robot* terminal with the *"bringup"* processes running ([Launching ROS, Step 3](./launching-ros.md#step3))
-    * **TERMINAL 2**: The *laptop* terminal with the `rmw_zenohd` node running ([Launching ROS, Step 4](./launching-ros.md#step4))
+    * **TERMINAL 1**: La terminal del *robot* con los procesos de *"bringup"* en ejecución ([Lanzando ROS, Paso 3](./launching-ros.md#step3))
+    * **TERMINAL 2**: La terminal de la *laptop* con el nodo `rmw_zenohd` en ejecución ([Lanzando ROS, Paso 4](./launching-ros.md#step4))
 
-1. Open up a new terminal instance on the laptop either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon, we'll refer to this as **TERMINAL 3**. In this terminal enter the following `ros2 run` command to fire up the `teleop_keyboard` node:
+1. Abre una nueva instancia de terminal en la laptop usando el atajo de teclado ++ctrl+alt+t++ o haciendo clic en el ícono de la aplicación Terminal; la llamaremos **TERMINAL 3**. En esta terminal, ingresa el siguiente comando `ros2 run` para iniciar el nodo `teleop_keyboard`:
 
     ```bash
     ros2 run turtlebot3_teleop teleop_keyboard
     ```
     
-1. Follow the instructions provided in the terminal to drive the robot around using specific buttons on the keyboard:
+1. Sigue las instrucciones que aparecen en la terminal para conducir el robot utilizando teclas específicas del teclado:
 
     <figure markdown>
       ![](../images/cli/teleop_keymap.svg)
     </figure>
 
     !!! warning 
-        Take care to avoid any obstacles or other people in the lab as you do this!
+        ¡Ten cuidado de evitar obstáculos y otras personas en el laboratorio mientras haces esto!
 
-2. Once you've spent a bit of time on this, close the application down by entering ++ctrl+c++ in **TERMINAL 3**.
+2. Una vez que hayas pasado un tiempo con esto, cierra la aplicación ingresando ++ctrl+c++ en **TERMINAL 3**.
 
-## Packages and Nodes
+## Paquetes y Nodos
 
-ROS applications are organised into *packages*. Packages are basically folders containing scripts, configurations and launch files (ways to launch those scripts and configurations).  
+Las aplicaciones ROS se organizan en *paquetes*. Los paquetes son básicamente carpetas que contienen scripts, configuraciones y archivos de lanzamiento (formas de iniciar esos scripts y configuraciones).
 
-*Scripts* tell the robot what to do and how to act. In ROS, these scripts are called *nodes*. *ROS Nodes* are executable programs that perform specific robot tasks and operations. These are typically written in C++ or Python, but it's possible to write ROS Nodes using other programming languages too.
+Los *scripts* le indican al robot qué hacer y cómo actuar. En ROS, estos scripts se llaman *nodos*. Los *Nodos de ROS* son programas ejecutables que realizan tareas y operaciones específicas del robot. Típicamente están escritos en C++ o Python, aunque también es posible escribir Nodos de ROS en otros lenguajes de programación.
 
-There are two key ways to launch ROS applications:
+Hay dos formas principales de lanzar aplicaciones ROS:
 
 1. `ros2 launch`
 1. `ros2 run`
 
-Recall that we just used the `ros2 run` command in Exercise 1 to launch the `teleop_keyboard` node. This command has the following structure:
+Recuerda que acabamos de usar el comando `ros2 run` en el Ejercicio 1 para lanzar el nodo `teleop_keyboard`. Este comando tiene la siguiente estructura:
 
 ``` { .bash .no-copy }
-ros2 run {[1] Package name} {[2] Node name}
+ros2 run {[1] Nombre del paquete} {[2] Nombre del nodo}
 ```    
 
-**Part [1]** specifies the name of the *ROS package* containing the functionality that we want to execute. **Part [2]** is used to specify a *single* script within that package that we want to execute. We therefore use `ros2 run` commands to launch **single** executables (aka *Nodes*) onto the ROS network (in Exercise 1 for example, we launched the `teleop_keyboard` node).
+La **Parte [1]** especifica el nombre del *paquete de ROS* que contiene la funcionalidad que queremos ejecutar. La **Parte [2]** se usa para especificar un *único* script dentro de ese paquete que queremos ejecutar. Por lo tanto, usamos comandos `ros2 run` para lanzar **ejecutables individuales** (también conocidos como *Nodos*) en la red ROS (en el Ejercicio 1, por ejemplo, lanzamos el nodo `teleop_keyboard`).
 
-The `ros2 launch` command has a *similar* structure:
+El comando `ros2 launch` tiene una estructura *similar*:
 
 ``` { .bash .no-copy }
-ros2 launch {[1] Package name} {[2] Launch file}
+ros2 launch {[1] Nombre del paquete} {[2] Archivo de lanzamiento}
 ```
 
-Here, **Part [1]** is the same as the `ros2 run` command, but **Part [2]** is slightly different: `{[2] Launch file}`. In this case, **Part [2]** is a file within that package that specifies any number of Nodes that we want to launch onto the ROS network. We can therefore launch *multiple* nodes at the same time from a single launch file.
+Aquí, la **Parte [1]** es igual que en el comando `ros2 run`, pero la **Parte [2]** es ligeramente diferente: `{[2] Archivo de lanzamiento}`. En este caso, la **Parte [2]** es un archivo dentro de ese paquete que especifica cualquier número de Nodos que queremos lanzar en la red ROS. Por lo tanto, podemos lanzar *múltiples* nodos al mismo tiempo desde un único archivo de lanzamiento.
 
-## Sensors & Visualisation Tools
+## Sensores y Herramientas de Visualización
 
-Our Waffles have some pretty sophisticated sensors on them, allowing them to "see" the world around them. Let's now see what our robot sees, using some handy ROS tools.
+Nuestros Waffles tienen sensores bastante sofisticados que les permiten "ver" el mundo a su alrededor. Ahora veamos lo que nuestro robot percibe, usando algunas herramientas útiles de ROS.
 
-#### :material-pen: Exercise 2: Seeing the Sensors in Action {#exViz}
+#### :material-pen: Ejercicio 2: Ver los Sensores en Acción {#exViz}
 
-1. There shouldn't be anything running in **TERMINAL 3** now, after you closed down the `teleop_keyboard` node (using ++ctrl+c++) at the end of the previous exercise. Return to this terminal and enter the following command:
+1. No debería haber nada ejecutándose en **TERMINAL 3** ahora, después de que cerraste el nodo `teleop_keyboard` (usando ++ctrl+c++) al final del ejercicio anterior. Regresa a esta terminal e ingresa el siguiente comando:
 
     ```bash
     ros2 launch tuos_tb3_tools rviz.launch.py
     ```
     
-    This will launch an application called *RViz*, which is a handy tool that allows us to *visualise* the data from all the sensors on-board our robots. When RViz opens, you should see something similar to the following:
+    Esto lanzará una aplicación llamada *RViz*, una herramienta muy útil que nos permite *visualizar* los datos de todos los sensores a bordo de nuestros robots. Cuando RViz se abra, deberías ver algo similar a lo siguiente:
 
     <figure markdown>
       ![](../images/laptops/waffle_rviz.png){width=700px}
     </figure>
 
-    Click on the checkbox next to *"Camera"* in the *"Displays"* list to enable camera subscription. A live feed from the robot's camera should then be displayed in the *Camera* panel in the bottom left.
+    Haz clic en la casilla junto a *"Camera"* en la lista de *"Displays"* para habilitar la suscripción a la cámara. Luego debería aparecer una transmisión en vivo de la cámara del robot en el panel *Camera* en la parte inferior izquierda.
     
-1. In the main RViz panel you should see a digital model of the robot, surrounded by lots of green dots. This is a representation of the *laser displacement data* coming from the LiDAR sensor (the black device on the top of the robot). The LiDAR sensor spins continuously, sending out laser pulses into the environment as it does so. When a pulse hits an object it is reflected back to the sensor, and the time it takes for this to happen is used to calculate how far away the object is.
+1. En el panel principal de RViz deberías ver un modelo digital del robot, rodeado por muchos puntos verdes. Esta es una representación de los *datos de desplazamiento láser* provenientes del sensor LiDAR (el dispositivo negro en la parte superior del robot). El sensor LiDAR gira continuamente, enviando pulsos láser al entorno mientras lo hace. Cuando un pulso alcanza un objeto, se refleja de vuelta al sensor, y el tiempo que tarda este proceso se usa para calcular a qué distancia está el objeto.
     
-    The LiDAR sensor spins and performs this process continuously, so a full 360&deg; scan of the environment can be generated. This data is therefore really useful for things like *obstacle avoidance* and *mapping*.
+    El sensor LiDAR gira y realiza este proceso de forma continua, por lo que se puede generar un escaneo completo de 360&deg; del entorno. Por lo tanto, estos datos son muy útiles para cosas como *evasión de obstáculos* y *mapeo*.
 
-1. Place your hand in front of the robot and see if the position of the green dots changes to match your hand's location. Move your hand up and down and consider at what height the LiDAR sensor is able to detect it.
+1. Coloca tu mano frente al robot y observa si la posición de los puntos verdes cambia para coincidir con la ubicación de tu mano. Mueve tu mano hacia arriba y hacia abajo y considera a qué altura el sensor LiDAR puede detectarla.
 
-1. Then, move your hand closer and further away and watch how the green dots move to match this. 
+1. Luego, acerca y aleja tu mano y observa cómo los puntos verdes se mueven para reflejar esto.
 
-1. Open up a new terminal instance (**TERMINAL 4**) and launch the `teleop_keyboard` node as you did in Exercise 1. Watch how the data in the RViz screen changes as you drive the robot around a bit.
+1. Abre una nueva instancia de terminal (**TERMINAL 4**) y lanza el nodo `teleop_keyboard` como lo hiciste en el Ejercicio 1. Observa cómo cambian los datos en la pantalla de RViz mientras conduces el robot.
 
-#### :material-pen: Exercise 3: Visualising the ROS Network {#exNet}
+#### :material-pen: Ejercicio 3: Visualizar la Red de ROS {#exNet}
 
-Using `ros2 run` and `ros2 launch`, as we have done so far, it's easy to end up with a lot of different processes or *ROS Nodes* running on the network, some of which we will interact with, but others may just be running in the background. It is often useful to know exactly what *is* running on the ROS network, and there are a few ways to do this.
+Al usar `ros2 run` y `ros2 launch` como hemos hecho hasta ahora, es fácil terminar con muchos procesos o *Nodos de ROS* diferentes ejecutándose en la red, algunos de los cuales interactuaremos con ellos, pero otros pueden simplemente estar ejecutándose en segundo plano. A menudo es útil saber exactamente qué *está* ejecutándose en la red ROS, y hay varias formas de hacer esto.
 
-1. Open up a new terminal instance now (**TERMINAL 5**) and from here use the `ros2 node` command to *list* the nodes that are currently running:
+1. Abre una nueva instancia de terminal ahora (**TERMINAL 5**) y desde aquí usa el comando `ros2 node` para *listar* los nodos que están ejecutándose actualmente:
 
     ```bash
     ros2 node list
     ```
     
-    At a *minimum*, you should be presented with the following list: 
+    Como *mínimo*, deberías ver la siguiente lista: 
     
     ``` { .txt .no-copy }
     /camera
@@ -123,74 +123,74 @@ Using `ros2 run` and `ros2 launch`, as we have done so far, it's easy to end up 
     /turtlebot3_node
     ```
 
-2. We can visualise the connections between the active nodes by using a ROS node called `rqt_graph`. In the same terminal, launch this as follows:
+2. Podemos visualizar las conexiones entre los nodos activos usando un nodo de ROS llamado `rqt_graph`. En la misma terminal, inícialo de la siguiente manera:
 
     ```bash
     rqt
     ```
     
-    A window should then open:
+    Debería abrirse una ventana:
 
     <figure markdown>
       ![](../images/rqt/main.png){width=600}
     </figure>
 
-1. From here, we then want to load the *Node Graph* plugin. From the top menu select `Plugins` > `Introspection` > `Node Graph`.
+1. Desde aquí, queremos cargar el plugin *Node Graph*. En el menú superior selecciona `Plugins` > `Introspection` > `Node Graph`.
 
-    ??? tip "Shortcut"
-        You can also launch the `rqt_graph` node directly with `ros2 run`:
+    ??? tip "Atajo"
+        También puedes lanzar el nodo `rqt_graph` directamente con `ros2 run`:
         
         ```bash
         ros2 run rqt_graph rqt_graph
         ```
 
-1. In the window that opens, select `Nodes/Topics (active)` from the dropdown menu in the top left. 
+1. En la ventana que se abre, selecciona `Nodes/Topics (active)` en el menú desplegable de la parte superior izquierda.
 
-    What you should then see is a map of all the nodes in the list from above (as ovals), and arrows to illustrate the flow of information between them. This is a visual representation of the ROS network!
+    Lo que deberías ver entonces es un mapa de todos los nodos de la lista anterior (como óvalos) y flechas que ilustran el flujo de información entre ellos. ¡Esta es una representación visual de la red ROS!
 
     <figure markdown>
       ![](../images/rqt/graph_waffle.png){width=600px}
     </figure>
     
-    Items that have a rectangular border are *ROS Topics*. ROS Topics are essentially communication channels, and ROS Nodes can read (*subscribe*) or write (*publish*) to these topics to access sensor data, pass information around the network and make things happen.
+    Los elementos con borde rectangular son *ROS Topics*. Los ROS Topics son esencialmente canales de comunicación, y los Nodos de ROS pueden leer (*suscribirse*) o escribir (*publicar*) en estos topics para acceder a datos de sensores, pasar información por la red y hacer que sucedan cosas.
 
-    If the `teleop_keyboard` Node is still active (in **TERMINAL 4**) then the graph should show us that this node is publishing messages to a topic called `/cmd_vel`, which in turn is being subscribed to by `turtlebot3_node`. 
+    Si el Nodo `teleop_keyboard` aún está activo (en **TERMINAL 4**), el gráfico debería mostrarnos que este nodo está publicando mensajes en un topic llamado `/cmd_vel`, al cual a su vez se suscribe `turtlebot3_node`.
 
     <figure markdown>
       ![](../images/rqt/graph_waffle_teleop.png){width=600px}
     </figure>
 
-    This node runs on the robot and controls its velocity. We send instructions to this (by publishing to the `/cmd_vel` topic) to actually make the robot move.
+    Este nodo se ejecuta en el robot y controla su velocidad. Le enviamos instrucciones (publicando en el topic `/cmd_vel`) para hacer que el robot se mueva.
 
-A ROS Robot could have hundreds of individual nodes running simultaneously to carry out all its necessary operations and actions. Each node runs independently, but uses *ROS communication methods* to communicate and share data with the other nodes on the ROS Network.
+Un Robot ROS podría tener cientos de nodos individuales ejecutándose simultáneamente para llevar a cabo todas sus operaciones y acciones necesarias. Cada nodo se ejecuta de forma independiente, pero utiliza *métodos de comunicación de ROS* para comunicarse y compartir datos con los demás nodos en la Red ROS.
 
-## Publishers and Subscribers: A *ROS Communication Method* 
+## Publishers y Subscribers: Un *Método de Comunicación de ROS*
 
-ROS Topics are therefore key to making things happen on a robot. Nodes can publish (*write*) and/or subscribe to (*read*) ROS Topics in order to share data around the ROS network. Data is published to topics via *message-type interfaces*.
+Los ROS Topics son fundamentales para hacer que las cosas sucedan en un robot. Los Nodos pueden publicar (*escribir*) y/o suscribirse (*leer*) a ROS Topics para compartir datos en la red ROS. Los datos se publican en los topics a través de *interfaces de tipo mensaje*.
 
-Let's have a look at this in a bit more detail...
+Veamos esto con un poco más de detalle...
 
-#### :material-pen: Exercise 4: Exploring ROS Topics and Interfaces {#exTopicMsg}
+#### :material-pen: Ejercicio 4: Explorar Topics e Interfaces de ROS {#exTopicMsg}
 
-Much like the `ros2 node list` command, we can use `ros2 topic list` to list all the *topics* that are currently active on the ROS network.
+Al igual que el comando `ros2 node list`, podemos usar `ros2 topic list` para listar todos los *topics* que están actualmente activos en la red ROS.
 
-1. Close down the RQT Graph window if you haven't done so already. This will release **TERMINAL 5** so that we can enter commands in it again. Return to this terminal window and enter the following:
+1. Cierra la ventana de RQT Graph si aún no lo has hecho. Esto liberará **TERMINAL 5** para que podamos ingresar comandos en ella nuevamente. Regresa a esta ventana de terminal e ingresa lo siguiente:
 
     ```bash
     ros2 topic list
     ```
     
-    A new list of items should be printed to the terminal now. See if you can spot the `/cmd_vel` item in the list.
+    Ahora debería imprimirse una nueva lista de elementos en la terminal. Intenta identificar el elemento `/cmd_vel` en la lista.
     
-    As we learnt above, this topic is used to control the velocity of the robot (*'command velocity'*).
+    Como aprendimos antes, este topic se usa para controlar la velocidad del robot (*'velocidad de comando'*).
 
-1. Let's find out more about this using the `ros2 topic info` command.
+1. Obtengamos más información sobre esto usando el comando `ros2 topic info`.
 
     ```bash
     ros2 topic info /cmd_vel
     ```
     
-    This should provide an output similar to the following: 
+    Esto debería proporcionar una salida similar a la siguiente: 
     
     ``` { .txt .no-copy }
     Type: geometry_msgs/msg/TwistStamped
@@ -198,23 +198,23 @@ Much like the `ros2 node list` command, we can use `ros2 topic list` to list all
     Subscription count: 1
     ```
 
-    This tells us that the *type* of data being communicated on the `/cmd_vel` topic is called: `geometry_msgs/msg/TwistStamped`. 
+    Esto nos dice que el *tipo* de datos que se comunican en el topic `/cmd_vel` se llama: `geometry_msgs/msg/TwistStamped`.
     
-    The interface description has three parts:
+    La descripción de la interfaz tiene tres partes:
 
-    1. `geometry_msgs`: The name of the ROS package that this interface belongs to.
-    1. `msg`: The type of interface. In this case *message*, but there are other types too. 
-    1. `TwistStamped`: The name of the message interface. 
+    1. `geometry_msgs`: El nombre del paquete de ROS al que pertenece esta interfaz.
+    1. `msg`: El tipo de interfaz. En este caso *mensaje*, pero también hay otros tipos.
+    1. `TwistStamped`: El nombre de la interfaz de mensaje.
 
-    We have just learnt then, that if we want to make the robot move we need to publish `TwistStamped` *messages* to the `/cmd_vel` topic. 
+    Así, acabamos de aprender que si queremos hacer que el robot se mueva, necesitamos publicar mensajes `TwistStamped` en el topic `/cmd_vel`.
 
-1. We can use the `ros2 interface` command to find out more about the `TwistStamped` message:
+1. Podemos usar el comando `ros2 interface` para obtener más información sobre el mensaje `TwistStamped`:
 
     ```bash
     ros2 interface show geometry_msgs/msg/TwistStamped
     ```
     
-    From this, we should obtain the following:
+    Con esto deberíamos obtener lo siguiente:
 
     ``` { .txt .no-copy }
     std_msgs/Header header
@@ -233,33 +233,33 @@ Much like the `ros2 node list` command, we can use `ros2 topic list` to list all
                     float64 z
     ```
 
-    Here we have a list of fields, subfields and data types. The interface has two *base fields* (indicated by the lines that are not indented):
+    Aquí tenemos una lista de campos, subcampos y tipos de datos. La interfaz tiene dos *campos base* (indicados por las líneas que no están indentadas):
 
     <center>
 
-    | # | Field *Name* | Field *Type* |
+    | # | *Nombre* del Campo | *Tipo* del Campo |
     | :---: | :---: | :---: |
     | 1 | `header` | `std_msgs/Header` |
     | 2 | `twist` | `Twist` |
     
     </center>
     
-    Of the above, we're most interested in *Field 2*, which contains a further two subfields: 
+    De los anteriores, nos interesa principalmente el *Campo 2*, que contiene dos subcampos adicionales:
     
     <center>
 
-    | # | Field *Name* | Field *Type* |
+    | # | *Nombre* del Campo | *Tipo* del Campo |
     | :---: | :---: | :---: |
     | 1 | `linear` | `Vector3` |
     | 2 | `angular` | `Vector3` |
     
     </center>
 
-    Each of *these* contains 3 *further* subfields: `x`, `y` and `z`:
+    Cada uno de *estos* contiene 3 *subcampos adicionales*: `x`, `y` y `z`:
 
     <center>
 
-    | # | Field Name | Data Type |
+    | # | Nombre del Campo | Tipo de Dato |
     | :---: | :---: | :---: |
     | 1 | `x` | `float64` |
     | 2 | `y` | `float64` |
@@ -267,73 +267,73 @@ Much like the `ros2 node list` command, we can use `ros2 topic list` to list all
 
     </center>
 
-    Let's find out what this all means...
+    Veamos qué significa todo esto...
 
-## Velocity Control
+## Control de Velocidad
 
-The motion of any mobile robot can be defined in terms of its three *principal axes*: `X`, `Y` and `Z`. In the context of our TurtleBot3 Waffle, these axes (and the motion about them) are defined as follows:
+El movimiento de cualquier robot móvil puede definirse en términos de sus tres *ejes principales*: `X`, `Y` y `Z`. En el contexto de nuestro TurtleBot3 Waffle, estos ejes (y el movimiento en torno a ellos) se definen de la siguiente manera:
 
 <figure markdown>
   ![](../images/waffle/principal_axes.svg){width=600}
 </figure>
 
-In theory then, a robot can move *linearly* or *angularly* about any of these three axes, as shown by the arrows in the figure. That's six *Degrees of Freedom* (DOFs) in total, achieved based on a robot's design and the actuators it is equipped with. Take a look back at the `ros2 interface show` output above. Hopefully it's a bit clearer now that the `twist` subfield of the `TwistStamped` interface is formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
+En teoría, un robot puede moverse *linealmente* o *angularmente* en cualquiera de estos tres ejes, como se muestra con las flechas en la figura. Eso son seis *Grados de Libertad* (GDL) en total, logrados según el diseño del robot y los actuadores con que cuenta. Vuelve a mirar la salida de `ros2 interface show` mostrada anteriormente. Esperamos que ahora quede más claro que el subcampo `twist` de la interfaz `TwistStamped` está formateado para darle a un programador de ROS la capacidad de *pedirle* a un robot que se mueva en cualquiera de sus seis GDL.
 
 ``` { .txt .no-copy }
 Vector3  linear
-        float64 x  <-- Forwards (or Backwards)
-        float64 y  <-- Left (or Right)
-        float64 z  <-- Up (or Down)
+        float64 x  <-- Adelante (o Atrás)
+        float64 y  <-- Izquierda (o Derecha)
+        float64 z  <-- Arriba (o Abajo)
 Vector3  angular
-        float64 x  <-- "Roll"
-        float64 y  <-- "Pitch"
-        float64 z  <-- "Yaw"
+        float64 x  <-- "Balanceo" (Roll)
+        float64 y  <-- "Cabeceo" (Pitch)
+        float64 z  <-- "Guiñada" (Yaw)
 ```
 
-Our TurtleBot3 robot only has two motors, so it doesn't actually have six DOFs! The two motors can be controlled independently, which gives it what is called a *"differential drive"* configuration, but this still only allows it to move with **two degrees of freedom** in total, as illustrated below.
+¡Nuestro robot TurtleBot3 solo tiene dos motores, por lo que en realidad no tiene seis GDL! Los dos motores pueden controlarse de forma independiente, lo que le da lo que se llama una configuración de *"tracción diferencial"*, pero aun así solo le permite moverse con **dos grados de libertad** en total, como se ilustra a continuación.
 
 <figure markdown>
   ![](../images/waffle/velocities.svg){width=600}
 </figure>
 
-It can therefore only move **linearly** in the **x-axis** (*Forwards/Backwards*) and **angularly** in the **z-axis** (*Yaw*). 
+Por lo tanto, solo puede moverse **linealmente** en el **eje x** (*Adelante/Atrás*) y **angularmente** en el **eje z** (*Guiñada*).
 
-#### :material-pen: Exercise 5: A Python Velocity Control Node {#exSimpleVelCtrl}
+#### :material-pen: Ejercicio 5: Un Nodo de Control de Velocidad en Python {#exSimpleVelCtrl}
 
 !!! important
-    Before you start this, make sure you have nothing running in **TERMINALS** **3**, **4** & **5** (enter ++ctrl+c++ in each of these terminals to stop any processes that may be running there).
+    Antes de comenzar, asegúrate de que no haya nada ejecutándose en **TERMINAL 3**, **4** ni **5** (ingresa ++ctrl+c++ en cada una de estas terminales para detener cualquier proceso que pueda estar ejecutándose allí).
 
-As we've seen, making a robot move with ROS is simply a case of publishing the right data (`geometry_msgs/msg/TwistStamped`) to the right ROS Topic (`/cmd_vel`). Earlier we used the `teleop_keyboard` node to drive the robot around, a bit like a remote control car. In the background here all that was really happening was that the node was converting our keyboard button presses into velocity commands and publishing these to the `/cmd_vel` topic.
+Como hemos visto, hacer que un robot se mueva con ROS es simplemente publicar los datos correctos (`geometry_msgs/msg/TwistStamped`) en el topic de ROS correcto (`/cmd_vel`). Anteriormente usamos el nodo `teleop_keyboard` para conducir el robot, un poco como un auto de control remoto. En el fondo, lo que realmente ocurría era que el nodo convertía las pulsaciones de teclas del teclado en comandos de velocidad y los publicaba en el topic `/cmd_vel`.
 
-In reality, robots need to be able to navigate complex environments autonomously, which is quite a difficult task, and requires us to build bespoke applications. We can build these applications using Python, and we'll look at the core concepts behind this now by building a simple node that will allow us to make our robot a bit more "autonomous". What we will do here forms the basis of the more complex applications that you will learn about in the lab course!
+En la realidad, los robots necesitan ser capaces de navegar entornos complejos de forma autónoma, lo cual es una tarea bastante difícil y requiere que construyamos aplicaciones a medida. Podemos construir estas aplicaciones usando Python, y veremos los conceptos fundamentales detrás de esto ahora, construyendo un nodo simple que le permitirá a nuestro robot ser un poco más "autónomo". ¡Lo que haremos aquí forma la base de las aplicaciones más complejas que aprenderás durante el curso de laboratorio!
 
-1. Above, we talked about how ROS Nodes should be contained within packages, so let's create one now using a helper script that we've already put together. (This is covered in more detail in the ROS course, but for the purposes of this exercise let's just go ahead and run the script without worrying too much about it!)
+1. Anteriormente hablamos de cómo los Nodos de ROS deben estar contenidos dentro de paquetes, así que creemos uno ahora usando un script auxiliar que ya hemos preparado. (Esto se cubre con más detalle en el curso de ROS, pero para los propósitos de este ejercicio, simplemente ejecuta el script sin preocuparte demasiado por él.)
 
-    In **TERMINAL 3**, navigate to *the ROS2 Workspace* on the laptop:
+    En **TERMINAL 3**, navega al *Espacio de Trabajo de ROS2* en la laptop:
 
     ```bash
     cd ~/ros2_ws/src/
     ```
 
-1. From here, use `git` to *clone* our *"ROS 2 Package Template"* from GitHub:
+1. Desde aquí, usa `git` para *clonar* nuestra *"Plantilla de Paquete ROS 2"* desde GitHub:
 
     ```bash
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
     
-1. This package template contains a script called `init_pkg.sh`, which can be called to turn the template into a proper ROS 2 package. Run the script as follows, which will convert the template into a ROS 2 package called `waffle_demo`:
+1. Esta plantilla de paquete contiene un script llamado `init_pkg.sh`, que puede ejecutarse para convertir la plantilla en un paquete de ROS 2 real. Ejecuta el script de la siguiente manera, lo que convertirá la plantilla en un paquete de ROS 2 llamado `waffle_demo`:
 
     ```bash
     ./ros2_pkg_template/init_pkg.sh waffle_demo
     ```
 
-1. Navigate into this new package directory (using `cd`):
+1. Navega al directorio de este nuevo paquete (usando `cd`):
 
     ```bash
     cd waffle_demo/ 
     ```
 
-1. This package contains a subdirectory called `scripts`, and within this there are two basic nodes to get us started:
+1. Este paquete contiene un subdirectorio llamado `scripts`, y dentro de él hay dos nodos básicos para comenzar:
 
     ```bash
     tree scripts/
@@ -344,23 +344,23 @@ In reality, robots need to be able to navigate complex environments autonomously
     └── stop_me.py
     ```
 
-1. Let's open up our package now in *Visual Studio Code* (VS Code). 
+1. Abramos nuestro paquete ahora en *Visual Studio Code* (VS Code).
 
     ```bash
     code .
     ```
 
     !!! note
-        Don't forget to include the `.` at the end there, it's important!!
+        ¡No olvides incluir el `.` al final, es importante!
 
     
-1. Next, in the VS Code file explorer, open up the `scripts` directory, find the `basic_velocity_control.py` file and click it to open it up in the editor.
+1. A continuación, en el explorador de archivos de VS Code, abre el directorio `scripts`, encuentra el archivo `basic_velocity_control.py` y haz clic en él para abrirlo en el editor.
 
     <a name="timedSquareCode"></a>
 
-    This is a (fairly) basic ROS 2 Python Node that will control the velocity of the robot. Let's talk through it:
+    Este es un Nodo Python de ROS 2 (bastante) básico que controlará la velocidad del robot. Analicemos su contenido:
     
-    1. First, we have some imports:
+    1. Primero, tenemos algunas importaciones:
 
         ``` { .py .no-copy }
         import rclpy # (1)!
@@ -368,25 +368,25 @@ In reality, robots need to be able to navigate complex environments autonomously
         import time # (3)!
         ```
 
-        1. `rclpy` is the ROS client library for Python. We need this so that our Python node can interact with ROS.
-        2. We know from earlier that in order to make a robot move we need to publish messages to the `/cmd_vel` topic, and that this topic uses a data structure (or Interface) called `geometry_msgs/msg/TwistStamped`. This is how we import the interface into our Python node so that we can create velocity commands for our robot (which we'll get to shortly...)
-        3. We'll use this to control timing in our node.
+        1. `rclpy` es la biblioteca cliente de ROS para Python. La necesitamos para que nuestro nodo Python pueda interactuar con ROS.
+        2. Sabemos de antes que para hacer que un robot se mueva necesitamos publicar mensajes en el topic `/cmd_vel`, y que este topic usa una estructura de datos (o Interfaz) llamada `geometry_msgs/msg/TwistStamped`. Así es como importamos la interfaz a nuestro nodo Python para poder crear comandos de velocidad para nuestro robot (a lo cual llegaremos en breve...).
+        3. Usaremos esto para controlar el tiempo en nuestro nodo.
 
-        Click on the :material-plus-circle: icons above to reveal more information about each line of the code.
+        Haz clic en los íconos :material-plus-circle: para revelar más información sobre cada línea del código.
 
-    1. Next, we declare some variables that we can use and adapt during the main execution of our code:
+    1. Luego, declaramos algunas variables que podemos usar y adaptar durante la ejecución principal de nuestro código:
 
         ``` { .py .no-copy }
         state = 1 # (1)!
         vel = TwistStamped() # (2)!
         ```
 
-        1. Inside the `#!py while` loop (explained shortly) we define two different operational states for the robot, and we can control which one is active by changing this value from `1` to `2` (and visa-versa).
-        2. We're instantiating a `TwistStamped` Interface message here and calling it `vel`. We'll assign velocity values to this in the `#!py while` loop later on.
+        1. Dentro del bucle `#!py while` (explicado en breve) definimos dos estados operativos diferentes para el robot, y podemos controlar cuál está activo cambiando este valor de `1` a `2` (y viceversa).
+        2. Aquí estamos instanciando un mensaje de Interfaz `TwistStamped` y lo llamamos `vel`. Le asignaremos valores de velocidad en el bucle `#!py while` más adelante.
             
-            Recall that a `TwistStamped` message contains six different components that we can assign values to. [Which *two* are relevant to our robot](#velocity-control)?
+            Recuerda que un mensaje `TwistStamped` contiene seis componentes diferentes a los que podemos asignar valores. [¿Cuáles *dos* son relevantes para nuestro robot?](#control-de-velocidad)
 
-    1. Next we configure some important ROS-related things:
+    1. Luego configuramos algunas cosas importantes relacionadas con ROS:
 
         ``` { .py .no-copy }
         rclpy.init(args=None) # (1)!
@@ -394,19 +394,19 @@ In reality, robots need to be able to navigate complex environments autonomously
         vel_pub = node.create_publisher(TwistStamped, "cmd_vel", 10)  # (3)!
         ```
 
-        1. Initialise `rclpy` and all the ROS communications that are necessary for our node. 
-        2. Initialise this Python script as an actual ROS node, providing a name for it to be registered on the ROS network with ("basic_velocity_control" in this case).
-        3. Here we're setting up a publisher to the `/cmd_vel` topic so that the node can send velocity commands to the robot (using `TwistStamped` data).
+        1. Inicializa `rclpy` y todas las comunicaciones de ROS necesarias para nuestro nodo.
+        2. Inicializa este script Python como un nodo de ROS real, proporcionando un nombre con el que se registrará en la red ROS ("basic_velocity_control" en este caso).
+        3. Aquí configuramos un publisher al topic `/cmd_vel` para que el nodo pueda enviar comandos de velocidad al robot (usando datos `TwistStamped`).
 
-    1. After this, we're defining another variable:
+    1. Después de esto, definimos otra variable:
 
         ``` { .py .no-copy }
         timestamp = node.get_clock().now().nanoseconds # (1)!
         ```
 
-        1. What time is it right now? This tells us the current "ROS Time" (in nanoseconds), which will be useful to compare against in the while loop.
+        1. ¿Qué hora es ahora mismo? Esto nos indica el "Tiempo de ROS" actual (en nanosegundos), que será útil para comparar en el bucle while.
 
-    1. Now, we enter into a `#!py while` loop, which is where our code will spend the majority of its time once it's up and running:
+    1. Ahora entramos en un bucle `#!py while`, donde nuestro código pasará la mayor parte de su tiempo una vez que esté en funcionamiento:
 
         ``` { .py .no-copy }
         while rclpy.ok(): # (1)!
@@ -417,15 +417,15 @@ In reality, robots need to be able to navigate complex environments autonomously
 
         ```
 
-        1. This returns `#!py True` as long as the node is alive, so all the code inside the `#!py while` loop will continue to execute as long as this is the case.
-        2. What time is it *now*? Check the time at the start of each iteration of the `#!py while` loop, and assign this to a variable called `time_now`.
-        3. Determine how much time has elapsed (in seconds) since the `timestamp` was last updated.
+        1. Esto retorna `#!py True` mientras el nodo esté activo, por lo que todo el código dentro del bucle `#!py while` continuará ejecutándose mientras esto sea así.
+        2. ¿Qué hora es *ahora*? Verifica el tiempo al inicio de cada iteración del bucle `#!py while` y asígnalo a una variable llamada `time_now`.
+        3. Determina cuánto tiempo ha transcurrido (en segundos) desde que se actualizó por última vez el `timestamp`.
 
         <a name="break"></a>
 
-        1. An `#!py if` statement now controls the state of operation for our robot. 
+        1. Una sentencia `#!py if` controla ahora el estado de operación de nuestro robot.
             
-            1. In state `1` we set velocities that will make the robot move forwards (linear X velocity only) for a certain amount of time and then stop. How long will the robot move forwards for, and at what velocity?
+            1. En el estado `1` establecemos velocidades que harán que el robot se mueva hacia adelante (solo velocidad lineal en X) durante cierta cantidad de tiempo y luego se detenga. ¿Cuánto tiempo se moverá el robot hacia adelante y a qué velocidad?
 
                 ``` { .py .no-copy }
                 if state == 1: 
@@ -439,14 +439,14 @@ In reality, robots need to be able to navigate complex environments autonomously
                         timestamp = node.get_clock().now().nanoseconds # (6)!
                 ```
 
-                1. If the elapsed time is less than 2 seconds...
-                2. Set a linear velocity so that the robot will move forwards.
-                3. If the elapsed time has *exceeded* 2 seconds...
-                4. Set our robot's velocities to `0.0` to make it stop.
-                5. In the next loop iteration, go into state 2 instead.
-                6. Reset the timestamp to start counting up again. 
+                1. Si el tiempo transcurrido es menor a 2 segundos...
+                2. Establece una velocidad lineal para que el robot se mueva hacia adelante.
+                3. Si el tiempo transcurrido ha *superado* los 2 segundos...
+                4. Establece las velocidades del robot a `0.0` para que se detenga.
+                5. En la siguiente iteración del bucle, pasa al estado 2.
+                6. Reinicia el timestamp para empezar a contar de nuevo.
 
-            2. In state `2` we set velocities that will make the robot turn on the spot (angular Z velocity only) for a certain amount of time and then stop. How long will it do this for, and at what velocity?
+            2. En el estado `2` establecemos velocidades que harán que el robot gire en el lugar (solo velocidad angular en Z) durante cierta cantidad de tiempo y luego se detenga. ¿Cuánto tiempo lo hará y a qué velocidad?
                 
                 ``` { .py .no-copy }
                 elif state == 2:
@@ -460,14 +460,14 @@ In reality, robots need to be able to navigate complex environments autonomously
                         timestamp = node.get_clock().now().nanoseconds # (6)!
                 ```
 
-                1. While the elapsed time is less than 4 seconds...
-                2. Apply an angular velocity to the robot to make it turn on the spot.
-                3. Once the elapsed time has *exceeded* 4 seconds...
-                4. Set the robot's velocities back to `0.0` to make it stop.
-                5. In the next loop iteration, go back into state 1 again (moving forwards).
-                6. Reset the timestamp to start counting up once more. 
+                1. Mientras el tiempo transcurrido sea menor a 4 segundos...
+                2. Aplica una velocidad angular al robot para que gire en el lugar.
+                3. Una vez que el tiempo transcurrido haya *superado* los 4 segundos...
+                4. Regresa las velocidades del robot a `0.0` para que se detenga.
+                5. En la siguiente iteración del bucle, regresa al estado 1 (avanzar).
+                6. Reinicia el timestamp una vez más.
 
-        1. And after the `#!py if` statement:
+        1. Y después de la sentencia `#!py if`:
 
             ``` { .py .no-copy }
             node.get_logger().info( # (1)!
@@ -479,88 +479,88 @@ In reality, robots need to be able to navigate complex environments autonomously
             vel_pub.publish(vel) # (2)!
             ```
 
-            1. This (and the following 5 lines) will print a message to the terminal, to provide us with regular updates on what state the node is currently in and what velocities have been set (in the `#!py if` statement above).
-            2. This line is crucial: this operation actual publishes the velocity commands to the `/cmd_vel` topic, to make the robot actual act on our instructions.
+            1. Esto (y las siguientes 5 líneas) imprimirá un mensaje en la terminal para proporcionarnos actualizaciones regulares sobre en qué estado se encuentra actualmente el nodo y qué velocidades se han establecido (en la sentencia `#!py if` anterior).
+            2. Esta línea es crucial: esta operación publica los comandos de velocidad en el topic `/cmd_vel` para que el robot actúe en base a nuestras instrucciones.
 
-                Regardless of what happens in the `if` states above, we *always* publish a velocity command to the `/cmd_vel` topic here (every loop iteration).
+                Independientemente de lo que ocurra en los estados del `if` anteriores, *siempre* publicamos un comando de velocidad en el topic `/cmd_vel` aquí (en cada iteración del bucle).
 
 
-1. We're now ready to build our package so that we can run it. We use a tool called "Colcon" to do this, but this **MUST** be run from the root of the ROS 2 Workspace (i.e.: `~/ros2_ws/`), so let's navigate there now using `cd`. Head back to **TERMINAL 3** and run the following:
+1. Ahora estamos listos para compilar nuestro paquete y poder ejecutarlo. Usamos una herramienta llamada "Colcon" para esto, pero **DEBE** ejecutarse desde la raíz del Espacio de Trabajo de ROS 2 (es decir, `~/ros2_ws/`), así que naveguemos allí ahora usando `cd`. Regresa a **TERMINAL 3** y ejecuta lo siguiente:
 
     ```bash
     cd ~/ros2_ws/ 
     ```
 
-    Then, use the `colcon build` command to build your package:
+    Luego, usa el comando `colcon build` para compilar tu paquete:
 
     ```bash
     colcon build --packages-select waffle_demo --symlink-install
     ```
     
-    And finally, "re-source" the environment:
+    Y finalmente, "recarga" el entorno:
 
     ```bash
     source ~/.bashrc
     ```
     
-1. Now we can run the code.
+1. Ahora podemos ejecutar el código.
 
     !!! note
-        Make sure the robot is on the floor and has enough room to roam around before you do this!
+        ¡Asegúrate de que el robot esté en el suelo y tenga suficiente espacio para moverse antes de hacer esto!
     
     ``` { .bash .no-copy }
     ros2 run waffle_demo basic_velocity_control.py
     ```
     
-    Observe what the robot does. When you've seen enough, enter ++ctrl+c++ to stop the node.
+    Observa qué hace el robot. Cuando hayas visto suficiente, ingresa ++ctrl+c++ para detener el nodo.
 
     !!! warning
-        The robot will continue to move even after you've stopped the node! Run the following command to stop it:
+        ¡El robot continuará moviéndose incluso después de que hayas detenido el nodo! Ejecuta el siguiente comando para detenerlo:
         
         ```bash
         ros2 run waffle_demo stop_me.py
         ```
     
-5. Now it's time to **adapt the code**:
+5. Ahora es el momento de **adaptar el código**:
     
-    The aim here is to make the robot follow a square motion path. What you may have observed when you actually ran the code is that the robot doesn't actually do that! We're using a time-based approach to make the robot switch between two different states continuously:
+    El objetivo aquí es hacer que el robot siga una trayectoria cuadrada. Lo que puede que hayas observado al ejecutar el código es que el robot ¡en realidad no hace eso! Estamos usando un enfoque basado en tiempo para que el robot alterne entre dos estados diferentes de forma continua:
     
-    1. Moving forwards
-    2. Turning on the spot
+    1. Avanzando hacia adelante
+    2. Girando en el lugar
     
-    Have a look at the code to work out how much time the robot will currently spend in each state.
+    Observa el código para determinar cuánto tiempo pasará el robot actualmente en cada estado.
     
-    We want the robot to follow a **0.5m x 0.5m square** motion path.  In order to properly achieve this you'll need to adjust the timings, or the robot's velocity, or both. Edit the code so that the robot actually follows a **0.5m x 0.5m square motion path**!
+    Queremos que el robot siga una trayectoria cuadrada de **0.5m x 0.5m**. Para lograrlo correctamente tendrás que ajustar los tiempos, la velocidad del robot, o ambos. ¡Edita el código para que el robot siga realmente una **trayectoria cuadrada de 0.5m x 0.5m**!
 
 ## SLAM
 
-Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is built into ROS. Using data from the robot's LiDAR sensor, plus knowledge of how far the robot has moved[^odom] a robot is able to create a map of its environment *and* keep track of its location within that environment at the same time. In the exercise that follows you'll see how easy it is to implement SLAM with the Waffle.  
+El Mapeo y Localización Simultáneos (SLAM, por sus siglas en inglés: *Simultaneous Localisation and Mapping*) es una sofisticada herramienta integrada en ROS. Usando datos del sensor LiDAR del robot, más el conocimiento de cuánto se ha movido el robot[^odom], un robot es capaz de crear un mapa de su entorno *y* mantener un seguimiento de su ubicación dentro de ese entorno al mismo tiempo. En el ejercicio que sigue verás lo fácil que es implementar SLAM con el Waffle.
 
-[^odom]: You'll learn much more about "Robot Odometry" in the lab course.
+[^odom]: Aprenderás mucho más sobre "Odometría del Robot" en el curso de laboratorio.
 
-#### :material-pen: Exercise 6: Using SLAM to create a map of the environment {#exSlam}
+#### :material-pen: Ejercicio 6: Usar SLAM para crear un mapa del entorno {#exSlam}
 
-1. In **TERMINAL 3** enter the following command to launch all the necessary SLAM nodes:
+1. En **TERMINAL 3** ingresa el siguiente comando para lanzar todos los nodos de SLAM necesarios:
 
     ```bash
     ros2 launch tuos_tb3_tools slam.launch.py environment:=real
     ```
     
     ??? tip
-        On the laptop, this command is also available as an alias: `tb3_slam`!
+        ¡En la laptop, este comando también está disponible como un alias: `tb3_slam`!
 
-    This will launch a new RViz instance, showing a top-down view of the environment, and dots of various colours representing the real-time LiDAR data. 
+    Esto lanzará una nueva instancia de RViz, mostrando una vista aérea del entorno y puntos de varios colores que representan los datos en tiempo real del LiDAR.
     
     <figure markdown>
       ![](../images/waffle/slam_step0.png){width=600px}
     </figure>
 
-    SLAM will already have begun processing this data to start building a map of the boundaries that are currently visible to the Waffle based on its location in the environment.
+    SLAM ya habrá comenzado a procesar estos datos para empezar a construir un mapa de los límites actualmente visibles para el Waffle según su ubicación en el entorno.
 
-1. Return to **TERMINAL 4** now and launch the `teleop_keyboard` node. Start to drive the robot around *slowly* and *carefully* to build up a complete map of the area.
+1. Regresa ahora a **TERMINAL 4** y lanza el nodo `teleop_keyboard`. Comienza a conducir el robot *despacio* y *con cuidado* para construir un mapa completo del área.
     
     !!! tip
-        It's best to do this slowly and perform multiple circuits of the area to build up a more accurate map.
+        Es mejor hacerlo despacio y realizar múltiples circuitos del área para construir un mapa más preciso.
 
     <a name="slam-steps"></a>
 
@@ -570,51 +570,51 @@ Simultaneous Localisation and Mapping (SLAM) is a sophisticated tool that is bui
       ![](../images/waffle/slam_step3.png){width=500px}
     </figure>
 
-1. Once you're happy that your robot has built up a good map of its environment, you can save this map using the `map_saver_cli` node from a package called `nav2_map_server`:
+1. Una vez que estés satisfecho con el mapa que ha construido tu robot de su entorno, puedes guardarlo usando el nodo `map_saver_cli` del paquete `nav2_map_server`:
 
-    1. First, create a new directory within your ROS package on the laptop. Return to **TERMINAL 5** and navigate to the root of the `waffle_demo` package that you created earlier:
+    1. Primero, crea un nuevo directorio dentro de tu paquete de ROS en la laptop. Regresa a **TERMINAL 5** y navega a la raíz del paquete `waffle_demo` que creaste anteriormente:
 
         ```bash
         cd ~/ros2_ws/src/waffle_demo
         ```
         
-    1. Create a directory in here called `maps`: 
+    1. Crea un directorio aquí llamado `maps`: 
         
         ```bash
         mkdir maps
         ```
         
-    1. Navigate into this directory:
+    1. Navega a este directorio:
 
         ```bash
         cd maps/
         ```
         
-    1. Then, use `ros2 run` to run the `map_saver_cli` node and save a copy of your robot's map:
+    1. Luego, usa `ros2 run` para ejecutar el nodo `map_saver_cli` y guardar una copia del mapa de tu robot:
 
         ``` { .bash .no-copy }
-        ros2 run nav2_map_server map_saver_cli -f MAP_NAME
+        ros2 run nav2_map_server map_saver_cli -f NOMBRE_MAPA
         ```
         
-        Replacing `MAP_NAME` with an appropriate name for your map. This will create two files: 
+        Reemplaza `NOMBRE_MAPA` con un nombre apropiado para tu mapa. Esto creará dos archivos:
         
-        1. a `MAP_NAME.pgm` 
-        2. a `MAP_NAME.yaml` file
+        1. un `NOMBRE_MAPA.pgm` 
+        2. un archivo `NOMBRE_MAPA.yaml`
         
-        ...both of which contain data related to the map that you have just created.
+        ...ambos contienen datos relacionados con el mapa que acabas de crear.
 
-    1. The `.pgm` file can be opened using an application called `eog` on the laptop: 
+    1. El archivo `.pgm` se puede abrir usando una aplicación llamada `eog` en la laptop:
     
         ``` { .bash .no-copy }
-        eog MAP_NAME.pgm
+        eog NOMBRE_MAPA.pgm
         ```
         
-1. Return to **TERMINAL 3** and close down SLAM by pressing ++ctrl+c++. The process should stop and RViz should close down.
+1. Regresa a **TERMINAL 3** y cierra SLAM presionando ++ctrl+c++. El proceso debería detenerse y RViz debería cerrarse.
 
-1. Close down the `teleop_keyboard` node in **TERMINAL 4** as well, if that's still running.
+1. Cierra también el nodo `teleop_keyboard` en **TERMINAL 4**, si aún está en ejecución.
 
-## Next Steps
+## Próximos Pasos
 
-Having mastered the basics, you should ensure you review some **[Essential Considerations](./essentials.md)** before you go much further on this course; these will highlight some challenges students commonly face when working with the robots Indeed, being aware of these early on can make a huge difference and save a lot of head scratching in the lab! 
+Habiendo dominado los conceptos básicos, debes asegurarte de revisar algunas **[Consideraciones Esenciales](./essentials.md)** antes de avanzar mucho más en este curso; estas destacarán algunos desafíos que los estudiantes enfrentan comúnmente al trabajar con los robots. Conocerlos con anticipación puede marcar una gran diferencia y ahorrarte muchos dolores de cabeza en el laboratorio.
 
-... and when you're all done with your robot at the end of each lab session, make sure you **[power it off properly](./shutdown.md)**. 
+... y cuando hayas terminado con tu robot al final de cada sesión de laboratorio, asegúrate de **[apagarlo correctamente](./shutdown.md)**.

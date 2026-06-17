@@ -1,61 +1,61 @@
 ---  
-title: "Part 2: Odometry & Navigation"  
-description: Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle. 
+title: "Parte 2: Odometría y Navegación"  
+description: Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto en lazo abierto como en lazo cerrado a un Waffle. 
 ---
 
-## Introduction
+## Introducción
 
-:material-pen: **Exercises**: 6  
-:material-timer: **Estimated Completion Time**: 3 hours  
-:material-gauge: **Difficulty Level**: Intermediate  
+:material-pen: **Ejercicios**: 6  
+:material-timer: **Tiempo Estimado de Completación**: 3 horas  
+:material-gauge: **Nivel de Dificultad**: Intermedio  
 
-### Aims
+### Objetivos
 
-In Part 2 we'll learn how to control a ROS robot's **position** and **velocity** from both the command line and through ROS Nodes. We'll also learn how to interpret the data that allows us to monitor a robot's position in its physical environment (odometry).  The things covered here form the basis of robot navigation in ROS, from simple open-loop methods to more advanced closed-loop control (both of which we will explore).
+En la Parte 2 aprenderemos cómo controlar la **posición** y la **velocidad** de un robot ROS tanto desde la línea de comandos como mediante Nodes de ROS. También aprenderemos a interpretar los datos que nos permiten monitorear la posición de un robot en su entorno físico (odometría). Los temas cubiertos aquí forman la base de la navegación de robots en ROS, desde métodos simples de lazo abierto hasta control en lazo cerrado más avanzado (ambos los exploraremos).
 
-### Intended Learning Outcomes
+### Resultados de Aprendizaje Esperados
 
-By the end of this session you will be able to:
+Al finalizar esta sesión serás capaz de:
 
-1. Interpret the Odometry data published by a ROS Robot and identify the parts of these interface messages that are relevant to a 2-wheeled differential drive robot (such as the TurtleBot3 Waffle).
-1. Develop Python nodes to obtain Odometry data from an active ROS network and *translate* this into useful information about a robot's *pose* in a convenient, human-readable way.
-1. Implement *open-loop velocity control* of a robot using ROS command-line tools.
-1. Develop Python nodes that use open-loop velocity control methods to make a robot follow a pre-defined motion path.
-1. Combine both publisher *&* subscriber communication methods into a single Python node to implement closed-loop (odometry-based) velocity control of a robot.
-1. Explain the limitations of Odometry-based motion control methods. 
+1. Interpretar los datos de Odometría publicados por un Robot ROS e identificar las partes de estos mensajes de interfaz que son relevantes para un robot de accionamiento diferencial de dos ruedas (como el TurtleBot3 Waffle).
+1. Desarrollar nodes de Python para obtener datos de Odometría desde una red ROS activa y *traducir* esto en información útil sobre la *pose* de un robot de forma conveniente y legible para humanos.
+1. Implementar *control de velocidad en lazo abierto* de un robot usando herramientas de línea de comandos de ROS.
+1. Desarrollar nodes de Python que usen métodos de control de velocidad en lazo abierto para hacer que un robot siga una trayectoria de movimiento predefinida.
+1. Combinar los métodos de comunicación de publisher *y* subscriber en un único node de Python para implementar control de velocidad en lazo cerrado (basado en odometría) de un robot.
+1. Explicar las limitaciones de los métodos de control de movimiento basados en Odometría. 
 
-### Quick Links
+### Enlaces Rápidos
 
-#### Exercises
+#### Ejercicios
 
-* [Exercise 1: Exploring Odometry Data](#ex1)
-* [Exercise 2: Creating a Python Node to Process Odometry Data](#ex2)
-* [Exercise 3: Controlling Velocity with the ROS 2 CLI](#ex3)
-* [Exercise 4: Creating a Python Node to Make a Robot Move in a circle](#ex4)
-* [Exercise 5: Implementing a Shutdown Procedure](#ex5)
-* [Exercise 6: Making our Robot Follow a Square Motion Path](#ex6)
+* [Ejercicio 1: Explorando los Datos de Odometría](#ex1)
+* [Ejercicio 2: Creando un Node de Python para Procesar Datos de Odometría](#ex2)
+* [Ejercicio 3: Controlando la Velocidad con el CLI de ROS 2](#ex3)
+* [Ejercicio 4: Creando un Node de Python para Hacer que un Robot Se Mueva en Círculo](#ex4)
+* [Ejercicio 5: Implementando un Procedimiento de Apagado](#ex5)
+* [Ejercicio 6: Haciendo que Nuestro Robot Siga una Trayectoria Cuadrada](#ex6)
 
-#### Additional Resources
+#### Recursos Adicionales
 
-* [An Odometry Subscriber Node](./part2/odom_subscriber.md){target="_blank"}
-* [A Simple Velocity Control Node (Move Circle)](./part2/move_circle.md){target="_blank"}
-* [Odometry-based Navigation (Move Square)](./part2/move_square.md){target="_blank"}
+* [Un Node Subscriber de Odometría](./part2/odom_subscriber.md){target="_blank"}
+* [Un Node Simple de Control de Velocidad (Move Circle)](./part2/move_circle.md){target="_blank"}
+* [Navegación Basada en Odometría (Move Square)](./part2/move_square.md){target="_blank"}
 
-## Getting Started
+## Primeros Pasos
 
-**Step 1: Launch your ROS 2 Environment**
+**Paso 1: Inicia tu Entorno ROS 2**
 
-If you haven't done so already, launch your ROS environment now:
+Si aún no lo has hecho, inicia tu entorno ROS ahora:
 
-1. **WSL-ROS2 on a university managed desktop**: follow [the instructions here to launch it](../software/using-wsl-ros/man-win.md).
-1. **[Running WSL-ROS2 on your own machine](../software/installing-wsl-ros2.md)**: launch the Windows Terminal to access a WSL-ROS2 terminal instance.
-1. **Docker Users**: follow [the instructions](../software/docker-ros2.md).
+1. **WSL-ROS2 en una computadora del laboratorio**: sigue [las instrucciones aquí para iniciarlo](../software/using-wsl-ros/man-win.md).
+1. **[Ejecutando WSL-ROS2 en tu propia máquina](../software/installing-wsl-ros2.md)**: inicia el Terminal de Windows para acceder a una instancia de terminal WSL-ROS2.
+1. **Usuarios de Docker**: sigue [las instrucciones](../software/docker-ros2.md).
 
-You should now have access to ROS 2 via a Linux terminal instance. We'll refer to this terminal instance as **TERMINAL 1**.
+Ahora deberías tener acceso a ROS 2 a través de una instancia de terminal Linux. Nos referiremos a esta instancia de terminal como **TERMINAL 1**.
 
-**Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)**
+**Paso 2: Restaura tu trabajo (SOLO Usuarios de Escritorio Administrado WSL-ROS2)**
 
-Remember that [any work that you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers](../software/using-wsl-ros/man-win.md#backing-up-and-restoring-your-data). At [the end of Part 1](./part1.md#backup) you should have run the `wsl_ros` tool to back up your home directory to your University `U:\` Drive. Once WSL-ROS2 is up and running, you should be prompted to restore this:
+Recuerda que [cualquier trabajo que realices dentro del Entorno WSL-ROS2 no se conservará entre sesiones o en diferentes computadoras del laboratorio](../software/using-wsl-ros/man-win.md#backing-up-and-restoring-your-data). Al [final de la Parte 1](./part1.md#backup) deberías haber ejecutado la herramienta `wsl_ros` para respaldar tu directorio home en tu Unidad `U:\`. Una vez que WSL-ROS2 esté funcionando, se te pedirá que lo restaures:
 
 ``` { .txt .no-copy }
 It looks like you already have a backup from a previous session:
@@ -63,80 +63,80 @@ It looks like you already have a backup from a previous session:
 Do you want to restore this now? [y/n]
 ```
 
-Enter ++y+enter++ to restore your work from last time. You can also restore your work at any time using the following command:
+Ingresa ++y+enter++ para restaurar tu trabajo de la última vez. También puedes restaurar tu trabajo en cualquier momento usando el siguiente comando:
 
 ```bash
 wsl_ros restore
 ```
 
-**Step 3: Launch VS Code** 
+**Paso 3: Inicia VS Code** 
 
-It's also worth launching VS Code now, so that it's ready to go for when you need it later on. 
+También vale la pena iniciar VS Code ahora, para que esté listo cuando lo necesites más adelante. 
 
-??? warning "WSL Users..."
+??? warning "Usuarios de WSL..."
         
-    It's important to launch VS Code within your WSL environment using the "WSL" extension. Always remember to check for this:
+    Es importante iniciar VS Code dentro de tu entorno WSL usando la extensión "WSL". Recuerda siempre verificar esto:
 
     <figure markdown>
       ![](../software/figures/code-wsl-ext-on.svg){width=400px}
     </figure>
 
-**Step 4: Make Sure The Course Repo is Up-To-Date**
+**Paso 4: Asegúrate de que el Repositorio del Curso Esté Actualizado**
 
 <a name="course-repo"></a>
 
-In Part 1 you should have [downloaded and installed The Course Repo](./part1.md#course-repo) into your ROS environment. If you haven't done this yet then go back and do it now. If you *have* already done it, then it's worth just making sure it's all up-to-date, so run the following command in **TERMINAL 1** now to do so:
+En la Parte 1 deberías haber [descargado e instalado el Repositorio del Curso](./part1.md#course-repo) en tu entorno ROS. Si aún no lo has hecho, regresa y hazlo ahora. Si *ya* lo hiciste, vale la pena asegurarse de que esté actualizado, así que ejecuta el siguiente comando en **TERMINAL 1** ahora:
 
 ```bash
 cd ~/ros2_ws/src/tuos_ros/ && git pull
 ```
 
-Then build with Colcon: 
+Luego compila con Colcon: 
 
 ```bash
 cd ~/ros2_ws/ && colcon build --packages-up-to tuos_ros
 ```
 
-And finally, re-source your environment:
+Y finalmente, recarga tu entorno:
 
 ```bash
 source ~/.bashrc
 ```
 
 !!! warning
-    If you have any other terminal instances open, then you'll need run `source ~/.bashrc` in these too, in order for any changes made by the Colcon build process to propagate through to these as well.
+    Si tienes otras instancias de terminal abiertas, deberás ejecutar `source ~/.bashrc` en estas también, para que cualquier cambio realizado por el proceso de compilación de Colcon se propague a estas.
 
-**Step 5: Launch a Waffle Simulation**
+**Paso 5: Inicia una Simulación Waffle**
 
-In **TERMINAL 1** enter the following command to launch a simulation of a TurtleBot3 Waffle in an empty world:  
+En **TERMINAL 1** ingresa el siguiente comando para iniciar una simulación de un TurtleBot3 Waffle en un mundo vacío:  
         
 ```bash
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
 
-A Gazebo simulation window should open and within this you should see a TurtleBot3 Waffle in empty space:
+Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver un TurtleBot3 Waffle en espacio vacío:
 
 <figure markdown>
   ![](../images/gz/tb3_empty_world_mid.png){width=700px}
 </figure>
 
-## ROS Topics and Interfaces (from Part 1)
+## Topics e Interfaces de ROS (de la Parte 1)
 
-In Part 1 we learnt about ROS Topics, and about how the `teleop_keyboard` node could be used to publish messages to a particular topic in order to control the velocity of the robot (and thus change its *position*).
+En la Parte 1 aprendimos sobre los Topics de ROS, y sobre cómo el node `teleop_keyboard` puede usarse para publicar mensajes a un topic particular con el fin de controlar la velocidad del robot (y así cambiar su *posición*).
 
-!!! question "Questions"
-    1. Which *topic* is used to control the velocity of the robot?
-    1. What *interface* does this topic use?
+!!! question "Preguntas"
+    1. ¿Qué *topic* se usa para controlar la velocidad del robot?
+    1. ¿Qué *interfaz* usa este topic?
 
-    [Return here if you need a reminder on how to find the answers to these questions](./part1.md#ex3).
+    [Regresa aquí si necesitas un recordatorio sobre cómo encontrar las respuestas a estas preguntas](./part1.md#ex3).
 
-Recall that Topics are key to making things happen on a robot: data is passed between the Nodes on a ROS network via Topics using standardised data structures called Message Interfaces, allowing each of these nodes to make decisions and perform necessary tasks to bring the robot to life.
+Recuerda que los Topics son clave para hacer que las cosas sucedan en un robot: los datos se transmiten entre los Nodes en una red ROS a través de Topics usando estructuras de datos estandarizadas llamadas Interfaces de Mensajes, lo que permite a cada uno de estos nodes tomar decisiones y realizar las tareas necesarias para dar vida al robot.
 
-Having investigated the `/cmd_vel` topic in Part 1, let's have a look at another topic now: `/odom`, and consider what the information here means, and what it's used for.
+Habiendo investigado el topic `/cmd_vel` en la Parte 1, veamos ahora otro topic: `/odom`, y consideremos qué significa la información aquí y para qué se usa.
 
-## Odometry {#odometry}
+## Odometría {#odometry}
 
-Odometry is a process of monitoring a robot's *position* and *orientation* in an environment, which (as we'll learn) is essential for robot navigation. The position and orientation of a robot is referred to as its *pose*. A robot's pose is 3-dimensional, and is therefore defined in terms of three *"Principal Axes"*: `X`, `Y` and `Z`. In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:
+La Odometría es un proceso de monitoreo de la *posición* y *orientación* de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su *pose*. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres *"Ejes Principales"*: `X`, `Y` y `Z`. En el contexto de nuestros TurtleBot3 Waffles, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:
 
 <a name="principal-axes"></a>
 
@@ -144,124 +144,124 @@ Odometry is a process of monitoring a robot's *position* and *orientation* in an
   ![](../images/waffle/principal_axes.svg){width=800}
 </figure>
 
-Not all the above positions and orientations apply to our Waffles, and we'll explore this further below.
+No todas las posiciones y orientaciones anteriores aplican a nuestros Waffles, y exploraremos esto más adelante.
 
-### Odometry In Action
+### La Odometría en Acción
 
-Recall from Part 1 the command that we can use to list *all* the topics that are available on our robot:
+Recuerda de la Parte 1 el comando que podemos usar para listar *todos* los topics disponibles en nuestro robot:
 
 ```bash
 ros2 topic list
 ```
 
-You should see `/odom` in this list, which is where our robot's Odometry data is published. Run the `ros2 topic` command again, but this time with an additional `-t` option:
+Deberías ver `/odom` en esta lista, que es donde se publican los datos de Odometría de nuestro robot. Ejecuta el comando `ros2 topic` nuevamente, pero esta vez con una opción adicional `-t`:
 
 ```bash
 ros2 topic list -t
 ```
 
-Look for `/odom` again in the list, and you will *now* notice that the interface definition is provided in square brackets alongside the topic name:
+Busca `/odom` nuevamente en la lista, y *ahora* notarás que la definición de interfaz se proporciona entre corchetes junto al nombre del topic:
 
 ``` { .txt .no-copy }
 /odom [nav_msgs/msg/Odometry]
 ```
 
-!!! question "Questions"
-    1. What package does this interface belong to?
-    1. What *type* of interface is it?
-    1. What is its name?
+!!! question "Preguntas"
+    1. ¿A qué package pertenece esta interfaz?
+    1. ¿Qué *tipo* de interfaz es?
+    1. ¿Cuál es su nombre?
 
-    [See here for a reminder on how to interpret an interface definition](./part1.md#msg-interface-struct).
+    [Ve aquí para un recordatorio sobre cómo interpretar una definición de interfaz](./part1.md#msg-interface-struct).
 
-Having established the data structure, let's explore the actual data now, using `rqt`.
+Habiendo establecido la estructura de datos, exploremos los datos reales ahora, usando `rqt`.
 
-#### :material-pen: Exercise 1: Exploring Odometry Data {#ex1}
+#### :material-pen: Ejercicio 1: Explorando los Datos de Odometría {#ex1}
 
-1. In a new terminal instance (**TERMINAL 2**) use the following command to launch the *RQT Topic Monitor*:
+1. En una nueva instancia de terminal (**TERMINAL 2**) usa el siguiente comando para iniciar el *Monitor de Topics RQT*:
 
     ```bash
     ros2 run rqt_topic rqt_topic 
     ```
 
-    *Topic Monitor* should launch with a list of active topics matching the topic list from the `ros2 topic list` command that you ran earlier.
+    El *Monitor de Topics* debería iniciarse con una lista de topics activos que coincidan con la lista de topics del comando `ros2 topic list` que ejecutaste anteriormente.
 
-1. Check the box next to `/odom` and click the arrow next to it to expand the topic and reveal four *base fields*.
+1. Marca la casilla junto a `/odom` y haz clic en la flecha junto a él para expandir el topic y revelar cuatro *campos base*.
 
-1. Expand the `pose` field, and then the further `pose` field within that. This should reveal two further fields: **`position`** and **`orientation`**. 
+1. Expande el campo `pose`, y luego el campo `pose` adicional dentro de él. Esto debería revelar dos campos adicionales: **`position`** y **`orientation`**. 
 
-    Expand both of these to reveal the data being published to the *three* position (`x`, `y` and `z`) and *four* orientation (`x`, `y`, `z` and `w`) values.
+    Expande ambos para revelar los datos que se publican en los *tres* valores de posición (`x`, `y` y `z`) y los *cuatro* valores de orientación (`x`, `y`, `z` y `w`).
 
     <figure markdown>
       ![](../images/rqt/topic_monitor.png){width=600}
     </figure>
 
-1. Next, launch a new terminal instance, we'll call this one **TERMINAL 3**. Arrange this next to the `rqt` window, so that you can see them both side-by-side.
+1. A continuación, inicia una nueva instancia de terminal, la llamaremos **TERMINAL 3**. Colócala junto a la ventana de `rqt`, para que puedas verlas ambas una al lado de la otra.
 
-1. In **TERMINAL 3** launch the `teleop_keyboard` node [as you did in Part 1](./part1.md#teleop): <a name="teleop"></a>
+1. En **TERMINAL 3** inicia el node `teleop_keyboard` [como lo hiciste en la Parte 1](./part1.md#teleop): <a name="teleop"></a>
 
     ```bash
     ros2 run turtlebot3_teleop teleop_keyboard
     ```
 
-1. Enter ++a++ a couple of times to make the robot rotate on the spot. Observe how the odometry data changes in Topic Monitor.
+1. Presiona ++a++ un par de veces para hacer que el robot rote en el lugar. Observa cómo cambian los datos de odometría en el Monitor de Topics.
 
     !!! question
-        Which `pose` fields are changing?
+        ¿Qué campos de `pose` están cambiando?
 
-1. Now press the ++s++ key to halt the robot, then press ++w++ a couple of times to make the robot drive forwards.
-
-    !!! question
-        Which `pose` fields are changing *now*? How does this relate to the position of the robot in the simulated world?
-
-1. Now press ++d++ a couple of times and your robot should start to move in a circle.
+1. Ahora presiona la tecla ++s++ para detener el robot, luego presiona ++w++ un par de veces para hacer que el robot avance.
 
     !!! question
-        What's happening with the `pose` data now? How is this data changing as your robot moves in a circular path.
+        ¿Qué campos de `pose` están cambiando *ahora*? ¿Cómo se relaciona esto con la posición del robot en el mundo simulado?
+
+1. Ahora presiona ++d++ un par de veces y tu robot debería comenzar a moverse en círculo.
+
+    !!! question
+        ¿Qué está pasando con los datos de `pose` ahora? ¿Cómo están cambiando estos datos mientras tu robot se mueve en una trayectoria circular?
     
-1. Press ++s++ in **TERMINAL 3** to stop the robot (but leave the `teleop_keyboard` node running).  Then, press ++ctrl+c++ in **TERMINAL 2** to close down `rqt`. 
+1. Presiona ++s++ en **TERMINAL 3** para detener el robot (pero deja corriendo el node `teleop_keyboard`). Luego, presiona ++ctrl+c++ en **TERMINAL 2** para cerrar `rqt`. 
 
-1. Let's look at the Odometry data differently now. With the robot stationary, use `ros2 run` (in **TERMINAL 2**) to run a Python node from the `tuos_examples` package: 
+1. Veamos los datos de Odometría de otra manera ahora. Con el robot estacionario, usa `ros2 run` (en **TERMINAL 2**) para ejecutar un node de Python del package `tuos_examples`: 
 
     ```bash
     ros2 run tuos_examples robot_pose.py
     ```
         
-1. Now (using the `teleop_keyboard` node in **TERMINAL 3**) drive your robot around again, keeping an eye on the outputs that are being printed by the `robot_pose.py` node in **TERMINAL 2** as you do so.
+1. Ahora (usando el node `teleop_keyboard` en **TERMINAL 3**) conduce tu robot de nuevo, prestando atención a las salidas que imprime el node `robot_pose.py` en **TERMINAL 2** mientras lo haces.
 
-    The output of the `robot_pose.py` node shows you how the robot's *position* and *orientation* (i.e. *"pose"*) are changing in real-time as you move the robot around. The `"initial"` column tells us the robot's pose when the node was first launched, and the `"current"` column show us what its pose currently is. The `"delta"` column then shows the difference between the two.
+    La salida del node `robot_pose.py` te muestra cómo la *posición* y *orientación* (es decir, *"pose"*) del robot están cambiando en tiempo real mientras mueves el robot. La columna `"initial"` nos indica la pose del robot cuando el node se inició por primera vez, y la columna `"current"` nos muestra cuál es su pose actualmente. La columna `"delta"` muestra entonces la diferencia entre ambas.
     
     !!! question
-        Which pose parameters *haven't* changed, and is this what you would expect (considering [the robot's principal axes, as illustrated above](#principal-axes))?
+        ¿Qué parámetros de pose *no* han cambiado, y ¿es esto lo que esperarías (considerando [los ejes principales del robot, como se ilustra arriba](#principal-axes))?
     
-1. Press ++ctrl+c++ in **TERMINAL 2** and **TERMINAL 3**, to stop the `robot_pose.py` and `teleop_keyboard` nodes. 
+1. Presiona ++ctrl+c++ en **TERMINAL 2** y **TERMINAL 3**, para detener los nodes `robot_pose.py` y `teleop_keyboard`. 
 
-### Odometry Explained
+### La Odometría Explicada
 
-Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again. IN **TERMINAL 2**:
+Esperamos que estés empezando a entender qué es la Odometría ahora, pero profundicemos un poco más usando algunas herramientas clave de la línea de comandos de ROS nuevamente. En **TERMINAL 2**:
 
 ```bash
 ros2 topic info /odom
 ```
 
-This provides information about the interface used by this topic:
+Esto proporciona información sobre la interfaz usada por este topic:
 
 ``` { .txt .no-copy }
 Type: nav_msgs/msg/Odometry
 ```
 
-We can find out more about this interface using the `ros2 interface show` command:
+Podemos obtener más información sobre esta interfaz usando el comando `ros2 interface show`:
 
 ```bash
 ros2 interface show nav_msgs/msg/Odometry
 ```
 
-Look down the far left-hand side to identify the four *base fields* of the interface (the fields that are not indented):
+Mira a lo largo del lado izquierdo para identificar los cuatro *campos base* de la interfaz (los campos que no tienen sangría):
 
 <a name="odom-base-fields"></a>
 
 <center>
 
-| # | Field *Name* | Field *Type* |
+| # | *Nombre* del Campo | *Tipo* del Campo |
 | :---: | :---: | :---: |
 | 1 | `header` | `std_msgs/Header` |
 | 2 | `child_frame_id` | `string` |
@@ -270,7 +270,7 @@ Look down the far left-hand side to identify the four *base fields* of the inter
 
 </center>
 
-We saw all these in `rqt` earlier. As before, its item 3 that's of most interest to us...
+Vimos todos estos en `rqt` anteriormente. Como antes, es el elemento 3 el que más nos interesa...
 
 #### Pose
 
@@ -290,22 +290,22 @@ geometry_msgs/PoseWithCovariance pose
         float64[36] covariance
 ```
 
-Within the `pose` base field we have two subfields: `pose` and `covariance`:
+Dentro del campo base `pose` tenemos dos subcampos: `pose` y `covariance`:
 
 <center>
 
-| # | Field *Name* | Field *Type* |
+| # | *Nombre* del Campo | *Tipo* del Campo |
 | :---: | :---: | :---: |
 | **1** | **`pose`** | **`Pose`** |
 | 2 | `covariance` | `float64[36]` |
 
 </center>
 
-It's the `pose` subfield that we're most interested in here, which contains two *further* subfields called `position` and `orientation`: 
+Es el subcampo `pose` el que más nos interesa aquí, que contiene dos subcampos *adicionales* llamados `position` y `orientation`: 
 
 <center>
 
-| # | Field *Name* | Field *Type* |
+| # | *Nombre* del Campo | *Tipo* del Campo |
 | :---: | :---: | :---: |
 | 1 | `position` | `Point` |
 | 2 | `orientation` | `Quaternion` |
@@ -314,25 +314,25 @@ It's the `pose` subfield that we're most interested in here, which contains two 
 
 1. `position`
     
-    Tells us where our robot is located in 3-dimensional space. This is expressed in units of **meters**.
+    Nos dice dónde está ubicado nuestro robot en el espacio tridimensional. Se expresa en unidades de **metros**.
 
 1. `orientation`
 
-    Tells us which way our robot is pointing in its environment. This is expressed in units of **Quaternions**, which is a mathematically convenient way to store data related to a robot's orientation (it's a bit hard for us humans to understand and visualise this though, so we'll talk about how to convert it to a different format later).
+    Nos dice en qué dirección apunta nuestro robot en su entorno. Se expresa en unidades de **Cuaterniones**, que es una forma matemáticamente conveniente de almacenar datos relacionados con la orientación de un robot (sin embargo, es un poco difícil para nosotros los humanos entender y visualizar esto, así que hablaremos sobre cómo convertirlo a un formato diferente más adelante).
 
-Pose is defined relative to an arbitrary reference point, typically where the robot was when it was turned on, or the origin of a simulated world. On our real TurtleBot3 Waffle robots, it is determined from:
+La Pose se define en relación a un punto de referencia arbitrario, típicamente donde estaba el robot cuando fue encendido, o el origen de un mundo simulado. En nuestros robots reales TurtleBot3 Waffle, se determina a partir de:
 
-* Data from the Inertial Measurement Unit (IMU) on the OpenCR board
-* Data from both the left and right wheel encoders
-* A *kinematic model* of the robot
+* Datos de la Unidad de Medición Inercial (IMU) en la tarjeta OpenCR
+* Datos de los encoders de la rueda izquierda y derecha
+* Un *modelo cinemático* del robot
 
-All the above information can then be used to calculate (and keep track of) the distance travelled by the robot from its pre-defined reference point using a process called *"dead-reckoning."*
+Toda la información anterior puede usarse entonces para calcular (y mantener un seguimiento de) la distancia recorrida por el robot desde su punto de referencia predefinido usando un proceso llamado *"dead-reckoning."*
 
-#### What are Quaternions?
+#### ¿Qué son los Cuaterniones?
 
-Quaternions represent the orientation of something in 3 dimensional space[^quaternions], as we can observe from the structure of the `nav_msgs/msg/Odometry` ROS interface, there are **four fields** associated with this:
+Los Cuaterniones representan la orientación de algo en el espacio tridimensional[^quaternions], como podemos observar en la estructura de la interfaz ROS `nav_msgs/msg/Odometry`, hay **cuatro campos** asociados con esto:
 
-[^quaternions]: [Quaternions are explained very nicely here](https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion){target="_blank"}, if you'd like to learn more.
+[^quaternions]: [Los Cuaterniones se explican muy bien aquí](https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion){target="_blank"}, si deseas aprender más.
 
 ``` { .txt .no-copy }
 Quaternion orientation
@@ -342,95 +342,95 @@ Quaternion orientation
         float64 w
 ```
 
-For us, it's easier to think about the orientation of our robot in a *"Euler Angle"* representation, which tell us the degree of rotation about the *three principal axes* ([as discussed above](#principal-axes)):
+Para nosotros, es más fácil pensar en la orientación de nuestro robot en una representación de *"Ángulos de Euler"*, que nos indican el grado de rotación alrededor de los *tres ejes principales* ([como se discutió anteriormente](#principal-axes)):
 
-* $\theta_{x}$: The angular position about the **X**-axis, aka **"Roll"**
-* $\theta_{y}$: The angular position about the **Y**-axis, aka **"Pitch"**
-* $\theta_{z}$: The angular position about the **Z**-axis, aka **"Yaw"**
+* $\theta_{x}$: La posición angular alrededor del eje **X**, también conocida como **"Roll"**
+* $\theta_{y}$: La posición angular alrededor del eje **Y**, también conocida como **"Pitch"**
+* $\theta_{z}$: La posición angular alrededor del eje **Z**, también conocida como **"Yaw"**
 
-Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward. The angular position about the Z-axis (aka "Yaw"), for example, is calculated as follows: 
+Afortunadamente, la matemática involucrada en la conversión entre estos dos formatos de orientación es bastante sencilla. La posición angular alrededor del eje Z (también conocida como "Yaw"), por ejemplo, se calcula de la siguiente manera: 
 
 $$
 \theta_{z} = \operatorname{atan2}\left( 2(wz + xy), 1 - 2(y^2 + z^2) \right)
 $$
 
-Where $\theta_{z}$ is the yaw angle (in radians), and $w$, $x$, $y$ and $z$ are the quaternion components of a robot's orientation ($w$ being the scalar (real) part and $x$, $y$ and $z$ being the vector parts)[^auto-addison].
+Donde $\theta_{z}$ es el ángulo de yaw (en radianes), y $w$, $x$, $y$ y $z$ son los componentes de cuaternión de la orientación de un robot ($w$ siendo la parte escalar (real) y $x$, $y$ y $z$ siendo las partes vectoriales)[^auto-addison].
 
-[^auto-addison]: Taken from [this Automatic Addison blog post](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
+[^auto-addison]: Tomado de [esta publicación del blog Automatic Addison](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
 
-### Which Pose Values Apply to our Waffles?
+### ¿Qué Valores de Pose Aplican a Nuestros Waffles?
 
-Referring back to the three *principal axes* from earlier: 
+Refiriéndonos de nuevo a los tres *ejes principales* de antes: 
 
 <figure markdown>
   ![](../images/waffle/principal_axes.svg){width=500}
 </figure>
 
-You can also see here that our TurtleBot3 has two motors that allow it to move. As a result of this, it can only move in a 2D plane and so its pose can be fully represented by just 3 odometry terms in total: 
+También puedes ver aquí que nuestro TurtleBot3 tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: 
 
-* $x$ & $y$: the 2D coordinates of the robot in the **X**-**Y** plane
-* $\theta_{z}$: the angle of the robot about the **Z**-axis (*yaw*)
+* $x$ & $y$: las coordenadas 2D del robot en el plano **X**-**Y**
+* $\theta_{z}$: el ángulo del robot alrededor del eje **Z** (*yaw*)
 
-(unfortunately, it can't fly!)
+(¡desafortunadamente, no puede volar!)
 
-### Odometry Data as a Feedback Signal
+### Los Datos de Odometría como Señal de Retroalimentación
 
-Odometry data can be really useful for robot navigation, allowing us to keep track of where a robot is, how it's moving and how to get back to where we started. We therefore need to know how to use this data effectively within our Python nodes, and we'll explore this now.
+Los datos de Odometría pueden ser muy útiles para la navegación de robots, permitiéndonos rastrear dónde está un robot, cómo se mueve y cómo volver a donde empezamos. Por lo tanto, necesitamos saber cómo usar estos datos eficazmente dentro de nuestros nodes de Python, y lo exploraremos ahora.
 
-#### :material-pen: Exercise 2: Creating a Python Node to Process Odometry Data {#ex2}
+#### :material-pen: Ejercicio 2: Creando un Node de Python para Procesar Datos de Odometría {#ex2}
 
-In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic. In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the `/odom` topic that we've been talking about above. We'll also create a new package called `part2_navigation` for this node to live in!
+En la Parte 1 aprendimos cómo crear un package y construir nodes simples de Python para publicar y suscribirse a mensajes en un topic. En este ejercicio construiremos un nuevo node subscriber, muy parecido a lo que hicimos anteriormente, pero este se suscribirá al topic `/odom` del que hemos estado hablando. ¡También crearemos un nuevo package llamado `part2_navigation` para que viva este node!
 
-1. First, head to the `src` directory of your ROS 2 workspace in **TERMINAL 2**:
+1. Primero, dirígete al directorio `src` de tu workspace de ROS 2 en **TERMINAL 2**:
 
     ```bash
     cd ~/ros2_ws/src/
     ```
 
-1. Clone the ROS 2 Package Template:
+1. Clona la Plantilla de Package ROS 2:
 
     ```bash
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
 
-1. Run the `init_pkg.sh` script within this to initalise that package with the name "part2_navigation":
+1. Ejecuta el script `init_pkg.sh` dentro de este para inicializar ese package con el nombre "part2_navigation":
 
     ```bash
     ./ros2_pkg_template/init_pkg.sh part2_navigation
     ```
 
-1. Then navigate into the new package using `cd`:
+1. Luego navega hacia el nuevo package usando `cd`:
 
     ```bash
     cd ./part2_navigation/
     ```
 
-1. The subscriber that we will build here will have a similar structure to the subscriber that we built in Part 1. As a starting point, copy across the `subscriber.py` file from your `part1_pubsub` package using the `cp` command (i.e. **c**o**p**y):
+1. El subscriber que construiremos aquí tendrá una estructura similar al subscriber que construimos en la Parte 1. Como punto de partida, copia el archivo `subscriber.py` de tu package `part1_pubsub` usando el comando `cp` (es decir, **c**o**p**iar):
 
     ```bash
     cp ../part1_pubsub/scripts/subscriber.py ./scripts/odom_subscriber.py
     ```
 
-    ??? info "Info: Copying files in a terminal"
-        When using the `cp` command to copy things, we need to provide two key bits of information (at least): 
+    ??? info "Información: Copiar archivos en un terminal"
+        Cuando usamos el comando `cp` para copiar cosas, necesitamos proporcionar dos piezas clave de información (al menos): 
 
         ``` { .txt .no-copy }
         cp SOURCE DEST
         ```
 
-        i.e.: copy the file `SOURCE` to the destination `DEST`.
+        Es decir: copiar el archivo `SOURCE` al destino `DEST`.
         
-        Remember that we are located in our `part2_navigation` package root folder when we run this, and the file paths that we are using here are all *relative* to that location.
+        Recuerda que estamos ubicados en la carpeta raíz del package `part2_navigation` cuando ejecutamos esto, y las rutas de archivos que estamos usando aquí son todas *relativas* a esa ubicación.
 
-        As such, `..` means "go back one directory," so when defining the `SOURCE` file that we want to copy, we're telling `cp` to go *out* of the `part2_navigation` directory (back to `~/ros2_ws/src/`), and then go *into* the `part1_pubsub` directory from there (and onwards into `scripts`).
+        Por lo tanto, `..` significa "retroceder un directorio," así que al definir el archivo `SOURCE` que queremos copiar, le estamos diciendo a `cp` que *salga* del directorio `part2_navigation` (de vuelta a `~/ros2_ws/src/`), y luego que *entre* al directorio `part1_pubsub` desde allí (y continúe hacia `scripts`).
 
-        `.` means "this current directory," so when defining where we want the `subscriber.py` to be copied *to* (`DEST`), we're telling `cp` to start from where we currently are in the filesystem (i.e. `~/ros2_ws/src/part2_navigation/`) and copy it into the `scripts` directory from there (whilst also renaming it to `odom_subscriber.py`).
+        `.` significa "este directorio actual," así que al definir dónde queremos copiar el `subscriber.py` *hacia* (`DEST`), le estamos diciendo a `cp` que empiece desde donde estamos actualmente en el sistema de archivos (es decir, `~/ros2_ws/src/part2_navigation/`) y lo copie al directorio `scripts` desde allí (mientras también lo renombra a `odom_subscriber.py`).
 
-1. Next, head to the following page for step-by-step instructions on how to build the odometry subscriber:
+1. A continuación, dirígete a la siguiente página para obtener instrucciones paso a paso sobre cómo construir el subscriber de odometría:
 
-    <center>[:material-file-code-outline: Building the `odom_subscriber.py` node](./part2/odom_subscriber.md){ .md-button target="_blank"}</center> 
+    <center>[:material-file-code-outline: Construyendo el node `odom_subscriber.py`](./part2/odom_subscriber.md){ .md-button target="_blank"}</center> 
 
-1. Now, declare the `odom_subscriber.py` node as an executable in the `CMakeLists.txt`:
+1. Ahora, declara el node `odom_subscriber.py` como un ejecutable en el `CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -442,54 +442,54 @@ In Part 1 we learnt how to create a package and build simple Python nodes to pub
     )
     ```
 
-1. Head back to the terminal and use Colcon to build the package (including the new `odom_subscriber.py` node). This is a **three-step process**, that you must always follow:
+1. Regresa al terminal y usa Colcon para compilar el package (incluyendo el nuevo node `odom_subscriber.py`). Este es un **proceso de tres pasos**, que siempre debes seguir:
 
-    1. Navigate to the **root** of the ROS 2 workspace:
+    1. Navega a la **raíz** del workspace de ROS 2:
 
         ```bash
         cd ~/ros2_ws/
         ```
     
-    1. Build your package using `colcon`:
+    1. Compila tu package usando `colcon`:
 
         ```bash
         colcon build --packages-select part2_navigation --symlink-install
         ```
 
-    1. And finally, re-source the `.bashrc`:
+    1. Y finalmente, recarga el `.bashrc`:
 
         ```bash
         source ~/.bashrc
         ```
 
-1. Now we're ready to run this! Do so using `ros2 run` and see what it does:
+1. ¡Ahora estamos listos para ejecutar esto! Hazlo usando `ros2 run` y observa qué hace:
 
     ```bash
     ros2 run part2_navigation odom_subscriber.py
     ```
 
-1. Having followed all the steps, the output from your node should be similar to that shown below:
+1. Habiendo seguido todos los pasos, la salida de tu node debería ser similar a la que se muestra a continuación:
     
     <figure markdown>
       ![](./part2/odom_subscriber.gif){width=700px}
     </figure>
 
-1. Observe how the output (the formatted odometry data) changes while you move the robot around using the `teleop_keyboard` node in **TERMINAL 3**.
-1. Stop your `odom_subscriber.py` node in **TERMINAL 2** and the `teleop_keyboard` node in **TERMINAL 3** by entering ++ctrl+c++ in each of the terminals.
+1. Observa cómo cambia la salida (los datos de odometría formateados) mientras mueves el robot usando el node `teleop_keyboard` en **TERMINAL 3**.
+1. Detén tu node `odom_subscriber.py` en **TERMINAL 2** y el node `teleop_keyboard` en **TERMINAL 3** ingresando ++ctrl+c++ en cada una de las terminales.
 
-## Basic Navigation: Open-loop Velocity Control {#velocity}
+## Navegación Básica: Control de Velocidad en Lazo Abierto {#velocity}
 
-In order to change our robot's pose, we need to apply velocity to make it move. We learnt about this in Part 1, but let's look at it all in a bit more detail now.
+Para cambiar la pose de nuestro robot, necesitamos aplicar velocidad para hacerlo mover. Aprendimos sobre esto en la Parte 1, pero veámoslo todo con un poco más de detalle ahora.
 
-We know that we can use the `/cmd_vel` topic to publish velocity commands to our robot. Let's remind ourselves how these velocity commands must be structured:
+Sabemos que podemos usar el topic `/cmd_vel` para publicar comandos de velocidad a nuestro robot. Recordemos cómo deben estructurarse estos comandos de velocidad:
 
 ```bash
 ros2 topic info /cmd_vel
 ```
 
-This tells us that the data that is transmitted on the `/cmd_vel` topic is of the `geometry_msgs/msg/TwistStamped` interface type.  
+Esto nos dice que los datos transmitidos en el topic `/cmd_vel` son del tipo de interfaz `geometry_msgs/msg/TwistStamped`.  
 
-We also learnt how to find out more about this particular interface (using the `ros2 interface show` command): 
+También aprendimos cómo obtener más información sobre esta interfaz particular (usando el comando `ros2 interface show`): 
 
 ```bash
 ros2 interface show geometry_msgs/msg/TwistStamped
@@ -514,33 +514,33 @@ Twist twist
                 float64 z
 ```
 
-There are two base fields in this data structure:
+Hay dos campos base en esta estructura de datos:
 
 <center>
 
-| # | Field Name | Data Type |
+| # | Nombre del Campo | Tipo de Dato |
 | :---: | :---: | :---: |
 | 1 | `header` | `std_msgs/Header` |
 | 2 | `twist` | `Twist` |
 
 </center>
 
-Each of these base fields are comprised of further subfields. It's the `twist` field that's of most interest to us, and this comprises two further subfields:
+Cada uno de estos campos base está compuesto por subcampos adicionales. Es el campo `twist` el que más nos interesa, y este comprende dos subcampos adicionales:
 
 <center>
 
-| # | Field Name | Data Type |
+| # | Nombre del Campo | Tipo de Dato |
 | :---: | :---: | :---: |
 | 1 | `linear` | `Vector3` |
 | 2 | `angular` | `Vector3` |
 
 </center>
 
-Each of *these* contains 3 *further* subfields: `x`, `y` and `z`:
+Cada uno de *estos* contiene 3 subcampos *adicionales*: `x`, `y` y `z`:
 
 <center>
 
-| # | Field Name | Data Type |
+| # | Nombre del Campo | Tipo de Dato |
 | :---: | :---: | :---: |
 | 1 | `x` | `float64` |
 | 2 | `y` | `float64` |
@@ -548,115 +548,115 @@ Each of *these* contains 3 *further* subfields: `x`, `y` and `z`:
 
 </center>
 
-### Velocity Commands
+### Comandos de Velocidad
 
-There are therefore **six** velocity *fields* that we can assign values to when sending velocity commands to a ROS robot: **two** velocity *types*, each with **three** velocity *components*: 
+Por lo tanto, hay **seis** *campos* de velocidad que podemos asignar valores cuando enviamos comandos de velocidad a un robot ROS: **dos** *tipos* de velocidad, cada uno con **tres** *componentes* de velocidad: 
 
 <center>
 
-| Velocity Type | Component 1 | Component 2 | Component 3 |
+| Tipo de Velocidad | Componente 1 | Componente 2 | Componente 3 |
 | :--- | :---: | :---: | :---: |
 | `linear` | `x` | `y` | `z` |
 | `angular` | `x` | `y` | `z` |
 
 </center>
 
-These relate to a robot's **six degrees of freedom** (DOFs), and velocity commands are therefore formatted to give a ROS Programmer the ability to *ask* a robot to move in any one of its six DOFs. 
+Estos se relacionan con los **seis grados de libertad** (DOFs) de un robot, y los comandos de velocidad están formateados para dar a un Programador de ROS la capacidad de *solicitar* a un robot que se mueva en cualquiera de sus seis DOFs. 
 
 <center>
 
-| Component (Axis) | Linear Velocity | Angular Velocity | 
+| Componente (Eje) | Velocidad Lineal | Velocidad Angular | 
 | :---: | :---: | :---: |
-| **X** | "Forwards/Backwards" | "Roll" |
-| **Y** | "Left/Right" | "Pitch" |
-| **Z** | "Up/Down" | "Yaw" |
+| **X** | "Adelante/Atrás" | "Roll" |
+| **Y** | "Izquierda/Derecha" | "Pitch" |
+| **Z** | "Arriba/Abajo" | "Yaw" |
 
 </center>
 
-### The Degrees of Freedom of our Waffles
+### Los Grados de Libertad de Nuestros Waffles
 
-Recall (again) our robot's *"Principal Axes"* and the motion about them:
+Recuerda (de nuevo) los *"Ejes Principales"* de nuestro robot y el movimiento a su alrededor:
 
 <figure markdown>
   ![](../images/waffle/principal_axes.svg){width=500}
 </figure>
 
-As discussed above, our Waffles only have two motors. These two motors can be controlled independently (in what is known as a *"differential drive"* configuration), which ultimately provides it with a total of **two degrees of freedom** overall, as highlighted below.
+Como se discutió anteriormente, nuestros Waffles solo tienen dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de *"accionamiento diferencial"*), lo que en última instancia le proporciona un total de **dos grados de libertad** en general, como se destaca a continuación.
 
 <figure markdown>
   ![](../images/waffle/velocities.svg){width=800}
 </figure>
 
-When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: **linear** velocity in the **x**-axis (*Forwards/Backwards*) and **angular** velocity about the **z**-axis (*Yaw*).
+Al emitir comandos de velocidad a nuestros Waffles, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad **lineal** en el eje **x** (*Adelante/Atrás*) y velocidad **angular** alrededor del eje **z** (*Yaw*).
 
 <center>
 
-| Principal Axis | Linear Velocity | Angular Velocity | 
+| Eje Principal | Velocidad Lineal | Velocidad Angular | 
 | :---: | :---: | :---: |
-| **X** | **"Forwards/Backwards"** | ~~"Roll"~~ |
-| **Y** | ~~"Left/Right"~~ | ~~"Pitch"~~ |
-| **Z** | ~~"Up/Down"~~ | **"Yaw"** |
+| **X** | **"Adelante/Atrás"** | ~~"Roll"~~ |
+| **Y** | ~~"Izquierda/Derecha"~~ | ~~"Pitch"~~ |
+| **Z** | ~~"Arriba/Abajo"~~ | **"Yaw"** |
 
 </center>
 
 <a name="velocity_limits"></a>
 
-!!! note "Maximum Velocity Limits"
-    Keep in mind (while we're on the subject of velocity) that our TurtleBot3 Waffles have **maximum velocity limits**:
+!!! note "Límites Máximos de Velocidad"
+    Ten en cuenta (mientras estamos en el tema de la velocidad) que nuestros TurtleBot3 Waffles tienen **límites máximos de velocidad**:
 
     <center>
 
-    | Velocity Component | Upper Limit | Units |
+    | Componente de Velocidad | Límite Superior | Unidades |
     | :--- | :---: | :--- |
-    | *Linear (in the X axis)* | 0.26 | m/s |
-    | *Angular (about the Z axis)* | 1.82 | rad/s |
+    | *Lineal (en el eje X)* | 0.26 | m/s |
+    | *Angular (alrededor del eje Z)* | 1.82 | rad/s |
 
     </center>
 
 
-#### :material-pen: Exercise 3: Controlling Velocity with the ROS 2 CLI {#ex3}
+#### :material-pen: Ejercicio 3: Controlando la Velocidad con el CLI de ROS 2 {#ex3}
 
 !!! warning
-    Make sure that you've stopped the `teleop_keyboard` node before starting this exercise!
+    ¡Asegúrate de haber detenido el node `teleop_keyboard` antes de comenzar este ejercicio!
 
-<a name="rostopic_pub"></a>We can use the `ros2 topic pub` command to *publish* data to a topic from a terminal by using the command in the following way:
+<a name="rostopic_pub"></a>Podemos usar el comando `ros2 topic pub` para *publicar* datos a un topic desde un terminal usando el comando de la siguiente manera:
 
 ``` { .bash .no-copy }
 ros2 topic pub {topic_name} {interface_type} {data}
 ```
 
-As discussed above, the `/cmd_vel` topic is expecting interface messages containing *linear* and *angular* velocity data, each with `x`, `y` and `z` values associated with them. We can compose these messages in a terminal and publish them with the `ros2 topic pub` command, provided we take care to format the messages correctly to conform with the `geometry_msgs/msg/TwistStamped` data structure.
+Como se discutió anteriormente, el topic `/cmd_vel` espera mensajes de interfaz que contengan datos de velocidad *lineal* y *angular*, cada uno con valores `x`, `y` y `z` asociados. Podemos componer estos mensajes en un terminal y publicarlos con el comando `ros2 topic pub`, siempre que tengamos cuidado de formatear los mensajes correctamente para cumplir con la estructura de datos `geometry_msgs/msg/TwistStamped`.
 
-1. In **TERMINAL 3** enter the following, this will end up being quite a long command, so let's break it down a little:
+1. En **TERMINAL 3** ingresa lo siguiente, esto terminará siendo un comando bastante largo, así que analicémoslo un poco:
 
-    1. Start with the desired subcommand of `ros2 topic`:
+    1. Comienza con el subcomando deseado de `ros2 topic`:
 
         ``` { .txt .no-copy }
         ros2 topic pub
         ```
 
-    1. Next comes the *name of the topic* that we want to publish to: 
+    1. A continuación viene el *nombre del topic* al que queremos publicar: 
 
         ``` { .txt .no-copy }
         ros2 topic pub /cmd_vel
         ```
 
-    1. Next, we define the interface type that this topic uses. Start typing this and then enter the ++tab++ key where shown, and it should autocomplete for you:
+    1. A continuación, definimos el tipo de interfaz que usa este topic. Comienza a escribirlo y luego presiona la tecla ++tab++ donde se indica, y debería autocompletarse:
 
         ``` { .txt .no-copy }
         ros2 topic pub /cmd_vel geom[TAB]
         ```
 
-        Which should autocomplete the interface type for you:
+        Lo que debería autocompletar el tipo de interfaz por ti:
 
         ``` { .txt .no-copy }
         ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped
         ```
         
         !!! tip 
-            You can use ++tab++ to autocomplete lots of terminal commands, experiment with it - it'll save you lots of time! 
+            ¡Puedes usar ++tab++ para autocompletar muchos comandos de terminal, experimenta con ello - te ahorrará mucho tiempo! 
         
-    1. Finally, provide the values to be published, which **must** be formatted according to the interface definition ([as we established earlier](#twist-stamped-struct)):
+    1. Finalmente, proporciona los valores a publicar, que **deben** estar formateados según la definición de interfaz ([como establecimos anteriormente](#twist-stamped-struct)):
 
         ```txt
         ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped \
@@ -668,50 +668,50 @@ As discussed above, the `/cmd_vel` topic is expecting interface messages contain
         }"
         ```
 
-1. Scroll back through the message using the ++left++ key on your keyboard and then edit the values of the various fields, as appropriate.
+1. Desplázate hacia atrás en el mensaje usando la tecla ++left++ en tu teclado y luego edita los valores de los distintos campos, según corresponda.
 
-    First, define some values that would make the robot **rotate on the spot**.  
+    Primero, define algunos valores que harían que el robot **rote en el lugar**.  
     
-1. Enter ++ctrl+c++ in **TERMINAL 3** to stop the message from being published.
+1. Ingresa ++ctrl+c++ en **TERMINAL 3** para dejar de publicar el mensaje.
 
-    Notice that **the robot carries on moving** even when you stop the `ros2 topic pub` process...
+    Observa que **el robot sigue moviéndose** incluso cuando detienes el proceso `ros2 topic pub`...
 
-    In order to make the robot *actually* stop, we need to publish a *new* message containing alternative velocity commands.
+    Para que el robot *realmente* se detenga, necesitamos publicar un *nuevo* mensaje que contenga comandos de velocidad alternativos.
 
-1. In **TERMINAL 3** press the ++up++ key on your keyboard to recall the previous command, but don't press ++enter++ just yet! Now press the ++left++ key to track back through the message and change the velocity field values back to `0.0` in order to now make the robot **stop**.
+1. En **TERMINAL 3** presiona la tecla ++up++ en tu teclado para recuperar el comando anterior, ¡pero no presiones ++enter++ todavía! Ahora presiona la tecla ++left++ para retroceder en el mensaje y cambiar los valores del campo de velocidad a `0.0` para ahora hacer que el robot **se detenga**.
 
-1. Once again, enter ++ctrl+c++ in **TERMINAL 3** to stop the publisher from actively publishing new messages, and then follow the same steps as above to compose *another* new message to now make the robot **move in a circle**.
+1. Una vez más, ingresa ++ctrl+c++ en **TERMINAL 3** para detener al publisher de publicar nuevos mensajes activamente, y luego sigue los mismos pasos que arriba para componer *otro* nuevo mensaje para ahora hacer que el robot **se mueva en círculo**.
 
-1. Enter ++ctrl+c++ to again stop the message from being published, publish a further new message to stop the robot, and then compose (and publish) a message that would make the robot **drive in a straight line**.
+1. Ingresa ++ctrl+c++ para volver a dejar de publicar el mensaje, publica un nuevo mensaje adicional para detener el robot, y luego compón (y publica) un mensaje que haga que el robot **avance en línea recta**.
 
-1. Finally, **stop** the robot again!
+1. Finalmente, ¡**detén** el robot de nuevo!
 
-#### :material-pen: Exercise 4: Creating a Python Node to Make a Robot Move in a circle {#ex4}
+#### :material-pen: Ejercicio 4: Creando un Node de Python para Hacer que un Robot Se Mueva en Círculo {#ex4}
 
-Controlling a robot from the terminal (or by using the `teleop_keyboard` node) is all well and good, but what about if we need to implement some more advanced control or *autonomy*?
+Controlar un robot desde el terminal (o usando el node `teleop_keyboard`) está bien, pero ¿qué pasa si necesitamos implementar un control más avanzado o *autonomía*?
 
-We'll now learn how to control the velocity of our robot *programmatically*, from a Python Node. We'll start out with a simple example to achieve a simple velocity profile (a circle), but this will provide us with the basis on which we can build more complex velocity control algorithms (which we'll look at in the following exercise).
+Ahora aprenderemos cómo controlar la velocidad de nuestro robot *programáticamente*, desde un Node de Python. Comenzaremos con un ejemplo simple para lograr un perfil de velocidad simple (un círculo), pero esto nos proporcionará la base sobre la cual podemos construir algoritmos de control de velocidad más complejos (que veremos en el siguiente ejercicio).
 
-In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one will work in much the same way, but this time however, we need to publish `Twist` type messages to the `/cmd_vel` topic instead... 
+En la Parte 1 construimos [un node publisher simple](./part1/publisher.md), y este funcionará de la misma manera, pero esta vez, sin embargo, necesitamos publicar mensajes de tipo `Twist` al topic `/cmd_vel` en su lugar... 
 
-1. In **TERMINAL 2**, ensure that you're located within the `scripts` folder of your `part2_navigation` package (you could use `pwd` to check your current working directory).
+1. En **TERMINAL 2**, asegúrate de estar ubicado dentro de la carpeta `scripts` de tu package `part2_navigation` (puedes usar `pwd` para verificar tu directorio de trabajo actual).
 
-    If you aren't located here then navigate to this directory using `cd`.
+    Si no estás ubicado aquí, navega a este directorio usando `cd`.
 
-1. Create a new file called `move_circle.py`:
+1. Crea un nuevo archivo llamado `move_circle.py`:
 
     ```bash
     touch move_circle.py
     ```
-    ... and make this file executable using the `chmod` command ([as we did in Part 1](./part1.md#chmod)).
+    ... y haz este archivo ejecutable usando el comando `chmod` ([como hicimos en la Parte 1](./part1.md#chmod)).
 
-1. The task is to make the robot move in a **circle** with a path **radius** of approximately **0.5 meters**.
+1. La tarea es hacer que el robot se mueva en un **círculo** con un **radio** de trayectoria de aproximadamente **0.5 metros**.
 
-    Follow the instructions on the following page for building this:
+    Sigue las instrucciones en la siguiente página para construir esto:
 
-    <center>[:material-file-code-outline: Building the `move_circle.py` node](./part2/move_circle.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: Construyendo el node `move_circle.py`](./part2/move_circle.md){ .md-button target="_blank"}</center>
 
-1. Next (hopefully you're getting the idea by now!), declare the `move_circle.py` node as an executable in the `part2_navigation/CMakeLists.txt` file:
+1. A continuación (¡esperamos que ya estés captando la idea!), declara el node `move_circle.py` como un ejecutable en el archivo `part2_navigation/CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -724,76 +724,76 @@ In Part 1 we built [a simple publisher node](./part1/publisher.md), and this one
     )
     ```
 
-1. Finally, head back to **TERMINAL 2** and use Colcon to build the new node alongside everything else in the package, using the same **three-step process** as before:
+1. Finalmente, regresa a **TERMINAL 2** y usa Colcon para compilar el nuevo node junto con todo lo demás en el package, usando el mismo **proceso de tres pasos** que antes:
 
-    1. First: 
+    1. Primero: 
 
         ```bash
         cd ~/ros2_ws/
         ```
 
-    1. Then:
+    1. Luego:
     
         ```bash
         colcon build --packages-select part2_navigation --symlink-install
         ```
     
-    1. And finally, re-source again:
+    1. Y finalmente, recarga de nuevo:
 
         ```bash
         source ~/.bashrc
         ```
 
-1. Run this node now, using `ros2 run` and see what happens:
+1. Ejecuta este node ahora, usando `ros2 run` y observa qué sucede:
 
     ```bash
     ros2 run part2_navigation move_circle.py
     ```
 
-    Head back to the Gazebo simulation and watch as the robot moves around in a circle of 0.5-meter radius!
+    ¡Regresa a la simulación Gazebo y observa cómo el robot se mueve en círculo con un radio de 0.5 metros!
 
-1. Once you're done, enter ++ctrl+c++ in **TERMINAL 2** to stop the `move_circle.py` node. 
+1. Una vez que hayas terminado, ingresa ++ctrl+c++ en **TERMINAL 2** para detener el node `move_circle.py`. 
 
     !!! question
-        What happens to the robot when you hit ++ctrl+c++ to stop the `move_circle.py` node?
+        ¿Qué le pasa al robot cuando presionas ++ctrl+c++ para detener el node `move_circle.py`?
 
-        **Answer**: It carries on moving :open_mouth:!
+        **Respuesta**: ¡Sigue moviéndose :open_mouth:!
 
-        You can run another node from within your package to actually stop it:
+        Puedes ejecutar otro node desde dentro de tu package para detenerlo realmente:
         
         ```bash
         ros2 run part2_navigation stop_me.py
         ```
 
-#### :material-pen: Exercise 5: Implementing a Shutdown Procedure {#ex5}
+#### :material-pen: Ejercicio 5: Implementando un Procedimiento de Apagado {#ex5}
 
-Clearly, our work on the `move_circle.py` node isn't quite done. When we terminate our node we'd expect the robot to stop moving, but this (currently) isn't the case. 
+Claramente, nuestro trabajo en el node `move_circle.py` no está del todo terminado. Cuando terminamos nuestro node esperaríamos que el robot dejara de moverse, pero (actualmente) este no es el caso. 
 
-You may have also noticed (with all the nodes that we have created so far) an error traceback in the terminal, every time we hit ++ctrl+c++. 
+También es posible que hayas notado (con todos los nodes que hemos creado hasta ahora) un rastreo de error en el terminal, cada vez que presionamos ++ctrl+c++. 
 
-None of this is very good, and we'll address this now by modifying the `move_circle.py` file to incorporate a proper (and *safe*) shutdown procedure.
+Nada de esto es muy bueno, y lo abordaremos ahora modificando el archivo `move_circle.py` para incorporar un procedimiento de apagado adecuado (y *seguro*).
 
-1. Return to the `move_circle.py` file in VS Code. 
+1. Regresa al archivo `move_circle.py` en VS Code. 
 
-1. First, we need to add an import to our Node:
+1. Primero, necesitamos agregar una importación a nuestro Node:
 
     ```py
     from rclpy.signals import SignalHandlerOptions
     ```
 
-    You'll see what this is for shortly...
+    Pronto verás para qué sirve esto...
 
-1. Then move on to the `__init__()` method of your `Circle()` class.
+1. Luego pasa al método `__init__()` de tu clase `Circle()`.
 
-    Add in a boolean flag here called `shutdown`:
+    Agrega aquí una bandera booleana llamada `shutdown`:
 
     ```py
     self.shutdown = False
     ```
 
-    ... to begin with, we want this to be set to `False`.
+    ... para comenzar, queremos que esto esté establecido en `False`.
 
-1. Next, add a new method to your `Circle()` class, called `on_shutdown()`:
+1. A continuación, agrega un nuevo método a tu clase `Circle()`, llamado `on_shutdown()`:
 
     ```py
     def on_shutdown(self):
@@ -804,10 +804,10 @@ None of this is very good, and we'll address this now by modifying the `move_cir
         self.shutdown = True # (2)!
     ```
 
-    1. All velocities within the `Twist(Stamped)` message class are set to zero by default, so we can just publish this as-is, in order to ask the robot to stop.
-    2. Set the `shutdown` flag to true to indicate that a stop message has now been published.
+    1. Todas las velocidades dentro de la clase de mensaje `Twist(Stamped)` se establecen en cero por defecto, por lo que podemos publicar esto tal como está, para pedirle al robot que se detenga.
+    2. Establece la bandera `shutdown` en verdadero para indicar que ahora se ha publicado un mensaje de PARADA.
 
-1. Finally, head to the `#!py main()` function of the script. This is where most of the changes need to be made...
+1. Finalmente, dirígete a la función `#!py main()` del script. Aquí es donde se deben realizar la mayoría de los cambios...
 
     ```py
     def main(args=None):
@@ -830,121 +830,121 @@ None of this is very good, and we'll address this now by modifying the `move_cir
             rclpy.shutdown()
     ```
     
-    1. When initialising `rclpy`, we're requesting for our `move_circle.py` node to handle *"signals"* (i.e. events like a ++ctrl+c++), rather than letting `rclpy` handle these for us. Here we're using the `SignalHandlerOptions` object that we imported from `rclpy.signals` earlier.
+    1. Al inicializar `rclpy`, estamos solicitando que nuestro node `move_circle.py` maneje las *"señales"* (es decir, eventos como un ++ctrl+c++), en lugar de dejar que `rclpy` las maneje por nosotros. Aquí estamos usando el objeto `SignalHandlerOptions` que importamos de `rclpy.signals` anteriormente.
 
-    2. We set our node to spin inside a Try-Except block now, so that we can catch a `#!py KeyboardInterrupt` (i.e. a ++ctrl+c++) and act accordingly when this happens.
+    2. Ahora configuramos nuestro node para que gire dentro de un bloque Try-Except, para que podamos capturar una `#!py KeyboardInterrupt` (es decir, un ++ctrl+c++) y actuar en consecuencia cuando esto suceda.
 
-    3. On detection of the `#!py KeyboardInterrupt` we print a message to the terminal. After this, the code will move on to the `#!py finally` block...
+    3. Al detectar la `#!py KeyboardInterrupt` imprimimos un mensaje en el terminal. Después de esto, el código pasará al bloque `#!py finally`...
 
-    4. Call the `on_shutdown()` method that we defined earlier. This will ensure that a STOP command is published to the robot (via `/cmd_vel`).
+    4. Llama al método `on_shutdown()` que definimos anteriormente. Esto asegurará que se publique un comando de PARADA al robot (a través de `/cmd_vel`).
 
-    5. This `#!py while` loop will continue to iterate until our boolean `shutdown` flag has turned `True`, to indicate that the STOP message has been published.
+    5. Este bucle `#!py while` continuará iterando hasta que nuestra bandera booleana `shutdown` se haya vuelto `True`, para indicar que el mensaje de PARADA ha sido publicado.
 
-    6. The rest is the same as before...
+    6. El resto es igual que antes...
     
-        ... destroy the node and then shutdown `rclpy`.
+        ... destruye el node y luego apaga `rclpy`.
 
-1. With all this in place, run the node again now (`ros2 run ...`).
+1. Con todo esto en su lugar, ejecuta el node nuevamente ahora (`ros2 run ...`).
     
-    Now, when you hit ++ctrl+c++ you should find that the robot actually stops moving. Ah, much better!
+    Ahora, cuando presionas ++ctrl+c++ deberías encontrar que el robot realmente se detiene. ¡Ah, mucho mejor!
 
-## Odometry-based Navigation
+## Navegación Basada en Odometría
 
-Over the course of the previous two exercises we've created a Python node to make our robot move using *open-loop control*. To achieve this we published velocity commands to the `/cmd_vel` topic to make the robot follow a circular motion path.
+A lo largo de los dos ejercicios anteriores hemos creado un node de Python para hacer que nuestro robot se mueva usando *control en lazo abierto*. Para lograr esto publicamos comandos de velocidad al topic `/cmd_vel` para hacer que el robot siguiera una trayectoria de movimiento circular.
 
-!!! question "Questions"
-    1. How do we know if our robot actually achieved the motion path that we asked for?
-    1. In a *real-world* environment, what external factors might result in the robot *not* achieving its desired trajectory?
+!!! question "Preguntas"
+    1. ¿Cómo sabemos si nuestro robot realmente logró la trayectoria de movimiento que solicitamos?
+    1. En un entorno del *mundo real*, ¿qué factores externos podrían resultar en que el robot *no* logre su trayectoria deseada?
 
-Earlier on we also learnt about [Robot Odometry](#odometry), which is used by the robot to keep track of its **position** and **orientation** (aka **Pose**) in the environment.  As explained earlier, this is determined by a process called *"dead-reckoning,"* which is only really an approximation, but it's a fairly good one in any case, and we can use this as a feedback signal to understand if our robot is moving in the way that we expect it to.
+Anteriormente también aprendimos sobre la [Odometría del Robot](#odometry), que es usada por el robot para rastrear su **posición** y **orientación** (también conocida como **Pose**) en el entorno. Como se explicó anteriormente, esto se determina mediante un proceso llamado *"dead-reckoning,"* que es solo una aproximación, pero es bastante buena en cualquier caso, y podemos usar esto como una señal de retroalimentación para entender si nuestro robot se mueve de la manera que esperamos.
 
-We can therefore build on the techniques that we used in the `move_circle.py` exercise, and now also build in the ability to *subscribe* to a topic too and obtain some *real-time feedback*. To do this, we'll need to subscribe to the `/odom` topic, and use this to implement some basic *closed-loop control*.
+Por lo tanto, podemos construir sobre las técnicas que usamos en el ejercicio `move_circle.py`, y ahora también incorporar la capacidad de *suscribirse* a un topic y obtener *retroalimentación en tiempo real*. Para hacer esto, necesitaremos suscribirnos al topic `/odom`, y usar esto para implementar algún *control en lazo cerrado* básico.
 
-#### :material-pen: Exercise 6: Making our Robot Follow a Square Motion Path {#ex6}
+#### :material-pen: Ejercicio 6: Haciendo que Nuestro Robot Siga una Trayectoria Cuadrada {#ex6}
 
-1. Make sure your `move_circle.py` node is no longer running in **TERMINAL 2**, stopping it with ++ctrl+c++ if necessary.
+1. Asegúrate de que tu node `move_circle.py` ya no esté corriendo en **TERMINAL 2**, deteniéndolo con ++ctrl+c++ si es necesario.
 
-1. Make sure **TERMINAL 2** is still located inside your `part2_navigation` package.
+1. Asegúrate de que **TERMINAL 2** todavía esté ubicado dentro de tu package `part2_navigation`.
         
-1. Navigate to the package `scripts` directory and use the Linux `touch` command to create a new file called `move_square.py`:
+1. Navega al directorio `scripts` del package y usa el comando Linux `touch` para crear un nuevo archivo llamado `move_square.py`:
     
     ```bash
     touch move_square.py
     ```
 
-1. Then make this file executable using `chmod`:
+1. Luego haz este archivo ejecutable usando `chmod`:
 
     ```bash
     chmod +x move_square.py
     ```
 
-1. Define `move_square.py` as a package executable in your `CMakeLists.txt` file (you should know how to do this by now, but if not, refer back to either Exercise 2 or Exercise 4). 
+1. Define `move_square.py` como un ejecutable del package en tu archivo `CMakeLists.txt` (ya deberías saber cómo hacer esto, pero si no, consulta el Ejercicio 2 o el Ejercicio 4). 
 
-1. Use the VS Code File Explorer to navigate to this `move_square.py` file and open it up, ready for editing.
-1. There's a template below to help you with this exercise. 
+1. Usa el Explorador de Archivos de VS Code para navegar a este archivo `move_square.py` y ábrelo, listo para editar.
+1. Hay una plantilla a continuación para ayudarte con este ejercicio. 
 
-    <center>[:material-file-code-outline: Access the `move_square.py` template here](./part2/move_square.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: Accede a la plantilla de `move_square.py` aquí](./part2/move_square.md){ .md-button target="_blank"}</center>
 
-    Copy and paste the template code into your new `move_square.py` file to get you started. 
+    Copia y pega el código de la plantilla en tu nuevo archivo `move_square.py` para comenzar. 
 
-1. Re-build your `part2_navigation` package, to include your new `move_square.py` node, following that **three-step build process** once again:
+1. Vuelve a compilar tu package `part2_navigation`, para incluir tu nuevo node `move_square.py`, siguiendo ese **proceso de compilación de tres pasos** una vez más:
 
-    Step 1:
+    Paso 1:
 
     ```bash
     cd ~/ros2_ws/
     ```
     
-    Step 2:
+    Paso 2:
 
     ```bash
     colcon build --packages-select part2_navigation --symlink-install
     ```
 
-    Step 3:
+    Paso 3:
 
     ```bash
     source ~/.bashrc
     ```
 
-1. Run the code as it is to see what happens... <a name="blank-2"></a>
+1. Ejecuta el código tal como está para ver qué sucede... <a name="blank-2"></a>
 
-    !!! warning "Fill in the Blank!"
-        Something not quite working as expected? Did we [forget something very crucial](./part1/publisher.md#shebang) on **the very first line** of the code template?!
+    !!! warning "¡Completa el Espacio en Blanco!"
+        ¿Algo no funciona como se esperaba? ¿[Olvidamos algo muy crucial](./part1/publisher.md#shebang) en **la primera línea** de la plantilla de código?!
 
-1. Fill in the blank as required and then adapt the code to make your robot follow a **square** motion path of **1 x 1 meter** dimensions.
+1. Completa el espacio en blanco según sea necesario y luego adapta el código para hacer que tu robot siga una trayectoria de movimiento **cuadrada** de dimensiones de **1 x 1 metro**.
 
-    After following a square motion path a few times, your robot *should* return to the same location that it started from.
+    Después de seguir una trayectoria de movimiento cuadrada algunas veces, tu robot *debería* regresar a la misma ubicación desde la que comenzó.
 
-    !!! tip "Advanced feature"
-        Adapt the node to make the robot automatically stop once it has performed two complete loops.
+    !!! tip "Función avanzada"
+        Adapta el node para hacer que el robot se detenga automáticamente una vez que haya realizado dos vueltas completas.
 
-## Wrapping Up
+## Conclusión
 
-In this session we've learnt how to control the velocity and position of a robot from both the command-line (using ROS command-line tools) and from ROS Nodes by publishing correctly formatted messages to the `/cmd_vel` topic.  
+En esta sesión hemos aprendido cómo controlar la velocidad y posición de un robot tanto desde la línea de comandos (usando herramientas de línea de comandos de ROS) como desde Nodes de ROS publicando mensajes correctamente formateados al topic `/cmd_vel`.  
 
-We've also learnt about *Odometry*, which is published by our robot to the `/odom` topic.  The odometry data tells us the current linear and angular velocities of our robot in relation to its 3 principal axes.  In addition to this though, it also tells us where in physical space our robot is located and oriented, which is determined based on *dead-reckoning*. 
+También hemos aprendido sobre la *Odometría*, que es publicada por nuestro robot al topic `/odom`. Los datos de odometría nos indican las velocidades lineales y angulares actuales de nuestro robot en relación con sus 3 ejes principales. Además de esto, también nos indica dónde en el espacio físico está ubicado y orientado nuestro robot, lo cual se determina en base al *dead-reckoning*. 
 
-!!! question "Questions" 
-    1. What information (sensor/actuator data) is used to do this?
-    1. Do you see any potential limitations of this?
+!!! question "Preguntas" 
+    1. ¿Qué información (datos de sensores/actuadores) se usa para hacer esto?
+    1. ¿Ves alguna limitación potencial de esto?
     
-In the final exercise we explored the development of odometry-based control to make a robot follow a *square* motion path. You will likely have observed some degree of error in this which could be due to the fact that Odometry data is determined by dead-reckoning and is therefore subject to drift and accumulated error. Consider how other factors may impact the accuracy of control too.
+En el ejercicio final exploramos el desarrollo del control basado en odometría para hacer que un robot siga una trayectoria de movimiento *cuadrada*. Es probable que hayas observado cierto grado de error en esto, que podría deberse al hecho de que los datos de Odometría se determinan mediante dead-reckoning y por lo tanto están sujetos a deriva y error acumulado. Considera cómo otros factores también pueden afectar la precisión del control.
 
-!!! question "Questions"
-    1. How might the rate at which the odometry data is sampled play a role?
-    1. How quickly can your robot receive new velocity commands, and how quickly can it respond?
+!!! question "Preguntas"
+    1. ¿Qué papel podría jugar la frecuencia con la que se muestrean los datos de odometría?
+    1. ¿Con qué rapidez puede tu robot recibir nuevos comandos de velocidad, y con qué rapidez puede responder?
 
-Be aware that we did all this in simulation here too. In fact, in a real world environment, this type of navigation might be *less effective*, since things such as measurement noise and calibration errors can also have considerable impact. You will have the opportunity to experience this first hand in the labs.
+Ten en cuenta que todo esto lo hicimos en simulación también. De hecho, en un entorno del mundo real, este tipo de navegación podría ser *menos efectiva*, ya que cosas como el ruido de medición y los errores de calibración también pueden tener un impacto considerable. Tendrás la oportunidad de experimentar esto de primera mano en el laboratorio.
 
-Ultimately then, we've seen a requirement here for additional information to provide more confidence of a robot's location in its environment, in order to enhance its ability to navigate effectively and avoid crashing into things! We'll explore this further later in this course.
+En última instancia, hemos visto aquí un requisito de información adicional para proporcionar más confianza sobre la ubicación de un robot en su entorno, con el fin de mejorar su capacidad de navegar eficazmente y evitar chocar con las cosas. Exploraremos esto más adelante en este curso.
 
-### WSL-ROS2 Managed Desktop Users: Save your work! {#backup}
+### Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo! {#backup}
 
-Remember, the work you have done in the WSL-ROS2 environment during this session **will not be preserved** for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS2 Terminal Instance:
+Recuerda, ¡el trabajo que has realizado en el entorno WSL-ROS2 durante esta sesión **no se conservará** para sesiones futuras o en diferentes máquinas del laboratorio automáticamente! Para guardar el trabajo que has realizado hoy debes ejecutar el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:
 
 ```bash
 wsl_ros backup
 ```
 
-This will export your home directory to your University `U:\` Drive, allowing you to restore it on another managed desktop machine the next time you fire up WSL-ROS2.  
+Esto exportará tu directorio home a tu Unidad `U:\`, lo que te permitirá restaurarlo en otra computadora del laboratorio la próxima vez que inicies WSL-ROS2.

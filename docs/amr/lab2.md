@@ -1,90 +1,90 @@
 ---  
-title: "Lab 2: Feedback Control" 
+title: "Lab 2: Control con Retroalimentación" 
 ---  
 
-## Introduction
+## Introducción
 
-In Lab 1 we explored how ROS 2 works and how to use this framework to bring a robot to life. Let's quickly recap the key points:
+En el Lab 1 exploramos cómo funciona ROS 2 y cómo usar este framework para dar vida a un robot. Hagamos un repaso rápido de los puntos clave:
 
 **Nodes**
 
-* Are executable programs (Python, C++ scripts) that perform specific robot tasks and operations.
-* Typically, there'll be many Nodes running on a robot simultaneously in order to make it work.
-* We can create our own Nodes on top of what's already running, to add extra functionality.
-* You may recall that we created our own Node (in Python) to make our TurtleBot3 Waffle follow a square motion path.
+* Son programas ejecutables (scripts Python, C++) que realizan tareas y operaciones específicas del robot.
+* Típicamente, habrá muchos Nodes ejecutándose simultáneamente en un robot para que funcione.
+* Podemos crear nuestros propios Nodes sobre lo que ya está en ejecución, para agregar funcionalidades adicionales.
+* Recordarás que creamos nuestro propio Node (en Python) para hacer que nuestro TurtleBot3 Waffle siguiera una trayectoria cuadrada.
 
 <figure markdown>
   ![](./lab2/ros_network.png){width=500px}
 </figure>
 
-**Topics and Message Interfaces**
+**Topics e Interfaces de Mensajes**
 
-* All Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.
-* ROS Topics are key to this - they are essentially the communication channels (or the plumbing) through which all data is passed around between nodes.
-* Different topics communicate different types of information using standardised data structures (called *"Message Interfaces"*).
-* Any Node can publish (*write*) and/or subscribe to (*read*) any ROS Topic in order to pass information around or make things happen.
+* Todos los Nodes en ejecución en una red pueden comunicarse y pasarse datos entre sí usando un Principio de Comunicación basado en Publicador/Suscriptor.
+* Los Topics de ROS son clave para esto: son esencialmente los canales de comunicación (o la tubería) a través de los cuales se pasan todos los datos entre los nodes.
+* Diferentes topics comunican diferentes tipos de información usando estructuras de datos estandarizadas (llamadas *"Interfaces de Mensajes"*).
+* Cualquier Node puede publicar (*escribir*) y/o suscribirse a (*leer*) cualquier Topic de ROS para pasar información o hacer que sucedan cosas.
 
 <figure markdown>
   ![](./lab2/ros_comms.png){width=500px}
 </figure>
 
-One of the key ROS Topics that we worked with last time was `/cmd_vel`, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move we publish `TwistStamped` *Interface Messages* to the `/cmd_vel` topic. Interfaces messages are *structured data types* defined in ROS, and we will remind ourselves about the structure of the `TwistStamped` data type shortly...
+Uno de los Topics de ROS clave con el que trabajamos la vez anterior fue `/cmd_vel`, que es un topic que comunica comandos de velocidad para hacer mover a un robot. Recordarás que para hacer mover a nuestro TurtleBot3 Waffle publicamos *Mensajes de Interface* `TwistStamped` en el topic `/cmd_vel`. Los mensajes de interface son *tipos de datos estructurados* definidos en ROS, y recordaremos brevemente la estructura del tipo de dato `TwistStamped` en breve...
 
-**Open-Loop Control**
+**Control de Lazo Abierto**
 
-We used a time-based method to control the motion of our robot in order to get it to generate a square motion path. This type of control is *open-loop*: we hoped that the robot had moved (or turned) by the amount that was required, but had no *feedback* to tell us whether this had actually been achieved.
+Usamos un método basado en tiempo para controlar el movimiento de nuestro robot para que generara una trayectoria cuadrada. Este tipo de control es *de lazo abierto*: esperábamos que el robot se hubiera movido (o girado) en la cantidad requerida, pero no teníamos *retroalimentación* para decirnos si esto realmente se había logrado.
 
-**Closed-Loop Control**
+**Control de Lazo Cerrado**
 
-In this lab we'll look at how this can be improved, making use of some of our robot's on-board sensors to tell us where the robot is or what it can see in its environment, in order to complete a task more reliably and be able to better adapt to changes and uncertainty in the environment.
+En este laboratorio veremos cómo esto puede mejorarse, haciendo uso de algunos de los sensores a bordo de nuestro robot para decirnos dónde está el robot o qué puede ver en su entorno, con el fin de completar una tarea de manera más confiable y poder adaptarse mejor a los cambios e incertidumbre del entorno.
 
-### Aims
+### Objetivos
 
-In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to *subscribe* to these. We'll see how the data from these sensors can be used as *feedback* to inform decision-making, thus allowing us to implement some different forms of *closed-loop control*, and make our robot more autonomous. 
+En este laboratorio, construiremos algunos Nodes de ROS (en Python) que incorporan datos de algunos de los sensores de nuestro robot. Estos datos de sensores son publicados en topics específicos en la red ROS, y podemos construir Nodes de ROS para *suscribirnos* a estos. Veremos cómo los datos de estos sensores pueden usarse como *retroalimentación* para informar la toma de decisiones, permitiéndonos implementar algunas formas diferentes de *control de lazo cerrado* y hacer que nuestro robot sea más autónomo.
 
-### Intended Learning Outcomes
+### Resultados de Aprendizaje
 
-By the end of this session you will be able to:
+Al finalizar esta sesión serás capaz de:
 
-1. Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.
-1. Use data from a Robot's LiDAR sensor to make a robot follow a wall.
-1. Analyse images from a Robot's Camera and use this information to follow a coloured line on the floor.
-1. (Optional) Use feedback from a robot's odometry system to *control* its position in an environment.
+1. Interpretar los datos del sistema de Odometría de un robot ROS y entender qué te dice sobre la posición y orientación de un robot en su entorno.
+1. Usar datos del sensor LiDAR de un robot para hacer que el robot siga una pared.
+1. Analizar imágenes de la cámara de un robot y usar esta información para seguir una línea de color en el suelo.
+1. (Opcional) Usar la retroalimentación del sistema de odometría de un robot para *controlar* su posición en un entorno.
 
 
-### Quick Links
+### Acceso rápido
 
-* [Exercise 1: Exploring Odometry Data](#ex1)
-* [Exercise 2: Wall Following](#ex2)
-* [Exercise 3: Line Following](#ex3)
-* [(Optional) Exercise 4: Odometry-based Navigation](#ex4)
+* [Ejercicio 1: Explorar datos de Odometría](#ex1)
+* [Ejercicio 2: Seguimiento de pared](#ex2)
+* [Ejercicio 3: Seguimiento de línea](#ex3)
+* [(Opcional) Ejercicio 4: Navegación basada en Odometría](#ex4)
 
-## The Lab
+## El Laboratorio
 
-!!! info "Assessment Info"
-    This lab is **summatively assessed**.
+!!! info "Evaluación"
+    Este laboratorio es **evaluado de forma sumativa**.
 
-    1. There's a **post-lab quiz** that you'll need to complete after this lab session has taken place, which will be released on Blackboard.
-    1. You'll also be marked on the work that you do **in the lab** for Exercises 2 & 3.
+    1. Existe un **cuestionario post-lab** que deberás completar después de esta sesión, el cual será publicado en la plataforma del curso.
+    1. También serás evaluado por el trabajo que realices **en el laboratorio** para los Ejercicios 2 y 3.
 
-### Getting Started
+### Primeros pasos
 
-#### Creating a ROS Package
+#### Crear un paquete ROS
 
-We'll need a ROS package to work with for this lab session. We've created a template for you, which contains all the resources that you'll need for today. Download and install this as follows.
+Necesitaremos un paquete ROS para trabajar durante esta sesión de laboratorio. Hemos creado una plantilla para ti, que contiene todos los recursos que necesitarás para hoy. Descárgala e instálala de la siguiente manera.
 
-1. Open up a terminal instance on the laptop, either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:
+1. Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado ++ctrl+alt+t++, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:
     
     <figure markdown>
       ![](../images/laptops/terminal_icon.svg){width=60px}
     </figure>
 
-    We'll call this **TERMINAL 1**.
+    La llamaremos **TERMINAL 1**.
 
-1. In **TERMINAL 1**, run the following commands in order:
+1. En **TERMINAL 1**, ejecuta los siguientes comandos en orden:
 
     !!! tip
-        To **paste** the following commands into the terminal use ++ctrl+shift+v++
+        Para **pegar** los siguientes comandos en la terminal usa ++ctrl+shift+v++
     
     ***
     **TERMINAL 1**:
@@ -95,6 +95,9 @@ We'll need a ROS package to work with for this lab session. We've created a temp
     ```txt
     git clone https://github.com/tom-howard/amr31001_lab2.git
     ```
+
+    !!! note
+        Este repositorio proviene del curso original de la Universidad de Sheffield. El paquete ROS se llama `amr31001_lab2` — usa ese nombre en todos los comandos siguientes.
     
     ```txt
     cd ~/ros2_ws && \
@@ -104,45 +107,45 @@ We'll need a ROS package to work with for this lab session. We've created a temp
     ```
     ***
 
-1. Next, open the package in VS Code:
+1. A continuación, abre el paquete en VS Code:
 
     ```bash
     code ./src/amr31001_lab2
     ```
 
-1. When VS Code opens, navigate to the *File Explorer*: 
+1. Cuando se abra VS Code, navega al *Explorador de Archivos*:
     
     <figure markdown>
       ![](./lab2/vscode_explorer_package_xml.png){width=400px}
     </figure>
 
-    ... find a file here called `package.xml` and click on it. 
+    ... encuentra un archivo llamado `package.xml` aquí y haz clic en él.
 
-1. Look for the following lines in the `package.xml` file:
+1. Busca las siguientes líneas en el archivo `package.xml`:
 
     ``` title="package.xml"
-    <maintainer email="name1@sheffield.ac.uk">Name 1</maintainer>
-    <maintainer email="name2@sheffield.ac.uk">Name 2</maintainer>
+    <maintainer email="nombre.apellido1@institucion.edu">Nombre 1</maintainer>
+    <maintainer email="nombre.apellido2@institucion.edu">Nombre 2</maintainer>
     ```
 
-    Change `Name 1` to your name, and then change `name1@sheffield.ac.uk` to your Sheffield email address! Then, do the same for your other Group member on the line below it. (If you're working in a group of more than 2 people, then you can add additional lines below this for your other group members.)
+    Cambia `Nombre 1` a tu nombre completo, y `nombre.apellido1@institucion.edu` a tu correo institucional. Haz lo mismo para el otro miembro de tu grupo en la línea inferior.
 
     !!! warning "Post-lab"
-        **This is important for the post-lab**!
+        **¡Esto es importante para el post-lab!**
 
-        Some of the work that you do in this lab will be assed as part of the post-lab, so it's important that we can identify each member of your group. If any group members aren't listed here, then they won't receive any marks! 
+        Parte del trabajo que realices en este laboratorio será evaluado como parte del post-lab, por lo que es importante que podamos identificar a cada miembro de tu grupo. Si algún miembro del grupo no está listado aquí, ¡no recibirá calificación!
 
-        When entering your names, make sure you provide first names **AND** surnames for each group member.
+        Al ingresar los nombres, asegúrate de proporcionar nombres **Y** apellidos para cada miembro del grupo.
 
-1. Save the changes that you have just made to your `package.xml` file.
+1. Guarda los cambios que acabas de hacer en tu archivo `package.xml`.
 
-#### Launching ROS
+#### Lanzar ROS
 
-Much the same as last time, you'll now need to get ROS up and running on your robot. 
+Al igual que la última vez, ahora necesitarás poner en marcha ROS en tu robot.
 
-1. First, identify the robot that you have been provided with. Each of our robots are uniquely named: `dia-waffleX`, where `X` is the *'Robot Number'* (a number between 1 and 50). Check the label printed on top of the robot to find out which one you have!
+1. Primero, identifica el robot que tienes asignado. Cada uno de nuestros robots tiene un nombre único: `robot-X`, donde `X` es el *'Número de Robot'*. Revisa la etiqueta impresa en la parte superior del robot para saber cuál te corresponde.
 
-1. In **TERMINAL 1** type the following command to *pair* the laptop and robot, so that they can work together:
+1. En **TERMINAL 1** escribe el siguiente comando para *vincular* la laptop y el robot, de modo que puedan trabajar juntos:
 
     ***
     
@@ -150,42 +153,42 @@ Much the same as last time, you'll now need to get ROS up and running on your ro
     ``` { .txt .no-copy }
     waffle X pair
     ```
-    **... replacing `X` with the number of the robot that you have been provided with**.
+    **... reemplazando `X` con el número del robot que te ha sido asignado**.
     
     ***
 
-1. Enter the password for the robot when requested (we'll tell you what this is in the lab).
+1. Ingresa la contraseña del robot cuando se te solicite (te la indicaremos en el laboratorio).
 
-    You *may* see a message like this early on in the pairing process:
+    Es posible que veas un mensaje como este durante el proceso de vinculación:
 
     <figure markdown>
       ![](../images/laptops/ssh_auth.svg){width=600px}
     </figure>
 
-    If so, just type `yes` and then hit ++enter++ to confirm that you want to continue.
+    Si es así, simplemente escribe `yes` y presiona ++enter++ para confirmar que deseas continuar.
 
-1. Once the pairing process is finished you should see a message saying `pairing complete`, displayed in blue in the terminal. 
+1. Una vez que el proceso de vinculación haya finalizado, deberías ver el mensaje `pairing complete`, mostrado en azul en la terminal.
 
-1. Then, in the same terminal (**TERMINAL 1**), enter the following command:
+1. Luego, en la misma terminal (**TERMINAL 1**), introduce el siguiente comando:
 
     ***
     **TERMINAL 1:**
     ``` { .txt .no-copy }
     waffle X term
     ```
-    (again, replacing `X` with the number of **your** robot).
+    (nuevamente, reemplazando `X` con el número de **tu** robot).
     
     ***
 
-    Any text that was in the terminal should now disappear, and a green banner should appear across the bottom of the terminal window:
+    El texto que había en la terminal debería desaparecer y aparecerá un banner verde en la parte inferior de la ventana:
     
     <figure markdown>
       ![](../images/laptops/tmux.svg){width=600px}
     </figure>
 
-    This is a terminal instance running **on the robot**, and any commands that you enter here will be **executed on the robot** (not the laptop!)
+    Esta es una instancia de terminal ejecutándose **en el robot**, y cualquier comando que ingreses aquí se **ejecutará en el robot** (¡no en la laptop!)
 
-1. Now, launch ROS on the robot by entering the following command:
+1. Ahora, lanza ROS en el robot ingresando el siguiente comando:
 
     ***
     **TERMINAL 1:**
@@ -194,23 +197,23 @@ Much the same as last time, you'll now need to get ROS up and running on your ro
     ```
 
     !!! tip
-        To paste text into a Linux terminal you'll need to use the Control + **Shift** + V keyboard keys: ++ctrl+shift+v++
+        Para pegar texto en una terminal Linux deberás usar las teclas Control + **Shift** + V: ++ctrl+shift+v++
 
     ***
 
-    If all is well then the robot will play a nice *"do-re-me"* sound and a message like this should appear (amongst all the other text):
+    Si todo va bien, el robot reproducirá un sonido *"do-re-mi"* y aparecerá un mensaje como este (entre todo el otro texto):
 
     ``` { .txt .no-copy }
     [tb3_status.py-#] ######################################
-    [tb3_status.py-#] ### dia-waffleX is up and running! ###
+    [tb3_status.py-#] ### robot-X is up and running! ###
     [tb3_status.py-#] ######################################
     ```
 
-    ROS is now up and running on the robot, and we're ready to go!
+    ¡ROS ya está funcionando en el robot y estamos listos para comenzar!
 
-1. Next, connect the laptop to the ROS network that we've just established on the robot. The Robot and Laptop communicate with one another via the University Wireless network, but there's one more step required to link them together. 
+1. A continuación, conecta la laptop a la red ROS que acabamos de establecer en el robot. El robot y la laptop se comunican entre sí a través de la red inalámbrica, pero se requiere un paso más para vincularlos.
 
-    Open up **a new terminal instance** on the laptop (either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:
+    Abre **una nueva instancia de terminal** en la laptop (ya sea con el atajo ++ctrl+alt+t++ o haciendo clic en el ícono de la terminal) e ingresa el siguiente comando:
 
     ***
     **TERMINAL 2**:
@@ -219,30 +222,30 @@ Much the same as last time, you'll now need to get ROS up and running on your ro
     ```
     ***
 
-    Leave **TERMINAL 1** and **TERMINAL 2** running in the background at all times while working with your robot in the lab today.
+    Deja **TERMINAL 1** y **TERMINAL 2** ejecutándose en segundo plano en todo momento mientras trabajas con tu robot en el laboratorio hoy.
 
-### Odometry
+### Odometría
 
-To start with we will consider a robot's *odometry* system, and what this is useful for.
+Para comenzar consideraremos el sistema de *odometría* de un robot y para qué es útil.
 
-> Odometry is the use of data from motion sensors to estimate change in position over time. It is used in robotics by some legged or wheeled robots to estimate their position relative to a starting location. [^wiki]
+> La odometría es el uso de datos de sensores de movimiento para estimar el cambio de posición a lo largo del tiempo. Es utilizada en robótica por algunos robots con patas o ruedas para estimar su posición relativa a una ubicación de inicio. [^wiki]
 
 [^wiki]: https://en.wikipedia.org/wiki/Odometry
 
-Our robot can therefore keep track of its position (and orientation) as it moves around. It does this using data from two sources:
+Por lo tanto, nuestro robot puede hacer un seguimiento de su posición (y orientación) mientras se mueve. Hace esto usando datos de dos fuentes:
 
-1. **Wheel encoders**: Our robot has two wheels, each is equipped with an encoder that measures the number of rotations that the wheel makes. 
-1. An **Inertial Measurement Unit (IMU)**: Using accelerometers, gyroscopes and compasses, the IMU can monitor the linear and angular velocity of the robot, and which direction it is heading, at all times.
+1. **Encoders de rueda**: Nuestro robot tiene dos ruedas, cada una equipada con un encoder que mide el número de rotaciones que realiza la rueda.
+1. Una **Unidad de Medición Inercial (IMU)**: Usando acelerómetros, giroscopios y brújulas, la IMU puede monitorear la velocidad lineal y angular del robot, y hacia qué dirección se dirige, en todo momento.
 
-This data is published to a ROS Topic called `/odom`. 
+Estos datos se publican en un Topic de ROS llamado `/odom`.
 
-#### :material-pen: Exercise 1: Exploring Odometry Data {#ex1}
+#### :material-pen: Ejercicio 1: Explorar datos de Odometría {#ex1}
 
-In the previous lab we used some `ros2` commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the `/odom` topic this time.
+En el laboratorio anterior usamos algunos comandos `ros2` para identificar e interrogar topics activos en la red ROS. Hagámoslo de nuevo ahora, pero esta vez con el topic `/odom`.
 
-1. Open up a new terminal instance on the laptop (by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before). We’ll call this one **TERMINAL 3**.
+1. Abre una nueva instancia de terminal en la laptop (presionando ++ctrl+alt+t++, o haciendo clic en el ícono de la aplicación Terminal, como lo hiciste antes). La llamaremos **TERMINAL 3**.
 
-1. As you may recall from last time, we can use the `ros2 topic` command to *list* all the topics that are currently active on the network. Enter the following in **TERMINAL 3**:
+1. Como quizás recuerdes de la última vez, podemos usar el comando `ros2 topic` para *listar* todos los topics que están actualmente activos en la red. Introduce lo siguiente en **TERMINAL 3**:
 
     ***
     **TERMINAL 3**:
@@ -251,9 +254,9 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
     ```
     ***
 
-    A large list of items should appear on the screen. Can you spot the `/odom` topic?
+    Debería aparecer una gran lista de elementos en la pantalla. ¿Puedes encontrar el topic `/odom`?
     
-1. Let's find out more about this using the `ros2 topic info` command.
+1. Averigüemos más sobre esto usando el comando `ros2 topic info`.
 
     ***
     **TERMINAL 3**:
@@ -262,7 +265,7 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
     ```
     ***
 
-    This should provide the following output:
+    Esto debería proporcionar la siguiente salida:
     
     ```{ .txt .no-copy }
     Type: nav_msgs/msg/Odometry
@@ -270,22 +273,22 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
     Subscription count: 0
     ```
 
-    !!! info "Post-lab Quiz"
-        What does all this mean? We discussed this [last time (in relation to the `/cmd_vel` topic)](./lab1.md#rostopic_info_explained), and you may want to have a look back at this to refresh your memory! 
+    !!! info "Cuestionario Post-lab"
+        ¿Qué significa todo esto? Discutimos esto [la última vez (en relación con el topic `/cmd_vel`)](./lab1.md#rostopic_info_explained), y quizás quieras volver a verlo para refrescar tu memoria.
     
-    Based on the above, we know that the `/odom` topic uses a `nav_msgs/msg/Odometry` data structure (or *"interface"*). 
+    Basándose en lo anterior, sabemos que el topic `/odom` usa una estructura de datos `nav_msgs/msg/Odometry` (o *"interface"*).
     
-    **Interfaces** (revisited)
+    **Interfaces** (revisitado)
     
-    Recall from Lab 1 that data structures in ROS 2 are called *Interfaces*. 
+    Recuerda del Lab 1 que las estructuras de datos en ROS 2 se llaman *Interfaces*.
         
-    From the output above, `Type` refers to the *type* of data structure (i.e. the type of interface). The `Type` definition always has three parts to it, in this case: `nav_msgs`, `msg` and `Odometry`:
+    De la salida anterior, `Type` se refiere al *tipo* de estructura de datos (es decir, el tipo de interface). La definición de `Type` siempre tiene tres partes: en este caso `nav_msgs`, `msg` y `Odometry`:
         
-    1. `nav_msgs` is the name of the ROS package that this interface (data structure) belongs to
-    1. `msg` tells us that it's a topic *message* interface (rather than another interface type, of which there are others, but we don't need to worry about them here)
-    1. `Odometry` is the *name* of the message interface.
+    1. `nav_msgs` es el nombre del paquete ROS al que pertenece esta interface (estructura de datos).
+    1. `msg` nos indica que es una interface de *mensaje* de topic.
+    1. `Odometry` es el *nombre* de la interface de mensaje.
     
-1. We can use the `ros2 interface` command to find out more about this:
+1. Podemos usar el comando `ros2 interface` para encontrar más información sobre esto:
 
     ***
     **TERMINAL 3**:
@@ -294,7 +297,7 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
     ```
     ***
 
-    You'll see a lot of information there, but try to find the line that reads `Pose pose`: 
+    Verás mucha información allí, pero trata de encontrar la línea que dice `Pose pose`:
 
     ``` { .txt .no-copy }
     Pose pose
@@ -309,9 +312,9 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
                     float64 w 1
     ```
 
-    Here's where we'll find information about the robot's position and orientation (aka *"Pose"*) in the environment. Let's have a look at this data in real time...
+    Aquí encontraremos información sobre la posición y orientación del robot (también conocida como *"Pose"*) en el entorno. Veamos estos datos en tiempo real...
 
-1. We can look at the live data being streamed across the `/odom` topic, using the `ros2 topic echo` command. We know that the data type is called `nav_msgs/msg/Odometry`, and nested within this is the `pose` attribute that we are interested in, so:
+1. Podemos ver los datos en vivo que se transmiten a través del topic `/odom`, usando el comando `ros2 topic echo`. Sabemos que el tipo de dato se llama `nav_msgs/msg/Odometry`, y anidado dentro de este está el atributo `pose` que nos interesa, así que:
 
     ***
     **TERMINAL 3**:
@@ -320,11 +323,11 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
     ```
     ***
 
-1. What we're presented with now is live Odometry data from the robot.
+1. Lo que se nos presenta ahora son datos de Odometría en vivo del robot.
     
-    Let's drive the robot around a bit and observe how our robot's pose changes as we do so.
+    Conduzcamos el robot un poco y observemos cómo cambia la pose de nuestro robot mientras lo hacemos.
     
-1. Open up a new terminal instance by pressing ++ctrl+alt+t++, or clicking the Terminal App desktop icon, as you did before. We'll call this one **TERMINAL 4**:
+1. Abre una nueva instancia de terminal presionando ++ctrl+alt+t++ o haciendo clic en el ícono de la terminal, como hiciste antes. La llamaremos **TERMINAL 4**:
 
     ***
     **TERMINAL 4**:
@@ -333,57 +336,57 @@ In the previous lab we used some `ros2` commands to identify and interrogate act
     ```
     ***
 
-1. Follow the instructions provided in the terminal to drive the robot around:
+1. Sigue las instrucciones proporcionadas en la terminal para conducir el robot:
 
-    ??? tip "Reminder"
+    ??? tip "Recordatorio"
 
         <figure markdown>
           ![](../images/cli/teleop_keymap.svg)
         </figure>
 
-    As you're doing this, look at how the `position` and `orientation` data is changing in **TERMINAL 3**, in real-time!
+    Mientras haces esto, ¡observa cómo los datos de `position` y `orientation` cambian en **TERMINAL 3**, en tiempo real!
 
-    !!! info "Post-lab Quiz"
-        Which position and orientation values change (by a significant amount) when:
+    !!! info "Cuestionario Post-lab"
+        ¿Qué valores de posición y orientación cambian (significativamente) cuando:
             
-        1. The robot turns on the spot (i.e. only an *angular* velocity is applied)?
-        1. The robot moves forwards (i.e. only a *linear* velocity is applied)?
-        1. The robot moves in a circle (i.e. both a linear *and* angular velocity are applied simultaneously)?
+        1. ¿El robot gira sobre sí mismo (es decir, solo se aplica una velocidad *angular*)?
+        1. ¿El robot avanza (es decir, solo se aplica una velocidad *lineal*)?
+        1. ¿El robot se mueve en círculo (es decir, se aplican simultáneamente velocidades lineal *y* angular)?
 
-        **Make a note of the answers to these questions, as they may feature in the post-lab quiz!**
+        **¡Toma nota de las respuestas a estas preguntas, ya que pueden aparecer en el cuestionario post-lab!**
 
-1. When you've seen enough enter ++ctrl+c++ in **TERMINAL 4** to stop the `teleop_keyboard` node. Then, enter ++ctrl+c++ in **TERMINAL 3** as well, which will stop the live stream of Odometery messages from being displayed.
+1. Cuando hayas visto suficiente, presiona ++ctrl+c++ en **TERMINAL 4** para detener el node `teleop_keyboard`. Luego, presiona ++ctrl+c++ en **TERMINAL 3** también, lo que detendrá el flujo en vivo de mensajes de Odometría que se muestran.
 
-##### Summary
+##### Resumen
 
-**Pose** is a combination of a robot's *position* and *orientation* in its environment.
+**Pose** es una combinación de la *posición* y *orientación* de un robot en su entorno.
 
-**Position** tells us the location (in meters) of the robot in its environment. Wherever the robot was when it was turned on is the reference point, and so the distance values that we observed in the exercise above were all quoted relative to this initial position.
+**Posición** nos indica la ubicación (en metros) del robot en su entorno. El punto donde estaba el robot cuando se encendió es el punto de referencia, por lo que los valores de distancia que observamos en el ejercicio anterior se citaron todos relativos a esta posición inicial.
 
-You should have noticed that (as the robot moved around) the `x` and `y` terms changed, but the `z` term should have remained at zero. This is because the `X-Y` plane is the floor, and any change in `z` position would mean that the robot was floating or flying above the floor! 
+Deberías haber notado que (a medida que el robot se movía) los términos `x` e `y` cambiaban, pero el término `z` debería haberse mantenido en cero. Esto se debe a que el plano `X-Y` es el suelo, ¡y cualquier cambio en la posición `z` significaría que el robot está flotando o volando sobre el suelo!
 
-**Orientation** tells us where the robot is pointing in its environment, expressed in units of *Quaternions*; a four-term orientation system. You should have noticed some of these values changing too, but it may not have been immediately obvious what the values really meant! For the further exercises in this lab we'll convert this to Euler angles (in degrees/radians) for you, to make the data a bit easier to understand.
+**Orientación** nos dice hacia dónde apunta el robot en su entorno, expresado en unidades de *Cuaterniones*; un sistema de orientación de cuatro términos. También deberías haber notado algunos de estos valores cambiando, ¡aunque puede que no haya sido inmediatamente obvio qué significaban los valores! Para los ejercicios adicionales en este laboratorio convertiremos esto a ángulos de Euler (en grados/radianes) para que los datos sean un poco más fáciles de entender.
 
-Ultimately though, our robots *position* can change in both the `X` and `Y` axes (i.e. the plane of the floor), while its *orientation* can only change about the `Z` axis (i.e. it can only "yaw"): 
+En última instancia, la *posición* de nuestros robots puede cambiar tanto en los ejes `X` como `Y` (es decir, el plano del suelo), mientras que su *orientación* solo puede cambiar alrededor del eje `Z` (es decir, solo puede "guinear"/yaw):
 
 <figure markdown>
   ![](../images/waffle/pose.svg){width=700px}
 </figure>
 
-#### Odometry-based Navigation
+#### Navegación basada en Odometría
 
-We can use our robot's odometry as a feedback signal to inform robot navigation and thus implement **closed-loop control**. There's a final (optional) exercise at the end of this lab where you can explore this further (if you have time). For now though, let's consider some other data streams on the robot, and how *these* could be used for closed-loop control instead. 
+Podemos usar la odometría de nuestro robot como señal de retroalimentación para informar la navegación del robot e implementar **control de lazo cerrado**. Hay un ejercicio final (opcional) al final de este laboratorio donde puedes explorar esto más a fondo (si tienes tiempo). Por ahora, consideremos otros flujos de datos en el robot y cómo *estos* podrían usarse para el control de lazo cerrado en su lugar.
 
-### The LiDAR Sensor
+### El Sensor LiDAR
 
-As you'll know, the black spinning device on the top of your robot is a *LiDAR Sensor*. As discussed previously, this sensor uses laser pulses to measure the distance to nearby objects. The sensor spins continuously so that it can fire these laser pulses through a full 360&deg; arc, and generate a full 2-dimensional map of the robot's surroundings.
+Como ya sabes, el dispositivo negro que gira en la parte superior de tu robot es un *Sensor LiDAR*. Como se discutió anteriormente, este sensor usa pulsos láser para medir la distancia a objetos cercanos. El sensor gira continuamente para poder disparar estos pulsos láser a través de un arco completo de 360°, y generar un mapa bidimensional completo del entorno del robot.
 
-This data is published onto the ROS network to a topic called `/scan`. Use the same methods that you used in [Exercise 1](#ex1) to find out what data type (*"interface"*) this topic uses.
+Estos datos se publican en la red ROS en un topic llamado `/scan`. Usa los mismos métodos que usaste en el [Ejercicio 1](#ex1) para descubrir qué tipo de dato (*"interface"*) usa este topic.
 
-!!! info "Post-lab Quiz"
-    Make a note of this, there'll be a post-lab quiz question on it!
+!!! info "Cuestionario Post-lab"
+    ¡Toma nota de esto, habrá una pregunta del cuestionario post-lab sobre ello!
 
-Launch RViz, so that we can see the data coming from this sensor in real-time:
+Lanza RViz, para que podamos ver los datos de este sensor en tiempo real:
 
 ***
 **TERMINAL 3**:
@@ -396,46 +399,44 @@ ros2 launch tuos_tb3_tools rviz.launch.py environment:=real
   ![](../images/waffle/real_rviz_vs_arena.png){width=700px}
 </figure>
 
-The green dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of green dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the dots also move towards or away from the robot on the screen. 
+Los puntos verdes ilustran los datos del LiDAR. Extiende tu mano hacia el robot y observa si puedes verla siendo detectada por el sensor... debería formarse un grupo de puntos verdes en la pantalla para indicar dónde está tu mano en relación con el robot. Mueve tu mano y observa cómo el grupo de puntos se mueve en consecuencia. Acerca y aleja tu mano del robot y observa cómo los puntos también se acercan o alejan del robot en la pantalla.
 
-This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. There's lots of other ways we can use this data too though, and in the next exercise we will look at how we can use this as a feedback signal to make our robot detect and follow walls!
+Estos datos son realmente útiles y (como observamos durante la sesión de laboratorio anterior) nos permiten construir mapas bidimensionales de un entorno con considerable precisión. También hay muchas otras formas en que podemos usar estos datos, y en el siguiente ejercicio veremos cómo podemos usarlos como señal de retroalimentación para ¡hacer que nuestro robot detecte y siga paredes!
 
-Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**. 
+Cuando hayas terminado, cierra RViz presionando ++ctrl+c++ en **TERMINAL 3**.
 
-#### :material-pen: Exercise 2: Wall Following {#ex2}
+#### :material-pen: Ejercicio 2: Seguimiento de pared {#ex2}
 
-1. Head back to VS Code, which should still be open from earlier.
+1. Regresa a VS Code, que debería seguir abierto desde antes.
 
-1. In the File Explorer on the left-hand side find a folder called `scripts`, and click on the `ex2.py` file in here, to display it in the editor.
+1. En el Explorador de Archivos del lado izquierdo encuentra una carpeta llamada `scripts` y haz clic en el archivo `ex2.py` aquí, para mostrarlo en el editor.
 
-1. Have a look through the code and see if you can work out what's going on. There are a few things to be aware of:
+1. Revisa el código y trata de entender qué está pasando. Hay algunas cosas a tener en cuenta:
 
-    1. **Motion control** is handled by an external Python class called `Motion`, which is imported on line 7 (along with another class called `Lidar` which we'll talk about shortly):
+    1. El **control de movimiento** es gestionado por una clase de Python externa llamada `Motion`, que se importa en la línea 7 (junto con otra clase llamada `Lidar` de la que hablaremos en breve):
 
         ```python
         from amr31001_lab2_modules.tb3_tools import Motion, Lidar
         ```
 
-        The `Motion` class is instantiated on line 14:
+        La clase `Motion` se instancia en la línea 14:
 
         ```python
         self.motion = Motion(self) # (1)!
         ```
 
-        1. Most of the code in the `ex2.py` file is contained within a Python class called `WallFollower`. See line 9:
+        1. La mayor parte del código en el archivo `ex2.py` está contenida dentro de una clase Python llamada `WallFollower`. Mira la línea 9:
 
             ```py
             class WallFollower(Node):
                 ...
             ```
 
-            `#!py self` allows our class to refer to itself!
+            `#!py self` permite que nuestra clase se refiera a sí misma.
 
-            `#!py self.motion` for example allows us to access the `motion` attribute elsewhere within the class (as long as we refer to it as `#!py self.motion`). 
+            `#!py self.motion`, por ejemplo, nos permite acceder al atributo `motion` en cualquier parte dentro de la clase (siempre que nos refiramos a él como `#!py self.motion`).
 
-            See this in action below...
-
-        A class *method* called `follow_wall()` contains the main bulk of the code, and it's here (on lines 49-51) that we call the `#!py self.motion` attribute to make the robot move at a linear velocity of `x` (m/s) and/or an angular velocity of `y` (rad/s):
+        Un método de clase llamado `follow_wall()` contiene la mayor parte del código, y es aquí (en las líneas 49-51) donde llamamos al atributo `#!py self.motion` para hacer que el robot se mueva con una velocidad lineal de `x` (m/s) y/o una velocidad angular de `y` (rad/s):
 
         ``` { .py .no-copy }
         self.motion.move_at_velocity(
@@ -443,48 +444,48 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
         )
         ```
 
-        A class method called `on_shutdown()` handles the shutdown operations that should take place when this Python node is stopped, and it's *here* (line 24) that we call the `#!py self.motion` object again, but this time to make the robot stop:
+        Un método de clase llamado `on_shutdown()` maneja las operaciones de apagado que deben ocurrir cuando se detiene este node Python, y es *aquí* (línea 24) donde llamamos al objeto `#!py self.motion` nuevamente, pero esta vez para detener el robot:
 
         ``` { .py .no-copy }
         self.motion.stop()
         ```
    
-    1. **Obtaining LiDAR data** (as discussed above) is achieved by subscribing to the `/scan` topic. What you *hopefully* identified just before starting this exercise is that the `/scan` topic provides us with LiDAR data in a format defined as `sensor_msgs/msg/LaserScan`. This is quite a complex data structure, so to make life easier during this lab, we've done all the hard work for you, inside another class called `Lidar` (also imported earlier). This class is instantiated on line 15:
+    1. **Obtener datos del LiDAR** (como se discutió anteriormente) se logra suscribiéndose al topic `/scan`. Lo que esperamos que hayas identificado justo antes de comenzar este ejercicio es que el topic `/scan` nos proporciona datos del LiDAR en un formato definido como `sensor_msgs/msg/LaserScan`. Esta es una estructura de datos bastante compleja, así que para facilitar las cosas durante este laboratorio, hemos hecho todo el trabajo duro por ti, dentro de otra clase llamada `Lidar` (también importada anteriormente). Esta clase se instancia en la línea 15:
 
         ```python
         self.lidar = Lidar(self)
         ```
 
-        This `Lidar` class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:
+        Esta clase `Lidar` divide los datos del sensor LiDAR en varios segmentos para enfocarse en varias zonas distintas alrededor del cuerpo del robot (para hacer que los datos sean un poco más fáciles de manejar). Para cada uno de los segmentos (como se muestra en la figura a continuación) se puede obtener un único valor de distancia, que representa la distancia promedio a cualquier objeto(s) dentro de esa zona angular particular:
 
         <figure markdown>
           ![](./lab2/lidar_segments.png){width=500px}
         </figure>
 
-        In our code, we can obtain the distance measurement (in meters) from each of the above zones as follows:
+        En nuestro código, podemos obtener la medición de distancia (en metros) de cada una de las zonas anteriores de la siguiente manera:
 
-        1. `#!py self.lidar.distance.front` to obtain the average distance to any object(s) within the *"Front"* zone.
-        1. `#!py self.lidar.distance.l1` to obtain the average distance to any object(s) located within LiDAR zone *"L1"*.
-        1. `#!py self.lidar.distance.r1` to obtain the average distance to any object(s) located within LiDAR zone *"R1"*.  
-            and so on...
+        1. `#!py self.lidar.distance.front` para obtener la distancia promedio a cualquier objeto(s) dentro de la zona *"Front"*.
+        1. `#!py self.lidar.distance.l1` para obtener la distancia promedio a cualquier objeto(s) ubicado dentro de la zona LiDAR *"L1"*.
+        1. `#!py self.lidar.distance.r1` para obtener la distancia promedio a cualquier objeto(s) ubicado dentro de la zona LiDAR *"R1"*.
+            y así sucesivamente...
     
-    1. The code template has been developed to detect a wall on the robot's *left-hand side*.
-        1. We use distance measurements from LiDAR zones L3 and L4 to determine the alignment of the robot to a left-hand wall.
-        1. This is determined by calculating the difference between the distance measurements reported from these two zones:
+    1. La plantilla de código ha sido desarrollada para detectar una pared en el *lado izquierdo* del robot.
+        1. Usamos mediciones de distancia de las zonas LiDAR L3 y L4 para determinar la alineación del robot con una pared a la izquierda.
+        1. Esto se determina calculando la diferencia entre las mediciones de distancia reportadas de estas dos zonas:
 
             ```python
             wall_slope = self.lidar.distance.l3 - self.lidar.distance.l4
             ```
 
-        1. This is a *spatial difference* between LiDAR beams `l3` and `l4`, and can be used as a simple measure of local wall slope or relative offset between the robot and the wall.
+        1. Esta es una *diferencia espacial* entre los rayos LiDAR `l3` y `l4`, y puede usarse como una medida simple de la pendiente local de la pared o el desplazamiento relativo entre el robot y la pared.
         
-            If this value is close to zero, then the robot and the wall are well aligned. If not, then the robot is at an angle to the wall, and it needs to adjust its angular velocity in order to correct for this:
+            Si este valor está cerca de cero, entonces el robot y la pared están bien alineados. Si no, entonces el robot está en ángulo con respecto a la pared, y necesita ajustar su velocidad angular para corregir esto:
 
             <figure markdown>
               ![](./lab2/wall_slope.png){width=500px}
             </figure>  
 
-1. Run the node as it is, from **TERMINAL 3**:
+1. Ejecuta el node tal como está, desde **TERMINAL 3**:
 
     ***
     **TERMINAL 3**:
@@ -493,15 +494,15 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
     ```
     ***
 
-    When you do this, you'll notice that the robot doesn't move at all (yet!), but the following data appears in the terminal:
+    Cuando hagas esto, notarás que el robot no se mueve en absoluto (¡aún!), pero los siguientes datos aparecen en la terminal:
     
-    1. The distance measurements from each of the LiDAR zones.
-    1. The current value of the `wall_slope` parameter, i.e. how well aligned the robot currently is to a wall on its left-hand side.
-    1. The decision that has been made by the `#!py if` statement on the appropriate action that should be taken, given the current value of `wall_slope`.
+    1. Las mediciones de distancia de cada una de las zonas LiDAR.
+    1. El valor actual del parámetro `wall_slope`, es decir, qué tan bien alineado está actualmente el robot con una pared en su lado izquierdo.
+    1. La decisión que ha tomado la instrucción `#!py if` sobre la acción apropiada que debe tomarse, dado el valor actual de `wall_slope`.
 
-1. Now look at the code. 
+1. Ahora observa el código.
 
-    1. The `follow_wall()` class method is called over and over again at a controlled rate. This was established in the `#!py __init__()` class method: 
+    1. El método de clase `follow_wall()` es llamado repetidamente a una tasa controlada. Esto se estableció en el método de clase `#!py __init__()`:
     
         ```py
         self.create_timer(
@@ -510,50 +511,50 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
         )
         ```
 
-        1. The rate at which to execute a *"callback function"*. Note: defined in terms of *period* (in seconds), not *frequency* (in Hz).
-        2. The callback function to execute at the specified rate, i.e. `follow_wall()`.
+        1. La tasa a la que ejecutar una *"función de callback"*. Nota: definida en términos de *período* (en segundos), no *frecuencia* (en Hz).
+        2. La función de callback a ejecutar a la tasa especificada, es decir, `follow_wall()`.
 
-    1. The `follow_wall()` class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.
+    1. El método de clase `follow_wall()` es esencialmente la parte principal de nuestro código: una serie de operaciones que se llamarán repetidamente a una tasa especificada.
 
-        **It's this part of the code that you will need to modify!**
+        **¡Esta es la parte del código que necesitarás modificar!**
 
-1. **Adapting the code**:
+1. **Adaptar el código**:
 
-    1. First, modify the `wall_slope` calculation so that the robot observes a wall on its *right-hand side* **NOT** its left. 
+    1. Primero, modifica el cálculo de `wall_slope` para que el robot observe una pared en su *lado derecho* **NO** en el izquierdo.
 
-    1. **Make sure that you save any changes to the code (in VS Code) before trying to test it out on the robot!**
+    1. **¡Asegúrate de guardar cualquier cambio en el código (en VS Code) antes de intentar probarlo en el robot!**
         
-        Do this by using the ++ctrl+s++ keyboard shortcut, or going to `File` > `Save` from the menu at the top of the screen.
+        Haz esto usando el atajo de teclado ++ctrl+s++, o yendo a `File` > `Save` desde el menú en la parte superior de la pantalla.
 
-    1. Next, place the robot on the floor with a wall on its right-hand side
-    1. Manually vary the alignment of the robot and the wall and observe how the information that is being printed to the terminal changes as you do so.
+    1. A continuación, coloca el robot en el suelo con una pared a su derecha.
+    1. Varía manualmente la alineación del robot y la pared y observa cómo la información que se imprime en la terminal cambia a medida que lo haces.
         
-        !!! note "Question"
-            The node will tell you if it thinks the robot needs to turn right or left in order to improve its current alignment with the wall. **Is it making the correct decision?**
+        !!! note "Pregunta"
+            El node te dirá si cree que el robot necesita girar a la derecha o a la izquierda para mejorar su alineación actual con la pared. **¿Está tomando la decisión correcta?**
 
-    1. Currently, all velocity parameters inside the `#!py follow_wall()` method are set to zero.
-        * You'll need to set a constant *linear* velocity, so that the robot is always moving forwards. Set an appropriate value for this now, by editing the line that currently reads:
+    1. Actualmente, todos los parámetros de velocidad dentro del método `#!py follow_wall()` están establecidos en cero.
+        * Necesitarás establecer una velocidad *lineal* constante, para que el robot siempre esté avanzando. Establece un valor apropiado para esto ahora, editando la línea que actualmente dice:
 
             ```python
             lin_vel = 0.0
             ```
         
-        * The *angular* velocity of the robot will need to be adjusted conditionally, in order to ensure that the value of `wall_slope` is kept as low as possible at all times (i.e. the robot is kept in alignment with the wall). 
+        * La velocidad *angular* del robot deberá ajustarse condicionalmente, para garantizar que el valor de `wall_slope` se mantenga lo más bajo posible en todo momento (es decir, el robot se mantiene alineado con la pared).
         
-        Adjust the value of `ang_vel` in each of the `#!py if` statement blocks so that this is achieved under each of the three possible scenarios.
+        Ajusta el valor de `ang_vel` en cada uno de los bloques de instrucción `#!py if` para que esto se logre bajo cada uno de los tres posibles escenarios.
 
-    1. Hopefully, by following the steps above, you will get to the point where you can make the robot follow a right-hand wall reasonably well, as long as the wall remains reasonably straight! Consider what would happen however if the robot were faced with either of the following situations:
+    1. Con suerte, siguiendo los pasos anteriores, llegarás al punto en que puedas hacer que el robot siga una pared derecha razonablemente bien, ¡siempre que la pared permanezca razonablemente recta! Sin embargo, considera qué sucedería si el robot se enfrentara a alguna de las siguientes situaciones:
 
         <figure markdown>
           ![](./lab2/limitations.png){width=600px}
         </figure>
 
-        You may have already observed this during your testing... how could you adapt the code so that such situations can be achieved?
+        Es posible que ya hayas observado esto durante tus pruebas... ¿cómo podrías adaptar el código para que tales situaciones puedan manejarse?
 
-        ??? info "Hints"
+        ??? info "Pistas"
             
-            1. You may need to consider the distance measurements from some other LiDAR zones!
-            1. The `ex3.py` template that was provided to you uses an `if` statement with three different cases:
+            1. ¡Es posible que debas considerar las mediciones de distancia de algunas otras zonas LiDAR!
+            1. La plantilla `ex3.py` que se te proporcionó usa una instrucción `if` con tres casos diferentes:
                 
                 ```python
                 if ...:
@@ -564,7 +565,7 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
 
                 ```
 
-                You may need to add in some further cases to this to accommodate the additional situations discussed above, e.g.:
+                Es posible que debas agregar algunos casos adicionales para acomodar las situaciones adicionales discutidas anteriormente, por ejemplo:
 
                 ```python
                 if ...:
@@ -580,43 +581,43 @@ Once you're done, close down RViz by hitting ++ctrl+c++ in **TERMINAL 3**.
                 ```
     
     !!! info "Post-lab"
-        As discussed above, your completion of this exercise will be assessed as part of the post-lab!
+        Como se discutió anteriormente, ¡tu completitud de este ejercicio será evaluada como parte del post-lab!
 
-### Cameras and Robot Vision
+### Cámaras y Visión Robótica
 
-Our robot's have cameras, providing them with the ability to *"see"* their environment. Camera data can be used as yet another feedback signal to inform closed-loop control, which we will leverage now to implement *line following*. We will achieve this using a well established control algorithm known as **PID Control**, using the data from our robot's camera and applying some image processing techniques to this to detect and *locate* a coloured line printed on the floor.
+Nuestros robots tienen cámaras, dándoles la capacidad de *"ver"* su entorno. Los datos de la cámara pueden usarse como otra señal de retroalimentación para informar el control de lazo cerrado, que ahora aprovecharemos para implementar el *seguimiento de línea*. Lograremos esto usando un algoritmo de control bien establecido conocido como **Control PID**, usando los datos de la cámara de nuestro robot y aplicando algunas técnicas de procesamiento de imagen para detectar y *localizar* una línea de color impresa en el suelo.
 
-Consider the following image obtained from a robot's camera, with a green line visible on the floor: 
+Considera la siguiente imagen obtenida de la cámara de un robot, con una línea verde visible en el suelo:
 
 <figure markdown>
   ![](./lab2/line_following/overview.png){width=600px}
 </figure>
 
-PID Control is a clever algorithm that aims to minimise the **Error** between a **Reference Input**: a desired condition that we would like our robot to maintain; and a **Feedback Signal**: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate **Controlled Output** for our system that (when tuned appropriately) will act to minimise this error.   
+El Control PID es un algoritmo inteligente que tiene como objetivo minimizar el **Error** entre una **Referencia de Entrada**: una condición deseada que nos gustaría que mantuviera nuestro robot; y una **Señal de Retroalimentación**: la condición en la que se encuentra actualmente el robot (basada en datos del mundo real). El algoritmo PID calcula una **Salida de Control** apropiada para nuestro sistema que (cuando se sintoniza apropiadamente) actuará para minimizar este error.
 
-If we want our robot to successfully follow a coloured line on the floor, we will need it to keep that line in the centre of its view point at all times by minimising the **error** between where the line currently is (the **feedback signal**) and where it should be (the **reference input**, i.e. the centre of its view point). In this case then, the PID algorithm provides us with an angular velocity command (the **controlled output**) to achieve this.
+Si queremos que nuestro robot siga con éxito una línea de color en el suelo, necesitará mantener esa línea en el centro de su campo visual en todo momento minimizando el **error** entre dónde está actualmente la línea (la **señal de retroalimentación**) y dónde debería estar (la **referencia de entrada**, es decir, el centro de su campo visual). En este caso, el algoritmo PID nos proporciona un comando de velocidad angular (la **salida de control**) para lograr esto.
 
-The full PID algorithm is as follows:
+El algoritmo PID completo es el siguiente:
 
 $$
 u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 $$
 
-Where $u(t)$ is the **Controlled Output**, $e(t)$ is the **Error** (as illustrated in the figure above) and $K_{P}$, $K_{I}$ and $K_{D}$ are Proportional, Integral and Differential **Gains** respectively, which each have different effects on a system in terms of its ability to maintain the desired state (the reference input). We must establish appropriate values for these gains by a process called *tuning*.
+Donde $u(t)$ es la **Salida de Control**, $e(t)$ es el **Error** (como se ilustra en la figura anterior) y $K_{P}$, $K_{I}$ y $K_{D}$ son las **Ganancias** Proporcional, Integral y Diferencial respectivamente, que tienen diferentes efectos en un sistema en términos de su capacidad para mantener el estado deseado (la referencia de entrada). Debemos establecer valores apropiados para estas ganancias mediante un proceso llamado *sintonización*.
 
-In fact, to allow our TurtleBot3 to follow a line, we actually only really need a *proportional* gain, so our control algorithm can be simplified considerably:
+De hecho, para permitir que nuestro TurtleBot3 siga una línea, realmente solo necesitamos una ganancia *proporcional*, por lo que nuestro algoritmo de control puede simplificarse considerablemente:
 
 $$
 u(t)=K_{P} e(t)
 $$
 
-This is what's referred to as a **"P" Controller**, and the only gain we need to establish here is therefore $K_{P}$.
+Esto es lo que se denomina un **Controlador "P"**, y la única ganancia que necesitamos establecer aquí es $K_{P}$.
 
-#### :material-pen: Exercise 3: Line Following {#ex3}
+#### :material-pen: Ejercicio 3: Seguimiento de línea {#ex3}
 
-##### Part A: Establishing a Feedback Signal (Detecting the Line) {#ex3a}
+##### Parte A: Establecer una Señal de Retroalimentación (Detectar la Línea) {#ex3a}
 
-1. Launch RViz again in **TERMINAL 3**:
+1. Lanza RViz nuevamente en **TERMINAL 3**:
 
     ***
     **TERMINAL 3**:
@@ -625,11 +626,11 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     ```
     ***
 
-1. In the "Displays" menu on the left-hand side, tick the box next to the "Camera" item. Live images from the robot's camera should then be displayed in the bottom left-hand corner of the RViz window.
+1. En el menú "Displays" del lado izquierdo, marca la casilla junto al elemento "Camera". Las imágenes en vivo de la cámara del robot deberían mostrarse entonces en la esquina inferior izquierda de la ventana de RViz.
 
-1. Place the robot in the arena so that line on the arena floor is visible in the robot's vision.
+1. Coloca el robot en el área para que la línea en el suelo sea visible en la visión del robot.
 
-1. Now, launch the `ex3_colour_detection.py` node in **TERMINAL 4**:
+1. Ahora, lanza el node `ex3_colour_detection.py` en **TERMINAL 4**:
 
     ***
     **TERMINAL 4**:
@@ -638,46 +639,46 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     ```
     ***
 
-    After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.
+    Después de una breve pausa, debería abrirse una ventana que muestre un diagrama de dispersión junto con una imagen sin procesar obtenida de la cámara del robot.
 
     <figure markdown>
       ![](./lab2/line_following/hsv_cam_img.png){width=700px}
     </figure>
 
-    The scatter plot shows all the different colours that are present in the raw camera image. These are plotted in terms of the *Hue* and *Saturation* values of each pixel in the image.
+    El diagrama de dispersión muestra todos los diferentes colores que están presentes en la imagen de la cámara sin procesar. Estos se representan en términos de los valores de *Matiz* (Hue) y *Saturación* de cada píxel en la imagen.
     
-1. In the plot, you should be able to identify a cluster of data points that are the same colour as the line on the floor. From the plot, make a note of the range of Hue and Saturation values that these dots reside within.
+1. En el gráfico, deberías poder identificar un grupo de puntos de datos del mismo color que la línea en el suelo. Del gráfico, toma nota del rango de valores de Matiz y Saturación dentro de los que residen estos puntos.
     
     <figure markdown>
       ![](./lab2/line_following/hsv_plot.png){width=500px}
     </figure>
 
-1. Once you've done this, close the figure by clicking the :material-close-circle: icon in the top right corner, and also close the RViz window too. This should release **TERMINAL 3** and **TERMINAL 4**.
+1. Una vez que hayas hecho esto, cierra la figura haciendo clic en el ícono :material-close-circle: en la esquina superior derecha, y también cierra la ventana de RViz. Esto debería liberar **TERMINAL 3** y **TERMINAL 4**.
 
-##### Part B: Implementing Proportional Control (Following the Line) {#ex3b}
+##### Parte B: Implementar el Control Proporcional (Seguir la Línea) {#ex3b}
 
-1. In VS Code, click on the `ex3_line_following.py` file in the File Explorer to display it in the editor.
+1. En VS Code, haz clic en el archivo `ex3_line_following.py` en el Explorador de Archivos para mostrarlo en el editor.
 
-1. Have a look through the code and see if you can work out what's going on. Here's a few points to start with:
+1. Revisa el código y trata de entender qué está pasando. Aquí hay algunos puntos para comenzar:
 
-    1. Once again, velocity control is handled in the same way as the previous exercise, using the `#!py Motion()` class and calls to `#!py self.motion.move_at_velocity()` and `#!py self.motion.stop()` commands.
+    1. Una vez más, el control de velocidad se maneja de la misma manera que en el ejercicio anterior, usando la clase `#!py Motion()` y llamadas a `#!py self.motion.move_at_velocity()` y `#!py self.motion.stop()`.
     
-    1. The data from the robot's camera is once again handled by a separate class (much like `Lidar` in the previous exercise). This one (instantiated on line 15) is called `Camera`:
+    1. Los datos de la cámara del robot son manejados una vez más por una clase separada (muy similar a `Lidar` en el ejercicio anterior). Esta (instanciada en la línea 15) se llama `Camera`:
 
         ```python
         self.camera = Camera(self)
         ```
 
-        We'll look at how to use this shortly...
+        Veremos cómo usarla en breve...
     
-1. The *"main"* part of the code is again controlled by a timer and a "callback" function. 
+1. La parte *"principal"* del código está nuevamente controlada por un temporizador y una función de "callback".
     
-    !!! info "Post-lab Quiz"
+    !!! info "Cuestionario Post-lab"
 
-        * What is the name of the callback function (aka the "main" control method)?
-        * At what rate (in Hz) will this run at?
+        * ¿Cuál es el nombre de la función de callback (también conocida como el método de control "principal")?
+        * ¿A qué tasa (en Hz) se ejecutará?
 
-1. Run the node as it is, from **TERMINAL 3**:
+1. Ejecuta el node tal como está, desde **TERMINAL 3**:
 
     ***
     **TERMINAL 3**:
@@ -686,19 +687,19 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     ```
     ***
 
-    To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera. You should also see a small blue circle hovering around somewhere in the image too.
+    Al principio, el robot no debería hacer nada, pero debería abrirse una ventana que muestre una transmisión en vivo de la cámara del robot. También deberías ver un pequeño círculo azul flotando en algún lugar de la imagen.
     
-    Make sure the line on the floor is visible to the robot before proceeding any further.
+    Asegúrate de que la línea en el suelo sea visible para el robot antes de continuar.
 
-1. Stop the node with ++ctrl+c++.
+1. Detén el node con ++ctrl+c++.
 
-1. In VS Code, locate the line in the `ex3_line_following.py` file that reads:
+1. En VS Code, localiza la línea en el archivo `ex3_line_following.py` que dice:
 
     ``` { .py .no-copy }
     self.camera.colour_filter()
     ```
 
-    Into this, you can provide the Hue and Saturation ranges that you identified in [Part A](#ex3a):
+    En esta, puedes proporcionar los rangos de Matiz y Saturación que identificaste en la [Parte A](#ex3a):
 
     ``` { .py .no-copy }
     self.camera.colour_filter(
@@ -707,73 +708,73 @@ This is what's referred to as a **"P" Controller**, and the only gain we need to
     )
     ```
     
-    Replace `MIN` and `MAX` with your upper and lower hue and saturation values.
+    Reemplaza `MIN` y `MAX` con tus valores superiores e inferiores de matiz y saturación.
 
-1. Run the code again. If your Hue and Saturation ranges are correct, and the line is in view then it should now be isolated in the image (all other pixels in the camera stream should be black).
+1. Ejecuta el código nuevamente. Si tus rangos de Matiz y Saturación son correctos y la línea está visible, ahora debería quedar aislada en la imagen (todos los demás píxeles en la transmisión de la cámara deberían ser negros).
 
-    The small blue circle should also now be located roughly in the middle of the line. If you move the robot now (whilst keeping the line in view) then the blue circle should move with the line, indicating that the line is successfully being detected by your filtering, and the image processing algorithms.
+    El pequeño círculo azul también debería estar ubicado aproximadamente en el centro de la línea. Si mueves el robot ahora (manteniendo la línea a la vista) el círculo azul debería moverse con la línea, indicando que la línea está siendo detectada exitosamente por tu filtrado y los algoritmos de procesamiento de imagen.
 
     <figure markdown>
       ![](./lab2/line_following/line_filtered.png){width=400px}
     </figure>
 
-    If the line *isn't* successfully isolated then [go back to Part A](#ex3a) and run the `ex3_colour_detection.py` node again. 
+    Si la línea *no* se aísla exitosamente, [vuelve a la Parte A](#ex3a) y ejecuta el node `ex3_colour_detection.py` nuevamente.
 
-1. The robot is now able to locate the position of the line in its viewpoint, so we have now successfully established the **Feedback Signal** for our proportional controller. In the code, this can be accessed as follows:
+1. El robot ahora puede localizar la posición de la línea en su campo visual, por lo que hemos establecido exitosamente la **Señal de Retroalimentación** para nuestro controlador proporcional. En el código, se puede acceder a esto de la siguiente manera:
 
     ```py
     self.camera.line_position_pixels
     ```
 
-    Consider the figure from above, once again:
+    Considera la figura de antes, nuevamente:
 
     <figure markdown>
       ![](./lab2/line_following/overview.png){width=500px}
     </figure>
 
-    In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:
+    En nuestro código, ahora podemos usar esto para calcular el error posicional actual del robot. Localiza las líneas que dicen:
 
     ``` { .py .no-copy }
     reference_input = self.camera.image_width / 2
     error = 0.0 # TODO
     ```
 
-    ... and edit the `#!py error = ...` line to correctly calculate the robot's positional error based on the real-time position of the line in its view point (`#!py self.camera.line_position_pixels`).
+    ... y edita la línea `#!py error = ...` para calcular correctamente el error posicional del robot basándose en la posición en tiempo real de la línea en su campo visual (`#!py self.camera.line_position_pixels`).
 
-1. Angular Velocity is the **Controlled Output** of our P Controller, calculated (once again) according to:
+1. La Velocidad Angular es la **Salida de Control** de nuestro Controlador P, calculada (una vez más) según:
     
     $$
     u(t)=K_{P} e(t)
     $$
 
-    This is reflected in the code by the line that reads:
+    Esto se refleja en el código por la línea que dice:
 
     ```py
     ang_vel = kp * error
     ```
 
-    Modify the `#!py self.motion.move_at_velcity()` line in the code to apply this angular velocity to the robot along with a constant (and *moderate*) linear velocity too. 
+    Modifica la línea `#!py self.motion.move_at_velcity()` en el código para aplicar esta velocidad angular al robot junto con una velocidad lineal constante (y *moderada*) también.
 
-1. Finally, tune the P Controller by identifying an appropriate proportional gain `kp` so that the robot successfully follows the line smoothly and consistently.
+1. Finalmente, sintoniza el Controlador P identificando una ganancia proporcional `kp` apropiada para que el robot siga la línea de manera suave y consistente.
 
     !!! info "Post-lab"
-        As discussed above, your completion of this exercise will be assessed as part of the post-lab!
+        Como se discutió anteriormente, ¡tu completitud de este ejercicio será evaluada como parte del post-lab!
 
-If you're all done with time to spare then move on to Exercise 4 below. If you don't have time then please head down to the [Wrapping Up](#wrapping-up) section.
+Si has terminado con tiempo de sobra, continúa con el Ejercicio 4 a continuación. Si no tienes tiempo, dirígete a la sección [Cierre](#wrapping-up).
 
-#### :material-pen: (Optional) Exercise 4: Odometry-based Navigation {#ex4}
+#### :material-pen: (Opcional) Ejercicio 4: Navegación basada en Odometría {#ex4}
 
-From our work in [Exercise 1](#ex1) we know about the robot's odometry system and what it tells us, let's see how this could be used as a feedback signal to inform robot navigation. You may recall that when you were last here for [Lab 1](lab1.md) you created a ROS Node to make your robot to follow a square motion path on the floor. This was time-based though: for a given speed of motion (turning or moving forwards) how long would it take for the robot to move by a required distance? Having determined this, we then used timers to control the execution of two different motion states: moving forwards and turning on the spot, in order to generate the square motion path (approximately). 
+De nuestro trabajo en el [Ejercicio 1](#ex1) sabemos sobre el sistema de odometría del robot y qué nos dice. Veamos cómo esto podría usarse como señal de retroalimentación para informar la navegación del robot. Recordarás que cuando estuviste aquí por última vez para el [Lab 1](lab1.md) creaste un Node de ROS para hacer que tu robot siguiera una trayectoria cuadrada en el suelo. Sin embargo, esto estaba basado en tiempo: para una velocidad de movimiento dada (girando o avanzando), ¿cuánto tiempo tardaría el robot en moverse la distancia requerida? Habiendo determinado esto, luego usamos temporizadores para controlar la ejecución de dos estados de movimiento diferentes: avanzar y girar sobre sí mismo, para generar la trayectoria cuadrada (aproximadamente).
 
-In theory though, we can do all this much more effectively with odometry data instead, so let's have a go at that now...
+En teoría, sin embargo, podemos hacer todo esto de manera mucho más efectiva con datos de odometría, así que intentémoslo ahora...
 
-1. Head back to VS Code and open up the `ex4.py` file in the editor.
+1. Regresa a VS Code y abre el archivo `ex4.py` en el editor.
 
-1. Have a look through the code and see if you can work out what's going on. Here's a few points to start with:
+1. Revisa el código y trata de entender qué está pasando. Aquí hay algunos puntos para comenzar:
 
-    1. Velocity control is handled in the same way as in the previous exercise:
+    1. El control de velocidad se maneja de la misma manera que en el ejercicio anterior:
 
-        1. To make the robot move at a linear velocity of `x` (m/s) and/or an angular velocity of `y` (rad/s):
+        1. Para hacer que el robot se mueva con una velocidad lineal de `x` (m/s) y/o una velocidad angular de `y` (rad/s):
 
             ```py
             self.motion.move_at_velocity(
@@ -781,25 +782,25 @@ In theory though, we can do all this much more effectively with odometry data in
             )
             ```
 
-        1. To make the robot stop moving:
+        1. Para hacer que el robot se detenga:
 
             ```py
             self.motion.stop()
             ```
 
-    1. Obtaining the robot's Odometry data is once again handled by a separate Python Class much like `Lidar` and `Camera` in the previous exercises. This one is called `Pose`, and is instantiated on line 16:
+    1. Obtener los datos de Odometría del robot está nuevamente manejado por una clase Python separada similar a `Lidar` y `Camera` en los ejercicios anteriores. Esta se llama `Pose`, y se instancia en la línea 16:
 
         ```python
         self.pose = Pose(self)
         ```
 
-        We can then call the `#!py self.pose` object to access the robot's odometry data, by calling the appropriate attribute whenever we need it:
+        Luego podemos llamar al objeto `#!py self.pose` para acceder a los datos de odometría del robot, llamando al atributo apropiado cuando lo necesitemos:
 
-        1. `#!py self.pose.posx` to obtain the robot's current position (in meters) in the `X` axis.
-        1. `#!py self.pose.posy` to obtain the robot's current position (in meters) in the `Y` axis.
-        1. `#!py self.pose.yaw` to obtain the robot's current orientation (in degrees) about the `Z` axis.
+        1. `#!py self.pose.posx` para obtener la posición actual del robot (en metros) en el eje `X`.
+        1. `#!py self.pose.posy` para obtener la posición actual del robot (en metros) en el eje `Y`.
+        1. `#!py self.pose.yaw` para obtener la orientación actual del robot (en grados) alrededor del eje `Z`.
 
-1. Run the code in **TERMINAL 3** and observe what happens:
+1. Ejecuta el código en **TERMINAL 3** y observa qué sucede:
 
     ***
     **TERMINAL 3**:
@@ -808,13 +809,13 @@ In theory though, we can do all this much more effectively with odometry data in
     ```
     ***
 
-    The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45&deg; the robot should stop. 
+    El robot debería comenzar a girar sobre sí mismo, y deberías ver información interesante imprimiéndose en la terminal. Después de haber girado 45°, el robot debería detenerse.
 
-1. Stop the Node by entering ++ctrl+c++ in **TERMINAL 3** and then run it again if you missed what happened the first time!
+1. Detén el Node presionando ++ctrl+c++ en **TERMINAL 3** y luego ejecútalo nuevamente si perdiste lo que sucedió la primera vez.
 
-1. **What you need to do**:
+1. **Lo que necesitas hacer**:
 
-    1. The *"main"* part of the code is once again controlled by a timer: 
+    1. La parte *"principal"* del código está nuevamente controlada por un temporizador:
     
         ```py
         self.create_timer(
@@ -823,83 +824,83 @@ In theory though, we can do all this much more effectively with odometry data in
         )
         ```
 
-    1. The `move_square()` class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.
+    1. El método de clase `move_square()` es esencialmente la parte principal de nuestro código: una serie de operaciones que se llamarán repetidamente a una tasa especificada.
 
-        Within this there is an `#!py if` statement that controls whether the robot should be turning or moving forwards: 
+        Dentro de este hay una instrucción `#!py if` que controla si el robot debe girar o avanzar:
     
         ```python
         if self.turn:
-            # Turning State
+            # Estado de Giro
             ...
         else:
-            # Moving Forwards 
+            # Avanzando 
             ...
         ```
 
-        ... where `#!py self.turn` is a boolean whose value can either be `#!py True` or `#!py False`.
+        ... donde `#!py self.turn` es un booleano cuyo valor puede ser `#!py True` o `#!py False`.
         
-    1. Within this, look at what happens in the `Turning State`. Consider how the robot's yaw angle is being monitored and updated as the robot turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make sure the robot turns by 90&deg;.
+    1. Dentro de esto, mira qué sucede en el `Estado de Giro`. Considera cómo se monitorea y actualiza el ángulo de yaw del robot mientras gira. Luego, mira cómo se controla el ángulo de giro. Ve si puedes adaptar esto para asegurarte de que el robot gire 90°.
 
-    1. Ultimately, after the robot has turned by the desired angle it needs to move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.
+    1. En última instancia, después de que el robot ha girado el ángulo deseado, necesita avanzar 0.5m para lograr una trayectoria cuadrada de 0.5x0.5m.
         
-        Moving forwards is handled in the `Moving Forwards` state.
+        El avance se maneja en el estado `Avanzando`.
 
-        See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a>
+        Ve si puedes adaptar el código dentro de este bloque para hacer que el robot avance la cantidad requerida (0.5 metros) entre cada giro. <a name="the_hint"></a>
         
-        ??? note "Hint"
-            Consider how the turn angle is monitored and updated whist turning (`current_yaw`), and take a similar approach with the linear displacement (`current_distance`). Bear in mind that you'll need to consider the *euclidean distance*, which you'll need to calculate based on the robot's position in both the `x` and `y` axis.
+        ??? note "Pista"
+            Considera cómo se monitorea y actualiza el ángulo de giro mientras gira (`current_yaw`), y adopta un enfoque similar con el desplazamiento lineal (`current_distance`). Ten en cuenta que necesitarás considerar la *distancia euclidiana*, que necesitarás calcular basándote en la posición del robot tanto en el eje `x` como en el `y`.
         
             <figure markdown>
               ![](./lab2/euclidean_distance.png){width=500px}
             </figure>
 
-        ??? tip "Python Tips"
+        ??? tip "Consejos de Python"
 
-            You'll need to do a bit of maths here (see [the "Hint" above](#the_hint)). Here's how to implement a couple of mathematical functions in Python:
+            Necesitarás hacer un poco de matemáticas aquí (consulta [la "Pista" anterior](#the_hint)). Así es como implementar un par de funciones matemáticas en Python:
 
-            1. **To the power of X**: 
+            1. **A la potencia de X**:
                 
-                Use `**` to raise a number to the power of another number (i.e. $2^{3}$):
+                Usa `**` para elevar un número a la potencia de otro número (es decir, $2^{3}$):
 
                 ```py
                 >>> 2**3
                 8
                 ``` 
 
-                Or, use the `#!py pow()` method:
+                O usa el método `#!py pow()`:
 
                 ```py
                 >>> pow(2, 3)
                 8
                 ```
 
-            1. **Square Root**: 
+            1. **Raíz Cuadrada**:
                 
-                To calculate the square root of a number (i.e. $\sqrt{4}$):
+                Para calcular la raíz cuadrada de un número (es decir, $\sqrt{4}$):
 
                 ```py
                 >>> sqrt(4)
                 2.0 
                 ```        
 
-## Wrapping Up
+## Cierre
 
-Before you leave, please shut everything down properly:
+Antes de irte, por favor apaga todo correctamente:
 
-1. Enter ++ctrl+c++ in any terminals that are still active.
-1. Turn off your robot by entering the following command in **TERMINAL 1**:
+1. Presiona ++ctrl+c++ en cualquier terminal que todavía esté activa.
+1. Apaga tu robot ingresando el siguiente comando en **TERMINAL 1**:
 
     ***
     **TERMINAL 1**:
     ``` { .bash .no-copy }
     waffle NUM off
     ```
-    ... replacing `NUM` with the number of the robot that you have been working with today.
+    ... reemplazando `NUM` con el número del robot con el que has estado trabajando hoy.
     ***
 
-    You'll need to enter `y` and then hit ++enter++ to confirm this.
+    Necesitarás ingresar `y` y luego presionar ++enter++ para confirmar.
 
-1. Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.
+1. Luego apaga la laptop, lo cual puedes hacer haciendo clic en el ícono de batería en la parte superior derecha del escritorio y seleccionando la opción "Power Off / Log Out" en el menú desplegable.
 
 <figure markdown>
   ![](../images/laptops/ubuntu_poweroff.svg){width=300px}
@@ -907,6 +908,6 @@ Before you leave, please shut everything down properly:
 
 <center>
 
-**AMR31001 Lab 2 Complete!**  
+**¡Lab 2 de Industry 4.0 Completado!**
 
 </center>

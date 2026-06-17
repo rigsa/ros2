@@ -1,51 +1,51 @@
 ---  
-title: "Part 4: Services"  
-description: Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.  
+title: "Parte 4: Services"  
+description: Aprende sobre una forma alternativa en que los nodos de ROS pueden comunicarse a través de una red ROS, y las situaciones en las que esto puede ser útil.  
 ---
 
-## Introduction
+## Introducción
 
-:material-pen: **Exercises**: 6  
-:material-timer: **Estimated Completion Time**: 2 hours  
-:material-gauge: **Difficulty Level**: Intermediate  
+:material-pen: **Ejercicios**: 6  
+:material-timer: **Tiempo estimado de finalización**: 2 horas  
+:material-gauge: **Nivel de dificultad**: Intermedio  
 
-### Aims
+### Objetivos
 
-In this part you'll learn about *Services*: an alternative communication method that can be used to transmit data/information or invoke actions on a ROS Network. You'll learn how this works, and why it might be useful. You'll also look at some practical applications of this.
+En esta parte aprenderás sobre los *Services*: un método de comunicación alternativo que se puede usar para transmitir datos/información o invocar acciones en una red ROS. Aprenderás cómo funciona esto y por qué puede ser útil. También explorarás algunas aplicaciones prácticas de esto.
 
-### Intended Learning Outcomes
+### Resultados de Aprendizaje Esperados
 
-By the end of this session you will be able to:
+Al finalizar esta sesión serás capaz de:
 
-1. Recognise how ROS Services differ from the standard topic-based publisher-subscriber approach, and identify appropriate use-cases for this type of messaging system.
-1. Identify the services that are available on a ROS network, and use ROS command-line tools to interrogate and *call* them.
-1. Develop Python Service Client Nodes.
-1. Invoke different services using various service-type interfaces.
+1. Reconocer cómo los ROS Services difieren del enfoque estándar de publisher-subscriber basado en topics, e identificar casos de uso apropiados para este tipo de sistema de mensajería.
+1. Identificar los services disponibles en una red ROS, y usar las herramientas de línea de comandos de ROS para interrogarlos y *llamarlos*.
+1. Desarrollar Nodos Python de tipo Service Client.
+1. Invocar diferentes services usando diversas interfaces de tipo service.
 
-### Quick Links
+### Enlaces Rápidos
 
-#### Exercises
+#### Ejercicios
 
-* [Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface](#ex1)
-* [Exercise 2: Playing the Number Game (from the Command-line)](#ex2)
-* [Exercise 3: Creating a Service Interface](#ex3)
-* [Exercise 4: Adapting the Number Game Server](#ex4)
-* [Exercise 5: Creating a Python Service Client](#ex5)
-* [Exercise 6: Developing A Map Saver Service Client](#ex6)
+* [Ejercicio 1: Usar Herramientas de Línea de Comandos para Interrogar un Service y su Interface](#ex1)
+* [Ejercicio 2: Jugar el Juego de Números (desde la Línea de Comandos)](#ex2)
+* [Ejercicio 3: Crear una Interface de Service](#ex3)
+* [Ejercicio 4: Adaptar el Server del Juego de Números](#ex4)
+* [Ejercicio 5: Crear un Python Service Client](#ex5)
+* [Ejercicio 6: Desarrollar un Map Saver Service Client](#ex6)
 
-#### Additional Resources
+#### Recursos Adicionales
 
-* [The `number_game_client.py` Node (for Exercise 5)](./part4/number_game_client.md){target="_blank"}
+* [El Nodo `number_game_client.py` (para el Ejercicio 5)](./part4/number_game_client.md){target="_blank"}
 
-## Getting Started
+## Primeros Pasos
 
-**Step 1: Launch your ROS2 Environment**
+**Paso 1: Iniciar tu Entorno ROS2**
 
-If you haven't done so already, launch your ROS environment now. Having done this, you should now have access to a Linux terminal instance (aka **TERMINAL 1**).
+Si aún no lo has hecho, inicia tu entorno ROS ahora. Una vez hecho esto, deberías tener acceso a una instancia de terminal de Linux (también conocida como **TERMINAL 1**).
 
-**Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)**
+**Paso 2: Restaurar tu trabajo (Solo para Usuarios de Escritorio Administrado WSL-ROS2)**
 
-Remember that any work you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers, so you should be backing up your work to your `U:\` drive regularly. When prompted (on first launch of WSL-ROS2 in **TERMINAL 1**) enter ++y+enter++ to restore your data[^1].
+Recuerda que cualquier trabajo que realices dentro del Entorno WSL-ROS2 no se conservará entre sesiones ni en diferentes computadoras del laboratorio, por lo que debes hacer copias de seguridad de tu trabajo en tu unidad `U:\` regularmente. Cuando se te solicite (al primer inicio de WSL-ROS2 en **TERMINAL 1**) ingresa ++y+enter++ para restaurar tus datos[^1].
 
 ``` { .txt .no-copy }
 It looks like you already have a backup from a previous session:
@@ -53,113 +53,113 @@ It looks like you already have a backup from a previous session:
 Do you want to restore this now? [y/n]
 ```
 
-[^1]: Remember: you can also use the `wsl_ros restore` command at any time.
+[^1]: Recuerda: también puedes usar el comando `wsl_ros restore` en cualquier momento.
 
-**Step 3: Launch VS Code**  
+**Paso 3: Iniciar VS Code**  
 
-It's also worth launching VS Code now. 
+También vale la pena iniciar VS Code ahora. 
 
-??? warning "WSL Users..."
+??? warning "Usuarios de WSL..."
         
-    It's important to launch VS Code within your ROS environment using the "WSL" extension. Always remember to check for this: 
+    Es importante iniciar VS Code dentro de tu entorno ROS usando la extensión "WSL". Recuerda siempre verificar esto: 
     
     <figure markdown>
       ![](../software/figures/code-wsl-ext-on.svg){width=400px}
     </figure>
 
-**Step 4: Make Sure The Course Repo is Up-To-Date**
+**Paso 4: Asegurarse de que el Repositorio del Curso Esté Actualizado**
 
-Once again, it's worth quickly checking that the Course Repo is up-to-date before you start on the Part 4 exercises. Go back to [Part 1](./part1.md#course-repo) if you haven't installed it yet (really?!) or - alternatively - [see here for how to update](./extras/course-repo.md#updating).
+Una vez más, vale la pena verificar rápidamente que el Repositorio del Curso esté actualizado antes de comenzar con los ejercicios de la Parte 4. Vuelve a la [Parte 1](./part1.md#course-repo) si aún no lo has instalado (¿en serio?!) o, alternativamente, [consulta aquí cómo actualizarlo](./extras/course-repo.md#updating).
 
-## An Introduction to Services
+## Introducción a los Services
 
-So far, we've learnt about ROS *topics* and the *message*-type interfaces that we use to transmit data on them. We've also learnt how individual nodes can access data on a robot by simply *subscribing* to topics that another node on the ROS network is publishing messages to. In addition to this, we know that any node can *publish* messages to any topic, which broadcasts data across the ROS network, making it available to any other node on the network that may wish to access it.
+Hasta ahora, hemos aprendido sobre los *topics* de ROS y las interfaces de tipo *message* que usamos para transmitir datos en ellos. También hemos aprendido cómo los nodos individuales pueden acceder a datos de un robot simplemente *suscribiéndose* a topics en los que otro nodo de la red ROS está publicando mensajes. Además, sabemos que cualquier nodo puede *publicar* mensajes en cualquier topic, lo que transmite datos a través de la red ROS, poniéndolos a disposición de cualquier otro nodo de la red que desee acceder a ellos.
 
-Another way to pass data between ROS Nodes is by using *Services*. These are based on a *call and response* type of communication:
+Otra forma de pasar datos entre Nodos ROS es usando *Services*. Estos se basan en un tipo de comunicación de *llamada y respuesta*:
 
-* A Service **Client** sends a **Request** to a Service **Server**.
-* The Service **Server** processes that request and sends back a **Response**.
+* Un **Client** de Service envía una **Request** a un **Server** de Service.
+* El **Server** de Service procesa esa request y envía de vuelta una **Response**.
 
 <figure markdown>
-  ![The difference between topic-based messaging and the ROS Service protocol](part4/topic_vs_service.png){width=600px}
+  ![La diferencia entre la mensajería basada en topics y el protocolo de ROS Service](part4/topic_vs_service.png){width=600px}
 </figure>
 
-This is a bit like a transaction: one node requests something, and another node fulfils that request and responds. This is good for **quick, short duration tasks**, e.g.:
+Esto es similar a una transacción: un nodo solicita algo, y otro nodo cumple esa solicitud y responde. Esto es útil para **tareas rápidas y de corta duración**, por ejemplo:
 
-1. Turning a device on or off.
-1. Grabbing some data and saving it to a file (a map for example).
-1. Performing a calculation and returning a result.
-1. Making a sound[^tb3_sound].
+1. Encender o apagar un dispositivo.
+1. Obtener algunos datos y guardarlos en un archivo (un mapa, por ejemplo).
+1. Realizar un cálculo y devolver un resultado.
+1. Emitir un sonido[^tb3_sound].
 
-[^tb3_sound]: On the real Waffles, there's a service called `/sound`. Have a look at this next time you're in the lab... Once you've worked through the whole of Part 4 you'll know exactly how to interrogate this service and leverage the functionality that it provides!
+[^tb3_sound]: En los Waffles reales, existe un service llamado `/sound`. Échale un vistazo la próxima vez que estés en el laboratorio... Una vez que hayas trabajado toda la Parte 4, sabrás exactamente cómo interrogar este service y aprovechar la funcionalidad que proporciona.
 
-A single service can have many clients, but you can only have a *single* Server providing that particular service at any one time.
+Un único service puede tener muchos clients, pero solo puede haber un *único* Server proporcionando ese service en particular en un momento dado.
 
 <figure markdown>
   ![](part4/service_clients.png)
-  <figcaption>Multiple Clients to a single Service Server</figcaption>
+  <figcaption>Múltiples Clients hacia un único Service Server</figcaption>
 </figure>
 
-Let's see how this all works in practice now, by playing a number game! We don't need a simulation up and running for this one, so in **TERMINAL 1** use the following command to launch the *Guess the Number* Service: 
+Veamos ahora cómo funciona todo esto en la práctica, ¡jugando un juego de números! No necesitamos una simulación en ejecución para este, así que en **TERMINAL 1** usa el siguiente comando para iniciar el Service *Adivina el Número*: 
 
 ```bash
 ros2 run tuos_examples number_game.py
 ```
 
-Having launched the service successfully, you should be presented with the following:
+Habiendo iniciado el service exitosamente, deberías ver lo siguiente:
 
 ``` { .txt .no-copy }
 [INFO] [#####] [number_game_service]: The '/guess_the_number' service is active.
 [INFO] [#####] [number_game_service]: A secret number has been set... Game on!
 ```
 
-We need to interrogate this now, in order to work out how to play the game...
+Ahora necesitamos interrogar esto para averiguar cómo jugar el juego...
 
-## Interrogating a Service
+## Interrogar un Service
 
-#### :material-pen: Exercise 1: Using Command-line Tools to Interrogate a Service and its Interface {#ex1}
+#### :material-pen: Ejercicio 1: Usar Herramientas de Línea de Comandos para Interrogar un Service y su Interface {#ex1}
 
-1.  Open up a new terminal instance (**TERMINAL 2**) and use the `ros2 service` command to list all active ROS services:
+1.  Abre una nueva instancia de terminal (**TERMINAL 2**) y usa el comando `ros2 service` para listar todos los ROS services activos:
 
     ```bash
     ros2 service list
     ```
 
-    There'll be a few items in this list, most of them with the prefix: `/number_game_service`. This is the name of the *node* that is providing the service (i.e. the **Server**) and these items are all automatically generated by ROS. What we're really interested in is the service itself, which should be listed as `/guess_the_number`. 
+    Habrá algunos elementos en esta lista, la mayoría con el prefijo: `/number_game_service`. Este es el nombre del *nodo* que está proporcionando el service (es decir, el **Server**), y estos elementos son generados automáticamente por ROS. Lo que realmente nos interesa es el service en sí, que debería aparecer en la lista como `/guess_the_number`. 
 
-1. Next, we need to find the *interface type* used by this service, which we can do a couple of ways:
+1. A continuación, necesitamos encontrar el *tipo de interface* utilizado por este service, lo cual podemos hacer de un par de maneras:
    
-    1. Use the `type` sub-command:
+    1. Usar el subcomando `type`:
 
         ```
         ros2 service type /guess_the_number
         ```
 
-    1. Use the `list` sub-command again, but with the `-t` flag:
+    1. Usar el subcomando `list` nuevamente, pero con la bandera `-t`:
 
         ```bash
         ros2 service list -t
         ```
 
-        The latter will provide the same list of services as before, but each one will now have its interface type provided alongside it.
+        Este último proporcionará la misma lista de services que antes, pero ahora cada uno tendrá su tipo de interface listado junto a él.
 
-1. Regardless of the method that you used above, you should have discovered that the interface type used by the `/guess_the_number` service is:
+1. Independientemente del método que hayas usado arriba, deberías haber descubierto que el tipo de interface utilizado por el service `/guess_the_number` es:
     
     ``` { .txt .no-copy }
     tuos_interfaces/srv/NumberGame
     ```
 
-    Notice how ([much like with message interfaces used by *topics*](./part1.md#msg-interface-struct)), there are three fields to this type definition:
+    Observa cómo ([de manera muy similar a las interfaces de tipo message usadas por los *topics*](./part1.md#msg-interface-struct)), hay tres campos en esta definición de tipo:
         
-    1. `tuos_interfaces`: the name of the ROS package that this interface belongs to.
-    1. `srv`: that this is a *service* interface, the second interface type we've covered now (we'll learn about the third and final one in Part 5).
-    1. `NumberGame`: the data structure.
+    1. `tuos_interfaces`: el nombre del package de ROS al que pertenece esta interface.
+    1. `srv`: que esto es una interface de tipo *service*, el segundo tipo de interface que hemos visto (aprenderemos sobre el tercero y último en la Parte 5).
+    1. `NumberGame`: la estructura de datos.
 
-    We need to know the data structure in order to make a call to the service, so let's identify this next.
+    Necesitamos conocer la estructura de datos para poder hacer una llamada al service, así que vamos a identificarla a continuación.
 
-1. We can use the `ros2 interface list` command to list *all* interface types available to us on our ROS system, but this will provide us with a long list!
+1. Podemos usar el comando `ros2 interface list` para listar *todos* los tipos de interface disponibles en nuestro sistema ROS, ¡pero esto nos dará una lista muy larga!
 
-    1. We can use the `-m` flag to filter for *message* interfaces, or the `-s` flag to filter for *service* interfaces. Try the latter:
+    1. Podemos usar la bandera `-m` para filtrar por interfaces de tipo *message*, o la bandera `-s` para filtrar por interfaces de tipo *service*. Prueba la última:
 
         ```bash
         ros2 interface list -s
@@ -167,21 +167,21 @@ We need to interrogate this now, in order to work out how to play the game...
     
         <a name="grep"></a>
 
-    1. Still quite a lot there, right!? Let's filter this further with [Grep](https://en.wikipedia.org/wiki/Grep){target="_blank"} to identify *only* interfaces that belong to the `tuos_interfaces` package:
+    1. ¡Todavía hay bastante ahí, verdad!? Filtremos esto aún más con [Grep](https://en.wikipedia.org/wiki/Grep){target="_blank"} para identificar *solo* las interfaces que pertenecen al package `tuos_interfaces`:
 
         ```bash
         ros2 interface list -s | grep tuos_interfaces
         ```
 
-        Hopefully, the `srv/NumberGame` interface is now listed.
+        Con suerte, la interface `srv/NumberGame` ahora aparece en la lista.
 
-    1. Use the `show` sub-command to *show* the message structure:
+    1. Usa el subcomando `show` para *mostrar* la estructura del mensaje:
 
         ```bash
         ros2 interface show tuos_interfaces/srv/NumberGame
         ``` 
         
-    The interface structure should be shown as follows:
+    La estructura de la interface debería mostrarse de la siguiente manera:
 
     ``` { .txt .no-copy }
     int32 guess
@@ -191,119 +191,119 @@ We need to interrogate this now, in order to work out how to play the game...
     bool success
     ```
 
-## The Format of Service Interfaces
+## El Formato de las Interfaces de Service
 
-Service interfaces have two parts to them, separated by three hyphens (`---`). Above the separator is the Service **Request**, and below it is the Service **Response**:
+Las interfaces de service tienen dos partes, separadas por tres guiones (`---`). Sobre el separador está la **Request** del Service, y debajo está la **Response** del Service:
 
 ``` { .txt .no-copy }
 int32 guess      <-- Request
 ---
-int32 guesses    <-- Response (1 of 3)
-string hint      <-- Response (2 of 3)
-bool success     <-- Response (3 of 3)
+int32 guesses    <-- Response (1 de 3)
+string hint      <-- Response (2 de 3)
+bool success     <-- Response (3 de 3)
 ```
 
-In order to *Call* a service, we need to provide data to it in the format specified in the **Request** section of the interface. A service *Server* will then send data back to the caller in the format specified in the **Response** section of the interface.
+Para *llamar* a un service, necesitamos proporcionarle datos en el formato especificado en la sección de **Request** de la interface. El *Server* del service enviará datos de vuelta al llamante en el formato especificado en la sección de **Response** de la interface.
 
-The `tuos_interfaces/srv/NumberGame` service interface has only **one** request parameter:
+La interface de service `tuos_interfaces/srv/NumberGame` tiene solo **un** parámetro de request:
 
-1. `guess`: a `int32` (32-bit integer)  
-    ...which is the only thing we need to send to the `/number_game_service` Service Server in order to call it.
+1. `guess`: un `int32` (entero de 32 bits)  
+    ...que es lo único que necesitamos enviar al Service Server `/number_game_service` para llamarlo.
 
-There are then **three** response parameters:
+Luego hay **tres** parámetros de response:
 
-1. A *32-bit integer* called `guesses`
-1. A text *string* called `hint`  
-1. A *boolean* flag called `success`
+1. Un *entero de 32 bits* llamado `guesses`
+1. Una *cadena de texto* llamada `hint`  
+1. Una bandera *booleana* llamada `success`
 
-    ...all of which will be returned by the server, once it has processed our request.
+    ...todos los cuales serán devueltos por el server una vez que haya procesado nuestra request.
 
-#### :material-pen: Exercise 2: Playing the Number Game (from the Command-line) {#ex2}
+#### :material-pen: Ejercicio 2: Jugar el Juego de Números (desde la Línea de Comandos) {#ex2}
 
-We're now ready to make a call to the service, and we can do this using the `ros2 service` command again (from **TERMINAL 2**):
+Ahora estamos listos para hacer una llamada al service, y podemos hacerlo usando el comando `ros2 service` nuevamente (desde **TERMINAL 2**):
 
-1. To start, let's send an initial guess of `0` and see what happens:
+1. Para empezar, enviemos una suposición inicial de `0` y veamos qué sucede:
 
     ```bash
     ros2 service call /guess_the_number tuos_interfaces/srv/NumberGame "{guess: 0}"
     ```
 
-    The request will be echoed back to us, followed by a response, which will likely look something like this, and which shows us the value of the three response parameters that we identified above:
+    La request nos será devuelta como eco, seguida de una response, que probablemente se verá algo así, y que nos muestra el valor de los tres parámetros de response que identificamos arriba:
 
     ``` { .txt .no-copy }
     response:
     tuos_interfaces.srv.NumberGame_Response(guesses=1, hint='Higher', success=False)
     ```
 
-    1. `guesses`: tells us how many times we've tried to guess the number in total (just once so far)
-    1. `hint`: tells us if we should go "higher" or "lower" on our next guess in order to get closer to the *secret number*
-    1. `success`: tells us if we guessed the right number or not (unlikely on the first attempt!)
+    1. `guesses`: nos dice cuántas veces hemos intentado adivinar el número en total (solo una vez hasta ahora)
+    1. `hint`: nos dice si deberíamos ir "más alto" o "más bajo" en nuestra próxima suposición para acercarnos al *número secreto*
+    1. `success`: nos dice si adivinamos el número correcto o no (¡poco probable en el primer intento!)
 
-1. Make another service call, this time changing the value of your `guess`, e.g.:
+1. Realiza otra llamada al service, esta vez cambiando el valor de tu `guess`, por ejemplo:
     
     ```bash
     ros2 service call /guess_the_number tuos_interfaces/srv/NumberGame "{guess: 10}"
     ```
 
-1. Try making a guess of 500 next.
+1. Intenta hacer una suposición de 500 ahora.
 
-    The service should respond with the hint `'Error'` now. Have a look back in **TERMINAL 1** (where the Server is running) to get more information on this.
+    El service debería responder con el hint `'Error'` ahora. Vuelve a mirar en **TERMINAL 1** (donde el Server está corriendo) para obtener más información sobre esto.
 
-1. Keep going until you guess the magic number, how many guesses does it take you?! 
+1. Continúa hasta que adivines el número mágico, ¿cuántos intentos te toma?! 
 
-1. Stop the server, by entering ++ctrl+c++ in **TERMINAL 1**.
+1. Detén el server, ingresando ++ctrl+c++ en **TERMINAL 1**.
 
-## Creating Our Own Services
+## Crear Nuestros Propios Services
 
-Over the next three exercises, we'll learn how to create a service interface of our own, and build a Server and Client (in Python) that use this.
+A lo largo de los próximos tres ejercicios, aprenderemos cómo crear una interface de service propia, y construir un Server y un Client (en Python) que la usen.
 
-First though, we need to create a new package, so follow the same procedure as you have in the previous parts of this course to create another new package called `part4_services`.
+Primero, sin embargo, necesitamos crear un nuevo package, así que sigue el mismo procedimiento que has seguido en las partes anteriores de este curso para crear otro nuevo package llamado `part4_services`.
 
-In **TERMINAL 1**:
+En **TERMINAL 1**:
 
-1. Head to the ROS 2 workspace `src` folder:
+1. Dirígete a la carpeta `src` del workspace de ROS 2:
 
     ```bash
     cd ~/ros2_ws/src/
     ```
        
-1. Clone the package template:
+1. Clona la plantilla del package:
 
     ```bash
     git clone https://github.com/tom-howard/ros2_pkg_template.git
     ```
     
-1. Call the `init_pkg.sh` script and specify your package name:
+1. Ejecuta el script `init_pkg.sh` y especifica el nombre de tu package:
 
     ```bash
     ./ros2_pkg_template/init_pkg.sh part4_services
     ```
 
-#### :material-pen: Exercise 3: Creating a Service Interface {#ex3}
+#### :material-pen: Ejercicio 3: Crear una Interface de Service {#ex3}
 
-Let's create a service interface now which has a *similar* structure to the one used by the `/guess_the_number` service, but this time with *two* request parameters, rather than just one...
+Creemos ahora una interface de service que tenga una estructura *similar* a la usada por el service `/guess_the_number`, pero esta vez con *dos* parámetros de request, en lugar de solo uno...
 
-1. In **TERMINAL 1**, navigate into the root of your `part4_services` package directory:
+1. En **TERMINAL 1**, navega hasta la raíz del directorio de tu package `part4_services`:
 
     ```bash
     cd ~/ros2_ws/src/part4_services/
     ```
 
-1. Create a new directory there called `srv`:
+1. Crea un nuevo directorio llamado `srv`:
 
     ```bash
     mkdir srv
     ```
 
-1. Create a new file in this directory called `MyNumberGame.srv`:
+1. Crea un nuevo archivo en este directorio llamado `MyNumberGame.srv`:
 
     ```bash
     touch srv/MyNumberGame.srv
     ```
 
-    In here is where we will define the structure of our own `MyNumberGame` service interface.
+    Aquí es donde definiremos la estructura de nuestra propia interface de service `MyNumberGame`.
 
-1. Open up this file in VS Code, enter the following content and save the file:
+1. Abre este archivo en VS Code, ingresa el siguiente contenido y guarda el archivo:
 
     ```txt title="MyNumberGame.srv"
     int32 guess
@@ -314,20 +314,20 @@ Let's create a service interface now which has a *similar* structure to the one 
     bool correct
     ```
 
-    The **Request** will therefore have two fields now:
+    La **Request** tendrá por tanto dos campos ahora:
 
     <center>
 
-    | # | Field Name | Data Type |
+    | # | Nombre del Campo | Tipo de Dato |
     | :---: | :---: | :---: |
     | 1 | `guess` | `int32` |
     | 2 | `cheat` | `bool` |
 
     </center>
 
-1. The rest of the process now is very similar to creating a *message* interface, [like we did in Part 1](./part1.md#ex7). 
+1. El resto del proceso es ahora muy similar a crear una interface de tipo *message*, [como hicimos en la Parte 1](./part1.md#ex7). 
     
-    First, we need to declare the interface in our `CMakeLists.txt` file, by adding the following above the `ament_package()` line:
+    Primero, necesitamos declarar la interface en nuestro archivo `CMakeLists.txt`, agregando lo siguiente encima de la línea `ament_package()`:
 
     ```txt title="part4_services/CMakeLists.txt"
     find_package(rosidl_default_generators REQUIRED)
@@ -336,7 +336,7 @@ Let's create a service interface now which has a *similar* structure to the one 
     )
     ```
 
-1. Next, we need to modify the `package.xml` file. Add the following lines to this one, just above the `#!xml <export>` line:
+1. A continuación, necesitamos modificar el archivo `package.xml`. Agrega las siguientes líneas a este, justo encima de la línea `#!xml <export>`:
 
     ```xml title="package.xml"
     <buildtool_depend>rosidl_default_generators</buildtool_depend>
@@ -344,63 +344,63 @@ Let's create a service interface now which has a *similar* structure to the one 
     <member_of_group>rosidl_interface_packages</member_of_group>
     ```
 
-1. And finally, we use Colcon to generate the necessary source code for the service interface:
+1. Y finalmente, usamos Colcon para generar el código fuente necesario para la interface de service:
 
-    1. Navigate to the root of the ROS2 Workspace:
+    1. Navega hasta la raíz del Workspace de ROS2:
         
         ```bash
         cd ~/ros2_ws/
         ```
     
-    1. Run `colcon build`:
+    1. Ejecuta `colcon build`:
 
         ```bash
         colcon build --packages-select part4_services --symlink-install 
         ```
     
-    1. And re-source the `.bashrc`:
+    1. Y vuelve a cargar el `.bashrc`:
 
         ```bash
         source ~/.bashrc
         ```
 
-1. Let's verify that this worked, using the `ros2` CLI (the same way as we did earlier when interrogating `tuos_interfaces/srv/NumberGame`):
+1. Verifiquemos que esto funcionó, usando el CLI de `ros2` (de la misma manera que hicimos antes cuando interrogamos `tuos_interfaces/srv/NumberGame`):
 
-    1. First, *list* all the ROS service interfaces that are available on the system (`-s` to filter for *service* interface types remember!):
+    1. Primero, *lista* todas las interfaces de service de ROS disponibles en el sistema (¡recuerda usar `-s` para filtrar por tipos de interfaces de *service*!):
 
         ```bash
         ros2 interface list -s
         ```
 
-        Scroll through this list and see if you can find `part4_services/srv/MyNumberGame` (or, [use `grep` again](#grep)).
+        Desplázate por esta lista y mira si puedes encontrar `part4_services/srv/MyNumberGame` (o, [usa `grep` nuevamente](#grep)).
 
-    1. If it's there, use the `show` sub-command to *show* the data structure:
+    1. Si está ahí, usa el subcomando `show` para *mostrar* la estructura de datos:
 
         ```bash
         ros2 interface show part4_services/srv/MyNumberGame
         ```
 
-    Does it match with the definition in our `MyNumberGame.srv` file?
+    ¿Coincide con la definición en nuestro archivo `MyNumberGame.srv`?
 
-#### :material-pen: Exercise 4: Adapting the Number Game Server {#ex4}
+#### :material-pen: Ejercicio 4: Adaptar el Server del Juego de Números {#ex4}
 
-We're going to take a copy of the `tuos_examples/number_game.py` server node now, and adapt it to use the service interface that we created above.
+Vamos a tomar una copia del nodo server `tuos_examples/number_game.py` ahora, y adaptarlo para usar la interface de service que creamos arriba.
 
-1. In **TERMINAL 1** still, navigate into the `part4_services/scripts` directory:
+1. Todavía en **TERMINAL 1**, navega hasta el directorio `part4_services/scripts`:
 
     ```bash
     cd ~/ros2_ws/src/part4_services/scripts/
     ```
 
-1. Copy the `number_game.py` script from the course repo into here, renaming it to `my_number_game.py` at the same time:
+1. Copia el script `number_game.py` del repositorio del curso aquí, renombrándolo como `my_number_game.py` al mismo tiempo:
 
     ```bash
     cp ../../tuos_ros/tuos_examples/scripts/number_game.py ./my_number_game.py
     ```
 
-    This file should already have *execute* permissions, but [it's always worth checking](./part1.md#chmod)...
+    Este archivo ya debería tener permisos de *ejecución*, pero [siempre vale la pena verificarlo](./part1.md#chmod)...
 
-1. Declare this as a package executable by going back to the `CMakeLists.txt` file and adding `my_number_game.py` to your list of Python executables:
+1. Declara esto como un ejecutable del package volviendo al archivo `CMakeLists.txt` y agregando `my_number_game.py` a tu lista de ejecutables Python:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -412,7 +412,7 @@ We're going to take a copy of the `tuos_examples/number_game.py` server node now
     )
     ```
 
-1. Build and re-source now: <a name="colcon-build-steps"></a>
+1. Compila y vuelve a cargar ahora: <a name="colcon-build-steps"></a>
 
     ```bash
     cd ~/ros2_ws/
@@ -424,17 +424,17 @@ We're going to take a copy of the `tuos_examples/number_game.py` server node now
     source ~/.bashrc 
     ```
 
-1. Now, let's look at the code, and see what needs to be adapted:
+1. Ahora, veamos el código y qué necesita ser adaptado:
 
-    1. Open up the `my_number_game.py` node in VS Code and review it.
+    1. Abre el nodo `my_number_game.py` en VS Code y revísalo.
 
-    1. As it stands, the node imports the `NumberGame` service interface from `tuos_interfaces`, so you'll need to change this to use the interface from your own package now:
+    1. Tal como está, el nodo importa la interface de service `NumberGame` de `tuos_interfaces`, así que necesitarás cambiar esto para usar la interface de tu propio package ahora:
 
         ```py
         from part4_services.srv import MyNumberGame
         ```
 
-        You'll also need to change the `srv_type` definition, when the service is created in the `#!py __init__()`:
+        También necesitarás cambiar la definición de `srv_type`, cuando el service se crea en `#!py __init__()`:
 
         ```py
         self.srv = self.create_service(
@@ -444,33 +444,33 @@ We're going to take a copy of the `tuos_examples/number_game.py` server node now
         )
         ```
     
-    1. Everything that this service *does* (when a **Request** is sent to it), is contained within the `srv_callback()` method. 
+    1. Todo lo que este service *hace* (cuando se le envía una **Request**) está contenido dentro del método `srv_callback()`. 
 
-        In here, `request` parameters are processed, `response` parameters are defined and the overall `response` is returned once the callback tasks have been completed.
+        Aquí, los parámetros de `request` son procesados, los parámetros de `response` son definidos y la `response` general es devuelta una vez que las tareas del callback han sido completadas.
     
-    1. You may have noticed that when we created our `MyNumberGame` interface in the previous exercise, the **Response** parameters were *almost* the same as those from Exercises 1 & 2, *except* that some of their names had been changed slightly!
+    1. Es posible que hayas notado que cuando creamos nuestra interface `MyNumberGame` en el ejercicio anterior, los parámetros de **Response** eran *casi* los mismos que los de los Ejercicios 1 y 2, *excepto* que algunos de sus nombres habían cambiado ligeramente.
 
-        Work through the `srv_callback()` method and make sure that all `response` attributes are renamed to match the new names that we've given them in our `part4_services/srv/MyNumberGame` interface. 
+        Trabaja a través del método `srv_callback()` y asegúrate de que todos los atributos de `response` sean renombrados para coincidir con los nuevos nombres que les hemos dado en nuestra interface `part4_services/srv/MyNumberGame`. 
 
-    1. Remember that our `MyNumberGame` interface has an additional **Request** parameter too: 
+    1. Recuerda que nuestra interface `MyNumberGame` también tiene un parámetro de **Request** adicional: 
 
         ``` { .txt .no-copy } 
         bool cheat
         ```
 
-        ... i.e. a *boolean* flag with the attribute name `cheat`.
+        ... es decir, una bandera *booleana* con el nombre de atributo `cheat`.
 
-        Adapt the `srv_callback()` method further now to read this value as well. 
+        Adapta el método `srv_callback()` aún más ahora para leer este valor también. 
             
-        * If (when a **request** is made to the server) the value of `cheat` is `True` the hint that the server returns should contain the actual secret number! E.g.:
+        * Si (cuando se realiza una **request** al server) el valor de `cheat` es `True`, el hint que devuelve el server debería contener ¡el número secreto real! Por ejemplo:
 
             ``` { .txt .no-copy } 
             hint='The answer is 67!'
             ```
 
-        * In such situations, the value of `response.num_guesses` should still go up by one, and the `correct` flag should still return `False`.
+        * En tales situaciones, el valor de `response.num_guesses` aún debería incrementarse en uno, y la bandera `correct` aún debería devolver `False`.
     
-1. Once you've adapted the node, test it out by running it:
+1. Una vez que hayas adaptado el nodo, pruébalo ejecutándolo:
 
     ***
     **TERMINAL 1:**
@@ -479,26 +479,26 @@ We're going to take a copy of the `tuos_examples/number_game.py` server node now
     ```
     ***
 
-    You should then be able to make calls to this from **TERMINAL 2** using the `ros2 service call` sub-command, as we did in [Exercise 2](#ex2).
+    Luego deberías poder hacer llamadas a este desde **TERMINAL 2** usando el subcomando `ros2 service call`, como hicimos en el [Ejercicio 2](#ex2).
     
     !!! hint
-        There are **two** request parameters now, so when sending a request from the command-line **both** need to be supplied. Do this by including them both within the braces (`{}`) and separated with a comma, e.g.
+        Ahora hay **dos** parámetros de request, así que al enviar una request desde la línea de comandos **ambos** deben ser suministrados. Haz esto incluyéndolos a ambos dentro de las llaves (`{}`) separados por una coma, por ejemplo:
 
         ```bash
         ros2 service call /guess_the_number part4_services/srv/MyNumberGame "{guess: X, cheat: Y}" 
         ```
 
-#### :material-pen: Exercise 5: Creating a Python Service Client {#ex5}
+#### :material-pen: Ejercicio 5: Crear un Python Service Client {#ex5}
 
-So far we've been making service calls from the command-line, but we can also call services from within Python Nodes. When a node *calls* (i.e. *requests*) a service, it becomes a Service *"Client"*.
+Hasta ahora hemos estado haciendo llamadas a services desde la línea de comandos, pero también podemos llamar services desde dentro de Nodos Python. Cuando un nodo *llama* (es decir, *solicita*) un service, se convierte en un *"Client"* de Service.
 
-1. Make sure your `my_number_game.py` node is still active in **TERMINAL 1** for this exercise.
+1. Asegúrate de que tu nodo `my_number_game.py` siga activo en **TERMINAL 1** para este ejercicio.
 
-1. In **TERMINAL 2**, create a new file in the `part4_services/scripts` directory called `number_game_client.py` (using the `touch` command).
+1. En **TERMINAL 2**, crea un nuevo archivo en el directorio `part4_services/scripts` llamado `number_game_client.py` (usando el comando `touch`).
 
-1. [Make this executable (with `chmod`)](./part1.md#chmod).
+1. [Hazlo ejecutable (con `chmod`)](./part1.md#chmod).
 
-1. Add this to your package's *Python executables* list in the `CMakeLists.txt` file:
+1. Agrégalo a la lista de *ejecutables Python* de tu package en el archivo `CMakeLists.txt`:
 
     ```txt title="CMakeLists.txt"
     # Install Python executables
@@ -511,25 +511,25 @@ So far we've been making service calls from the command-line, but we can also ca
     )
     ```
 
-1. Re-build your package (as before), remembering that there are [three steps to this](#colcon-build-steps):
+1. Vuelve a compilar tu package (como antes), recordando que hay [tres pasos para esto](#colcon-build-steps):
 
-    1. Navigate to the **root** of the ROS2 workspace,
-    1. Run `colcon build` (with the necessary additional arguments), 
-    1. Re-source your `~/.bashrc`.
+    1. Navega hasta la **raíz** del workspace de ROS2,
+    1. Ejecuta `colcon build` (con los argumentos adicionales necesarios), 
+    1. Vuelve a cargar tu `~/.bashrc`.
 
-1. Now, open up the `number_game_client.py` file in VS Code, then take a look at the following:
+1. Ahora, abre el archivo `number_game_client.py` en VS Code, y luego echa un vistazo a lo siguiente:
 
-    <center>[:material-file-code-outline: The `number_game_client.py` Node](./part4/number_game_client.md){ .md-button target="_blank"}</center>
+    <center>[:material-file-code-outline: El Nodo `number_game_client.py`](./part4/number_game_client.md){ .md-button target="_blank"}</center>
 
-    Review the above code carefully (**including all the annotations**), before taking a copy of it and pasting it into your own `number_game_client.py` file.
+    Revisa el código anterior cuidadosamente (**incluyendo todas las anotaciones**), antes de tomar una copia y pegarlo en tu propio archivo `number_game_client.py`.
 
-1. You should now be able to run the code with `ros2 run`. To begin with, use a standard `ros2 run` call as follows:
+1. Ahora deberías poder ejecutar el código con `ros2 run`. Para empezar, usa una llamada estándar de `ros2 run` de la siguiente manera:
 
     ```bash
     ros2 run part4_services number_game_client.py
     ```
     
-    You should then get an output like this:
+    Luego deberías obtener una salida como esta:
 
     ``` { .txt .no-copy }
     [INFO] [#####] [number_game_client]: Sending the request:
@@ -542,23 +542,23 @@ So far we've been making service calls from the command-line, but we can also ca
      - A hint: 'Higher'.
     ```
 
-    Notice how the request parameters `guess` and `cheat` have defaulted to `0` and `False` respectively?
+    ¿Notas cómo los parámetros de request `guess` y `cheat` han tomado los valores predeterminados `0` y `False` respectivamente?
 
-1. The main reason for using parameters in our `number_game_client` node is so that we can actually change the value of the guess from the command-line. We can do this by adding some additional arguments to the `ros2 run ` call:
+1. La razón principal de usar parámetros en nuestro nodo `number_game_client` es para poder cambiar el valor de la suposición desde la línea de comandos. Podemos hacer esto agregando algunos argumentos adicionales a la llamada de `ros2 run`:
 
     ``` { .bash .no-copy }
     ros2 run part4_services number_game_client.py --ros-args -p guess:=X
     ```
     
-    ... replace `X` with an actual number!
+    ... ¡reemplaza `X` con un número real!
 
-1. Have a go at cheating now too:
+1. Intenta hacer trampa también ahora:
 
     ```bash
     ros2 run part4_services number_game_client.py --ros-args -p cheat:=True
     ```
     
-1. We can also set the two parameters simultaneously using multiple `-p` flags:
+1. También podemos establecer los dos parámetros simultáneamente usando múltiples banderas `-p`:
 
     ```txt
     ros2 run part4_services number_game_client.py \
@@ -566,31 +566,31 @@ So far we've been making service calls from the command-line, but we can also ca
     ```
 
     !!! note
-        The `\` above just allows us to split the command across two separate lines, handy for when these things start to get a bit long!
+        El `\` de arriba nos permite dividir el comando en dos líneas separadas, ¡útil para cuando estas cosas empiezan a ser un poco largas!
 
-## The Map Saver Service
+## El Map Saver Service
 
-Clearly the examples that we've been working with here so far have been fairly trivial: it's unlikely that you'll *ever* need to program a robot to play the number game! The aim however has been to illustrate how ROS Services work, and how to develop your own. 
+Claramente, los ejemplos con los que hemos estado trabajando hasta ahora han sido bastante triviales: ¡es poco probable que alguna vez necesites programar un robot para jugar el juego de números! Sin embargo, el objetivo ha sido ilustrar cómo funcionan los ROS Services y cómo desarrollar los propios. 
 
-One application that you *might* find useful however is *map saving*. In Part 3 we learnt about SLAM, where we drove a robot around in an environment while SLAM algorithms were working in the background to generate a map of the world using data from the robot's LiDAR sensor and its odometry system:
+Sin embargo, una aplicación que *puede* resultarte útil es el *guardado de mapas*. En la Parte 3 aprendimos sobre SLAM, donde condujimos un robot por un entorno mientras los algoritmos SLAM trabajaban en segundo plano para generar un mapa del mundo usando datos del sensor LiDAR del robot y su sistema de odometría:
 
 <figure markdown>
   ![](./part3/slam_steps.png){width=500px}
 </figure>
 
-Having mapped out the environment, we called up the `map_saver_cli` node from the `nav2_map_server` package, to save a copy of that map to a file:
+Habiendo mapeado el entorno, llamamos al nodo `map_saver_cli` del package `nav2_map_server`, para guardar una copia de ese mapa en un archivo:
 
 ``` { .bash .no-copy }
 ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 ```
 
-... wouldn't it be nice if there was a way to be able to do this *programmatically* (i.e. from within a Python node, for example) rather than having to run the above command manually? Well, there is a way, and guess what? ... *It involves Services*!
+... ¿no sería conveniente tener una manera de poder hacer esto *programáticamente* (es decir, desde dentro de un nodo Python, por ejemplo) en lugar de tener que ejecutar el comando anterior manualmente? Bueno, hay una manera, ¿y adivina qué? ... ¡*Involucra Services*!
 
-#### :material-pen: Exercise 6: Developing A Map Saver Service Client {#ex6}
+#### :material-pen: Ejercicio 6: Desarrollar un Map Saver Service Client {#ex6}
 
-1. Make sure everything in **TERMINALS 1** and **2** from the previous exercises are closed down now.
+1. Asegúrate de que todo en **TERMINALES 1** y **2** de los ejercicios anteriores esté cerrado ahora.
 
-1. In **TERMINAL 1**, let's fire up the *Nav World* again, like we did in Part 3:
+1. En **TERMINAL 1**, volvamos a iniciar el *Nav World*, como lo hicimos en la Parte 3:
 
     ```bash
     ros2 launch tuos_simulations nav_world.launch.py
@@ -600,7 +600,7 @@ ros2 run nav2_map_server map_saver_cli -f MAP_NAME
       ![](./part3/nav_world.png){width=500px}
     </figure>
 
-1. In **TERMINAL 2**, let's also fire up *Cartographer* again (the SLAM algorithms):
+1. En **TERMINAL 2**, también volvamos a iniciar *Cartographer* (los algoritmos SLAM):
 
     ```bash
     ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
@@ -610,106 +610,106 @@ ros2 run nav2_map_server map_saver_cli -f MAP_NAME
       ![](./part3/cartographer_rviz1.png){width=500px}
     </figure>
 
-1. Open up *another* terminal instance now (**TERMINAL 3**), and use this one to fire up the *Map Saver Service* (wouldn't it be nice if we could launch all of these launch files at once?[^launch-adv]):
+1. Abre *otra* instancia de terminal ahora (**TERMINAL 3**), y úsala para iniciar el *Map Saver Service* (¿no sería conveniente poder iniciar todos estos launch files a la vez?[^launch-adv]):
 
     ```bash
     ros2 launch nav2_map_server map_saver_server.launch.py
     ```
 
-    This will add a number of `/map_saver` services to our ROS network.
+    Esto agregará una serie de services `/map_saver` a nuestra red ROS.
 
-    [^launch-adv]: You can! We can use launch files to launch *other* launch files, [see here for more info](./extras/launch-files.md).
+    [^launch-adv]: ¡Puedes! Podemos usar launch files para iniciar *otros* launch files, [consulta aquí para más información](./extras/launch-files.md).
 
-1. In *yet* another new terminal instance (**TERMINAL 4**), use a `ros2 service` sub-command to identify all the `/map_saver` services (like we did in [Exercise 1](#ex1)).
+1. En *otra* nueva instancia de terminal (**TERMINAL 4**), usa un subcomando de `ros2 service` para identificar todos los services `/map_saver` (como lo hicimos en el [Ejercicio 1](#ex1)).
 
     !!! question
-        Do you see an item in this list that could be related to saving a map? (It has a `/map_saver` prefix![^save-map])
+        ¿Ves un elemento en esta lista que podría estar relacionado con guardar un mapa? (¡Tiene el prefijo `/map_saver`![^save-map])
 
-    [^save-map]: There should be one in the list called `/map_saver/save_map`
+    [^save-map]: Debería haber uno en la lista llamado `/map_saver/save_map`
 
-1. Use another `ros2 service` sub-command to determine the type of interface used by this service (again, like we did in Exercise 1).
+1. Usa otro subcomando de `ros2 service` para determinar el tipo de interface utilizada por este service (nuevamente, como lo hicimos en el Ejercicio 1).
 
-1. Next, use a `ros2 interface` command to discover the structure of this service interface.
+1. A continuación, usa un comando `ros2 interface` para descubrir la estructura de esta interface de service.
 
-    !!! question "Questions"
-        1. How many **Request** parameters does this interface have?
-        1. How many **Response** parameters are there too?[^save-map-interface]
-        1. What are their data types?
+    !!! question "Preguntas"
+        1. ¿Cuántos parámetros de **Request** tiene esta interface?
+        1. ¿Cuántos parámetros de **Response** hay también?[^save-map-interface]
+        1. ¿Cuáles son sus tipos de datos?
     
-    [^save-map-interface]: The `nav2_msgs/srv/SaveMap` Service Interface has **6** Requests (`map_topic`, `map_url`, `image_format`, `map_mode`, `free_thresh`, `occupied_thresh`) and **1** Response (`result`).
+    [^save-map-interface]: La Interface de Service `nav2_msgs/srv/SaveMap` tiene **6** Requests (`map_topic`, `map_url`, `image_format`, `map_mode`, `free_thresh`, `occupied_thresh`) y **1** Response (`result`).
 
-1. **Develop a Python Service Client to make calls to this service**:
+1. **Desarrolla un Python Service Client para hacer llamadas a este service**:
 
-    1. Create a new Node in your `part4_services` package called `map_saver_client.py` for this. 
+    1. Crea un nuevo Nodo en tu package `part4_services` llamado `map_saver_client.py` para esto. 
         
-        Things to remember when doing this:
+        Cosas a recordar al hacer esto:
         
-        * [ ] Create this in your `part4_services/scripts` directory.
-        * [ ] Make sure it has *execute* permissions.
-        * [ ] Declare it as a package executable in your `CMakeLists.txt`.
-        * [ ] Re-build your package with `colcon`, making sure you follow [the full **three-step** process](#colcon-build-steps) 
+        * [ ] Créalo en tu directorio `part4_services/scripts`.
+        * [ ] Asegúrate de que tenga permisos de *ejecución*.
+        * [ ] Declárao como un ejecutable del package en tu `CMakeLists.txt`.
+        * [ ] Vuelve a compilar tu package con `colcon`, asegurándote de seguir [el proceso completo de **tres pasos**](#colcon-build-steps) 
     
-    1. Use [the `number_game_client.py` Node from Exercise 5](./part4/number_game_client.md) as a starting point when building your new `map_saver_client.py` node... all the same principals will apply here, you are just applying them to a different service (and therefore you need to account for a different service interface).
+    1. Usa [el Nodo `number_game_client.py` del Ejercicio 5](./part4/number_game_client.md) como punto de partida al construir tu nuevo nodo `map_saver_client.py`... todos los mismos principios aplicarán aquí, solo los estás aplicando a un service diferente (y por lo tanto necesitas tener en cuenta una interface de service diferente).
 
-    1. *Declare a parameter for your node* to allow you to specify a file name for your map when the `map_saver_client.py` node is called e.g.:
+    1. *Declara un parámetro para tu nodo* para permitirte especificar un nombre de archivo para tu mapa cuando se llame al nodo `map_saver_client.py`, por ejemplo:
         
         ```txt
         ros2 run part4_services map_saver_client.py \ 
             --ros-args -p map_file:=my_amazing_map
         ```
         
-        Follow the same approach as in Exercise 5 for this, and ensure that you specify a default value, for situations where the parameter value is not explicitly defined when the node is called.
+        Sigue el mismo enfoque que en el Ejercicio 5 para esto, y asegúrate de especificar un valor predeterminado, para situaciones en las que el valor del parámetro no se defina explícitamente cuando se llame al nodo.
     
-    1. When constructing service requests, consider the following tips:
+    1. Al construir requests de service, considera los siguientes consejos:
         
-        1. The SLAM map data (as generated by Cartographer) is published to a topic called `/map`. 
-        1. When providing a name for the map file:
-            * You don't need to include a file extension
-            * File names are interpreted relative to your home directory, so:
+        1. Los datos del mapa SLAM (generados por Cartographer) se publican en un topic llamado `/map`. 
+        1. Al proporcionar un nombre para el archivo del mapa:
+            * No necesitas incluir una extensión de archivo
+            * Los nombres de archivo se interpretan en relación con tu directorio home, así que:
                 
-                 `my_amazing_map` would result in a map file at `~/my_amazing_map.yaml`
+                 `my_amazing_map` resultaría en un archivo de mapa en `~/my_amazing_map.yaml`
                  
-                 `my/amazing/map` would result in a map file at `~/my/amazing/map.yaml` (assuming the directory structure already exists!)
+                 `my/amazing/map` resultaría en un archivo de mapa en `~/my/amazing/map.yaml` (¡asumiendo que la estructura de directorios ya existe!)
 
-        1. For further guidance [see here for a usage example](https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services){target="_blank"}.
-        1. The server will apply [its own defaults to certain request attributes](https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html){target="_blank"}, if they aren't defined explicitly by a client.
+        1. Para más orientación [consulta aquí para un ejemplo de uso](https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services){target="_blank"}.
+        1. El server aplicará [sus propios valores predeterminados a ciertos atributos de la request](https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html){target="_blank"}, si no son definidos explícitamente por un client.
     
-### Summary of the Map Saver Service
+### Resumen del Map Saver Service
 
-[Back in Part 3](./part3.md#map-saver-cli) we saved our SLAM map once via a command-line call after we had *fully explored and mapped out the environment*:
+[De regreso en la Parte 3](./part3.md#map-saver-cli) guardamos nuestro mapa SLAM una vez mediante una llamada de línea de comandos después de haber *explorado y mapeado completamente el entorno*:
 
 ``` { .bash .no-copy }
 ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 ```
 
-... which resulted in something like:
+... lo que resultó en algo como:
 
 <figure markdown>
   ![](part3/slam_map.png){width=300px}
-  <figcaption>The <code>MAP_NAME.pgm</code> file</figcaption>
+  <figcaption>El archivo <code>MAP_NAME.pgm</code></figcaption>
 </figure>
 
 
-In real-world tasks however (i.e. tasks that you might need to complete in the lab!), your robot might be exploring an environment *autonomously*, and you don't necessarily know when the full environment has been explored, nor are you always going to be there to run the `map_saver_cli` node manually! You might therefore want to program your robot with the ability to save a map *incrementally* and *periodically* as more and more of the environment is explored.
+Sin embargo, en tareas del mundo real (¡es decir, tareas que podrías necesitar completar en el laboratorio!), tu robot podría estar explorando un entorno *de forma autónoma*, y no necesariamente sabes cuándo se ha explorado el entorno completo, ¡ni siempre estarás ahí para ejecutar el nodo `map_saver_cli` manualmente! Por lo tanto, es posible que desees programar tu robot con la capacidad de guardar un mapa *de forma incremental* y *periódica* a medida que se explora más y más del entorno.
 
-The process that we explored in the previous exercise allows you to do just that! In the example, our client node was programmed to make only one request to the server and then stop. It *could* however be programmed to make regular service requests (say, once every 5 or 10 seconds) in order to continuously update its map as the robot explores further and further.
+¡El proceso que exploramos en el ejercicio anterior te permite hacer exactamente eso! En el ejemplo, nuestro nodo client fue programado para hacer solo una request al server y luego detenerse. Sin embargo, *podría* ser programado para hacer requests de service regulares (digamos, una vez cada 5 o 10 segundos) para actualizar continuamente su mapa a medida que el robot explora más y más.
 
-Think about how you might adapt the `map_saver_client.py` node to achieve this, drawing upon other exercises that you have worked through in previous parts of this course.  
+Piensa en cómo podrías adaptar el nodo `map_saver_client.py` para lograr esto, apoyándote en otros ejercicios que has trabajado en partes anteriores de este curso.  
 
-## Wrapping Up
+## Conclusión
 
-In Part 4 we've learnt about ROS Services and why they might be useful for robot applications:
+En la Parte 4 hemos aprendido sobre los ROS Services y por qué pueden ser útiles para aplicaciones robóticas:
 
-* Services differ from standard topic-based communication methods in ROS in that they are a *call and response* type of communication, taking place between one node and another.  
-* Typically, a service *Caller* will **request** a service, and then wait for a **response** (although it is possible to do other things in the meantime).
-* In general however, Services are useful for controlling *quick*, *short-duration* tasks or *calculations*.
+* Los Services difieren de los métodos de comunicación estándar basados en topics en ROS en que son un tipo de comunicación de *llamada y respuesta*, que tiene lugar entre un nodo y otro.  
+* Típicamente, un *Caller* de service hará una **request** a un service, y luego esperará una **response** (aunque es posible hacer otras cosas mientras tanto).
+* En general, sin embargo, los Services son útiles para controlar tareas *rápidas*, de *corta duración* o *cálculos*.
 
-### WSL-ROS2 Managed Desktop Users: Save your work! {#backup}
+### Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo! {#backup}
 
-Remember, to save the work you have done in WSL-ROS2 during this session so that you can restore it on a different machine at a later date. Run the following script in any idle WSL-ROS2 Terminal Instance now:
+Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier Instancia de Terminal WSL-ROS2 inactiva ahora:
 
 ```bash
 wsl_ros backup
 ```
 
-You'll then be able to restore it to a fresh WSL-ROS2 environment next time you fire one up (`wsl_ros restore`).  
+Luego podrás restaurarlo a un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (`wsl_ros restore`).

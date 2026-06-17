@@ -1,20 +1,20 @@
 ---
-title: "Assignment #2 Part A"
+title: "Asignación #2 Parte A"
 ---
 
-# Assignment #2 Part A
+# Asignación #2 Parte A
 
-**Total Marks**: 40/100
+**Puntos Totales**: 40/100
 
-**Submission**: Friday of Week 6 at 6pm (GMT) 
+**Entrega**: Viernes de la Semana 6 a las 6pm
 
-**Tasks**:
+**Tareas**:
 
-* [Task 1: Velocity Control](./task1.md) (worth 20 marks)
-* [Task 2: Avoiding Obstacles](./task2.md) (worth 20 marks)
+* [Tarea 1: Control de Velocidad](./task1.md) (vale 20 puntos)
+* [Tarea 2: Evasión de Obstáculos](./task2.md) (vale 20 puntos)
 
-Ensure that you have prepared appropriately for the Part A submission by following [all the instructions here](../assessment.md).
+Asegúrate de haberte preparado adecuadamente para la entrega de la Parte A siguiendo [todas las instrucciones aquí](../assessment.md).
 
-**Peer Evaluation**:
+**Evaluación entre Pares**:
 
-You will be asked to complete a *Buddycheck* Peer Evaluation for Part A (*"Peer Evaluation 2"*), the deadline for this will be **23:59 on Friday of Week 7**. This will be used to determine individual contributions to the team's work.
+Se te pedirá que completes una Evaluación entre Pares para la Parte A, cuya fecha límite se anunciará en la plataforma del curso. Esto se usará para determinar las contribuciones individuales al trabajo del equipo.

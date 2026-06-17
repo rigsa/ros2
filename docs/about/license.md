@@ -1,15 +1,17 @@
 ---
-title: "License"
+title: "Licencia"
 ---
 
-# License
+# Licencia
 
 <center>
 
-![Creative Commons License CC BY-SA](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+![Licencia Creative Commons CC BY-SA](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
 
-This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+Esta obra está distribuida bajo una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Licencia Creative Commons Atribución-CompartirIgual 4.0 Internacional</a>.
 
-*You are free to distribute, remix, adapt, and build upon this work (for non-commercial purposes only) as long as credit is given to the original author.*
+*Eres libre de compartir, adaptar y construir sobre este material — incluso con fines comerciales — siempre que des crédito al autor original y distribuyas las obras derivadas bajo la misma licencia.*
+
+Este trabajo es una adaptación del curso original de [Tom Howard](https://github.com/tom-howard) (Universidad de Sheffield), disponible en [https://github.com/tom-howard/tuos_ros](https://github.com/tom-howard/tuos_ros){target="_blank"}.
 
 </center>

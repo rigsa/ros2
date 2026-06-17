@@ -3,3 +3,4 @@ nav:
   - installing-wsl-ros2.md
   - "Accessing WSL-ROS2 on University Computers": using-wsl-ros
   - docker-ros2.md
+  - browser-ros2.md

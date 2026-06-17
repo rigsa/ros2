@@ -1,95 +1,95 @@
 ---
-title: "Week 12: Submission Details (& Key Requirements)"
-description: "How to submit your ROS package for the Real Robot Lab Assignment"
+title: "Semana 12: Detalles de Entrega (y Requisitos Clave)"
+description: "Cómo entregar tu paquete de ROS para la Asignación de Lab con Robot Real"
 ---
 
-## Deadline
+## Fecha Límite
 
-The deadline for submission of your ROS package for this task is **23:59 on Friday of Week 12**.
+La fecha límite para la entrega de tu paquete de ROS para esta tarea es **23:59 del viernes de la Semana 12**.
 
-You should submit your team's ROS package to Blackboard, by following the steps outlined below. You should make **one submission per team**, so nominate one member of the team to do this.
+Debes entregar el paquete de ROS de tu equipo a través de la plataforma del curso, siguiendo los pasos descritos a continuación. Debes hacer **una entrega por equipo**, así que nomina a un miembro del equipo para hacer esto.
 
-Your submitted ROS package will be assessed by the teaching team off-line during the Spring Exam Period. Before the end of the exam period you will receive your marks, plus video recordings of the assessment.
+Tu paquete de ROS entregado será evaluado por el equipo docente fuera de línea durante el Período de Exámenes. Antes del final del período de exámenes recibirás tus puntos, más videos de la evaluación.
 
-##  Key Requirements
+## Requisitos Clave
 
 !!! warning
-    Failure to follow all the requirements listed on this page could result in **penalties** being applied to your mark, or you being awarded **zero marks** for the assignment task!
+    ¡No cumplir con todos los requisitos listados en esta página podría resultar en **penalizaciones** aplicadas a tu calificación, o en que se te otorguen **cero puntos** para la tarea de la asignación!
 
-Before submitting your work, you **must** ensure that the following *Key Requirements* are met in regard to your ROS package: 
+Antes de entregar tu trabajo, **debes** asegurarte de que los siguientes *Requisitos Clave* se cumplan en cuanto a tu paquete de ROS:
 
-* [ ] The name of your ROS package must be:
+* [ ] El nombre de tu paquete de ROS debe ser:
 
     ``` { .txt .no-copy }
-    ele434_teamXX_2026
+    ele_teamXX_2026
     ```
 
-    ... where `XX` should be replaced with your team number.
+    ... donde `XX` debe reemplazarse con tu número de equipo.
 
     <a name="build-files"></a>
 
-* [ ] Your package must contain **no build files** (`build/`, `install/`, `log/`) that would be generated as a result of running `colcon build` from inside your package.
+* [ ] Tu paquete no debe contener **archivos de construcción** (`build/`, `install/`, `log/`) que se generarían como resultado de ejecutar `colcon build` desde dentro de tu paquete.
 
-    !!! warning "Remember"
-        **Always** run `colcon build` from the **root** of the ROS workspace (e.g. `~/ros2_ws/`), to ensure that all build files are generated in the right location in the filesystem (`~/ros2_ws/build/`, `~/ros2_ws/install/`, `~/ros2_ws/log/`).
+    !!! warning "Recuerda"
+        **Siempre** ejecuta `colcon build` desde la **raíz** del espacio de trabajo de ROS (por ejemplo, `~/ros2_ws/`), para asegurarte de que todos los archivos de construcción se generen en la ubicación correcta en el sistema de archivos (`~/ros2_ws/build/`, `~/ros2_ws/install/`, `~/ros2_ws/log/`).
 
-For the assessment of the task, your package will be built and deployed on one of the Robotics Laptops that you'll have been working with during the lab sessions. We will use the standard `student` user account, and your package will be downloaded to the `~/ros2_ws/src/` directory. 
+Para la evaluación de la tarea, tu paquete será construido y desplegado en una de las Laptops de Robótica con las que habrás estado trabajando durante las sesiones de laboratorio. Usaremos la cuenta de usuario `student` estándar, y tu paquete será descargado al directorio `~/ros2_ws/src/`.
 
-* [ ] It must be possible to build your package by running the following command from the root of the local ROS 2 Workspace, and this must build without errors:
+* [ ] Debe ser posible construir tu paquete ejecutando el siguiente comando desde la raíz del Espacio de Trabajo de ROS 2 local, y esto debe construirse sin errores:
     
     ``` { .bash .no-copy }
-    colcon build --packages-select ele434_teamXX_2026
+    colcon build --packages-select ele_teamXX_2026
     ```
 
-* [ ] You must ensure that a launch file exists for the task and that this is executable (after having run the above `colcon build` command) so that we are able to launch your work as follows[^launch-files]:
+* [ ] Debes asegurarte de que exista un archivo de lanzamiento para la tarea y que este sea ejecutable (después de haber ejecutado el comando `colcon build` anterior) para que podamos lanzar tu trabajo de la siguiente manera[^launch-files]:
     
-    [^launch-files]: Make sure you have [defined an appropriate `install` directory in your package's `CMakeLists.txt`](../../course/part3.md#ex1) 
+    [^launch-files]: Asegúrate de haber [definido un directorio `install` apropiado en el `CMakeLists.txt` de tu paquete](../../course/part3.md#ex1)
 
     ``` { .bash .no-copy }
-    ros2 launch ele434_teamXX_2026 explore.launch.py
+    ros2 launch ele_teamXX_2026 explore.launch.py
     ```
 
-    ... where `XX` will be replaced by your team number.
+    ... donde `XX` será reemplazado por tu número de equipo.
 
-* [ ] Any nodes within your package that are executed by the above launch files **must** have been correctly defined as package executables (i.e. in your `CMakeLists.txt`) and must **also** have been assigned the appropriate execute permission (i.e. with `chmod`).  
+* [ ] Cualquier node dentro de tu paquete que sea ejecutado por los archivos de lanzamiento anteriores **debe** haber sido definido correctamente como ejecutable del paquete (es decir, en tu `CMakeLists.txt`) y también **debe** haber recibido el permiso de ejecución apropiado (es decir, con `chmod`).  
 
     !!! warning 
-        It's up to **you** to ensure that your code launches as intended for a given task. If it doesn't, then you'll be awarded zero marks, so **make sure you test it all out prior to submission**!
+        ¡Depende de **ti** asegurarte de que tu código se lance según lo previsto para una tarea dada. Si no es así, se te otorgarán cero puntos, así que **asegúrate de probarlo todo antes de la entrega**!
 
-## Other Important Information 
+## Otra Información Importante 
 
-* The [`tuos_ros` Course Repo](../../course/extras/course-repo.md) will be installed and up-to-date on the Robotics Laptop that we use to assess your work with.
+* El [Repositorio del Curso `tuos_ros`](../../course/extras/course-repo.md) estará instalado y actualizado en la Laptop de Robótica que usemos para evaluar tu trabajo.
 
-* The Robotics Laptop that we use for the assessment will be selected at random.
+* La Laptop de Robótica que usemos para la evaluación será seleccionada al azar.
 
-* This laptop will have been paired with a robot prior to us attempting to run your submission.
+* Esta laptop habrá sido vinculada con un robot antes de que intentemos ejecutar tu entrega.
 
-* The robot will also be selected at random.
+* El robot también será seleccionado al azar.
 
-* We will have already [launched the *bringup* on the robot](../../waffles/launching-ros.md#step3), so ROS will be up and running, and the robot will be ready to go in the arena.
+* Ya habremos [lanzado el *bringup* en el robot](../../waffles/launching-ros.md#step3), por lo que ROS estará funcionando y el robot estará listo para operar en el arena.
 
-* [A Zenoh Session will already be running on the laptop](../../waffles/launching-ros.md#step4) to connect to the Robot's Zenoh *Router*, and **communications will have been tested** prior to us attempting to launch your work for each task.
+* [Una Sesión Zenoh ya estará funcionando en la laptop](../../waffles/launching-ros.md#step4) para conectarse al *Router* Zenoh del Robot, y **las comunicaciones habrán sido probadas** antes de que intentemos lanzar tu trabajo para cada tarea.
 
-## Exporting your ROS Package for Submission
+## Exportar tu Paquete de ROS para Entrega {#exporting-your-ros-package-for-submission}
 
-When it comes to submission time, it's important that you follow the steps below carefully to create an archive of your ROS package correctly. 
+Cuando llegue el momento de la entrega, es importante que sigas los pasos a continuación cuidadosamente para crear un archivo de tu paquete de ROS correctamente.
 
-1. From your local ROS installation (i.e. WSL-ROS2), run the `tar` command to compress your team's package into a `.tar` file:
+1. Desde tu instalación local de ROS (es decir, WSL-ROS2), ejecuta el comando `tar` para comprimir el paquete de tu equipo en un archivo `.tar`:
 
     ``` { .bash .no-copy }
-    tar -cvf ~/ele434_teamXX_2026.tar -C ~/ros2_ws/src/ ele434_teamXX_2026
+    tar -cvf ~/ele_teamXX_2026.tar -C ~/ros2_ws/src/ ele_teamXX_2026
     ```
     
-    ... replacing `XX` with your own team number, of course!
+    ... ¡reemplazando `XX` con tu propio número de equipo, por supuesto!
 
-    This will create a `.tar` archive of your package in your home directory. 
+    Esto creará un archivo `.tar` de tu paquete en tu directorio de inicio.
 
-1. **If you are doing this from within WSL-ROS2 (i.e. on Windows)**, access this using the Windows File Explorer. In the same terminal as above enter the following command to first navigate to the home directory, and then launch the Windows Explorer in this location:
+1. **Si estás haciendo esto desde dentro de WSL-ROS2 (es decir, en Windows)**, accede a esto usando el Explorador de Archivos de Windows. En la misma terminal que antes, introduce el siguiente comando para primero navegar al directorio de inicio, y luego lanzar el Explorador de Windows en esta ubicación:
 
     ```bash
     cd ~ && explorer.exe .
     ```
 
-1. An Explorer window should then open, and in there you should be able to see the `ele434_teamXX_2026.tar` file that you just created. Copy and paste this to somewhere convenient on your machine.
+1. Debería abrirse una ventana del Explorador, y allí deberías poder ver el archivo `ele_teamXX_2026.tar` que acabas de crear. Cópialo y pégalo en algún lugar conveniente en tu máquina.
 
-6. Submit this `.tar` file to the appropriate submission portal on Blackboard.
+6. Entrega este archivo `.tar` a través de la plataforma del curso siguiendo las instrucciones que se te indiquen.

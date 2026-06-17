@@ -1,225 +1,212 @@
 ---  
-title: "Week 1: Getting Started"
+title: "Semana 1: Primeros Pasos"
 ---  
 
-Before you get started on Assignment #2 (as detailed in the pages that follow), you should work through the following tasks in your teams during the first lab in Week 1. 
+Antes de comenzar con la Asignación #2 (como se detalla en las páginas que siguen), debes trabajar en las siguientes tareas en tus equipos durante el primer laboratorio de la Semana 1.
 
-* [ ] Set Up Your Team's ROS Package
-* [ ] Get to Know the Robots
+* [ ] Configurar el Paquete de ROS de tu Equipo
+* [ ] Conocer los Robots
 
-The instructions below will guide you through these key first steps.
+Las instrucciones a continuación te guiarán a través de estos primeros pasos clave.
 
-## Set Up Your Team's ROS Package
+## Configurar el Paquete de ROS de tu Equipo
 
-As discussed on [the Assignment #2 Overview](./README.md), everything that your team submit for this lab assignment must be contained within a single ROS package. Inside this you will develop all the necessary nodes to make a TurtleBot3 Waffle complete each of the assignment tasks, as well as some documentation to describe your approach. Each task will be assessed by the Teaching Team via *launch files* that you must also provide within your package. 
+Como se discute en [la Descripción General de la Asignación #2](./README.md), todo lo que tu equipo entregue para esta asignación de laboratorio debe estar contenido dentro de un único paquete de ROS. Dentro de este desarrollarás todos los nodes necesarios para hacer que un TurtleBot3 Waffle complete cada una de las tareas de la asignación, así como alguna documentación para describir tu enfoque. El equipo docente evaluará cada tarea a través de *archivos de lanzamiento* que también debes proporcionar dentro de tu paquete.
 
-The first step however is to create your team's ROS Package.
+Sin embargo, el primer paso es crear el Paquete de ROS de tu equipo.
 
-Your team's package will need to be hosted on GitHub, so each team member will need a GitHub account. Head to [GitHub](https://github.com){target="_blank"} and set up an account if you don't already have one[^github-pro].
+El paquete de tu equipo deberá estar alojado en GitHub, por lo que cada miembro del equipo necesitará una cuenta de GitHub. Dirígete a [GitHub](https://github.com){target="_blank"} y crea una cuenta si aún no tienes una[^github-pro].
 
-[^github-pro]: As a University of Sheffield student, you can apply for the [GitHub Student Developer Pack](https://education.github.com/pack){target="_blank"}, which gives you access to a range of developer tools including *GitHub Pro*. GitHub Pro allows you to have unlimited collaborators on your repositories, which might help you to collaborate on your ROS package with your team.
+[^github-pro]: Puedes solicitar el [GitHub Student Developer Pack](https://education.github.com/pack){target="_blank"}, que te da acceso a una variedad de herramientas de desarrollo incluyendo *GitHub Pro*. GitHub Pro te permite tener colaboradores ilimitados en tus repositorios, lo que podría ayudarte a colaborar en tu paquete de ROS con tu equipo.
 
-!!! tip "Working with Git and GitHub"
+!!! tip "Trabajar con Git y GitHub"
 
-    You'll be working with Git and GitHub quite extensively throughout Assignment #2. Hopefully a lot of you will already be quite familiar with these tools, but if not, we would strongly recommend that you have a look at [This Course by the University of Sheffield's Research Software Engineering (RSE) Team](https://srse-git-github-zero2hero.netlify.app/){target="_blank"}.
+    Trabajarás con Git y GitHub bastante extensamente durante la Asignación #2. Con suerte, muchos de vosotros ya estaréis bastante familiarizados con estas herramientas, pero si no, os recomendamos encarecidamente que reviseis [este curso sobre Git y GitHub](https://srse-git-github-zero2hero.netlify.app/){target="_blank"}.
 
-### Creating Your Team's Package Repo (on GitHub)
+### Crear el Repositorio del Paquete de tu Equipo (en GitHub)
 
-Nominate **only one member of your team** to do this bit.
+Nomina a **solo un miembro de tu equipo** para hacer esta parte.
 
-1. Ensure that you are signed in to your account on GitHub, then go to [the `ros2_pkg_template` Repo](https://github.com/tom-howard/ros2_pkg_template){target="_blank"}. 
-1. Click on the green `Use this template` button, and then select `Create a new repository` from the dropdown menu. 
+1. Asegúrate de haber iniciado sesión en tu cuenta de GitHub, luego ve al [repositorio `ros2_pkg_template`](https://github.com/tom-howard/ros2_pkg_template){target="_blank"}.
+1. Haz clic en el botón verde `Use this template` y luego selecciona `Create a new repository` del menú desplegable.
 
     <figure markdown>
       ![](./getting-started/ros2_pkg_template.png){width=700px}
     </figure>
 
-    You should then be presented with a **Create a new repository** screen.
+    Luego deberías ver una pantalla de **Create a new repository**.
 
-1. The name for your repository **must** be as follows:
+1. El nombre de tu repositorio **debe** ser el siguiente:
 
     ``` { .txt .no-copy }
-    com2009_teamXX_2026
+    ros2_lab_equipoXX
     ```
 
-    ... where `XX` should be replaced with *your* COM2009 Assignment #2 Team Number. Enter this in the `Repository name` box.
+    ... donde `XX` debe reemplazarse con *tu* número de equipo de la Asignación #2. Introduce esto en el cuadro `Repository name`.
 
-    **If your team number is less than 10**: put a zero before the number, so that the team number is **always** 2 digits long, e.g.: 
+    **Si tu número de equipo es menor que 10**: pon un cero antes del número, de modo que el número de equipo siempre tenga **2 dígitos de longitud**, por ejemplo:
     
-    * `com2009_team03_2026` for **Team 3**
-    * `com2009_team08_2026` for **Team 8**
-    * `com2009_team15_2026` for **Team 15**
+    * `ros2_lab_equipo03` para el **Equipo 3**
+    * `ros2_lab_equipo08` para el **Equipo 8**
+    * `ros2_lab_equipo15` para el **Equipo 15**
 
-    !!! warning "Important"
-        Your repository name should match the above format **exactly**:
+    !!! warning "Importante"
+        El nombre de tu repositorio debe coincidir exactamente con el formato anterior:
             
-        * The name should be **19 characters long** in total.
-        * All characters should be **lower case** (e.g. `com2009`, **NOT** `COM2009`)
+        * Todos los caracteres deben estar en **minúsculas**
 
-
-1. Under `Configuration`, select `Private` to **make the repository private**: 
+1. En `Configuration`, selecciona `Private` para **hacer el repositorio privado**:
 
     <figure markdown>
       ![](./getting-started/gh-repo-config.png){width=600px}
     </figure>
 
-    Then click the green `Create repository` button.
+    Luego haz clic en el botón verde `Create repository`.
 
-1. You'll then be directed to your main repository page. From here, click on `Settings`, then under `Access` click `Collaborators`:
+1. Serás dirigido a la página principal de tu repositorio. Desde aquí, haz clic en `Settings`, luego en `Access` haz clic en `Collaborators`:
 
     <figure markdown>
       ![](./getting-started/repo_collaborators.png){width=700px}
     </figure>
 
-    (You may be prompted for 2FA.)
+    (Es posible que se te solicite 2FA.)
 
-1. In the `Manage access` area, click the green `Add people` button and add `tom-howard` and `AlexandrLucas`: 
+1. En el área `Manage access`, haz clic en el botón verde `Add people` y agrega a los miembros del equipo docente según te indiquen.
 
-    <figure markdown>
-      ![](./getting-started/gh-profiles-th-al.svg){width=300px}
-    </figure>
+1. Finalmente, haz clic en el botón `Add people` y agrega al resto de los miembros de tu equipo como colaboradores de este repositorio también.
 
-1. Finally, click on the `Add people` button and add the rest of your team members as collaborators to this repo too.
+### Registrar la URL de tu Paquete de ROS con el Equipo Docente {#pkg-reg}
 
-### Register Your ROS Package URL with the Teaching Team {#pkg-reg}
+Habiendo creado tu paquete, deberás informarnos tu nombre de usuario de GitHub y la URL de tu repositorio de GitHub de equipo, para que podamos acceder a él y descargar tu trabajo cuando se acerquen las fechas de entrega.
 
-Having created your package, you'll need to tell us your GitHub username and the URL to your team's GitHub repository, so that we can access it and pull download your work when the submissions are due.
+Hay un formulario que **debes completar** (como equipo) para registrar tu paquete de ROS con nosotros para la Asignación #2. El formulario está disponible a través del enlace que te compartirá el equipo docente (también disponible en la plataforma del curso).
 
-There is a form that **you must complete** (as a team), to register your ROS package with us for Assignment #2. The form is available via the link below (also on Blackboard). 
-
-<center>[COM2009 Package Registration Form (2026)](https://forms.gle/XPcZx9JKRmzFYmsW8){ .md-button target="_blank"}</center>
-
-You **must** be signed in to your university email account (`...@sheffield.ac.uk`) to access this. 
-
-The team member who created the Repo (in the step above) should fill in this form **now**.
+El miembro del equipo que creó el repositorio (en el paso anterior) debe completar este formulario **ahora**.
 
 !!! warning
-    Failure to do this (and do it properly) could result in you receiving **0 marks** for the assignment tasks!
+    ¡No hacer esto (y hacerlo correctamente) podría resultar en que recibas **0 puntos** para las tareas de la asignación!
 
-At some point within the first few weeks of the course a `hello.md` file will be pushed to your repo (by Tom) to confirm that it has been registered correctly.
+En algún momento dentro de las primeras semanas del curso se enviará un archivo `hello.md` a tu repositorio para confirmar que ha sido registrado correctamente.
 
-### Initialising Your Team's ROS Package (Locally)
+### Inicializar el Paquete de ROS de tu Equipo (Localmente)
 
-Nominate **only one member of your team** to do this bit too.
+Nomina también a **solo un miembro de tu equipo** para hacer esta parte.
 
-You should do this from within your own ROS installation (or WSL-ROS2), rather than on the robotics laptop that you will use to work with the real robots in the lab. Select a team member who has access to their own ROS installation in the lab now (i.e. via a personal laptop), or access WSL-ROS2 using one of the "WSL-ROS laptops" that are also available in the lab.
+Debes hacerlo desde dentro de tu propia instalación de ROS (o WSL-ROS2), en lugar de en la laptop de robótica que usarás para trabajar con los robots reales en el laboratorio.
 
-1. On GitHub, go back to your repository's main page by clicking the `<> Code` tab at the top-left.
+1. En GitHub, regresa a la página principal de tu repositorio haciendo clic en la pestaña `<> Code` en la parte superior izquierda.
 
-1. Click the green `Code` button and then, from the dropdown menu, click the :octicons-copy-16: button to copy the remote **HTTPS** URL of your repo. 
+1. Haz clic en el botón verde `Code` y luego, del menú desplegable, haz clic en el botón :octicons-copy-16: para copiar la URL **HTTPS** remota de tu repositorio.
 
     <figure markdown>
       ![](./getting-started/code-copy-url.png){width=600px}
     </figure>
 
-1. From your local ROS installation, open a terminal instance and navigate to the `src` directory of the ROS Workspace:
+1. Desde tu instalación local de ROS, abre una instancia de terminal y navega al directorio `src` del Espacio de Trabajo de ROS:
 
     ```bash
     cd ~/ros2_ws/src
     ```
 
-    <!-- Note for 2026: Use ssh instead?  -->
-
-1. Clone your repo here using the remote HTTPS URL:
+1. Clona tu repositorio aquí usando la URL HTTPS remota:
 
     ```bash
     git clone REMOTE_HTTPS_URL
     ```
 
-    You'll then be asked to enter your GitHub username, followed by a password. **This password is not your GitHub account password**!  
+    Luego se te pedirá que ingreses tu nombre de usuario de GitHub, seguido de una contraseña. **¡Esta contraseña no es la contraseña de tu cuenta de GitHub!**
 
     !!! warning
-        **Your GitHub account password won't work here!** You'll need to [generate a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic){target="_blank"} and use this instead!
+        **¡La contraseña de tu cuenta de GitHub no funcionará aquí!** Necesitarás [generar un token de acceso personal](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic){target="_blank"} y usarlo en su lugar.
 
-1. Navigate into the package directory using the `cd` command:
+1. Navega al directorio del paquete usando el comando `cd`:
 
     ```bash
-    cd com2009_teamXX_2026
+    cd ros2_lab_equipoXX
     ```
     
-    (...replacing `XX` with your COM2009 Assignment #2 Team Number.)
+    (...reemplazando `XX` con tu número de equipo de la Asignación #2.)
 
-1. Then, run an initialisation script to configure your ROS package appropriately:
+1. Luego, ejecuta un script de inicialización para configurar tu paquete de ROS apropiadamente:
 
     ```bash
     ./init_pkg.sh
     ``` 
 
-### Configure Git {#git}
+### Configurar Git {#git}
 
-Next, you'll need to make sure Git is configured properly in your local ROS installation before you do anything else.
+A continuación, deberás asegurarte de que Git esté correctamente configurado en tu instalación local de ROS antes de hacer cualquier otra cosa.
 
-1. From the same terminal instance as above run the following commands to update your personal details in the global Git config file on your machine:
+1. Desde la misma instancia de terminal que antes, ejecuta los siguientes comandos para actualizar tus datos personales en el archivo de configuración global de Git en tu máquina:
 
     ``` { .bash .no-copy }
-    git config user.name "your_name"
+    git config user.name "tu_nombre"
     ```
-    ...replacing `your_name` with your actual name! E.g.: `#!bash git config --global user.name "John Smith"`
+    ...¡reemplazando `tu_nombre` con tu nombre real! Por ejemplo: `#!bash git config --global user.name "Juan García"`
     
     ``` { .bash .no-copy }
-    git config user.email "your_email_address"
+    git config user.email "tu_dirección_de_correo"
     ```
-    ...replacing `your_email_address` with your actual email address!
+    ...¡reemplazando `tu_dirección_de_correo` con tu dirección de correo real!
 
-2. If you're working in WSL-ROS2 on a University machine, don't forget to run `wsl_ros backup` to save these changes to your external WSL-ROS2 backup file, so that they will always be restored whenever you run `wsl_ros restore` in a fresh WSL-ROS2 instance on another machine. 
+2. Si estás trabajando en WSL-ROS2 en una máquina del laboratorio, no olvides ejecutar `wsl_ros backup` para guardar estos cambios en tu archivo de respaldo externo de WSL-ROS2, para que siempre se restauren cuando ejecutes `wsl_ros restore` en una nueva instancia de WSL-ROS2 en otra máquina.
 
     !!! note
-        **All team members will actually need to do this bit before interacting with Git!**
+        **¡Todos los miembros del equipo deberán hacer esta parte antes de interactuar con Git!**
 
-        Regardless of which team member is setting up your team's ROS package to begin with, you'll **all** need to interact with Git for this assignment, and you should therefore *each* set up your own individual Git configurations (via the steps above) before working individually on your team's ROS package.
+        Independientemente de qué miembro del equipo esté configurando el paquete de ROS de tu equipo para comenzar, todos **necesitaréis** interactuar con Git para esta asignación, y por lo tanto deberíais *cada uno* configurar vuestras propias configuraciones de Git individuales (a través de los pasos anteriores) antes de trabajar individualmente en el paquete de ROS de tu equipo.
 
-### Push Your Local ROS Package Back to GitHub {#git-push}
+### Publicar tu Paquete de ROS Local en GitHub {#git-push}
 
-Again, **only one member of your team** needs to do this bit.
+Nuevamente, **solo un miembro de tu equipo** necesita hacer esta parte.
 
-Having initialised your team's ROS package, it's now ready for you to start populating with code for the Assignment #2 Tasks! The first step though is to push the changes made in the initialisation step (above) back to GitHub, so that everyone in your team is working from the right starting point. 
+Habiendo inicializado el paquete de ROS de tu equipo, ¡ya está listo para que comiences a llenarlo con código para las Tareas de la Asignación #2! Sin embargo, el primer paso es publicar los cambios realizados en el paso de inicialización (anterior) de vuelta en GitHub, para que todos en tu equipo estén trabajando desde el punto de partida correcto.
 
-1. From the same terminal as above, use the `git status` command to show you all the changes that have been made to the repo in the initialisation process:
+1. Desde la misma terminal que antes, usa el comando `git status` para ver todos los cambios realizados en el repositorio durante el proceso de inicialización:
 
     ```bash
     git status
     ```
 
-1. Use `git add` to *stage* all these changes for an initial commit:
+1. Usa `git add` para *preparar* todos estos cambios para un commit inicial:
 
     ```bash
     git add .
     ```
 
     !!! warning
-        Don't forget the `.` at the end there!
+        ¡No olvides el `.` al final!
 
-1. Then commit them:
+1. Luego realiza el commit:
 
     ```bash
     git commit -m "Package initialisations complete."
     ```
 
-1. Finally, *push* the local changes back up the "remote" repository on GitHub:
+1. Finalmente, *publica* los cambios locales de vuelta al repositorio "remoto" en GitHub:
 
     ```bash
     git push origin main
     ```
 
-    You'll then be asked to enter your GitHub username and password again. 
+    Luego se te pedirá que ingreses tu nombre de usuario y contraseña de GitHub nuevamente.
     
-    !!! warning "Remember" 
-        This is **not** your GitHub account password... Use the personal access token that you created earlier.  
+    !!! warning "Recuerda" 
+        **No** es la contraseña de tu cuenta de GitHub... Usa el token de acceso personal que creaste anteriormente.
 
-1. All team members should then be able to pull the remote repo into their own ROS Workspaces (`#!bash cd ~/ros2_ws/src/ && git clone REMOTE_HTTPS_URL`), make contributions and push these back to the remote repo as required (using their own GitHub account credentials and personal access tokens).
+1. Todos los miembros del equipo deberían entonces poder clonar el repositorio remoto en sus propios Espacios de Trabajo de ROS (`#!bash cd ~/ros2_ws/src/ && git clone REMOTE_HTTPS_URL`), hacer contribuciones y publicarlas de vuelta al repositorio remoto según sea necesario (usando sus propias credenciales de cuenta de GitHub y tokens de acceso personal).
 
-You'll need to copy your ROS package onto the Robot Laptops when working on the Real-Robot based tasks, which we'll cover in more detail later. 
+Necesitarás copiar tu paquete de ROS a las Laptops de los Robots cuando trabajes en las tareas basadas en robots reales, lo cual cubriremos con más detalle más adelante.
 
-## Getting to Know the Real Robots
+## Conocer los Robots Reales
 
-Assignment #2 involves extensive work with our real robots, and you'll therefore have access to the robots for every lab session so that you can work on these tasks as you wish. All the details on how the robots work, how to get them up and running and start programming them can be found in the "Waffles" section of this course site. You should proceed now as follows (**in your teams**):
+La Asignación #2 involucra trabajo extenso con nuestros robots reales, y por lo tanto tendrás acceso a los robots durante cada sesión de laboratorio para que puedas trabajar en estas tareas como desees. Todos los detalles sobre cómo funcionan los robots, cómo ponerlos en marcha y comenzar a programarlos se pueden encontrar en la sección "Waffles" de este sitio del curso. Procede ahora de la siguiente manera (**en tus equipos**):
 
-1. Each team has been assigned a specific robot (there's a list on Blackboard). When you're ready, speak to a member of the teaching team who will provide you with the robot that has been assigned to you.
-1. Work through each page of [the "Waffles" section of this site](../../waffles/README.md) (**in order**):
+1. A cada equipo se le ha asignado un robot específico. Cuando estés listo, habla con un miembro del equipo docente quien te proporcionará el robot que se te ha asignado.
+1. Trabaja en cada página de [la sección "Waffles" de este sitio](../../waffles/README.md) (**en orden**):
    
-    * [ ] Read about [the hardware](../../waffles/intro.md).
-    * [ ] Learn how to [launch ROS and get the robots up and running](../../waffles/launching-ros.md).
-    * [ ] Work through the [Waffle (& ROS) Basics](../../waffles/basics.md), which will help to get you started and understand how ROS and the robots work.
-    * [ ] There is also some further *Essential Information* that you must all be aware of when working with the real robots. Work through [the further exercises here](../../waffles/essentials.md) now.
-    * [ ] Finally, review the [Shutdown Procedures](../../waffles/shutdown.md). Follow these steps to shut down the robot and power off the robotics laptop at the end of each lab session.
-    
+    * [ ] Lee sobre [el hardware](../../waffles/intro.md).
+    * [ ] Aprende cómo [lanzar ROS y poner los robots en marcha](../../waffles/launching-ros.md).
+    * [ ] Trabaja en los [Conceptos Básicos de Waffle (y ROS)](../../waffles/basics.md), que te ayudarán a comenzar y entender cómo funcionan ROS y los robots.
+    * [ ] También hay información esencial adicional de la que debes ser consciente cuando trabajas con los robots reales. Trabaja en [los ejercicios adicionales aquí](../../waffles/essentials.md) ahora.
+    * [ ] Finalmente, revisa los [Procedimientos de Apagado](../../waffles/shutdown.md). Sigue estos pasos para apagar el robot y apagar la laptop de robótica al final de cada sesión de laboratorio.

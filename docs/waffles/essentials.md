@@ -1,57 +1,57 @@
 ---  
-title: Essential Considerations 
+title: Consideraciones Esenciales 
 ---
 
-Sometimes, the real robots behave in ways that you wouldn't expect. Certain things work differently on the real hardware than they do in a simulation. On this page, we highlight a number of *key things that you should investigate ^^as soon as possible^^*, in order to avoid any nasty surprises in the lab.
+En ocasiones, los robots reales se comportan de maneras inesperadas. Ciertas cosas funcionan de forma diferente en el hardware real que en una simulación. En esta página destacamos una serie de *aspectos clave que debes investigar ^^lo antes posible^^*, para evitar sorpresas desagradables en el laboratorio.
 
-## Motion and Velocity Control
+## Movimiento y Control de Velocidad
 
-1. **What happens if you don't tell a robot explicitly to stop moving?**
+1. **¿Qué ocurre si no le indicas explícitamente a un robot que se detenga?**
 
-    This is no different in the real-world as it is in a simulation, but consider what we had to do **[in this Exercise](./basics.md#exSimpleVelCtrl)** to make the robot stop, and why it's therefore important to [build nodes with proper shutdown procedures in place](../course/part2.md#ex5). 
+    Esto no es diferente en el mundo real que en una simulación, pero considera lo que tuvimos que hacer **[en este Ejercicio](./basics.md#exSimpleVelCtrl)** para detener el robot, y por qué es importante [construir nodos con procedimientos de apagado adecuados](../course/part2.md#ex5).
 
-1. **What are the robot's maximum velocity limits, and what happens if you exceed them?**
+1. **¿Cuáles son los límites de velocidad máxima del robot, y qué ocurre si se exceden?**
 
-    Physical systems have their limits, and no motor can rotate at an unlimited speed! [Our robots therefore have maximum velocity limits](../about/robots.md#max_vels), and it is important that you know what these are. Try issuing a velocity command to a robot that is outside the maximum velocity range... what does the robot do? 
+    Los sistemas físicos tienen sus límites, ¡y ningún motor puede girar a una velocidad ilimitada! [Nuestros robots tienen límites de velocidad máxima](../about/robots.md#max_vels), y es importante que los conozcas. Intenta enviar un comando de velocidad a un robot que esté fuera del rango de velocidad máxima... ¿qué hace el robot?
 
-1. **What happens if you apply high angular and linear velocity to a robot instantaneously, from a standstill?**
+1. **¿Qué ocurre si aplicas una velocidad angular y lineal elevada a un robot de forma instantánea, desde una posición de reposo?**
 
-    It is perfectly feasible for our robots to achieve their maximum velocities, however, they don't necessarily appreciate being asked to go from stationary to full speed instantaneously! Consider testing this out on a real robot to observe what happens. With the robot stationary, **[use the command line](../course/part2.md#ex3)** to publish a velocity command to the robot that contains both a *high* linear *and* angular velocity component. What would you *expect* to observe?[^hint-circle] ... What you *actually* observe might be different. How could you achieve the desired motion (assuming the velocities are within the maximum limits)
+    Es perfectamente factible que nuestros robots alcancen sus velocidades máximas; sin embargo, ¡no necesariamente responden bien cuando se les pide pasar de estar detenidos a máxima velocidad de forma instantánea! Considera probar esto en un robot real para observar qué sucede. Con el robot detenido, **[usa la línea de comandos](../course/part2.md#ex3)** para publicar un comando de velocidad al robot que contenga tanto una componente lineal *alta* como una angular *alta*. ¿Qué *esperarías* observar?[^hint-circle] ... Lo que *realmente* observes podría ser diferente. ¿Cómo podrías lograr el movimiento deseado (suponiendo que las velocidades estén dentro de los límites máximos)?
 
-    [^hint-circle]: The robot *should* turn in a circle, but if the velocities are close to the maximum limits, does this actually happen?
+    [^hint-circle]: El robot *debería* girar en círculo, pero si las velocidades están cerca de los límites máximos, ¿realmente ocurre esto?
 
-## Laser Displacement Readings and the LiDAR Sensor 
+## Lecturas de Desplazamiento Láser y el Sensor LiDAR
 
-1. **What are the minimum and maximum distances that the robot's LiDAR sensor can detect?**
+1. **¿Cuáles son las distancias mínima y máxima que puede detectar el sensor LiDAR del robot?**
 
-    You can use **[the same process as in simulation](../course/part3.md#range_max_min)** to determine this.
+    Puedes usar **[el mismo proceso que en simulación](../course/part3.md#range_max_min)** para determinar esto.
 
-    If our robot arena is 4x4 meters in size, *is it likely that the robot would ever encounter readings outside this range?* 
+    Si nuestra arena de robots mide 4x4 metros, *¿es probable que el robot encuentre lecturas fuera de este rango?*
 
-1. **What does the sensor report when these limits are exceeded, and how does this differ to a simulation?**
+1. **¿Qué informa el sensor cuando se superan estos límites, y en qué se diferencia de una simulación?**
 
-    The LiDAR gives us an accurate measure of the distance to obstacles within the robot's environment, provided those obstacles are within the sensor's measurement range (as above). If obstacles are beyond the sensor's measurement range, then an *out-of-range* value is returned by the sensor instead. In our code it's important that we **[detect these *out-of-range* values and discard them](../course/part3/lidar_subscriber.md)**, as if we don't deal with them correctly then this can influence our robot's ability to detect and avoid obstacles effectively. In simulation, the out-of-range value is `inf`, but is this the same on the real robots?[^hint-lidar]
+    El LiDAR nos proporciona una medida precisa de la distancia a los obstáculos en el entorno del robot, siempre que esos obstáculos estén dentro del rango de medición del sensor (como se describió anteriormente). Si los obstáculos están más allá del rango de medición del sensor, el sensor devuelve en su lugar un valor *fuera de rango*. En nuestro código es importante que **[detectemos estos valores *fuera de rango* y los descartemos](../course/part3/lidar_subscriber.md)**, ya que si no los manejamos correctamente esto puede afectar la capacidad del robot para detectar y evitar obstáculos eficazmente. En simulación, el valor fuera de rango es `inf`, pero ¿es lo mismo en los robots reales?[^hint-lidar]
 
-    [^hint-lidar]: On the real robots, the out-of-range value is **NOT** `inf`, so you need to find out what it is! 
+    [^hint-lidar]: En los robots reales, el valor fuera de rango **NO** es `inf`, ¡así que necesitas averiguar cuál es!
 
-1. **The data from a real LiDAR sensor will be "noisy." What are the implications of this for real-world applications?**
+1. **Los datos de un sensor LiDAR real serán "ruidosos". ¿Cuáles son las implicaciones de esto para las aplicaciones del mundo real?**
 
-    You may notice if you **[observe the data from a robot's LiDAR sensor in RViz](./basics.md#exViz)** that the green dots move around quite a lot, even when the robot isn't moving, or if nothing in the environment is actually changing. This is called *"measurement noise"*, and it is common to all sensors. It's important then to consider the processing that you perform on this data: say you want to determine the distance to the closest thing in your robot's environment, so perhaps you might consider applying a `min()` function to determine this? This will be very sensitive to measurement noise however: minimum values may not always represent genuine distance measurements. Are there alternative ways that you could handle this data instead?
+    Puede que notes, si **[observas los datos del sensor LiDAR de un robot en RViz](./basics.md#exViz)**, que los puntos verdes se mueven bastante, incluso cuando el robot no se está moviendo, o cuando nada en el entorno está cambiando realmente. Esto se llama *"ruido de medición"*, y es común en todos los sensores. Es importante entonces considerar el procesamiento que realizas sobre estos datos: supón que quieres determinar la distancia al objeto más cercano en el entorno de tu robot; quizás podrías considerar aplicar una función `min()` para determinarlo. Sin embargo, esto sería muy sensible al ruido de medición: los valores mínimos podrían no representar siempre mediciones de distancia genuinas. ¿Existen formas alternativas de manejar estos datos?
 
-## The Camera and Image Processing
+## La Cámara y el Procesamiento de Imágenes
 
-1. **What topic is image data published to on the real robots? Is this the same as in a simulation?**
+1. **¿En qué topic se publican los datos de imagen en los robots reales? ¿Es el mismo que en una simulación?**
 
-    With the real robot to hand, use ROS command-line tools such as `ros2 topic list` and `ros2 topic info` to interrogate the ROS Network and identify the name of the camera image topic used on the real robots. *Is it the same, or different?*
+    Con el robot real a disposición, usa herramientas de línea de comandos de ROS como `ros2 topic list` y `ros2 topic info` para interrogar la Red ROS e identificar el nombre del topic de imagen de la cámara usado en los robots reales. *¿Es igual o diferente?*
 
-1. **What is the resolution of the images obtained from a real robot's camera?**
+1. **¿Cuál es la resolución de las imágenes obtenidas de la cámara de un robot real?**
 
-    Having confirmed the name of the camera image topic (as above), use **[the methods discussed here](../course/part6.md#camera-topics-and-data)** to identify the resolution of the images that are being published. It's important to know this, particularly when it comes to applying any cropping to your raw images: if you don't know how big (or small) the images are to begin with, you may end up chopping off more (or less) than you bargained for. 
+    Habiendo confirmado el nombre del topic de imagen de la cámara (como se indicó anteriormente), usa **[los métodos descritos aquí](../course/part6.md#camera-topics-and-data)** para identificar la resolución de las imágenes que se están publicando. Es importante conocer esto, especialmente cuando se trata de aplicar recortes a las imágenes sin procesar: si no sabes qué tan grandes (o pequeñas) son las imágenes de partida, podrías terminar cortando más (o menos) de lo que pretendías.
 
-1. **Do the same image processing techniques produce the same results in simulation and the real world?**
+1. **¿Producen las mismas técnicas de procesamiento de imágenes los mismos resultados en simulación y en el mundo real?**
 
-    In general, image detection gets a little more challenging in the real-world, where the same object might appear (to a robot's camera) to have slightly different colour tones under different light conditions, from different angles, in different levels of shade, etc. In simulation, you may **[build an extremely effective `colour_search.py` node](../course/part6.md#ex3)** to detect each of the four coloured pillars in a simulated world, but this might not perform as well in the real world without some fine-tuning. It's therefore really important to **always** test out your code in the real-world; just because it works in simulation, **doesn't** mean it will work on the real robots!!
+    En general, la detección de imágenes se vuelve un poco más desafiante en el mundo real, donde el mismo objeto podría aparecer (para la cámara de un robot) con tonos de color ligeramente diferentes bajo diferentes condiciones de luz, desde diferentes ángulos, con diferentes niveles de sombra, etc. En simulación, puede que **[construyas un nodo `colour_search.py` extremadamente efectivo](../course/part6.md#ex3)** para detectar cada uno de los cuatro pilares de colores en un mundo simulado, pero esto podría no funcionar tan bien en el mundo real sin algunos ajustes. Por eso es realmente importante **siempre** probar tu código en el mundo real; ¡que funcione en simulación **no** significa que funcionará en los robots reales!
 
-## Summary
+## Resumen
 
-You will naturally do a fair bit of development work in simulation throughout this course, where it's easier to test things out and less disastrous if things go wrong! Overall, you'll be able to develop things much faster this way, and you can do this outside of your weekly lab sessions too. Whilst you're doing this though, keep in mind all the differences that we have identified above, so that there are less nasty surprises when you come to deploy your ROS applications in the real world. 
+A lo largo de este curso realizarás bastante trabajo de desarrollo en simulación, donde es más fácil probar las cosas y menos grave si algo sale mal. En general, podrás desarrollar mucho más rápido de esta manera, y puedes hacerlo también fuera de tus sesiones semanales de laboratorio. Mientras lo haces, sin embargo, ten en cuenta todas las diferencias que hemos identificado anteriormente, para que haya menos sorpresas desagradables cuando llegues a desplegar tus aplicaciones ROS en el mundo real.

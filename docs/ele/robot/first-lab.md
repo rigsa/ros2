@@ -1,94 +1,94 @@
 ---
-title: "Week 8: Your First Real Robot Lab"
-description: "Some exercises to help you to get to know the real robots and how they work"
+title: "Semana 8: Tu Primer Lab con Robot Real"
+description: "Algunos ejercicios para ayudarte a conocer los robots reales y cómo funcionan"
 ---
 
-## Getting to Know the Real Robots
+## Conocer los Robots Reales
 
-This assignment task involves extensive work with our real robots, and you'll therefore have access to the robots for every lab session from Week 8 onwards. All the details on how the robots work, how to get them up and running and start programming them can be found in the "Waffles" section of this course site (which we'll get to in a minute).
+Esta tarea de asignación involucra trabajo extenso con nuestros robots reales, y por lo tanto tendrás acceso a los robots durante cada sesión de laboratorio a partir de la Semana 8. Todos los detalles sobre cómo funcionan los robots, cómo ponerlos en marcha y comenzar a programarlos se pueden encontrar en la sección "Waffles" de este sitio del curso (a la que llegaremos en un momento).
 
-Each team has been assigned a specific *"robotics laptop"* (there's a list on Blackboard). The teaching team will provide you with a robot and your team's laptop at the beginning of the lab session. 
+A cada equipo se le ha asignado una *"laptop de robótica"* específica (hay una lista en la plataforma del curso). El equipo docente te proporcionará un robot y la laptop de tu equipo al comienzo de la sesión de laboratorio.
 
-!!! warning "Important"
-    * The robot and laptop are only accessible during the lab sessions. You must return all hardware at the end of the lab.
-    * Lab session start on the hour, and are **1 hour and 50 minutes** long. You must ensure that all hardware is turned off and returned to teaching staff **promptly** at the end of the lab session (**at 10 minutes to the hour**). Follow the proper shutdown procedures to power off the hardware at the end of each lab session.
+!!! warning "Importante"
+    * El robot y la laptop solo son accesibles durante las sesiones de laboratorio. Debes devolver todo el hardware al final del laboratorio.
+    * Las sesiones de laboratorio empiezan en punto, y tienen **1 hora y 50 minutos** de duración. Debes asegurarte de que todo el hardware esté apagado y devuelto al personal docente **con prontitud** al final de la sesión de laboratorio (**a los 10 minutos para terminar la hora**). Sigue los procedimientos de apagado adecuados para apagar el hardware al final de cada sesión de laboratorio.
 
-### Your Week 8 To-Do List
+### Lista de Tareas para la Semana 8
 
-Once you have been provided with your robot and laptop, work through each page of [the "Waffles" section of this site](../../waffles/README.md) (**in order**) to familiarise yourselves with how they work:
+Una vez que te hayan proporcionado tu robot y laptop, trabaja en cada página de [la sección "Waffles" de este sitio](../../waffles/README.md) (**en orden**) para familiarizarte con cómo funcionan:
    
-* [ ] Read about [the hardware](../../waffles/intro.md).
-* [ ] Learn how to [launch ROS and get the robots up and running](../../waffles/launching-ros.md).
-* [ ] Work through the [Waffle (& ROS) Basics](../../waffles/basics.md), which will help to get you started and understand how ROS and the robots work.
-* [ ] Finally, review the [Shutdown Procedures](../../waffles/shutdown.md). Follow these steps to shut down the robot and power off the robotics laptop at the end of each lab session.
+* [ ] Lee sobre [el hardware](../../waffles/intro.md).
+* [ ] Aprende cómo [lanzar ROS y poner los robots en marcha](../../waffles/launching-ros.md).
+* [ ] Trabaja en los [Conceptos Básicos de Waffle (y ROS)](../../waffles/basics.md), que te ayudarán a comenzar y entender cómo funcionan ROS y los robots.
+* [ ] Finalmente, revisa los [Procedimientos de Apagado](../../waffles/shutdown.md). Sigue estos pasos para apagar el robot y apagar la laptop de robótica al final de cada sesión de laboratorio.
 
-## Transferring Your ROS Package to the Robotics Laptops
+## Transferir tu Paquete de ROS a las Laptops de Robótica
 
-In week 6 you will have started to develop the necessary algorithms for this task, and you'll have hopefully started to test things out in a simulated world. The next step is to get things working on the real robot!
+En la semana 6 habrás comenzado a desarrollar los algoritmos necesarios para esta tarea, y con suerte habrás empezado a probar las cosas en un mundo simulado. ¡El siguiente paso es hacer que las cosas funcionen en el robot real!
 
-Having familiarised yourselves with how the robots work (by working through the exercises above), the next task is to get your package installed on the robotics laptop to test your algorithms out in the real world, and start to debug and optimise.
+Habiendo familiarizado con cómo funcionan los robots (trabajando en los ejercicios anteriores), la siguiente tarea es instalar tu paquete en la laptop de robótica para probar tus algoritmos en el mundo real, y comenzar a depurar y optimizar.
 
-There are a few methods that you could use to copy your ROS package onto the robot laptop, the easiest of which is to use a USB flash drive, or to upload your code to Google Drive and then download it on the laptop[^git].
+Hay algunos métodos que podrías usar para copiar tu paquete de ROS en la laptop del robot; el más sencillo es usar una memoria USB, o subir tu código a Google Drive y luego descargarlo en la laptop[^git].
 
-[^git]: Another alternative is to use Git and GitHub, but this requires knowledge of these particular software tools. If you want to take this approach, then you would need to turn your ROS package into a git repo, push it to GitHub and then [refer to these instructions for cloning your package onto the robotics laptops](../../com/assignment2/ros-pkg-tips.md){target="_blank"}.
+[^git]: Otra alternativa es usar Git y GitHub, pero esto requiere conocimiento de estas herramientas de software particulares. Si quieres seguir este enfoque, necesitarías convertir tu paquete de ROS en un repositorio git, publicarlo en GitHub y luego [consultar estas instrucciones para clonar tu paquete en las laptops de robótica](../../com/assignment2/ros-pkg-tips.md){target="_blank"}.
 
-There is a ROS 2 Workspace on each of the robot laptops (much the same as in the WSL-ROS2 environment), and your package must reside within the `ros2_ws/src` directory (much like ALL the packages that you created throughout the simulation labs!) 
+Hay un Espacio de Trabajo de ROS 2 en cada una de las laptops de robots (al igual que en el entorno WSL-ROS2), y tu paquete debe residir dentro del directorio `ros2_ws/src` (¡al igual que TODOS los paquetes que creaste a lo largo de los labs de simulación!)
 
-The best way to transfer your package between systems is as a `.tar` file. The following steps illustrate how to do this:
+La mejor manera de transferir tu paquete entre sistemas es como archivo `.tar`. Los siguientes pasos ilustran cómo hacerlo:
 
-1. From your local ROS installation (i.e. WSL-ROS2), run the `tar` command to compress your team's package into a `.tar` file:
+1. Desde tu instalación local de ROS (es decir, WSL-ROS2), ejecuta el comando `tar` para comprimir el paquete de tu equipo en un archivo `.tar`:
 
     ``` { .bash .no-copy }
-    tar -cvf ~/ele434_teamXX_2026.tar -C ~/ros2_ws/src/ ele434_teamXX_2026
+    tar -cvf ~/ele_teamXX_2026.tar -C ~/ros2_ws/src/ ele_teamXX_2026
     ```
     
-    ... replacing `XX` with your own team number, of course!
+    ... ¡reemplazando `XX` con tu propio número de equipo, por supuesto!
 
-    This will create a `.tar` archive of your package in your home directory. 
+    Esto creará un archivo `.tar` de tu paquete en tu directorio de inicio.
 
-2. If you're using WSL-ROS2 (or any other WSL-based ROS installation) then you can then access this using the Windows File Explorer. In the terminal enter the following command:
+2. Si estás usando WSL-ROS2 (o cualquier otra instalación de ROS basada en WSL), puedes acceder a esto usando el Explorador de Archivos de Windows. En la terminal, introduce el siguiente comando:
 
     ```bash
     cd ~ && explorer.exe .
     ```
 
-    You can then copy the `ele434_teamXX_2026.tar` file to a portable location, which you can then transfer to the robot laptop.
+    Luego puedes copiar el archivo `ele_teamXX_2026.tar` a una ubicación portátil, que luego puedes transferir a la laptop del robot.
 
-3. Copy the `ele434_teamXX_2026.tar` file onto the robotics laptop, ideally to the `Downloads` folder.
+3. Copia el archivo `ele_teamXX_2026.tar` en la laptop de robótica, idealmente a la carpeta `Downloads`.
 
-4. Open up a terminal instance on the laptop, either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:
+4. Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado ++ctrl+alt+t++, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:
     
     <figure markdown>
       ![](../../images/laptops/terminal_icon.svg){width=60px}
     </figure>
 
-5. Use `cd` to navigate to the folder that you copied your `ele434_teamXX_2026.tar` file to, e.g.:
+5. Usa `cd` para navegar a la carpeta a la que copiaste tu archivo `ele_teamXX_2026.tar`, por ejemplo:
 
     ```bash
     cd ~/Downloads/
     ```
 
-6. Then, use the `tar` command again to extract your ROS package into the ROS2 Workspace:
+6. Luego, usa el comando `tar` nuevamente para extraer tu paquete de ROS en el Espacio de Trabajo de ROS2:
 
     ``` { .bash .no-copy }
-    tar -xvf ele434_teamXX_2026.tar -C ~/ros2_ws/src/
+    tar -xvf ele_teamXX_2026.tar -C ~/ros2_ws/src/
     ```
 
-7. Follow the usual **three-step** `colcon build` process:
+7. Sigue el proceso habitual de **tres pasos** de `colcon build`:
     
-    1. Navigate into the ROS2 Workspace:
+    1. Navega al Espacio de Trabajo de ROS2:
 
     ```bash
     cd ~/ros2_ws/ 
     ```
 
-    1. Build your package:
+    1. Construye tu paquete:
 
     ``` { .bash .no-copy }
-    colcon build --packages-select ele434_teamXX_2026 --symlink-install 
+    colcon build --packages-select ele_teamXX_2026 --symlink-install 
     ```
 
-    1. And finally, don't forget to re-source:
+    1. Y finalmente, no olvides recargar el entorno:
 
     ```bash
     source ~/.bashrc

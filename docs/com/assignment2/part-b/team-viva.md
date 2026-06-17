@@ -1,170 +1,132 @@
 ---  
-title: "Team Viva"  
+title: "Viva de Equipo"  
 ---  
 
-!!! info "Updates"
+## Descripción General
 
-    **19/05/2026**:
+El objetivo principal de la *Viva de Equipo* es darte la oportunidad de mostrar la aplicación ROS que (*como equipo*) has construido para la Tarea 3: contarnos sobre tu enfoque, la lógica principal y por qué elegiste adoptarlo. También es una oportunidad para destacar aspectos novedosos o impresionantes de tu trabajo de los que estés particularmente orgulloso. También es una forma para que nos aseguremos de que el trabajo que has entregado para la Tarea 3 es genuinamente tuyo ([más detalles abajo](#use-of-generative-ai)).
 
-    * Added [some example features of a 1st Class mark](#example).
+La Viva se basa completamente en el trabajo que has hecho para la Tarea 3.[^part-a]
 
-    **15/05/2026**:
+[^part-a]: No te preguntaremos nada relacionado con la Asignación #2 Parte A (Tareas 1 y 2), pero si usaste esto como base para tu implementación de la Tarea 3, y te gustaría explicarlo, entonces está bien.
 
-    * Added a link to the [Marking Criteria](#marking-criteria).
-    * New section added: [Bringing Notes, Slides etc.](#bringing-notes).
-    * Other various additions.
+La Viva se evalúa independientemente de la Tarea 3, por lo que incluso si tu implementación de la Tarea 3 no sale exactamente como planeaste cuando sea evaluada, esta es tu oportunidad para explicar tus *intenciones*: qué *debería* haber sucedido y por qué puede que no haya funcionado exactamente bien el día. ¡No te preocupes! La evaluación de la Viva es *independiente* del rendimiento de tu equipo en la Tarea 3, por lo que incluso si obtienes 0/40 puntos en la Tarea 3, podrías obtener puntos completos (20/20) para la Viva si defiendes bien tu trabajo.
 
-    **05/05/2026**:
+## Cuándo y Dónde {#when-where}
 
-    * [The booking form is now available](#when-where).
+Las Vivas de Equipo se realizarán durante el período de exámenes. Se comunicará con anticipación la ubicación y horarios disponibles.
 
-## Overview
-
-The main aim of the *Team Viva* is to give you the opportunity to show off the ROS application that you (*as a team*) have built for Task 3: to tell us about your approach, the main logic, and why you chose to take this approach. It's also a chance to highlight any novel or impressive aspects of your work that you're particularly proud of. It's also a way for us to make sure the work you've submitted for Task 3 is genuinely yours ([more details below](#use-of-generative-ai)).
-
-The Viva is based entirely on the work you've done for Task 3.[^part-a]
-
-[^part-a]: We won't ask you anything related to Assignment #2 Part A (Tasks 1 & 2), but if you used this as the basis for your Task 3 implementation, and you'd like to explain this, then that's fine.
-
-The Viva is assessed independently of Task 3, so even if your Task 3 implementation doesn't quite go to plan when it's assessed, this is your chance to explain your *intentions*: what *should* have happened, and why it might not have worked out quite right on the day. Don't panic! Assessment of the Viva is *independent* of your team's performance in Task 3, so even if you score 0/40 marks in Task 3 you could still get full marks (20/20) for the Viva if you defend your work well. 
-
-## When & Where {#when-where}
-
-Team Vivas will take place during [the Spring Exam Period](https://sheffield.ac.uk/new-students/standard-exam-dates-venues){target="_blank"}. These will take place in Diamond Computer Room 5.
-
-<!-- Once the final Exam Timetable has been released (early May, [more details here](https://students.sheffield.ac.uk/exams/timetables){target="_blank"}), teams will be invited to select a preference for when they'd like their Viva to take place. You'll be able to pick either a morning (between 9 AM and 12 Noon) or afternoon (between 1 and 5 PM) slot on a specific date. There will be 4-5 slots available per morning/afternoon and preferences are first come, first served: once all slots are taken, that's it! 
-
-There will be a deadline for submitting these preferences and after this deadline (and before the start of the Spring Exam Period) a final timetable will be released. Teams who don't submit a preference will be assigned a slot at random.
--->
-
-Following the release of [the final Exam Timetable on 5th May 2026](https://students.sheffield.ac.uk/exams/timetables){target="_blank"}, teams are now invited to select a preference for when they'd like their Viva to take place. You can select either a morning (between 9 AM and 12 Noon) or afternoon (between 1 and 5 PM) slot on a specific date, but please note that bookings are first come, first served: once all slots are taken (for a given date / time), that's it!
-
-The booking form is available here (University login required):
-
-<center>[Team Viva Booking Form - Spring 2026](https://forms.gle/7e5Ab1Zpq3jvUBtz9){ .md-button target="_blank" }</center>
-
-The deadline for submitting any preferences is **Friday 15th May 2026** (Week 11). After this (and before the start of the Spring Exam Period) a final schedule for the Vivas will be released. 
-
-Teams who don't submit a preference will be assigned a slot at random. Bookings should be made **as a team**, so be sure to chat with all your team members about date/time preferences (if you have any) before submitting these to us. 
-
-### Schedule
+### Programa
 
 <center>
 
-| Session Time (approx.) | Details |
+| Tiempo de la Sesión (aprox.) | Detalles |
 | :--- | :--- |
-| *Up to 5 minutes before your start time* | Arrive (**don't be late**) | 
-| 0-5 minutes | Task 3 assessment |
-| 5-20 minutes | Q&A Session |
-| 20-25 minutes | Wrap-up & depart |
+| *Hasta 5 minutos antes de tu hora de inicio* | Llegar (**no llegues tarde**) | 
+| 0-5 minutos | Evaluación de la Tarea 3 |
+| 5-20 minutos | Sesión de Preguntas y Respuestas |
+| 20-25 minutos | Cierre y salida |
 
 </center>
 
-**Please arrive on time to your Viva**, anyone who isn't there by their team's start time won't be able to take part, and **[will get a mark of 0/20](#attendance)**!
+**Por favor llega a tiempo a tu Viva**; cualquiera que no esté allí para la hora de inicio de su equipo no podrá participar y **[obtendrá una calificación de 0/20](#attendance)**.
 
-We'll start each Viva by running the assessment of your Task 3 submission on a robot in the Computer Room 5 robot arena. All team members will be able to watch this, it's your chance to see how your code performed! This will take up the first 5 minutes of the Viva (at most). There won't be any opportunity to modify your code during the Viva, nor can you request for the assessment to be restarted or re-run. **The assessment of Task 3 will be done only once, sorry**!
+Comenzaremos cada Viva ejecutando la evaluación de la entrega de tu Tarea 3 en un robot en el arena robótico. Todos los miembros del equipo podrán observar esto, ¡es tu oportunidad de ver cómo se desempeñó tu código! Esto ocupará los primeros 5 minutos de la Viva (como máximo). No habrá oportunidad de modificar tu código durante la Viva, ni podrás solicitar que la evaluación sea reiniciada o repetida. **La evaluación de la Tarea 3 se realizará solo una vez**.
 
-After your team's Task 3 assessment is complete, we'll move on to **[the Q&A session](#assessment)**.
+Después de que se complete la evaluación de la Tarea 3 de tu equipo, pasaremos a **[la sesión de Preguntas y Respuestas](#assessment)**.
 
-### Recording
+### Grabación
 
-A camera and microphone(s) will be set up to record the assessment of Task 3 only (not the Q&A session). These recordings will allow us to double-check the marking, and we'll share these with you afterwards ([when we release the final marks](#release-of-marks)).
+Se configurará una cámara y micrófono(s) para grabar la evaluación de la Tarea 3 solo (no la sesión de Preguntas y Respuestas). Estas grabaciones nos permitirán verificar dos veces la calificación, y las compartiremos contigo después ([cuando publiquemos las calificaciones finales](#release-of-marks)).
 
-### Attendance
+### Asistencia {#attendance}
 
-**ALL** team members are expected to attend their Team's Viva, unless any individual has valid and approved extenuating circumstances that prevent them from attending (any extenuating circumstances must be submitted in the usual way, according to [University Policy and Procedure](https://cms-students.shef.ac.uk/extenuating-circumstances/policy-procedure){target="_blank"}).
+Se espera que **TODOS** los miembros del equipo asistan a la Viva de su Equipo, a menos que algún individuo tenga circunstancias atenuantes válidas y aprobadas que le impidan asistir.
 
-If a team member doesn't show up to their team's Viva ([or arrives too late](#schedule)), they'll get 0/20 marks for this component of Assignment #2 Part B. We won't be able to reschedule Vivas for individuals or teams who miss their slot, so **please be there**!
+Si un miembro del equipo no se presenta a la Viva de su equipo ([o llega demasiado tarde](#schedule)), obtendrá 0/20 puntos para este componente de la Asignación #2 Parte B. No podremos reprogramar Vivas para individuos o equipos que pierdan su turno, ¡así que **por favor estén allí**!
 
-## The Q&A Session {#assessment}
+## La Sesión de Preguntas y Respuestas {#assessment}
 
-This is the main part of the Viva, and it's **worth 20/60 marks** for [Assignment #2 Part B](README.md). In attendance will be the whole of your team (as above), plus Tom Howard and Alex Lucas. No other teams, students, GTAs or staff will be present. 
+Esta es la parte principal de la Viva y **vale 20/60 puntos** para la [Asignación #2 Parte B](README.md). Estarán presentes todo tu equipo (como se indicó arriba), más el equipo docente. No habrá otros equipos, estudiantes u otro personal presente.
 
-### Core Assessment Points
+### Puntos de Evaluación Principales
 
-Every team member should be prepared to answer questions about the team's entire code base, not just the parts they may have contributed directly. Be ready to talk about the whole thing!
+Cada miembro del equipo debe estar preparado para responder preguntas sobre toda la base de código del equipo, no solo las partes a las que puede haber contribuido directamente. ¡Estar listo para hablar sobre todo!
 
-At a minimum, we will ask team members to describe / discuss the following, and support all explanations with examples (i.e. referring to specific parts of your code).
+Como mínimo, pediremos a los miembros del equipo que describan/discutan lo siguiente, y apoyen todas las explicaciones con ejemplos (es decir, refiriéndose a partes específicas de su código).
 
-* A high level overview of how your implementation works (i.e. the core strategies / logic of your application).
-* The intention behind specific algorithms.
-* An explanation of certain behaviours that were observed during the Task 3 assessment, and indication of the specific parts of your code that were responsible for this.
-* Discussion of potential weak points or edge cases and how these could be improved.
+* Una visión general de alto nivel de cómo funciona tu implementación (es decir, las estrategias/lógica principales de tu aplicación).
+* La intención detrás de algoritmos específicos.
+* Una explicación de ciertos comportamientos que se observaron durante la evaluación de la Tarea 3, e indicación de las partes específicas de tu código que fueron responsables de esto.
+* Discusión de posibles puntos débiles o casos extremos y cómo podrían mejorarse.
 
-During the Viva we will have your code loaded up (in VS Code) on a screen for us all to see. You'll be able to look through this and highlight key parts to us, to support any of your explanations. We (Tom and Alex) may also pick out certain parts of it ourselves, and ask you to explain this to us. The code will be provided by us and will be the version taken at the submission deadline. The `.git` directory will have been removed, so it won't be possible to roll back to a previous commit or pull any changes made after the deadline!
+Durante la Viva tendremos tu código cargado (en VS Code) en una pantalla para que todos lo veamos. Podrás revisarlo y destacar partes clave para nosotros, para apoyar cualquiera de tus explicaciones. El equipo docente también puede seleccionar ciertas partes y pedirte que nos las expliques. El código será proporcionado por nosotros y será la versión tomada en la fecha límite de entrega. El directorio `.git` habrá sido eliminado, por lo que no será posible volver a un commit anterior o jalar cambios realizados después de la fecha límite.
 
-!!! warning "Note"
+!!! warning "Nota"
     
-    Any discussions must be based on the version of code that was taken at the deadline, **as provided by us**!
+    ¡Cualquier discusión debe basarse en la versión del código tomada en la fecha límite, **tal como fue proporcionada por nosotros**!
 
-### Bringing Notes, Slides etc. {#bringing-notes}
+### Llevar Notas, Diapositivas, etc. {#bringing-notes}
 
-The Viva will be more of a *conversation* than a presentation, and the discussion will be led by us (Tom and Alex). Teams won't have the opportunity to give a talk/presentation, so it's not necessary to prepare presentation slides.
+La Viva será más una *conversación* que una presentación, y la discusión será dirigida por el equipo docente. Los equipos no tendrán la oportunidad de dar una charla/presentación, así que no es necesario preparar diapositivas de presentación.
 
-You may bring along notes if you think this will help to jog your memory on key aspects of your work. Ultimately though, we want you to *demonstrate your understanding* of the work that you have done, and to *explain* it effectively, so you must be able to answer questions without reading directly from a script. 
+Puedes traer notas si crees que esto te ayudará a recordar aspectos clave de tu trabajo. En última instancia, sin embargo, queremos que *demuestres tu comprensión* del trabajo que has realizado, y que lo *expliques* de manera efectiva, por lo que debes ser capaz de responder preguntas sin leer directamente de un guión.
 
-Finally, as discussed in the previous section, we will have your code available for you to refer to throughout the Viva. Teams shouldn't expect to present their own copy though, as we need to ensure that the version discussed is the version that was actually submitted!
+Finalmente, como se discutió en la sección anterior, tendremos tu código disponible para que te refieras a él durante toda la Viva. Los equipos no deben esperar presentar su propia copia, ya que necesitamos asegurarnos de que la versión discutida sea la versión que fue realmente entregada.
 
-### Marking Criteria
+### Criterios de Calificación
 
-<center>[Access the Marking Criteria for the Team Vivas here (University login required)](https://docs.google.com/spreadsheets/d/1psEso29kaA-QzJ_GjtQOzu7IPFXqrY5GxfFKGiS4j_Y/edit?usp=sharing){ .md-button target="_blank"} </center>
+Los criterios de calificación para las Vivas de Equipo estarán disponibles a través de la plataforma del curso.
 
-#### Example
+#### Ejemplo
 
-<!--Below we have put together some examples of what we might expect to see against a few of the marking bands. -->
+Para obtener una calificación de **Primera Clase** para la Viva (70-100%), esperaríamos que un equipo pudiera hablar con fluidez sobre su aplicación y explicar las diversas facetas de ella con gran detalle, respondiendo **todas** las preguntas en profundidad y respaldando sus discusiones con una variedad de ejemplos de su código.
 
-To be awarded a **1st Class** mark for the Viva (70-100%), we would expect a team to be able to speak fluently about their application and explain the various facets of it in great detail, answering **all** questions in depth and backing up their discussions with a range of examples from their code.
+De un equipo así, esperaríamos ver evidencia de cosas como:
 
-From a team such as this, we would expect to see evidence of things like: 
+* Una discusión detallada de cómo se ha implementado un algoritmo de navegación robótica reconocido (Dijkstra, A*, búsqueda en espiral, un vehículo de Braitenberg, etc.) usando el framework de ROS 2, apoyándose en varios ejemplos en el código para respaldar la explicación.
+* Demostración de una implementación que usa una variedad de facetas de ROS 2. Mostrando (por ejemplo) un sistema bien diseñado, distribuido/modular de nodes que se intercomunican. Uso altamente efectivo de (por ejemplo) servidores de acción que encapsulan comportamientos discretos para el sistema y aprovechan al máximo características como retroalimentación y cancelación.
+* Ejemplos de aspectos novedosos de la implementación, como el reconocimiento de características altamente optimizado para la detección de pilares.
+* Discusión de debilidades conocidas en la aplicación para ciertos casos extremos (ya sea observados o no), y cómo podrían abordarse dado más tiempo/investigación/recursos.
+* Consideración de las limitaciones del sistema físico (por ejemplo, latencia, resolución de cámara, ruido del LiDAR) y ejemplos de características en la aplicación que fueron diseñadas para abordar esto.
 
-* A detailed discussion of how a recognised robot navigation algorithm (Dijkstra, A*, spiral search, a Braitenberg vehicle etc.) has been implemented using the ROS 2 framework, drawing upon various examples in code to support the explanation.
-* Demonstration of an implementation that uses a variety of facets of ROS 2. Showcasing (for example) a well-designed, distributed/modular system of intercommunicating nodes. Highly effective use of (again, for example) action servers that encapsulate discrete behaviours for the system and take full advantage of features such as feedback and cancellation.
-* Examples of novel aspects to the implementation such as highly optimised feature recognition for pillar detection. 
-Discussion of known weaknesses in the application to certain edge cases (whether observed or not), and how they could be addressed given more time / research / resources.
-* Consideration made to limitations of the physical system (e.g. latency, camera resolution, LiDAR noise) and examples of features in the application that were designed to address this.
+(¡Ten en cuenta que lo anterior *no* es una lista exhaustiva!)
 
-(Note that the above is *not* an exhaustive list!)
+### Evaluación de las Contribuciones Individuales al Trabajo en Equipo
 
-### Assessing Individual Contributions to Team Work
+Al igual que la Asignación #2 Parte A, se te pedirá que completes una Evaluación entre Pares para la Parte B, cuya fecha límite será **23:59 del Viernes de la Semana 12**.
 
-Much like Assignment #2 Part A, you'll be asked to complete a *Buddycheck* Peer Evaluation for Part B (*"Peer Evaluation 3"*), the deadline for this will be **23:59 on Friday of Week 12**. 
+Esta evaluación entre pares se usará para determinar las contribuciones individuales al trabajo en equipo, y las puntuaciones se usarán para calcular los puntos para cada miembro individual del equipo, basándose en los puntos finales *del equipo* para la Asignación #2 Parte B. A veces, la Viva *puede* usarse para verificar información de los informes de evaluación entre pares. Revisaremos los informes antes de tu Viva, y si hay algún problema o conflicto significativo, *podríamos* pedir al equipo (o a individuos) que elaboren sobre esto.
 
-This Buddycheck evaluation will be used to determine individual contributions to team work, and Buddycheck scores will be used to calculate marks for each individual team member, based on the *team's* final marks for Assignment #2 Part B. Sometimes, the Viva *may* be used to verify information from the Buddycheck reports. We'll review Buddycheck reports before your Viva, and if there are any significant issues or conflicts, we *might* ask the team (or individuals) to elaborate on this. 
+### Publicación de Calificaciones {#release-of-marks}
 
-### Release of Marks
+Como se indicó arriba, los equipos podrán ver la evaluación de su entrega de la Tarea 3 al inicio de la Viva, por lo que las calificaciones *provisionales* para la Tarea 3 se discutirán contigo durante esta parte.[^provisional-task3-marks]
 
-As above, teams will be able to watch the assessment of their Task 3 submission at the start of the Viva, so *provisional* marks for Task 3 will be discussed with you during this part.[^provisional-task3-marks]
+[^provisional-task3-marks]: Las calificaciones de la Tarea 3 *pueden* estar sujetas a cambios después de que se hayan revisado las grabaciones. Las calificaciones provisionales tampoco incluirán ninguna penalización que pueda aplicarse (cuando corresponda).
 
-[^provisional-task3-marks]: Task 3 marks *may* be subject to change after recordings have been reviewed. Provisional marks also won't include any penalties that may be applied (where applicable). 
+Las calificaciones otorgadas para la Viva de Equipo en sí no se discutirán contigo el día de la Viva. Las calificaciones *finales* y la *retroalimentación* para ambos componentes de evaluación (Tarea 3 y la Viva de Equipo) se publicarán dentro de las 5 semanas de la fecha límite de entrega de la Asignación #2 Parte B.
 
-The marks awarded for the Team Viva itself won't be discussed with you on the day. *Final* marks and *feedback* for both assessment components (Task 3 and the Team Viva) will be released within 5 weeks of the Assignment #2 Part B submission deadline. 
+## Uso de IA Generativa
 
-<!-- TODO: ESAs: if your happy to participate, fine (bring notes in advance - just for ESAs), if not comfortable with this, send us notes in advance as per a template...   -->
+Se permite usar IA Generativa (*"GenIA"*) para apoyar el trabajo de tu equipo en la Tarea 3. **Pero**, si la usas, asegúrate de que sea para *informar* tu trabajo, no para *crearlo*.
 
+### Reconocer, Describir, Evidenciar
 
-## Use of Generative AI
-
-You're allowed to use Generative AI (*"GenAI"*) to support your team's work on Task 3. **But**, if you do use it make sure it's to *inform* your work, not *create* it for you.
-
-For more information on the use of GenAI in assignments please refer to [this section of the COM Student Handbook](https://sites.google.com/sheffield.ac.uk/com-programme-information/programme-information/assessment#h.noi4ntlgsnyp), as well as [central University guidance on the use of GenAI in assessments](https://sheffield.ac.uk/study-skills/digital/generative-ai/assessment).
-
-### Acknowledge, Describe, Evidence
-
-All teams **MUST** include an `AI-Declaration.md` file at the root of their package directory:
+Todos los equipos **DEBEN** incluir un archivo `AI-Declaration.md` en la raíz del directorio de su paquete:
 
 ``` { .txt .no-copy }
-com2009_teamXX_2026/AI-Declaration.md
+ros2_lab_equipoXX/AI-Declaration.md
 ```
 
-This file must be named exactly as stated above. The content **must follow the template provided below**, and be completed *accurately* to reflect your team's use of AI for Task 3:
+Este archivo debe tener el nombre exacto indicado arriba. El contenido **debe seguir la plantilla proporcionada abajo**, y completarse *con precisión* para reflejar el uso de IA por parte de tu equipo para la Tarea 3:
 
-<center>[The `AI-Declaration.md` template](./ai-declaration.md){ .md-button target="_blank"}</center>
+<center>[La plantilla `AI-Declaration.md`](./ai-declaration.md){ .md-button target="_blank"}</center>
 
-!!! warning "Important!"
-    Don't forget the AI Declaration file! If it's not in your package repository by the Assignment #2 Part B deadline, penalties will be applied to your team's mark.
+!!! warning "¡Importante!"
+    ¡No olvides el archivo de Declaración de IA! Si no está en el repositorio de tu paquete antes de la fecha límite de la Asignación #2 Parte B, se aplicarán penalizaciones a la calificación de tu equipo.
 
-### Scrutiny of GenAI Usage
+### Escrutinio del Uso de GenIA
 
-[As discussed above](#assessment), during the Vivas we'll ask you to explain specific details about the code you've submitted for Task 3, its purpose and function, and why you chose to implement it this way. If we suspect code has been created by GenAI and you can't explain any aspect of it to us satisfactorily, the submission will be investigated for academic misconduct. In serious cases, the team could receive 0/60 marks for Assignment #2 Part B overall.
+[Como se discutió anteriormente](#assessment), durante las Vivas te pediremos que expliques detalles específicos sobre el código que has entregado para la Tarea 3, su propósito y función, y por qué elegiste implementarlo de esta manera. Si sospechamos que el código fue creado por GenIA y no puedes explicar ningún aspecto de él de manera satisfactoria, la entrega será investigada por conducta académica inapropiada. En casos graves, el equipo podría recibir 0/60 puntos para la Asignación #2 Parte B en general.
 
-<center>***Good luck!**<br />And if you have any further questions, please ask Tom or Alex.*</center>
+<center>***¡Buena suerte!**<br />Y si tienes más preguntas, por favor pregunta al equipo docente.*</center>

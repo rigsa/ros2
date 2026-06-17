@@ -1,42 +1,42 @@
 ---
-title: "Simulation Labs: An Introduction to ROS 2"
-description: "An simulation-based course to teach you all about ROS 2"
+title: "Labs de Simulación: Una Introducción a ROS 2"
+description: "Un curso basado en simulación para enseñarte todo sobre ROS 2"
 --- 
 
-## Overview
+## Descripción General
 
-For this assignment you will work through *some* of our [6-part ROS 2 course](../course/README.md), each part of which comprises a series of step-by-step instructions and exercises to teach you how ROS 2 works, and introduces you to the core principles of the framework. The exercises give you the opportunity to see how to apply these principles to practical mobile robot applications. 
+Para esta asignación trabajarás a través de *algunas* partes de nuestro [curso de ROS 2 de 6 partes](../course/README.md), cada una de las cuales comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS 2, e introducirte a los principios básicos del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones prácticas de robótica móvil.
 
-This part of the course is designed to be completed in simulation, so you will therefore need access to a ROS 2 installation, which can either be installed on your own machine, or accessed on a range of managed computers across the University of Sheffield campus. [See here for more information on how to access or install ROS 2](../software/README.md).
+Esta parte del curso está diseñada para completarse en simulación, por lo que necesitarás acceso a una instalación de ROS 2, que puede instalarse en tu propia máquina o accederse en una variedad de computadoras del laboratorio. [Consulta aquí para más información sobre cómo acceder o instalar ROS 2](../software/README.md).
 
-As detailed below, **Parts 1-3 of this course are essential for ELE434**, **Part 4 is recommended** and Parts 5 & 6 are optional; covering more advanced topics that you may wish to complete to further your own knowledge, if you're keen to do so! The essential parts of the course will provide you with all the necessary skills for the **Real Robot Labs**, where you will work *in teams* to program [our real TurtleBot3 Waffle robots](../waffles/README.md) in Diamond Computer Room 5.  
+Como se detalla a continuación, **las Partes 1-3 de este curso son esenciales para el curso de Robótica Móvil**, **la Parte 4 es recomendada** y las Partes 5 y 6 son opcionales; cubriendo temas más avanzados que quizás desees completar para ampliar tus propios conocimientos. Las partes esenciales del curso te proporcionarán todas las habilidades necesarias para los **Labs de Robot Real**, donde trabajarás *en equipos* para programar [nuestros robots reales TurtleBot3 Waffle](../waffles/README.md) en el laboratorio de robótica.
 
-## The Course
+## El Curso
 
-* [Part 1: Getting Started with ROS 2](../course/part1.md) (**Essential**)
+* [Parte 1: Primeros Pasos con ROS 2](../course/part1.md) (**Esencial**)
 
-    *Learn the basics of ROS 2 and become familiar with some key tools and principles, allowing you to program robots and work with ROS 2 applications effectively.*
+    *Aprende los conceptos básicos de ROS 2 y familiarízate con algunas herramientas y principios clave, permitiéndote programar robots y trabajar con aplicaciones ROS 2 de manera efectiva.*
 
-* [Part 2: Odometry & Navigation](../course/part2.md) (**Essential**)
+* [Parte 2: Odometría y Navegación](../course/part2.md) (**Esencial**)
 
-    *Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle.*
+    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto de lazo abierto como cerrado a un Waffle.*
 
-* [Part 3: Beyond the Basics](../course/part3.md) (**Essential**)
+* [Parte 3: Más Allá de los Conceptos Básicos](../course/part3.md) (**Esencial**)
 
-    *Execute ROS applications more efficiently using launch files, and learn how to affect the behaviour of nodes during run-time using parameters. Learn about the LiDAR sensor, the data that it generates, and see the benefits of this for tools like "SLAM".*
+    *Ejecuta aplicaciones ROS de manera más eficiente usando archivos de lanzamiento, y aprende cómo afectar el comportamiento de los nodes durante el tiempo de ejecución usando parámetros. Aprende sobre el sensor LiDAR, los datos que genera, y ve los beneficios de esto para herramientas como "SLAM".*
 
-* [Part 4: Services](../course/part4.md) (*Recommended*)
+* [Parte 4: Servicios](../course/part4.md) (*Recomendada*)
 
-    *Learn about an alternative way that ROS nodes can communicate across a ROS network, and the situations where this might be useful.*
+    *Aprende sobre una forma alternativa en que los nodes de ROS pueden comunicarse a través de una red ROS, y las situaciones en que esto podría ser útil.*
 
-* [Part 5: Actions](../course/part5.md) (Optional)
+* [Parte 5: Acciones](../course/part5.md) (Opcional)
 
-    *Learn about another key ROS communication method which is similar to a ROS Service, but with a few key benefits and alternative use-cases.*
+    *Aprende sobre otro método de comunicación clave de ROS que es similar a un Servicio de ROS, pero con algunos beneficios clave y casos de uso alternativos.*
 
-* [Part 6: Cameras, Machine Vision & OpenCV](../course/part6.md) (Optional)
+* [Parte 6: Cámaras, Visión por Computadora y OpenCV](../course/part6.md) (Opcional)
 
-    *Learn how to work with images from a robot's camera. Learn techniques to detect features within these images, and use this to inform robot decision-making.*
+    *Aprende a trabajar con imágenes de la cámara de un robot. Aprende técnicas para detectar características dentro de estas imágenes, y usa esto para informar la toma de decisiones del robot.*
 
-## Assessment
+## Evaluación
 
-This part of the course is worth 20% of the overall mark for ELE434, and is assessed via an on-campus Blackboard-based test taking place in week 7 of the Spring Semester (see Blackboard and/or your timetable for the exact date & time). 
+Esta parte del curso se evalúa mediante un examen en el laboratorio que se realiza en la semana 7 del semestre (consulta la plataforma del curso y/o tu horario para la fecha y hora exactas).

@@ -1,21 +1,21 @@
 ---  
-title: "The `Example` Message Publisher"
+title: "El Publisher del Mensaje `Example`"
 ---
 
-# The `Example` Message Publisher
+# El Publisher del Mensaje `Example`
 
-## The Code
+## El Código
 
-Copy **all** the code below into your `custom_msg_publisher.py` file and **review the annotations** to see what's different to the basic publisher from Exercise 5.
+Copia **todo** el código a continuación en tu archivo `custom_msg_publisher.py` y **revisa las anotaciones** para ver qué es diferente respecto al publisher básico del Ejercicio 5.
 
 ```py title="custom_msg_publisher.py"
 --8<-- "code_templates/custom_msg_publisher.py"
 ```
 
-1. We're now importing the `Example` message from our own `part1_pubsub` package.
+1. Ahora estamos importando el mensaje `Example` de nuestro propio package `part1_pubsub`.
 
-2. We're also now declaring that `"my_topic"` will use the `Example` message data structure to send messages.
+2. Ahora también estamos declarando que `"my_topic"` usará la estructura de datos del mensaje `Example` para enviar mensajes.
 
-3. We need to deal with the topic messages differently now, to account for the more complex structure.
+3. Ahora necesitamos manejar los mensajes del topic de manera diferente, para dar cuenta de la estructura más compleja.
 
-    We now populate our messages with two fields: `info` (a `string`) and `time` (an `int`). Identify what has changed here...
+    Ahora llenamos nuestros mensajes con dos campos: `info` (un `string`) y `time` (un `int`). Identifica qué ha cambiado aquí...

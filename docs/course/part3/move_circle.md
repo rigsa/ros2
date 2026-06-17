@@ -1,20 +1,20 @@
 ---
-title: "A move_circle.py Worked Example" 
+title: "Un Ejemplo Resuelto de move_circle.py" 
 ---
 
-A working `move_circle.py` node (from [Part 2 Exercise 5](../part2.md#ex5)) complete with a proper shutdown procedure. Use this as a starting point for your `param_circle.py` node for the Part 3 Parameters Exercise.
+Un node `move_circle.py` funcional (del [Ejercicio 5 de la Parte 2](../part2.md#ex5)) con un procedimiento de apagado adecuado. Úsalo como punto de partida para tu node `param_circle.py` en el Ejercicio de Parameters de la Parte 3.
 
-## The Code
+## El Código
 
 ```python title="move_circle.py"
 --8<-- "https://raw.githubusercontent.com/tom-howard/com2009_exercises/refs/heads/jazzy/part2_navigation/scripts/move_circle.py"
 ```
 
-## Adding Package Dependencies
+## Agregando Dependencias del Package
 
-Make sure you define this node's dependencies within your package's `package.xml` file.
+Asegúrate de definir las dependencias de este node dentro del archivo `package.xml` de tu package.
 
-Find this line:
+Encuentra esta línea:
 
 ```xml title="package.xml"
 ...

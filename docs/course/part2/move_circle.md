@@ -1,18 +1,18 @@
 ---  
-title: "A Simple Velocity Control Node (Move Circle)"
+title: "Un Node Simple de Control de Velocidad (Move Circle)"
 ---
 
-## The Initial Code
+## El Código Inicial
 
-Start by returning to the `publisher.py` file from your `part1_pubsub` package ([or return here](../part1/publisher.md)), and copy the contents into your new `move_circle.py` file. Then, adapt the code as follows.
+Comienza regresando al archivo `publisher.py` de tu package `part1_pubsub` ([o regresa aquí](../part1/publisher.md)), y copia el contenido en tu nuevo archivo `move_circle.py`. Luego, adapta el código de la siguiente manera.
 
-## Creating the "Move Circle" Node
+## Creando el Node "Move Circle"
 
-### Imports
+### Importaciones
 
-Once again, `rclpy` and the `Node` class from the `rclpy.node` library are vital for any node we create, so the first two imports will remain the same.
+Una vez más, `rclpy` y la clase `Node` de la librería `rclpy.node` son vitales para cualquier node que creemos, por lo que las primeras dos importaciones permanecerán iguales.
 
-We need to import the message type used by the `/cmd_vel` topic here though, in order to be able to format velocity commands appropriately. We can find all the necessary information about this message type by using the `ros2 topic info` command:
+Sin embargo, necesitamos importar el tipo de mensaje usado por el topic `/cmd_vel` aquí, para poder formatear los comandos de velocidad apropiadamente. Podemos encontrar toda la información necesaria sobre este tipo de mensaje usando el comando `ros2 topic info`:
 
 ``` { .bash .no-copy }
 $ ros2 topic info /cmd_vel
@@ -20,31 +20,31 @@ Type: geometry_msgs/msg/TwistStamped
 ...
 ```
 
-And so our message import becomes:
+Y así nuestra importación de mensaje se convierte en:
 
 ```py
 from geometry_msgs.msg import TwistStamped # (1)!
 ```
 
-1. In place of: `#!py from example_interfaces.msg import String`
+1. En lugar de: `#!py from example_interfaces.msg import String`
 
-### Change the Class Name
+### Cambiar el Nombre de la Clase
 
-Previously our publisher class was called `#!python SimplePublisher()`, change this to `#!python Circle`:
+Anteriormente nuestra clase publisher se llamaba `#!python SimplePublisher()`, cámbiala a `#!python Circle`:
 
 ```py
 class Circle(Node):
 ```
 
-### Initialising the Class
+### Inicializando la Clase
 
-1. Initialise the node with an appropriate name:
+1. Inicializa el node con un nombre apropiado:
 
     ```python
     super().__init__("move_circle")
     ```
 
-1. Change the `create_publisher()` parameters:
+1. Cambia los parámetros de `create_publisher()`:
 
     ```python
     self.my_publisher = self.create_publisher(
@@ -54,10 +54,10 @@ class Circle(Node):
     )
     ```
 
-    1. What is the name of the interface that we are using here?
-    2. What's the name of the topic that we want to publish our velocity commands to?
+    1. ¿Cuál es el nombre de la interfaz que estamos usando aquí?
+    2. ¿Cuál es el nombre del topic al que queremos publicar nuestros comandos de velocidad?
 
-1. We'll need to publish velocity commands at a rate of at least 10 Hz, so define this here, and then set up a timer accordingly:
+1. Necesitaremos publicar comandos de velocidad a una tasa de al menos 10 Hz, así que define esto aquí, y luego configura un timer en consecuencia:
 
     ```py
     publish_rate = 10 # Hz
@@ -67,9 +67,9 @@ class Circle(Node):
     )
     ```
 
-### Modifying the Timer Callback
+### Modificando el Timer Callback
 
-Here, we'll publish our velocity commands:
+Aquí publicaremos nuestros comandos de velocidad:
 
 ```py
 def timer_callback(self):
@@ -90,9 +90,9 @@ def timer_callback(self):
 
 ```
 
-1. Having defined the radius of the circle, and the *linear* velocity that we want the robot to move at, how would we calculate the *angular* velocity that should be applied?
+1. Habiendo definido el radio del círculo, y la velocidad *lineal* a la que queremos que se mueva el robot, ¿cómo calcularíamos la velocidad *angular* que debería aplicarse?
 
-    Consider the equation for angular velocity:
+    Considera la ecuación de velocidad angular:
 
     <figure markdown>
       ![](./ang_vel_eqn.svg){width=200}
@@ -102,31 +102,31 @@ def timer_callback(self):
     \omega=\frac{v}{r}
     $$
 
-2. `/cmd_vel` uses `TwistStamped` messages, so we instantiate one here, and assign the linear and angular velocity values (as set above) to the relevant message fields. Remember, [we talked about all this here](../part2.md#velocity-commands).
+2. `/cmd_vel` usa mensajes `TwistStamped`, así que instanciamos uno aquí, y asignamos los valores de velocidad lineal y angular (según se estableció arriba) a los campos del mensaje relevantes. Recuerda, [hablamos de todo esto aquí](../part2.md#velocity-commands).
 
-3. Once the appropriate velocity fields have been set, publish the message.
+3. Una vez que se han establecido los campos de velocidad apropiados, publica el mensaje.
 
-4. Publish a ROS *Log* Message to inform us (in the terminal) of the velocity control values that are being published by the node.
+4. Publica un Mensaje de *Log* de ROS para informarnos (en el terminal) de los valores de control de velocidad que está publicando el node.
 
-5. [Remember in the Odometry Subscriber](./odom_subscriber.md#modifying-the-message-callback) how we used a counter (`#!py self.counter`) and an `#!py if()` statement to control the rate at which these log messages were generated?
+5. [Recuerda en el Subscriber de Odometría](./odom_subscriber.md#modifying-the-message-callback) cómo usamos un contador (`#!py self.counter`) y una declaración `#!py if()` para controlar la frecuencia con la que se generaban estos mensajes de log?
 
-    We can actually achieve exactly the same thing by simply supplying a `throttle_duration_sec` argument to the `get_logger().info()` call. Much easier, right?
+    En realidad podemos lograr exactamente lo mismo simplemente proporcionando un argumento `throttle_duration_sec` a la llamada `get_logger().info()`. ¿Mucho más fácil, verdad?
 
-### Updating "Main"
+### Actualizando "Main"
 
-Once again, don't forget to update any relevant parts of the `main` function to ensure that we're instantiating the `Circle()` class, spinning and shutting it down correctly.
+Una vez más, no olvides actualizar las partes relevantes de la función `main` para asegurarte de que estamos instanciando la clase `Circle()`, haciendo spin y apagándola correctamente.
 
-## Package Dependencies
+## Dependencias del Package
 
-Our `move_circle.py` node has a new package import:
+Nuestro node `move_circle.py` tiene una nueva importación de package:
 
 ```py
 from geometry_msgs.msg import TwistStamped
 ```
 
-Our `part2_navigation` package therefore has a new dependency, so we need to add this to our package's `package.xml` file.
+Nuestro package `part2_navigation` por lo tanto tiene una nueva dependencia, así que necesitamos agregarla al archivo `package.xml` de nuestro package.
 
-Earlier on we added `nav_msgs` to this (for the `odom_subscriber.py` node). Below this, add a new `#!xml <exec_depend>` for `geometry_msgs`:
+Anteriormente agregamos `nav_msgs` a este (para el node `odom_subscriber.py`). Debajo de esto, agrega una nueva `#!xml <exec_depend>` para `geometry_msgs`:
 
 ```xml title="package.xml"
 <exec_depend>rclpy</exec_depend>
@@ -134,6 +134,6 @@ Earlier on we added `nav_msgs` to this (for the `odom_subscriber.py` node). Belo
 <exec_depend>geometry_msgs</exec_depend>  <!-- (1)! -->
 ```
 
-1. ADD THIS LINE!
+1. ¡AGREGA ESTA LÍNEA!
 
-Save the file and close it.
+Guarda el archivo y ciérralo.

@@ -1,52 +1,52 @@
 ---  
-title: A Minimal Action Client
+title: Un Action Client Mínimo
 ---
 
-## The Code
+## El Código
 
-Review the code (including the annotations) and then take a copy of it.
+Revisa el código (incluyendo las anotaciones) y luego toma una copia de él.
 
 ```py title="camera_sweep_action_client.py"
 --8<-- "code_templates/camera_sweep_action_client.py"
 ```
 
-1. As you know by now, in order to develop ROS nodes using Python we need to import the `rclpy` client library, and the `Node` class to base our node upon. In addition, here we're also importing an `ActionClient` class too.  
+1. Como ya sabes, para desarrollar nodes de ROS usando Python necesitamos importar la librería cliente `rclpy` y la clase `Node` en la que basar nuestro node. Además, aquí también importamos una clase `ActionClient`.
 
-2. We know that the `/camera_sweep` Action server uses the `CameraSweep` `action` interface from the `tuos_interfaces` package, so we import that here too (which we use to make a call to the server). 
+2. Sabemos que el Action Server `/camera_sweep` usa la interface `action` `CameraSweep` del paquete `tuos_interfaces`, así que la importamos aquí también (la cual usamos para hacer una llamada al servidor).
 
-3. Standard practice when we initialise ROS nodes: *we must give them a name*
+3. Práctica estándar al inicializar nodes de ROS: *debemos darles un nombre*.
 
-4. Here, we instantiate an `ActionClient` class object. In doing this we define the `node` to add the action client too (in our case `self`, i.e. our `CameraSweepActionClient` class). We then also define the interface type used by the server (`CameraSweep`), and the name of the action that we want to call (`action_name="camera_sweep"`).
+4. Aquí instanciamos un objeto de la clase `ActionClient`. Al hacer esto definimos el `node` al que se agrega el action client (en nuestro caso `self`, es decir, nuestra clase `CameraSweepActionClient`). Luego también definimos el tipo de interface utilizado por el servidor (`CameraSweep`) y el nombre del action que queremos llamar (`action_name="camera_sweep"`).
 
-5. Here we're declaring two ROS parameters: `goal_images` and `goal_angle`. 
+5. Aquí estamos declarando dos parámetros de ROS: `goal_images` y `goal_angle`.
 
-    We'll use these to set goals for the action server at runtime.
+    Los usaremos para establecer goals para el action server en tiempo de ejecución.
 
-    By default, these values are set to `0`, so if we don't explicitly set values for these two parameters then they will remain at `0`!
+    Por defecto, estos valores están configurados en `0`, ¡así que si no establecemos explícitamente valores para estos dos parámetros, permanecerán en `0`!
 
     !!! question
-        How do we set values for parameters at runtime (i.e. when we execute this node using `ros2 run`)?
+        ¿Cómo establecemos valores para los parámetros en tiempo de ejecución (es decir, cuando ejecutamos este node usando `ros2 run`)?
 
-        [Recall how we did this in Part 4](../part4.md#ex5). 
+        [Recuerda cómo lo hicimos en la Parte 4](../part4.md#ex5).
 
-6. Here we define a class method to construct and deliver a goal to the server. 
+6. Aquí definimos un método de clase para construir y enviar un goal al servidor.
 
-7. As we know from earlier, a `CameraSweep.Goal()` contains two parameters that we can assign values to: `sweep_angle` and `image_count`.
+7. Como sabemos de antes, un `CameraSweep.Goal()` contiene dos parámetros a los que podemos asignar valores: `sweep_angle` y `image_count`.
 
-    As above, the values assigned to these are derived from two ROS parameters: `goal_angle` and `goal_images`.
+    Como se indicó arriba, los valores asignados a estos provienen de dos parámetros de ROS: `goal_angle` y `goal_images`.
 
-    !!! warning "Remember"
-        By default, both parameters will have a value of `0` unless we explicitly assign a value to them (see above)!
+    !!! warning "Recuerda"
+        Por defecto, ambos parámetros tendrán un valor de `0` a menos que les asignemos explícitamente un valor (ver arriba).
 
-        How do we assign values to these parameters at runtime? [Recall how we did this in Part 4](../part4.md#ex5).
+        ¿Cómo asignamos valores a estos parámetros en tiempo de ejecución? [Recuerda cómo lo hicimos en la Parte 4](../part4.md#ex5).
 
-8. The goal is sent to the server using the `send_goal_async()` method, which returns a *future*: i.e. something that will happen in the future, that we can wait on. This future is returned once the goal parameters have been accepted by the server, *not* when the action server has actually completed its job.
-        
-9. In our `main` method we initialise `rclpy` and our `CameraSweepActionClient` class (nothing new here), but then we call the `send_goal()` method of our class (as discussed above), which returns a *future*. We can then use the `rclpy.spin_until_future_complete()` method to spin up our node *only* until this future object has finished.
+8. El goal se envía al servidor usando el método `send_goal_async()`, que devuelve un *future*: es decir, algo que sucederá en el futuro y en lo que podemos esperar. Este future se devuelve una vez que los parámetros del goal han sido aceptados por el servidor, *no* cuando el action server ha completado realmente su tarea.
 
-## Package Dependencies
+9. En nuestro método `main` inicializamos `rclpy` y nuestra clase `CameraSweepActionClient` (nada nuevo aquí), pero luego llamamos al método `send_goal()` de nuestra clase (como se discutió arriba), que devuelve un *future*. Entonces podemos usar el método `rclpy.spin_until_future_complete()` para activar nuestro node *solo* hasta que este objeto future haya terminado.
 
-The action client has *two key dependencies*, so we need to modify the `package.xml` file (below the `#!xml <exec_depend>rclpy</exec_depend>` line) to include these:
+## Dependencias del Paquete
+
+El action client tiene *dos dependencias clave*, por lo que necesitamos modificar el archivo `package.xml` (debajo de la línea `#!xml <exec_depend>rclpy</exec_depend>`) para incluirlas:
 
 ```xml title="package.xml"
 <exec_depend>action_msgs</exec_depend>

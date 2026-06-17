@@ -1,92 +1,92 @@
 ---  
-title: "GenAI Declaration Template"  
+title: "Plantilla de Declaración de GenIA"  
 --- 
 
 <!-- For info: https://ai-declaration.md/en/0.1.2/ -->
 
-All teams **MUST** include an `AI-Declaration.md` file at the root of their package directory:
+Todos los equipos **DEBEN** incluir un archivo `AI-Declaration.md` en la raíz del directorio de su paquete:
 
 ``` { .txt .no-copy }
-com2009_teamXX_2026/AI-Declaration.md
+ros2_lab_equipoXX/AI-Declaration.md
 ```
 
-This file must be written with *Markdown Formatted Text* and must follow the template shown here:
+Este archivo debe estar escrito con *Texto con Formato Markdown* y debe seguir la plantilla que se muestra aquí:
 
 ```html title="AI-Declaration.md"
-# Team XX GenAI Declaration <!-- (6)! -->
+# Declaración de GenIA del Equipo XX <!-- (6)! -->
 
-Declaration of Generative AI usage for Assignment #2 Part B (Task 3). 
+Declaración del uso de IA Generativa para la Asignación #2 Parte B (Tarea 3). 
 
-## Acknowledge
+## Reconocimiento
 
-We acknowledge the use of <!-- (1)! --> for the following purposes:
+Reconocemos el uso de <!-- (1)! --> para los siguientes propósitos:
 <!-- (2)! -->
-* [ ] for background research in the drafting of this assessment. 
-* [ ] to generate materials that were included within the final code submission in modified form.
+* [ ] para investigación de fondo en la elaboración de esta evaluación. 
+* [ ] para generar materiales que fueron incluidos en el envío final de código de forma modificada.
 
-## Describe
+## Descripción
 <!-- (3)! -->
 
-## Evidence
+## Evidencia
 <!-- (4)! -->
 
-## Declaration
+## Declaración
 <!-- (5)! -->
-* [ ] We confirm that no content created by generative AI has been presented as our own work. 
+* [ ] Confirmamos que ningún contenido creado por IA generativa ha sido presentado como nuestro propio trabajo. 
 
 ```
 
-1. Insert the name of the AI system(s) here.
+1. Inserta el nombre del/los sistema(s) de IA aquí.
 
-2. To tick a checkbox using Markdown, put an `x` inside the square brackets: 
+2. Para marcar una casilla usando Markdown, pon una `x` dentro de los corchetes:
     
     ``` { .md .no-copy }
-    * [ ] for background research...
-    * [x] to generate materials... 
+    * [ ] para investigación de fondo...
+    * [x] para generar materiales... 
     ```
 
-3. Provide a summary of how you used generative AI in this assignment. You may wish to include the following information:
+3. Proporciona un resumen de cómo usaste la IA generativa en esta asignación. Puede que desees incluir la siguiente información:
 
-    * What prompts did you use?
-    * What outputs did you generate?
-    * How did you use/adapt/develop the outputs?
+    * ¿Qué indicaciones (prompts) usaste?
+    * ¿Qué resultados generaste?
+    * ¿Cómo usaste/adaptaste/desarrollaste los resultados?
 
-4. Provide evidence of the outputs that were generated, e.g.:
+4. Proporciona evidencia de los resultados que se generaron, por ejemplo:
 
     ```  { .md .no-copy }
-    Generative AI system:
-    Prompt:
-    Output:
+    Sistema de IA Generativa:
+    Indicación (Prompt):
+    Resultado:
     ```
 
-    or [by providing screenshots](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#images){target="_blank"}.
+    o [proporcionando capturas de pantalla](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#images){target="_blank"}.
 
-5. **Important**: Tick the box to confirm this:
+5. **Importante**: Marca la casilla para confirmar esto:
 
     ``` { .md .no-copy }
-    * [x] We confirm that ... 
+    * [x] Confirmamos que ... 
     ```
 
-6. Replace `XX` with your team number.
+6. Reemplaza `XX` con tu número de equipo.
 
-[For basic Markdown formatting syntax, see here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax){target="_blank"}.
+[Para sintaxis básica de formato Markdown, consulta aquí](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax){target="_blank"}.
 
-If your team did not use GenAI in any way for Assignment #2 Part B, then the following `AI-Declaration.md` will suffice:
+Si tu equipo no usó GenIA de ninguna manera para la Asignación #2 Parte B, entonces el siguiente `AI-Declaration.md` será suficiente:
 
 ```html title="AI-Declaration.md"
-# Team XX GenAI Declaration <!-- (1)! -->
+# Declaración de GenIA del Equipo XX <!-- (1)! -->
 
-Declaration of Generative AI usage for Assignment #2 Part B (Task 3). 
+Declaración del uso de IA Generativa para la Asignación #2 Parte B (Tarea 3). 
 
-## Declaration
+## Declaración
 <!-- (2)! -->
-* [ ] We did not use AI in any way for this assignment. 
+* [ ] No usamos IA de ninguna manera para esta asignación. 
 
 ```
 
-1. Replace `XX` with your team number.
-2. Ensure that you tick the box to actually confirm this:
+1. Reemplaza `XX` con tu número de equipo.
+2. Asegúrate de marcar la casilla para confirmar esto:
 
     ``` { .md .no-copy }
-    * [x] We did not use AI ... 
+    * [x] No usamos IA ... 
     ```

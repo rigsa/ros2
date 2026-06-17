@@ -1,94 +1,94 @@
 ---  
-title: "A Simple Publisher Node"
+title: "Un Node Publisher Simple"
 ---
 
-## The Code
+## El Código
 
-Copy **all** the code below into your `publisher.py` file and **review the annotations** to understand how it all works.
+Copia **todo** el código a continuación en tu archivo `publisher.py` y **revisa las anotaciones** para entender cómo funciona todo.
 
 <a name="shebang"></a>
 
-!!! tip "Don't forget the Shebang!"
-    The very first line of code looks like a comment, but it is actually a very crucial part of the script:
+!!! tip "¡No olvides el Shebang!"
+    La primera línea del código parece un comentario, pero en realidad es una parte muy crucial del script:
 
     ```python
     #!/usr/bin/env python3
     ```
 
-    This is called the *Shebang*, and it tells the operating system which interpreter to use to execute the code. In our case here, it tells the operating system where to find the right *Python interpreter* that should be used to actually execute the code.
+    Esto se llama el *Shebang*, y le indica al sistema operativo qué intérprete usar para ejecutar el código. En nuestro caso, le indica al sistema operativo dónde encontrar el *intérprete de Python* correcto que debe usarse para ejecutar el código.
 
 
 ```python title="publisher.py"
 --8<-- "code_templates/publisher.py"
 ```
 
-1. `rclpy` is the *ROS Client Library for Python*. 
+1. `rclpy` es la *Biblioteca Cliente de ROS para Python*.
     
-    This is a vital import that allows us to create ROS nodes and initialise them on the ROS network.
+    Esta es una importación vital que nos permite crear nodes de ROS e inicializarlos en la red ROS.
     
-    We also import the `Node` class from the `rclpy.node` library. This is a ready-made Python Class that contains all the necessary functionality that a Python ROS Node might need, so we'll use this as the basis for our own node (which we'll create shortly).
+    También importamos la clase `Node` de la biblioteca `rclpy.node`. Esta es una Clase Python ya preparada que contiene toda la funcionalidad necesaria que un Node ROS Python podría necesitar, por lo que la usaremos como base para nuestro propio node (que crearemos en breve).
 
-2. We also need to import the `String` message type from the `example_interfaces.msg` library for publishing our messages.
+2. También necesitamos importar el tipo de mensaje `String` de la biblioteca `example_interfaces.msg` para publicar nuestros mensajes.
 
-3. We create a *Python class* called `#!python SimplePublisher()`, which we'll use to encapsulate all the functionality of our node.
+3. Creamos una *clase Python* llamada `#!python SimplePublisher()`, que usaremos para encapsular toda la funcionalidad de nuestro node.
     
-    The vast majority of the functionality of this node is inherited from the `rclpy.node`, `Node()` Class which we imported above. 
+    La gran mayoría de la funcionalidad de este node se hereda de la Clase `#!python Node()` de `rclpy.node`, que importamos arriba.
 
-4. Using the `#!python super()` method we call the `#!python __init__()` method from the parent Node class that our `SimplePublisher` class is derived from.
+4. Usando el método `#!python super()` llamamos al método `#!python __init__()` de la clase Node padre de la que deriva nuestra clase `SimplePublisher`.
     
-    We provide a *name* here, which is the name that will be used to register our node on the ROS network (we can call the node anything that we want, but it's a good idea to call it something meaningful).
+    Proporcionamos un *nombre* aquí, que es el nombre que se usará para registrar nuestro node en la red ROS (podemos llamar al node como queramos, pero es una buena idea llamarlo con algo significativo).
 
-5. We then use the `#!python create_publisher()` method (inherited from the `Node` class) in order to provide our node with the ability to publish messages to a ROS Topic. When calling this we provide 3 key bits of information:
+5. Luego usamos el método `#!python create_publisher()` (heredado de la clase `Node`) para proporcionar a nuestro node la capacidad de publicar mensajes en un ROS Topic. Al llamar a esto proporcionamos 3 datos clave:
 
-    1. `msg_type`: The **type** of message that we want to publish.
+    1. `msg_type`: El **tipo** de mensaje que queremos publicar.
         
-        In our case, a `String` message from the `example_interfaces.msg` module.
+        En nuestro caso, un mensaje `String` del módulo `example_interfaces.msg`.
     
-    1. `topic`: The **name of the topic** that we want to publish these messages to.
+    1. `topic`: El **nombre del topic** al que queremos publicar estos mensajes.
         
-        This could be an existing topic (in which case, we'd need to make sure we used the correct message type), or a new topic (in which case, the name can be anything we want it to be).
+        Este podría ser un topic existente (en cuyo caso, necesitaríamos asegurarnos de usar el tipo de mensaje correcto), o un nuevo topic (en cuyo caso, el nombre puede ser cualquier cosa que queramos).
         
-        In our case, we want to create a new topic on the ROS network called `"my_topic"`.
+        En nuestro caso, queremos crear un nuevo topic en la red ROS llamado `"my_topic"`.
     
-    1. `qos_profile`: A **queue size**, which is a *"Quality of Service"* (QoS) setting which limits the amount of messages that are *queued* in a buffer. 
+    1. `qos_profile`: Un **tamaño de cola**, que es una configuración de *"Calidad de Servicio"* (QoS) que limita la cantidad de mensajes que se *ponen en cola* en un buffer.
     
-        In our case, we're setting this to `10`, which is generally appropriate for most of the applications that we'll be working on.
+        En nuestro caso, lo estamos configurando en `10`, lo que generalmente es apropiado para la mayoría de las aplicaciones en las que trabajaremos.
 
-6. Here, we're calling the `#!python create_timer()` method, which we'll use to control the rate at which messages are published to our topic. Here we define 2 things:
+6. Aquí, estamos llamando al método `#!python create_timer()`, que usaremos para controlar la frecuencia a la que se publican mensajes en nuestro topic. Aquí definimos 2 cosas:
 
-    1. `timer_period_sec`: The rate at which we want the timer to run. This must be provided as a *period*, in seconds. In the line above, we have specified a publishing *frequency* (in Hz):
+    1. `timer_period_sec`: La frecuencia a la que queremos que se ejecute el timer. Esto debe proporcionarse como un *período*, en segundos. En la línea anterior, hemos especificado una *frecuencia* de publicación (en Hz):
     
         <center>`#!python publish_rate = 1 # Hz`</center>
         
-        So the associated time *period* (in seconds) is: 
+        Entonces el *período* de tiempo asociado (en segundos) es:
 
         <center>$T = \frac{1}{f}$</center>
 
-    1. `callback`: This is a function that will be executed every time the timer elapses at the desired rate (1 Hz). We're specifying a function called `timer_callback`, which we'll define later on in the code...
+    1. `callback`: Esta es una función que se ejecutará cada vez que el timer transcurra a la frecuencia deseada (1 Hz). Estamos especificando una función llamada `timer_callback`, que definiremos más adelante en el código...
 
-7. Finally, we use the `#!python get_logger().info()` method to send a *Log* message to the terminal to inform us that the initialisation of our node is complete.
+7. Finalmente, usamos el método `#!python get_logger().info()` para enviar un mensaje de *Log* a la terminal para informarnos que la inicialización de nuestro node está completa.
 
-8. Here we define the timer callback function. Anything in here will execute at the rate that we specified when we created the `#!python create_timer()` instance before. In our case:
+8. Aquí definimos la función callback del timer. Todo lo que esté aquí se ejecutará a la frecuencia que especificamos cuando creamos la instancia `#!python create_timer()` antes. En nuestro caso:
 
-    1. Use the `#!python get_clock()` method to get the current *ROS Time*.
-    1. Instantiate a `String()` message (defined as `topic_msg`).
-    1. Populate this message with *data*. In our case, a statement that includes the ROS Time, as obtained above.
-    1. Call the `#!python publish()` method of our `my_publisher` object, to actually publish this message to the `"my_topic"` topic.
-    1. Send the message data to the terminal as a log message as well, so that we can see what it is when our Node is actually running.
+    1. Usamos el método `#!python get_clock()` para obtener el *Tiempo ROS* actual.
+    1. Instanciamos un mensaje `String()` (definido como `topic_msg`).
+    1. Llenamos este mensaje con *datos*. En nuestro caso, una declaración que incluye el Tiempo ROS obtenido anteriormente.
+    1. Llamamos al método `#!python publish()` de nuestro objeto `my_publisher`, para publicar realmente este mensaje en el topic `"my_topic"`.
+    1. También enviamos los datos del mensaje a la terminal como un mensaje de log, para que podamos ver qué es cuando nuestro Node está realmente ejecutándose.
 
-9. With the functionality of our `SimplePublisher` class now established, we define a `#!python main()` function for the Node. This will be fairly common to most Python Nodes that we create, with the following 5 key processes:
+9. Con la funcionalidad de nuestra clase `SimplePublisher` ahora establecida, definimos una función `#!python main()` para el Node. Esto será bastante común en la mayoría de los Nodes Python que creemos, con los siguientes 5 procesos clave:
 
-    1. Initialise the `rclpy` library.
-    1. Create an instance of our `#!python SimplePublisher()` node.
-    1. "Spin" the node to keep it alive so that any callbacks can execute as required (in our case here, just the `#!python timer_callback()`). 
-    1. Destroy the node once termination is requested (triggered by entering ++ctrl+c++ in the terminal).
-    1. Shutdown the `rclpy` library.
+    1. Inicializar la biblioteca `rclpy`.
+    1. Crear una instancia de nuestro node `#!python SimplePublisher()`.
+    1. Hacer "spin" al node para mantenerlo vivo de modo que cualquier callback pueda ejecutarse según sea necesario (en nuestro caso aquí, solo el `#!python timer_callback()`).
+    1. Destruir el node una vez que se solicite la terminación (activada al ingresar ++ctrl+c++ en la terminal).
+    1. Apagar la biblioteca `rclpy`.
 
-10. Finally, we call the `#!python main()` function to set everything going. We do this inside an `#!python if` statement, to ensure that our node is the *main executable* (i.e. it has been executed directly (via `ros2 run`), and hasn't been called by another script)
+10. Finalmente, llamamos a la función `#!python main()` para poner todo en marcha. Hacemos esto dentro de una instrucción `#!python if`, para asegurarnos de que nuestro node sea el *ejecutable principal* (es decir, ha sido ejecutado directamente (a través de `ros2 run`), y no ha sido llamado por otro script).
 
-## Defining Package Dependencies
+## Definición de Dependencias del Package
 
-We're importing a couple of Python libraries into our node here, which means that our package has two *dependencies*: `rclpy` and `example_interfaces`:
+Aquí estamos importando un par de bibliotecas Python en nuestro node, lo que significa que nuestro package tiene dos *dependencias*: `rclpy` y `example_interfaces`:
 
 ```py
 import rclpy 
@@ -97,16 +97,16 @@ from rclpy.node import Node
 from example_interfaces.msg import String
 ```
 
-Its good practice to add these dependencies to your `package.xml` file. Locate this file (`ros2_ws/src/part1_pubsub/package.xml`), open it up and find the following line:
+Es una buena práctica añadir estas dependencias a tu archivo `package.xml`. Localiza este archivo (`ros2_ws/src/part1_pubsub/package.xml`), ábrelo y encuentra la siguiente línea:
 
 ```xml
 <exec_depend>rclpy</exec_depend>
 ```
 
-`rclpy` is therefore already defined as an *execution dependency* (which means that our package needs this library in order to execute our code), but we need to add `example_interfaces` as well, so add the following additional line underneath:
+`rclpy` ya está definido como una *dependencia de ejecución* (lo que significa que nuestro package necesita esta biblioteca para ejecutar nuestro código), pero también necesitamos añadir `example_interfaces`, así que añade la siguiente línea adicional debajo:
 
 ```xml
 <exec_depend>example_interfaces</exec_depend>
 ```
 
-Job done. Save the file and close it.
+Listo. Guarda el archivo y ciérralo.

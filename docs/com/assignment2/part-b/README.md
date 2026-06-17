@@ -1,20 +1,20 @@
 ---
-title: "Assignment #2 Part B"
+title: "Asignación #2 Parte B"
 ---
 
-# Assignment #2 Part B
+# Asignación #2 Parte B
 
-**Total Marks**: 60/100
+**Puntos Totales**: 60/100
 
-**Submission**: Friday of Week 12 at 6pm (BST) for Task 3. Vivas to take place during the Spring exam period.
+**Entrega**: Viernes de la Semana 12 a las 6pm para la Tarea 3. Las Vivas se realizarán durante el período de exámenes.
 
-**Assessment Points**:
+**Puntos de Evaluación**:
 
-* [Task 3: Exploration & Search](./task3.md) (worth 40 marks)
-* [Team Viva](./team-viva.md) (worth 20 marks)
+* [Tarea 3: Exploración y Búsqueda](./task3.md) (vale 40 puntos)
+* [Viva de Equipo](./team-viva.md) (vale 20 puntos)
 
-Ensure that you have prepared appropriately for the Part B submission by following [all the instructions here](../assessment.md).
+Asegúrate de haberte preparado adecuadamente para la entrega de la Parte B siguiendo [todas las instrucciones aquí](../assessment.md).
 
-**Peer Evaluation**:
+**Evaluación entre Pares**:
 
-You will be asked to complete a *Buddycheck* Peer Evaluation for Part B (*"Peer Evaluation 3"*), the deadline for this will be **23:59 on Friday of Week 12**. This will be used to determine individual contributions to the team's work.
+Se te pedirá que completes una Evaluación entre Pares para la Parte B, cuya fecha límite será **23:59 del Viernes de la Semana 12**. Esto se usará para determinar las contribuciones individuales al trabajo del equipo.

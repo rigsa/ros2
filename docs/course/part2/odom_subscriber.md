@@ -1,20 +1,20 @@
 ---  
-title: "An Odometry Subscriber Node"
+title: "Un Node Subscriber de Odometría"
 ---
 
-## The Initial Code
+## El Código Inicial
 
-Having copied the `subscriber.py` file from your `part1_pubsub` package, you'll start out with [the code discussed here](../part1/subscriber.md).
+Habiendo copiado el archivo `subscriber.py` de tu package `part1_pubsub`, comenzarás con [el código discutido aquí](../part1/subscriber.md).
 
-Let's look at what we need to change now.
+Veamos qué necesitamos cambiar ahora.
 
-## From Simple Subscriber to Odom Subscriber
+## De Simple Subscriber a Odom Subscriber
 
-### Imports
+### Importaciones
 
-We will generally rely on `rclpy` and the `Node` class from the `rclpy.node` library for most nodes that we will create, so our first two imports will remain the same. 
+Generalmente nos basaremos en `rclpy` y la clase `Node` de la librería `rclpy.node` para la mayoría de los nodes que crearemos, por lo que nuestras primeras dos importaciones permanecerán iguales. 
 
-We won't be working with `String` type messages any more however, so we need to replace this line in order to import the correct message type. As we know from [earlier in Part 2](../part2.md#odometry-explained), the `/odom` topic uses messages of the type `nav_msgs/msg/Odometry`:
+Sin embargo, ya no trabajaremos con mensajes de tipo `String`, así que necesitamos reemplazar esta línea para importar el tipo de mensaje correcto. Como sabemos [de antes en la Parte 2](../part2.md#odometry-explained), el topic `/odom` usa mensajes del tipo `nav_msgs/msg/Odometry`:
 
 ``` { .bash .no-copy }
 $ ros2 topic info /odom
@@ -22,39 +22,39 @@ Type: nav_msgs/msg/Odometry
 ...
 ```
 
-This tells us everything we need to know to construct the Python import statement correctly:
+Esto nos dice todo lo que necesitamos saber para construir la declaración de importación de Python correctamente:
 
 ```py
 from nav_msgs.msg import Odometry
 ```
 
-You'll also need to import a mathematical tool from the `math` module:
+También necesitarás importar una herramienta matemática del módulo `math`:
 
 ```py
 from math import atan2
 ```
 
-(for reasons that will become clearer shortly.)
+(por razones que quedarán más claras en breve.)
 
-### Change the Class Name
+### Cambiar el Nombre de la Clase
 
-Previously our class was called `#!python SimpleSubscriber()`, change this to something more appropriate now, e.g.: `#!python OdomSubscriber()`:
+Anteriormente nuestra clase se llamaba `#!python SimpleSubscriber()`, cámbiala a algo más apropiado ahora, por ejemplo: `#!python OdomSubscriber()`:
 
 ```py
 class OdomSubscriber(Node):
 ```
 
-### Initialising the Class
+### Inicializando la Clase
 
-The structure of this remains largely the same, we just need to modify a few things: 
+La estructura de esto permanece en gran medida igual, solo necesitamos modificar algunas cosas: 
 
-1. Change the name that is used to register the node on the ROS Network:
+1. Cambia el nombre que se usa para registrar el node en la Red ROS:
 
     ```python
     super().__init__("odom_subscriber")
     ```
 
-1. Change the subscription parameters:
+1. Cambia los parámetros del subscriber:
 
     ```python
     self.my_subscriber = self.create_subscription(
@@ -65,20 +65,20 @@ The structure of this remains largely the same, we just need to modify a few thi
     )
     ```
 
-    1. `/odom` uses the Odometry message type (as imported above)
-    2. The topic name is `/odom`. You can also omit the forward slash when defining this, so `#!py topic="odom"` would also work. 
+    1. `/odom` usa el tipo de mensaje Odometry (como se importó arriba)
+    2. El nombre del topic es `/odom`. También puedes omitir la barra diagonal al definir esto, por lo que `#!py topic="odom"` también funcionaría. 
 
-1. The final thing we'll do inside our class' `__init__` method (after we've set up the subscriber) is initialise a counter:
+1. Lo último que haremos dentro del método `__init__` de nuestra clase (después de haber configurado el subscriber) es inicializar un contador:
 
     ```py
     self.counter = 0 
     ```
 
-    The reason for this will be explained shortly...
+    La razón de esto se explicará en breve...
 
-### Calculating Euler Angles from Quaternions 
+### Calculando Ángulos de Euler a partir de Cuaterniones 
 
-After the `#!py __init__` class method, define a new method inside the `#!py OdomSubscriber()` class, called `quaternion_to_euler`:
+Después del método de clase `#!py __init__`, define un nuevo método dentro de la clase `#!py OdomSubscriber()`, llamado `quaternion_to_euler`:
 
 ```py
 def quaternion_to_euler(self, orientation):
@@ -92,10 +92,10 @@ def quaternion_to_euler(self, orientation):
     return yaw # (in radians)
 ```
 
-This function will receive the orientation data from the `/odom` topic (in quaternions) and needs to output the `yaw` angle in radians. Your job now is to establish the actual conversion process. You can see how this is done by looking at the `tb3_tools.py` module within your `part2_navigation` package[^tb3-tools][^auto-addison]:
+Esta función recibirá los datos de orientación del topic `/odom` (en cuaterniones) y necesita generar el ángulo `yaw` en radianes. Tu trabajo ahora es establecer el proceso de conversión real. Puedes ver cómo se hace esto mirando el módulo `tb3_tools.py` dentro de tu package `part2_navigation`[^tb3-tools][^auto-addison]:
 
-[^tb3-tools]: `tb3_tools.py` comes from the ROS 2 Package template, so you get this "for free" with every package that you create on this course!
-[^auto-addison]: The Quaternion to Euler conversion process is taken from [this Automatic Addison blog post](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
+[^tb3-tools]: `tb3_tools.py` proviene de la plantilla de Package ROS 2, ¡así que obtienes esto "de forma gratuita" con cada package que creas en este curso!
+[^auto-addison]: El proceso de conversión de Cuaternión a Euler se toma de [esta publicación del blog Automatic Addison](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
 
 
 ``` { .txt .no-copy }
@@ -103,8 +103,8 @@ This function will receive the orientation data from the `/odom` topic (in quate
 ├── CMakeLists.txt
 ├── package.xml
 ├── part2_navigation_modules
-│   ├── __init__.py
-│   └── tb3_tools.py <-- See here!
+│   ├── __init__.py
+│   └── tb3_tools.py <-- See here!
 └── scripts
     ├── basic_velocity_control.py
     ├── odom_subscriber.py
@@ -112,13 +112,13 @@ This function will receive the orientation data from the `/odom` topic (in quate
 
 ```
 
-Implement the calculation so that your `quaternion_to_euler()` method actually outputs a correct yaw angle (in radians) for the robot.
+Implementa el cálculo para que tu método `quaternion_to_euler()` realmente genere un ángulo de yaw correcto (en radianes) para el robot.
 
  
 
-### Modifying the Message Callback
+### Modificando el Message Callback
 
-Head to the existing `msg_callback` class method now and change this as follows:
+Dirígete al método de clase `msg_callback` existente ahora y cámbialo de la siguiente manera:
 
 ```py
 def msg_callback(self, topic_message: Odometry): # (1)!
@@ -142,21 +142,21 @@ def msg_callback(self, topic_message: Odometry): # (1)!
 
 ```
 
-1. This is a *type annotation*. The topic that we are subscribing to has changed (previously `/my_topic`, now `/odom`), and the new topic uses a different datatype (a.k.a. "ROS Interface"). We therefore update the type annotation to match the new type of data that will be entering this callback method (via the `topic_mesage` variable).
-2. We're only really interested in the Pose part of the odometry data, so we assign this to a variable.
+1. Esta es una *anotación de tipo*. El topic al que nos estamos suscribiendo ha cambiado (antes `/my_topic`, ahora `/odom`), y el nuevo topic usa un tipo de dato diferente (también conocido como "Interfaz ROS"). Por lo tanto, actualizamos la anotación de tipo para que coincida con el nuevo tipo de datos que ingresará a este método callback (a través de la variable `topic_message`).
+2. Solo nos interesa realmente la parte Pose de los datos de odometría, así que la asignamos a una variable.
 
-3. As we know by now, Pose contains information about both the "position" and "orientation" of the robot, we extract the position values first and assign them to the variables `pos_x`, `pos_y` and `pos_z`.
+3. Como ya sabemos, Pose contiene información sobre tanto la "posición" como la "orientación" del robot, extraemos primero los valores de posición y los asignamos a las variables `pos_x`, `pos_y` y `pos_z`.
     
-    Position data is provided in meters, so we don't need to do any conversion on this and can use the data directly.
+    Los datos de posición se proporcionan en metros, por lo que no necesitamos hacer ninguna conversión sobre esto y podemos usar los datos directamente.
 
-4. Orientation data is in quaternions, so we need to convert this to a Euler angle representation. We're calling a class method called `self.quaternion_to_euler()` to handle this conversion, which you should have established in the previous step.
+4. Los datos de orientación están en cuaterniones, por lo que necesitamos convertirlos a una representación de ángulo de Euler. Estamos llamando a un método de clase llamado `self.quaternion_to_euler()` para manejar esta conversión, que deberías haber establecido en el paso anterior.
 
-5. Here we print out the values that we're interested in to the terminal.
+5. Aquí imprimimos los valores que nos interesan en el terminal.
 
-    This callback function will execute every time a new message is published to the `odom` topic, which occurs at a rate of around 20 times per second (20 Hz).
+    Esta función callback se ejecutará cada vez que se publique un nuevo mensaje en el topic `odom`, lo cual ocurre a una tasa de aproximadamente 20 veces por segundo (20 Hz).
         
     ??? tip
-        We can use he `ros2 topic hz` function to tell us this:
+        Podemos usar la función `ros2 topic hz` para decirnos esto:
 
         ``` { .txt .no-copy }
         $ ros2 topic hz /odom
@@ -164,17 +164,17 @@ def msg_callback(self, topic_message: Odometry): # (1)!
         min: 0.037s max: 0.088s std dev: 0.01444s window: 20
         ``` 
     
-    That's a lot of messages to be printed to the terminal every second! We therefore use an `if` statement and a `counter` to ensure that our `print` statement only executes for 1 in every 10 topic messages instead.
+    ¡Eso es muchos mensajes para imprimir en el terminal cada segundo! Por lo tanto, usamos una declaración `if` y un `counter` para asegurarnos de que nuestra declaración `print` solo se ejecute para 1 de cada 10 mensajes del topic en su lugar.
 
-6. **Task**: Continue formatting the `print` message to display the three odometry values that are relevant to our robot!  
+6. **Tarea**: ¡Continúa formateando el mensaje `print` para mostrar los tres valores de odometría que son relevantes para nuestro robot!  
 
-### Updating "Main"
+### Actualizando "Main"
 
-The only thing left to do now is update any relevant parts of the `main` function to ensure that you are instantiating, spinning and shutting down your node correctly.
+Lo único que queda por hacer ahora es actualizar las partes relevantes de la función `main` para asegurarte de que estás instanciando, haciendo spin y apagando tu node correctamente.
 
-## Package Dependencies
+## Dependencias del Package
 
-Once again, we're importing a couple of Python libraries into our node here, which means that our package has two *dependencies*: `rclpy` and `nav_msgs`:
+Una vez más, estamos importando un par de librerías de Python en nuestro node aquí, lo que significa que nuestro package tiene dos *dependencias*: `rclpy` y `nav_msgs`:
 
 ```py
 import rclpy 
@@ -183,16 +183,16 @@ from rclpy.node import Node
 from nav_msgs.msg import Odometry
 ```
 
-We should therefore add these dependencies to our `package.xml` file (`part2_navigation/package.xml`). Open it up and find the following line:
+Por lo tanto, deberíamos agregar estas dependencias a nuestro archivo `package.xml` (`part2_navigation/package.xml`). Ábrelo y encuentra la siguiente línea:
 
 ```xml
 <exec_depend>rclpy</exec_depend>
 ```
 
-The package template already includes a dependency for `rclpy`, since this is pretty fundamental to our work here, but we do need to add `nav_msgs` as well, so add the following additional line underneath:
+La plantilla de package ya incluye una dependencia para `rclpy`, ya que esto es bastante fundamental para nuestro trabajo aquí, pero sí necesitamos agregar `nav_msgs` también, así que agrega la siguiente línea adicional debajo:
 
 ```xml
 <exec_depend>nav_msgs</exec_depend>
 ```
 
-Save the file and close it.
+Guarda el archivo y ciérralo.

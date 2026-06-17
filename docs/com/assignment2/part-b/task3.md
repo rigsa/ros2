@@ -1,255 +1,251 @@
 ---  
-title: "Task 3: Exploration & Search"  
+title: "Tarea 3: Exploración y Búsqueda"  
 ---  
 
-!!! info "Update 17/04/2026"
-    * [Photo of the *real* robot arena added](#the-environment).
-    * Number of obstacles slightly reduced! 
- 
-Develop ROS node(s) to allow a TurtleBot3 Waffle to autonomously explore as much of the full Computer Room 5 robot arena as possible, whilst searching for a beacon and documenting its exploration with a map of the environment as it goes! 
+Desarrolla nodes de ROS para permitir que un TurtleBot3 Waffle explore de manera autónoma la mayor parte posible del arena robótico, mientras busca una baliza y documenta su exploración con un mapa del entorno a medida que avanza.
 
-!!! success "Course Checkpoints"
+!!! success "Puntos de Control del Curso"
     
-    * You should have completed **Parts 1-6 of Assignment #1 ^^in full^^** to support your work here. 
+    * Deberías haber completado **las Partes 1-6 de la Asignación #1 ^^en su totalidad^^** para apoyar tu trabajo aquí.
 
-    * **[Understanding the Waffles](../../../waffles/essentials.md)** is *also* essential to your success in this task, so make sure you have considered **ALL** of the folllowing: 
+    * **[Entendiendo los Waffles](../../../waffles/essentials.md)** es *también* esencial para tu éxito en esta tarea, así que asegúrate de haber considerado **TODOS** los siguientes aspectos:
     
-        * [ ] [Motion and Velocity Control](../../../waffles/essentials.md#motion-and-velocity-control)
-        * [ ] [Laser Displacement Readings and the LiDAR Sensor](../../../waffles/essentials.md#laser-displacement-readings-and-the-lidar-sensor)
-        * [ ] [The Camera and Image Processing](../../../waffles/essentials.md#the-camera-and-image-processing)
+        * [ ] [Control de Movimiento y Velocidad](../../../waffles/essentials.md#motion-and-velocity-control)
+        * [ ] [Lecturas de Desplazamiento Láser y el Sensor LiDAR](../../../waffles/essentials.md#laser-displacement-readings-and-the-lidar-sensor)
+        * [ ] [La Cámara y el Procesamiento de Imagen](../../../waffles/essentials.md#the-camera-and-image-processing)
 
-    * You will also need to consider some of [the **Advanced Launch File Concepts** discussed here](../../../course/extras/launch-files.md).
+    * También necesitarás considerar algunos de los [**Conceptos Avanzados de Archivos de Lanzamiento** discutidos aquí](../../../course/extras/launch-files.md).
 
-## Summary
+## Resumen
 
-This task builds on what you did for Task 2. This time however, your robot will need to navigate a more densely populated arena (i.e. more obstacles), so there'll be less room to navigate freely, and more chance of collisions occurring! Once again, the main aim is to *safely* explore as much of the arena as possible, but with a bit more time to do so now. At the same time, you'll need to search for a beacon of a particular colour and try to capture an image of it. Finally, you'll *also* need to document your robot's exploration by building a map of the environment (with SLAM) as it explores, and save this map for us to view afterwards.
+Esta tarea se basa en lo que hiciste para la Tarea 2. Esta vez, sin embargo, tu robot necesitará navegar por un arena con mayor densidad de obstáculos (es decir, más obstáculos), por lo que habrá menos espacio para navegar libremente y más posibilidades de que ocurran colisiones. Una vez más, el objetivo principal es *explorar de manera segura* la mayor parte del arena posible, pero ahora con un poco más de tiempo para hacerlo. Al mismo tiempo, necesitarás buscar una baliza de un color particular e intentar capturar una imagen de ella. Finalmente, *también* necesitarás documentar la exploración de tu robot construyendo un mapa del entorno (con SLAM) mientras explora, y guardar este mapa para que podamos verlo después.
 
-## Details
+## Detalles
 
-### The Environment 
+### El Entorno
 
-You've become very familiar with the Computer Room 5 Robot Arena by now, and you will be exploring this once more! Here's what to expect for Task 3: 
+Ya estás muy familiarizado con el Arena Robótico, y ¡lo explorarás una vez más! Esto es lo que puedes esperar para la Tarea 3:
 
 <a name="t3-arena-layout"></a>
 
 <figure markdown>
   ![](../figures/task3_arena_layout.png){width=700px}
-  <figcaption>An <strong>example</strong> arena layout for Task 3.</figcaption>
+  <figcaption>Un ejemplo de la configuración del arena para la Tarea 3.</figcaption>
 </figure>
 
 <a name="env-vars"></a>
 
-**The above is just an example of what the real arena might look like**, but what we can say is this: 
+**Lo anterior es solo un ejemplo de cómo podría verse el arena real**, pero lo que podemos decir es esto:
 
-* The arena will contain various wooden walls 180 mm tall, 10 mm thick and 440 mm *or* 880 mm in length (a combination of both lengths will be present).
-* Walls will be assembled together *at least* in pairs (since they can't stand up on their own!), but a single wall assembly could comprise more than two walls, and any combination of wall lengths.
-* The location and orientation of wall assemblies, as well as the relative angles between walls within each assembly will vary. 
-* Walls and/or wall assemblies could also vary in quantity slightly too (there might be a few more, there might be a few less).
-* The arena will always contain **four** cylindrical beacons of 200 mm diameter and 250 mm height, each of a different colour: one **yellow**, one **red**, one **green** and one **blue**.
-* The beacons could also be located *anywhere* in the arena.
-* "Corridors" in the arena (i.e. the free spaces for the robot to explore) will always be sufficient for a robot to pass through with some clearance. You should anticipate some *very* small gaps to be present however between adjacent walls in wall assemblies for example (due to the hinges), or the "wedges" that form between a beacon placed up against a wall (like in the example above). Your exploration algorithms will need to be robust to these unavoidable small gaps.
-* The robot could start *anywhere* in the arena: any zone, any position within a zone and at any orientation.
+* El arena contendrá varias paredes de madera de 180 mm de altura, 10 mm de grosor y 440 mm *o* 880 mm de longitud (habrá una combinación de ambas longitudes).
+* Las paredes se ensamblarán juntas *al menos* en pares (ya que no pueden sostenerse solas), pero un solo ensamblaje de pared podría comprender más de dos paredes, y cualquier combinación de longitudes de pared.
+* La ubicación y orientación de los ensamblajes de paredes, así como los ángulos relativos entre las paredes dentro de cada ensamblaje, variarán.
+* Los ensamblajes de paredes y/o paredes también podrían variar ligeramente en cantidad (puede haber algunos más, puede haber algunos menos).
+* El arena siempre contendrá **cuatro** balizas cilíndricas de 200 mm de diámetro y 250 mm de altura, cada una de un color diferente: una **amarilla**, una **roja**, una **verde** y una **azul**.
+* Las balizas también podrían estar ubicadas *en cualquier lugar* del arena.
+* Los "corredores" del arena (es decir, los espacios libres para que el robot explore) siempre serán suficientes para que un robot pase con cierta holgura. Sin embargo, debes anticipar que haya algunas *brechas muy pequeñas* entre paredes adyacentes en los ensamblajes de paredes (debido a las bisagras), o las "cuñas" que se forman entre una baliza colocada junto a una pared. Tus algoritmos de exploración deben ser robustos ante estas brechas pequeñas inevitables.
+* El robot podría empezar *en cualquier lugar* del arena: cualquier zona, cualquier posición dentro de una zona y en cualquier orientación.
 
-### Exploration
+### Exploración
 
-1. Your robot will have **3 minutes (180 seconds) in total** to complete this task. 
+1. Tu robot tendrá **3 minutos (180 segundos) en total** para completar esta tarea.
     
-    **Note**: *The timer will start as soon as the robot starts moving within the arena.*
+    **Nota**: *El temporizador comenzará tan pronto como el robot empiece a moverse dentro del arena.*
 
-1. The arena floor will be marked out into **16 equal-sized zones** (each 1 m x 1 m square). You will be awarded marks for each of the zones that your robot enters within the time available (excluding the one it starts in).
+1. El suelo del arena estará marcado en **16 zonas iguales** (cada una de 1 m x 1 m cuadrado). Se te otorgarán puntos por cada zona que tu robot entre dentro del tiempo disponible (excluyendo aquella en la que empieza).
 
-    **Note**: *Exploration marks only count when the robot's ^^entire body^^ enters the zone.*
+    **Nota**: *Los puntos de exploración solo cuentan cuando el ^^cuerpo completo^^ del robot entra en la zona.*
 
-1. Your robot will need to successfully explore whilst avoiding contact with *anything* in the environment. 
+1. Tu robot necesitará explorar con éxito mientras evita el contacto con *cualquier cosa* en el entorno.
     
-    Any contact the robot makes with the environment is counted as an *"incident."* Once an incident has taken place, we'll move the robot away slightly so that it is free to move again, but after **five** incidents have occurred the assessment will be stopped, regardless of how much time has elapsed.
+    Cualquier contacto que el robot haga con el entorno se cuenta como un *"incidente"*. Una vez que haya ocurrido un incidente, moveremos el robot un poco para que pueda moverse nuevamente, pero después de que hayan ocurrido **cinco** incidentes la evaluación se detendrá, independientemente de cuánto tiempo haya transcurrido.
 
-### Searching for a Beacon
+### Buscar una Baliza
 
-As with the previous 2 tasks, we will launch the ROS node(s) from within your package for this task using `ros2 launch` ([more details below](#launch)). For this one however, we will *also* supply an additional argument when we do this:
+Al igual que con las 2 tareas anteriores, lanzaremos los nodes de ROS desde dentro de tu paquete para esta tarea usando `ros2 launch` ([más detalles abajo](#launch)). Para esta, sin embargo, también suministraremos un argumento adicional cuando lo hagamos:
 
 ``` { .bash .no-copy }
-ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=COLOUR
+ros2 launch ros2_lab_equipoXX task3.launch.py target_beacon:=COLOUR
 ```
 
-...where `COLOUR` will be replaced with either `yellow`, `red`, `green` or `blue` (always in lower case). This target colour will be selected randomly. Based on this input, your robot will need to capture an image of the beacon of that colour.
+...donde `COLOUR` será reemplazado por `yellow`, `red`, `green` o `blue` (siempre en minúsculas). Este color objetivo será seleccionado al azar. Basándose en esta entrada, tu robot necesitará capturar una imagen de la baliza de ese color.
 
-You will therefore need to define your launch file to accommodate the `target_beacon` command-line argument. In addition to this, inside your launch file you'll *also* need to pass the *value* of this to a ROS node within your package, so that the node knows which beacon to actually look for (i.e. the *yellow*, *red*, *green* or *blue* beacon). This kind of launch file functionality wasn't covered in Assignment #1, but [there are some additional resources available to help you with this](#advanced-launch-file-features).
+Por lo tanto, necesitarás definir tu archivo de lanzamiento para acomodar el argumento de línea de comandos `target_beacon`. Además de esto, dentro de tu archivo de lanzamiento también *necesitarás* pasar el *valor* de esto a un node de ROS dentro de tu paquete, para que el node sepa qué baliza buscar realmente (es decir, la baliza *amarilla*, *roja*, *verde* o *azul*). Este tipo de funcionalidad de archivo de lanzamiento no se cubrió en la Asignación #1, pero [hay algunos recursos adicionales disponibles para ayudarte con esto](#advanced-launch-file-features).
 
 <a name="arg_parsing"></a>
 
-Upon launching your `task3.launch.py` launch file, a Log Message must be generated by one of your ROS nodes to indicate the specified colour for the search task. This log message must be of `INFO` severity (i.e. using a `#!py get_logger().info()` method call), and must be generated within 10 seconds of executing your launch file. The message should be formatted *exactly* as follows:
+Al lanzar tu archivo de lanzamiento `task3.launch.py`, uno de tus nodes de ROS debe generar un Mensaje de Log para indicar el color especificado para la tarea de búsqueda. Este mensaje de log debe tener severidad `INFO` (es decir, usando una llamada al método `#!py get_logger().info()`), y debe generarse dentro de los 10 segundos de ejecutar tu archivo de lanzamiento. El mensaje debe estar formateado *exactamente* de la siguiente manera:
 
 ``` { .txt .no-copy }
 TARGET BEACON: Searching for COLOUR.
 ```
 
-...where `COLOUR` must be replaced with the actual colour that was passed to your `task3.launch.py` file (either `yellow`, `red`, `green` or `blue`).
+...donde `COLOUR` debe reemplazarse con el color real que se pasó a tu archivo `task3.launch.py` (ya sea `yellow`, `red`, `green` o `blue`).
 
-#### Saving the Image
+#### Guardar la Imagen
 
-At the root of your package there must be a directory called `snaps`, and the image must be saved into this directory with the file name: `target_beacon.jpg`, i.e.:
+En la raíz de tu paquete debe haber un directorio llamado `snaps`, y la imagen debe guardarse en este directorio con el nombre de archivo: `target_beacon.jpg`, es decir:
 
 ``` { .txt .no-copy }
-~/ros2_ws/src/com2009_teamXX_2026/snaps/target_beacon.jpg
+~/ros2_ws/src/ros2_lab_equipoXX/snaps/target_beacon.jpg
 ```
 
-The image that is saved here must be the *raw image* from the robot's camera, and should not include any filtering that you may have applied in post-processing.
+La imagen que se guarda aquí debe ser la *imagen sin procesar* de la cámara del robot, y no debe incluir ningún filtrado que puedas haber aplicado en post-procesamiento.
 
-!!! warning "Be aware"
+!!! warning "Ten en cuenta"
     
-    [**Understanding the Waffles**: The Camera and Image Processing](../../../waffles/essentials.md#the-camera-and-image-processing). There are some key things that you should investigate here, such as:
+    [**Entendiendo los Waffles**: La Cámara y el Procesamiento de Imagen](../../../waffles/essentials.md#the-camera-and-image-processing). Hay algunas cosas clave que debes investigar aquí, como:
     
-    * [ ] The name of the camera image topic on the real robots.
-    * [ ] The native resolution of the camera images, and how this might impact any image processing that you do. 
+    * [ ] El nombre del topic de imagen de la cámara en los robots reales.
+    * [ ] La resolución nativa de las imágenes de la cámara, y cómo esto podría afectar cualquier procesamiento de imagen que realices.
 
-### Mapping the Environment
+### Mapear el Entorno
 
-Marks are also available in Task 3 for using SLAM to generate a map of the environment whilst your robot is exploring, and saving this map to your package directory (as an image).
+También hay puntos disponibles en la Tarea 3 por usar SLAM para generar un mapa del entorno mientras tu robot explora, y guardar este mapa en el directorio de tu paquete (como una imagen).
 
-#### Generating a Map
+#### Generar un Mapa
 
-One of the earliest exercises you did with the Waffles (back in the Week 1 lab!) was to [use SLAM to create a map of the environment](../../../waffles/basics.md#exSlam). You will have also had a go at this in simulation too, in [Part 3 of Assignment #1](../../../course/part3.md#ex5). Notice that you used the same launch file in both cases, but with one subtle difference:
+Uno de los primeros ejercicios que hiciste con los Waffles (¡en el laboratorio de la Semana 1!) fue [usar SLAM para crear un mapa del entorno](../../../waffles/basics.md#exSlam). También habrás intentado esto en simulación en la [Parte 3 de la Asignación #1](../../../course/part3.md#ex5). Nota que usaste el mismo archivo de lanzamiento en ambos casos, pero con una diferencia sutil:
 
-=== "In the Real World"
+=== "En el Mundo Real"
 
     ``` { .bash .no-copy }
     ros2 launch tuos_tb3_tools slam.launch.py environment:=real
     ```
 
-=== "In Simulation"
+=== "En Simulación"
 
     ``` { .bash .no-copy }
     ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
     ```
 
-... *which one do you think you might need to apply here?!*
+... *¿cuál crees que podrías necesitar aplicar aquí?*
 
-#### Saving a Map
+#### Guardar un Mapa
 
-Think back to [Assignment #1 Part 3 Exercise 5](../../../course/part3.md#ex5) again now, and how you were able to save a map as an image from the command-line using a `ros2 run` call:
+Piensa de nuevo en el [Ejercicio 5 de la Asignación #1 Parte 3](../../../course/part3.md#ex5) ahora, y en cómo pudiste guardar un mapa como imagen desde la línea de comandos usando una llamada `ros2 run`:
 
 ``` { .bash .no-copy }
 ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 ```
 
-It's also possible to do this *programmatically* using the ROS 2 Service framework. Consider [Assignment #1 Part 4 Exercise 6](../../../course/part4.md#ex6) for how this could be done from within one of your Task 3 ROS nodes.
+También es posible hacer esto *programáticamente* usando el framework de Servicios de ROS 2. Considera el [Ejercicio 6 de la Asignación #1 Parte 4](../../../course/part4.md#ex6) para ver cómo esto podría hacerse desde dentro de uno de tus nodes de ROS para la Tarea 3.
 
-The root of your package directory must contain a directory called `maps`, and the map that your robot generates during exploration must be saved as a `png` image into this directory with the name `arena_map.png`, i.e.:
+La raíz del directorio de tu paquete debe contener un directorio llamado `maps`, y el mapa que genera tu robot durante la exploración debe guardarse como una imagen `png` en este directorio con el nombre `arena_map.png`, es decir:
 
 ``` { .txt .no-copy }
-~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.png
+~/ros2_ws/src/ros2_lab_equipoXX/maps/arena_map.png
 ```
 
-## Executing Your Code {#launch}
+## Ejecutar Tu Código {#launch}
 
-Your team's ROS package must contain a launch file named `task3.launch.py`, such that (for the assessment) we are able to launch all the nodes that you have developed for this task via the following command:
+El paquete de ROS de tu equipo debe contener un archivo de lanzamiento llamado `task3.launch.py`, de modo que (para la evaluación) podamos lanzar todos los nodes que hayas desarrollado para esta tarea mediante el siguiente comando:
   
 ``` { .bash .no-copy }
-ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=COLOUR
+ros2 launch ros2_lab_equipoXX task3.launch.py target_beacon:=COLOUR
 ```
-... where `XX` will be replaced with your team number and `COLOUR` will be replaced with either `yellow`, `red`, `green` or `blue`, e.g.:
+... donde `XX` será reemplazado con tu número de equipo y `COLOUR` será reemplazado por `yellow`, `red`, `green` o `blue`, por ejemplo:
 
 === "Yellow"
 
     ```bash
-    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=yellow
+    ros2 launch ros2_lab_equipoXX task3.launch.py target_beacon:=yellow
     ```
 
 === "Red"
 
     ```bash
-    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=red
+    ros2 launch ros2_lab_equipoXX task3.launch.py target_beacon:=red
     ```
 
 === "Green"
 
     ```bash
-    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=green
+    ros2 launch ros2_lab_equipoXX task3.launch.py target_beacon:=green
     ```
 
 === "Blue"
 
     ```bash
-    ros2 launch com2009_teamXX_2026 task3.launch.py target_beacon:=blue
+    ros2 launch ros2_lab_equipoXX task3.launch.py target_beacon:=blue
     ```
 
 !!! note
-    ROS will already be running on the robot before we attempt to execute your launch file, and [a *Zenoh Session* will be running on the laptop, to allow nodes running on the laptop to communicate with it](../../../waffles/launching-ros.md#step4).
+    ROS ya estará ejecutándose en el robot antes de que intentemos ejecutar tu archivo de lanzamiento, y [una *Sesión Zenoh* estará ejecutándose en la laptop, para permitir que los nodes que se ejecutan en la laptop se comuniquen con él](../../../waffles/launching-ros.md#step4).
 
-### Advanced Launch File Features
+### Características Avanzadas de Archivos de Lanzamiento
 
-As discussed above, you'll need to be able to do some slightly more advanced things with launch files for this task, such as:
+Como se discutió anteriormente, necesitarás poder hacer algunas cosas un poco más avanzadas con archivos de lanzamiento para esta tarea, como:
 
-* Accepting command-line arguments.
-* Passing command-line arguments to ROS nodes.
-* Launching other launch files and passing launch arguments to these too, to configure their behaviour.
+* Aceptar argumentos de línea de comandos.
+* Pasar argumentos de línea de comandos a nodes de ROS.
+* Lanzar otros archivos de lanzamiento y pasar argumentos de lanzamiento a estos también, para configurar su comportamiento.
 
-All of this is covered in additional section of the ROS 2 Course, see here:
+Todo esto está cubierto en una sección adicional del Curso de ROS 2, mira aquí:
 
-<center>[:material-file: Launch Files (Advanced)](../../../course/extras/launch-files.md){ .md-button target="_blank"}</center>
+<center>[:material-file: Archivos de Lanzamiento (Avanzado)](../../../course/extras/launch-files.md){ .md-button target="_blank"}</center>
 
-## Dependencies
+## Dependencias
 
-You may draw upon pre-existing Python libraries or ROS 2 packages in your own work for Assignment #2, but **there are restrictions that you must be aware of**. [See here for more details on this](../assessment.md#dependencies).
+Puedes hacer uso de bibliotecas de Python preexistentes o paquetes de ROS 2 en tu propio trabajo para la Asignación #2, pero **hay restricciones que debes conocer**. [Consulta aquí para más detalles sobre esto](../assessment.md#dependencies).
 
 !!! info "Nav2"
-    The use of Nav2 *is* permitted for Task 3, but you should **proceed with caution** if you opt for this. [See here for more details](./nav2.md). 
+    El uso de Nav2 *está* permitido para la Tarea 3, pero deberías **proceder con precaución** si optas por esto. [Consulta aquí para más detalles](./nav2.md).
 
-## Marking
+## Marcación
 
-There are **40 marks** available for this task in total, awarded based on the criteria outlined below.
+Hay **40 puntos** disponibles para esta tarea en total, otorgados según los criterios descritos a continuación.
 
 <center>
 
-| Criteria | Marks | Details |
+| Criterio | Puntos | Detalles |
 | :--- | :---: | :--- |
-| **A**: Exploration | 15/40 | For this task, the arena will be divided into **sixteen** equal-sized zones. You will be awarded 1 mark for each zone that your robot manages to enter, excluding the one it starts within. The robot only needs to enter each zone once, but **its full body must be inside the zone marking** to be awarded the associated mark. |
-| **B**: An *'incident-free run'* | 5/40 | If your robot completes the task (or the 180 seconds elapses) without it making contact with anything in the arena then you will be awarded full marks here for an *incident-free-run!* You will however be deducted 1 mark per unique "incident" that occurs during the assessment. Your robot must *at least* leave the zone that it starts in to be eligible for these marks and once five incidents have been recorded in total then the assessment will be stopped. |
-| **C**: Searching for a Beacon | 15/40 | [Further details below](#crit-c). |
-| **D**: Mapping the Environment | 5/40 | [Further details below](#crit-d). | 
+| **A**: Exploración | 15/40 | Para esta tarea, el arena se dividirá en **dieciséis** zonas iguales. Se te otorgará 1 punto por cada zona que tu robot logre entrar, excluyendo aquella en la que empieza. El robot solo necesita entrar en cada zona una vez, pero **su cuerpo completo debe estar dentro del marcado de la zona** para recibir el punto asociado. |
+| **B**: Una *'ejecución sin incidentes'* | 5/40 | Si tu robot completa la tarea (o transcurren los 180 segundos) sin hacer contacto con nada en el arena, se te otorgarán puntos completos aquí por una *ejecución sin incidentes*. Sin embargo, se te deducirá 1 punto por cada "incidente" único que ocurra durante la evaluación. Tu robot debe *al menos* salir de la zona en la que empieza para ser elegible para estos puntos y una vez que se hayan registrado cinco incidentes en total, la evaluación se detendrá. |
+| **C**: Búsqueda de una Baliza | 15/40 | [Detalles adicionales abajo](#crit-c). |
+| **D**: Mapeo del Entorno | 5/40 | [Detalles adicionales abajo](#crit-d). | 
 
 </center>
 
-### C: Searching for a Beacon {#crit-c}
+### C: Búsqueda de una Baliza {#crit-c}
 
-There are **15 marks** available for Criterion C.
+Hay **15 puntos** disponibles para el Criterio C.
 
 <center>
 
-| Criteria | Details | Marks|
+| Criterio | Detalles | Puntos|
 | :--- | :--- | :--- |
-| **C1** | Upon launching your `task3.launch.py` launch file, a Log Message must be generated by one of your ROS nodes to indicate the **correct** target colour for the search task. This Log Message must occur within 10 seconds of executing your launch file, be [of the format specified here](#arg_parsing), and must be achieved using a `#!py get_logger().info()` method call. | 2 |
-| **C2** | At the end of the assessment a **single** image file called `target_beacon.jpg` must have been obtained from the robot's camera (during the course of the assessment). This must be located in a folder called `snaps` at the root of your package directory: `~/ros2_ws/src/com2009_teamXX_2026/snaps/target_beacon.jpg`. | 2 | 
-| **C3** | Your `target_beacon.jpg` image file (at the path stated above) contains **any part** of the **correct** beacon. | 3 |
-| **C4** | Your `target_beacon.jpg` image file (at the path stated above) has captured the **full width** of the correct beacon. | 3 |
-| **C5** | Your `target_beacon.jpg` image file (at the path stated above) has captured the **full width** and **full height** of the correct beacon, and the beacon is **entirely unobscured**. | 5 |
+| **C1** | Al lanzar tu archivo de lanzamiento `task3.launch.py`, uno de tus nodes de ROS debe generar un Mensaje de Log para indicar el color objetivo **correcto** para la tarea de búsqueda. Este Mensaje de Log debe ocurrir dentro de los 10 segundos de ejecutar tu archivo de lanzamiento, estar [en el formato especificado aquí](#arg_parsing), y debe lograrse usando una llamada al método `#!py get_logger().info()`. | 2 |
+| **C2** | Al final de la evaluación, un **único** archivo de imagen llamado `target_beacon.jpg` debe haberse obtenido de la cámara del robot (durante el transcurso de la evaluación). Este debe estar ubicado en una carpeta llamada `snaps` en la raíz del directorio de tu paquete: `~/ros2_ws/src/ros2_lab_equipoXX/snaps/target_beacon.jpg`. | 2 | 
+| **C3** | Tu archivo de imagen `target_beacon.jpg` (en la ruta indicada arriba) contiene **cualquier parte** de la **baliza correcta**. | 3 |
+| **C4** | Tu archivo de imagen `target_beacon.jpg` (en la ruta indicada arriba) ha capturado el **ancho completo** de la baliza correcta. | 3 |
+| **C5** | Tu archivo de imagen `target_beacon.jpg` (en la ruta indicada arriba) ha capturado el **ancho completo** y **altura completa** de la baliza correcta, y la baliza está **completamente sin obstrucciones**. | 5 |
 
 </center>
 
-### D: Mapping the Environment {#crit-d}  
+### D: Mapeo del Entorno {#crit-d}  
 
-There are **5 marks** available for Criterion D.
+Hay **5 puntos** disponibles para el Criterio D.
 
 <center>
 
-| Criteria | Details | Marks|
+| Criterio | Detalles | Puntos|
 | :--- | :--- | :--- |
-| **D1** | A map of **any part** of the robot arena (however small) must have been generated *during the assessment*. By the end of the assessment, two files should exist: a `png` and a `yaml`, both of which must be called `arena_map`, and both must be located in a `maps` folder at the root of your package directory: `~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.png` and `~/ros2_ws/src/com2009_teamXX_2026/maps/arena_map.yaml`. | 2 |
-| **D2** | Your `arena_map.png` file (created during the assessment and at the path stated above) depicts all free/occupied space extending from any one of the outer arena walls to the opposing outer arena wall, uninterrupted (i.e. containing no unmapped regions), across any part of the arena, to a width of at least 0.5 meters. For example, *either* the red or blue strips in the example map below would do the job:<br /><br />![](../figures/map_example.png)| 3 |   
+| **D1** | Un mapa de **cualquier parte** del arena robótico (por pequeña que sea) debe haberse generado *durante la evaluación*. Al final de la evaluación, deben existir dos archivos: un `png` y un `yaml`, ambos deben llamarse `arena_map`, y ambos deben estar ubicados en una carpeta `maps` en la raíz del directorio de tu paquete: `~/ros2_ws/src/ros2_lab_equipoXX/maps/arena_map.png` y `~/ros2_ws/src/ros2_lab_equipoXX/maps/arena_map.yaml`. | 2 |
+| **D2** | Tu archivo `arena_map.png` (creado durante la evaluación y en la ruta indicada arriba) muestra todo el espacio libre/ocupado extendiéndose desde cualquiera de las paredes exteriores del arena hasta la pared exterior opuesta, sin interrupciones (es decir, sin regiones sin mapear), a través de cualquier parte del arena, con un ancho de al menos 0.5 metros. | 3 |   
 
 </center>
 
-## Simulation Resources
+## Recursos de Simulación
 
-As with Tasks 1 & 2, there's a simulation that you can use to develop and test out your team's code against.
+Al igual que con las Tareas 1 y 2, hay una simulación que puedes usar para desarrollar y probar el código de tu equipo.
 
-!!! warning "Remember"
+!!! warning "Recuerda"
     
-    * Just because it works in simulation **DOESN'T** mean it will work equally well in the real world!
-    * Make sure you test things out ^^thoroughly^^ on the real robots during the lab sessions.
+    * ¡El hecho de que funcione en simulación **NO** significa que funcionará igual de bien en el mundo real!
+    * ¡Asegúrate de probar las cosas ^^a fondo^^ en los robots reales durante las sesiones de laboratorio!
 
-You can launch the simulation from the `tuos_task_sims` package with the following `ros2 launch` command:
+Puedes lanzar la simulación desde el paquete `tuos_task_sims` con el siguiente comando `ros2 launch`:
 
 ```bash
 ros2 launch tuos_task_sims explore.launch.py
@@ -259,8 +255,8 @@ ros2 launch tuos_task_sims explore.launch.py
   ![](../figures/explore.png){width=700px}
 </figure>
 
-Make sure you [check for updates to the course repo](../../../course/extras/course-repo.md#updating) to ensure that you have the most up-to-date version of this.
+Asegúrate de [revisar si hay actualizaciones al repositorio del curso](../../../course/extras/course-repo.md#updating) para garantizar que tengas la versión más actualizada de esto.
 
-Once again, this is just an *example* of what the real-world environment *could* look like. See the notes above for [the various ways the environment will vary when this task is assessed in the real robot arena](#env-vars). 
+Una vez más, esto es solo un *ejemplo* de cómo podría verse el entorno del mundo real. Consulta las notas anteriores para [las diversas formas en que el entorno variará cuando esta tarea sea evaluada en el arena robótico real](#env-vars).
 
-In addition to this, note that beacons will be the same shape, size and colour as those in the simulation, **but** detecting colours is a lot harder in the real-world than it is in simulation, so you'll need to do a lot of real-world testing in order to get this working robustly on the real thing (you will have access to all the beacons during the lab sessions).
+Además de esto, ten en cuenta que las balizas tendrán la misma forma, tamaño y color que las de la simulación, **pero** detectar colores es mucho más difícil en el mundo real que en la simulación, por lo que necesitarás hacer muchas pruebas en el mundo real para que esto funcione de manera robusta en el mundo real (tendrás acceso a todas las balizas durante las sesiones de laboratorio).

@@ -1,118 +1,118 @@
 ---  
-title: Launching ROS (and Pairing the Laptop)
+title: Lanzando ROS (y Emparejando la Laptop)
 ---  
 
-The first step is to launch ROS on the Waffle.
+El primer paso es lanzar ROS en el Waffle.
 
-!!! info "Important"
-    This ensures that all the core ROS functionality is executed on the robot, without this the robot won't be able to do *anything*!
+!!! info "Importante"
+    ¡Esto garantiza que toda la funcionalidad básica de ROS se ejecute en el robot; sin esto, el robot no podrá hacer *nada*!
 
-## Step 1: Identify your Waffle
+## Paso 1: Identificar tu Waffle
 
-Robots are named as follows:
+Los robots se nombran de la siguiente manera:
 
-    dia-waffleX
+    robot-X
 
-... where `X` is the *'Robot Number'* (a number between 1 and 50). Make sure you know which robot you are working with by checking the label printed on top of it!
+... donde `X` es el *'Número de Robot'* (un número entre 1 y 50). ¡Asegúrate de saber con cuál robot estás trabajando revisando la etiqueta impresa en la parte superior!
 
-## Step 2: Pairing your Waffle to a Laptop
+## Paso 2: Emparejar tu Waffle con una Laptop
 
-[As discussed earlier](./intro.md#laptops), you'll be provided with one of our Robotics Laptops to work with in the lab, and the robot needs to be paired with this in order for the two to work together.  
+[Como se explicó anteriormente](./intro.md#laptops), se te proporcionará una de nuestras Laptops del Laboratorio para trabajar en el laboratorio, y el robot debe emparejarse con esta para que ambos funcionen juntos.
 
-1. Open up a terminal instance on the laptop, either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:
+1. Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado ++ctrl+alt+t++ o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del lado izquierdo del escritorio:
     
     <figure markdown>
       ![](../images/laptops/terminal_icon.svg){width=60px}
     </figure>
 
-1. We'll use our purpose-built `waffle` CLI to handle the pairing process. Run this in the terminal by entering the following command to *pair* the laptop and robot:
+1. Usaremos nuestra CLI `waffle` específicamente diseñada para manejar el proceso de emparejamiento. Ejecútala en la terminal ingresando el siguiente comando para *emparejar* la laptop y el robot:
 
     ```bash
     waffle X pair
     ```
-    Replacing `X` with the number of the robot that you are working with.
+    Reemplazando `X` con el número del robot con el que estás trabajando.
     
-1. You may see a message like this early on in the pairing process:
+1. Es posible que veas un mensaje como este al inicio del proceso de emparejamiento:
 
     <figure markdown>
       ![](../images/laptops/ssh_auth.svg){width=600px}
     </figure>
 
-    If so, just type `yes` and then hit ++enter++ to confirm that you want to continue.
+    Si es así, simplemente escribe `yes` y presiona ++enter++ para confirmar que deseas continuar.
 
-1. Enter the password for the robot when requested (we'll tell you what this is in the lab!)
+1. Ingresa la contraseña del robot cuando se te solicite (¡te la indicaremos en el laboratorio!)
 
     !!! note
-        You won't see anything change on the screen when you are entering the password. This is normal, just keep typing!!
+        No verás ningún cambio en la pantalla cuando estés ingresando la contraseña. ¡Esto es normal, sigue escribiendo!
     
-1. The pairing process will take a minute, but once it's finished you should see a message saying `pairing complete`, displayed in blue in the terminal. 
+1. El proceso de emparejamiento tardará un minuto, pero una vez finalizado deberías ver un mensaje que dice `pairing complete`, mostrado en azul en la terminal.
 
-1. Then, in the same terminal, enter the following command: <a name="tmux"></a>
+1. Luego, en la misma terminal, ingresa el siguiente comando: <a name="tmux"></a>
 
     ```bash
     waffle X term
     ```
-    (again, replacing `X` with the number of *your* robot).
+    (nuevamente, reemplazando `X` con el número de *tu* robot).
     
-    A green banner should appear across the bottom of the terminal window:
+    Debería aparecer un banner verde en la parte inferior de la ventana de la terminal:
     
     <figure markdown>
       ![](../images/laptops/tmux.svg){width=500px}
     </figure>
 
-    This is a terminal instance running **on the robot**, and any commands that you enter here will be executed *on the robot* (not the laptop!)
+    Esta es una instancia de terminal que se ejecuta **en el robot**, y cualquier comando que ingreses aquí se ejecutará *en el robot* (¡no en la laptop!)
 
-## Step 3: Launching ROS {#step3}
+## Paso 3: Lanzando ROS {#step3}
 
-Launch ROS on the robot by entering the following command:
+Lanza ROS en el robot ingresando el siguiente comando:
 
 ```bash
 ros2 launch tuos_tb3_tools ros.launch.py
 ```
 
-If all is well then the robot will play a nice *"do-re-me"* sound and a message like this should appear (amongst all the other text):
+Si todo está bien, el robot reproducirá un agradable sonido *"do-re-mi"* y debería aparecer un mensaje como este (entre todo el otro texto):
 
 ``` { .txt .no-copy }
 [tb3_status.py-#] ######################################
-[tb3_status.py-#] ### dia-waffleX is up and running! ###
+[tb3_status.py-#] ### robot-X is up and running! ###
 [tb3_status.py-#] ######################################
 ```
 
-You shouldn't need to interact with this terminal instance any more now, but the screen will provide you with some regular real-time info related to the status of the robot. As such, keep this terminal open in the background and check on the `Battery` indicator every now and then:
+Ya no deberías necesitar interactuar con esta instancia de terminal, pero la pantalla te proporcionará información en tiempo real sobre el estado del robot. Por tanto, mantén esta terminal abierta en segundo plano y verifica el indicador de `Battery` de vez en cuando:
 
 ``` { .txt .no-copy } 
 Battery: 12.40V [100%]
 ```
 
-!!! info "Low Battery :material-battery-low:"
+!!! info "Batería Baja :material-battery-low:"
 
-    **The robot's battery won't last a full 2-hour lab session!!**
+    **¡La batería del robot no durará una sesión de laboratorio completa de 2 horas!**
 
-    When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)
+    Cuando el indicador de capacidad llegue alrededor del 15%, comenzará a emitir pitidos, y cuando llegue a ~10% dejará de funcionar por completo. Avísale a un miembro del equipo docente cuando la batería esté baja y la reemplazaremos para ti. (¡Es más fácil hacerlo cuando llega al 15%, en lugar de esperar a que baje del 10%!)
 
 
-## Step 4: Connecting to the *Zenoh Router* {#step4}
+## Paso 4: Conectarse al *Router Zenoh* {#step4}
 
-We use a ROS 2 Middleware (RMW) implementation called [Zenoh](https://github.com/ros2/rmw_zenoh) to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh *Router*, and this was enabled as part of the *bringup* operations that you launched in [Step 3 above](#step3). We now need to launch a *Session* on the laptop to connect to this router. 
+Usamos una implementación de Middleware de ROS 2 (RMW) llamada [Zenoh](https://github.com/ros2/rmw_zenoh) para habilitar la comunicación robot-laptop a través de la red inalámbrica. El Waffle actúa como el *Router* Zenoh, y esto se habilitó como parte de las operaciones de *bringup* que lanzaste en el [Paso 3 anterior](#step3). Ahora necesitamos lanzar una *Sesión* en la laptop para conectarse a este router.
 
-!!! warning "This is Essential!"
-    You **always** need to have a Zenoh session running on the laptop in order to be able to communicate with your robot!
+!!! warning "¡Esto es Esencial!"
+    ¡**Siempre** necesitas tener una sesión Zenoh ejecutándose en la laptop para poder comunicarte con tu robot!
 
-Open up **a new terminal instance** on the laptop (either by using the ++ctrl+alt+t++ keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:
+Abre **una nueva instancia de terminal** en la laptop (ya sea usando el atajo ++ctrl+alt+t++ o haciendo clic en el ícono de la aplicación Terminal) e ingresa el siguiente comando:
 
 ```bash
 ros2 run rmw_zenoh_cpp rmw_zenohd
 ```
 
-You should now have two terminals active: 
+Ahora deberías tener dos terminales activas:
 
-1. The *robot* terminal where you ran the `ros2 launch tuos_tb3_tools ros.launch.py` operation (aka *"the bringup"*) in [Step 3](#step3)[^term_recover]
-1. The *laptop* terminal where you just ran the `rmw_zenohd` node
+1. La terminal del *robot* donde ejecutaste la operación `ros2 launch tuos_tb3_tools ros.launch.py` (también conocida como *"el bringup"*) en el [Paso 3](#step3)[^term_recover]
+1. La terminal de la *laptop* donde acabas de ejecutar el nodo `rmw_zenohd`
 
-[^term_recover]: If you happen to have closed down the *robot* terminal, you can return to it by entering `waffle X term` from a new terminal instance on the laptop.
+[^term_recover]: Si llegaste a cerrar la terminal del *robot*, puedes volver a ella ingresando `waffle X term` desde una nueva instancia de terminal en la laptop.
 
-Leave both of these terminals alone, but **keep them running in the background at all times** while working with your robot.
+Deja ambas terminales en funcionamiento, pero **mantenlas ejecutándose en segundo plano en todo momento** mientras trabajas con tu robot.
 
-## Shutting Down (at the end of a Lab Session)
+## Apagado (al final de una Sesión de Laboratorio)
 
-When you've finished working with a robot it's really important to **shut it down properly** before turning off the power switch. Please refer to the [safe shutdown procedures](./shutdown.md) for more info.
+Cuando hayas terminado de trabajar con un robot, es muy importante **apagarlo correctamente** antes de apagar el interruptor de encendido. Consulta los [procedimientos de apagado seguro](./shutdown.md) para más información.

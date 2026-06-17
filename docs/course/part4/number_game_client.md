@@ -1,61 +1,61 @@
 ---  
-title: Creating a Python Service Client
+title: Crear un Python Service Client
 ---
 
-Copy **all** the code below into your `number_game_client.py` file and then **review the annotations** to understand how it all works.
+Copia **todo** el código a continuación en tu archivo `number_game_client.py` y luego **revisa las anotaciones** para entender cómo funciona todo.
 
 ```python title="number_game_client.py"
 --8<-- "code_templates/number_game_client.py"
 ```
 
-1. Creating a Service *Client* is done using the `create_client()` class method, providing the name of the service that we want to call (`srv_name`), and specifying the interface type used by it (`srv_type`). 
+1. Crear un *Client* de Service se hace usando el método de clase `create_client()`, proporcionando el nombre del service que queremos llamar (`srv_name`), y especificando el tipo de interface utilizado por él (`srv_type`). 
 
-    `srv_type` and `srv_name` **must** match the definition in the server, in order to be able to communicate and send requests to it. 
+    `srv_type` y `srv_name` **deben** coincidir con la definición en el server, para poder comunicarse y enviar requests a él. 
 
-2. We're declaring some parameters here (recall [Part 3](../part3.md#ex2)). We'll be using these differently this time however: *to create a command-line interface (CLI) for our node*. Essentially, we'll be setting these parameters dynamically when we call it with `ros2 run` (so that we can change the values each time we launch the client).
+2. Aquí estamos declarando algunos parámetros (recuerda la [Parte 3](../part3.md#ex2)). Sin embargo, esta vez los usaremos de manera diferente: *para crear una interfaz de línea de comandos (CLI) para nuestro nodo*. Esencialmente, estableceremos estos parámetros dinámicamente cuando lo llamemos con `ros2 run` (para poder cambiar los valores cada vez que iniciemos el client).
 
-    We're defining two parameters for the node, to match the attributes of the service request:
+    Estamos definiendo dos parámetros para el nodo, para que coincidan con los atributos de la request de service:
 
-    1.`"guess"`: An integer, with a default value of `0`. 
-    2. `"cheat"`: A boolean, with a default value of `False`.
+    1.`"guess"`: Un entero, con un valor predeterminado de `0`. 
+    2. `"cheat"`: Un booleano, con un valor predeterminado de `False`.
 
-    (You'll see how this all works shortly, when we actually run the node.)
+    (Verás cómo funciona todo esto en breve, cuando realmente ejecutemos el nodo.)
 
-3. We use a `while` loop here to halt the execution of the code at this point and wait for the service to become available (if it isn't already). 
+3. Usamos un bucle `while` aquí para detener la ejecución del código en este punto y esperar a que el service esté disponible (si no lo está ya). 
 
-    We can't send a request to a service that isn't actually running!
+    ¡No podemos enviar una request a un service que no esté realmente en ejecución!
 
-4. In this class method we construct the service request and send it.
+4. En este método de clase construimos la request de service y la enviamos.
     
-    (This method is called in the `main()` function below.)
+    (Este método es llamado en la función `main()` a continuación.)
 
-5. Read the value of the `guess` parameter, which we'll set from the command-line when we call the node (with `ros2 run`).
+5. Lee el valor del parámetro `guess`, que estableceremos desde la línea de comandos cuando llamemos al nodo (con `ros2 run`).
 
-    This has been split across three lines, otherwise it gets too long and runs off the screen!
+    ¡Esto se ha dividido en tres líneas, de lo contrario se vuelve demasiado largo y se sale de la pantalla!
 
-6. Read the value of the `cheat` parameter, which we'll *also* set from the command-line (we'll look at this shortly).
+6. Lee el valor del parámetro `cheat`, que *también* estableceremos desde la línea de comandos (lo veremos en breve).
 
-    *Also* split across three lines for no reason other than readability!
+    ¡*También* dividido en tres líneas por ninguna razón más que la legibilidad!
 
-7. Here we're printing the parameter values to the terminal as a log message, to confirm exactly what request will be sent to the server.
+7. Aquí estamos imprimiendo los valores de los parámetros en la terminal como un mensaje de log, para confirmar exactamente qué request se enviará al server.
 
-8. Here we actually construct the request, using a `part4_services/srv/MyNumberGame` interface class instance, as imported up at the top.
+8. Aquí realmente construimos la request, usando una instancia de la clase de interface `part4_services/srv/MyNumberGame`, como se importó arriba.
 
-9. `#!py call_async(request)` then actually sends this request to the server.
+9. `#!py call_async(request)` luego realmente envía esta request al server.
 
-10. We then call our client's `send_request()` class method, which in turn (as you know from above) will initiate the construction of the request and send it to the server. 
+10. Luego llamamos al método de clase `send_request()` de nuestro client, que a su vez (como sabes de arriba) iniciará la construcción de la request y la enviará al server. 
 
-    The output of this function is the output of the `call_async(request)` call, which we assign to a variable called `future`.
+    La salida de esta función es la salida de la llamada `call_async(request)`, que asignamos a una variable llamada `future`.
 
-11. We use the `rclpy.spin_until_future_complete()` method here, which (as the name suggests) will allow our node (`client`) to spin *only* until our service request (`future`) has completed. 
+11. Usamos el método `rclpy.spin_until_future_complete()` aquí, que (como su nombre lo indica) permitirá que nuestro nodo (`client`) haga spin *solo* hasta que nuestra request de service (`future`) haya sido completada. 
 
-12. Once we've reached this point then the service has completed and returned its **Response**. 
+12. Una vez que hemos llegado a este punto, el service ha completado y devuelto su **Response**. 
     
-    We obtain the response from our `future` object so that we can read its values...
+    Obtenemos la response de nuestro objeto `future` para poder leer sus valores...
 
-13. To finish off, we construct a final log message containing the values returned by the Server (i.e. the **Response**). 
+13. Para terminar, construimos un mensaje de log final que contiene los valores devueltos por el Server (es decir, la **Response**). 
     
-    We know what these attributes are called, because we defined them in the `MyNumberGame.srv` file, which we can recall at any point using `ros2 interface show`:
+    Sabemos cómo se llaman estos atributos porque los definimos en el archivo `MyNumberGame.srv`, que podemos revisar en cualquier momento usando `ros2 interface show`:
 
     ``` { .txt .no-copy }
     $ ros2 interface show part4_services/srv/MyNumberGame

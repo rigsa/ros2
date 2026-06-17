@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
+        <meta name="description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/com/assignment2/part-a/task1/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/com/assignment2/part-a/task1/">
       
       
         <link rel="prev" href="../">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Task 1: Velocity Control - ROS 2 Labs in The Diamond</title>
+        <title>Tarea 1: Control de Velocidad - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../../../css/timeago.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Task 1: Velocity Control - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/com/assignment2/part-a/task1.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/com/assignment2/part-a/task1/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Task 1: Velocity Control - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/com/assignment2/part-a/task1.png">
-<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#summary" class="md-skip">
+        <a href="#resumen" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../../../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Task 1: Velocity Control
+              Tarea 1: Control de Velocidad
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../../../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1000,7 +1037,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1028,7 +1065,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1056,7 +1093,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1084,7 +1121,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1112,7 +1149,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1140,7 +1177,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1165,6 +1202,8 @@
       
         
           
+        
+      
         
       
         
@@ -1239,7 +1278,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1267,7 +1306,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../course/extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1489,7 +1556,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1595,7 +1662,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1613,7 +1680,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1637,10 +1704,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#resumen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Resumen
       
     </span>
   </a>
@@ -1648,22 +1715,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#details" class="md-nav__link">
+  <a href="#detalles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Details
+        Detalles
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Details">
+    <nav class="md-nav" aria-label="Detalles">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-note-on-odometry" class="md-nav__link">
+  <a href="#una-nota-sobre-la-odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A note on Odometry
+        Una nota sobre la Odometría
       
     </span>
   </a>
@@ -1679,7 +1746,7 @@
   <a href="#launch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Executing Your Code
+        Ejecutar Tu Código
       
     </span>
   </a>
@@ -1687,22 +1754,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#marking" class="md-nav__link">
+  <a href="#marcacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Marking
+        Marcación
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Marking">
+    <nav class="md-nav" aria-label="Marcación">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#criterion-a-the-motion-path" class="md-nav__link">
+  <a href="#criterio-a-la-trayectoria-de-movimiento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Criterion A: The Motion Path
+        Criterio A: La Trayectoria de Movimiento
       
     </span>
   </a>
@@ -1710,10 +1777,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#criterion-b-terminal-messages" class="md-nav__link">
+  <a href="#criterio-b-mensajes-de-terminal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Criterion B: Terminal Messages
+        Criterio B: Mensajes de Terminal
       
     </span>
   </a>
@@ -1726,10 +1793,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simulation-resources" class="md-nav__link">
+  <a href="#recursos-de-simulacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simulation Resources
+        Recursos de Simulación
       
     </span>
   </a>
@@ -1759,7 +1826,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -1866,7 +1933,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -1894,7 +1961,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -1930,7 +1997,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -1958,7 +2025,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2177,7 +2244,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2205,7 +2272,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2233,7 +2300,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2261,7 +2328,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2289,7 +2356,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2571,7 +2638,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2676,6 +2743,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2701,10 +3202,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#resumen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Resumen
       
     </span>
   </a>
@@ -2712,22 +3213,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#details" class="md-nav__link">
+  <a href="#detalles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Details
+        Detalles
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Details">
+    <nav class="md-nav" aria-label="Detalles">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-note-on-odometry" class="md-nav__link">
+  <a href="#una-nota-sobre-la-odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A note on Odometry
+        Una nota sobre la Odometría
       
     </span>
   </a>
@@ -2743,7 +3244,7 @@
   <a href="#launch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Executing Your Code
+        Ejecutar Tu Código
       
     </span>
   </a>
@@ -2751,22 +3252,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#marking" class="md-nav__link">
+  <a href="#marcacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Marking
+        Marcación
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Marking">
+    <nav class="md-nav" aria-label="Marcación">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#criterion-a-the-motion-path" class="md-nav__link">
+  <a href="#criterio-a-la-trayectoria-de-movimiento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Criterion A: The Motion Path
+        Criterio A: La Trayectoria de Movimiento
       
     </span>
   </a>
@@ -2774,10 +3275,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#criterion-b-terminal-messages" class="md-nav__link">
+  <a href="#criterio-b-mensajes-de-terminal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Criterion B: Terminal Messages
+        Criterio B: Mensajes de Terminal
       
     </span>
   </a>
@@ -2790,10 +3291,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simulation-resources" class="md-nav__link">
+  <a href="#recursos-de-simulacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simulation Resources
+        Recursos de Simulación
       
     </span>
   </a>
@@ -2817,7 +3318,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/com/assignment2/part-a/task1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/com/assignment2/part-a/task1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2826,204 +3327,203 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/com/assignment2/part-a/task1.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/com/assignment2/part-a/task1.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-  <h1>Task 1: Velocity Control</h1>
+  <h1>Tarea 1: Control de Velocidad</h1>
 
-<p>Develop a working ROS application to making <em>a real TurtleBot3 Waffle</em> follow a prescribed motion profile, whilst printing key information to the terminal.</p>
+<p>Desarrolla una aplicación de ROS funcional para hacer que un <em>TurtleBot3 Waffle real</em> siga un perfil de movimiento prescrito, mientras imprime información clave en la terminal.</p>
 <div class="admonition success">
-<p class="admonition-title">Course Checkpoints</p>
-<p>The following parts of <a href="../../../assignment1/">The ROS 2 Course</a> will support your work on this task: </p>
+<p class="admonition-title">Puntos de Control del Curso</p>
+<p>Las siguientes partes del <a href="../../../assignment1/">Curso de ROS 2</a> apoyarán tu trabajo en esta tarea:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Part 1</strong>: in full.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Part 2</strong>: up to (and including) <a href="../../../../course/part2/#ex5">Exercise 5</a>.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Part 3</strong>: <a href="../../../../course/part3/#ex1">Exercise 1</a>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Parte 1</strong>: en su totalidad.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Parte 2</strong>: hasta (e incluyendo) el <a href="../../../../course/part2/#ex5">Ejercicio 5</a>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Parte 3</strong>: <a href="../../../../course/part3/#ex1">Ejercicio 1</a>.</li>
 </ul>
-<p><strong>See Also</strong> - <a href="../../../../waffles/essentials/">Understanding the Waffles</a>: </p>
+<p><strong>Ver También</strong> - <a href="../../../../waffles/essentials/">Entendiendo los Waffles</a>:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Motion and Velocity Control</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Control de Movimiento y Velocidad</li>
 </ul>
 </div>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
-<p>The main objective of this task is to create a ROS node (or multiple nodes) that make your robot follow a <strong>figure-of-eight</strong> pattern on the robot arena floor. The figure-of-eight trajectory should be generated by following two loops, both 1 meter in diameter, as shown below. <a name="fig-eight"></a></p>
+<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">¶</a></h2>
+<p>El objetivo principal de esta tarea es crear un node de ROS (o múltiples nodes) que hagan que tu robot siga un patrón de <strong>figura ocho</strong> en el suelo del arena robótico. La trayectoria de figura ocho debe generarse siguiendo dos bucles, ambos de 1 metro de diámetro, como se muestra a continuación. <a name="fig-eight"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task1_motion_path.png" width="400px"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/task1_motion_path.png" data-desc-position="bottom"><img alt="" src="../../figures/task1_motion_path.png" width="400px"></a>
   </p>
-<figcaption>The figure-of-eight path for Task 1.</figcaption>
+<figcaption>La trayectoria de figura ocho para la Tarea 1.</figcaption>
 </figure>
-<p>The Robot Arena will be set up as follows for this task:</p>
+<p>El Arena Robótico estará configurado de la siguiente manera para esta tarea:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task1_arena_layout.jpg" width="500px"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/task1_arena_layout.jpg" data-desc-position="bottom"><img alt="" src="../../figures/task1_arena_layout.jpg" width="500px"></a>
   </p>
-<figcaption>The DIA-CR5 Robot Arena layout for Task 1.</figcaption>
+<figcaption>La configuración del Arena Robótico para la Tarea 1.</figcaption>
 </figure>
-<p>Whilst doing this, you will also need to present robot odometry data to the terminal at regular intervals (<a href="#details">see below for the specifics</a>). Your node must output this data as ROS 2 Log Messages with <code>INFO</code> severity, i.e. using <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> calls from within one of your nodes. Log messaging is used in lots of the exercises and example code throughout Assignment #1, and so you should refer back to this for guidance if you need it. </p>
-<p>Additionally, for this task, log messages must be <em>formatted</em> in a particular way, so you might want to have a look at the documentation on <a href="https://docs.python.org/3/tutorial/inputoutput.html" target="_blank" rel="noopener">Python String Formatting</a>, and read the details below thoroughly so that you know what is expected!</p>
-<h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">¶</a></h2>
+<p>Mientras haces esto, también necesitarás presentar datos de odometría del robot en la terminal a intervalos regulares (<a href="#details">ver abajo para los detalles específicos</a>). Tu node debe generar estos datos como Mensajes de Log de ROS 2 con severidad <code>INFO</code>, es decir, usando llamadas <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> dentro de uno de tus nodes. Los mensajes de log se usan en muchos de los ejercicios y el código de ejemplo a lo largo de la Asignación #1, por lo que debes consultarlos para orientación si lo necesitas.</p>
+<p>Además, para esta tarea, los mensajes de log deben estar <em>formateados</em> de una manera particular, por lo que quizás quieras consultar la documentación sobre <a href="https://docs.python.org/3/tutorial/inputoutput.html" target="_blank">Formato de Cadenas de Python</a>, y leer los detalles a continuación cuidadosamente para saber qué se espera.</p>
+<h2 id="detalles">Detalles<a class="headerlink" href="#detalles" title="Permanent link">¶</a></h2>
 <ol>
-<li>"<strong>Loop 1</strong>": The robot must start by moving <strong>anti-clockwise</strong>, following a circular motion path of 1 m diameter around the red beacon <a href="#fig-eight">as shown above</a>.</li>
-<li>"<strong>Loop 2</strong>": Once the robot has returned to the starting point, it must then turn <strong>clockwise</strong> to follow a second circular path, again of 1 m diameter, this time around the blue beacon.</li>
-<li>After Loop 2 the robot must stop on the start / finish line (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4v5H6v2h5v5h2v-5h5V9h-5V4zM6 18v2h12v-2z"></path></svg></span>10 cm, as denoted by the white tape lines on the floor).</li>
+<li>"<strong>Bucle 1</strong>": El robot debe comenzar moviéndose en sentido <strong>antihorario</strong>, siguiendo una trayectoria de movimiento circular de 1 m de diámetro alrededor de la baliza roja <a href="#fig-eight">como se muestra arriba</a>.</li>
+<li>"<strong>Bucle 2</strong>": Una vez que el robot haya regresado al punto de partida, debe girar en sentido <strong>horario</strong> para seguir una segunda trayectoria circular, también de 1 m de diámetro, esta vez alrededor de la baliza azul.</li>
+<li>Después del Bucle 2, el robot debe detenerse en la línea de inicio/fin (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4v5H6v2h5v5h2v-5h5V9h-5V4zM6 18v2h12v-2z"></path></svg></span>10 cm, como indica el marcado en el suelo).</li>
 <li>
-<p>The velocity of the robot should be defined to ensure that the whole sequence takes <strong>60 seconds</strong> to complete (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4v5H6v2h5v5h2v-5h5V9h-5V4zM6 18v2h12v-2z"></path></svg></span>5 seconds).</p>
-<p><strong>Note</strong>: <em>The timer will start as soon as the robot starts moving</em>.</p>
+<p>La velocidad del robot debe definirse para asegurar que toda la secuencia tome <strong>60 segundos</strong> en completarse (<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4v5H6v2h5v5h2v-5h5V9h-5V4zM6 18v2h12v-2z"></path></svg></span>5 segundos).</p>
+<p><strong>Nota</strong>: <em>El temporizador comenzará tan pronto como el robot empiece a moverse</em>.</p>
 </li>
 <li>
-<p>The robot's real-time pose should be printed to the terminal throughout, where messages should be of the following format (<strong>exactly</strong>): <a name="msg-format"></a></p>
+<p>La pose en tiempo real del robot debe imprimirse en la terminal durante todo el proceso, donde los mensajes deben tener el siguiente formato (<strong>exactamente</strong>): <a name="msg-format"></a></p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>x={x} [m], y={y} [m], yaw={yaw} [degrees].
 </code></pre></div>
-<p>Where <code>{x}</code>, <code>{y}</code> and <code>{yaw}</code> should be replaced with the correct real-time odometry data as follows:</p>
+<p>Donde <code>{x}</code>, <code>{y}</code> y <code>{yaw}</code> deben reemplazarse con los datos de odometría en tiempo real correctos de la siguiente manera:</p>
 <ol>
-<li><code>{x}</code>: the robot's linear position in the X axis, quoted in meters to <strong>two decimal places</strong>.</li>
-<li><code>{y}</code>: the robot's linear position in the Y axis, quoted in meters to <strong>two decimal places</strong>.</li>
-<li><code>{yaw}</code>: the robot's orientation about the Z axis, quoted in degrees to <strong>one decimal place</strong>.</li>
+<li><code>{x}</code>: la posición lineal del robot en el eje X, citada en metros a <strong>dos decimales</strong>.</li>
+<li><code>{y}</code>: la posición lineal del robot en el eje Y, citada en metros a <strong>dos decimales</strong>.</li>
+<li><code>{yaw}</code>: la orientación del robot alrededor del eje Z, citada en grados a <strong>un decimal</strong>.</li>
 </ol>
-<p>The data should be quoted relative to its starting position at the beginning of the task, e.g. at the start of the task (before the robot has moved) the terminal messages should read:</p>
+<p>Los datos deben citarse relativos a su posición de inicio al comienzo de la tarea, por ejemplo, al inicio de la tarea (antes de que el robot se haya movido) los mensajes de la terminal deben decir:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>x=0.00 [m], y=0.00 [m], yaw=0.0 [degrees].
 </code></pre></div>
-<!-- TODO: a figure? -->
-<p>These message should be printed to the terminal <strong>at a rate of 1Hz</strong>. It doesn't matter if the messages continue to be printed to the terminal after the robot has stopped (i.e. after the figure-of-eight has been completed).</p>
+<p>Estos mensajes deben imprimirse en la terminal <strong>a una tasa de 1Hz</strong>. No importa si los mensajes continúan imprimiéndose en la terminal después de que el robot se haya detenido (es decir, después de que la figura ocho se haya completado).</p>
 <div class="admonition warning">
-<p class="admonition-title">Important</p>
-<p>You should use <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> method calls within your node to print these terminal messages.</p>
+<p class="admonition-title">Importante</p>
+<p>Debes usar llamadas al método <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> dentro de tu node para imprimir estos mensajes en la terminal.</p>
 </div>
 </li>
 </ol>
-<h3 id="a-note-on-odometry">A note on Odometry<a class="headerlink" href="#a-note-on-odometry" title="Permanent link">¶</a></h3>
-<p>When the robot is placed in the arena at the start of the task <strong>its odometry may not necessarily read zero</strong>, so you will need to compensate for this. You'll therefore need to grab the robot pose from the <code>/odom</code> topic before your robot starts moving, and then use that as the zero-reference to convert all the subsequent odometry readings that you obtain throughout the task.</p>
-<p>Odometry and keeping track of the robot's <em>pose</em> is discussed in detail in <a href="../../../../course/part2/">Assignment #1 Part 2</a>.</p>
-<h2 id="launch">Executing Your Code<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
-<p>When assessing your code for this task, the teaching team will use the following command to execute all the necessary functionality from within your package:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>com2009_teamXX_2026<span class="w"> </span>task1.launch.py
+<h3 id="una-nota-sobre-la-odometria">Una nota sobre la Odometría<a class="headerlink" href="#una-nota-sobre-la-odometria" title="Permanent link">¶</a></h3>
+<p>Cuando el robot se coloca en el arena al inicio de la tarea <strong>su odometría puede no ser necesariamente cero</strong>, por lo que necesitarás compensar esto. Por lo tanto, deberás obtener la pose del robot del topic <code>/odom</code> antes de que tu robot empiece a moverse, y luego usarla como referencia cero para convertir todas las lecturas de odometría posteriores que obtengas a lo largo de la tarea.</p>
+<p>La odometría y el seguimiento de la <em>pose</em> del robot se discuten en detalle en la <a href="../../../../course/part2/">Asignación #1 Parte 2</a>.</p>
+<h2 id="launch">Ejecutar Tu Código<a class="headerlink" href="#launch" title="Permanent link">¶</a></h2>
+<p>Al evaluar tu código para esta tarea, el equipo docente usará el siguiente comando para ejecutar toda la funcionalidad necesaria desde dentro de tu paquete:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>ros2_lab_equipoXX<span class="w"> </span>task1.launch.py
 </code></pre></div>
-<p>... where <code>XX</code> will be replaced with <em>your team number</em>.</p>
-<p>As such, your ROS 2 Node(s) for Task 1 <strong>MUST</strong> be executable via a launch file, and this launch file <strong>MUST</strong> be called <code>task1.launch.py</code>.</p>
+<p>... donde <code>XX</code> será reemplazado con <em>tu número de equipo</em>.</p>
+<p>Por lo tanto, tus Nodes de ROS 2 para la Tarea 1 <strong>DEBEN</strong> ser ejecutables a través de un archivo de lanzamiento, y este archivo de lanzamiento <strong>DEBE</strong> llamarse <code>task1.launch.py</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ROS will already be running on the robot before we attempt to execute your launch file, and <a href="../../../../waffles/launching-ros/#step4">a <em>Zenoh Session</em> will be running on the laptop, to allow your nodes (running on the laptop) to communicate with it</a>. You don't need to include any of this in your <code>task1.launch.py</code> launch description.</p>
+<p>ROS ya estará ejecutándose en el robot antes de que intentemos ejecutar tu archivo de lanzamiento, y <a href="../../../../waffles/launching-ros/#step4">una <em>Sesión Zenoh</em> estará ejecutándose en la laptop, para permitir que tus nodes (ejecutándose en la laptop) se comuniquen con él</a>. No necesitas incluir nada de esto en la descripción de lanzamiento de tu <code>task1.launch.py</code>.</p>
 </div>
-<h2 id="marking">Marking<a class="headerlink" href="#marking" title="Permanent link">¶</a></h2>
-<p>This task will be assessed by the teaching team as part of Part A (i.e. along with <a href="../task2/">Task 2</a>). This will be assessed during the Easter Holiday period, with feedback returned to you before the semester resumes.</p>
-<p>There are <strong>20 marks</strong> available for this task in total, summarised as follows:</p>
+<h2 id="marcacion">Marcación<a class="headerlink" href="#marcacion" title="Permanent link">¶</a></h2>
+<p>Esta tarea será evaluada por el equipo docente como parte de la Parte A (es decir, junto con la <a href="../task2/">Tarea 2</a>).</p>
+<p>Hay <strong>20 puntos</strong> disponibles para esta tarea en total, resumidos de la siguiente manera:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Criteria</th>
-<th style="text-align: center;">Marks</th>
-<th style="text-align: left;">Details</th>
+<th style="text-align: left;">Criterio</th>
+<th style="text-align: center;">Puntos</th>
+<th style="text-align: left;">Detalles</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>A</strong>: The Motion Path</td>
+<td style="text-align: left;"><strong>A</strong>: La Trayectoria de Movimiento</td>
 <td style="text-align: center;">10/20</td>
-<td style="text-align: left;">How closely the real robot follows <em>a true figure-of-eight</em> path in the robot arena, based on <a href="#criterion-a-the-motion-path">the criteria table below</a>.</td>
+<td style="text-align: left;">Qué tan de cerca el robot real sigue <em>una verdadera trayectoria de figura ocho</em> en el arena robótico, basado en <a href="#criterion-a-the-motion-path">la tabla de criterios a continuación</a>.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>B</strong>: Terminal Messages</td>
+<td style="text-align: left;"><strong>B</strong>: Mensajes de Terminal</td>
 <td style="text-align: center;">10/20</td>
-<td style="text-align: left;">The correct formatting of your odometry messages, and the validity of the data that is presented in the terminal as the robot performs the task, based on <a href="#criterion-b-terminal-messages">the criteria table below</a>.</td>
+<td style="text-align: left;">El formato correcto de tus mensajes de odometría, y la validez de los datos que se presentan en la terminal mientras el robot realiza la tarea, basado en <a href="#criterion-b-terminal-messages">la tabla de criterios a continuación</a>.</td>
 </tr>
 </tbody>
 </table>
 <p></p></center><p></p>
-<h3 id="criterion-a-the-motion-path">Criterion A: The Motion Path<a class="headerlink" href="#criterion-a-the-motion-path" title="Permanent link">¶</a></h3>
-<p><strong>Marks:</strong> 10/20</p>
+<h3 id="criterio-a-la-trayectoria-de-movimiento">Criterio A: La Trayectoria de Movimiento<a class="headerlink" href="#criterio-a-la-trayectoria-de-movimiento" title="Permanent link">¶</a></h3>
+<p><strong>Puntos:</strong> 10/20</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Criteria</th>
-<th style="text-align: left;">Details</th>
-<th style="text-align: left;">Marks</th>
+<th style="text-align: left;">Criterio</th>
+<th style="text-align: left;">Detalles</th>
+<th style="text-align: left;">Puntos</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>A1</strong>: Direction of travel</td>
-<td style="text-align: left;">The robot must move anticlockwise for the first loop ("Loop 1") and then clockwise for the second ("Loop 2").</td>
+<td style="text-align: left;"><strong>A1</strong>: Dirección de desplazamiento</td>
+<td style="text-align: left;">El robot debe moverse en sentido antihorario para el primer bucle ("Bucle 1") y luego en sentido horario para el segundo ("Bucle 2").</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>A2</strong>: Loop 1</td>
-<td style="text-align: left;">The loop must be 1 m in diameter, centred about the red beacon.</td>
+<td style="text-align: left;"><strong>A2</strong>: Bucle 1</td>
+<td style="text-align: left;">El bucle debe ser de 1 m de diámetro, centrado alrededor de la baliza roja.</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>A3</strong>: Loop 2</td>
-<td style="text-align: left;">The loop must be 1 m in diameter, centred about the blue beacon.</td>
+<td style="text-align: left;"><strong>A3</strong>: Bucle 2</td>
+<td style="text-align: left;">El bucle debe ser de 1 m de diámetro, centrado alrededor de la baliza azul.</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>A4</strong>: Stopping</td>
-<td style="text-align: left;">Once the robot completes its figure of eight, it must stop with both wheels <strong>within 10 cm</strong> of the start line (as denoted by white tape lines on the floor).</td>
+<td style="text-align: left;"><strong>A4</strong>: Parada</td>
+<td style="text-align: left;">Una vez que el robot complete su figura ocho, debe detenerse con ambas ruedas <strong>dentro de los 10 cm</strong> de la línea de inicio (como indica el marcado en el suelo).</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>A5</strong>: Timing</td>
-<td style="text-align: left;">The robot must complete the full figure of eight and stop in 55-65 seconds.</td>
+<td style="text-align: left;"><strong>A5</strong>: Temporización</td>
+<td style="text-align: left;">El robot debe completar la figura ocho completa y detenerse en 55-65 segundos.</td>
 <td style="text-align: left;">2</td>
 </tr>
 </tbody>
 </table>
 <p></p></center><p></p>
-<h3 id="criterion-b-terminal-messages">Criterion B: Terminal Messages<a class="headerlink" href="#criterion-b-terminal-messages" title="Permanent link">¶</a></h3>
-<p><strong>Marks:</strong> 10/20</p>
+<h3 id="criterio-b-mensajes-de-terminal">Criterio B: Mensajes de Terminal<a class="headerlink" href="#criterio-b-mensajes-de-terminal" title="Permanent link">¶</a></h3>
+<p><strong>Puntos:</strong> 10/20</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Criteria</th>
-<th style="text-align: left;">Details</th>
-<th style="text-align: left;">Marks</th>
+<th style="text-align: left;">Criterio</th>
+<th style="text-align: left;">Detalles</th>
+<th style="text-align: left;">Puntos</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>B1</strong>: Rate</td>
-<td style="text-align: left;">Messages should be printed to the terminal at <strong>a rate of 1 Hz</strong>.</td>
+<td style="text-align: left;"><strong>B1</strong>: Tasa</td>
+<td style="text-align: left;">Los mensajes deben imprimirse en la terminal <strong>a una tasa de 1 Hz</strong>.</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>B2</strong>: Format</td>
-<td style="text-align: left;">The messages printed to the terminal should be formatted <strong>exactly</strong> <a href="#msg-format">as detailed above</a>, and must be presented as ROS 2 Log Messages with <code>INFO</code> severity (i.e. using <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> method calls).</td>
+<td style="text-align: left;"><strong>B2</strong>: Formato</td>
+<td style="text-align: left;">Los mensajes impresos en la terminal deben estar formateados <strong>exactamente</strong> <a href="#msg-format">como se detalla arriba</a>, y deben presentarse como Mensajes de Log de ROS 2 con severidad <code>INFO</code> (es decir, usando llamadas al método <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code>).</td>
 <td style="text-align: left;">2</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>B3</strong>: Data</td>
-<td style="text-align: left;">Each message value (<code>x</code>, <code>y</code> and <code>yaw</code>) should be plausible, that is: they represent the actual pose of the robot at all points throughout the figure-of-eight, based on all readings being set to zero at the start/finish line (<a href="#fig-eight">as illustrated above</a>). In addition, each value must be quoted in the correct units (meters / degrees, as appropriate).</td>
+<td style="text-align: left;"><strong>B3</strong>: Datos</td>
+<td style="text-align: left;">Cada valor del mensaje (<code>x</code>, <code>y</code> y <code>yaw</code>) debe ser plausible, es decir: representar la pose real del robot en todos los puntos a lo largo de la figura ocho, basándose en que todas las lecturas se establezcan en cero en la línea de inicio/fin (<a href="#fig-eight">como se ilustra arriba</a>). Además, cada valor debe citarse en las unidades correctas (metros / grados, según corresponda).</td>
 <td style="text-align: left;">6</td>
 </tr>
 </tbody>
 </table>
 <p></p></center><p></p>
-<h2 id="simulation-resources">Simulation Resources<a class="headerlink" href="#simulation-resources" title="Permanent link">¶</a></h2>
-<p>You might find it helpful to develop the core functionality for this task in simulation before getting things running on the real robot. </p>
+<h2 id="recursos-de-simulacion">Recursos de Simulación<a class="headerlink" href="#recursos-de-simulacion" title="Permanent link">¶</a></h2>
+<p>Podría resultarte útil desarrollar la funcionalidad principal para esta tarea en simulación antes de ejecutar las cosas en el robot real.</p>
 <div class="admonition warning">
-<p class="admonition-title">Real World vs. Sim</p>
-<p><strong>There is no substitute for real-world testing</strong>! </p>
-<p>While you might develop a ROS application that works perfectly in simulation, this doesn't mean that it will work equally well in the real world.</p>
-<p>Ultimately, this task (and indeed all the <em>other</em> Assignment #2 programming tasks) will be assessed on real robots, so make the most of the lab sessions and <strong>test things out on the real robots <ins>thoroughly</ins></strong>.</p>
+<p class="admonition-title">Mundo Real vs. Simulación</p>
+<p><strong>¡No hay sustituto para las pruebas en el mundo real!</strong></p>
+<p>Aunque podrías desarrollar una aplicación de ROS que funcione perfectamente en simulación, esto no significa que funcione igual de bien en el mundo real.</p>
+<p>En última instancia, esta tarea (y de hecho todas las demás tareas de programación de la Asignación #2) será evaluada en robots reales, así que aprovecha al máximo las sesiones de laboratorio y <strong>prueba las cosas en los robots reales <ins>a fondo</ins></strong>.</p>
 </div>
-<p><a href="#fig-eight">As shown above</a>, for the assessment there will be cylindrical beacons placed at the centre of each of the figure-of-eight loops which the robot will need to move around as it completes the task. We have therefore also created a simulation environment that is representative of the real world environment. This is available in the <code>tuos_task_sims</code> package, which is part of the <code>tuos_ros</code> Course Repo. The instructions for downloading and installing this within your own local ROS installation are <a href="../../../../course/extras/course-repo/">available here</a>.</p>
-<p>If you've already installed this (as part of Assignment #1 perhaps), then it's worth making sure that you have the most up-to-date version (<a href="../../../../course/extras/course-repo/#updating">as discussed here</a>).</p>
-<p>Once you've done all this, then you should be able to launch the simulation using <code>ros2 launch</code> as follows:</p>
+<p><a href="#fig-eight">Como se muestra arriba</a>, para la evaluación habrá balizas cilíndricas colocadas en el centro de cada uno de los bucles de la figura ocho alrededor de las cuales el robot deberá moverse mientras completa la tarea. Por lo tanto, también hemos creado un entorno de simulación que es representativo del entorno del mundo real. Este está disponible en el paquete <code>tuos_task_sims</code>, que es parte del Repositorio del Curso <code>tuos_ros</code>. Las instrucciones para descargarlo e instalarlo dentro de tu propia instalación local de ROS están <a href="../../../../course/extras/course-repo/">disponibles aquí</a>.</p>
+<p>Si ya lo has instalado (quizás como parte de la Asignación #1), vale la pena asegurarse de tener la versión más actualizada (<a href="../../../../course/extras/course-repo/#updating">como se discute aquí</a>).</p>
+<p>Una vez que hayas hecho todo esto, deberías poder lanzar la simulación usando <code>ros2 launch</code> de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>fig_of_eight.launch.py
 </code></pre></div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task1.png"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/task1.png" data-desc-position="bottom"><img alt="" src="../../figures/task1.png"></a>
   </p>
-<figcaption>A simulation environment to represent the real DIA-CR5 arena layout for Task 1.</figcaption>
+<figcaption>Un entorno de simulación para representar la configuración del arena robótico para la Tarea 1.</figcaption>
 </figure>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Loop markers are <em>illustrative</em>, there won't be any on the real robot arena floor during the assessment.</p>
+<p>Los marcadores de bucle son <em>ilustrativos</em>, no habrá ninguno en el suelo del arena robótico real durante la evaluación.</p>
 </div>
 
 
@@ -3033,37 +3533,8 @@
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 23, 2026 16:54:22 UTC"><span class="timeago" datetime="2026-03-23T16:54:22+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 23, 2026 16:54:22 UTC">2026-03-23</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -3092,7 +3563,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Assignment #2 Part A">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Asignación #2 Parte A">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -3102,20 +3573,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Assignment #2 Part A
+                Asignación #2 Parte A
               </div>
             </div>
           </a>
         
         
           
-          <a href="../task2/" class="md-footer__link md-footer__link--next" aria-label="Next: Task 2: Avoiding Obstacles">
+          <a href="../task2/" class="md-footer__link md-footer__link--next" aria-label="Next: Tarea 2: Evasión de Obstáculos">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Task 2: Avoiding Obstacles
+                Tarea 2: Evasión de Obstáculos
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3132,7 +3603,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -3162,30 +3633,14 @@
     
       <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../../js/timeago.min.js"></script>
-      
-        <script src="../../../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../../../javascripts/mathjax.js"></script>
       
-        <script src="../../../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

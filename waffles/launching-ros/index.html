@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
+        <meta name="description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/waffles/launching-ros/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/waffles/launching-ros/">
       
       
         <link rel="prev" href="../intro/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Launching ROS (and Pairing the Laptop) - ROS 2 Labs in The Diamond</title>
+        <title>Lanzando ROS (y Emparejando la Laptop) - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Launching ROS (and Pairing the Laptop) - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/waffles/launching-ros.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/waffles/launching-ros/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Launching ROS (and Pairing the Laptop) - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/waffles/launching-ros.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#step-1-identify-your-waffle" class="md-skip">
+        <a href="#paso-1-identificar-tu-waffle" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Launching ROS (and Pairing the Laptop)
+              Lanzando ROS (y Emparejando la Laptop)
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1000,7 +1037,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1028,7 +1065,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1056,7 +1093,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1084,7 +1121,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1112,7 +1149,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1140,7 +1177,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1165,6 +1202,8 @@
       
         
           
+        
+      
         
       
         
@@ -1239,7 +1278,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1267,7 +1306,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1486,7 +1553,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1585,7 +1652,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1613,7 +1680,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -1720,7 +1787,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -1748,7 +1815,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -1784,7 +1851,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -1812,7 +1879,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2031,7 +2098,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2059,7 +2126,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2087,7 +2154,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2115,7 +2182,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2143,7 +2210,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2435,7 +2502,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2453,7 +2520,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2477,10 +2544,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#step-1-identify-your-waffle" class="md-nav__link">
+  <a href="#paso-1-identificar-tu-waffle" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Identify your Waffle
+        Paso 1: Identificar tu Waffle
       
     </span>
   </a>
@@ -2488,10 +2555,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-pairing-your-waffle-to-a-laptop" class="md-nav__link">
+  <a href="#paso-2-emparejar-tu-waffle-con-una-laptop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Pairing your Waffle to a Laptop
+        Paso 2: Emparejar tu Waffle con una Laptop
       
     </span>
   </a>
@@ -2502,7 +2569,7 @@
   <a href="#step3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Launching ROS
+        Paso 3: Lanzando ROS
       
     </span>
   </a>
@@ -2513,7 +2580,7 @@
   <a href="#step4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Connecting to the Zenoh Router
+        Paso 4: Conectarse al Router Zenoh
       
     </span>
   </a>
@@ -2521,10 +2588,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#shutting-down-at-the-end-of-a-lab-session" class="md-nav__link">
+  <a href="#apagado-al-final-de-una-sesion-de-laboratorio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Shutting Down (at the end of a Lab Session)
+        Apagado (al final de una Sesión de Laboratorio)
       
     </span>
   </a>
@@ -2631,6 +2698,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2656,10 +3157,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#step-1-identify-your-waffle" class="md-nav__link">
+  <a href="#paso-1-identificar-tu-waffle" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Identify your Waffle
+        Paso 1: Identificar tu Waffle
       
     </span>
   </a>
@@ -2667,10 +3168,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-pairing-your-waffle-to-a-laptop" class="md-nav__link">
+  <a href="#paso-2-emparejar-tu-waffle-con-una-laptop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Pairing your Waffle to a Laptop
+        Paso 2: Emparejar tu Waffle con una Laptop
       
     </span>
   </a>
@@ -2681,7 +3182,7 @@
   <a href="#step3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Launching ROS
+        Paso 3: Lanzando ROS
       
     </span>
   </a>
@@ -2692,7 +3193,7 @@
   <a href="#step4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Connecting to the Zenoh Router
+        Paso 4: Conectarse al Router Zenoh
       
     </span>
   </a>
@@ -2700,10 +3201,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#shutting-down-at-the-end-of-a-lab-session" class="md-nav__link">
+  <a href="#apagado-al-final-de-una-sesion-de-laboratorio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Shutting Down (at the end of a Lab Session)
+        Apagado (al final de una Sesión de Laboratorio)
       
     </span>
   </a>
@@ -2727,7 +3228,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/waffles/launching-ros.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/waffles/launching-ros.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2736,108 +3237,108 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/waffles/launching-ros.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/waffles/launching-ros.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-  <h1>Launching ROS (and Pairing the Laptop)</h1>
+  <h1>Lanzando ROS (y Emparejando la Laptop)</h1>
 
-<p>The first step is to launch ROS on the Waffle.</p>
+<p>El primer paso es lanzar ROS en el Waffle.</p>
 <div class="admonition info">
-<p class="admonition-title">Important</p>
-<p>This ensures that all the core ROS functionality is executed on the robot, without this the robot won't be able to do <em>anything</em>!</p>
+<p class="admonition-title">Importante</p>
+<p>¡Esto garantiza que toda la funcionalidad básica de ROS se ejecute en el robot; sin esto, el robot no podrá hacer <em>nada</em>!</p>
 </div>
-<h2 id="step-1-identify-your-waffle">Step 1: Identify your Waffle<a class="headerlink" href="#step-1-identify-your-waffle" title="Permanent link">¶</a></h2>
-<p>Robots are named as follows:</p>
-<div class="highlight"><pre><span></span><code>dia-waffleX
+<h2 id="paso-1-identificar-tu-waffle">Paso 1: Identificar tu Waffle<a class="headerlink" href="#paso-1-identificar-tu-waffle" title="Permanent link">¶</a></h2>
+<p>Los robots se nombran de la siguiente manera:</p>
+<div class="highlight"><pre><span></span><code>robot-X
 </code></pre></div>
-<p>... where <code>X</code> is the <em>'Robot Number'</em> (a number between 1 and 50). Make sure you know which robot you are working with by checking the label printed on top of it!</p>
-<h2 id="step-2-pairing-your-waffle-to-a-laptop">Step 2: Pairing your Waffle to a Laptop<a class="headerlink" href="#step-2-pairing-your-waffle-to-a-laptop" title="Permanent link">¶</a></h2>
-<p><a href="../intro/#laptops">As discussed earlier</a>, you'll be provided with one of our Robotics Laptops to work with in the lab, and the robot needs to be paired with this in order for the two to work together.  </p>
+<p>... donde <code>X</code> es el <em>'Número de Robot'</em> (un número entre 1 y 50). ¡Asegúrate de saber con cuál robot estás trabajando revisando la etiqueta impresa en la parte superior!</p>
+<h2 id="paso-2-emparejar-tu-waffle-con-una-laptop">Paso 2: Emparejar tu Waffle con una Laptop<a class="headerlink" href="#paso-2-emparejar-tu-waffle-con-una-laptop" title="Permanent link">¶</a></h2>
+<p><a href="../intro/#laptops">Como se explicó anteriormente</a>, se te proporcionará una de nuestras Laptops del Laboratorio para trabajar en el laboratorio, y el robot debe emparejarse con esta para que ambos funcionen juntos.</p>
 <ol>
 <li>
-<p>Open up a terminal instance on the laptop, either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:</p>
+<p>Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del lado izquierdo del escritorio:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/terminal_icon.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>We'll use our purpose-built <code>waffle</code> CLI to handle the pairing process. Run this in the terminal by entering the following command to <em>pair</em> the laptop and robot:</p>
+<p>Usaremos nuestra CLI <code>waffle</code> específicamente diseñada para manejar el proceso de emparejamiento. Ejecútala en la terminal ingresando el siguiente comando para <em>emparejar</em> la laptop y el robot:</p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>pair
 </code></pre></div>
-Replacing <code>X</code> with the number of the robot that you are working with.<p></p>
+Reemplazando <code>X</code> con el número del robot con el que estás trabajando.<p></p>
 </li>
 <li>
-<p>You may see a message like this early on in the pairing process:</p>
+<p>Es posible que veas un mensaje como este al inicio del proceso de emparejamiento:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ssh_auth.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
 </figure><p></p>
-<p>If so, just type <code>yes</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm that you want to continue.</p>
+<p>Si es así, simplemente escribe <code>yes</code> y presiona <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar que deseas continuar.</p>
 </li>
 <li>
-<p>Enter the password for the robot when requested (we'll tell you what this is in the lab!)</p>
+<p>Ingresa la contraseña del robot cuando se te solicite (¡te la indicaremos en el laboratorio!)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You won't see anything change on the screen when you are entering the password. This is normal, just keep typing!!</p>
+<p>No verás ningún cambio en la pantalla cuando estés ingresando la contraseña. ¡Esto es normal, sigue escribiendo!</p>
 </div>
 </li>
 <li>
-<p>The pairing process will take a minute, but once it's finished you should see a message saying <code>pairing complete</code>, displayed in blue in the terminal. </p>
+<p>El proceso de emparejamiento tardará un minuto, pero una vez finalizado deberías ver un mensaje que dice <code>pairing complete</code>, mostrado en azul en la terminal.</p>
 </li>
 <li>
-<p>Then, in the same terminal, enter the following command: <a name="tmux"></a></p>
+<p>Luego, en la misma terminal, ingresa el siguiente comando: <a name="tmux"></a></p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>waffle<span class="w"> </span>X<span class="w"> </span>term
 </code></pre></div>
-(again, replacing <code>X</code> with the number of <em>your</em> robot).<p></p>
-<p>A green banner should appear across the bottom of the terminal window:</p>
+(nuevamente, reemplazando <code>X</code> con el número de <em>tu</em> robot).<p></p>
+<p>Debería aparecer un banner verde en la parte inferior de la ventana de la terminal:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/tmux.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="500px"></a>
 </figure><p></p>
-<p>This is a terminal instance running <strong>on the robot</strong>, and any commands that you enter here will be executed <em>on the robot</em> (not the laptop!)</p>
+<p>Esta es una instancia de terminal que se ejecuta <strong>en el robot</strong>, y cualquier comando que ingreses aquí se ejecutará <em>en el robot</em> (¡no en la laptop!)</p>
 </li>
 </ol>
-<h2 id="step3">Step 3: Launching ROS<a class="headerlink" href="#step3" title="Permanent link">¶</a></h2>
-<p>Launch ROS on the robot by entering the following command:</p>
+<h2 id="step3">Paso 3: Lanzando ROS<a class="headerlink" href="#step3" title="Permanent link">¶</a></h2>
+<p>Lanza ROS en el robot ingresando el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py
 </code></pre></div>
-<p>If all is well then the robot will play a nice <em>"do-re-me"</em> sound and a message like this should appear (amongst all the other text):</p>
+<p>Si todo está bien, el robot reproducirá un agradable sonido <em>"do-re-mi"</em> y debería aparecer un mensaje como este (entre todo el otro texto):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[tb3_status.py-#] ######################################
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[tb3_status.py-#] ### dia-waffleX is up and running! ###
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[tb3_status.py-#] ### robot-X is up and running! ###
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[tb3_status.py-#] ######################################
 </code></pre></div>
-<p>You shouldn't need to interact with this terminal instance any more now, but the screen will provide you with some regular real-time info related to the status of the robot. As such, keep this terminal open in the background and check on the <code>Battery</code> indicator every now and then:</p>
+<p>Ya no deberías necesitar interactuar con esta instancia de terminal, pero la pantalla te proporcionará información en tiempo real sobre el estado del robot. Por tanto, mantén esta terminal abierta en segundo plano y verifica el indicador de <code>Battery</code> de vez en cuando:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Battery: 12.40V [100%]
 </code></pre></div>
 <div class="admonition info">
-<p class="admonition-title">Low Battery <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6z"></path></svg></span></p>
-<p><strong>The robot's battery won't last a full 2-hour lab session!!</strong></p>
-<p>When the capacity indicator reaches around 15% then it will start to beep, and when it reaches ~10% it will stop working all together.  Let a member of the teaching team know when the battery is running low and we'll replace it for you. (It's easier to do this when it reaches 15%, rather than waiting until it runs below 10%!)</p>
+<p class="admonition-title">Batería Baja <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6z"></path></svg></span></p>
+<p><strong>¡La batería del robot no durará una sesión de laboratorio completa de 2 horas!</strong></p>
+<p>Cuando el indicador de capacidad llegue alrededor del 15%, comenzará a emitir pitidos, y cuando llegue a ~10% dejará de funcionar por completo. Avísale a un miembro del equipo docente cuando la batería esté baja y la reemplazaremos para ti. (¡Es más fácil hacerlo cuando llega al 15%, en lugar de esperar a que baje del 10%!)</p>
 </div>
-<h2 id="step4">Step 4: Connecting to the <em>Zenoh Router</em><a class="headerlink" href="#step4" title="Permanent link">¶</a></h2>
-<p>We use a ROS 2 Middleware (RMW) implementation called <a href="https://github.com/ros2/rmw_zenoh">Zenoh</a> to enable robot-to-laptop communication via the university wireless network. The Waffle acts as the Zenoh <em>Router</em>, and this was enabled as part of the <em>bringup</em> operations that you launched in <a href="#step3">Step 3 above</a>. We now need to launch a <em>Session</em> on the laptop to connect to this router. </p>
+<h2 id="step4">Paso 4: Conectarse al <em>Router Zenoh</em><a class="headerlink" href="#step4" title="Permanent link">¶</a></h2>
+<p>Usamos una implementación de Middleware de ROS 2 (RMW) llamada <a href="https://github.com/ros2/rmw_zenoh">Zenoh</a> para habilitar la comunicación robot-laptop a través de la red inalámbrica. El Waffle actúa como el <em>Router</em> Zenoh, y esto se habilitó como parte de las operaciones de <em>bringup</em> que lanzaste en el <a href="#step3">Paso 3 anterior</a>. Ahora necesitamos lanzar una <em>Sesión</em> en la laptop para conectarse a este router.</p>
 <div class="admonition warning">
-<p class="admonition-title">This is Essential!</p>
-<p>You <strong>always</strong> need to have a Zenoh session running on the laptop in order to be able to communicate with your robot!</p>
+<p class="admonition-title">¡Esto es Esencial!</p>
+<p>¡<strong>Siempre</strong> necesitas tener una sesión Zenoh ejecutándose en la laptop para poder comunicarte con tu robot!</p>
 </div>
-<p>Open up <strong>a new terminal instance</strong> on the laptop (either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:</p>
+<p>Abre <strong>una nueva instancia de terminal</strong> en la laptop (ya sea usando el atajo <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> o haciendo clic en el ícono de la aplicación Terminal) e ingresa el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rmw_zenoh_cpp<span class="w"> </span>rmw_zenohd
 </code></pre></div>
-<p>You should now have two terminals active: </p>
+<p>Ahora deberías tener dos terminales activas:</p>
 <ol>
-<li>The <em>robot</em> terminal where you ran the <code>ros2 launch tuos_tb3_tools ros.launch.py</code> operation (aka <em>"the bringup"</em>) in <a href="#step3">Step 3</a><sup id="fnref:term_recover"><a class="footnote-ref" href="#fn:term_recover">1</a></sup></li>
-<li>The <em>laptop</em> terminal where you just ran the <code>rmw_zenohd</code> node</li>
+<li>La terminal del <em>robot</em> donde ejecutaste la operación <code>ros2 launch tuos_tb3_tools ros.launch.py</code> (también conocida como <em>"el bringup"</em>) en el <a href="#step3">Paso 3</a><sup id="fnref:term_recover"><a class="footnote-ref" href="#fn:term_recover">1</a></sup></li>
+<li>La terminal de la <em>laptop</em> donde acabas de ejecutar el nodo <code>rmw_zenohd</code></li>
 </ol>
-<p>Leave both of these terminals alone, but <strong>keep them running in the background at all times</strong> while working with your robot.</p>
-<h2 id="shutting-down-at-the-end-of-a-lab-session">Shutting Down (at the end of a Lab Session)<a class="headerlink" href="#shutting-down-at-the-end-of-a-lab-session" title="Permanent link">¶</a></h2>
-<p>When you've finished working with a robot it's really important to <strong>shut it down properly</strong> before turning off the power switch. Please refer to the <a href="../shutdown/">safe shutdown procedures</a> for more info.</p>
+<p>Deja ambas terminales en funcionamiento, pero <strong>mantenlas ejecutándose en segundo plano en todo momento</strong> mientras trabajas con tu robot.</p>
+<h2 id="apagado-al-final-de-una-sesion-de-laboratorio">Apagado (al final de una Sesión de Laboratorio)<a class="headerlink" href="#apagado-al-final-de-una-sesion-de-laboratorio" title="Permanent link">¶</a></h2>
+<p>Cuando hayas terminado de trabajar con un robot, es muy importante <strong>apagarlo correctamente</strong> antes de apagar el interruptor de encendido. Consulta los <a href="../shutdown/">procedimientos de apagado seguro</a> para más información.</p>
 <div class="footnote">
 <hr>
 <ol>
 <li id="fn:term_recover">
-<p>If you happen to have closed down the <em>robot</em> terminal, you can return to it by entering <code>waffle X term</code> from a new terminal instance on the laptop.&nbsp;<a class="footnote-backref" href="#fnref:term_recover" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>Si llegaste a cerrar la terminal del <em>robot</em>, puedes volver a ella ingresando <code>waffle X term</code> desde una nueva instancia de terminal en la laptop.&nbsp;<a class="footnote-backref" href="#fnref:term_recover" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -2849,37 +3350,8 @@ Replacing <code>X</code> with the number of the robot that you are working with.
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 13, 2025 10:52:45 UTC"><span class="timeago" datetime="2025-11-13T10:52:45+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 13, 2025 10:52:45 UTC">2025-11-13</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 2, 2025 16:28:55 UTC"><span class="timeago" datetime="2025-01-02T16:28:55+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 2, 2025 16:28:55 UTC">2025-01-02</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -2948,7 +3420,7 @@ Replacing <code>X</code> with the number of the robot that you are working with.
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -2978,30 +3450,14 @@ Replacing <code>X</code> with the number of the robot that you are working with.
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

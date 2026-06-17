@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
+        <meta name="description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/amr/lab2/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/amr/lab2/">
       
       
         <link rel="prev" href="../lab1/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Lab 2: Feedback Control - ROS 2 Labs in The Diamond</title>
+        <title>Lab 2: Control con Retroalimentación - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lab 2: Feedback Control - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/amr/lab2.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/amr/lab2/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Lab 2: Feedback Control - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Practical Robotics Labs with ROS 2 and the TurtleBot3 Waffle.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/amr/lab2.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#introduccion" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lab 2: Feedback Control
+              Lab 2: Control con Retroalimentación
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1000,7 +1037,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1028,7 +1065,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1056,7 +1093,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1084,7 +1121,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1112,7 +1149,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1140,7 +1177,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1165,6 +1202,8 @@
       
         
           
+        
+      
         
       
         
@@ -1239,7 +1278,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1267,7 +1306,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1486,7 +1553,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1585,7 +1652,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -1613,7 +1680,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -1720,7 +1787,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -1748,7 +1815,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -1784,7 +1851,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -1812,7 +1879,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2031,7 +2098,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2059,7 +2126,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2087,7 +2154,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2115,7 +2182,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2143,7 +2210,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2337,22 +2404,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2360,10 +2427,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje
       
     </span>
   </a>
@@ -2371,10 +2438,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#acceso-rapido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Acceso rápido
       
     </span>
   </a>
@@ -2387,34 +2454,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-lab" class="md-nav__link">
+  <a href="#el-laboratorio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Lab
+        El Laboratorio
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Lab">
+    <nav class="md-nav" aria-label="El Laboratorio">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros pasos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+    <nav class="md-nav" aria-label="Primeros pasos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#creating-a-ros-package" class="md-nav__link">
+  <a href="#crear-un-paquete-ros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating a ROS Package
+        Crear un paquete ROS
       
     </span>
   </a>
@@ -2422,10 +2489,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#launching-ros" class="md-nav__link">
+  <a href="#lanzar-ros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launching ROS
+        Lanzar ROS
       
     </span>
   </a>
@@ -2438,34 +2505,34 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry" class="md-nav__link">
+  <a href="#odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry
+        Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry">
+    <nav class="md-nav" aria-label="Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Exploring Odometry Data
+        Ejercicio 1: Explorar datos de Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 1: Exploring Odometry Data">
+    <nav class="md-nav" aria-label="Ejercicio 1: Explorar datos de Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#resumen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Resumen
       
     </span>
   </a>
@@ -2478,10 +2545,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry-based-navigation" class="md-nav__link">
+  <a href="#navegacion-basada-en-odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry-based Navigation
+        Navegación basada en Odometría
       
     </span>
   </a>
@@ -2494,22 +2561,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-lidar-sensor" class="md-nav__link">
+  <a href="#el-sensor-lidar" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The LiDAR Sensor
+        El Sensor LiDAR
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The LiDAR Sensor">
+    <nav class="md-nav" aria-label="El Sensor LiDAR">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Wall Following
+        Ejercicio 2: Seguimiento de pared
       
     </span>
   </a>
@@ -2522,34 +2589,34 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cameras-and-robot-vision" class="md-nav__link">
+  <a href="#camaras-y-vision-robotica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cameras and Robot Vision
+        Cámaras y Visión Robótica
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Cameras and Robot Vision">
+    <nav class="md-nav" aria-label="Cámaras y Visión Robótica">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Line Following
+        Ejercicio 3: Seguimiento de línea
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 3: Line Following">
+    <nav class="md-nav" aria-label="Ejercicio 3: Seguimiento de línea">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3a" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part A: Establishing a Feedback Signal (Detecting the Line)
+        Parte A: Establecer una Señal de Retroalimentación (Detectar la Línea)
       
     </span>
   </a>
@@ -2560,7 +2627,7 @@
   <a href="#ex3b" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part B: Implementing Proportional Control (Following the Line)
+        Parte B: Implementar el Control Proporcional (Seguir la Línea)
       
     </span>
   </a>
@@ -2576,7 +2643,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        (Optional) Exercise 4: Odometry-based Navigation
+        (Opcional) Ejercicio 4: Navegación basada en Odometría
       
     </span>
   </a>
@@ -2594,10 +2661,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#cierre" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Cierre
       
     </span>
   </a>
@@ -2739,7 +2806,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2844,6 +2911,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2869,22 +3370,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2892,10 +3393,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje
       
     </span>
   </a>
@@ -2903,10 +3404,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#acceso-rapido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Acceso rápido
       
     </span>
   </a>
@@ -2919,34 +3420,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-lab" class="md-nav__link">
+  <a href="#el-laboratorio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Lab
+        El Laboratorio
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Lab">
+    <nav class="md-nav" aria-label="El Laboratorio">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros pasos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
+    <nav class="md-nav" aria-label="Primeros pasos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#creating-a-ros-package" class="md-nav__link">
+  <a href="#crear-un-paquete-ros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating a ROS Package
+        Crear un paquete ROS
       
     </span>
   </a>
@@ -2954,10 +3455,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#launching-ros" class="md-nav__link">
+  <a href="#lanzar-ros" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launching ROS
+        Lanzar ROS
       
     </span>
   </a>
@@ -2970,34 +3471,34 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry" class="md-nav__link">
+  <a href="#odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry
+        Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry">
+    <nav class="md-nav" aria-label="Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Exploring Odometry Data
+        Ejercicio 1: Explorar datos de Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 1: Exploring Odometry Data">
+    <nav class="md-nav" aria-label="Ejercicio 1: Explorar datos de Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#resumen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Resumen
       
     </span>
   </a>
@@ -3010,10 +3511,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry-based-navigation" class="md-nav__link">
+  <a href="#navegacion-basada-en-odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry-based Navigation
+        Navegación basada en Odometría
       
     </span>
   </a>
@@ -3026,22 +3527,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-lidar-sensor" class="md-nav__link">
+  <a href="#el-sensor-lidar" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The LiDAR Sensor
+        El Sensor LiDAR
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The LiDAR Sensor">
+    <nav class="md-nav" aria-label="El Sensor LiDAR">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Wall Following
+        Ejercicio 2: Seguimiento de pared
       
     </span>
   </a>
@@ -3054,34 +3555,34 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cameras-and-robot-vision" class="md-nav__link">
+  <a href="#camaras-y-vision-robotica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cameras and Robot Vision
+        Cámaras y Visión Robótica
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Cameras and Robot Vision">
+    <nav class="md-nav" aria-label="Cámaras y Visión Robótica">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Line Following
+        Ejercicio 3: Seguimiento de línea
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Exercise 3: Line Following">
+    <nav class="md-nav" aria-label="Ejercicio 3: Seguimiento de línea">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3a" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part A: Establishing a Feedback Signal (Detecting the Line)
+        Parte A: Establecer una Señal de Retroalimentación (Detectar la Línea)
       
     </span>
   </a>
@@ -3092,7 +3593,7 @@
   <a href="#ex3b" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part B: Implementing Proportional Control (Following the Line)
+        Parte B: Implementar el Control Proporcional (Seguir la Línea)
       
     </span>
   </a>
@@ -3108,7 +3609,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        (Optional) Exercise 4: Odometry-based Navigation
+        (Opcional) Ejercicio 4: Navegación basada en Odometría
       
     </span>
   </a>
@@ -3126,10 +3627,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#cierre" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Cierre
       
     </span>
   </a>
@@ -3153,7 +3654,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/amr/lab2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/amr/lab2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3162,7 +3663,7 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/amr/lab2.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/amr/lab2.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
@@ -3171,75 +3672,75 @@
 
   <h1>Lab 2: Feedback Control</h1>
 
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>In Lab 1 we explored how ROS 2 works and how to use this framework to bring a robot to life. Let's quickly recap the key points:</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">¶</a></h2>
+<p>En el Lab 1 exploramos cómo funciona ROS 2 y cómo usar este framework para dar vida a un robot. Hagamos un repaso rápido de los puntos clave:</p>
 <p><strong>Nodes</strong></p>
 <ul>
-<li>Are executable programs (Python, C++ scripts) that perform specific robot tasks and operations.</li>
-<li>Typically, there'll be many Nodes running on a robot simultaneously in order to make it work.</li>
-<li>We can create our own Nodes on top of what's already running, to add extra functionality.</li>
-<li>You may recall that we created our own Node (in Python) to make our TurtleBot3 Waffle follow a square motion path.</li>
+<li>Son programas ejecutables (scripts Python, C++) que realizan tareas y operaciones específicas del robot.</li>
+<li>Típicamente, habrá muchos Nodes ejecutándose simultáneamente en un robot para que funcione.</li>
+<li>Podemos crear nuestros propios Nodes sobre lo que ya está en ejecución, para agregar funcionalidades adicionales.</li>
+<li>Recordarás que creamos nuestro propio Node (en Python) para hacer que nuestro TurtleBot3 Waffle siguiera una trayectoria cuadrada.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_network.png" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ros_network.png" data-desc-position="bottom"><img alt="" src="ros_network.png" width="500px"></a></p>
 </figure>
-<p><strong>Topics and Message Interfaces</strong></p>
+<p><strong>Topics e Interfaces de Mensajes</strong></p>
 <ul>
-<li>All Nodes running on a network can communicate and pass data between one another using a Publisher/Subscriber-based Communication Principle.</li>
-<li>ROS Topics are key to this - they are essentially the communication channels (or the plumbing) through which all data is passed around between nodes.</li>
-<li>Different topics communicate different types of information using standardised data structures (called <em>"Message Interfaces"</em>).</li>
-<li>Any Node can publish (<em>write</em>) and/or subscribe to (<em>read</em>) any ROS Topic in order to pass information around or make things happen.</li>
+<li>Todos los Nodes en ejecución en una red pueden comunicarse y pasarse datos entre sí usando un Principio de Comunicación basado en Publicador/Suscriptor.</li>
+<li>Los Topics de ROS son clave para esto: son esencialmente los canales de comunicación (o la tubería) a través de los cuales se pasan todos los datos entre los nodes.</li>
+<li>Diferentes topics comunican diferentes tipos de información usando estructuras de datos estandarizadas (llamadas <em>"Interfaces de Mensajes"</em>).</li>
+<li>Cualquier Node puede publicar (<em>escribir</em>) y/o suscribirse a (<em>leer</em>) cualquier Topic de ROS para pasar información o hacer que sucedan cosas.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_comms.png" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ros_comms.png" data-desc-position="bottom"><img alt="" src="ros_comms.png" width="500px"></a></p>
 </figure>
-<p>One of the key ROS Topics that we worked with last time was <code>/cmd_vel</code>, which is a topic that communicates velocity commands to make a robot move. You may recall that to make our TurtleBot3 Waffle move we publish <code>TwistStamped</code> <em>Interface Messages</em> to the <code>/cmd_vel</code> topic. Interfaces messages are <em>structured data types</em> defined in ROS, and we will remind ourselves about the structure of the <code>TwistStamped</code> data type shortly...</p>
-<p><strong>Open-Loop Control</strong></p>
-<p>We used a time-based method to control the motion of our robot in order to get it to generate a square motion path. This type of control is <em>open-loop</em>: we hoped that the robot had moved (or turned) by the amount that was required, but had no <em>feedback</em> to tell us whether this had actually been achieved.</p>
-<p><strong>Closed-Loop Control</strong></p>
-<p>In this lab we'll look at how this can be improved, making use of some of our robot's on-board sensors to tell us where the robot is or what it can see in its environment, in order to complete a task more reliably and be able to better adapt to changes and uncertainty in the environment.</p>
-<h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
-<p>In this lab, we'll build some ROS Nodes (in Python) that incorporate data from some of our robot's sensors. This sensor data is published to specific topics on the ROS Network, and we can build ROS Nodes to <em>subscribe</em> to these. We'll see how the data from these sensors can be used as <em>feedback</em> to inform decision-making, thus allowing us to implement some different forms of <em>closed-loop control</em>, and make our robot more autonomous. </p>
-<h3 id="intended-learning-outcomes">Intended Learning Outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Permanent link">¶</a></h3>
-<p>By the end of this session you will be able to:</p>
+<p>Uno de los Topics de ROS clave con el que trabajamos la vez anterior fue <code>/cmd_vel</code>, que es un topic que comunica comandos de velocidad para hacer mover a un robot. Recordarás que para hacer mover a nuestro TurtleBot3 Waffle publicamos <em>Mensajes de Interface</em> <code>TwistStamped</code> en el topic <code>/cmd_vel</code>. Los mensajes de interface son <em>tipos de datos estructurados</em> definidos en ROS, y recordaremos brevemente la estructura del tipo de dato <code>TwistStamped</code> en breve...</p>
+<p><strong>Control de Lazo Abierto</strong></p>
+<p>Usamos un método basado en tiempo para controlar el movimiento de nuestro robot para que generara una trayectoria cuadrada. Este tipo de control es <em>de lazo abierto</em>: esperábamos que el robot se hubiera movido (o girado) en la cantidad requerida, pero no teníamos <em>retroalimentación</em> para decirnos si esto realmente se había logrado.</p>
+<p><strong>Control de Lazo Cerrado</strong></p>
+<p>En este laboratorio veremos cómo esto puede mejorarse, haciendo uso de algunos de los sensores a bordo de nuestro robot para decirnos dónde está el robot o qué puede ver en su entorno, con el fin de completar una tarea de manera más confiable y poder adaptarse mejor a los cambios e incertidumbre del entorno.</p>
+<h3 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">¶</a></h3>
+<p>En este laboratorio, construiremos algunos Nodes de ROS (en Python) que incorporan datos de algunos de los sensores de nuestro robot. Estos datos de sensores son publicados en topics específicos en la red ROS, y podemos construir Nodes de ROS para <em>suscribirnos</em> a estos. Veremos cómo los datos de estos sensores pueden usarse como <em>retroalimentación</em> para informar la toma de decisiones, permitiéndonos implementar algunas formas diferentes de <em>control de lazo cerrado</em> y hacer que nuestro robot sea más autónomo.</p>
+<h3 id="resultados-de-aprendizaje">Resultados de Aprendizaje<a class="headerlink" href="#resultados-de-aprendizaje" title="Permanent link">¶</a></h3>
+<p>Al finalizar esta sesión serás capaz de:</p>
 <ol>
-<li>Interpret the data from a ROS Robot's Odometry System and understand what this tells you about a Robot's position and orientation within its environment.</li>
-<li>Use data from a Robot's LiDAR sensor to make a robot follow a wall.</li>
-<li>Analyse images from a Robot's Camera and use this information to follow a coloured line on the floor.</li>
-<li>(Optional) Use feedback from a robot's odometry system to <em>control</em> its position in an environment.</li>
+<li>Interpretar los datos del sistema de Odometría de un robot ROS y entender qué te dice sobre la posición y orientación de un robot en su entorno.</li>
+<li>Usar datos del sensor LiDAR de un robot para hacer que el robot siga una pared.</li>
+<li>Analizar imágenes de la cámara de un robot y usar esta información para seguir una línea de color en el suelo.</li>
+<li>(Opcional) Usar la retroalimentación del sistema de odometría de un robot para <em>controlar</em> su posición en un entorno.</li>
 </ol>
-<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
+<h3 id="acceso-rapido">Acceso rápido<a class="headerlink" href="#acceso-rapido" title="Permanent link">¶</a></h3>
 <ul>
-<li><a href="#ex1">Exercise 1: Exploring Odometry Data</a></li>
-<li><a href="#ex2">Exercise 2: Wall Following</a></li>
-<li><a href="#ex3">Exercise 3: Line Following</a></li>
-<li><a href="#ex4">(Optional) Exercise 4: Odometry-based Navigation</a></li>
+<li><a href="#ex1">Ejercicio 1: Explorar datos de Odometría</a></li>
+<li><a href="#ex2">Ejercicio 2: Seguimiento de pared</a></li>
+<li><a href="#ex3">Ejercicio 3: Seguimiento de línea</a></li>
+<li><a href="#ex4">(Opcional) Ejercicio 4: Navegación basada en Odometría</a></li>
 </ul>
-<h2 id="the-lab">The Lab<a class="headerlink" href="#the-lab" title="Permanent link">¶</a></h2>
+<h2 id="el-laboratorio">El Laboratorio<a class="headerlink" href="#el-laboratorio" title="Permanent link">¶</a></h2>
 <div class="admonition info">
-<p class="admonition-title">Assessment Info</p>
-<p>This lab is <strong>summatively assessed</strong>.</p>
+<p class="admonition-title">Evaluación</p>
+<p>Este laboratorio es <strong>evaluado de forma sumativa</strong>.</p>
 <ol>
-<li>There's a <strong>post-lab quiz</strong> that you'll need to complete after this lab session has taken place, which will be released on Blackboard.</li>
-<li>You'll also be marked on the work that you do <strong>in the lab</strong> for Exercises 2 &amp; 3.</li>
+<li>Existe un <strong>cuestionario post-lab</strong> que deberás completar después de esta sesión, el cual será publicado en la plataforma del curso.</li>
+<li>También serás evaluado por el trabajo que realices <strong>en el laboratorio</strong> para los Ejercicios 2 y 3.</li>
 </ol>
 </div>
-<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h3>
-<h4 id="creating-a-ros-package">Creating a ROS Package<a class="headerlink" href="#creating-a-ros-package" title="Permanent link">¶</a></h4>
-<p>We'll need a ROS package to work with for this lab session. We've created a template for you, which contains all the resources that you'll need for today. Download and install this as follows.</p>
+<h3 id="primeros-pasos">Primeros pasos<a class="headerlink" href="#primeros-pasos" title="Permanent link">¶</a></h3>
+<h4 id="crear-un-paquete-ros">Crear un paquete ROS<a class="headerlink" href="#crear-un-paquete-ros" title="Permanent link">¶</a></h4>
+<p>Necesitaremos un paquete ROS para trabajar durante esta sesión de laboratorio. Hemos creado una plantilla para ti, que contiene todos los recursos que necesitarás para hoy. Descárgala e instálala de la siguiente manera.</p>
 <ol>
 <li>
-<p>Open up a terminal instance on the laptop, either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon in the favourites bar on the left-hand side of the desktop:</p>
+<p>Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/terminal_icon.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
 </figure><p></p>
-<p>We'll call this <strong>TERMINAL 1</strong>.</p>
+<p>La llamaremos <strong>TERMINAL 1</strong>.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 1</strong>, run the following commands in order:</p>
+<p>En <strong>TERMINAL 1</strong>, ejecuta los siguientes comandos en orden:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To <strong>paste</strong> the following commands into the terminal use <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
+<p>Para <strong>pegar</strong> los siguientes comandos en la terminal usa <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
 </div>
 <hr>
 <p><strong>TERMINAL 1</strong>:
@@ -3247,6 +3748,10 @@
 </code></pre></div><p></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/tom-howard/amr31001_lab2.git
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Este repositorio proviene del curso original de la Universidad de Sheffield. El paquete ROS se llama <code>amr31001_lab2</code> — usa ese nombre en todos los comandos siguientes.</p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cd ~/ros2_ws &amp;&amp; \
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  colcon build --symlink-install \
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  --packages-select amr31001_lab2 &amp;&amp; \
@@ -3255,163 +3760,163 @@
 <hr>
 </li>
 <li>
-<p>Next, open the package in VS Code:</p>
+<p>A continuación, abre el paquete en VS Code:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>code<span class="w"> </span>./src/amr31001_lab2
 </code></pre></div>
 </li>
 <li>
-<p>When VS Code opens, navigate to the <em>File Explorer</em>: </p>
+<p>Cuando se abra VS Code, navega al <em>Explorador de Archivos</em>:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="vscode_explorer_package_xml.png" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
 </figure><p></p>
-<p>... find a file here called <code>package.xml</code> and click on it. </p>
+<p>... encuentra un archivo llamado <code>package.xml</code> aquí y haz clic en él.</p>
 </li>
 <li>
-<p>Look for the following lines in the <code>package.xml</code> file:</p>
-<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&lt;maintainer email="name1@sheffield.ac.uk"&gt;Name 1&lt;/maintainer&gt;
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>&lt;maintainer email="name2@sheffield.ac.uk"&gt;Name 2&lt;/maintainer&gt;
+<p>Busca las siguientes líneas en el archivo <code>package.xml</code>:</p>
+<div class="highlight"><span class="filename">package.xml</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&lt;maintainer email="nombre.apellido1@institucion.edu"&gt;Nombre 1&lt;/maintainer&gt;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>&lt;maintainer email="nombre.apellido2@institucion.edu"&gt;Nombre 2&lt;/maintainer&gt;
 </code></pre></div>
-<p>Change <code>Name 1</code> to your name, and then change <code>name1@sheffield.ac.uk</code> to your Sheffield email address! Then, do the same for your other Group member on the line below it. (If you're working in a group of more than 2 people, then you can add additional lines below this for your other group members.)</p>
+<p>Cambia <code>Nombre 1</code> a tu nombre completo, y <code>nombre.apellido1@institucion.edu</code> a tu correo institucional. Haz lo mismo para el otro miembro de tu grupo en la línea inferior.</p>
 <div class="admonition warning">
 <p class="admonition-title">Post-lab</p>
-<p><strong>This is important for the post-lab</strong>!</p>
-<p>Some of the work that you do in this lab will be assed as part of the post-lab, so it's important that we can identify each member of your group. If any group members aren't listed here, then they won't receive any marks! </p>
-<p>When entering your names, make sure you provide first names <strong>AND</strong> surnames for each group member.</p>
+<p><strong>¡Esto es importante para el post-lab!</strong></p>
+<p>Parte del trabajo que realices en este laboratorio será evaluado como parte del post-lab, por lo que es importante que podamos identificar a cada miembro de tu grupo. Si algún miembro del grupo no está listado aquí, ¡no recibirá calificación!</p>
+<p>Al ingresar los nombres, asegúrate de proporcionar nombres <strong>Y</strong> apellidos para cada miembro del grupo.</p>
 </div>
 </li>
 <li>
-<p>Save the changes that you have just made to your <code>package.xml</code> file.</p>
+<p>Guarda los cambios que acabas de hacer en tu archivo <code>package.xml</code>.</p>
 </li>
 </ol>
-<h4 id="launching-ros">Launching ROS<a class="headerlink" href="#launching-ros" title="Permanent link">¶</a></h4>
-<p>Much the same as last time, you'll now need to get ROS up and running on your robot. </p>
+<h4 id="lanzar-ros">Lanzar ROS<a class="headerlink" href="#lanzar-ros" title="Permanent link">¶</a></h4>
+<p>Al igual que la última vez, ahora necesitarás poner en marcha ROS en tu robot.</p>
 <ol>
 <li>
-<p>First, identify the robot that you have been provided with. Each of our robots are uniquely named: <code>dia-waffleX</code>, where <code>X</code> is the <em>'Robot Number'</em> (a number between 1 and 50). Check the label printed on top of the robot to find out which one you have!</p>
+<p>Primero, identifica el robot que tienes asignado. Cada uno de nuestros robots tiene un nombre único: <code>robot-X</code>, donde <code>X</code> es el <em>'Número de Robot'</em>. Revisa la etiqueta impresa en la parte superior del robot para saber cuál te corresponde.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 1</strong> type the following command to <em>pair</em> the laptop and robot, so that they can work together:</p>
+<p>En <strong>TERMINAL 1</strong> escribe el siguiente comando para <em>vincular</em> la laptop y el robot, de modo que puedan trabajar juntos:</p>
 <hr>
 <p><strong>TERMINAL 1</strong>:
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>waffle X pair
 </code></pre></div>
-<strong>... replacing <code>X</code> with the number of the robot that you have been provided with</strong>.<p></p>
+<strong>... reemplazando <code>X</code> con el número del robot que te ha sido asignado</strong>.<p></p>
 <hr>
 </li>
 <li>
-<p>Enter the password for the robot when requested (we'll tell you what this is in the lab).</p>
-<p>You <em>may</em> see a message like this early on in the pairing process:</p>
+<p>Ingresa la contraseña del robot cuando se te solicite (te la indicaremos en el laboratorio).</p>
+<p>Es posible que veas un mensaje como este durante el proceso de vinculación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ssh_auth.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
 </figure><p></p>
-<p>If so, just type <code>yes</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm that you want to continue.</p>
+<p>Si es así, simplemente escribe <code>yes</code> y presiona <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar que deseas continuar.</p>
 </li>
 <li>
-<p>Once the pairing process is finished you should see a message saying <code>pairing complete</code>, displayed in blue in the terminal. </p>
+<p>Una vez que el proceso de vinculación haya finalizado, deberías ver el mensaje <code>pairing complete</code>, mostrado en azul en la terminal.</p>
 </li>
 <li>
-<p>Then, in the same terminal (<strong>TERMINAL 1</strong>), enter the following command:</p>
+<p>Luego, en la misma terminal (<strong>TERMINAL 1</strong>), introduce el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>waffle X term
 </code></pre></div>
-(again, replacing <code>X</code> with the number of <strong>your</strong> robot).<p></p>
+(nuevamente, reemplazando <code>X</code> con el número de <strong>tu</strong> robot).<p></p>
 <hr>
-<p>Any text that was in the terminal should now disappear, and a green banner should appear across the bottom of the terminal window:</p>
+<p>El texto que había en la terminal debería desaparecer y aparecerá un banner verde en la parte inferior de la ventana:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/tmux.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
 </figure><p></p>
-<p>This is a terminal instance running <strong>on the robot</strong>, and any commands that you enter here will be <strong>executed on the robot</strong> (not the laptop!)</p>
+<p>Esta es una instancia de terminal ejecutándose <strong>en el robot</strong>, y cualquier comando que ingreses aquí se <strong>ejecutará en el robot</strong> (¡no en la laptop!)</p>
 </li>
 <li>
-<p>Now, launch ROS on the robot by entering the following command:</p>
+<p>Ahora, lanza ROS en el robot ingresando el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py
 </code></pre></div><p></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To paste text into a Linux terminal you'll need to use the Control + <strong>Shift</strong> + V keyboard keys: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
+<p>Para pegar texto en una terminal Linux deberás usar las teclas Control + <strong>Shift</strong> + V: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></p>
 </div>
 <hr>
-<p>If all is well then the robot will play a nice <em>"do-re-me"</em> sound and a message like this should appear (amongst all the other text):</p>
+<p>Si todo va bien, el robot reproducirá un sonido <em>"do-re-mi"</em> y aparecerá un mensaje como este (entre todo el otro texto):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[tb3_status.py-#] ######################################
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[tb3_status.py-#] ### dia-waffleX is up and running! ###
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[tb3_status.py-#] ### robot-X is up and running! ###
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>[tb3_status.py-#] ######################################
 </code></pre></div>
-<p>ROS is now up and running on the robot, and we're ready to go!</p>
+<p>¡ROS ya está funcionando en el robot y estamos listos para comenzar!</p>
 </li>
 <li>
-<p>Next, connect the laptop to the ROS network that we've just established on the robot. The Robot and Laptop communicate with one another via the University Wireless network, but there's one more step required to link them together. </p>
-<p>Open up <strong>a new terminal instance</strong> on the laptop (either by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> keyboard shortcut, or by clicking the Terminal App icon) and enter the following command:</p>
+<p>A continuación, conecta la laptop a la red ROS que acabamos de establecer en el robot. El robot y la laptop se comunican entre sí a través de la red inalámbrica, pero se requiere un paso más para vincularlos.</p>
+<p>Abre <strong>una nueva instancia de terminal</strong> en la laptop (ya sea con el atajo <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> o haciendo clic en el ícono de la terminal) e ingresa el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 2</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rmw_zenoh_cpp<span class="w"> </span>rmw_zenohd
 </code></pre></div><p></p>
 <hr>
-<p>Leave <strong>TERMINAL 1</strong> and <strong>TERMINAL 2</strong> running in the background at all times while working with your robot in the lab today.</p>
+<p>Deja <strong>TERMINAL 1</strong> y <strong>TERMINAL 2</strong> ejecutándose en segundo plano en todo momento mientras trabajas con tu robot en el laboratorio hoy.</p>
 </li>
 </ol>
-<h3 id="odometry">Odometry<a class="headerlink" href="#odometry" title="Permanent link">¶</a></h3>
-<p>To start with we will consider a robot's <em>odometry</em> system, and what this is useful for.</p>
+<h3 id="odometria">Odometría<a class="headerlink" href="#odometria" title="Permanent link">¶</a></h3>
+<p>Para comenzar consideraremos el sistema de <em>odometría</em> de un robot y para qué es útil.</p>
 <blockquote>
-<p>Odometry is the use of data from motion sensors to estimate change in position over time. It is used in robotics by some legged or wheeled robots to estimate their position relative to a starting location. <sup id="fnref:wiki"><a class="footnote-ref" href="#fn:wiki">1</a></sup></p>
+<p>La odometría es el uso de datos de sensores de movimiento para estimar el cambio de posición a lo largo del tiempo. Es utilizada en robótica por algunos robots con patas o ruedas para estimar su posición relativa a una ubicación de inicio. <sup id="fnref:wiki"><a class="footnote-ref" href="#fn:wiki">1</a></sup></p>
 </blockquote>
-<p>Our robot can therefore keep track of its position (and orientation) as it moves around. It does this using data from two sources:</p>
+<p>Por lo tanto, nuestro robot puede hacer un seguimiento de su posición (y orientación) mientras se mueve. Hace esto usando datos de dos fuentes:</p>
 <ol>
-<li><strong>Wheel encoders</strong>: Our robot has two wheels, each is equipped with an encoder that measures the number of rotations that the wheel makes. </li>
-<li>An <strong>Inertial Measurement Unit (IMU)</strong>: Using accelerometers, gyroscopes and compasses, the IMU can monitor the linear and angular velocity of the robot, and which direction it is heading, at all times.</li>
+<li><strong>Encoders de rueda</strong>: Nuestro robot tiene dos ruedas, cada una equipada con un encoder que mide el número de rotaciones que realiza la rueda.</li>
+<li>Una <strong>Unidad de Medición Inercial (IMU)</strong>: Usando acelerómetros, giroscopios y brújulas, la IMU puede monitorear la velocidad lineal y angular del robot, y hacia qué dirección se dirige, en todo momento.</li>
 </ol>
-<p>This data is published to a ROS Topic called <code>/odom</code>. </p>
-<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Exploring Odometry Data<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
-<p>In the previous lab we used some <code>ros2</code> commands to identify and interrogate active topics on the ROS network, let's give that another go now, but on the <code>/odom</code> topic this time.</p>
+<p>Estos datos se publican en un Topic de ROS llamado <code>/odom</code>.</p>
+<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Explorar datos de Odometría<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
+<p>En el laboratorio anterior usamos algunos comandos <code>ros2</code> para identificar e interrogar topics activos en la red ROS. Hagámoslo de nuevo ahora, pero esta vez con el topic <code>/odom</code>.</p>
 <ol>
 <li>
-<p>Open up a new terminal instance on the laptop (by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, or clicking the Terminal App desktop icon, as you did before). We’ll call this one <strong>TERMINAL 3</strong>.</p>
+<p>Abre una nueva instancia de terminal en la laptop (presionando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, o haciendo clic en el ícono de la aplicación Terminal, como lo hiciste antes). La llamaremos <strong>TERMINAL 3</strong>.</p>
 </li>
 <li>
-<p>As you may recall from last time, we can use the <code>ros2 topic</code> command to <em>list</em> all the topics that are currently active on the network. Enter the following in <strong>TERMINAL 3</strong>:</p>
+<p>Como quizás recuerdes de la última vez, podemos usar el comando <code>ros2 topic</code> para <em>listar</em> todos los topics que están actualmente activos en la red. Introduce lo siguiente en <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
 </code></pre></div><p></p>
 <hr>
-<p>A large list of items should appear on the screen. Can you spot the <code>/odom</code> topic?</p>
+<p>Debería aparecer una gran lista de elementos en la pantalla. ¿Puedes encontrar el topic <code>/odom</code>?</p>
 </li>
 <li>
-<p>Let's find out more about this using the <code>ros2 topic info</code> command.</p>
+<p>Averigüemos más sobre esto usando el comando <code>ros2 topic info</code>.</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2 topic info /odom
 </code></pre></div><p></p>
 <hr>
-<p>This should provide the following output:</p>
+<p>Esto debería proporcionar la siguiente salida:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Type: nav_msgs/msg/Odometry
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Publisher count: 1
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Subscription count: 0
 </code></pre></div>
 <div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
-<p>What does all this mean? We discussed this <a href="../lab1/#rostopic_info_explained">last time (in relation to the <code>/cmd_vel</code> topic)</a>, and you may want to have a look back at this to refresh your memory! </p>
+<p class="admonition-title">Cuestionario Post-lab</p>
+<p>¿Qué significa todo esto? Discutimos esto <a href="../lab1/#rostopic_info_explained">la última vez (en relación con el topic <code>/cmd_vel</code>)</a>, y quizás quieras volver a verlo para refrescar tu memoria.</p>
 </div>
-<p>Based on the above, we know that the <code>/odom</code> topic uses a <code>nav_msgs/msg/Odometry</code> data structure (or <em>"interface"</em>). </p>
-<p><strong>Interfaces</strong> (revisited)</p>
-<p>Recall from Lab 1 that data structures in ROS 2 are called <em>Interfaces</em>. </p>
-<p>From the output above, <code>Type</code> refers to the <em>type</em> of data structure (i.e. the type of interface). The <code>Type</code> definition always has three parts to it, in this case: <code>nav_msgs</code>, <code>msg</code> and <code>Odometry</code>:</p>
+<p>Basándose en lo anterior, sabemos que el topic <code>/odom</code> usa una estructura de datos <code>nav_msgs/msg/Odometry</code> (o <em>"interface"</em>).</p>
+<p><strong>Interfaces</strong> (revisitado)</p>
+<p>Recuerda del Lab 1 que las estructuras de datos en ROS 2 se llaman <em>Interfaces</em>.</p>
+<p>De la salida anterior, <code>Type</code> se refiere al <em>tipo</em> de estructura de datos (es decir, el tipo de interface). La definición de <code>Type</code> siempre tiene tres partes: en este caso <code>nav_msgs</code>, <code>msg</code> y <code>Odometry</code>:</p>
 <ol>
-<li><code>nav_msgs</code> is the name of the ROS package that this interface (data structure) belongs to</li>
-<li><code>msg</code> tells us that it's a topic <em>message</em> interface (rather than another interface type, of which there are others, but we don't need to worry about them here)</li>
-<li><code>Odometry</code> is the <em>name</em> of the message interface.</li>
+<li><code>nav_msgs</code> es el nombre del paquete ROS al que pertenece esta interface (estructura de datos).</li>
+<li><code>msg</code> nos indica que es una interface de <em>mensaje</em> de topic.</li>
+<li><code>Odometry</code> es el <em>nombre</em> de la interface de mensaje.</li>
 </ol>
 </li>
 <li>
-<p>We can use the <code>ros2 interface</code> command to find out more about this:</p>
+<p>Podemos usar el comando <code>ros2 interface</code> para encontrar más información sobre esto:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ros2 interface show nav_msgs/msg/Odometry
 </code></pre></div><p></p>
 <hr>
-<p>You'll see a lot of information there, but try to find the line that reads <code>Pose pose</code>: </p>
+<p>Verás mucha información allí, pero trata de encontrar la línea que dice <code>Pose pose</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Pose pose
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>        Point position
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>                float64 x
@@ -3423,10 +3928,10 @@
 <a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>                float64 z 0
 <a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>                float64 w 1
 </code></pre></div>
-<p>Here's where we'll find information about the robot's position and orientation (aka <em>"Pose"</em>) in the environment. Let's have a look at this data in real time...</p>
+<p>Aquí encontraremos información sobre la posición y orientación del robot (también conocida como <em>"Pose"</em>) en el entorno. Veamos estos datos en tiempo real...</p>
 </li>
 <li>
-<p>We can look at the live data being streamed across the <code>/odom</code> topic, using the <code>ros2 topic echo</code> command. We know that the data type is called <code>nav_msgs/msg/Odometry</code>, and nested within this is the <code>pose</code> attribute that we are interested in, so:</p>
+<p>Podemos ver los datos en vivo que se transmiten a través del topic <code>/odom</code>, usando el comando <code>ros2 topic echo</code>. Sabemos que el tipo de dato se llama <code>nav_msgs/msg/Odometry</code>, y anidado dentro de este está el atributo <code>pose</code> que nos interesa, así que:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ros2 topic echo /odom --field pose.pose
@@ -3434,11 +3939,11 @@
 <hr>
 </li>
 <li>
-<p>What we're presented with now is live Odometry data from the robot.</p>
-<p>Let's drive the robot around a bit and observe how our robot's pose changes as we do so.</p>
+<p>Lo que se nos presenta ahora son datos de Odometría en vivo del robot.</p>
+<p>Conduzcamos el robot un poco y observemos cómo cambia la pose de nuestro robot mientras lo hacemos.</p>
 </li>
 <li>
-<p>Open up a new terminal instance by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, or clicking the Terminal App desktop icon, as you did before. We'll call this one <strong>TERMINAL 4</strong>:</p>
+<p>Abre una nueva instancia de terminal presionando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> o haciendo clic en el ícono de la terminal, como hiciste antes. La llamaremos <strong>TERMINAL 4</strong>:</p>
 <hr>
 <p><strong>TERMINAL 4</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
@@ -3446,127 +3951,126 @@
 <hr>
 </li>
 <li>
-<p>Follow the instructions provided in the terminal to drive the robot around:</p>
+<p>Sigue las instrucciones proporcionadas en la terminal para conducir el robot:</p>
 <details class="tip">
-<summary>Reminder</summary>
+<summary>Recordatorio</summary>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/cli/teleop_keymap.svg" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
 </figure><p></p>
 </details>
-<p>As you're doing this, look at how the <code>position</code> and <code>orientation</code> data is changing in <strong>TERMINAL 3</strong>, in real-time!</p>
+<p>Mientras haces esto, ¡observa cómo los datos de <code>position</code> y <code>orientation</code> cambian en <strong>TERMINAL 3</strong>, en tiempo real!</p>
 <div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
-<p>Which position and orientation values change (by a significant amount) when:</p>
+<p class="admonition-title">Cuestionario Post-lab</p>
+<p>¿Qué valores de posición y orientación cambian (significativamente) cuando:</p>
 <ol>
-<li>The robot turns on the spot (i.e. only an <em>angular</em> velocity is applied)?</li>
-<li>The robot moves forwards (i.e. only a <em>linear</em> velocity is applied)?</li>
-<li>The robot moves in a circle (i.e. both a linear <em>and</em> angular velocity are applied simultaneously)?</li>
+<li>¿El robot gira sobre sí mismo (es decir, solo se aplica una velocidad <em>angular</em>)?</li>
+<li>¿El robot avanza (es decir, solo se aplica una velocidad <em>lineal</em>)?</li>
+<li>¿El robot se mueve en círculo (es decir, se aplican simultáneamente velocidades lineal <em>y</em> angular)?</li>
 </ol>
-<p><strong>Make a note of the answers to these questions, as they may feature in the post-lab quiz!</strong></p>
+<p><strong>¡Toma nota de las respuestas a estas preguntas, ya que pueden aparecer en el cuestionario post-lab!</strong></p>
 </div>
 </li>
 <li>
-<p>When you've seen enough enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 4</strong> to stop the <code>teleop_keyboard</code> node. Then, enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> as well, which will stop the live stream of Odometery messages from being displayed.</p>
+<p>Cuando hayas visto suficiente, presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 4</strong> para detener el node <code>teleop_keyboard</code>. Luego, presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> también, lo que detendrá el flujo en vivo de mensajes de Odometría que se muestran.</p>
 </li>
 </ol>
-<h5 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h5>
-<p><strong>Pose</strong> is a combination of a robot's <em>position</em> and <em>orientation</em> in its environment.</p>
-<p><strong>Position</strong> tells us the location (in meters) of the robot in its environment. Wherever the robot was when it was turned on is the reference point, and so the distance values that we observed in the exercise above were all quoted relative to this initial position.</p>
-<p>You should have noticed that (as the robot moved around) the <code>x</code> and <code>y</code> terms changed, but the <code>z</code> term should have remained at zero. This is because the <code>X-Y</code> plane is the floor, and any change in <code>z</code> position would mean that the robot was floating or flying above the floor! </p>
-<p><strong>Orientation</strong> tells us where the robot is pointing in its environment, expressed in units of <em>Quaternions</em>; a four-term orientation system. You should have noticed some of these values changing too, but it may not have been immediately obvious what the values really meant! For the further exercises in this lab we'll convert this to Euler angles (in degrees/radians) for you, to make the data a bit easier to understand.</p>
-<p>Ultimately though, our robots <em>position</em> can change in both the <code>X</code> and <code>Y</code> axes (i.e. the plane of the floor), while its <em>orientation</em> can only change about the <code>Z</code> axis (i.e. it can only "yaw"): </p>
+<h5 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">¶</a></h5>
+<p><strong>Pose</strong> es una combinación de la <em>posición</em> y <em>orientación</em> de un robot en su entorno.</p>
+<p><strong>Posición</strong> nos indica la ubicación (en metros) del robot en su entorno. El punto donde estaba el robot cuando se encendió es el punto de referencia, por lo que los valores de distancia que observamos en el ejercicio anterior se citaron todos relativos a esta posición inicial.</p>
+<p>Deberías haber notado que (a medida que el robot se movía) los términos <code>x</code> e <code>y</code> cambiaban, pero el término <code>z</code> debería haberse mantenido en cero. Esto se debe a que el plano <code>X-Y</code> es el suelo, ¡y cualquier cambio en la posición <code>z</code> significaría que el robot está flotando o volando sobre el suelo!</p>
+<p><strong>Orientación</strong> nos dice hacia dónde apunta el robot en su entorno, expresado en unidades de <em>Cuaterniones</em>; un sistema de orientación de cuatro términos. También deberías haber notado algunos de estos valores cambiando, ¡aunque puede que no haya sido inmediatamente obvio qué significaban los valores! Para los ejercicios adicionales en este laboratorio convertiremos esto a ángulos de Euler (en grados/radianes) para que los datos sean un poco más fáciles de entender.</p>
+<p>En última instancia, la <em>posición</em> de nuestros robots puede cambiar tanto en los ejes <code>X</code> como <code>Y</code> (es decir, el plano del suelo), mientras que su <em>orientación</em> solo puede cambiar alrededor del eje <code>Z</code> (es decir, solo puede "guinear"/yaw):</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/pose.svg" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/pose.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/pose.svg" width="700px"></a></p>
 </figure>
-<h4 id="odometry-based-navigation">Odometry-based Navigation<a class="headerlink" href="#odometry-based-navigation" title="Permanent link">¶</a></h4>
-<p>We can use our robot's odometry as a feedback signal to inform robot navigation and thus implement <strong>closed-loop control</strong>. There's a final (optional) exercise at the end of this lab where you can explore this further (if you have time). For now though, let's consider some other data streams on the robot, and how <em>these</em> could be used for closed-loop control instead. </p>
-<h3 id="the-lidar-sensor">The LiDAR Sensor<a class="headerlink" href="#the-lidar-sensor" title="Permanent link">¶</a></h3>
-<p>As you'll know, the black spinning device on the top of your robot is a <em>LiDAR Sensor</em>. As discussed previously, this sensor uses laser pulses to measure the distance to nearby objects. The sensor spins continuously so that it can fire these laser pulses through a full 360° arc, and generate a full 2-dimensional map of the robot's surroundings.</p>
-<p>This data is published onto the ROS network to a topic called <code>/scan</code>. Use the same methods that you used in <a href="#ex1">Exercise 1</a> to find out what data type (<em>"interface"</em>) this topic uses.</p>
+<h4 id="navegacion-basada-en-odometria">Navegación basada en Odometría<a class="headerlink" href="#navegacion-basada-en-odometria" title="Permanent link">¶</a></h4>
+<p>Podemos usar la odometría de nuestro robot como señal de retroalimentación para informar la navegación del robot e implementar <strong>control de lazo cerrado</strong>. Hay un ejercicio final (opcional) al final de este laboratorio donde puedes explorar esto más a fondo (si tienes tiempo). Por ahora, consideremos otros flujos de datos en el robot y cómo <em>estos</em> podrían usarse para el control de lazo cerrado en su lugar.</p>
+<h3 id="el-sensor-lidar">El Sensor LiDAR<a class="headerlink" href="#el-sensor-lidar" title="Permanent link">¶</a></h3>
+<p>Como ya sabes, el dispositivo negro que gira en la parte superior de tu robot es un <em>Sensor LiDAR</em>. Como se discutió anteriormente, este sensor usa pulsos láser para medir la distancia a objetos cercanos. El sensor gira continuamente para poder disparar estos pulsos láser a través de un arco completo de 360°, y generar un mapa bidimensional completo del entorno del robot.</p>
+<p>Estos datos se publican en la red ROS en un topic llamado <code>/scan</code>. Usa los mismos métodos que usaste en el <a href="#ex1">Ejercicio 1</a> para descubrir qué tipo de dato (<em>"interface"</em>) usa este topic.</p>
 <div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
-<p>Make a note of this, there'll be a post-lab quiz question on it!</p>
+<p class="admonition-title">Cuestionario Post-lab</p>
+<p>¡Toma nota de esto, habrá una pregunta del cuestionario post-lab sobre ello!</p>
 </div>
-<p>Launch RViz, so that we can see the data coming from this sensor in real-time:</p>
+<p>Lanza RViz, para que podamos ver los datos de este sensor en tiempo real:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
 </code></pre></div><p></p>
 <hr>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/real_rviz_vs_arena.png" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/real_rviz_vs_arena.png" data-desc-position="bottom"><img alt="" src="../../images/waffle/real_rviz_vs_arena.png" width="700px"></a></p>
 </figure>
-<p>The green dots illustrate the LiDAR data. Hold your hand out to the robot and see if you can see it being detected by the sensor... a cluster of green dots should form on the screen to indicate where your hand is located in relation to the robot. Move your hand around and watch the cluster of dots move accordingly. Move your hand closer and farther away from the robot and observe how the dots also move towards or away from the robot on the screen. </p>
-<p>This data is really useful and (as we observed during the previous lab session) it allows us to build up 2-dimensional maps of an environment with considerable accuracy. There's lots of other ways we can use this data too though, and in the next exercise we will look at how we can use this as a feedback signal to make our robot detect and follow walls!</p>
-<p>Once you're done, close down RViz by hitting <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong>. </p>
-<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Wall Following<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
+<p>Los puntos verdes ilustran los datos del LiDAR. Extiende tu mano hacia el robot y observa si puedes verla siendo detectada por el sensor... debería formarse un grupo de puntos verdes en la pantalla para indicar dónde está tu mano en relación con el robot. Mueve tu mano y observa cómo el grupo de puntos se mueve en consecuencia. Acerca y aleja tu mano del robot y observa cómo los puntos también se acercan o alejan del robot en la pantalla.</p>
+<p>Estos datos son realmente útiles y (como observamos durante la sesión de laboratorio anterior) nos permiten construir mapas bidimensionales de un entorno con considerable precisión. También hay muchas otras formas en que podemos usar estos datos, y en el siguiente ejercicio veremos cómo podemos usarlos como señal de retroalimentación para ¡hacer que nuestro robot detecte y siga paredes!</p>
+<p>Cuando hayas terminado, cierra RViz presionando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong>.</p>
+<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 2: Seguimiento de pared<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Head back to VS Code, which should still be open from earlier.</p>
+<p>Regresa a VS Code, que debería seguir abierto desde antes.</p>
 </li>
 <li>
-<p>In the File Explorer on the left-hand side find a folder called <code>scripts</code>, and click on the <code>ex2.py</code> file in here, to display it in the editor.</p>
+<p>En el Explorador de Archivos del lado izquierdo encuentra una carpeta llamada <code>scripts</code> y haz clic en el archivo <code>ex2.py</code> aquí, para mostrarlo en el editor.</p>
 </li>
 <li>
-<p>Have a look through the code and see if you can work out what's going on. There are a few things to be aware of:</p>
+<p>Revisa el código y trata de entender qué está pasando. Hay algunas cosas a tener en cuenta:</p>
 <ol>
 <li>
-<p><strong>Motion control</strong> is handled by an external Python class called <code>Motion</code>, which is imported on line 7 (along with another class called <code>Lidar</code> which we'll talk about shortly):</p>
+<p>El <strong>control de movimiento</strong> es gestionado por una clase de Python externa llamada <code>Motion</code>, que se importa en la línea 7 (junto con otra clase llamada <code>Lidar</code> de la que hablaremos en breve):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">amr31001_lab2_modules.tb3_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Motion</span><span class="p">,</span> <span class="n">Lidar</span>
 </code></pre></div>
-<p>The <code>Motion</code> class is instantiated on line 14:</p>
+<p>La clase <code>Motion</code> se instancia en la línea 14:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span> <span class="o">=</span> <span class="n">Motion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># (1)!</span>
 </code></pre></div>
 <ol>
 <li>
-<p>Most of the code in the <code>ex2.py</code> file is contained within a Python class called <code>WallFollower</code>. See line 9:</p>
+<p>La mayor parte del código en el archivo <code>ex2.py</code> está contenida dentro de una clase Python llamada <code>WallFollower</code>. Mira la línea 9:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">WallFollower</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="o">...</span>
 </code></pre></div>
-<p><code class="highlight"><span class="bp">self</span></code> allows our class to refer to itself!</p>
-<p><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> for example allows us to access the <code>motion</code> attribute elsewhere within the class (as long as we refer to it as <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code>). </p>
-<p>See this in action below...</p>
+<p><code class="highlight"><span class="bp">self</span></code> permite que nuestra clase se refiera a sí misma.</p>
+<p><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code>, por ejemplo, nos permite acceder al atributo <code>motion</code> en cualquier parte dentro de la clase (siempre que nos refiramos a él como <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code>).</p>
 </li>
 </ol>
-<p>A class <em>method</em> called <code>follow_wall()</code> contains the main bulk of the code, and it's here (on lines 49-51) that we call the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> attribute to make the robot move at a linear velocity of <code>x</code> (m/s) and/or an angular velocity of <code>y</code> (rad/s):</p>
+<p>Un método de clase llamado <code>follow_wall()</code> contiene la mayor parte del código, y es aquí (en las líneas 49-51) donde llamamos al atributo <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> para hacer que el robot se mueva con una velocidad lineal de <code>x</code> (m/s) y/o una velocidad angular de <code>y</code> (rad/s):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">(</span>
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="n">linear</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">angular</span> <span class="o">=</span> <span class="n">y</span>
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">)</span>
 </code></pre></div>
-<p>A class method called <code>on_shutdown()</code> handles the shutdown operations that should take place when this Python node is stopped, and it's <em>here</em> (line 24) that we call the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> object again, but this time to make the robot stop:</p>
+<p>Un método de clase llamado <code>on_shutdown()</code> maneja las operaciones de apagado que deben ocurrir cuando se detiene este node Python, y es <em>aquí</em> (línea 24) donde llamamos al objeto <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span></code> nuevamente, pero esta vez para detener el robot:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre></div>
 </li>
 <li>
-<p><strong>Obtaining LiDAR data</strong> (as discussed above) is achieved by subscribing to the <code>/scan</code> topic. What you <em>hopefully</em> identified just before starting this exercise is that the <code>/scan</code> topic provides us with LiDAR data in a format defined as <code>sensor_msgs/msg/LaserScan</code>. This is quite a complex data structure, so to make life easier during this lab, we've done all the hard work for you, inside another class called <code>Lidar</code> (also imported earlier). This class is instantiated on line 15:</p>
+<p><strong>Obtener datos del LiDAR</strong> (como se discutió anteriormente) se logra suscribiéndose al topic <code>/scan</code>. Lo que esperamos que hayas identificado justo antes de comenzar este ejercicio es que el topic <code>/scan</code> nos proporciona datos del LiDAR en un formato definido como <code>sensor_msgs/msg/LaserScan</code>. Esta es una estructura de datos bastante compleja, así que para facilitar las cosas durante este laboratorio, hemos hecho todo el trabajo duro por ti, dentro de otra clase llamada <code>Lidar</code> (también importada anteriormente). Esta clase se instancia en la línea 15:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span> <span class="o">=</span> <span class="n">Lidar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
-<p>This <code>Lidar</code> class splits up data from the LiDAR sensor into a number of different segments to focus on a number of distinct zones around the robot's body (to make the data a bit easier to deal with). For each of the segments (as shown in the figure below) a single distance value can be obtained, which represents the average distance to any object(s) within that particular angular zone:</p>
+<p>Esta clase <code>Lidar</code> divide los datos del sensor LiDAR en varios segmentos para enfocarse en varias zonas distintas alrededor del cuerpo del robot (para hacer que los datos sean un poco más fáciles de manejar). Para cada uno de los segmentos (como se muestra en la figura a continuación) se puede obtener un único valor de distancia, que representa la distancia promedio a cualquier objeto(s) dentro de esa zona angular particular:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="lidar_segments.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="lidar_segments.png" data-desc-position="bottom"><img alt="" src="lidar_segments.png" width="500px"></a>
 </figure><p></p>
-<p>In our code, we can obtain the distance measurement (in meters) from each of the above zones as follows:</p>
+<p>En nuestro código, podemos obtener la medición de distancia (en metros) de cada una de las zonas anteriores de la siguiente manera:</p>
 <ol>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">front</span></code> to obtain the average distance to any object(s) within the <em>"Front"</em> zone.</li>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l1</span></code> to obtain the average distance to any object(s) located within LiDAR zone <em>"L1"</em>.</li>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">r1</span></code> to obtain the average distance to any object(s) located within LiDAR zone <em>"R1"</em>.<br>
-    and so on...</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">front</span></code> para obtener la distancia promedio a cualquier objeto(s) dentro de la zona <em>"Front"</em>.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l1</span></code> para obtener la distancia promedio a cualquier objeto(s) ubicado dentro de la zona LiDAR <em>"L1"</em>.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">r1</span></code> para obtener la distancia promedio a cualquier objeto(s) ubicado dentro de la zona LiDAR <em>"R1"</em>.
+    y así sucesivamente...</li>
 </ol>
 </li>
 <li>
-<p>The code template has been developed to detect a wall on the robot's <em>left-hand side</em>.</p>
+<p>La plantilla de código ha sido desarrollada para detectar una pared en el <em>lado izquierdo</em> del robot.</p>
 <ol>
-<li>We use distance measurements from LiDAR zones L3 and L4 to determine the alignment of the robot to a left-hand wall.</li>
+<li>Usamos mediciones de distancia de las zonas LiDAR L3 y L4 para determinar la alineación del robot con una pared a la izquierda.</li>
 <li>
-<p>This is determined by calculating the difference between the distance measurements reported from these two zones:</p>
+<p>Esto se determina calculando la diferencia entre las mediciones de distancia reportadas de estas dos zonas:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">wall_slope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lidar</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">l4</span>
 </code></pre></div>
 </li>
 <li>
-<p>This is a <em>spatial difference</em> between LiDAR beams <code>l3</code> and <code>l4</code>, and can be used as a simple measure of local wall slope or relative offset between the robot and the wall.</p>
-<p>If this value is close to zero, then the robot and the wall are well aligned. If not, then the robot is at an angle to the wall, and it needs to adjust its angular velocity in order to correct for this:</p>
+<p>Esta es una <em>diferencia espacial</em> entre los rayos LiDAR <code>l3</code> y <code>l4</code>, y puede usarse como una medida simple de la pendiente local de la pared o el desplazamiento relativo entre el robot y la pared.</p>
+<p>Si este valor está cerca de cero, entonces el robot y la pared están bien alineados. Si no, entonces el robot está en ángulo con respecto a la pared, y necesita ajustar su velocidad angular para corregir esto:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="wall_slope.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="wall_slope.png" data-desc-position="bottom"><img alt="" src="wall_slope.png" width="500px"></a>
 </figure>  <p></p>
 </li>
 </ol>
@@ -3574,93 +4078,93 @@
 </ol>
 </li>
 <li>
-<p>Run the node as it is, from <strong>TERMINAL 3</strong>:</p>
+<p>Ejecuta el node tal como está, desde <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex2.py
 </code></pre></div><p></p>
 <hr>
-<p>When you do this, you'll notice that the robot doesn't move at all (yet!), but the following data appears in the terminal:</p>
+<p>Cuando hagas esto, notarás que el robot no se mueve en absoluto (¡aún!), pero los siguientes datos aparecen en la terminal:</p>
 <ol>
-<li>The distance measurements from each of the LiDAR zones.</li>
-<li>The current value of the <code>wall_slope</code> parameter, i.e. how well aligned the robot currently is to a wall on its left-hand side.</li>
-<li>The decision that has been made by the <code class="highlight"><span class="k">if</span></code> statement on the appropriate action that should be taken, given the current value of <code>wall_slope</code>.</li>
+<li>Las mediciones de distancia de cada una de las zonas LiDAR.</li>
+<li>El valor actual del parámetro <code>wall_slope</code>, es decir, qué tan bien alineado está actualmente el robot con una pared en su lado izquierdo.</li>
+<li>La decisión que ha tomado la instrucción <code class="highlight"><span class="k">if</span></code> sobre la acción apropiada que debe tomarse, dado el valor actual de <code>wall_slope</code>.</li>
 </ol>
 </li>
 <li>
-<p>Now look at the code. </p>
+<p>Ahora observa el código.</p>
 <ol>
 <li>
-<p>The <code>follow_wall()</code> class method is called over and over again at a controlled rate. This was established in the <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code> class method: </p>
+<p>El método de clase <code>follow_wall()</code> es llamado repetidamente a una tasa controlada. Esto se estableció en el método de clase <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">timer_period_sec</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="c1"># (1)!</span>
 <a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">follow_wall</span><span class="p">,</span> <span class="c1"># (2)!</span>
 <a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">)</span>
 </code></pre></div>
 <ol>
-<li>The rate at which to execute a <em>"callback function"</em>. Note: defined in terms of <em>period</em> (in seconds), not <em>frequency</em> (in Hz).</li>
-<li>The callback function to execute at the specified rate, i.e. <code>follow_wall()</code>.</li>
+<li>La tasa a la que ejecutar una <em>"función de callback"</em>. Nota: definida en términos de <em>período</em> (en segundos), no <em>frecuencia</em> (en Hz).</li>
+<li>La función de callback a ejecutar a la tasa especificada, es decir, <code>follow_wall()</code>.</li>
 </ol>
 </li>
 <li>
-<p>The <code>follow_wall()</code> class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.</p>
-<p><strong>It's this part of the code that you will need to modify!</strong></p>
+<p>El método de clase <code>follow_wall()</code> es esencialmente la parte principal de nuestro código: una serie de operaciones que se llamarán repetidamente a una tasa especificada.</p>
+<p><strong>¡Esta es la parte del código que necesitarás modificar!</strong></p>
 </li>
 </ol>
 </li>
 <li>
-<p><strong>Adapting the code</strong>:</p>
+<p><strong>Adaptar el código</strong>:</p>
 <ol>
 <li>
-<p>First, modify the <code>wall_slope</code> calculation so that the robot observes a wall on its <em>right-hand side</em> <strong>NOT</strong> its left. </p>
+<p>Primero, modifica el cálculo de <code>wall_slope</code> para que el robot observe una pared en su <em>lado derecho</em> <strong>NO</strong> en el izquierdo.</p>
 </li>
 <li>
-<p><strong>Make sure that you save any changes to the code (in VS Code) before trying to test it out on the robot!</strong></p>
-<p>Do this by using the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span> keyboard shortcut, or going to <code>File</code> &gt; <code>Save</code> from the menu at the top of the screen.</p>
+<p><strong>¡Asegúrate de guardar cualquier cambio en el código (en VS Code) antes de intentar probarlo en el robot!</strong></p>
+<p>Haz esto usando el atajo de teclado <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>, o yendo a <code>File</code> &gt; <code>Save</code> desde el menú en la parte superior de la pantalla.</p>
 </li>
 <li>
-<p>Next, place the robot on the floor with a wall on its right-hand side</p>
+<p>A continuación, coloca el robot en el suelo con una pared a su derecha.</p>
 </li>
 <li>
-<p>Manually vary the alignment of the robot and the wall and observe how the information that is being printed to the terminal changes as you do so.</p>
+<p>Varía manualmente la alineación del robot y la pared y observa cómo la información que se imprime en la terminal cambia a medida que lo haces.</p>
 <div class="admonition note">
-<p class="admonition-title">Question</p>
-<p>The node will tell you if it thinks the robot needs to turn right or left in order to improve its current alignment with the wall. <strong>Is it making the correct decision?</strong></p>
+<p class="admonition-title">Pregunta</p>
+<p>El node te dirá si cree que el robot necesita girar a la derecha o a la izquierda para mejorar su alineación actual con la pared. <strong>¿Está tomando la decisión correcta?</strong></p>
 </div>
 </li>
 <li>
-<p>Currently, all velocity parameters inside the <code class="highlight"><span class="n">follow_wall</span><span class="p">()</span></code> method are set to zero.</p>
+<p>Actualmente, todos los parámetros de velocidad dentro del método <code class="highlight"><span class="n">follow_wall</span><span class="p">()</span></code> están establecidos en cero.</p>
 <ul>
 <li>
-<p>You'll need to set a constant <em>linear</em> velocity, so that the robot is always moving forwards. Set an appropriate value for this now, by editing the line that currently reads:</p>
+<p>Necesitarás establecer una velocidad <em>lineal</em> constante, para que el robot siempre esté avanzando. Establece un valor apropiado para esto ahora, editando la línea que actualmente dice:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">lin_vel</span> <span class="o">=</span> <span class="mf">0.0</span>
 </code></pre></div>
 </li>
 <li>
-<p>The <em>angular</em> velocity of the robot will need to be adjusted conditionally, in order to ensure that the value of <code>wall_slope</code> is kept as low as possible at all times (i.e. the robot is kept in alignment with the wall). </p>
+<p>La velocidad <em>angular</em> del robot deberá ajustarse condicionalmente, para garantizar que el valor de <code>wall_slope</code> se mantenga lo más bajo posible en todo momento (es decir, el robot se mantiene alineado con la pared).</p>
 </li>
 </ul>
-<p>Adjust the value of <code>ang_vel</code> in each of the <code class="highlight"><span class="k">if</span></code> statement blocks so that this is achieved under each of the three possible scenarios.</p>
+<p>Ajusta el valor de <code>ang_vel</code> en cada uno de los bloques de instrucción <code class="highlight"><span class="k">if</span></code> para que esto se logre bajo cada uno de los tres posibles escenarios.</p>
 </li>
 <li>
-<p>Hopefully, by following the steps above, you will get to the point where you can make the robot follow a right-hand wall reasonably well, as long as the wall remains reasonably straight! Consider what would happen however if the robot were faced with either of the following situations:</p>
+<p>Con suerte, siguiendo los pasos anteriores, llegarás al punto en que puedas hacer que el robot siga una pared derecha razonablemente bien, ¡siempre que la pared permanezca razonablemente recta! Sin embargo, considera qué sucedería si el robot se enfrentara a alguna de las siguientes situaciones:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="limitations.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="limitations.png" data-desc-position="bottom"><img alt="" src="limitations.png" width="600px"></a>
 </figure><p></p>
-<p>You may have already observed this during your testing... how could you adapt the code so that such situations can be achieved?</p>
+<p>Es posible que ya hayas observado esto durante tus pruebas... ¿cómo podrías adaptar el código para que tales situaciones puedan manejarse?</p>
 <details class="info">
-<summary>Hints</summary>
+<summary>Pistas</summary>
 <ol>
-<li>You may need to consider the distance measurements from some other LiDAR zones!</li>
+<li>¡Es posible que debas considerar las mediciones de distancia de algunas otras zonas LiDAR!</li>
 <li>
-<p>The <code>ex3.py</code> template that was provided to you uses an <code>if</code> statement with three different cases:</p>
+<p>La plantilla <code>ex3.py</code> que se te proporcionó usa una instrucción <code>if</code> con tres casos diferentes:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
 <a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
 <a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>
 <a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="k">else</span><span class="p">:</span>
 </code></pre></div>
-<p>You may need to add in some further cases to this to accommodate the additional situations discussed above, e.g.:</p>
+<p>Es posible que debas agregar algunos casos adicionales para acomodar las situaciones adicionales discutidas anteriormente, por ejemplo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">if</span> <span class="o">...</span><span class="p">:</span>
 <a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
 <a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
@@ -3678,33 +4182,33 @@
 </ol>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>As discussed above, your completion of this exercise will be assessed as part of the post-lab!</p>
+<p>Como se discutió anteriormente, ¡tu completitud de este ejercicio será evaluada como parte del post-lab!</p>
 </div>
 </li>
 </ol>
-<h3 id="cameras-and-robot-vision">Cameras and Robot Vision<a class="headerlink" href="#cameras-and-robot-vision" title="Permanent link">¶</a></h3>
-<p>Our robot's have cameras, providing them with the ability to <em>"see"</em> their environment. Camera data can be used as yet another feedback signal to inform closed-loop control, which we will leverage now to implement <em>line following</em>. We will achieve this using a well established control algorithm known as <strong>PID Control</strong>, using the data from our robot's camera and applying some image processing techniques to this to detect and <em>locate</em> a coloured line printed on the floor.</p>
-<p>Consider the following image obtained from a robot's camera, with a green line visible on the floor: </p>
+<h3 id="camaras-y-vision-robotica">Cámaras y Visión Robótica<a class="headerlink" href="#camaras-y-vision-robotica" title="Permanent link">¶</a></h3>
+<p>Nuestros robots tienen cámaras, dándoles la capacidad de <em>"ver"</em> su entorno. Los datos de la cámara pueden usarse como otra señal de retroalimentación para informar el control de lazo cerrado, que ahora aprovecharemos para implementar el <em>seguimiento de línea</em>. Lograremos esto usando un algoritmo de control bien establecido conocido como <strong>Control PID</strong>, usando los datos de la cámara de nuestro robot y aplicando algunas técnicas de procesamiento de imagen para detectar y <em>localizar</em> una línea de color impresa en el suelo.</p>
+<p>Considera la siguiente imagen obtenida de la cámara de un robot, con una línea verde visible en el suelo:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/overview.png" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="600px"></a></p>
 </figure>
-<p>PID Control is a clever algorithm that aims to minimise the <strong>Error</strong> between a <strong>Reference Input</strong>: a desired condition that we would like our robot to maintain; and a <strong>Feedback Signal</strong>: the condition that the robot is currently in (based on real-world data). The PID algorithm calculates an appropriate <strong>Controlled Output</strong> for our system that (when tuned appropriately) will act to minimise this error.   </p>
-<p>If we want our robot to successfully follow a coloured line on the floor, we will need it to keep that line in the centre of its view point at all times by minimising the <strong>error</strong> between where the line currently is (the <strong>feedback signal</strong>) and where it should be (the <strong>reference input</strong>, i.e. the centre of its view point). In this case then, the PID algorithm provides us with an angular velocity command (the <strong>controlled output</strong>) to achieve this.</p>
-<p>The full PID algorithm is as follows:</p>
+<p>El Control PID es un algoritmo inteligente que tiene como objetivo minimizar el <strong>Error</strong> entre una <strong>Referencia de Entrada</strong>: una condición deseada que nos gustaría que mantuviera nuestro robot; y una <strong>Señal de Retroalimentación</strong>: la condición en la que se encuentra actualmente el robot (basada en datos del mundo real). El algoritmo PID calcula una <strong>Salida de Control</strong> apropiada para nuestro sistema que (cuando se sintoniza apropiadamente) actuará para minimizar este error.</p>
+<p>Si queremos que nuestro robot siga con éxito una línea de color en el suelo, necesitará mantener esa línea en el centro de su campo visual en todo momento minimizando el <strong>error</strong> entre dónde está actualmente la línea (la <strong>señal de retroalimentación</strong>) y dónde debería estar (la <strong>referencia de entrada</strong>, es decir, el centro de su campo visual). En este caso, el algoritmo PID nos proporciona un comando de velocidad angular (la <strong>salida de control</strong>) para lograr esto.</p>
+<p>El algoritmo PID completo es el siguiente:</p>
 <div class="arithmatex">\[
 u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 \]</div>
-<p>Where <span class="arithmatex">\(u(t)\)</span> is the <strong>Controlled Output</strong>, <span class="arithmatex">\(e(t)\)</span> is the <strong>Error</strong> (as illustrated in the figure above) and <span class="arithmatex">\(K_{P}\)</span>, <span class="arithmatex">\(K_{I}\)</span> and <span class="arithmatex">\(K_{D}\)</span> are Proportional, Integral and Differential <strong>Gains</strong> respectively, which each have different effects on a system in terms of its ability to maintain the desired state (the reference input). We must establish appropriate values for these gains by a process called <em>tuning</em>.</p>
-<p>In fact, to allow our TurtleBot3 to follow a line, we actually only really need a <em>proportional</em> gain, so our control algorithm can be simplified considerably:</p>
+<p>Donde <span class="arithmatex">\(u(t)\)</span> es la <strong>Salida de Control</strong>, <span class="arithmatex">\(e(t)\)</span> es el <strong>Error</strong> (como se ilustra en la figura anterior) y <span class="arithmatex">\(K_{P}\)</span>, <span class="arithmatex">\(K_{I}\)</span> y <span class="arithmatex">\(K_{D}\)</span> son las <strong>Ganancias</strong> Proporcional, Integral y Diferencial respectivamente, que tienen diferentes efectos en un sistema en términos de su capacidad para mantener el estado deseado (la referencia de entrada). Debemos establecer valores apropiados para estas ganancias mediante un proceso llamado <em>sintonización</em>.</p>
+<p>De hecho, para permitir que nuestro TurtleBot3 siga una línea, realmente solo necesitamos una ganancia <em>proporcional</em>, por lo que nuestro algoritmo de control puede simplificarse considerablemente:</p>
 <div class="arithmatex">\[
 u(t)=K_{P} e(t)
 \]</div>
-<p>This is what's referred to as a <strong>"P" Controller</strong>, and the only gain we need to establish here is therefore <span class="arithmatex">\(K_{P}\)</span>.</p>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Line Following<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
-<h5 id="ex3a">Part A: Establishing a Feedback Signal (Detecting the Line)<a class="headerlink" href="#ex3a" title="Permanent link">¶</a></h5>
+<p>Esto es lo que se denomina un <strong>Controlador "P"</strong>, y la única ganancia que necesitamos establecer aquí es <span class="arithmatex">\(K_{P}\)</span>.</p>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 3: Seguimiento de línea<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<h5 id="ex3a">Parte A: Establecer una Señal de Retroalimentación (Detectar la Línea)<a class="headerlink" href="#ex3a" title="Permanent link">¶</a></h5>
 <ol>
 <li>
-<p>Launch RViz again in <strong>TERMINAL 3</strong>:</p>
+<p>Lanza RViz nuevamente en <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
@@ -3712,186 +4216,186 @@ u(t)=K_{P} e(t)
 <hr>
 </li>
 <li>
-<p>In the "Displays" menu on the left-hand side, tick the box next to the "Camera" item. Live images from the robot's camera should then be displayed in the bottom left-hand corner of the RViz window.</p>
+<p>En el menú "Displays" del lado izquierdo, marca la casilla junto al elemento "Camera". Las imágenes en vivo de la cámara del robot deberían mostrarse entonces en la esquina inferior izquierda de la ventana de RViz.</p>
 </li>
 <li>
-<p>Place the robot in the arena so that line on the arena floor is visible in the robot's vision.</p>
+<p>Coloca el robot en el área para que la línea en el suelo sea visible en la visión del robot.</p>
 </li>
 <li>
-<p>Now, launch the <code>ex3_colour_detection.py</code> node in <strong>TERMINAL 4</strong>:</p>
+<p>Ahora, lanza el node <code>ex3_colour_detection.py</code> en <strong>TERMINAL 4</strong>:</p>
 <hr>
 <p><strong>TERMINAL 4</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ros2 run amr31001_lab2 ex3_colour_detection.py
 </code></pre></div><p></p>
 <hr>
-<p>After a brief pause, a window should open displaying a scatter plot alongside a raw image obtained from the robot's camera.</p>
+<p>Después de una breve pausa, debería abrirse una ventana que muestre un diagrama de dispersión junto con una imagen sin procesar obtenida de la cámara del robot.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/hsv_cam_img.png" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/hsv_cam_img.png" data-desc-position="bottom"><img alt="" src="line_following/hsv_cam_img.png" width="700px"></a>
 </figure><p></p>
-<p>The scatter plot shows all the different colours that are present in the raw camera image. These are plotted in terms of the <em>Hue</em> and <em>Saturation</em> values of each pixel in the image.</p>
+<p>El diagrama de dispersión muestra todos los diferentes colores que están presentes en la imagen de la cámara sin procesar. Estos se representan en términos de los valores de <em>Matiz</em> (Hue) y <em>Saturación</em> de cada píxel en la imagen.</p>
 </li>
 <li>
-<p>In the plot, you should be able to identify a cluster of data points that are the same colour as the line on the floor. From the plot, make a note of the range of Hue and Saturation values that these dots reside within.</p>
+<p>En el gráfico, deberías poder identificar un grupo de puntos de datos del mismo color que la línea en el suelo. Del gráfico, toma nota del rango de valores de Matiz y Saturación dentro de los que residen estos puntos.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/hsv_plot.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/hsv_plot.png" data-desc-position="bottom"><img alt="" src="line_following/hsv_plot.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Once you've done this, close the figure by clicking the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"></path></svg></span> icon in the top right corner, and also close the RViz window too. This should release <strong>TERMINAL 3</strong> and <strong>TERMINAL 4</strong>.</p>
+<p>Una vez que hayas hecho esto, cierra la figura haciendo clic en el ícono <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"></path></svg></span> en la esquina superior derecha, y también cierra la ventana de RViz. Esto debería liberar <strong>TERMINAL 3</strong> y <strong>TERMINAL 4</strong>.</p>
 </li>
 </ol>
-<h5 id="ex3b">Part B: Implementing Proportional Control (Following the Line)<a class="headerlink" href="#ex3b" title="Permanent link">¶</a></h5>
+<h5 id="ex3b">Parte B: Implementar el Control Proporcional (Seguir la Línea)<a class="headerlink" href="#ex3b" title="Permanent link">¶</a></h5>
 <ol>
 <li>
-<p>In VS Code, click on the <code>ex3_line_following.py</code> file in the File Explorer to display it in the editor.</p>
+<p>En VS Code, haz clic en el archivo <code>ex3_line_following.py</code> en el Explorador de Archivos para mostrarlo en el editor.</p>
 </li>
 <li>
-<p>Have a look through the code and see if you can work out what's going on. Here's a few points to start with:</p>
+<p>Revisa el código y trata de entender qué está pasando. Aquí hay algunos puntos para comenzar:</p>
 <ol>
 <li>
-<p>Once again, velocity control is handled in the same way as the previous exercise, using the <code class="highlight"><span class="n">Motion</span><span class="p">()</span></code> class and calls to <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">()</span></code> and <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></code> commands.</p>
+<p>Una vez más, el control de velocidad se maneja de la misma manera que en el ejercicio anterior, usando la clase <code class="highlight"><span class="n">Motion</span><span class="p">()</span></code> y llamadas a <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">()</span></code> y <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></code>.</p>
 </li>
 <li>
-<p>The data from the robot's camera is once again handled by a separate class (much like <code>Lidar</code> in the previous exercise). This one (instantiated on line 15) is called <code>Camera</code>:</p>
+<p>Los datos de la cámara del robot son manejados una vez más por una clase separada (muy similar a <code>Lidar</code> en el ejercicio anterior). Esta (instanciada en la línea 15) se llama <code>Camera</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
-<p>We'll look at how to use this shortly...</p>
+<p>Veremos cómo usarla en breve...</p>
 </li>
 </ol>
 </li>
 <li>
-<p>The <em>"main"</em> part of the code is again controlled by a timer and a "callback" function. </p>
+<p>La parte <em>"principal"</em> del código está nuevamente controlada por un temporizador y una función de "callback".</p>
 <div class="admonition info">
-<p class="admonition-title">Post-lab Quiz</p>
+<p class="admonition-title">Cuestionario Post-lab</p>
 <ul>
-<li>What is the name of the callback function (aka the "main" control method)?</li>
-<li>At what rate (in Hz) will this run at?</li>
+<li>¿Cuál es el nombre de la función de callback (también conocida como el método de control "principal")?</li>
+<li>¿A qué tasa (en Hz) se ejecutará?</li>
 </ul>
 </div>
 </li>
 <li>
-<p>Run the node as it is, from <strong>TERMINAL 3</strong>:</p>
+<p>Ejecuta el node tal como está, desde <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ros2 run amr31001_lab2 ex3_line_following.py
 </code></pre></div><p></p>
 <hr>
-<p>To begin with, the robot shouldn't do anything, but a window should open showing a live feed from the robot's camera. You should also see a small blue circle hovering around somewhere in the image too.</p>
-<p>Make sure the line on the floor is visible to the robot before proceeding any further.</p>
+<p>Al principio, el robot no debería hacer nada, pero debería abrirse una ventana que muestre una transmisión en vivo de la cámara del robot. También deberías ver un pequeño círculo azul flotando en algún lugar de la imagen.</p>
+<p>Asegúrate de que la línea en el suelo sea visible para el robot antes de continuar.</p>
 </li>
 <li>
-<p>Stop the node with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
+<p>Detén el node con <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
 </li>
 <li>
-<p>In VS Code, locate the line in the <code>ex3_line_following.py</code> file that reads:</p>
+<p>En VS Code, localiza la línea en el archivo <code>ex3_line_following.py</code> que dice:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">()</span>
 </code></pre></div>
-<p>Into this, you can provide the Hue and Saturation ranges that you identified in <a href="#ex3a">Part A</a>:</p>
+<p>En esta, puedes proporcionar los rangos de Matiz y Saturación que identificaste en la <a href="#ex3a">Parte A</a>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">colour_filter</span><span class="p">(</span>
 <a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    <span class="n">hue</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">],</span>
 <a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">saturation</span><span class="o">=</span><span class="p">[</span><span class="n">MIN</span><span class="p">,</span> <span class="n">MAX</span><span class="p">]</span>
 <a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="p">)</span>
 </code></pre></div>
-<p>Replace <code>MIN</code> and <code>MAX</code> with your upper and lower hue and saturation values.</p>
+<p>Reemplaza <code>MIN</code> y <code>MAX</code> con tus valores superiores e inferiores de matiz y saturación.</p>
 </li>
 <li>
-<p>Run the code again. If your Hue and Saturation ranges are correct, and the line is in view then it should now be isolated in the image (all other pixels in the camera stream should be black).</p>
-<p>The small blue circle should also now be located roughly in the middle of the line. If you move the robot now (whilst keeping the line in view) then the blue circle should move with the line, indicating that the line is successfully being detected by your filtering, and the image processing algorithms.</p>
+<p>Ejecuta el código nuevamente. Si tus rangos de Matiz y Saturación son correctos y la línea está visible, ahora debería quedar aislada en la imagen (todos los demás píxeles en la transmisión de la cámara deberían ser negros).</p>
+<p>El pequeño círculo azul también debería estar ubicado aproximadamente en el centro de la línea. Si mueves el robot ahora (manteniendo la línea a la vista) el círculo azul debería moverse con la línea, indicando que la línea está siendo detectada exitosamente por tu filtrado y los algoritmos de procesamiento de imagen.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/line_filtered.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/line_filtered.png" data-desc-position="bottom"><img alt="" src="line_following/line_filtered.png" width="400px"></a>
 </figure><p></p>
-<p>If the line <em>isn't</em> successfully isolated then <a href="#ex3a">go back to Part A</a> and run the <code>ex3_colour_detection.py</code> node again. </p>
+<p>Si la línea <em>no</em> se aísla exitosamente, <a href="#ex3a">vuelve a la Parte A</a> y ejecuta el node <code>ex3_colour_detection.py</code> nuevamente.</p>
 </li>
 <li>
-<p>The robot is now able to locate the position of the line in its viewpoint, so we have now successfully established the <strong>Feedback Signal</strong> for our proportional controller. In the code, this can be accessed as follows:</p>
+<p>El robot ahora puede localizar la posición de la línea en su campo visual, por lo que hemos establecido exitosamente la <strong>Señal de Retroalimentación</strong> para nuestro controlador proporcional. En el código, se puede acceder a esto de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span>
 </code></pre></div>
-<p>Consider the figure from above, once again:</p>
+<p>Considera la figura de antes, nuevamente:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/overview.png" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="500px"></a>
 </figure><p></p>
-<p>In our code, we can now use this to calculate the robot's current positional error. Locate the lines that read:</p>
+<p>En nuestro código, ahora podemos usar esto para calcular el error posicional actual del robot. Localiza las líneas que dicen:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">image_width</span> <span class="o">/</span> <span class="mi">2</span>
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="n">error</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># TODO</span>
 </code></pre></div>
-<p>... and edit the <code class="highlight"><span class="n">error</span> <span class="o">=</span> <span class="o">...</span></code> line to correctly calculate the robot's positional error based on the real-time position of the line in its view point (<code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span></code>).</p>
+<p>... y edita la línea <code class="highlight"><span class="n">error</span> <span class="o">=</span> <span class="o">...</span></code> para calcular correctamente el error posicional del robot basándose en la posición en tiempo real de la línea en su campo visual (<code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">line_position_pixels</span></code>).</p>
 </li>
 <li>
-<p>Angular Velocity is the <strong>Controlled Output</strong> of our P Controller, calculated (once again) according to:</p>
+<p>La Velocidad Angular es la <strong>Salida de Control</strong> de nuestro Controlador P, calculada (una vez más) según:</p>
 <div class="arithmatex">\[
 u(t)=K_{P} e(t)
 \]</div>
-<p>This is reflected in the code by the line that reads:</p>
+<p>Esto se refleja en el código por la línea que dice:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">ang_vel</span> <span class="o">=</span> <span class="n">kp</span> <span class="o">*</span> <span class="n">error</span>
 </code></pre></div>
-<p>Modify the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velcity</span><span class="p">()</span></code> line in the code to apply this angular velocity to the robot along with a constant (and <em>moderate</em>) linear velocity too. </p>
+<p>Modifica la línea <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velcity</span><span class="p">()</span></code> en el código para aplicar esta velocidad angular al robot junto con una velocidad lineal constante (y <em>moderada</em>) también.</p>
 </li>
 <li>
-<p>Finally, tune the P Controller by identifying an appropriate proportional gain <code>kp</code> so that the robot successfully follows the line smoothly and consistently.</p>
+<p>Finalmente, sintoniza el Controlador P identificando una ganancia proporcional <code>kp</code> apropiada para que el robot siga la línea de manera suave y consistente.</p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
-<p>As discussed above, your completion of this exercise will be assessed as part of the post-lab!</p>
+<p>Como se discutió anteriormente, ¡tu completitud de este ejercicio será evaluada como parte del post-lab!</p>
 </div>
 </li>
 </ol>
-<p>If you're all done with time to spare then move on to Exercise 4 below. If you don't have time then please head down to the <a href="#wrapping-up">Wrapping Up</a> section.</p>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> (Optional) Exercise 4: Odometry-based Navigation<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<p>From our work in <a href="#ex1">Exercise 1</a> we know about the robot's odometry system and what it tells us, let's see how this could be used as a feedback signal to inform robot navigation. You may recall that when you were last here for <a href="../lab1/">Lab 1</a> you created a ROS Node to make your robot to follow a square motion path on the floor. This was time-based though: for a given speed of motion (turning or moving forwards) how long would it take for the robot to move by a required distance? Having determined this, we then used timers to control the execution of two different motion states: moving forwards and turning on the spot, in order to generate the square motion path (approximately). </p>
-<p>In theory though, we can do all this much more effectively with odometry data instead, so let's have a go at that now...</p>
+<p>Si has terminado con tiempo de sobra, continúa con el Ejercicio 4 a continuación. Si no tienes tiempo, dirígete a la sección <a href="#wrapping-up">Cierre</a>.</p>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> (Opcional) Ejercicio 4: Navegación basada en Odometría<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<p>De nuestro trabajo en el <a href="#ex1">Ejercicio 1</a> sabemos sobre el sistema de odometría del robot y qué nos dice. Veamos cómo esto podría usarse como señal de retroalimentación para informar la navegación del robot. Recordarás que cuando estuviste aquí por última vez para el <a href="../lab1/">Lab 1</a> creaste un Node de ROS para hacer que tu robot siguiera una trayectoria cuadrada en el suelo. Sin embargo, esto estaba basado en tiempo: para una velocidad de movimiento dada (girando o avanzando), ¿cuánto tiempo tardaría el robot en moverse la distancia requerida? Habiendo determinado esto, luego usamos temporizadores para controlar la ejecución de dos estados de movimiento diferentes: avanzar y girar sobre sí mismo, para generar la trayectoria cuadrada (aproximadamente).</p>
+<p>En teoría, sin embargo, podemos hacer todo esto de manera mucho más efectiva con datos de odometría, así que intentémoslo ahora...</p>
 <ol>
 <li>
-<p>Head back to VS Code and open up the <code>ex4.py</code> file in the editor.</p>
+<p>Regresa a VS Code y abre el archivo <code>ex4.py</code> en el editor.</p>
 </li>
 <li>
-<p>Have a look through the code and see if you can work out what's going on. Here's a few points to start with:</p>
+<p>Revisa el código y trata de entender qué está pasando. Aquí hay algunos puntos para comenzar:</p>
 <ol>
 <li>
-<p>Velocity control is handled in the same way as in the previous exercise:</p>
+<p>El control de velocidad se maneja de la misma manera que en el ejercicio anterior:</p>
 <ol>
 <li>
-<p>To make the robot move at a linear velocity of <code>x</code> (m/s) and/or an angular velocity of <code>y</code> (rad/s):</p>
+<p>Para hacer que el robot se mueva con una velocidad lineal de <code>x</code> (m/s) y/o una velocidad angular de <code>y</code> (rad/s):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">move_at_velocity</span><span class="p">(</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>    <span class="n">linear</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">angular</span> <span class="o">=</span> <span class="n">y</span>
 <a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
-<p>To make the robot stop moving:</p>
+<p>Para hacer que el robot se detenga:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">motion</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Obtaining the robot's Odometry data is once again handled by a separate Python Class much like <code>Lidar</code> and <code>Camera</code> in the previous exercises. This one is called <code>Pose</code>, and is instantiated on line 16:</p>
+<p>Obtener los datos de Odometría del robot está nuevamente manejado por una clase Python separada similar a <code>Lidar</code> y <code>Camera</code> en los ejercicios anteriores. Esta se llama <code>Pose</code>, y se instancia en la línea 16:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div>
-<p>We can then call the <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span></code> object to access the robot's odometry data, by calling the appropriate attribute whenever we need it:</p>
+<p>Luego podemos llamar al objeto <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span></code> para acceder a los datos de odometría del robot, llamando al atributo apropiado cuando lo necesitemos:</p>
 <ol>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posx</span></code> to obtain the robot's current position (in meters) in the <code>X</code> axis.</li>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posy</span></code> to obtain the robot's current position (in meters) in the <code>Y</code> axis.</li>
-<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">yaw</span></code> to obtain the robot's current orientation (in degrees) about the <code>Z</code> axis.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posx</span></code> para obtener la posición actual del robot (en metros) en el eje <code>X</code>.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">posy</span></code> para obtener la posición actual del robot (en metros) en el eje <code>Y</code>.</li>
+<li><code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">yaw</span></code> para obtener la orientación actual del robot (en grados) alrededor del eje <code>Z</code>.</li>
 </ol>
 </li>
 </ol>
 </li>
 <li>
-<p>Run the code in <strong>TERMINAL 3</strong> and observe what happens:</p>
+<p>Ejecuta el código en <strong>TERMINAL 3</strong> y observa qué sucede:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>amr31001_lab2<span class="w"> </span>ex4.py
 </code></pre></div><p></p>
 <hr>
-<p>The robot should start turning on the spot, and you should see some interesting information being printed to the terminal. After it has turned by 45° the robot should stop. </p>
+<p>El robot debería comenzar a girar sobre sí mismo, y deberías ver información interesante imprimiéndose en la terminal. Después de haber girado 45°, el robot debería detenerse.</p>
 </li>
 <li>
-<p>Stop the Node by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> and then run it again if you missed what happened the first time!</p>
+<p>Detén el Node presionando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> y luego ejecútalo nuevamente si perdiste lo que sucedió la primera vez.</p>
 </li>
 <li>
-<p><strong>What you need to do</strong>:</p>
+<p><strong>Lo que necesitas hacer</strong>:</p>
 <ol>
 <li>
-<p>The <em>"main"</em> part of the code is once again controlled by a timer: </p>
+<p>La parte <em>"principal"</em> del código está nuevamente controlada por un temporizador:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span>
 <a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    <span class="n">timer_period_sec</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
 <a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">move_square</span><span class="p">,</span>
@@ -3899,49 +4403,49 @@ u(t)=K_{P} e(t)
 </code></pre></div>
 </li>
 <li>
-<p>The <code>move_square()</code> class method is therefore essentially the main part of our code: a series of operations that will be called over and over again at a specified rate.</p>
-<p>Within this there is an <code class="highlight"><span class="k">if</span></code> statement that controls whether the robot should be turning or moving forwards: </p>
+<p>El método de clase <code>move_square()</code> es esencialmente la parte principal de nuestro código: una serie de operaciones que se llamarán repetidamente a una tasa especificada.</p>
+<p>Dentro de este hay una instrucción <code class="highlight"><span class="k">if</span></code> que controla si el robot debe girar o avanzar:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn</span><span class="p">:</span>
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="c1"># Turning State</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="c1"># Estado de Giro</span>
 <a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="o">...</span>
 <a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    <span class="c1"># Moving Forwards </span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    <span class="c1"># Avanzando </span>
 <a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    <span class="o">...</span>
 </code></pre></div>
-<p>... where <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">turn</span></code> is a boolean whose value can either be <code class="highlight"><span class="kc">True</span></code> or <code class="highlight"><span class="kc">False</span></code>.</p>
+<p>... donde <code class="highlight"><span class="bp">self</span><span class="o">.</span><span class="n">turn</span></code> es un booleano cuyo valor puede ser <code class="highlight"><span class="kc">True</span></code> o <code class="highlight"><span class="kc">False</span></code>.</p>
 </li>
 <li>
-<p>Within this, look at what happens in the <code>Turning State</code>. Consider how the robot's yaw angle is being monitored and updated as the robot turns. Then, look at how the turn angle is being controlled. See if you can adapt this to make sure the robot turns by 90°.</p>
+<p>Dentro de esto, mira qué sucede en el <code>Estado de Giro</code>. Considera cómo se monitorea y actualiza el ángulo de yaw del robot mientras gira. Luego, mira cómo se controla el ángulo de giro. Ve si puedes adaptar esto para asegurarte de que el robot gire 90°.</p>
 </li>
 <li>
-<p>Ultimately, after the robot has turned by the desired angle it needs to move forwards by 0.5m, in order to achieve a 0.5x0.5m square motion path.</p>
-<p>Moving forwards is handled in the <code>Moving Forwards</code> state.</p>
-<p>See if you can adapt the code within this block to make the robot move forwards by the required amount (0.5 meters) in between each turn. <a name="the_hint"></a></p>
+<p>En última instancia, después de que el robot ha girado el ángulo deseado, necesita avanzar 0.5m para lograr una trayectoria cuadrada de 0.5x0.5m.</p>
+<p>El avance se maneja en el estado <code>Avanzando</code>.</p>
+<p>Ve si puedes adaptar el código dentro de este bloque para hacer que el robot avance la cantidad requerida (0.5 metros) entre cada giro. <a name="the_hint"></a></p>
 <details class="note">
-<summary>Hint</summary>
-<p>Consider how the turn angle is monitored and updated whist turning (<code>current_yaw</code>), and take a similar approach with the linear displacement (<code>current_distance</code>). Bear in mind that you'll need to consider the <em>euclidean distance</em>, which you'll need to calculate based on the robot's position in both the <code>x</code> and <code>y</code> axis.</p>
+<summary>Pista</summary>
+<p>Considera cómo se monitorea y actualiza el ángulo de giro mientras gira (<code>current_yaw</code>), y adopta un enfoque similar con el desplazamiento lineal (<code>current_distance</code>). Ten en cuenta que necesitarás considerar la <em>distancia euclidiana</em>, que necesitarás calcular basándote en la posición del robot tanto en el eje <code>x</code> como en el <code>y</code>.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="euclidean_distance.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="euclidean_distance.png" data-desc-position="bottom"><img alt="" src="euclidean_distance.png" width="500px"></a>
 </figure><p></p>
 </details>
 <details class="tip">
-<summary>Python Tips</summary>
-<p>You'll need to do a bit of maths here (see <a href="#the_hint">the "Hint" above</a>). Here's how to implement a couple of mathematical functions in Python:</p>
+<summary>Consejos de Python</summary>
+<p>Necesitarás hacer un poco de matemáticas aquí (consulta <a href="#the_hint">la "Pista" anterior</a>). Así es como implementar un par de funciones matemáticas en Python:</p>
 <ol>
 <li>
-<p><strong>To the power of X</strong>: </p>
-<p>Use <code>**</code> to raise a number to the power of another number (i.e. <span class="arithmatex">\(2^{3}\)</span>):</p>
+<p><strong>A la potencia de X</strong>:</p>
+<p>Usa <code>**</code> para elevar un número a la potencia de otro número (es decir, <span class="arithmatex">\(2^{3}\)</span>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
 <a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="mi">8</span>
 </code></pre></div>
-<p>Or, use the <code class="highlight"><span class="nb">pow</span><span class="p">()</span></code> method:</p>
+<p>O usa el método <code class="highlight"><span class="nb">pow</span><span class="p">()</span></code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="mi">8</span>
 </code></pre></div>
 </li>
 <li>
-<p><strong>Square Root</strong>: </p>
-<p>To calculate the square root of a number (i.e. <span class="arithmatex">\(\sqrt{4}\)</span>):</p>
+<p><strong>Raíz Cuadrada</strong>:</p>
+<p>Para calcular la raíz cuadrada de un número (es decir, <span class="arithmatex">\(\sqrt{4}\)</span>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="mf">2.0</span> 
 </code></pre></div>
@@ -3952,29 +4456,29 @@ u(t)=K_{P} e(t)
 </ol>
 </li>
 </ol>
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
-<p>Before you leave, please shut everything down properly:</p>
+<h2 id="cierre">Cierre<a class="headerlink" href="#cierre" title="Permanent link">¶</a></h2>
+<p>Antes de irte, por favor apaga todo correctamente:</p>
 <ol>
-<li>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in any terminals that are still active.</li>
+<li>Presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en cualquier terminal que todavía esté activa.</li>
 <li>
-<p>Turn off your robot by entering the following command in <strong>TERMINAL 1</strong>:</p>
+<p>Apaga tu robot ingresando el siguiente comando en <strong>TERMINAL 1</strong>:</p>
 <hr>
 <p><strong>TERMINAL 1</strong>:
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>waffle<span class="w"> </span>NUM<span class="w"> </span>off
 </code></pre></div>
-... replacing <code>NUM</code> with the number of the robot that you have been working with today.<p></p>
+... reemplazando <code>NUM</code> con el número del robot con el que has estado trabajando hoy.<p></p>
 <hr>
-<p>You'll need to enter <code>y</code> and then hit <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm this.</p>
+<p>Necesitarás ingresar <code>y</code> y luego presionar <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar.</p>
 </li>
 <li>
-<p>Please then shut down the laptop, which you can do by clicking the battery icon in the top right of the desktop and selecting the "Power Off / Log Out" option in the drop-down menu.</p>
+<p>Luego apaga la laptop, lo cual puedes hacer haciendo clic en el ícono de batería en la parte superior derecha del escritorio y seleccionando la opción "Power Off / Log Out" en el menú desplegable.</p>
 </li>
 </ol>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ubuntu_poweroff.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
 </figure>
 <p></p><center><p></p>
-<p><strong>AMR31001 Lab 2 Complete!</strong>  </p>
+<p><strong>¡Lab 2 de Industry 4.0 Completado!</strong></p>
 <p></p></center><p></p>
 <div class="footnote">
 <hr>
@@ -3992,37 +4496,8 @@ u(t)=K_{P} e(t)
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 16, 2026 14:26:14 UTC"><span class="timeago" datetime="2026-02-16T14:26:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 16, 2026 14:26:14 UTC">2026-02-16</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 17, 2025 14:15:56 UTC"><span class="timeago" datetime="2025-07-17T14:15:56+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 17, 2025 14:15:56 UTC">2025-07-17</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -4091,7 +4566,7 @@ u(t)=K_{P} e(t)
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4121,30 +4596,14 @@ u(t)=K_{P} e(t)
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

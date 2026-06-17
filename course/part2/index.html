@@ -3,11 +3,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle.">
+        <meta name="description" content="Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto en lazo abierto como en lazo cerrado a un Waffle.">
       
       
       
-        <link rel="canonical" href="https://tom-howard.github.io/ros2/course/part2/">
+        <link rel="canonical" href="https://rigsa.github.io/ros2/course/part2/">
       
       
         <link rel="prev" href="../part1/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Part 2: Odometry &amp; Navigation - ROS 2 Labs in The Diamond</title>
+        <title>Parte 2: Odometría y Navegación - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,13 +44,11 @@
       
         
         
-        
-        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
-    
-      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -60,20 +58,7 @@
 
     
     
-  
-<meta property="og:type" content="website">
-<meta property="og:title" content="Part 2: Odometry &amp; Navigation - ROS 2 Labs in The Diamond">
-<meta property="og:description" content="Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle.">
-<meta property="og:image" content="https://tom-howard.github.io/ros2/assets/images/social/course/part2.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://tom-howard.github.io/ros2/course/part2/">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Part 2: Odometry &amp; Navigation - ROS 2 Labs in The Diamond">
-<meta property="twitter:description" content="Learn about Odometry, which informs us of a robot's position and orientation in an environment. Apply both open and closed-loop velocity control methods to a Waffle.">
-<meta property="twitter:image" content="https://tom-howard.github.io/ros2/assets/images/social/course/part2.png">
-<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -102,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#introduccion" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +101,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-header__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
@@ -129,13 +114,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ROS 2 Labs in The Diamond
+            Laboratorio de Robótica con ROS 2
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Part 2: Odometry &amp; Navigation
+              Parte 2: Odometría y Navegación
             
           </span>
         </div>
@@ -215,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
       </div>
@@ -396,6 +381,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitree/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Unitree Go2/B2
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -418,22 +425,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROS 2 Labs in The Diamond" class="md-nav__button md-logo" aria-label="ROS 2 Labs in The Diamond" data-md-component="logo">
+    <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
   <img src="../../assets/tuos.png" alt="logo">
 
     </a>
-    ROS 2 Labs in The Diamond
+    Laboratorio de Robótica con ROS 2
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/tom-howard/ros2" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/rigsa/ros2" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
-    tom-howard/ros2
+    rigsa/ros2
   </div>
 </a>
     </div>
@@ -527,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Introducing the Robots
+    Los Robots del Laboratorio
   
 
     
@@ -555,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    Version History
+    Historial de versiones
   
 
     
@@ -583,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    License
+    Licencia
   
 
     
@@ -615,6 +622,8 @@
       
         
           
+        
+      
         
       
         
@@ -691,7 +700,7 @@
   <span class="md-ellipsis">
     
   
-    Installing WSL-ROS2 on Windows
+    Instalando WSL-ROS2 en Windows
   
 
     
@@ -792,7 +801,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started with WSL-ROS2 on the University Managed Desktops
+    Primeros Pasos con WSL-ROS2 en las Computadoras del Laboratorio
   
 
     
@@ -820,7 +829,7 @@
   <span class="md-ellipsis">
     
   
-    A Quick Introduction to the Linux Terminal
+    Una Breve Introducción al Terminal de Linux
   
 
     
@@ -848,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    VS Code and WSL
+    VS Code y WSL
   
 
     
@@ -884,7 +893,35 @@
   <span class="md-ellipsis">
     
   
-    Installing ROS 2 Using Docker (Linux &amp; Mac)
+    Instalando ROS 2 Usando Docker (Linux y Mac)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software/browser-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecutar ROS 2 en Tu Navegador (Sin Instalación)
   
 
     
@@ -1003,7 +1040,7 @@
   <span class="md-ellipsis">
     
   
-    Part 1: Getting Started with ROS 2
+    Parte 1: Primeros pasos con ROS 2
   
 
     
@@ -1038,7 +1075,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1056,7 +1093,7 @@
   <span class="md-ellipsis">
     
   
-    Part 2: Odometry &amp; Navigation
+    Parte 2: Odometría y Navegación
   
 
     
@@ -1080,22 +1117,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -1103,10 +1140,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje-esperados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje Esperados
       
     </span>
   </a>
@@ -1114,22 +1151,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercises
+        Ejercicios
       
     </span>
   </a>
@@ -1137,10 +1174,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#recursos-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Resources
+        Recursos Adicionales
       
     </span>
   </a>
@@ -1158,10 +1195,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros Pasos
       
     </span>
   </a>
@@ -1169,10 +1206,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ros-topics-and-interfaces-from-part-1" class="md-nav__link">
+  <a href="#topics-e-interfaces-de-ros-de-la-parte-1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ROS Topics and Interfaces (from Part 1)
+        Topics e Interfaces de ROS (de la Parte 1)
       
     </span>
   </a>
@@ -1183,31 +1220,31 @@
   <a href="#odometry" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry
+        Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry">
+    <nav class="md-nav" aria-label="Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#odometry-in-action" class="md-nav__link">
+  <a href="#la-odometria-en-accion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry In Action
+        La Odometría en Acción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry In Action">
+    <nav class="md-nav" aria-label="La Odometría en Acción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Exploring Odometry Data
+        Ejercicio 1: Explorando los Datos de Odometría
       
     </span>
   </a>
@@ -1220,15 +1257,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry-explained" class="md-nav__link">
+  <a href="#la-odometria-explicada" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry Explained
+        La Odometría Explicada
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry Explained">
+    <nav class="md-nav" aria-label="La Odometría Explicada">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1243,10 +1280,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-are-quaternions" class="md-nav__link">
+  <a href="#que-son-los-cuaterniones" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What are Quaternions?
+        ¿Qué son los Cuaterniones?
       
     </span>
   </a>
@@ -1259,10 +1296,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#which-pose-values-apply-to-our-waffles" class="md-nav__link">
+  <a href="#que-valores-de-pose-aplican-a-nuestros-waffles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Which Pose Values Apply to our Waffles?
+        ¿Qué Valores de Pose Aplican a Nuestros Waffles?
       
     </span>
   </a>
@@ -1270,22 +1307,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry-data-as-a-feedback-signal" class="md-nav__link">
+  <a href="#los-datos-de-odometria-como-senal-de-retroalimentacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry Data as a Feedback Signal
+        Los Datos de Odometría como Señal de Retroalimentación
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry Data as a Feedback Signal">
+    <nav class="md-nav" aria-label="Los Datos de Odometría como Señal de Retroalimentación">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Creating a Python Node to Process Odometry Data
+        Ejercicio 2: Creando un Node de Python para Procesar Datos de Odometría
       
     </span>
   </a>
@@ -1306,19 +1343,19 @@
   <a href="#velocity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic Navigation: Open-loop Velocity Control
+        Navegación Básica: Control de Velocidad en Lazo Abierto
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Basic Navigation: Open-loop Velocity Control">
+    <nav class="md-nav" aria-label="Navegación Básica: Control de Velocidad en Lazo Abierto">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#velocity-commands" class="md-nav__link">
+  <a href="#comandos-de-velocidad" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Velocity Commands
+        Comandos de Velocidad
       
     </span>
   </a>
@@ -1326,22 +1363,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-degrees-of-freedom-of-our-waffles" class="md-nav__link">
+  <a href="#los-grados-de-libertad-de-nuestros-waffles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Degrees of Freedom of our Waffles
+        Los Grados de Libertad de Nuestros Waffles
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Degrees of Freedom of our Waffles">
+    <nav class="md-nav" aria-label="Los Grados de Libertad de Nuestros Waffles">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Controlling Velocity with the ROS 2 CLI
+        Ejercicio 3: Controlando la Velocidad con el CLI de ROS 2
       
     </span>
   </a>
@@ -1352,7 +1389,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Creating a Python Node to Make a Robot Move in a circle
+        Ejercicio 4: Creando un Node de Python para Hacer que un Robot Se Mueva en Círculo
       
     </span>
   </a>
@@ -1363,7 +1400,7 @@
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Implementing a Shutdown Procedure
+        Ejercicio 5: Implementando un Procedimiento de Apagado
       
     </span>
   </a>
@@ -1381,22 +1418,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#odometry-based-navigation" class="md-nav__link">
+  <a href="#navegacion-basada-en-odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry-based Navigation
+        Navegación Basada en Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry-based Navigation">
+    <nav class="md-nav" aria-label="Navegación Basada en Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6: Making our Robot Follow a Square Motion Path
+        Ejercicio 6: Haciendo que Nuestro Robot Siga una Trayectoria Cuadrada
       
     </span>
   </a>
@@ -1409,22 +1446,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Conclusión
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Wrapping Up">
+    <nav class="md-nav" aria-label="Conclusión">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WSL-ROS2 Managed Desktop Users: Save your work!
+        Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -1459,7 +1496,7 @@
   <span class="md-ellipsis">
     
   
-    Part 3: Beyond the Basics
+    Parte 3: Más Allá de los Fundamentos
   
 
     
@@ -1487,7 +1524,7 @@
   <span class="md-ellipsis">
     
   
-    Part 4: Services
+    Parte 4: Services
   
 
     
@@ -1515,7 +1552,7 @@
   <span class="md-ellipsis">
     
   
-    Part 5: Actions
+    Parte 5: Actions
   
 
     
@@ -1543,7 +1580,7 @@
   <span class="md-ellipsis">
     
   
-    Part 6: Cameras, Machine Vision &amp; OpenCV
+    Parte 6: Cámaras, Visión Artificial y OpenCV
   
 
     
@@ -1568,6 +1605,8 @@
       
         
           
+        
+      
         
       
         
@@ -1642,7 +1681,7 @@
   <span class="md-ellipsis">
     
   
-    Launch Files (Advanced)
+    Launch Files (Avanzado)
   
 
     
@@ -1670,7 +1709,35 @@
   <span class="md-ellipsis">
     
   
-    The TUoS ROS Course Repo
+    El Repositorio del Curso ROS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/porting-to-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portando a un Unitree Go2/B2
   
 
     
@@ -1889,7 +1956,7 @@
   <span class="md-ellipsis">
     
   
-    Week 1: Getting Started
+    Semana 1: Primeros Pasos
   
 
     
@@ -1988,7 +2055,7 @@
   <span class="md-ellipsis">
     
   
-    Task 1: Velocity Control
+    Tarea 1: Control de Velocidad
   
 
     
@@ -2016,7 +2083,7 @@
   <span class="md-ellipsis">
     
   
-    Task 2: Avoiding Obstacles
+    Tarea 2: Evasión de Obstáculos
   
 
     
@@ -2123,7 +2190,7 @@
   <span class="md-ellipsis">
     
   
-    Task 3: Exploration &amp; Search
+    Tarea 3: Exploración y Búsqueda
   
 
     
@@ -2151,7 +2218,7 @@
   <span class="md-ellipsis">
     
   
-    Team Viva
+    Viva de Equipo
   
 
     
@@ -2187,7 +2254,7 @@
   <span class="md-ellipsis">
     
   
-    Working with your ROS Package (in the Lab)
+    Trabajar con tu Paquete de ROS (en el Laboratorio)
   
 
     
@@ -2215,7 +2282,7 @@
   <span class="md-ellipsis">
     
   
-    Key Assessment Info &amp; Requirements
+    Información y Requisitos Clave de Evaluación
   
 
     
@@ -2434,7 +2501,7 @@
   <span class="md-ellipsis">
     
   
-    Creating your Team's ROS 2 Package
+    Crear tu Paquete de ROS 2 del Equipo
   
 
     
@@ -2462,7 +2529,7 @@
   <span class="md-ellipsis">
     
   
-    The Assignment Task
+    La Tarea de la Asignación
   
 
     
@@ -2490,7 +2557,7 @@
   <span class="md-ellipsis">
     
   
-    Simulation Resources
+    Recursos de Simulación
   
 
     
@@ -2518,7 +2585,7 @@
   <span class="md-ellipsis">
     
   
-    Week 8: Your First Real Robot Lab
+    Semana 8: Tu Primer Lab con Robot Real
   
 
     
@@ -2546,7 +2613,7 @@
   <span class="md-ellipsis">
     
   
-    Week 12: Submission Details (&amp; Key Requirements)
+    Semana 12: Detalles de Entrega (y Requisitos Clave)
   
 
     
@@ -2828,7 +2895,7 @@
   <span class="md-ellipsis">
     
   
-    Launching ROS (and Pairing the Laptop)
+    Lanzando ROS (y Emparejando la Laptop)
   
 
     
@@ -2933,6 +3000,440 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../unitree/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitree Go2/B2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U1: Introducción al Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u2-locomocion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U2: Locomoción Holonómica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u3-odometria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U3: Estado y Odometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u4-comportamientos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U4: Comportamientos de Alto Nivel (SportClient)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u5-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U5: LiDAR y Detección de Obstáculos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u6-autonomia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U6: Autonomía Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u7-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U7: SLAM y Mapeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u8-navegacion-mapa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U8: Puntos de Interés y Navegación con Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u9-rutinas-inspeccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U9: Rutinas de Inspección Industrial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u10-aruco/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U10: Tags ArUco para Identificación Visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u11-bateria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U11: Gestión de Batería y Supervisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/u12-logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2958,22 +3459,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#introduccion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Introducción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Introducción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aims" class="md-nav__link">
+  <a href="#objetivos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aims
+        Objetivos
       
     </span>
   </a>
@@ -2981,10 +3482,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intended-learning-outcomes" class="md-nav__link">
+  <a href="#resultados-de-aprendizaje-esperados" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intended Learning Outcomes
+        Resultados de Aprendizaje Esperados
       
     </span>
   </a>
@@ -2992,22 +3493,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercises" class="md-nav__link">
+  <a href="#ejercicios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercises
+        Ejercicios
       
     </span>
   </a>
@@ -3015,10 +3516,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#recursos-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Resources
+        Recursos Adicionales
       
     </span>
   </a>
@@ -3036,10 +3537,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#primeros-pasos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting Started
+        Primeros Pasos
       
     </span>
   </a>
@@ -3047,10 +3548,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ros-topics-and-interfaces-from-part-1" class="md-nav__link">
+  <a href="#topics-e-interfaces-de-ros-de-la-parte-1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ROS Topics and Interfaces (from Part 1)
+        Topics e Interfaces de ROS (de la Parte 1)
       
     </span>
   </a>
@@ -3061,31 +3562,31 @@
   <a href="#odometry" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry
+        Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry">
+    <nav class="md-nav" aria-label="Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#odometry-in-action" class="md-nav__link">
+  <a href="#la-odometria-en-accion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry In Action
+        La Odometría en Acción
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry In Action">
+    <nav class="md-nav" aria-label="La Odometría en Acción">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 1: Exploring Odometry Data
+        Ejercicio 1: Explorando los Datos de Odometría
       
     </span>
   </a>
@@ -3098,15 +3599,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry-explained" class="md-nav__link">
+  <a href="#la-odometria-explicada" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry Explained
+        La Odometría Explicada
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry Explained">
+    <nav class="md-nav" aria-label="La Odometría Explicada">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3121,10 +3622,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-are-quaternions" class="md-nav__link">
+  <a href="#que-son-los-cuaterniones" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What are Quaternions?
+        ¿Qué son los Cuaterniones?
       
     </span>
   </a>
@@ -3137,10 +3638,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#which-pose-values-apply-to-our-waffles" class="md-nav__link">
+  <a href="#que-valores-de-pose-aplican-a-nuestros-waffles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Which Pose Values Apply to our Waffles?
+        ¿Qué Valores de Pose Aplican a Nuestros Waffles?
       
     </span>
   </a>
@@ -3148,22 +3649,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odometry-data-as-a-feedback-signal" class="md-nav__link">
+  <a href="#los-datos-de-odometria-como-senal-de-retroalimentacion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry Data as a Feedback Signal
+        Los Datos de Odometría como Señal de Retroalimentación
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry Data as a Feedback Signal">
+    <nav class="md-nav" aria-label="Los Datos de Odometría como Señal de Retroalimentación">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 2: Creating a Python Node to Process Odometry Data
+        Ejercicio 2: Creando un Node de Python para Procesar Datos de Odometría
       
     </span>
   </a>
@@ -3184,19 +3685,19 @@
   <a href="#velocity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic Navigation: Open-loop Velocity Control
+        Navegación Básica: Control de Velocidad en Lazo Abierto
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Basic Navigation: Open-loop Velocity Control">
+    <nav class="md-nav" aria-label="Navegación Básica: Control de Velocidad en Lazo Abierto">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#velocity-commands" class="md-nav__link">
+  <a href="#comandos-de-velocidad" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Velocity Commands
+        Comandos de Velocidad
       
     </span>
   </a>
@@ -3204,22 +3705,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-degrees-of-freedom-of-our-waffles" class="md-nav__link">
+  <a href="#los-grados-de-libertad-de-nuestros-waffles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Degrees of Freedom of our Waffles
+        Los Grados de Libertad de Nuestros Waffles
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Degrees of Freedom of our Waffles">
+    <nav class="md-nav" aria-label="Los Grados de Libertad de Nuestros Waffles">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 3: Controlling Velocity with the ROS 2 CLI
+        Ejercicio 3: Controlando la Velocidad con el CLI de ROS 2
       
     </span>
   </a>
@@ -3230,7 +3731,7 @@
   <a href="#ex4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 4: Creating a Python Node to Make a Robot Move in a circle
+        Ejercicio 4: Creando un Node de Python para Hacer que un Robot Se Mueva en Círculo
       
     </span>
   </a>
@@ -3241,7 +3742,7 @@
   <a href="#ex5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 5: Implementing a Shutdown Procedure
+        Ejercicio 5: Implementando un Procedimiento de Apagado
       
     </span>
   </a>
@@ -3259,22 +3760,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#odometry-based-navigation" class="md-nav__link">
+  <a href="#navegacion-basada-en-odometria" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Odometry-based Navigation
+        Navegación Basada en Odometría
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Odometry-based Navigation">
+    <nav class="md-nav" aria-label="Navegación Basada en Odometría">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#ex6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Exercise 6: Making our Robot Follow a Square Motion Path
+        Ejercicio 6: Haciendo que Nuestro Robot Siga una Trayectoria Cuadrada
       
     </span>
   </a>
@@ -3287,22 +3788,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
+  <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wrapping Up
+        Conclusión
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Wrapping Up">
+    <nav class="md-nav" aria-label="Conclusión">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WSL-ROS2 Managed Desktop Users: Save your work!
+        Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -3331,7 +3832,7 @@
 
 
   
-    <a href="https://github.com/tom-howard/ros2/edit/main/docs/course/part2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rigsa/ros2/edit/main/docs/course/part2.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3340,222 +3841,222 @@
     
       
     
-    <a href="https://github.com/tom-howard/ros2/raw/main/docs/course/part2.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/rigsa/ros2/raw/main/docs/course/part2.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
     </a>
   
 
 
-  <h1>Part 2: Odometry &amp; Navigation</h1>
+  <h1>Parte 2: Odometría y Navegación</h1>
 
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Exercises</strong>: 6<br>
-<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Estimated Completion Time</strong>: 3 hours<br>
-<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Difficulty Level</strong>: Intermediate  </p>
-<h3 id="aims">Aims<a class="headerlink" href="#aims" title="Permanent link">¶</a></h3>
-<p>In Part 2 we'll learn how to control a ROS robot's <strong>position</strong> and <strong>velocity</strong> from both the command line and through ROS Nodes. We'll also learn how to interpret the data that allows us to monitor a robot's position in its physical environment (odometry).  The things covered here form the basis of robot navigation in ROS, from simple open-loop methods to more advanced closed-loop control (both of which we will explore).</p>
-<h3 id="intended-learning-outcomes">Intended Learning Outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Permanent link">¶</a></h3>
-<p>By the end of this session you will be able to:</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">¶</a></h2>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> <strong>Ejercicios</strong>: 6<br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Tiempo Estimado de Completación</strong>: 3 horas<br>
+<span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m2 1.89c-.38.01-.74.26-.9.65l-1.29 3.23-.1.23c-.71.13-1.3.6-1.57 1.26-.41 1.03.09 2.19 1.12 2.6s2.19-.09 2.6-1.12c.26-.66.14-1.42-.29-1.98l.1-.26 1.29-3.21.01-.03c.2-.51-.05-1.09-.56-1.3-.13-.05-.26-.07-.41-.07M10 6a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m10 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Nivel de Dificultad</strong>: Intermedio  </p>
+<h3 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">¶</a></h3>
+<p>En la Parte 2 aprenderemos cómo controlar la <strong>posición</strong> y la <strong>velocidad</strong> de un robot ROS tanto desde la línea de comandos como mediante Nodes de ROS. También aprenderemos a interpretar los datos que nos permiten monitorear la posición de un robot en su entorno físico (odometría). Los temas cubiertos aquí forman la base de la navegación de robots en ROS, desde métodos simples de lazo abierto hasta control en lazo cerrado más avanzado (ambos los exploraremos).</p>
+<h3 id="resultados-de-aprendizaje-esperados">Resultados de Aprendizaje Esperados<a class="headerlink" href="#resultados-de-aprendizaje-esperados" title="Permanent link">¶</a></h3>
+<p>Al finalizar esta sesión serás capaz de:</p>
 <ol>
-<li>Interpret the Odometry data published by a ROS Robot and identify the parts of these interface messages that are relevant to a 2-wheeled differential drive robot (such as the TurtleBot3 Waffle).</li>
-<li>Develop Python nodes to obtain Odometry data from an active ROS network and <em>translate</em> this into useful information about a robot's <em>pose</em> in a convenient, human-readable way.</li>
-<li>Implement <em>open-loop velocity control</em> of a robot using ROS command-line tools.</li>
-<li>Develop Python nodes that use open-loop velocity control methods to make a robot follow a pre-defined motion path.</li>
-<li>Combine both publisher <em>&amp;</em> subscriber communication methods into a single Python node to implement closed-loop (odometry-based) velocity control of a robot.</li>
-<li>Explain the limitations of Odometry-based motion control methods. </li>
+<li>Interpretar los datos de Odometría publicados por un Robot ROS e identificar las partes de estos mensajes de interfaz que son relevantes para un robot de accionamiento diferencial de dos ruedas (como el TurtleBot3 Waffle).</li>
+<li>Desarrollar nodes de Python para obtener datos de Odometría desde una red ROS activa y <em>traducir</em> esto en información útil sobre la <em>pose</em> de un robot de forma conveniente y legible para humanos.</li>
+<li>Implementar <em>control de velocidad en lazo abierto</em> de un robot usando herramientas de línea de comandos de ROS.</li>
+<li>Desarrollar nodes de Python que usen métodos de control de velocidad en lazo abierto para hacer que un robot siga una trayectoria de movimiento predefinida.</li>
+<li>Combinar los métodos de comunicación de publisher <em>y</em> subscriber en un único node de Python para implementar control de velocidad en lazo cerrado (basado en odometría) de un robot.</li>
+<li>Explicar las limitaciones de los métodos de control de movimiento basados en Odometría. </li>
 </ol>
-<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
-<h4 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">¶</a></h4>
+<h3 id="enlaces-rapidos">Enlaces Rápidos<a class="headerlink" href="#enlaces-rapidos" title="Permanent link">¶</a></h3>
+<h4 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="#ex1">Exercise 1: Exploring Odometry Data</a></li>
-<li><a href="#ex2">Exercise 2: Creating a Python Node to Process Odometry Data</a></li>
-<li><a href="#ex3">Exercise 3: Controlling Velocity with the ROS 2 CLI</a></li>
-<li><a href="#ex4">Exercise 4: Creating a Python Node to Make a Robot Move in a circle</a></li>
-<li><a href="#ex5">Exercise 5: Implementing a Shutdown Procedure</a></li>
-<li><a href="#ex6">Exercise 6: Making our Robot Follow a Square Motion Path</a></li>
+<li><a href="#ex1">Ejercicio 1: Explorando los Datos de Odometría</a></li>
+<li><a href="#ex2">Ejercicio 2: Creando un Node de Python para Procesar Datos de Odometría</a></li>
+<li><a href="#ex3">Ejercicio 3: Controlando la Velocidad con el CLI de ROS 2</a></li>
+<li><a href="#ex4">Ejercicio 4: Creando un Node de Python para Hacer que un Robot Se Mueva en Círculo</a></li>
+<li><a href="#ex5">Ejercicio 5: Implementando un Procedimiento de Apagado</a></li>
+<li><a href="#ex6">Ejercicio 6: Haciendo que Nuestro Robot Siga una Trayectoria Cuadrada</a></li>
 </ul>
-<h4 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h4>
+<h4 id="recursos-adicionales">Recursos Adicionales<a class="headerlink" href="#recursos-adicionales" title="Permanent link">¶</a></h4>
 <ul>
-<li><a href="odom_subscriber/" target="_blank">An Odometry Subscriber Node</a></li>
-<li><a href="move_circle/" target="_blank">A Simple Velocity Control Node (Move Circle)</a></li>
-<li><a href="move_square/" target="_blank">Odometry-based Navigation (Move Square)</a></li>
+<li><a href="odom_subscriber/" target="_blank">Un Node Subscriber de Odometría</a></li>
+<li><a href="move_circle/" target="_blank">Un Node Simple de Control de Velocidad (Move Circle)</a></li>
+<li><a href="move_square/" target="_blank">Navegación Basada en Odometría (Move Square)</a></li>
 </ul>
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
-<p><strong>Step 1: Launch your ROS 2 Environment</strong></p>
-<p>If you haven't done so already, launch your ROS environment now:</p>
+<h2 id="primeros-pasos">Primeros Pasos<a class="headerlink" href="#primeros-pasos" title="Permanent link">¶</a></h2>
+<p><strong>Paso 1: Inicia tu Entorno ROS 2</strong></p>
+<p>Si aún no lo has hecho, inicia tu entorno ROS ahora:</p>
 <ol>
-<li><strong>WSL-ROS2 on a university managed desktop</strong>: follow <a href="../../software/using-wsl-ros/man-win/">the instructions here to launch it</a>.</li>
-<li><strong><a href="../../software/installing-wsl-ros2/">Running WSL-ROS2 on your own machine</a></strong>: launch the Windows Terminal to access a WSL-ROS2 terminal instance.</li>
-<li><strong>Docker Users</strong>: follow <a href="../../software/docker-ros2/">the instructions</a>.</li>
+<li><strong>WSL-ROS2 en una computadora del laboratorio</strong>: sigue <a href="../../software/using-wsl-ros/man-win/">las instrucciones aquí para iniciarlo</a>.</li>
+<li><strong><a href="../../software/installing-wsl-ros2/">Ejecutando WSL-ROS2 en tu propia máquina</a></strong>: inicia el Terminal de Windows para acceder a una instancia de terminal WSL-ROS2.</li>
+<li><strong>Usuarios de Docker</strong>: sigue <a href="../../software/docker-ros2/">las instrucciones</a>.</li>
 </ol>
-<p>You should now have access to ROS 2 via a Linux terminal instance. We'll refer to this terminal instance as <strong>TERMINAL 1</strong>.</p>
-<p><strong>Step 2: Restore your work (WSL-ROS2 Managed Desktop Users ONLY)</strong></p>
-<p>Remember that <a href="../../software/using-wsl-ros/man-win/#backing-up-and-restoring-your-data">any work that you do within the WSL-ROS2 Environment will not be preserved between sessions or across different University computers</a>. At <a href="../part1/#backup">the end of Part 1</a> you should have run the <code>wsl_ros</code> tool to back up your home directory to your University <code>U:\</code> Drive. Once WSL-ROS2 is up and running, you should be prompted to restore this:</p>
+<p>Ahora deberías tener acceso a ROS 2 a través de una instancia de terminal Linux. Nos referiremos a esta instancia de terminal como <strong>TERMINAL 1</strong>.</p>
+<p><strong>Paso 2: Restaura tu trabajo (SOLO Usuarios de Escritorio Administrado WSL-ROS2)</strong></p>
+<p>Recuerda que <a href="../../software/using-wsl-ros/man-win/#backing-up-and-restoring-your-data">cualquier trabajo que realices dentro del Entorno WSL-ROS2 no se conservará entre sesiones o en diferentes computadoras del laboratorio</a>. Al <a href="../part1/#backup">final de la Parte 1</a> deberías haber ejecutado la herramienta <code>wsl_ros</code> para respaldar tu directorio home en tu Unidad <code>U:\</code>. Una vez que WSL-ROS2 esté funcionando, se te pedirá que lo restaures:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>It looks like you already have a backup from a previous session:
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  U:\wsl-ros\ros2-backup-XXX.tar.gz
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Do you want to restore this now? [y/n]
 </code></pre></div>
-<p>Enter <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> to restore your work from last time. You can also restore your work at any time using the following command:</p>
+<p>Ingresa <span class="keys"><kbd class="key-y">Y</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> para restaurar tu trabajo de la última vez. También puedes restaurar tu trabajo en cualquier momento usando el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>wsl_ros<span class="w"> </span>restore
 </code></pre></div>
-<p><strong>Step 3: Launch VS Code</strong> </p>
-<p>It's also worth launching VS Code now, so that it's ready to go for when you need it later on. </p>
+<p><strong>Paso 3: Inicia VS Code</strong> </p>
+<p>También vale la pena iniciar VS Code ahora, para que esté listo cuando lo necesites más adelante. </p>
 <details class="warning">
-<summary>WSL Users...</summary>
-<p>It's important to launch VS Code within your WSL environment using the "WSL" extension. Always remember to check for this:</p>
+<summary>Usuarios de WSL...</summary>
+<p>Es importante iniciar VS Code dentro de tu entorno WSL usando la extensión "WSL". Recuerda siempre verificar esto:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../software/figures/code-wsl-ext-on.svg" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
 </figure><p></p>
 </details>
-<p><strong>Step 4: Make Sure The Course Repo is Up-To-Date</strong></p>
+<p><strong>Paso 4: Asegúrate de que el Repositorio del Curso Esté Actualizado</strong></p>
 <p><a name="course-repo"></a></p>
-<p>In Part 1 you should have <a href="../part1/#course-repo">downloaded and installed The Course Repo</a> into your ROS environment. If you haven't done this yet then go back and do it now. If you <em>have</em> already done it, then it's worth just making sure it's all up-to-date, so run the following command in <strong>TERMINAL 1</strong> now to do so:</p>
+<p>En la Parte 1 deberías haber <a href="../part1/#course-repo">descargado e instalado el Repositorio del Curso</a> en tu entorno ROS. Si aún no lo has hecho, regresa y hazlo ahora. Si <em>ya</em> lo hiciste, vale la pena asegurarse de que esté actualizado, así que ejecuta el siguiente comando en <strong>TERMINAL 1</strong> ahora:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 </code></pre></div>
-<p>Then build with Colcon: </p>
+<p>Luego compila con Colcon: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-up-to<span class="w"> </span>tuos_ros
 </code></pre></div>
-<p>And finally, re-source your environment:</p>
+<p>Y finalmente, recarga tu entorno:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you have any other terminal instances open, then you'll need run <code>source ~/.bashrc</code> in these too, in order for any changes made by the Colcon build process to propagate through to these as well.</p>
+<p>Si tienes otras instancias de terminal abiertas, deberás ejecutar <code>source ~/.bashrc</code> en estas también, para que cualquier cambio realizado por el proceso de compilación de Colcon se propague a estas.</p>
 </div>
-<p><strong>Step 5: Launch a Waffle Simulation</strong></p>
-<p>In <strong>TERMINAL 1</strong> enter the following command to launch a simulation of a TurtleBot3 Waffle in an empty world:  </p>
+<p><strong>Paso 5: Inicia una Simulación Waffle</strong></p>
+<p>En <strong>TERMINAL 1</strong> ingresa el siguiente comando para iniciar una simulación de un TurtleBot3 Waffle en un mundo vacío:  </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
-<p>A Gazebo simulation window should open and within this you should see a TurtleBot3 Waffle in empty space:</p>
+<p>Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver un TurtleBot3 Waffle en espacio vacío:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_mid.png" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/gz/tb3_empty_world_mid.png" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_mid.png" width="700px"></a></p>
 </figure>
-<h2 id="ros-topics-and-interfaces-from-part-1">ROS Topics and Interfaces (from Part 1)<a class="headerlink" href="#ros-topics-and-interfaces-from-part-1" title="Permanent link">¶</a></h2>
-<p>In Part 1 we learnt about ROS Topics, and about how the <code>teleop_keyboard</code> node could be used to publish messages to a particular topic in order to control the velocity of the robot (and thus change its <em>position</em>).</p>
+<h2 id="topics-e-interfaces-de-ros-de-la-parte-1">Topics e Interfaces de ROS (de la Parte 1)<a class="headerlink" href="#topics-e-interfaces-de-ros-de-la-parte-1" title="Permanent link">¶</a></h2>
+<p>En la Parte 1 aprendimos sobre los Topics de ROS, y sobre cómo el node <code>teleop_keyboard</code> puede usarse para publicar mensajes a un topic particular con el fin de controlar la velocidad del robot (y así cambiar su <em>posición</em>).</p>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ol>
-<li>Which <em>topic</em> is used to control the velocity of the robot?</li>
-<li>What <em>interface</em> does this topic use?</li>
+<li>¿Qué <em>topic</em> se usa para controlar la velocidad del robot?</li>
+<li>¿Qué <em>interfaz</em> usa este topic?</li>
 </ol>
-<p><a href="../part1/#ex3">Return here if you need a reminder on how to find the answers to these questions</a>.</p>
+<p><a href="../part1/#ex3">Regresa aquí si necesitas un recordatorio sobre cómo encontrar las respuestas a estas preguntas</a>.</p>
 </div>
-<p>Recall that Topics are key to making things happen on a robot: data is passed between the Nodes on a ROS network via Topics using standardised data structures called Message Interfaces, allowing each of these nodes to make decisions and perform necessary tasks to bring the robot to life.</p>
-<p>Having investigated the <code>/cmd_vel</code> topic in Part 1, let's have a look at another topic now: <code>/odom</code>, and consider what the information here means, and what it's used for.</p>
-<h2 id="odometry">Odometry<a class="headerlink" href="#odometry" title="Permanent link">¶</a></h2>
-<p>Odometry is a process of monitoring a robot's <em>position</em> and <em>orientation</em> in an environment, which (as we'll learn) is essential for robot navigation. The position and orientation of a robot is referred to as its <em>pose</em>. A robot's pose is 3-dimensional, and is therefore defined in terms of three <em>"Principal Axes"</em>: <code>X</code>, <code>Y</code> and <code>Z</code>. In the context of our TurtleBot3 Waffles, these axes and the motion about them are defined as follows:</p>
+<p>Recuerda que los Topics son clave para hacer que las cosas sucedan en un robot: los datos se transmiten entre los Nodes en una red ROS a través de Topics usando estructuras de datos estandarizadas llamadas Interfaces de Mensajes, lo que permite a cada uno de estos nodes tomar decisiones y realizar las tareas necesarias para dar vida al robot.</p>
+<p>Habiendo investigado el topic <code>/cmd_vel</code> en la Parte 1, veamos ahora otro topic: <code>/odom</code>, y consideremos qué significa la información aquí y para qué se usa.</p>
+<h2 id="odometry">Odometría<a class="headerlink" href="#odometry" title="Permanent link">¶</a></h2>
+<p>La Odometría es un proceso de monitoreo de la <em>posición</em> y <em>orientación</em> de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su <em>pose</em>. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres <em>"Ejes Principales"</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto de nuestros TurtleBot3 Waffles, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:</p>
 <p><a name="principal-axes"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="800"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="800"></a></p>
 </figure>
-<p>Not all the above positions and orientations apply to our Waffles, and we'll explore this further below.</p>
-<h3 id="odometry-in-action">Odometry In Action<a class="headerlink" href="#odometry-in-action" title="Permanent link">¶</a></h3>
-<p>Recall from Part 1 the command that we can use to list <em>all</em> the topics that are available on our robot:</p>
+<p>No todas las posiciones y orientaciones anteriores aplican a nuestros Waffles, y exploraremos esto más adelante.</p>
+<h3 id="la-odometria-en-accion">La Odometría en Acción<a class="headerlink" href="#la-odometria-en-accion" title="Permanent link">¶</a></h3>
+<p>Recuerda de la Parte 1 el comando que podemos usar para listar <em>todos</em> los topics disponibles en nuestro robot:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
 </code></pre></div>
-<p>You should see <code>/odom</code> in this list, which is where our robot's Odometry data is published. Run the <code>ros2 topic</code> command again, but this time with an additional <code>-t</code> option:</p>
+<p>Deberías ver <code>/odom</code> en esta lista, que es donde se publican los datos de Odometría de nuestro robot. Ejecuta el comando <code>ros2 topic</code> nuevamente, pero esta vez con una opción adicional <code>-t</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w"> </span>-t
 </code></pre></div>
-<p>Look for <code>/odom</code> again in the list, and you will <em>now</em> notice that the interface definition is provided in square brackets alongside the topic name:</p>
+<p>Busca <code>/odom</code> nuevamente en la lista, y <em>ahora</em> notarás que la definición de interfaz se proporciona entre corchetes junto al nombre del topic:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/odom [nav_msgs/msg/Odometry]
 </code></pre></div>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ol>
-<li>What package does this interface belong to?</li>
-<li>What <em>type</em> of interface is it?</li>
-<li>What is its name?</li>
+<li>¿A qué package pertenece esta interfaz?</li>
+<li>¿Qué <em>tipo</em> de interfaz es?</li>
+<li>¿Cuál es su nombre?</li>
 </ol>
-<p><a href="../part1/#msg-interface-struct">See here for a reminder on how to interpret an interface definition</a>.</p>
+<p><a href="../part1/#msg-interface-struct">Ve aquí para un recordatorio sobre cómo interpretar una definición de interfaz</a>.</p>
 </div>
-<p>Having established the data structure, let's explore the actual data now, using <code>rqt</code>.</p>
-<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 1: Exploring Odometry Data<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
+<p>Habiendo establecido la estructura de datos, exploremos los datos reales ahora, usando <code>rqt</code>.</p>
+<h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Explorando los Datos de Odometría<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>In a new terminal instance (<strong>TERMINAL 2</strong>) use the following command to launch the <em>RQT Topic Monitor</em>:</p>
+<p>En una nueva instancia de terminal (<strong>TERMINAL 2</strong>) usa el siguiente comando para iniciar el <em>Monitor de Topics RQT</em>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rqt_topic<span class="w"> </span>rqt_topic<span class="w"> </span>
 </code></pre></div>
-<p><em>Topic Monitor</em> should launch with a list of active topics matching the topic list from the <code>ros2 topic list</code> command that you ran earlier.</p>
+<p>El <em>Monitor de Topics</em> debería iniciarse con una lista de topics activos que coincidan con la lista de topics del comando <code>ros2 topic list</code> que ejecutaste anteriormente.</p>
 </li>
 <li>
-<p>Check the box next to <code>/odom</code> and click the arrow next to it to expand the topic and reveal four <em>base fields</em>.</p>
+<p>Marca la casilla junto a <code>/odom</code> y haz clic en la flecha junto a él para expandir el topic y revelar cuatro <em>campos base</em>.</p>
 </li>
 <li>
-<p>Expand the <code>pose</code> field, and then the further <code>pose</code> field within that. This should reveal two further fields: <strong><code>position</code></strong> and <strong><code>orientation</code></strong>. </p>
-<p>Expand both of these to reveal the data being published to the <em>three</em> position (<code>x</code>, <code>y</code> and <code>z</code>) and <em>four</em> orientation (<code>x</code>, <code>y</code>, <code>z</code> and <code>w</code>) values.</p>
+<p>Expande el campo <code>pose</code>, y luego el campo <code>pose</code> adicional dentro de él. Esto debería revelar dos campos adicionales: <strong><code>position</code></strong> y <strong><code>orientation</code></strong>. </p>
+<p>Expande ambos para revelar los datos que se publican en los <em>tres</em> valores de posición (<code>x</code>, <code>y</code> y <code>z</code>) y los <em>cuatro</em> valores de orientación (<code>x</code>, <code>y</code>, <code>z</code> y <code>w</code>).</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/topic_monitor.png" width="600"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/topic_monitor.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/topic_monitor.png" width="600"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Next, launch a new terminal instance, we'll call this one <strong>TERMINAL 3</strong>. Arrange this next to the <code>rqt</code> window, so that you can see them both side-by-side.</p>
+<p>A continuación, inicia una nueva instancia de terminal, la llamaremos <strong>TERMINAL 3</strong>. Colócala junto a la ventana de <code>rqt</code>, para que puedas verlas ambas una al lado de la otra.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 3</strong> launch the <code>teleop_keyboard</code> node <a href="../part1/#teleop">as you did in Part 1</a>: <a name="teleop"></a></p>
+<p>En <strong>TERMINAL 3</strong> inicia el node <code>teleop_keyboard</code> <a href="../part1/#teleop">como lo hiciste en la Parte 1</a>: <a name="teleop"></a></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>teleop_keyboard
 </code></pre></div>
 </li>
 <li>
-<p>Enter <span class="keys"><kbd class="key-a">A</kbd></span> a couple of times to make the robot rotate on the spot. Observe how the odometry data changes in Topic Monitor.</p>
+<p>Presiona <span class="keys"><kbd class="key-a">A</kbd></span> un par de veces para hacer que el robot rote en el lugar. Observa cómo cambian los datos de odometría en el Monitor de Topics.</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>Which <code>pose</code> fields are changing?</p>
+<p>¿Qué campos de <code>pose</code> están cambiando?</p>
 </div>
 </li>
 <li>
-<p>Now press the <span class="keys"><kbd class="key-s">S</kbd></span> key to halt the robot, then press <span class="keys"><kbd class="key-w">W</kbd></span> a couple of times to make the robot drive forwards.</p>
+<p>Ahora presiona la tecla <span class="keys"><kbd class="key-s">S</kbd></span> para detener el robot, luego presiona <span class="keys"><kbd class="key-w">W</kbd></span> un par de veces para hacer que el robot avance.</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>Which <code>pose</code> fields are changing <em>now</em>? How does this relate to the position of the robot in the simulated world?</p>
+<p>¿Qué campos de <code>pose</code> están cambiando <em>ahora</em>? ¿Cómo se relaciona esto con la posición del robot en el mundo simulado?</p>
 </div>
 </li>
 <li>
-<p>Now press <span class="keys"><kbd class="key-d">D</kbd></span> a couple of times and your robot should start to move in a circle.</p>
+<p>Ahora presiona <span class="keys"><kbd class="key-d">D</kbd></span> un par de veces y tu robot debería comenzar a moverse en círculo.</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>What's happening with the <code>pose</code> data now? How is this data changing as your robot moves in a circular path.</p>
+<p>¿Qué está pasando con los datos de <code>pose</code> ahora? ¿Cómo están cambiando estos datos mientras tu robot se mueve en una trayectoria circular?</p>
 </div>
 </li>
 <li>
-<p>Press <span class="keys"><kbd class="key-s">S</kbd></span> in <strong>TERMINAL 3</strong> to stop the robot (but leave the <code>teleop_keyboard</code> node running).  Then, press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 2</strong> to close down <code>rqt</code>. </p>
+<p>Presiona <span class="keys"><kbd class="key-s">S</kbd></span> en <strong>TERMINAL 3</strong> para detener el robot (pero deja corriendo el node <code>teleop_keyboard</code>). Luego, presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 2</strong> para cerrar <code>rqt</code>. </p>
 </li>
 <li>
-<p>Let's look at the Odometry data differently now. With the robot stationary, use <code>ros2 run</code> (in <strong>TERMINAL 2</strong>) to run a Python node from the <code>tuos_examples</code> package: </p>
+<p>Veamos los datos de Odometría de otra manera ahora. Con el robot estacionario, usa <code>ros2 run</code> (en <strong>TERMINAL 2</strong>) para ejecutar un node de Python del package <code>tuos_examples</code>: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>robot_pose.py
 </code></pre></div>
 </li>
 <li>
-<p>Now (using the <code>teleop_keyboard</code> node in <strong>TERMINAL 3</strong>) drive your robot around again, keeping an eye on the outputs that are being printed by the <code>robot_pose.py</code> node in <strong>TERMINAL 2</strong> as you do so.</p>
-<p>The output of the <code>robot_pose.py</code> node shows you how the robot's <em>position</em> and <em>orientation</em> (i.e. <em>"pose"</em>) are changing in real-time as you move the robot around. The <code>"initial"</code> column tells us the robot's pose when the node was first launched, and the <code>"current"</code> column show us what its pose currently is. The <code>"delta"</code> column then shows the difference between the two.</p>
+<p>Ahora (usando el node <code>teleop_keyboard</code> en <strong>TERMINAL 3</strong>) conduce tu robot de nuevo, prestando atención a las salidas que imprime el node <code>robot_pose.py</code> en <strong>TERMINAL 2</strong> mientras lo haces.</p>
+<p>La salida del node <code>robot_pose.py</code> te muestra cómo la <em>posición</em> y <em>orientación</em> (es decir, <em>"pose"</em>) del robot están cambiando en tiempo real mientras mueves el robot. La columna <code>"initial"</code> nos indica la pose del robot cuando el node se inició por primera vez, y la columna <code>"current"</code> nos muestra cuál es su pose actualmente. La columna <code>"delta"</code> muestra entonces la diferencia entre ambas.</p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>Which pose parameters <em>haven't</em> changed, and is this what you would expect (considering <a href="#principal-axes">the robot's principal axes, as illustrated above</a>)?</p>
+<p>¿Qué parámetros de pose <em>no</em> han cambiado, y ¿es esto lo que esperarías (considerando <a href="#principal-axes">los ejes principales del robot, como se ilustra arriba</a>)?</p>
 </div>
 </li>
 <li>
-<p>Press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 2</strong> and <strong>TERMINAL 3</strong>, to stop the <code>robot_pose.py</code> and <code>teleop_keyboard</code> nodes. </p>
+<p>Presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 2</strong> y <strong>TERMINAL 3</strong>, para detener los nodes <code>robot_pose.py</code> y <code>teleop_keyboard</code>. </p>
 </li>
 </ol>
-<h3 id="odometry-explained">Odometry Explained<a class="headerlink" href="#odometry-explained" title="Permanent link">¶</a></h3>
-<p>Hopefully you're starting to understand what Odometry is now, but let's dig a little deeper using some key ROS command line tools again. IN <strong>TERMINAL 2</strong>:</p>
+<h3 id="la-odometria-explicada">La Odometría Explicada<a class="headerlink" href="#la-odometria-explicada" title="Permanent link">¶</a></h3>
+<p>Esperamos que estés empezando a entender qué es la Odometría ahora, pero profundicemos un poco más usando algunas herramientas clave de la línea de comandos de ROS nuevamente. En <strong>TERMINAL 2</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/odom
 </code></pre></div>
-<p>This provides information about the interface used by this topic:</p>
+<p>Esto proporciona información sobre la interfaz usada por este topic:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Type: nav_msgs/msg/Odometry
 </code></pre></div>
-<p>We can find out more about this interface using the <code>ros2 interface show</code> command:</p>
+<p>Podemos obtener más información sobre esta interfaz usando el comando <code>ros2 interface show</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>nav_msgs/msg/Odometry
 </code></pre></div>
-<p>Look down the far left-hand side to identify the four <em>base fields</em> of the interface (the fields that are not indented):</p>
+<p>Mira a lo largo del lado izquierdo para identificar los cuatro <em>campos base</em> de la interfaz (los campos que no tienen sangría):</p>
 <p><a name="odom-base-fields"></a></p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field <em>Name</em></th>
-<th style="text-align: center;">Field <em>Type</em></th>
+<th style="text-align: center;"><em>Nombre</em> del Campo</th>
+<th style="text-align: center;"><em>Tipo</em> del Campo</th>
 </tr>
 </thead>
 <tbody>
@@ -3582,7 +4083,7 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<p>We saw all these in <code>rqt</code> earlier. As before, its item 3 that's of most interest to us...</p>
+<p>Vimos todos estos en <code>rqt</code> anteriormente. Como antes, es el elemento 3 el que más nos interesa...</p>
 <h4 id="pose">Pose<a class="headerlink" href="#pose" title="Permanent link">¶</a></h4>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a># Estimated pose that is typically relative to a fixed world frame.
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>geometry_msgs/PoseWithCovariance pose
@@ -3598,14 +4099,14 @@
 <a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>                        float64 w
 <a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        float64[36] covariance
 </code></pre></div>
-<p>Within the <code>pose</code> base field we have two subfields: <code>pose</code> and <code>covariance</code>:</p>
+<p>Dentro del campo base <code>pose</code> tenemos dos subcampos: <code>pose</code> y <code>covariance</code>:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field <em>Name</em></th>
-<th style="text-align: center;">Field <em>Type</em></th>
+<th style="text-align: center;"><em>Nombre</em> del Campo</th>
+<th style="text-align: center;"><em>Tipo</em> del Campo</th>
 </tr>
 </thead>
 <tbody>
@@ -3622,14 +4123,14 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<p>It's the <code>pose</code> subfield that we're most interested in here, which contains two <em>further</em> subfields called <code>position</code> and <code>orientation</code>: </p>
+<p>Es el subcampo <code>pose</code> el que más nos interesa aquí, que contiene dos subcampos <em>adicionales</em> llamados <code>position</code> y <code>orientation</code>: </p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field <em>Name</em></th>
-<th style="text-align: center;">Field <em>Type</em></th>
+<th style="text-align: center;"><em>Nombre</em> del Campo</th>
+<th style="text-align: center;"><em>Tipo</em> del Campo</th>
 </tr>
 </thead>
 <tbody>
@@ -3649,96 +4150,96 @@
 <ol>
 <li>
 <p><code>position</code></p>
-<p>Tells us where our robot is located in 3-dimensional space. This is expressed in units of <strong>meters</strong>.</p>
+<p>Nos dice dónde está ubicado nuestro robot en el espacio tridimensional. Se expresa en unidades de <strong>metros</strong>.</p>
 </li>
 <li>
 <p><code>orientation</code></p>
-<p>Tells us which way our robot is pointing in its environment. This is expressed in units of <strong>Quaternions</strong>, which is a mathematically convenient way to store data related to a robot's orientation (it's a bit hard for us humans to understand and visualise this though, so we'll talk about how to convert it to a different format later).</p>
+<p>Nos dice en qué dirección apunta nuestro robot en su entorno. Se expresa en unidades de <strong>Cuaterniones</strong>, que es una forma matemáticamente conveniente de almacenar datos relacionados con la orientación de un robot (sin embargo, es un poco difícil para nosotros los humanos entender y visualizar esto, así que hablaremos sobre cómo convertirlo a un formato diferente más adelante).</p>
 </li>
 </ol>
-<p>Pose is defined relative to an arbitrary reference point, typically where the robot was when it was turned on, or the origin of a simulated world. On our real TurtleBot3 Waffle robots, it is determined from:</p>
+<p>La Pose se define en relación a un punto de referencia arbitrario, típicamente donde estaba el robot cuando fue encendido, o el origen de un mundo simulado. En nuestros robots reales TurtleBot3 Waffle, se determina a partir de:</p>
 <ul>
-<li>Data from the Inertial Measurement Unit (IMU) on the OpenCR board</li>
-<li>Data from both the left and right wheel encoders</li>
-<li>A <em>kinematic model</em> of the robot</li>
+<li>Datos de la Unidad de Medición Inercial (IMU) en la tarjeta OpenCR</li>
+<li>Datos de los encoders de la rueda izquierda y derecha</li>
+<li>Un <em>modelo cinemático</em> del robot</li>
 </ul>
-<p>All the above information can then be used to calculate (and keep track of) the distance travelled by the robot from its pre-defined reference point using a process called <em>"dead-reckoning."</em></p>
-<h4 id="what-are-quaternions">What are Quaternions?<a class="headerlink" href="#what-are-quaternions" title="Permanent link">¶</a></h4>
-<p>Quaternions represent the orientation of something in 3 dimensional space<sup id="fnref:quaternions"><a class="footnote-ref" href="#fn:quaternions">1</a></sup>, as we can observe from the structure of the <code>nav_msgs/msg/Odometry</code> ROS interface, there are <strong>four fields</strong> associated with this:</p>
+<p>Toda la información anterior puede usarse entonces para calcular (y mantener un seguimiento de) la distancia recorrida por el robot desde su punto de referencia predefinido usando un proceso llamado <em>"dead-reckoning."</em></p>
+<h4 id="que-son-los-cuaterniones">¿Qué son los Cuaterniones?<a class="headerlink" href="#que-son-los-cuaterniones" title="Permanent link">¶</a></h4>
+<p>Los Cuaterniones representan la orientación de algo en el espacio tridimensional<sup id="fnref:quaternions"><a class="footnote-ref" href="#fn:quaternions">1</a></sup>, como podemos observar en la estructura de la interfaz ROS <code>nav_msgs/msg/Odometry</code>, hay <strong>cuatro campos</strong> asociados con esto:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Quaternion orientation
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>        float64 x
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        float64 y
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        float64 z
 <a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        float64 w
 </code></pre></div>
-<p>For us, it's easier to think about the orientation of our robot in a <em>"Euler Angle"</em> representation, which tell us the degree of rotation about the <em>three principal axes</em> (<a href="#principal-axes">as discussed above</a>):</p>
+<p>Para nosotros, es más fácil pensar en la orientación de nuestro robot en una representación de <em>"Ángulos de Euler"</em>, que nos indican el grado de rotación alrededor de los <em>tres ejes principales</em> (<a href="#principal-axes">como se discutió anteriormente</a>):</p>
 <ul>
-<li><span class="arithmatex">\(\theta_{x}\)</span>: The angular position about the <strong>X</strong>-axis, aka <strong>"Roll"</strong></li>
-<li><span class="arithmatex">\(\theta_{y}\)</span>: The angular position about the <strong>Y</strong>-axis, aka <strong>"Pitch"</strong></li>
-<li><span class="arithmatex">\(\theta_{z}\)</span>: The angular position about the <strong>Z</strong>-axis, aka <strong>"Yaw"</strong></li>
+<li><span class="arithmatex">\(\theta_{x}\)</span>: La posición angular alrededor del eje <strong>X</strong>, también conocida como <strong>"Roll"</strong></li>
+<li><span class="arithmatex">\(\theta_{y}\)</span>: La posición angular alrededor del eje <strong>Y</strong>, también conocida como <strong>"Pitch"</strong></li>
+<li><span class="arithmatex">\(\theta_{z}\)</span>: La posición angular alrededor del eje <strong>Z</strong>, también conocida como <strong>"Yaw"</strong></li>
 </ul>
-<p>Fortunately, the maths involved in converting between these two orientation formats is fairly straight forward. The angular position about the Z-axis (aka "Yaw"), for example, is calculated as follows: </p>
+<p>Afortunadamente, la matemática involucrada en la conversión entre estos dos formatos de orientación es bastante sencilla. La posición angular alrededor del eje Z (también conocida como "Yaw"), por ejemplo, se calcula de la siguiente manera: </p>
 <div class="arithmatex">\[
 \theta_{z} = \operatorname{atan2}\left( 2(wz + xy), 1 - 2(y^2 + z^2) \right)
 \]</div>
-<p>Where <span class="arithmatex">\(\theta_{z}\)</span> is the yaw angle (in radians), and <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(z\)</span> are the quaternion components of a robot's orientation (<span class="arithmatex">\(w\)</span> being the scalar (real) part and <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(z\)</span> being the vector parts)<sup id="fnref:auto-addison"><a class="footnote-ref" href="#fn:auto-addison">2</a></sup>.</p>
-<h3 id="which-pose-values-apply-to-our-waffles">Which Pose Values Apply to our Waffles?<a class="headerlink" href="#which-pose-values-apply-to-our-waffles" title="Permanent link">¶</a></h3>
-<p>Referring back to the three <em>principal axes</em> from earlier: </p>
+<p>Donde <span class="arithmatex">\(\theta_{z}\)</span> es el ángulo de yaw (en radianes), y <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span> y <span class="arithmatex">\(z\)</span> son los componentes de cuaternión de la orientación de un robot (<span class="arithmatex">\(w\)</span> siendo la parte escalar (real) y <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span> y <span class="arithmatex">\(z\)</span> siendo las partes vectoriales)<sup id="fnref:auto-addison"><a class="footnote-ref" href="#fn:auto-addison">2</a></sup>.</p>
+<h3 id="que-valores-de-pose-aplican-a-nuestros-waffles">¿Qué Valores de Pose Aplican a Nuestros Waffles?<a class="headerlink" href="#que-valores-de-pose-aplican-a-nuestros-waffles" title="Permanent link">¶</a></h3>
+<p>Refiriéndonos de nuevo a los tres <em>ejes principales</em> de antes: </p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
 </figure>
-<p>You can also see here that our TurtleBot3 has two motors that allow it to move. As a result of this, it can only move in a 2D plane and so its pose can be fully represented by just 3 odometry terms in total: </p>
+<p>También puedes ver aquí que nuestro TurtleBot3 tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: </p>
 <ul>
-<li><span class="arithmatex">\(x\)</span> &amp; <span class="arithmatex">\(y\)</span>: the 2D coordinates of the robot in the <strong>X</strong>-<strong>Y</strong> plane</li>
-<li><span class="arithmatex">\(\theta_{z}\)</span>: the angle of the robot about the <strong>Z</strong>-axis (<em>yaw</em>)</li>
+<li><span class="arithmatex">\(x\)</span> &amp; <span class="arithmatex">\(y\)</span>: las coordenadas 2D del robot en el plano <strong>X</strong>-<strong>Y</strong></li>
+<li><span class="arithmatex">\(\theta_{z}\)</span>: el ángulo del robot alrededor del eje <strong>Z</strong> (<em>yaw</em>)</li>
 </ul>
-<p>(unfortunately, it can't fly!)</p>
-<h3 id="odometry-data-as-a-feedback-signal">Odometry Data as a Feedback Signal<a class="headerlink" href="#odometry-data-as-a-feedback-signal" title="Permanent link">¶</a></h3>
-<p>Odometry data can be really useful for robot navigation, allowing us to keep track of where a robot is, how it's moving and how to get back to where we started. We therefore need to know how to use this data effectively within our Python nodes, and we'll explore this now.</p>
-<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 2: Creating a Python Node to Process Odometry Data<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
-<p>In Part 1 we learnt how to create a package and build simple Python nodes to publish and subscribe to messages on a topic. In this exercise we'll build a new subscriber node, much like we did previously, but this one will subscribe to the <code>/odom</code> topic that we've been talking about above. We'll also create a new package called <code>part2_navigation</code> for this node to live in!</p>
+<p>(¡desafortunadamente, no puede volar!)</p>
+<h3 id="los-datos-de-odometria-como-senal-de-retroalimentacion">Los Datos de Odometría como Señal de Retroalimentación<a class="headerlink" href="#los-datos-de-odometria-como-senal-de-retroalimentacion" title="Permanent link">¶</a></h3>
+<p>Los datos de Odometría pueden ser muy útiles para la navegación de robots, permitiéndonos rastrear dónde está un robot, cómo se mueve y cómo volver a donde empezamos. Por lo tanto, necesitamos saber cómo usar estos datos eficazmente dentro de nuestros nodes de Python, y lo exploraremos ahora.</p>
+<h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 2: Creando un Node de Python para Procesar Datos de Odometría<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
+<p>En la Parte 1 aprendimos cómo crear un package y construir nodes simples de Python para publicar y suscribirse a mensajes en un topic. En este ejercicio construiremos un nuevo node subscriber, muy parecido a lo que hicimos anteriormente, pero este se suscribirá al topic <code>/odom</code> del que hemos estado hablando. ¡También crearemos un nuevo package llamado <code>part2_navigation</code> para que viva este node!</p>
 <ol>
 <li>
-<p>First, head to the <code>src</code> directory of your ROS 2 workspace in <strong>TERMINAL 2</strong>:</p>
+<p>Primero, dirígete al directorio <code>src</code> de tu workspace de ROS 2 en <strong>TERMINAL 2</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/
 </code></pre></div>
 </li>
 <li>
-<p>Clone the ROS 2 Package Template:</p>
+<p>Clona la Plantilla de Package ROS 2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tom-howard/ros2_pkg_template.git
 </code></pre></div>
 </li>
 <li>
-<p>Run the <code>init_pkg.sh</code> script within this to initalise that package with the name "part2_navigation":</p>
+<p>Ejecuta el script <code>init_pkg.sh</code> dentro de este para inicializar ese package con el nombre "part2_navigation":</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>./ros2_pkg_template/init_pkg.sh<span class="w"> </span>part2_navigation
 </code></pre></div>
 </li>
 <li>
-<p>Then navigate into the new package using <code>cd</code>:</p>
+<p>Luego navega hacia el nuevo package usando <code>cd</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">cd</span><span class="w"> </span>./part2_navigation/
 </code></pre></div>
 </li>
 <li>
-<p>The subscriber that we will build here will have a similar structure to the subscriber that we built in Part 1. As a starting point, copy across the <code>subscriber.py</code> file from your <code>part1_pubsub</code> package using the <code>cp</code> command (i.e. <strong>c</strong>o<strong>p</strong>y):</p>
+<p>El subscriber que construiremos aquí tendrá una estructura similar al subscriber que construimos en la Parte 1. Como punto de partida, copia el archivo <code>subscriber.py</code> de tu package <code>part1_pubsub</code> usando el comando <code>cp</code> (es decir, <strong>c</strong>o<strong>p</strong>iar):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>cp<span class="w"> </span>../part1_pubsub/scripts/subscriber.py<span class="w"> </span>./scripts/odom_subscriber.py
 </code></pre></div>
 <details class="info">
-<summary>Info: Copying files in a terminal</summary>
-<p>When using the <code>cp</code> command to copy things, we need to provide two key bits of information (at least): </p>
+<summary>Información: Copiar archivos en un terminal</summary>
+<p>Cuando usamos el comando <code>cp</code> para copiar cosas, necesitamos proporcionar dos piezas clave de información (al menos): </p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>cp SOURCE DEST
 </code></pre></div>
-<p>i.e.: copy the file <code>SOURCE</code> to the destination <code>DEST</code>.</p>
-<p>Remember that we are located in our <code>part2_navigation</code> package root folder when we run this, and the file paths that we are using here are all <em>relative</em> to that location.</p>
-<p>As such, <code>..</code> means "go back one directory," so when defining the <code>SOURCE</code> file that we want to copy, we're telling <code>cp</code> to go <em>out</em> of the <code>part2_navigation</code> directory (back to <code>~/ros2_ws/src/</code>), and then go <em>into</em> the <code>part1_pubsub</code> directory from there (and onwards into <code>scripts</code>).</p>
-<p><code>.</code> means "this current directory," so when defining where we want the <code>subscriber.py</code> to be copied <em>to</em> (<code>DEST</code>), we're telling <code>cp</code> to start from where we currently are in the filesystem (i.e. <code>~/ros2_ws/src/part2_navigation/</code>) and copy it into the <code>scripts</code> directory from there (whilst also renaming it to <code>odom_subscriber.py</code>).</p>
+<p>Es decir: copiar el archivo <code>SOURCE</code> al destino <code>DEST</code>.</p>
+<p>Recuerda que estamos ubicados en la carpeta raíz del package <code>part2_navigation</code> cuando ejecutamos esto, y las rutas de archivos que estamos usando aquí son todas <em>relativas</em> a esa ubicación.</p>
+<p>Por lo tanto, <code>..</code> significa "retroceder un directorio," así que al definir el archivo <code>SOURCE</code> que queremos copiar, le estamos diciendo a <code>cp</code> que <em>salga</em> del directorio <code>part2_navigation</code> (de vuelta a <code>~/ros2_ws/src/</code>), y luego que <em>entre</em> al directorio <code>part1_pubsub</code> desde allí (y continúe hacia <code>scripts</code>).</p>
+<p><code>.</code> significa "este directorio actual," así que al definir dónde queremos copiar el <code>subscriber.py</code> <em>hacia</em> (<code>DEST</code>), le estamos diciendo a <code>cp</code> que empiece desde donde estamos actualmente en el sistema de archivos (es decir, <code>~/ros2_ws/src/part2_navigation/</code>) y lo copie al directorio <code>scripts</code> desde allí (mientras también lo renombra a <code>odom_subscriber.py</code>).</p>
 </details>
 </li>
 <li>
-<p>Next, head to the following page for step-by-step instructions on how to build the odometry subscriber:</p>
-<p></p><center><a class="md-button" href="odom_subscriber/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Building the <code>odom_subscriber.py</code> node</a></center> <p></p>
+<p>A continuación, dirígete a la siguiente página para obtener instrucciones paso a paso sobre cómo construir el subscriber de odometría:</p>
+<p></p><center><a class="md-button" href="odom_subscriber/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Construyendo el node <code>odom_subscriber.py</code></a></center> <p></p>
 </li>
 <li>
-<p>Now, declare the <code>odom_subscriber.py</code> node as an executable in the <code>CMakeLists.txt</code>:</p>
+<p>Ahora, declara el node <code>odom_subscriber.py</code> como un ejecutable en el <code>CMakeLists.txt</code>:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a># Install Python executables
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>install(PROGRAMS
 <a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>  scripts/basic_velocity_control.py
@@ -3749,48 +4250,48 @@
 </code></pre></div>
 </li>
 <li>
-<p>Head back to the terminal and use Colcon to build the package (including the new <code>odom_subscriber.py</code> node). This is a <strong>three-step process</strong>, that you must always follow:</p>
+<p>Regresa al terminal y usa Colcon para compilar el package (incluyendo el nuevo node <code>odom_subscriber.py</code>). Este es un <strong>proceso de tres pasos</strong>, que siempre debes seguir:</p>
 <ol>
 <li>
-<p>Navigate to the <strong>root</strong> of the ROS 2 workspace:</p>
+<p>Navega a la <strong>raíz</strong> del workspace de ROS 2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 </li>
 <li>
-<p>Build your package using <code>colcon</code>:</p>
+<p>Compila tu package usando <code>colcon</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part2_navigation<span class="w"> </span>--symlink-install
 </code></pre></div>
 </li>
 <li>
-<p>And finally, re-source the <code>.bashrc</code>:</p>
+<p>Y finalmente, recarga el <code>.bashrc</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Now we're ready to run this! Do so using <code>ros2 run</code> and see what it does:</p>
+<p>¡Ahora estamos listos para ejecutar esto! Hazlo usando <code>ros2 run</code> y observa qué hace:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part2_navigation<span class="w"> </span>odom_subscriber.py
 </code></pre></div>
 </li>
 <li>
-<p>Having followed all the steps, the output from your node should be similar to that shown below:</p>
+<p>Habiendo seguido todos los pasos, la salida de tu node debería ser similar a la que se muestra a continuación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="odom_subscriber.gif" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="odom_subscriber.gif" data-desc-position="bottom"><img alt="" src="odom_subscriber.gif" width="700px"></a>
 </figure><p></p>
 </li>
 <li>
-<p>Observe how the output (the formatted odometry data) changes while you move the robot around using the <code>teleop_keyboard</code> node in <strong>TERMINAL 3</strong>.</p>
+<p>Observa cómo cambia la salida (los datos de odometría formateados) mientras mueves el robot usando el node <code>teleop_keyboard</code> en <strong>TERMINAL 3</strong>.</p>
 </li>
-<li>Stop your <code>odom_subscriber.py</code> node in <strong>TERMINAL 2</strong> and the <code>teleop_keyboard</code> node in <strong>TERMINAL 3</strong> by entering <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in each of the terminals.</li>
+<li>Detén tu node <code>odom_subscriber.py</code> en <strong>TERMINAL 2</strong> y el node <code>teleop_keyboard</code> en <strong>TERMINAL 3</strong> ingresando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en cada una de las terminales.</li>
 </ol>
-<h2 id="velocity">Basic Navigation: Open-loop Velocity Control<a class="headerlink" href="#velocity" title="Permanent link">¶</a></h2>
-<p>In order to change our robot's pose, we need to apply velocity to make it move. We learnt about this in Part 1, but let's look at it all in a bit more detail now.</p>
-<p>We know that we can use the <code>/cmd_vel</code> topic to publish velocity commands to our robot. Let's remind ourselves how these velocity commands must be structured:</p>
+<h2 id="velocity">Navegación Básica: Control de Velocidad en Lazo Abierto<a class="headerlink" href="#velocity" title="Permanent link">¶</a></h2>
+<p>Para cambiar la pose de nuestro robot, necesitamos aplicar velocidad para hacerlo mover. Aprendimos sobre esto en la Parte 1, pero veámoslo todo con un poco más de detalle ahora.</p>
+<p>Sabemos que podemos usar el topic <code>/cmd_vel</code> para publicar comandos de velocidad a nuestro robot. Recordemos cómo deben estructurarse estos comandos de velocidad:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
 </code></pre></div>
-<p>This tells us that the data that is transmitted on the <code>/cmd_vel</code> topic is of the <code>geometry_msgs/msg/TwistStamped</code> interface type.  </p>
-<p>We also learnt how to find out more about this particular interface (using the <code>ros2 interface show</code> command): </p>
+<p>Esto nos dice que los datos transmitidos en el topic <code>/cmd_vel</code> son del tipo de interfaz <code>geometry_msgs/msg/TwistStamped</code>.  </p>
+<p>También aprendimos cómo obtener más información sobre esta interfaz particular (usando el comando <code>ros2 interface show</code>): </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>geometry_msgs/msg/TwistStamped
 </code></pre></div>
 <p><a name="twist-stamped-struct"></a></p>
@@ -3809,14 +4310,14 @@
 <a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>                float64 y
 <a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>                float64 z
 </code></pre></div>
-<p>There are two base fields in this data structure:</p>
+<p>Hay dos campos base en esta estructura de datos:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field Name</th>
-<th style="text-align: center;">Data Type</th>
+<th style="text-align: center;">Nombre del Campo</th>
+<th style="text-align: center;">Tipo de Dato</th>
 </tr>
 </thead>
 <tbody>
@@ -3833,14 +4334,14 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<p>Each of these base fields are comprised of further subfields. It's the <code>twist</code> field that's of most interest to us, and this comprises two further subfields:</p>
+<p>Cada uno de estos campos base está compuesto por subcampos adicionales. Es el campo <code>twist</code> el que más nos interesa, y este comprende dos subcampos adicionales:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field Name</th>
-<th style="text-align: center;">Data Type</th>
+<th style="text-align: center;">Nombre del Campo</th>
+<th style="text-align: center;">Tipo de Dato</th>
 </tr>
 </thead>
 <tbody>
@@ -3857,14 +4358,14 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<p>Each of <em>these</em> contains 3 <em>further</em> subfields: <code>x</code>, <code>y</code> and <code>z</code>:</p>
+<p>Cada uno de <em>estos</em> contiene 3 subcampos <em>adicionales</em>: <code>x</code>, <code>y</code> y <code>z</code>:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">#</th>
-<th style="text-align: center;">Field Name</th>
-<th style="text-align: center;">Data Type</th>
+<th style="text-align: center;">Nombre del Campo</th>
+<th style="text-align: center;">Tipo de Dato</th>
 </tr>
 </thead>
 <tbody>
@@ -3886,16 +4387,16 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<h3 id="velocity-commands">Velocity Commands<a class="headerlink" href="#velocity-commands" title="Permanent link">¶</a></h3>
-<p>There are therefore <strong>six</strong> velocity <em>fields</em> that we can assign values to when sending velocity commands to a ROS robot: <strong>two</strong> velocity <em>types</em>, each with <strong>three</strong> velocity <em>components</em>: </p>
+<h3 id="comandos-de-velocidad">Comandos de Velocidad<a class="headerlink" href="#comandos-de-velocidad" title="Permanent link">¶</a></h3>
+<p>Por lo tanto, hay <strong>seis</strong> <em>campos</em> de velocidad que podemos asignar valores cuando enviamos comandos de velocidad a un robot ROS: <strong>dos</strong> <em>tipos</em> de velocidad, cada uno con <strong>tres</strong> <em>componentes</em> de velocidad: </p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Velocity Type</th>
-<th style="text-align: center;">Component 1</th>
-<th style="text-align: center;">Component 2</th>
-<th style="text-align: center;">Component 3</th>
+<th style="text-align: left;">Tipo de Velocidad</th>
+<th style="text-align: center;">Componente 1</th>
+<th style="text-align: center;">Componente 2</th>
+<th style="text-align: center;">Componente 3</th>
 </tr>
 </thead>
 <tbody>
@@ -3914,68 +4415,68 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<p>These relate to a robot's <strong>six degrees of freedom</strong> (DOFs), and velocity commands are therefore formatted to give a ROS Programmer the ability to <em>ask</em> a robot to move in any one of its six DOFs. </p>
+<p>Estos se relacionan con los <strong>seis grados de libertad</strong> (DOFs) de un robot, y los comandos de velocidad están formateados para dar a un Programador de ROS la capacidad de <em>solicitar</em> a un robot que se mueva en cualquiera de sus seis DOFs. </p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Component (Axis)</th>
-<th style="text-align: center;">Linear Velocity</th>
-<th style="text-align: center;">Angular Velocity</th>
+<th style="text-align: center;">Componente (Eje)</th>
+<th style="text-align: center;">Velocidad Lineal</th>
+<th style="text-align: center;">Velocidad Angular</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center;"><strong>X</strong></td>
-<td style="text-align: center;">"Forwards/Backwards"</td>
+<td style="text-align: center;">"Adelante/Atrás"</td>
 <td style="text-align: center;">"Roll"</td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Y</strong></td>
-<td style="text-align: center;">"Left/Right"</td>
+<td style="text-align: center;">"Izquierda/Derecha"</td>
 <td style="text-align: center;">"Pitch"</td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Z</strong></td>
-<td style="text-align: center;">"Up/Down"</td>
+<td style="text-align: center;">"Arriba/Abajo"</td>
 <td style="text-align: center;">"Yaw"</td>
 </tr>
 </tbody>
 </table>
 <p></p></center><p></p>
-<h3 id="the-degrees-of-freedom-of-our-waffles">The Degrees of Freedom of our Waffles<a class="headerlink" href="#the-degrees-of-freedom-of-our-waffles" title="Permanent link">¶</a></h3>
-<p>Recall (again) our robot's <em>"Principal Axes"</em> and the motion about them:</p>
+<h3 id="los-grados-de-libertad-de-nuestros-waffles">Los Grados de Libertad de Nuestros Waffles<a class="headerlink" href="#los-grados-de-libertad-de-nuestros-waffles" title="Permanent link">¶</a></h3>
+<p>Recuerda (de nuevo) los <em>"Ejes Principales"</em> de nuestro robot y el movimiento a su alrededor:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
 </figure>
-<p>As discussed above, our Waffles only have two motors. These two motors can be controlled independently (in what is known as a <em>"differential drive"</em> configuration), which ultimately provides it with a total of <strong>two degrees of freedom</strong> overall, as highlighted below.</p>
+<p>Como se discutió anteriormente, nuestros Waffles solo tienen dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de <em>"accionamiento diferencial"</em>), lo que en última instancia le proporciona un total de <strong>dos grados de libertad</strong> en general, como se destaca a continuación.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="800"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/velocities.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="800"></a></p>
 </figure>
-<p>When issuing velocity commands to our Waffles therefore, only two (of the six) velocity command fields are applicable: <strong>linear</strong> velocity in the <strong>x</strong>-axis (<em>Forwards/Backwards</em>) and <strong>angular</strong> velocity about the <strong>z</strong>-axis (<em>Yaw</em>).</p>
+<p>Al emitir comandos de velocidad a nuestros Waffles, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad <strong>lineal</strong> en el eje <strong>x</strong> (<em>Adelante/Atrás</em>) y velocidad <strong>angular</strong> alrededor del eje <strong>z</strong> (<em>Yaw</em>).</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Principal Axis</th>
-<th style="text-align: center;">Linear Velocity</th>
-<th style="text-align: center;">Angular Velocity</th>
+<th style="text-align: center;">Eje Principal</th>
+<th style="text-align: center;">Velocidad Lineal</th>
+<th style="text-align: center;">Velocidad Angular</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center;"><strong>X</strong></td>
-<td style="text-align: center;"><strong>"Forwards/Backwards"</strong></td>
+<td style="text-align: center;"><strong>"Adelante/Atrás"</strong></td>
 <td style="text-align: center;"><del>"Roll"</del></td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Y</strong></td>
-<td style="text-align: center;"><del>"Left/Right"</del></td>
+<td style="text-align: center;"><del>"Izquierda/Derecha"</del></td>
 <td style="text-align: center;"><del>"Pitch"</del></td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Z</strong></td>
-<td style="text-align: center;"><del>"Up/Down"</del></td>
+<td style="text-align: center;"><del>"Arriba/Abajo"</del></td>
 <td style="text-align: center;"><strong>"Yaw"</strong></td>
 </tr>
 </tbody>
@@ -3983,25 +4484,25 @@
 <p></p></center><p></p>
 <p><a name="velocity_limits"></a></p>
 <div class="admonition note">
-<p class="admonition-title">Maximum Velocity Limits</p>
-<p>Keep in mind (while we're on the subject of velocity) that our TurtleBot3 Waffles have <strong>maximum velocity limits</strong>:</p>
+<p class="admonition-title">Límites Máximos de Velocidad</p>
+<p>Ten en cuenta (mientras estamos en el tema de la velocidad) que nuestros TurtleBot3 Waffles tienen <strong>límites máximos de velocidad</strong>:</p>
 <p></p><center><p></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Velocity Component</th>
-<th style="text-align: center;">Upper Limit</th>
-<th style="text-align: left;">Units</th>
+<th style="text-align: left;">Componente de Velocidad</th>
+<th style="text-align: center;">Límite Superior</th>
+<th style="text-align: left;">Unidades</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><em>Linear (in the X axis)</em></td>
+<td style="text-align: left;"><em>Lineal (en el eje X)</em></td>
 <td style="text-align: center;">0.26</td>
 <td style="text-align: left;">m/s</td>
 </tr>
 <tr>
-<td style="text-align: left;"><em>Angular (about the Z axis)</em></td>
+<td style="text-align: left;"><em>Angular (alrededor del eje Z)</em></td>
 <td style="text-align: center;">1.82</td>
 <td style="text-align: left;">rad/s</td>
 </tr>
@@ -4009,43 +4510,43 @@
 </table>
 <p></p></center><p></p>
 </div>
-<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 3: Controlling Velocity with the ROS 2 CLI<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
+<h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 3: Controlando la Velocidad con el CLI de ROS 2<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Make sure that you've stopped the <code>teleop_keyboard</code> node before starting this exercise!</p>
+<p>¡Asegúrate de haber detenido el node <code>teleop_keyboard</code> antes de comenzar este ejercicio!</p>
 </div>
-<p><a name="rostopic_pub"></a>We can use the <code>ros2 topic pub</code> command to <em>publish</em> data to a topic from a terminal by using the command in the following way:</p>
+<p><a name="rostopic_pub"></a>Podemos usar el comando <code>ros2 topic pub</code> para <em>publicar</em> datos a un topic desde un terminal usando el comando de la siguiente manera:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span><span class="o">{</span>topic_name<span class="o">}</span><span class="w"> </span><span class="o">{</span>interface_type<span class="o">}</span><span class="w"> </span><span class="o">{</span>data<span class="o">}</span>
 </code></pre></div>
-<p>As discussed above, the <code>/cmd_vel</code> topic is expecting interface messages containing <em>linear</em> and <em>angular</em> velocity data, each with <code>x</code>, <code>y</code> and <code>z</code> values associated with them. We can compose these messages in a terminal and publish them with the <code>ros2 topic pub</code> command, provided we take care to format the messages correctly to conform with the <code>geometry_msgs/msg/TwistStamped</code> data structure.</p>
+<p>Como se discutió anteriormente, el topic <code>/cmd_vel</code> espera mensajes de interfaz que contengan datos de velocidad <em>lineal</em> y <em>angular</em>, cada uno con valores <code>x</code>, <code>y</code> y <code>z</code> asociados. Podemos componer estos mensajes en un terminal y publicarlos con el comando <code>ros2 topic pub</code>, siempre que tengamos cuidado de formatear los mensajes correctamente para cumplir con la estructura de datos <code>geometry_msgs/msg/TwistStamped</code>.</p>
 <ol>
 <li>
-<p>In <strong>TERMINAL 3</strong> enter the following, this will end up being quite a long command, so let's break it down a little:</p>
+<p>En <strong>TERMINAL 3</strong> ingresa lo siguiente, esto terminará siendo un comando bastante largo, así que analicémoslo un poco:</p>
 <ol>
 <li>
-<p>Start with the desired subcommand of <code>ros2 topic</code>:</p>
+<p>Comienza con el subcomando deseado de <code>ros2 topic</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>ros2 topic pub
 </code></pre></div>
 </li>
 <li>
-<p>Next comes the <em>name of the topic</em> that we want to publish to: </p>
+<p>A continuación viene el <em>nombre del topic</em> al que queremos publicar: </p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ros2 topic pub /cmd_vel
 </code></pre></div>
 </li>
 <li>
-<p>Next, we define the interface type that this topic uses. Start typing this and then enter the <span class="keys"><kbd class="key-tab">Tab</kbd></span> key where shown, and it should autocomplete for you:</p>
+<p>A continuación, definimos el tipo de interfaz que usa este topic. Comienza a escribirlo y luego presiona la tecla <span class="keys"><kbd class="key-tab">Tab</kbd></span> donde se indica, y debería autocompletarse:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ros2 topic pub /cmd_vel geom[TAB]
 </code></pre></div>
-<p>Which should autocomplete the interface type for you:</p>
+<p>Lo que debería autocompletar el tipo de interfaz por ti:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You can use <span class="keys"><kbd class="key-tab">Tab</kbd></span> to autocomplete lots of terminal commands, experiment with it - it'll save you lots of time! </p>
+<p>¡Puedes usar <span class="keys"><kbd class="key-tab">Tab</kbd></span> para autocompletar muchos comandos de terminal, experimenta con ello - te ahorrará mucho tiempo! </p>
 </div>
 </li>
 <li>
-<p>Finally, provide the values to be published, which <strong>must</strong> be formatted according to the interface definition (<a href="#twist-stamped-struct">as we established earlier</a>):</p>
+<p>Finalmente, proporciona los valores a publicar, que <strong>deben</strong> estar formateados según la definición de interfaz (<a href="#twist-stamped-struct">como establecimos anteriormente</a>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped \
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>"{header: auto, \
 <a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>  twist: { \
@@ -4058,49 +4559,49 @@
 </ol>
 </li>
 <li>
-<p>Scroll back through the message using the <span class="keys"><kbd class="key-arrow-left">Left</kbd></span> key on your keyboard and then edit the values of the various fields, as appropriate.</p>
-<p>First, define some values that would make the robot <strong>rotate on the spot</strong>.  </p>
+<p>Desplázate hacia atrás en el mensaje usando la tecla <span class="keys"><kbd class="key-arrow-left">Left</kbd></span> en tu teclado y luego edita los valores de los distintos campos, según corresponda.</p>
+<p>Primero, define algunos valores que harían que el robot <strong>rote en el lugar</strong>.  </p>
 </li>
 <li>
-<p>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> to stop the message from being published.</p>
-<p>Notice that <strong>the robot carries on moving</strong> even when you stop the <code>ros2 topic pub</code> process...</p>
-<p>In order to make the robot <em>actually</em> stop, we need to publish a <em>new</em> message containing alternative velocity commands.</p>
+<p>Ingresa <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> para dejar de publicar el mensaje.</p>
+<p>Observa que <strong>el robot sigue moviéndose</strong> incluso cuando detienes el proceso <code>ros2 topic pub</code>...</p>
+<p>Para que el robot <em>realmente</em> se detenga, necesitamos publicar un <em>nuevo</em> mensaje que contenga comandos de velocidad alternativos.</p>
 </li>
 <li>
-<p>In <strong>TERMINAL 3</strong> press the <span class="keys"><kbd class="key-arrow-up">Up</kbd></span> key on your keyboard to recall the previous command, but don't press <span class="keys"><kbd class="key-enter">Enter</kbd></span> just yet! Now press the <span class="keys"><kbd class="key-arrow-left">Left</kbd></span> key to track back through the message and change the velocity field values back to <code>0.0</code> in order to now make the robot <strong>stop</strong>.</p>
+<p>En <strong>TERMINAL 3</strong> presiona la tecla <span class="keys"><kbd class="key-arrow-up">Up</kbd></span> en tu teclado para recuperar el comando anterior, ¡pero no presiones <span class="keys"><kbd class="key-enter">Enter</kbd></span> todavía! Ahora presiona la tecla <span class="keys"><kbd class="key-arrow-left">Left</kbd></span> para retroceder en el mensaje y cambiar los valores del campo de velocidad a <code>0.0</code> para ahora hacer que el robot <strong>se detenga</strong>.</p>
 </li>
 <li>
-<p>Once again, enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 3</strong> to stop the publisher from actively publishing new messages, and then follow the same steps as above to compose <em>another</em> new message to now make the robot <strong>move in a circle</strong>.</p>
+<p>Una vez más, ingresa <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 3</strong> para detener al publisher de publicar nuevos mensajes activamente, y luego sigue los mismos pasos que arriba para componer <em>otro</em> nuevo mensaje para ahora hacer que el robot <strong>se mueva en círculo</strong>.</p>
 </li>
 <li>
-<p>Enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> to again stop the message from being published, publish a further new message to stop the robot, and then compose (and publish) a message that would make the robot <strong>drive in a straight line</strong>.</p>
+<p>Ingresa <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> para volver a dejar de publicar el mensaje, publica un nuevo mensaje adicional para detener el robot, y luego compón (y publica) un mensaje que haga que el robot <strong>avance en línea recta</strong>.</p>
 </li>
 <li>
-<p>Finally, <strong>stop</strong> the robot again!</p>
+<p>Finalmente, ¡<strong>detén</strong> el robot de nuevo!</p>
 </li>
 </ol>
-<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 4: Creating a Python Node to Make a Robot Move in a circle<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<p>Controlling a robot from the terminal (or by using the <code>teleop_keyboard</code> node) is all well and good, but what about if we need to implement some more advanced control or <em>autonomy</em>?</p>
-<p>We'll now learn how to control the velocity of our robot <em>programmatically</em>, from a Python Node. We'll start out with a simple example to achieve a simple velocity profile (a circle), but this will provide us with the basis on which we can build more complex velocity control algorithms (which we'll look at in the following exercise).</p>
-<p>In Part 1 we built <a href="../part1/publisher/">a simple publisher node</a>, and this one will work in much the same way, but this time however, we need to publish <code>Twist</code> type messages to the <code>/cmd_vel</code> topic instead... </p>
+<h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 4: Creando un Node de Python para Hacer que un Robot Se Mueva en Círculo<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
+<p>Controlar un robot desde el terminal (o usando el node <code>teleop_keyboard</code>) está bien, pero ¿qué pasa si necesitamos implementar un control más avanzado o <em>autonomía</em>?</p>
+<p>Ahora aprenderemos cómo controlar la velocidad de nuestro robot <em>programáticamente</em>, desde un Node de Python. Comenzaremos con un ejemplo simple para lograr un perfil de velocidad simple (un círculo), pero esto nos proporcionará la base sobre la cual podemos construir algoritmos de control de velocidad más complejos (que veremos en el siguiente ejercicio).</p>
+<p>En la Parte 1 construimos <a href="../part1/publisher/">un node publisher simple</a>, y este funcionará de la misma manera, pero esta vez, sin embargo, necesitamos publicar mensajes de tipo <code>Twist</code> al topic <code>/cmd_vel</code> en su lugar... </p>
 <ol>
 <li>
-<p>In <strong>TERMINAL 2</strong>, ensure that you're located within the <code>scripts</code> folder of your <code>part2_navigation</code> package (you could use <code>pwd</code> to check your current working directory).</p>
-<p>If you aren't located here then navigate to this directory using <code>cd</code>.</p>
+<p>En <strong>TERMINAL 2</strong>, asegúrate de estar ubicado dentro de la carpeta <code>scripts</code> de tu package <code>part2_navigation</code> (puedes usar <code>pwd</code> para verificar tu directorio de trabajo actual).</p>
+<p>Si no estás ubicado aquí, navega a este directorio usando <code>cd</code>.</p>
 </li>
 <li>
-<p>Create a new file called <code>move_circle.py</code>:</p>
+<p>Crea un nuevo archivo llamado <code>move_circle.py</code>:</p>
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>touch<span class="w"> </span>move_circle.py
 </code></pre></div>
-... and make this file executable using the <code>chmod</code> command (<a href="../part1/#chmod">as we did in Part 1</a>).<p></p>
+... y haz este archivo ejecutable usando el comando <code>chmod</code> (<a href="../part1/#chmod">como hicimos en la Parte 1</a>).<p></p>
 </li>
 <li>
-<p>The task is to make the robot move in a <strong>circle</strong> with a path <strong>radius</strong> of approximately <strong>0.5 meters</strong>.</p>
-<p>Follow the instructions on the following page for building this:</p>
-<p></p><center><a class="md-button" href="move_circle/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Building the <code>move_circle.py</code> node</a></center><p></p>
+<p>La tarea es hacer que el robot se mueva en un <strong>círculo</strong> con un <strong>radio</strong> de trayectoria de aproximadamente <strong>0.5 metros</strong>.</p>
+<p>Sigue las instrucciones en la siguiente página para construir esto:</p>
+<p></p><center><a class="md-button" href="move_circle/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Construyendo el node <code>move_circle.py</code></a></center><p></p>
 </li>
 <li>
-<p>Next (hopefully you're getting the idea by now!), declare the <code>move_circle.py</code> node as an executable in the <code>part2_navigation/CMakeLists.txt</code> file:</p>
+<p>A continuación (¡esperamos que ya estés captando la idea!), declara el node <code>move_circle.py</code> como un ejecutable en el archivo <code>part2_navigation/CMakeLists.txt</code>:</p>
 <div class="highlight"><span class="filename">CMakeLists.txt</span><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a># Install Python executables
 <a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>install(PROGRAMS
 <a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>  scripts/basic_velocity_control.py
@@ -4112,66 +4613,66 @@
 </code></pre></div>
 </li>
 <li>
-<p>Finally, head back to <strong>TERMINAL 2</strong> and use Colcon to build the new node alongside everything else in the package, using the same <strong>three-step process</strong> as before:</p>
+<p>Finalmente, regresa a <strong>TERMINAL 2</strong> y usa Colcon para compilar el nuevo node junto con todo lo demás en el package, usando el mismo <strong>proceso de tres pasos</strong> que antes:</p>
 <ol>
 <li>
-<p>First: </p>
+<p>Primero: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
 </li>
 <li>
-<p>Then:</p>
+<p>Luego:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part2_navigation<span class="w"> </span>--symlink-install
 </code></pre></div>
 </li>
 <li>
-<p>And finally, re-source again:</p>
+<p>Y finalmente, recarga de nuevo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 </ol>
 </li>
 <li>
-<p>Run this node now, using <code>ros2 run</code> and see what happens:</p>
+<p>Ejecuta este node ahora, usando <code>ros2 run</code> y observa qué sucede:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part2_navigation<span class="w"> </span>move_circle.py
 </code></pre></div>
-<p>Head back to the Gazebo simulation and watch as the robot moves around in a circle of 0.5-meter radius!</p>
+<p>¡Regresa a la simulación Gazebo y observa cómo el robot se mueve en círculo con un radio de 0.5 metros!</p>
 </li>
 <li>
-<p>Once you're done, enter <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> in <strong>TERMINAL 2</strong> to stop the <code>move_circle.py</code> node. </p>
+<p>Una vez que hayas terminado, ingresa <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 2</strong> para detener el node <code>move_circle.py</code>. </p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
-<p>What happens to the robot when you hit <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> to stop the <code>move_circle.py</code> node?</p>
-<p><strong>Answer</strong>: It carries on moving <img alt="😮" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f62e.svg" title=":open_mouth:">!</p>
-<p>You can run another node from within your package to actually stop it:</p>
+<p>¿Qué le pasa al robot cuando presionas <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> para detener el node <code>move_circle.py</code>?</p>
+<p><strong>Respuesta</strong>: ¡Sigue moviéndose <img alt="😮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f62e.svg" title=":open_mouth:">!</p>
+<p>Puedes ejecutar otro node desde dentro de tu package para detenerlo realmente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part2_navigation<span class="w"> </span>stop_me.py
 </code></pre></div>
 </div>
 </li>
 </ol>
-<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 5: Implementing a Shutdown Procedure<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
-<p>Clearly, our work on the <code>move_circle.py</code> node isn't quite done. When we terminate our node we'd expect the robot to stop moving, but this (currently) isn't the case. </p>
-<p>You may have also noticed (with all the nodes that we have created so far) an error traceback in the terminal, every time we hit <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>. </p>
-<p>None of this is very good, and we'll address this now by modifying the <code>move_circle.py</code> file to incorporate a proper (and <em>safe</em>) shutdown procedure.</p>
+<h4 id="ex5"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 5: Implementando un Procedimiento de Apagado<a class="headerlink" href="#ex5" title="Permanent link">¶</a></h4>
+<p>Claramente, nuestro trabajo en el node <code>move_circle.py</code> no está del todo terminado. Cuando terminamos nuestro node esperaríamos que el robot dejara de moverse, pero (actualmente) este no es el caso. </p>
+<p>También es posible que hayas notado (con todos los nodes que hemos creado hasta ahora) un rastreo de error en el terminal, cada vez que presionamos <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>. </p>
+<p>Nada de esto es muy bueno, y lo abordaremos ahora modificando el archivo <code>move_circle.py</code> para incorporar un procedimiento de apagado adecuado (y <em>seguro</em>).</p>
 <ol>
 <li>
-<p>Return to the <code>move_circle.py</code> file in VS Code. </p>
+<p>Regresa al archivo <code>move_circle.py</code> en VS Code. </p>
 </li>
 <li>
-<p>First, we need to add an import to our Node:</p>
+<p>Primero, necesitamos agregar una importación a nuestro Node:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.signals</span><span class="w"> </span><span class="kn">import</span> <span class="n">SignalHandlerOptions</span>
 </code></pre></div>
-<p>You'll see what this is for shortly...</p>
+<p>Pronto verás para qué sirve esto...</p>
 </li>
 <li>
-<p>Then move on to the <code>__init__()</code> method of your <code>Circle()</code> class.</p>
-<p>Add in a boolean flag here called <code>shutdown</code>:</p>
+<p>Luego pasa al método <code>__init__()</code> de tu clase <code>Circle()</code>.</p>
+<p>Agrega aquí una bandera booleana llamada <code>shutdown</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">shutdown</span> <span class="o">=</span> <span class="kc">False</span>
 </code></pre></div>
-<p>... to begin with, we want this to be set to <code>False</code>.</p>
+<p>... para comenzar, queremos que esto esté establecido en <code>False</code>.</p>
 </li>
 <li>
-<p>Next, add a new method to your <code>Circle()</code> class, called <code>on_shutdown()</code>:</p>
+<p>A continuación, agrega un nuevo método a tu clase <code>Circle()</code>, llamado <code>on_shutdown()</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
 <a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>        <span class="s2">"Stopping the robot..."</span>
@@ -4180,12 +4681,12 @@
 <a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">shutdown</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># (2)!</span>
 </code></pre></div>
 <ol>
-<li>All velocities within the <code>Twist(Stamped)</code> message class are set to zero by default, so we can just publish this as-is, in order to ask the robot to stop.</li>
-<li>Set the <code>shutdown</code> flag to true to indicate that a stop message has now been published.</li>
+<li>Todas las velocidades dentro de la clase de mensaje <code>Twist(Stamped)</code> se establecen en cero por defecto, por lo que podemos publicar esto tal como está, para pedirle al robot que se detenga.</li>
+<li>Establece la bandera <code>shutdown</code> en verdadero para indicar que ahora se ha publicado un mensaje de PARADA.</li>
 </ol>
 </li>
 <li>
-<p>Finally, head to the <code class="highlight"><span class="n">main</span><span class="p">()</span></code> function of the script. This is where most of the changes need to be made...</p>
+<p>Finalmente, dirígete a la función <code class="highlight"><span class="n">main</span><span class="p">()</span></code> del script. Aquí es donde se deben realizar la mayoría de los cambios...</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>        <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
@@ -4207,132 +4708,132 @@
 </code></pre></div>
 <ol>
 <li>
-<p>When initialising <code>rclpy</code>, we're requesting for our <code>move_circle.py</code> node to handle <em>"signals"</em> (i.e. events like a <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>), rather than letting <code>rclpy</code> handle these for us. Here we're using the <code>SignalHandlerOptions</code> object that we imported from <code>rclpy.signals</code> earlier.</p>
+<p>Al inicializar <code>rclpy</code>, estamos solicitando que nuestro node <code>move_circle.py</code> maneje las <em>"señales"</em> (es decir, eventos como un <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>), en lugar de dejar que <code>rclpy</code> las maneje por nosotros. Aquí estamos usando el objeto <code>SignalHandlerOptions</code> que importamos de <code>rclpy.signals</code> anteriormente.</p>
 </li>
 <li>
-<p>We set our node to spin inside a Try-Except block now, so that we can catch a <code class="highlight"><span class="ne">KeyboardInterrupt</span></code> (i.e. a <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>) and act accordingly when this happens.</p>
+<p>Ahora configuramos nuestro node para que gire dentro de un bloque Try-Except, para que podamos capturar una <code class="highlight"><span class="ne">KeyboardInterrupt</span></code> (es decir, un <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>) y actuar en consecuencia cuando esto suceda.</p>
 </li>
 <li>
-<p>On detection of the <code class="highlight"><span class="ne">KeyboardInterrupt</span></code> we print a message to the terminal. After this, the code will move on to the <code class="highlight"><span class="k">finally</span></code> block...</p>
+<p>Al detectar la <code class="highlight"><span class="ne">KeyboardInterrupt</span></code> imprimimos un mensaje en el terminal. Después de esto, el código pasará al bloque <code class="highlight"><span class="k">finally</span></code>...</p>
 </li>
 <li>
-<p>Call the <code>on_shutdown()</code> method that we defined earlier. This will ensure that a STOP command is published to the robot (via <code>/cmd_vel</code>).</p>
+<p>Llama al método <code>on_shutdown()</code> que definimos anteriormente. Esto asegurará que se publique un comando de PARADA al robot (a través de <code>/cmd_vel</code>).</p>
 </li>
 <li>
-<p>This <code class="highlight"><span class="k">while</span></code> loop will continue to iterate until our boolean <code>shutdown</code> flag has turned <code>True</code>, to indicate that the STOP message has been published.</p>
+<p>Este bucle <code class="highlight"><span class="k">while</span></code> continuará iterando hasta que nuestra bandera booleana <code>shutdown</code> se haya vuelto <code>True</code>, para indicar que el mensaje de PARADA ha sido publicado.</p>
 </li>
 <li>
-<p>The rest is the same as before...</p>
-<p>... destroy the node and then shutdown <code>rclpy</code>.</p>
+<p>El resto es igual que antes...</p>
+<p>... destruye el node y luego apaga <code>rclpy</code>.</p>
 </li>
 </ol>
 </li>
 <li>
-<p>With all this in place, run the node again now (<code>ros2 run ...</code>).</p>
-<p>Now, when you hit <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> you should find that the robot actually stops moving. Ah, much better!</p>
+<p>Con todo esto en su lugar, ejecuta el node nuevamente ahora (<code>ros2 run ...</code>).</p>
+<p>Ahora, cuando presionas <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> deberías encontrar que el robot realmente se detiene. ¡Ah, mucho mejor!</p>
 </li>
 </ol>
-<h2 id="odometry-based-navigation">Odometry-based Navigation<a class="headerlink" href="#odometry-based-navigation" title="Permanent link">¶</a></h2>
-<p>Over the course of the previous two exercises we've created a Python node to make our robot move using <em>open-loop control</em>. To achieve this we published velocity commands to the <code>/cmd_vel</code> topic to make the robot follow a circular motion path.</p>
+<h2 id="navegacion-basada-en-odometria">Navegación Basada en Odometría<a class="headerlink" href="#navegacion-basada-en-odometria" title="Permanent link">¶</a></h2>
+<p>A lo largo de los dos ejercicios anteriores hemos creado un node de Python para hacer que nuestro robot se mueva usando <em>control en lazo abierto</em>. Para lograr esto publicamos comandos de velocidad al topic <code>/cmd_vel</code> para hacer que el robot siguiera una trayectoria de movimiento circular.</p>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ol>
-<li>How do we know if our robot actually achieved the motion path that we asked for?</li>
-<li>In a <em>real-world</em> environment, what external factors might result in the robot <em>not</em> achieving its desired trajectory?</li>
+<li>¿Cómo sabemos si nuestro robot realmente logró la trayectoria de movimiento que solicitamos?</li>
+<li>En un entorno del <em>mundo real</em>, ¿qué factores externos podrían resultar en que el robot <em>no</em> logre su trayectoria deseada?</li>
 </ol>
 </div>
-<p>Earlier on we also learnt about <a href="#odometry">Robot Odometry</a>, which is used by the robot to keep track of its <strong>position</strong> and <strong>orientation</strong> (aka <strong>Pose</strong>) in the environment.  As explained earlier, this is determined by a process called <em>"dead-reckoning,"</em> which is only really an approximation, but it's a fairly good one in any case, and we can use this as a feedback signal to understand if our robot is moving in the way that we expect it to.</p>
-<p>We can therefore build on the techniques that we used in the <code>move_circle.py</code> exercise, and now also build in the ability to <em>subscribe</em> to a topic too and obtain some <em>real-time feedback</em>. To do this, we'll need to subscribe to the <code>/odom</code> topic, and use this to implement some basic <em>closed-loop control</em>.</p>
-<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Exercise 6: Making our Robot Follow a Square Motion Path<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
+<p>Anteriormente también aprendimos sobre la <a href="#odometry">Odometría del Robot</a>, que es usada por el robot para rastrear su <strong>posición</strong> y <strong>orientación</strong> (también conocida como <strong>Pose</strong>) en el entorno. Como se explicó anteriormente, esto se determina mediante un proceso llamado <em>"dead-reckoning,"</em> que es solo una aproximación, pero es bastante buena en cualquier caso, y podemos usar esto como una señal de retroalimentación para entender si nuestro robot se mueve de la manera que esperamos.</p>
+<p>Por lo tanto, podemos construir sobre las técnicas que usamos en el ejercicio <code>move_circle.py</code>, y ahora también incorporar la capacidad de <em>suscribirse</em> a un topic y obtener <em>retroalimentación en tiempo real</em>. Para hacer esto, necesitaremos suscribirnos al topic <code>/odom</code>, y usar esto para implementar algún <em>control en lazo cerrado</em> básico.</p>
+<h4 id="ex6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 6: Haciendo que Nuestro Robot Siga una Trayectoria Cuadrada<a class="headerlink" href="#ex6" title="Permanent link">¶</a></h4>
 <ol>
 <li>
-<p>Make sure your <code>move_circle.py</code> node is no longer running in <strong>TERMINAL 2</strong>, stopping it with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> if necessary.</p>
+<p>Asegúrate de que tu node <code>move_circle.py</code> ya no esté corriendo en <strong>TERMINAL 2</strong>, deteniéndolo con <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> si es necesario.</p>
 </li>
 <li>
-<p>Make sure <strong>TERMINAL 2</strong> is still located inside your <code>part2_navigation</code> package.</p>
+<p>Asegúrate de que <strong>TERMINAL 2</strong> todavía esté ubicado dentro de tu package <code>part2_navigation</code>.</p>
 </li>
 <li>
-<p>Navigate to the package <code>scripts</code> directory and use the Linux <code>touch</code> command to create a new file called <code>move_square.py</code>:</p>
+<p>Navega al directorio <code>scripts</code> del package y usa el comando Linux <code>touch</code> para crear un nuevo archivo llamado <code>move_square.py</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>touch<span class="w"> </span>move_square.py
 </code></pre></div>
 </li>
 <li>
-<p>Then make this file executable using <code>chmod</code>:</p>
+<p>Luego haz este archivo ejecutable usando <code>chmod</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>move_square.py
 </code></pre></div>
 </li>
 <li>
-<p>Define <code>move_square.py</code> as a package executable in your <code>CMakeLists.txt</code> file (you should know how to do this by now, but if not, refer back to either Exercise 2 or Exercise 4). </p>
+<p>Define <code>move_square.py</code> como un ejecutable del package en tu archivo <code>CMakeLists.txt</code> (ya deberías saber cómo hacer esto, pero si no, consulta el Ejercicio 2 o el Ejercicio 4). </p>
 </li>
 <li>
-<p>Use the VS Code File Explorer to navigate to this <code>move_square.py</code> file and open it up, ready for editing.</p>
+<p>Usa el Explorador de Archivos de VS Code para navegar a este archivo <code>move_square.py</code> y ábrelo, listo para editar.</p>
 </li>
 <li>
-<p>There's a template below to help you with this exercise. </p>
-<p></p><center><a class="md-button" href="move_square/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Access the <code>move_square.py</code> template here</a></center><p></p>
-<p>Copy and paste the template code into your new <code>move_square.py</code> file to get you started. </p>
+<p>Hay una plantilla a continuación para ayudarte con este ejercicio. </p>
+<p></p><center><a class="md-button" href="move_square/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Accede a la plantilla de <code>move_square.py</code> aquí</a></center><p></p>
+<p>Copia y pega el código de la plantilla en tu nuevo archivo <code>move_square.py</code> para comenzar. </p>
 </li>
 <li>
-<p>Re-build your <code>part2_navigation</code> package, to include your new <code>move_square.py</code> node, following that <strong>three-step build process</strong> once again:</p>
-<p>Step 1:</p>
+<p>Vuelve a compilar tu package <code>part2_navigation</code>, para incluir tu nuevo node <code>move_square.py</code>, siguiendo ese <strong>proceso de compilación de tres pasos</strong> una vez más:</p>
+<p>Paso 1:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/
 </code></pre></div>
-<p>Step 2:</p>
+<p>Paso 2:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>part2_navigation<span class="w"> </span>--symlink-install
 </code></pre></div>
-<p>Step 3:</p>
+<p>Paso 3:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </code></pre></div>
 </li>
 <li>
-<p>Run the code as it is to see what happens... <a name="blank-2"></a></p>
+<p>Ejecuta el código tal como está para ver qué sucede... <a name="blank-2"></a></p>
 <div class="admonition warning">
-<p class="admonition-title">Fill in the Blank!</p>
-<p>Something not quite working as expected? Did we <a href="../part1/publisher/#shebang">forget something very crucial</a> on <strong>the very first line</strong> of the code template?!</p>
+<p class="admonition-title">¡Completa el Espacio en Blanco!</p>
+<p>¿Algo no funciona como se esperaba? ¿<a href="../part1/publisher/#shebang">Olvidamos algo muy crucial</a> en <strong>la primera línea</strong> de la plantilla de código?!</p>
 </div>
 </li>
 <li>
-<p>Fill in the blank as required and then adapt the code to make your robot follow a <strong>square</strong> motion path of <strong>1 x 1 meter</strong> dimensions.</p>
-<p>After following a square motion path a few times, your robot <em>should</em> return to the same location that it started from.</p>
+<p>Completa el espacio en blanco según sea necesario y luego adapta el código para hacer que tu robot siga una trayectoria de movimiento <strong>cuadrada</strong> de dimensiones de <strong>1 x 1 metro</strong>.</p>
+<p>Después de seguir una trayectoria de movimiento cuadrada algunas veces, tu robot <em>debería</em> regresar a la misma ubicación desde la que comenzó.</p>
 <div class="admonition tip">
-<p class="admonition-title">Advanced feature</p>
-<p>Adapt the node to make the robot automatically stop once it has performed two complete loops.</p>
+<p class="admonition-title">Función avanzada</p>
+<p>Adapta el node para hacer que el robot se detenga automáticamente una vez que haya realizado dos vueltas completas.</p>
 </div>
 </li>
 </ol>
-<h2 id="wrapping-up">Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permanent link">¶</a></h2>
-<p>In this session we've learnt how to control the velocity and position of a robot from both the command-line (using ROS command-line tools) and from ROS Nodes by publishing correctly formatted messages to the <code>/cmd_vel</code> topic.  </p>
-<p>We've also learnt about <em>Odometry</em>, which is published by our robot to the <code>/odom</code> topic.  The odometry data tells us the current linear and angular velocities of our robot in relation to its 3 principal axes.  In addition to this though, it also tells us where in physical space our robot is located and oriented, which is determined based on <em>dead-reckoning</em>. </p>
+<h2 id="conclusion">Conclusión<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>En esta sesión hemos aprendido cómo controlar la velocidad y posición de un robot tanto desde la línea de comandos (usando herramientas de línea de comandos de ROS) como desde Nodes de ROS publicando mensajes correctamente formateados al topic <code>/cmd_vel</code>.  </p>
+<p>También hemos aprendido sobre la <em>Odometría</em>, que es publicada por nuestro robot al topic <code>/odom</code>. Los datos de odometría nos indican las velocidades lineales y angulares actuales de nuestro robot en relación con sus 3 ejes principales. Además de esto, también nos indica dónde en el espacio físico está ubicado y orientado nuestro robot, lo cual se determina en base al <em>dead-reckoning</em>. </p>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ol>
-<li>What information (sensor/actuator data) is used to do this?</li>
-<li>Do you see any potential limitations of this?</li>
+<li>¿Qué información (datos de sensores/actuadores) se usa para hacer esto?</li>
+<li>¿Ves alguna limitación potencial de esto?</li>
 </ol>
 </div>
-<p>In the final exercise we explored the development of odometry-based control to make a robot follow a <em>square</em> motion path. You will likely have observed some degree of error in this which could be due to the fact that Odometry data is determined by dead-reckoning and is therefore subject to drift and accumulated error. Consider how other factors may impact the accuracy of control too.</p>
+<p>En el ejercicio final exploramos el desarrollo del control basado en odometría para hacer que un robot siga una trayectoria de movimiento <em>cuadrada</em>. Es probable que hayas observado cierto grado de error en esto, que podría deberse al hecho de que los datos de Odometría se determinan mediante dead-reckoning y por lo tanto están sujetos a deriva y error acumulado. Considera cómo otros factores también pueden afectar la precisión del control.</p>
 <div class="admonition question">
-<p class="admonition-title">Questions</p>
+<p class="admonition-title">Preguntas</p>
 <ol>
-<li>How might the rate at which the odometry data is sampled play a role?</li>
-<li>How quickly can your robot receive new velocity commands, and how quickly can it respond?</li>
+<li>¿Qué papel podría jugar la frecuencia con la que se muestrean los datos de odometría?</li>
+<li>¿Con qué rapidez puede tu robot recibir nuevos comandos de velocidad, y con qué rapidez puede responder?</li>
 </ol>
 </div>
-<p>Be aware that we did all this in simulation here too. In fact, in a real world environment, this type of navigation might be <em>less effective</em>, since things such as measurement noise and calibration errors can also have considerable impact. You will have the opportunity to experience this first hand in the labs.</p>
-<p>Ultimately then, we've seen a requirement here for additional information to provide more confidence of a robot's location in its environment, in order to enhance its ability to navigate effectively and avoid crashing into things! We'll explore this further later in this course.</p>
-<h3 id="backup">WSL-ROS2 Managed Desktop Users: Save your work!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
-<p>Remember, the work you have done in the WSL-ROS2 environment during this session <strong>will not be preserved</strong> for future sessions or across different University machines automatically! To save the work you have done here today you should now run the following script in any idle WSL-ROS2 Terminal Instance:</p>
+<p>Ten en cuenta que todo esto lo hicimos en simulación también. De hecho, en un entorno del mundo real, este tipo de navegación podría ser <em>menos efectiva</em>, ya que cosas como el ruido de medición y los errores de calibración también pueden tener un impacto considerable. Tendrás la oportunidad de experimentar esto de primera mano en el laboratorio.</p>
+<p>En última instancia, hemos visto aquí un requisito de información adicional para proporcionar más confianza sobre la ubicación de un robot en su entorno, con el fin de mejorar su capacidad de navegar eficazmente y evitar chocar con las cosas. Exploraremos esto más adelante en este curso.</p>
+<h3 id="backup">Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
+<p>Recuerda, ¡el trabajo que has realizado en el entorno WSL-ROS2 durante esta sesión <strong>no se conservará</strong> para sesiones futuras o en diferentes máquinas del laboratorio automáticamente! Para guardar el trabajo que has realizado hoy debes ejecutar el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
-<p>This will export your home directory to your University <code>U:\</code> Drive, allowing you to restore it on another managed desktop machine the next time you fire up WSL-ROS2.  </p>
+<p>Esto exportará tu directorio home a tu Unidad <code>U:\</code>, lo que te permitirá restaurarlo en otra computadora del laboratorio la próxima vez que inicies WSL-ROS2.</p>
 <div class="footnote">
 <hr>
 <ol>
 <li id="fn:quaternions">
-<p><a href="https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion" target="_blank" rel="noopener">Quaternions are explained very nicely here</a>, if you'd like to learn more.&nbsp;<a class="footnote-backref" href="#fnref:quaternions" title="Jump back to footnote 1 in the text">↩</a></p>
+<p><a href="https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion" target="_blank">Los Cuaterniones se explican muy bien aquí</a>, si deseas aprender más.&nbsp;<a class="footnote-backref" href="#fnref:quaternions" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:auto-addison">
-<p>Taken from <a href="https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/" target="_blank" rel="noopener">this Automatic Addison blog post</a>.&nbsp;<a class="footnote-backref" href="#fnref:auto-addison" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>Tomado de <a href="https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/" target="_blank">esta publicación del blog Automatic Addison</a>.&nbsp;<a class="footnote-backref" href="#fnref:auto-addison" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -4344,37 +4845,8 @@
 
 
   
-    
-  
-  
-    
   
 
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 16, 2026 10:05:57 UTC"><span class="timeago" datetime="2026-03-16T10:05:57+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 16, 2026 10:05:57 UTC">2026-03-16</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 30, 2024 22:16:58 UTC"><span class="timeago" datetime="2024-12-30T22:16:58+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 30, 2024 22:16:58 UTC">2024-12-30</span>
-  </span>
-
-    
-    
-    
-  </aside>
 
 
 
@@ -4403,7 +4875,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../part1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Part 1: Getting Started with ROS 2">
+          <a href="../part1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Parte 1: Primeros pasos con ROS 2">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -4413,20 +4885,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Part 1: Getting Started with ROS 2
+                Parte 1: Primeros pasos con ROS 2
               </div>
             </div>
           </a>
         
         
           
-          <a href="../part3/" class="md-footer__link md-footer__link--next" aria-label="Next: Part 3: Beyond the Basics">
+          <a href="../part3/" class="md-footer__link md-footer__link--next" aria-label="Next: Parte 3: Más Allá de los Fundamentos">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Part 3: Beyond the Basics
+                Parte 3: Más Allá de los Fundamentos
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -4443,7 +4915,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>  © <a href="https://www.sheffield.ac.uk/engineering/diamond-engineering/our-staff/tom-howard">Tom Howard</a>, The University of Sheffield, 2026.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4473,30 +4945,14 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
-      
-        <script src="../../js/timeago_mkdocs_material.js"></script>
-      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
-    try {
-        var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
-        } else {
-            console.log('No img element with src attribute found');
-        }
-    } catch (error) {
-        console.log('Error:', error);
-    }
-});
-const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

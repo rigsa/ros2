@@ -12,7 +12,7 @@ puede detectarlo en tiempo real y calcular:
 
 - **Su ID** (0 a N-1 según el diccionario)
 - **Su posición** en la imagen (esquinas en píxeles)
-- **Su pose** respecto a la cámara (traslación + rotación) — si conoces el tamaño físico
+- **Su pose** respecto a la cámara (traslación + rotación) - si conoces el tamaño físico
 
 En aplicaciones industriales los ArUco sirven para:
 - Identificar equipos, zonas o puntos de inspección unívocamente
@@ -60,8 +60,8 @@ detector    = cv2.aruco.ArucoDetector(aruco_dict, params)
 corners, ids, rejected = detector.detectMarkers(bgr_image)
 
 # 3. Resultado:
-#   corners: lista de arrays (1, 4, 2) — 4 esquinas por marcador en píxeles
-#   ids:     array (N, 1) — ID de cada marcador detectado
+#   corners: lista de arrays (1, 4, 2) - 4 esquinas por marcador en píxeles
+#   ids:     array (N, 1) - ID de cada marcador detectado
 #   rejected: candidatos que no pasaron la verificación
 ```
 
@@ -73,7 +73,7 @@ Con las esquinas detectadas y los parámetros intrínsecos de la cámara:
 import numpy as np
 from cv2 import solvePnP, SOLVEPNP_ITERATIVE
 
-MARKER_SIZE = 0.25   # metros — tamaño real del marcador impreso
+MARKER_SIZE = 0.25   # metros - tamaño real del marcador impreso
 
 # Puntos 3D del marcador en su sistema de coordenadas local
 half = MARKER_SIZE / 2
@@ -95,8 +95,8 @@ ros2 run unitree_u10_aruco unitree_aruco.py
 ```
 
 Publica en:
-- `/aruco/detections` — JSON con ID, distancia y ángulo de cada marcador detectado
-- `/aruco/image` — imagen con marcadores dibujados (visible en `rqt_image_view`)
+- `/aruco/detections` - JSON con ID, distancia y ángulo de cada marcador detectado
+- `/aruco/image` - imagen con marcadores dibujados (visible en `rqt_image_view`)
 
 Para ver las detecciones:
 ```bash
@@ -148,21 +148,21 @@ de inspección usa IDs 1, 2, 3.
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Lectura básica"
+!!! note "Ejercicio 1 - Lectura básica"
     Corre `unitree_aruco.py` y acerca el robot a cada estación manualmente
     (con `ros2 run teleop_twist_keyboard teleop_twist_keyboard`). Observa
     cómo cambia la distancia y el ángulo en `/aruco/detections`.
 
-!!! note "Ejercicio 2 — Detección a distancia"
+!!! note "Ejercicio 2 - Detección a distancia"
     ¿A qué distancia máxima detecta el nodo los marcadores? Aleja el robot
     despacio y registra la distancia máxima de detección de cada marcador.
 
-!!! note "Ejercicio 3 — Acercamiento fino"
+!!! note "Ejercicio 3 - Acercamiento fino"
     Implementa la función `_acercar_a_aruco()` descrita arriba e intégrala
     en `unitree_waypoint_nav.py`: después de llegar al radio de llegada,
     usa ArUco para posicionarte a exactamente 0.5 m del marcador.
 
-!!! note "Ejercicio 4 — Corrección de odometría"
+!!! note "Ejercicio 4 - Corrección de odometría"
     Cuando el robot está frente a un marcador conocido (ID + posición
     conocida del mapa), puedes calcular la posición real del robot y
     corregir la odometría. Implementa esta corrección y compara las
@@ -170,4 +170,4 @@ de inspección usa IDs 1, 2, 3.
 
 ---
 
-Continúa con [U11 — Gestión de Batería y Supervisión](u11-bateria.md).
+Continúa con [U11 - Gestión de Batería y Supervisión](u11-bateria.md).

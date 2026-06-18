@@ -2,7 +2,7 @@
 title: "Tarea 1: Control de Velocidad"
 ---  
 
-Desarrolla una aplicación de ROS funcional para hacer que un *TurtleBot3 Waffle real* siga un perfil de movimiento prescrito, mientras imprime información clave en la terminal.
+Desarrolla una aplicación de ROS funcional para hacer que un *robot real del laboratorio* siga un perfil de movimiento prescrito, mientras imprime información clave en la terminal.
 
 !!! success "Puntos de Control del Curso"
     
@@ -12,7 +12,7 @@ Desarrolla una aplicación de ROS funcional para hacer que un *TurtleBot3 Waffle
     * [ ] **Parte 2**: hasta (e incluyendo) el [Ejercicio 5](../../../course/part2.md#ex5).
     * [ ] **Parte 3**: [Ejercicio 1](../../../course/part3.md#ex1).
     
-    **Ver También** - [Entendiendo los Waffles](../../../waffles/essentials.md):
+    **Ver También** - [Entendiendo los robots](../../../waffles/essentials.md):
     
     * [ ] Control de Movimiento y Velocidad
 
@@ -146,14 +146,14 @@ Podría resultarte útil desarrollar la funcionalidad principal para esta tarea 
 
     En última instancia, esta tarea (y de hecho todas las demás tareas de programación de la Asignación #2) será evaluada en robots reales, así que aprovecha al máximo las sesiones de laboratorio y **prueba las cosas en los robots reales ^^a fondo^^**.
 
-[Como se muestra arriba](#fig-eight), para la evaluación habrá balizas cilíndricas colocadas en el centro de cada uno de los bucles de la figura ocho alrededor de las cuales el robot deberá moverse mientras completa la tarea. Por lo tanto, también hemos creado un entorno de simulación que es representativo del entorno del mundo real. Este está disponible en el paquete `tuos_task_sims`, que es parte del Repositorio del Curso `tuos_ros`. Las instrucciones para descargarlo e instalarlo dentro de tu propia instalación local de ROS están [disponibles aquí](../../../course/extras/course-repo.md).
+[Como se muestra arriba](#fig-eight), para la evaluación habrá balizas cilíndricas colocadas en el centro de cada uno de los bucles de la figura ocho alrededor de las cuales el robot deberá moverse mientras completa la tarea. Por lo tanto, también hemos creado un entorno de simulación que es representativo del entorno del mundo real. Este está disponible en el paquete `rigsa_task_sims`, que es parte del Repositorio del Curso `rigsa_ros`. Las instrucciones para descargarlo e instalarlo dentro de tu propia instalación local de ROS están [disponibles aquí](../../../course/extras/course-repo.md).
 
 Si ya lo has instalado (quizás como parte de la Asignación #1), vale la pena asegurarse de tener la versión más actualizada ([como se discute aquí](../../../course/extras/course-repo.md#updating)).
 
 Una vez que hayas hecho todo esto, deberías poder lanzar la simulación usando `ros2 launch` de la siguiente manera:
 
 ```bash
-ros2 launch tuos_task_sims fig_of_eight.launch.py
+ros2 launch rigsa_task_sims fig_of_eight.launch.py
 ```
 
 <figure markdown>

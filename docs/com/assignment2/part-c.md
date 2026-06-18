@@ -1,6 +1,6 @@
 ---  
 title: "Asignación #2 Parte C (tarea individual avanzada)"  
-description: "En Simulación, programa un Waffle para buscar un entorno, detectar un objeto de color y navegar hacia él."
+description: "En simulación, programa el robot para buscar un entorno, detectar un objeto de color y navegar hacia él."
 ---  
 
 Los estudiantes que deseen completar esta tarea adicional individual como parte de la Asignación #2 pueden hacerlo. La distribución general de puntos para la Asignación #2 es la siguiente:
@@ -19,7 +19,7 @@ Como se indicó arriba, la **fecha límite para la Parte C** es la Semana 12, vi
 
 ## Descripción General {#overview}
 
-Desarrolla nodes de ROS que permitan a un TurtleBot3 Waffle buscar un entorno, detectar un objeto de color y navegar hacia él, ¡deteniéndose en su proximidad sin chocar contra él!
+Desarrolla nodes de ROS que permitan a un robot de simulación buscar un entorno, detectar un objeto de color y navegar hacia él, ¡deteniéndose en su proximidad sin chocar contra él!
 
 Esta es una asignación **individual**, que será evaluada **en simulación** ^^NO^^ en un robot real.
 
@@ -141,12 +141,12 @@ Deberás asegurarte de que Git esté configurado correctamente con tu nombre y d
 
 El arena utilizado para esta tarea será de 5.0 m x 5.0 m y las balizas que buscarás serán cajas o cilindros de colores, todos entre 200 mm y 400 mm de altura. La *Zona de Parada* que rodea cada baliza será 500 mm más grande que las dimensiones de la baliza en los ejes `X` e `Y`.
 
-Solo hay **seis** colores objetivo posibles que se usarán en esta tarea, por lo que tu aplicación de ROS solo necesitará acomodar estos seis. Los colores se enumeran a continuación, y también hay un entorno de simulación en el paquete `tuos_task_sims` llamado `beacon_colours` para ilustrarlos[^update-course-repo].
+Solo hay **seis** colores objetivo posibles que se usarán en esta tarea, por lo que tu aplicación de ROS solo necesitará acomodar estos seis. Los colores se enumeran a continuación, y también hay un entorno de simulación en el paquete `rigsa_task_sims` llamado `beacon_colours` para ilustrarlos[^update-course-repo].
 
 [^update-course-repo]: Asegúrate de tener [la versión más actualizada del Repositorio del Curso](../../course/extras/course-repo.md#updating).
 
 ```bash
-ros2 launch tuos_task_sims beacon_colours.launch.py
+ros2 launch rigsa_task_sims beacon_colours.launch.py
 ```
 
 <figure markdown>
@@ -209,10 +209,10 @@ En cuanto a la tarea en sí:
 
 ## Recursos de Simulación
 
-Dentro del paquete `tuos_task_sims` hay un entorno llamado `beaconing`, que puede usarse para desarrollar y probar tus nodes de ROS para esta tarea:
+Dentro del paquete `rigsa_task_sims` hay un entorno llamado `beaconing`, que puede usarse para desarrollar y probar tus nodes de ROS para esta tarea:
 
 ```bash
-ros2 launch tuos_task_sims beaconing.launch.py
+ros2 launch rigsa_task_sims beaconing.launch.py
 ```
 
 El arena contiene tres zonas de inicio: **A**, **B** y **C**; cada una de un color diferente, así como varias balizas de colores únicos. ¡Hay una baliza en el arena para coincidir con cada una de las tres zonas de inicio, más un par más para actuar como señuelos!
@@ -225,7 +225,7 @@ El arena contiene tres zonas de inicio: **A**, **B** y **C**; cada una de un col
 Puedes lanzar el robot en cualquiera de las tres zonas de inicio suministrando un argumento opcional `start_zone` al archivo `beaconing.launch.py`, como se ilustra a continuación:
 
 ```bash
-ros2 launch tuos_task_sims beaconing.launch.py start_zone:={}
+ros2 launch rigsa_task_sims beaconing.launch.py start_zone:={}
 ```
 
 ...donde `{}` puede reemplazarse por `a`, `b` o `c` para seleccionar la zona de inicio en la que quieres que esté ubicado el robot cuando se lance la simulación. Por lo tanto, puedes desarrollar y probar tus algoritmos de balizamiento en tres escenarios únicos.

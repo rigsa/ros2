@@ -15,18 +15,18 @@ theme:
       accent: custom
       toggle:
         icon: material/brightness-7 
-        name: Switch to dark mode
+        name: Cambiar a modo oscuro
     # Palette toggle for dark mode
     - scheme: slate
-      primary: deep purple
-      accent: cyan
+      primary: green
+      accent: light green
       toggle:
         icon: material/brightness-4
-        name: Switch to light mode
+        name: Cambiar a modo claro
   # custom_dir: overrides
 
-  logo: assets/tuos.png
-  favicon: assets/tuos_logo.svg
+  logo: assets/rigsa_logo.svg
+  favicon: assets/rigsa_favicon.svg
 
   features:
     - navigation.tracking

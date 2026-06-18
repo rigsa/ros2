@@ -25,7 +25,7 @@ que en las Partes 1-2 del curso). Cuando el código corre en hardware real con
 `unitree_ros2_bridge.py`, la odometría proviene del SDK del robot, que usa los
 encoders de las articulaciones y la IMU.
 
-## El mensaje `Odometry` — recordatorio
+## El mensaje `Odometry` - recordatorio
 
 ```python
 from nav_msgs.msg import Odometry
@@ -81,7 +81,7 @@ ros2 run unitree_u2_locomotion unitree_move.py
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Distancia recorrida"
+!!! note "Ejercicio 1 - Distancia recorrida"
     Modifica `unitree_odom.py` para que **imprima solo cada 0.5 s** (no a cada
     mensaje) y además acumule la distancia total recorrida (no la distancia al
     origen, sino la longitud del camino).
@@ -89,12 +89,12 @@ ros2 run unitree_u2_locomotion unitree_move.py
     **Pista**: guarda la posición anterior `(x_prev, y_prev)` y en cada callback
     calcula `dist += math.hypot(x - x_prev, y - y_prev)`.
 
-!!! note "Ejercicio 2 — Posición en formato tabla"
+!!! note "Ejercicio 2 - Posición en formato tabla"
     Usa `rclpy.logging.get_logger().info()` para imprimir la posición en una
     sola línea que se actualice en el terminal. O mejor aún, imprime en formato
     de tabla con `\r` para sobreescribir la línea anterior.
 
-!!! note "Ejercicio 3 — Controlador de posición 1D"
+!!! note "Ejercicio 3 - Controlador de posición 1D"
     Escribe un nodo que mueva el robot exactamente `D` metros hacia adelante
     (configurable con una variable al principio del archivo) leyendo la odometría,
     **en lugar de usar `time.sleep()`**.
@@ -113,16 +113,16 @@ ros2 run unitree_u2_locomotion unitree_move.py
             publicar_velocidad(0.3, 0, 0)
     ```
 
-!!! note "Ejercicio 4 — Controlador de orientación (proporcional)"
+!!! note "Ejercicio 4 - Controlador de orientación (proporcional)"
     Escribe un nodo que gire el robot hasta apuntar exactamente a `θ_objetivo` grados.
     Usa un controlador proporcional: `vyaw = K * error_yaw`, donde `K = 1.0` es
     la ganancia y `error_yaw = normalizar(θ_objetivo - yaw_actual)`.
     
     Recuerda normalizar el error al rango `[-π, π]`.
 
-## El quaternion a Euler — ya lo conoces
+## El quaternion a Euler - ya lo conoces
 
-La función `quaternion_a_euler()` en `unitree_odom.py` es exactamente la misma
+La función `quaternion_a_euler()` en `unitree_odom.py` es la misma
 que se usa en `move_square.py` de la Parte 2 del curso. No hay nada nuevo aquí.
 
 Para un robot en un plano 2D, lo único que importa es el `yaw` (rotación sobre Z):
@@ -137,4 +137,4 @@ def quaternion_a_euler(qx, qy, qz, qw):
 
 ---
 
-Continúa con [U4 — Comportamientos Sport](u4-comportamientos.md).
+Continúa con [U4 - Comportamientos Sport](u4-comportamientos.md).

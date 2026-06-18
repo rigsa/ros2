@@ -12,13 +12,13 @@ producción (y fallará), no tienes datos para diagnosticar. Un buen sistema de
 logging te permite:
 
 - **Depurar** reproduciendo exactamente qué pasó con los datos de la misión
-- **Auditar** — demostrar que el robot realizó las inspecciones correctamente
-- **Optimizar** — identificar qué partes de la ruta consumen más batería
-- **Reportar** — generar documentación automática de las misiones
+- **Auditar** - demostrar que el robot realizó las inspecciones correctamente
+- **Optimizar** - identificar qué partes de la ruta consumen más batería
+- **Reportar** - generar documentación automática de las misiones
 
 ## Dos sistemas de logging en ROS 2
 
-### 1. `rclpy.logging` — para logs del nodo
+### 1. `rclpy.logging` - para logs del nodo
 
 Escribe al terminal y al sistema de logging de ROS 2:
 
@@ -27,11 +27,11 @@ self.get_logger().debug("Dato de depuración detallado")
 self.get_logger().info("Estado normal del sistema")
 self.get_logger().warn("Situación anómala pero recuperable")
 self.get_logger().error("Error que afecta la misión")
-self.get_logger().fatal("Error crítico — el nodo debe terminar")
+self.get_logger().fatal("Error crítico - el nodo debe terminar")
 ```
 
 **Cuándo usar cada nivel:**
-- `DEBUG`: datos del sensor, velocidades publicadas — demasiado para producción
+- `DEBUG`: datos del sensor, velocidades publicadas - demasiado para producción
 - `INFO`: inicio/fin de estados, llegada a POIs, cambios de misión
 - `WARN`: batería baja, ArUco no detectado, timeout (recuperable)
 - `ERROR`: fallo de navegación, servicio no disponible (no recuperable en el ciclo)
@@ -46,7 +46,7 @@ ros2 run mi_pkg mi_nodo
 ros2 run mi_pkg mi_nodo --ros-args --log-level debug
 ```
 
-### 2. `logging` de Python — para archivos de log
+### 2. `logging` de Python - para archivos de log
 
 Para escribir a archivo además del terminal:
 
@@ -67,7 +67,7 @@ logger.info("Esto va al archivo Y al terminal")
 
 ## Registrar datos de misión en CSV
 
-El formato CSV es ideal para datos de series temporales porque:
+El formato CSV es adecuado para datos de series temporales porque:
 - Es legible por humanos y por cualquier herramienta (Excel, pandas, Python)
 - Permite análisis offline sin ROS instalado
 - Puede crecer indefinidamente sin problemas de memoria
@@ -121,7 +121,7 @@ with open("report.json", "w") as f:
     json.dump(reporte, f, indent=2, ensure_ascii=False)
 ```
 
-## rosbag2 — grabar y reproducir misiones completas
+## rosbag2 - grabar y reproducir misiones completas
 
 `rosbag2` graba todos los topics en un archivo y te permite reproducirlos
 después, como si el robot estuviera corriendo de nuevo:
@@ -192,23 +192,23 @@ plt.savefig("battery_history.png")
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Logging con niveles correctos"
+!!! note "Ejercicio 1 - Logging con niveles correctos"
     Revisa el código de `unitree_inspection.py` e identifica al menos
     3 lugares donde el nivel de log podría mejorarse (ej: cambiar INFO
     a DEBUG para datos de sensor frecuentes).
 
-!!! note "Ejercicio 2 — CSV de trayectoria"
+!!! note "Ejercicio 2 - CSV de trayectoria"
     Corre `unitree_logger.py` mientras `unitree_waypoint_nav.py` completa
     una misión. Abre el CSV generado y calcula manualmente la distancia
     total recorrida sumando las distancias entre puntos consecutivos.
 
-!!! note "Ejercicio 3 — Grabar y reproducir con rosbag2"
+!!! note "Ejercicio 3 - Grabar y reproducir con rosbag2"
     1. Graba una misión completa con `ros2 bag record -o mi_bag /odom /battery_state`
     2. Reproduce el bag: `ros2 bag play mi_bag/`
     3. Corre `unitree_logger.py` mientras se reproduce
     4. Compara el CSV generado con el del ejercicio 2
 
-!!! note "Ejercicio 4 — Reporte HTML"
+!!! note "Ejercicio 4 - Reporte HTML"
     Modifica `generar_reporte_final()` en `unitree_logger.py` para que
     además del JSON genere un archivo `report.html` con una tabla legible
     y el historial de batería en texto. Utiliza f-strings de Python

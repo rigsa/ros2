@@ -1,29 +1,31 @@
 ---
 title: "Los Robots del Laboratorio"
-description: Conoce más sobre los robots TurtleBot3 Waffle con los que trabajarás en el laboratorio.
+description: Conoce más sobre los robots con los que trabajarás en el laboratorio RIGSA.
 ---
 
-## El TurtleBot3 Waffle {#robots}
+## Los robots del laboratorio RIGSA {#robots}
+
+El laboratorio RIGSA cuenta con robots cuadrúpedos Unitree para el trabajo con hardware real, y utiliza el TurtleBot3 Waffle como plataforma de simulación en los ejercicios del curso.
+
+### Robots Unitree (hardware real)
+
+Para las prácticas con hardware real, el laboratorio cuenta con tres plataformas cuadrúpedas de Unitree:
+
+| Robot | Peso | Velocidad máx. | Conectividad | LiDAR | Uso principal |
+| :--- | :---: | :---: | :--- | :--- | :--- |
+| [**Go2 EDU**](https://www.unitree.com/go2){target="_blank"} | 15 kg | 3.5 m/s | WiFi 5 / Ethernet | L1 (16 líneas) | Fundamentos, laboratorio |
+| [**AS2 EDU**](https://www.unitree.com/mobile/As2){target="_blank"} | 18 kg | 5 m/s | WiFi 6 / Ethernet / 4G | L2 o 64-128 líneas | Inspección + IA embebida |
+| [**B2**](https://www.unitree.com/b2){target="_blank"} | 60 kg | 3.3 m/s | Ethernet | Hesai AT128 (128 líneas) | Inspección industrial pesada |
+
+El **AS2 EDU** destaca por su velocidad (hasta 5 m/s), conectividad WiFi 6 nativa y su CPU de 8 núcleos capaz de ejecutar modelos de IA directamente en el robot. Consulta [los módulos Unitree](../unitree/README.md) para más detalles sobre el trabajo con estas plataformas.
+
+### El TurtleBot3 Waffle (simulación)
 
 ### ¿TurtleBot qué?
 
-Para enseñar ROS utilizamos el robot [TurtleBot3 Waffle](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/){target="_blank"}, fabricado por Robotis. Este es el robot de 3ª generación de la [familia TurtleBot](http://wiki.ros.org/Robots/TurtleBot){target="_blank"} (que ha sido la plataforma de referencia de hardware para ROS desde 2010). La familia de robots TurtleBot existe para proporcionar hardware accesible y de costo relativamente bajo junto con software de código abierto, con el objetivo de facilitar el aprendizaje de robótica y ROS.
+Para los ejercicios de simulación del curso utilizamos el robot [TurtleBot3 Waffle](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/){target="_blank"}, fabricado por Robotis. Este es el robot de 3ª generación de la [familia TurtleBot](http://wiki.ros.org/Robots/TurtleBot){target="_blank"} (que ha sido la plataforma de referencia de hardware para ROS desde 2010). La familia de robots TurtleBot existe para proporcionar hardware accesible y de costo relativamente bajo junto con software de código abierto, con el objetivo de facilitar el aprendizaje de robótica y ROS.
 
-### Nuestros Robots
-
-En el laboratorio contamos con robots TurtleBot3 Waffle para las prácticas (también conocidos como *"los Waffles"*):
-
-<figure markdown>
-  ![](../images/waffle/cabinet.jpg){width=500px} 
-</figure>
-
-Nuestros robots son una versión mejorada del *TurtleBot3 WafflePi* que se puede adquirir en Robotis. Se han realizado algunos ajustes, como se muestra a continuación:
-
-<figure markdown>
-  ![](../images/waffle/features.png){width=800px}
-</figure>
-
-Los Waffles cuentan con los siguientes componentes de hardware principales:
+El modelo TurtleBot3 Waffle utilizado en la simulación cuenta con los siguientes componentes de hardware principales:
 
 * Una placa microcontroladora OpenCR para alimentar y controlar los motores de las ruedas, distribuir energía a otros elementos de hardware y proporcionar una interfaz para sensores adicionales.
 * Una [computadora de placa única (SBC) UP Squared](https://up-board.org/upsquared/specifications/){target="_blank"} con procesador Intel y 32 GB de almacenamiento eMMC integrado. Esta placa actúa como el "cerebro" del robot.
@@ -40,7 +42,7 @@ Esta configuración de tracción permite que los robots se muevan con las siguie
 
 </center>
 
-Además, los robots están equipados con los siguientes sensores:
+Además, el modelo simulado incluye los siguientes sensores:
 
 * Un sensor de detección y medición de distancia por luz (*LiDAR*), que gira continuamente mientras el robot está en operación. Utiliza luz en forma de pulsos láser para medir la distancia a los objetos circundantes, proporcionando una visión de 360&deg; del entorno.
 * Una [cámara Intel RealSense D435](https://www.intelrealsense.com/depth-camera-d435/){target="_blank"} con sensores de imagen izquierdo y derecho, que permite la detección de profundidad además de la captura estándar de imágenes.
@@ -49,7 +51,7 @@ Además, los robots están equipados con los siguientes sensores:
 
 #### Dimensiones
 
-Algunas dimensiones útiles de los Waffles se muestran a continuación:
+Algunas dimensiones útiles del modelo TurtleBot3 Waffle se muestran a continuación:
 
 <figure markdown>
   ![](../images/waffle/dims_and_turning_circle.svg){width=600px}
@@ -58,17 +60,17 @@ Algunas dimensiones útiles de los Waffles se muestran a continuación:
 
 #### Software
 
-Nuestros robots actualmente ejecutan [ROS 2 Jazzy Jalisco](https://docs.ros.org/en/jazzy/index.html){target="_blank"} (o simplemente *"Jazzy"*). Los materiales del curso están basados en esta versión de ROS. La forma más sencilla de instalar Jazzy es a través de paquetes Deb para Ubuntu Noble Numbat (24.04), que es la configuración que utilizan todos nuestros robots.
+El entorno de simulación ejecuta [ROS 2 Jazzy Jalisco](https://docs.ros.org/en/jazzy/index.html){target="_blank"} (o simplemente *"Jazzy"*). Los materiales del curso están basados en esta versión de ROS.
 
-Para la parte del curso basada en simulación, hemos preparado un entorno de simulación utilizando [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}, que puede ejecutarse en las computadoras del laboratorio con Windows 11, así como en otras máquinas. Este entorno de simulación se denomina *"WSL-ROS2"*. [Consulta aquí para más detalles](../software/README.md). También existe una [opción basada en navegador](../software/browser-ros2.md) que no requiere instalación local.
+Para la parte del curso basada en simulación, hemos preparado un entorno utilizando [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/){target="_blank"}, que puede ejecutarse en las computadoras del laboratorio con Windows 11, así como en otras máquinas. Este entorno se denomina *"WSL-ROS2"*. [Consulta aquí para más detalles](../software/README.md). También existe una [opción basada en navegador](../software/browser-ros2.md) que no requiere instalación local.
 
-!!! tip "¿Trabajando hacia un robot diferente?"
-    Todo lo que se practica aquí se enseña utilizando interfaces estándar de ROS 2, no
-    código específico de TurtleBot3. Si tu objetivo final es una plataforma diferente —
-    por ejemplo, un Unitree Go2 EDU o B2 — consulta
+!!! tip "Del TurtleBot3 a los robots Unitree"
+    Todo lo que se practica en los ejercicios de simulación se enseña utilizando interfaces
+    estándar de ROS 2, no código específico de TurtleBot3. Consulta
     [Portando a Unitree Go2/B2](../course/extras/porting-to-unitree.md)
-    para ver cómo los temas y patrones que aprendes aquí son aplicables.
+    para ver cómo los temas y patrones que aprendes aquí son aplicables directamente
+    a los robots Unitree del laboratorio.
 
-## Laptops del Laboratorio
+## Computadoras del Laboratorio
 
-En el laboratorio contamos con laptops dedicadas para trabajo con los robots reales, que ejecutan el mismo sistema operativo y versión de ROS mencionados anteriormente. [Consulta aquí para más detalles](../waffles/intro.md#laptops).
+El laboratorio cuenta con computadoras dedicadas para el trabajo con ROS 2, que ejecutan el mismo sistema operativo y versión de ROS mencionados anteriormente. [Consulta aquí para más detalles](../waffles/intro.md#laptops).

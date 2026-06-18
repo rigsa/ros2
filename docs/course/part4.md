@@ -91,7 +91,7 @@ Esto es similar a una transacción: un nodo solicita algo, y otro nodo cumple es
 1. Realizar un cálculo y devolver un resultado.
 1. Emitir un sonido[^tb3_sound].
 
-[^tb3_sound]: En los Waffles reales, existe un service llamado `/sound`. Échale un vistazo la próxima vez que estés en el laboratorio... Una vez que hayas trabajado toda la Parte 4, sabrás exactamente cómo interrogar este service y aprovechar la funcionalidad que proporciona.
+[^tb3_sound]: En los robots reales del laboratorio, puede existir un service de audio. Échale un vistazo la próxima vez que estés en el laboratorio... Una vez que hayas trabajado toda la Parte 4, sabrás exactamente cómo interrogar services y aprovechar la funcionalidad que proporcionan.
 
 Un único service puede tener muchos clients, pero solo puede haber un *único* Server proporcionando ese service en particular en un momento dado.
 
@@ -103,7 +103,7 @@ Un único service puede tener muchos clients, pero solo puede haber un *único* 
 Veamos ahora cómo funciona todo esto en la práctica, ¡jugando un juego de números! No necesitamos una simulación en ejecución para este, así que en **TERMINAL 1** usa el siguiente comando para iniciar el Service *Adivina el Número*: 
 
 ```bash
-ros2 run tuos_examples number_game.py
+ros2 run rigsa_examples number_game.py
 ```
 
 Habiendo iniciado el service exitosamente, deberías ver lo siguiente:
@@ -146,12 +146,12 @@ Ahora necesitamos interrogar esto para averiguar cómo jugar el juego...
 1. Independientemente del método que hayas usado arriba, deberías haber descubierto que el tipo de interface utilizado por el service `/guess_the_number` es:
     
     ``` { .txt .no-copy }
-    tuos_interfaces/srv/NumberGame
+    rigsa_interfaces/srv/NumberGame
     ```
 
     Observa cómo ([de manera muy similar a las interfaces de tipo message usadas por los *topics*](./part1.md#msg-interface-struct)), hay tres campos en esta definición de tipo:
         
-    1. `tuos_interfaces`: el nombre del package de ROS al que pertenece esta interface.
+    1. `rigsa_interfaces`: el nombre del package de ROS al que pertenece esta interface.
     1. `srv`: que esto es una interface de tipo *service*, el segundo tipo de interface que hemos visto (aprenderemos sobre el tercero y último en la Parte 5).
     1. `NumberGame`: la estructura de datos.
 
@@ -167,10 +167,10 @@ Ahora necesitamos interrogar esto para averiguar cómo jugar el juego...
     
         <a name="grep"></a>
 
-    1. ¡Todavía hay bastante ahí, verdad!? Filtremos esto aún más con [Grep](https://en.wikipedia.org/wiki/Grep){target="_blank"} para identificar *solo* las interfaces que pertenecen al package `tuos_interfaces`:
+    1. ¡Todavía hay bastante ahí, verdad!? Filtremos esto aún más con [Grep](https://en.wikipedia.org/wiki/Grep){target="_blank"} para identificar *solo* las interfaces que pertenecen al package `rigsa_interfaces`:
 
         ```bash
-        ros2 interface list -s | grep tuos_interfaces
+        ros2 interface list -s | grep rigsa_interfaces
         ```
 
         Con suerte, la interface `srv/NumberGame` ahora aparece en la lista.
@@ -178,7 +178,7 @@ Ahora necesitamos interrogar esto para averiguar cómo jugar el juego...
     1. Usa el subcomando `show` para *mostrar* la estructura del mensaje:
 
         ```bash
-        ros2 interface show tuos_interfaces/srv/NumberGame
+        ros2 interface show rigsa_interfaces/srv/NumberGame
         ``` 
         
     La estructura de la interface debería mostrarse de la siguiente manera:
@@ -205,7 +205,7 @@ bool success     <-- Response (3 de 3)
 
 Para *llamar* a un service, necesitamos proporcionarle datos en el formato especificado en la sección de **Request** de la interface. El *Server* del service enviará datos de vuelta al llamante en el formato especificado en la sección de **Response** de la interface.
 
-La interface de service `tuos_interfaces/srv/NumberGame` tiene solo **un** parámetro de request:
+La interface de service `rigsa_interfaces/srv/NumberGame` tiene solo **un** parámetro de request:
 
 1. `guess`: un `int32` (entero de 32 bits)  
     ...que es lo único que necesitamos enviar al Service Server `/number_game_service` para llamarlo.
@@ -225,14 +225,14 @@ Ahora estamos listos para hacer una llamada al service, y podemos hacerlo usando
 1. Para empezar, enviemos una suposición inicial de `0` y veamos qué sucede:
 
     ```bash
-    ros2 service call /guess_the_number tuos_interfaces/srv/NumberGame "{guess: 0}"
+    ros2 service call /guess_the_number rigsa_interfaces/srv/NumberGame "{guess: 0}"
     ```
 
     La request nos será devuelta como eco, seguida de una response, que probablemente se verá algo así, y que nos muestra el valor de los tres parámetros de response que identificamos arriba:
 
     ``` { .txt .no-copy }
     response:
-    tuos_interfaces.srv.NumberGame_Response(guesses=1, hint='Higher', success=False)
+    rigsa_interfaces.srv.NumberGame_Response(guesses=1, hint='Higher', success=False)
     ```
 
     1. `guesses`: nos dice cuántas veces hemos intentado adivinar el número en total (solo una vez hasta ahora)
@@ -242,7 +242,7 @@ Ahora estamos listos para hacer una llamada al service, y podemos hacerlo usando
 1. Realiza otra llamada al service, esta vez cambiando el valor de tu `guess`, por ejemplo:
     
     ```bash
-    ros2 service call /guess_the_number tuos_interfaces/srv/NumberGame "{guess: 10}"
+    ros2 service call /guess_the_number rigsa_interfaces/srv/NumberGame "{guess: 10}"
     ```
 
 1. Intenta hacer una suposición de 500 ahora.
@@ -364,7 +364,7 @@ Creemos ahora una interface de service que tenga una estructura *similar* a la u
         source ~/.bashrc
         ```
 
-1. Verifiquemos que esto funcionó, usando el CLI de `ros2` (de la misma manera que hicimos antes cuando interrogamos `tuos_interfaces/srv/NumberGame`):
+1. Verifiquemos que esto funcionó, usando el CLI de `ros2` (de la misma manera que hicimos antes cuando interrogamos `rigsa_interfaces/srv/NumberGame`):
 
     1. Primero, *lista* todas las interfaces de service de ROS disponibles en el sistema (¡recuerda usar `-s` para filtrar por tipos de interfaces de *service*!):
 
@@ -384,7 +384,7 @@ Creemos ahora una interface de service que tenga una estructura *similar* a la u
 
 #### :material-pen: Ejercicio 4: Adaptar el Server del Juego de Números {#ex4}
 
-Vamos a tomar una copia del nodo server `tuos_examples/number_game.py` ahora, y adaptarlo para usar la interface de service que creamos arriba.
+Vamos a tomar una copia del nodo server `rigsa_examples/number_game.py` ahora, y adaptarlo para usar la interface de service que creamos arriba.
 
 1. Todavía en **TERMINAL 1**, navega hasta el directorio `part4_services/scripts`:
 
@@ -395,7 +395,7 @@ Vamos a tomar una copia del nodo server `tuos_examples/number_game.py` ahora, y 
 1. Copia el script `number_game.py` del repositorio del curso aquí, renombrándolo como `my_number_game.py` al mismo tiempo:
 
     ```bash
-    cp ../../tuos_ros/tuos_examples/scripts/number_game.py ./my_number_game.py
+    cp ../../rigsa_ros/rigsa_examples/scripts/number_game.py ./my_number_game.py
     ```
 
     Este archivo ya debería tener permisos de *ejecución*, pero [siempre vale la pena verificarlo](./part1.md#chmod)...
@@ -428,7 +428,7 @@ Vamos a tomar una copia del nodo server `tuos_examples/number_game.py` ahora, y 
 
     1. Abre el nodo `my_number_game.py` en VS Code y revísalo.
 
-    1. Tal como está, el nodo importa la interface de service `NumberGame` de `tuos_interfaces`, así que necesitarás cambiar esto para usar la interface de tu propio package ahora:
+    1. Tal como está, el nodo importa la interface de service `NumberGame` de `rigsa_interfaces`, así que necesitarás cambiar esto para usar la interface de tu propio package ahora:
 
         ```py
         from part4_services.srv import MyNumberGame
@@ -593,7 +593,7 @@ ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 1. En **TERMINAL 1**, volvamos a iniciar el *Nav World*, como lo hicimos en la Parte 3:
 
     ```bash
-    ros2 launch tuos_simulations nav_world.launch.py
+    ros2 launch rigsa_simulations nav_world.launch.py
     ```
     
     <figure markdown>
@@ -603,7 +603,7 @@ ros2 run nav2_map_server map_saver_cli -f MAP_NAME
 1. En **TERMINAL 2**, también volvamos a iniciar *Cartographer* (los algoritmos SLAM):
 
     ```bash
-    ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
+    ros2 launch rigsa_tb3_tools slam.launch.py environment:=sim
     ```
 
     <figure markdown>

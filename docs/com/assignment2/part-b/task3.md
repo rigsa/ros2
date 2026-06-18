@@ -2,13 +2,13 @@
 title: "Tarea 3: Exploración y Búsqueda"  
 ---  
 
-Desarrolla nodes de ROS para permitir que un TurtleBot3 Waffle explore de manera autónoma la mayor parte posible del arena robótico, mientras busca una baliza y documenta su exploración con un mapa del entorno a medida que avanza.
+Desarrolla nodes de ROS para permitir que un robot de simulación explore de manera autónoma la mayor parte posible del arena robótico, mientras busca una baliza y documenta su exploración con un mapa del entorno a medida que avanza.
 
 !!! success "Puntos de Control del Curso"
     
     * Deberías haber completado **las Partes 1-6 de la Asignación #1 ^^en su totalidad^^** para apoyar tu trabajo aquí.
 
-    * **[Entendiendo los Waffles](../../../waffles/essentials.md)** es *también* esencial para tu éxito en esta tarea, así que asegúrate de haber considerado **TODOS** los siguientes aspectos:
+    * **[Entendiendo los robots](../../../waffles/essentials.md)** es *también* esencial para tu éxito en esta tarea, así que asegúrate de haber considerado **TODOS** los siguientes aspectos:
     
         * [ ] [Control de Movimiento y Velocidad](../../../waffles/essentials.md#motion-and-velocity-control)
         * [ ] [Lecturas de Desplazamiento Láser y el Sensor LiDAR](../../../waffles/essentials.md#laser-displacement-readings-and-the-lidar-sensor)
@@ -94,7 +94,7 @@ La imagen que se guarda aquí debe ser la *imagen sin procesar* de la cámara de
 
 !!! warning "Ten en cuenta"
     
-    [**Entendiendo los Waffles**: La Cámara y el Procesamiento de Imagen](../../../waffles/essentials.md#the-camera-and-image-processing). Hay algunas cosas clave que debes investigar aquí, como:
+    [**Entendiendo los robots**: La Cámara y el Procesamiento de Imagen](../../../waffles/essentials.md#the-camera-and-image-processing). Hay algunas cosas clave que debes investigar aquí, como:
     
     * [ ] El nombre del topic de imagen de la cámara en los robots reales.
     * [ ] La resolución nativa de las imágenes de la cámara, y cómo esto podría afectar cualquier procesamiento de imagen que realices.
@@ -105,18 +105,18 @@ También hay puntos disponibles en la Tarea 3 por usar SLAM para generar un mapa
 
 #### Generar un Mapa
 
-Uno de los primeros ejercicios que hiciste con los Waffles (¡en el laboratorio de la Semana 1!) fue [usar SLAM para crear un mapa del entorno](../../../waffles/basics.md#exSlam). También habrás intentado esto en simulación en la [Parte 3 de la Asignación #1](../../../course/part3.md#ex5). Nota que usaste el mismo archivo de lanzamiento en ambos casos, pero con una diferencia sutil:
+Uno de los primeros ejercicios que hiciste con los robots (¡en el laboratorio de la Semana 1!) fue [usar SLAM para crear un mapa del entorno](../../../waffles/basics.md#exSlam). También habrás intentado esto en simulación en la [Parte 3 de la Asignación #1](../../../course/part3.md#ex5). Nota que usaste el mismo archivo de lanzamiento en ambos casos, pero con una diferencia sutil:
 
 === "En el Mundo Real"
 
     ``` { .bash .no-copy }
-    ros2 launch tuos_tb3_tools slam.launch.py environment:=real
+    ros2 launch rigsa_tb3_tools slam.launch.py environment:=real
     ```
 
 === "En Simulación"
 
     ``` { .bash .no-copy }
-    ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
+    ros2 launch rigsa_tb3_tools slam.launch.py environment:=sim
     ```
 
 ... *¿cuál crees que podrías necesitar aplicar aquí?*
@@ -245,10 +245,10 @@ Al igual que con las Tareas 1 y 2, hay una simulación que puedes usar para desa
     * ¡El hecho de que funcione en simulación **NO** significa que funcionará igual de bien en el mundo real!
     * ¡Asegúrate de probar las cosas ^^a fondo^^ en los robots reales durante las sesiones de laboratorio!
 
-Puedes lanzar la simulación desde el paquete `tuos_task_sims` con el siguiente comando `ros2 launch`:
+Puedes lanzar la simulación desde el paquete `rigsa_task_sims` con el siguiente comando `ros2 launch`:
 
 ```bash
-ros2 launch tuos_task_sims explore.launch.py
+ros2 launch rigsa_task_sims explore.launch.py
 ```
 
 <figure markdown>

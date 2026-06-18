@@ -24,7 +24,7 @@ def scan_callback(self, msg: LaserScan):
 
 ## Diferencia en hardware real: LiDAR 3D vs. 2D
 
-El TurtleBot3 Waffle tiene un LiDAR **2D** que nativo produce `LaserScan`.
+El robot diferencial del curso tiene un LiDAR **2D** que produce de forma nativa `LaserScan`.
 
 El Go2/B2 tiene un **LiDAR L1 de 32 líneas** (3D) que produce `PointCloud2`:
 - Publica en `/utlidar/cloud`
@@ -40,13 +40,13 @@ PointCloud2                  LaserScan 2D
 /utlidar/cloud               /scan
 ```
 
-Tu código solo ve el `LaserScan` final — la conversión es transparente.
+Tu código solo ve el `LaserScan` final - la conversión es transparente.
 
 ## Configuración del sandbox
 
 Abre el sandbox con **"Unitree U5: LiDAR y Obstáculos"**.
 
-- Mundo: `unitree_obstacles` — 8 cilindros grises esparcidos en la arena
+- Mundo: `unitree_obstacles` - 8 cilindros grises esparcidos en la arena
 - Archivo semilla: `unitree_lidar.py`
 - El robot verde aparecerá en el centro; los rayos del LiDAR son visibles en la pantalla
 
@@ -74,7 +74,7 @@ El robot debería deambular por el mundo `unitree_obstacles` sin chocar.
 Observa los rayos rojos (impactos detectados) y azules (espacio libre) en la
 ventana de `sim_lite`.
 
-## Estructura del `LaserScan` — recordatorio
+## Estructura del `LaserScan` - recordatorio
 
 ```
 Índice 0   = frente del robot    (0°)
@@ -105,12 +105,12 @@ def distancia_frontal(msg: LaserScan, sector_grados: int = 30) -> float:
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Imprimir distancias por sector"
+!!! note "Ejercicio 1 - Imprimir distancias por sector"
     Modifica `_scan_cb()` en `unitree_lidar.py` para que imprima la distancia mínima
     en **cuatro sectores**: frontal, trasero, izquierdo, derecho. Imprime máximo
     una vez por segundo (usa `throttle_duration_sec=1.0`).
 
-!!! note "Ejercicio 2 — Mapa de obstáculos"
+!!! note "Ejercicio 2 - Mapa de obstáculos"
     Escribe una función que recorra todos los 360 rayos y devuelva las coordenadas `(x, y)`
     de cada punto de impacto (en el marco del robot). Imprime la lista como log.
     
@@ -126,12 +126,12 @@ def distancia_frontal(msg: LaserScan, sector_grados: int = 30) -> float:
         return puntos
     ```
 
-!!! note "Ejercicio 3 — Evasión mejorada con desplazamiento lateral"
+!!! note "Ejercicio 3 - Evasión mejorada con desplazamiento lateral"
     El robot actual gira cuando detecta un obstáculo. Mejóralo: si hay obstáculo al
     frente pero espacio a la izquierda, usa `vy > 0` (desplazamiento lateral) en lugar
     de girar. Esto aprovecha el movimiento holonómico del Go2/B2.
 
-!!! note "Ejercicio 4 — Patrullero de perímetro"
+!!! note "Ejercicio 4 - Patrullero de perímetro"
     Haz que el robot circule por el borde interior de la arena (a ~0.5 m de la pared)
     usando el LiDAR para mantener la distancia. Cuando detecte una distancia menor a
     0.4 m al frente, gira 15° y continúa.
@@ -139,7 +139,7 @@ def distancia_frontal(msg: LaserScan, sector_grados: int = 30) -> float:
 ## Diferencia clave con la Parte 3 del curso base
 
 En la Parte 3 usaste el LiDAR para **construir un mapa con SLAM**. En este módulo
-lo usas para **navegación reactiva** — el robot no tiene mapa, solo reacciona a lo
+lo usas para **navegación reactiva** - el robot no tiene mapa, solo reacciona a lo
 que ve en este momento. Las dos formas de usar el LiDAR son complementarias:
 
 | Enfoque | Técnica | Cuándo usarlo |
@@ -149,4 +149,4 @@ que ve en este momento. Las dos formas de usar el LiDAR son complementarias:
 
 ---
 
-Continúa con [U6 — Autonomía Integrada](u6-autonomia.md).
+Continúa con [U6 - Autonomía Integrada](u6-autonomia.md).

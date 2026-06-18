@@ -3,7 +3,7 @@ title: "Recursos de Simulación"
 description: "Detalles del entorno de simulación que puedes usar para probar tus algoritmos"
 ---
 
-Dentro del paquete `tuos_task_sims` hay un arena de ejemplo que puede usarse para desarrollar y probar el trabajo de tu equipo para esta tarea.
+Dentro del paquete `rigsa_task_sims` hay un arena de ejemplo que puede usarse para desarrollar y probar el trabajo de tu equipo para esta tarea.
 
 !!! info 
     Asegúrate de [revisar si hay actualizaciones al Repositorio del Curso](../../course/extras/course-repo.md#updating) para garantizar que tengas la versión más actualizada de esto.
@@ -11,7 +11,7 @@ Dentro del paquete `tuos_task_sims` hay un arena de ejemplo que puede usarse par
 La simulación puede lanzarse usando el siguiente comando `ros2 launch`:
 
 ```bash
-ros2 launch tuos_task_sims obstacle_avoidance.launch.py
+ros2 launch rigsa_task_sims obstacle_avoidance.launch.py
 ```
 
 <figure markdown>
@@ -25,7 +25,7 @@ ros2 launch tuos_task_sims obstacle_avoidance.launch.py
 Por defecto, el robot aparecerá en el arena en la orientación mostrada en la figura anterior; sin embargo, puedes probar *diferentes* orientaciones de inicio para el robot suministrando un argumento de línea de comandos adicional al archivo `obstacle_avoidance.launch.py`:
 
 ``` { .bash .no-copy }
-ros2 launch tuos_task_sims obstacle_avoidance.launch.py yaw:=X
+ros2 launch rigsa_task_sims obstacle_avoidance.launch.py yaw:=X
 ```
 
 Donde el valor de `X` puede ser cualquier ángulo de orientación, en radianes. Recuerda que para la evaluación de esta tarea, el robot **siempre** estará orientado *perpendicular* a una de las cuatro paredes exteriores del arena al inicio de la tarea; por lo tanto, solo cuatro valores de `yaw` son realmente relevantes para ti:

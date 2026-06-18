@@ -31,16 +31,16 @@ El punto 1 anterior se explora en la [Parte 3 del Curso de ROS 2](../part3.md) (
 
 ## Identificar Argumentos de Launch
 
-Podemos usar la opción `-s` con `ros2 launch` para descubrir los argumentos adicionales que se pueden suministrar a cualquier launch file dado. Tomemos el launch file `waffle.launch.py` de `tuos_simulations`, por ejemplo:
+Podemos usar la opción `-s` con `ros2 launch` para descubrir los argumentos adicionales que se pueden suministrar a cualquier launch file dado. Tomemos el launch file `waffle.launch.py` de `rigsa_simulations`, por ejemplo:
 
 ```bash
-ros2 launch tuos_simulations waffle.launch.py -s
+ros2 launch rigsa_simulations waffle.launch.py -s
 ```
 
 Deberías ver una serie de argumentos aquí, comenzando con:
 
 ``` { .txt .no-copy }
-$ ros2 launch tuos_simulations waffle.launch.py -s
+$ ros2 launch rigsa_simulations waffle.launch.py -s
 Arguments (pass arguments as '<name>:=<value>'):
 urdf_file_name : turtlebot3_waffle.urdf
 
@@ -65,10 +65,10 @@ Desplázate hasta el *final* de la lista, y deberías ver lo siguiente:
         (default: '0.0')
 ```
 
-Usando estos argumentos, podemos controlar la posición y orientación del Waffle cuando aparece en el mundo simulado. Prueba esto:
+Usando estos argumentos, podemos controlar la posición y orientación del robot cuando aparece en el mundo simulado. Prueba esto:
 
 ```txt
-ros2 launch tuos_simulations waffle.launch.py x_pose:=1 y_pose:=0.5
+ros2 launch rigsa_simulations waffle.launch.py x_pose:=1 y_pose:=0.5
 ```
 
 El robot debería aparecer en un mundo vacío, pero en la posición de coordenadas $x=1.0$, $y=0.5$, en lugar de $x=0$, $y=0$, como sería normalmente el caso.
@@ -157,7 +157,7 @@ De hecho, podríamos envolver la ejecución de la simulación *y* nuestro node `
     
         Podemos usar otra clase llamada `FindPackageShare()` (de otra biblioteca llamada `launch_ros.substitutions`). Esta nos proporciona la ruta a la *raíz* del directorio de este package.
 
-        Los packages de ROS instalados (incluidos los que creamos nosotros mismos) siempre se encuentran en — y se ejecutan desde — un directorio *"share"*, de ahí `FindPackageShare()`. Habrá múltiples directorios *share* en nuestro sistema:
+        Los packages de ROS instalados (incluidos los que creamos nosotros mismos) siempre se encuentran en - y se ejecutan desde - un directorio *"share"*, de ahí `FindPackageShare()`. Habrá múltiples directorios *share* en nuestro sistema:
             
         * `/opt/ros/jazzy/share/`
         * `~/ros2_ws/install/part3_beyond_basics/share/`
@@ -184,9 +184,9 @@ Si has hecho esto correctamente, al lanzar el comando anterior la simulación Ga
 
 ## Pasar Argumentos de Launch
 
-¿Cómo pasamos un argumento a un launch file (`tuos_simulations/waffle.launch.py`, por ejemplo) que está declarado dentro de *otro* launch file? 
+¿Cómo pasamos un argumento a un launch file (`rigsa_simulations/waffle.launch.py`, por ejemplo) que está declarado dentro de *otro* launch file? 
 
-Siguiendo el mismo enfoque anterior, una descripción de launch básica para la simulación `tuos_simulations/waffle.launch.py` se vería así:
+Siguiendo el mismo enfoque anterior, una descripción de launch básica para la simulación `rigsa_simulations/waffle.launch.py` se vería así:
 
 ```py title="launch_args_example.launch.py"
 from launch import LaunchDescription
@@ -202,7 +202,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution([
-                    FindPackageShare("tuos_simulations"),
+                    FindPackageShare("rigsa_simulations"),
                     "launch", 
                     "waffle.launch.py" 
                 ])
@@ -217,7 +217,7 @@ Para lanzar esto *y* también suministrar los argumentos de launch `x_pose` e `y
 IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
         PathJoinSubstitution([
-            FindPackageShare("tuos_simulations"), 
+            FindPackageShare("rigsa_simulations"), 
             "launch", 
             "waffle.launch.py"
         ])
@@ -238,7 +238,7 @@ IncludeLaunchDescription(
 
 Para crear argumentos para nuestros propios launch files y poder pasar estos argumentos a nuestros propios Nodes, necesitamos usar **parámetros**. Una vez más, aprendimos sobre estos en la [Parte 3 del curso](../part3.md#ex2) (en el Ejercicio 2), donde creamos el node `param_circle.py` que ya hemos discutido anteriormente.
 
-Si tienes una simulación ejecutándose, ciérrala ahora. Para el resto de esta sección, debes lanzar un mundo vacío manualmente, desde un terminal separado, cuando lo necesites (tanto el mundo `tuos_simulations/waffle.launch.py` como `turtlebot3_gazebo/empty_world.launch.py` serían apropiados).
+Si tienes una simulación ejecutándose, ciérrala ahora. Para el resto de esta sección, debes lanzar un mundo vacío manualmente, desde un terminal separado, cuando lo necesites (tanto el mundo `rigsa_simulations/waffle.launch.py` como `turtlebot3_gazebo/empty_world.launch.py` serían apropiados).
 
 ### Declarar Argumentos de Línea de Comandos para Launch Files
 

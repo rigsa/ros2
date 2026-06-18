@@ -21,7 +21,7 @@ En su mayor parte, interactuarás con ROS usando la *línea de comandos de Linux
 
 Al finalizar esta sesión serás capaz de:  
 
-1. Controlar un robot TurtleBot3, en simulación, usando ROS.
+1. Controlar un robot de simulación usando ROS.
 1. Lanzar aplicaciones ROS usando `ros2 launch` y `ros2 run`.
 1. Consultar aplicaciones ROS en ejecución usando herramientas clave de la línea de comandos de ROS.
 1. Crear un package de ROS compuesto por múltiples nodes y programar estos nodes (en Python) para que se comuniquen entre sí usando los métodos de comunicación de ROS.
@@ -67,7 +67,7 @@ De cualquier manera, ahora deberías tener acceso a ROS 2 a través de una insta
 
 <a name="course-repo"></a>
 
-Hemos preparado algunos packages de ROS específicamente para este curso. Todos se encuentran en [este repositorio de GitHub](https://github.com/tom-howard/tuos_ros/tree/jazzy){target="_blank"}, y deberás descargarlo e instalarlo en tu entorno ROS ahora, antes de continuar.
+Hemos preparado algunos packages de ROS específicamente para este curso. Todos se encuentran en [el repositorio del curso](https://github.com/rigsa/ros2){target="_blank"}, y deberás descargarlo e instalarlo en tu entorno ROS ahora, antes de continuar.
 
 1. En **TERMINAL 1**, navega hacia el *"ROS Workspace"* usando el comando `cd`[^ros2_ws]:
 
@@ -80,7 +80,7 @@ Hemos preparado algunos packages de ROS específicamente para este curso. Todos 
 1. Luego, ejecuta el siguiente comando para clonar el repositorio del curso desde GitHub:
 
     ```bash
-    git clone https://github.com/tom-howard/tuos_ros.git -b jazzy
+    git clone https://github.com/rigsa/rigsa_ros.git -b jazzy
     ```
 
 1. Una vez hecho esto, necesitarás compilarlo usando una herramienta llamada *"Colcon"*[^colcon]:
@@ -88,16 +88,16 @@ Hemos preparado algunos packages de ROS específicamente para este curso. Todos 
     [^colcon]: ¿Qué es **Colcon**? [Descubre más aquí](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#background){target="_blank"}.
 
     ```bash
-    cd ~/ros2_ws/ && colcon build --packages-up-to tuos_ros && source ~/.bashrc
+    cd ~/ros2_ws/ && colcon build --packages-up-to rigsa_ros && source ~/.bashrc
     ```
 
 No te preocupes demasiado por lo que acabas de hacer por ahora. Lo cubriremos con más detalle a lo largo del curso. Por el momento es suficiente; más adelante empezaremos a usar algunos de los packages que acabamos de instalar.
 
 ## :material-pen: Ejercicio 1: Lanzar una simulación y hacer mover un robot {#ex1}
 
-Ahora que todo está en marcha, lancemos ROS y pongamos en funcionamiento una simulación de nuestro robot TurtleBot3 Waffle...
+Ahora que todo está en marcha, lancemos ROS y pongamos en funcionamiento la simulación del robot...
 
-1. En **TERMINAL 1** ingresa el siguiente comando para lanzar una simulación de un TurtleBot3 Waffle en un *mundo vacío*:  
+1. En **TERMINAL 1** ingresa el siguiente comando para lanzar una simulación del robot en un *mundo vacío*:  
         
     ```bash
     ros2 launch turtlebot3_gazebo empty_world.launch.py
@@ -112,7 +112,7 @@ Ahora que todo está en marcha, lancemos ROS y pongamos en funcionamiento una si
     1. **Acercar y alejar** usando la rueda de desplazamiento del mouse.  
     1. **Rotar la vista de la cámara** presionando y manteniendo simultáneamente el botón izquierdo del mouse y la tecla ++shift++ de tu teclado, y luego moviendo el mouse.
     
-    Usando ambos métodos deberías poder obtener una mejor vista del robot, que es una representación aproximada de [nuestros robots reales](../about/robots.md#our-waffles).
+    Usando ambos métodos deberías poder obtener una mejor vista del robot, que es una representación aproximada de [nuestros robots reales](../about/robots.md).
 
     <figure markdown>
       ![](../images/gz/tb3_empty_world_close.png){width=700px}
@@ -129,7 +129,7 @@ Ahora que todo está en marcha, lancemos ROS y pongamos en funcionamiento una si
 1. Sigue las instrucciones proporcionadas en la terminal para controlar el robot usando teclas específicas de tu teclado:
 
     <figure markdown>
-      ![](../images/waffle/teleop_keymap.svg)
+      ![Mapa de teclas para teleoperación del robot](../images/waffle/teleop_keymap.svg)
     </figure>
 
 ### Resumen
@@ -347,7 +347,7 @@ Es importante trabajar en una ubicación específica del sistema de archivos cua
 
 #### :material-pen: Ejercicio 4: Crear tu propio package de ROS {#ex4}
 
-La interfaz de línea de comandos (CLI) `ros2` que hemos estado usando hasta ahora incluye una herramienta para crear nuevos packages de ROS: `ros2 pkg create`[^ros2-pkg-create]. Sin embargo, para este curso adoptaremos un enfoque ligeramente diferente para la creación de packages, para brindarnos un poco más de flexibilidad y facilidad de uso (especialmente para cosas que haremos más adelante)[^cpp-py-pkg]. Por lo tanto, hemos creado nuestra propia [Plantilla de Package ROS 2](https://github.com/tom-howard/ros2_pkg_template){target="_blank"} (en GitHub), y ahora veremos cómo usarla para crear nuevos packages...
+La interfaz de línea de comandos (CLI) `ros2` que hemos estado usando hasta ahora incluye una herramienta para crear nuevos packages de ROS: `ros2 pkg create`[^ros2-pkg-create]. Sin embargo, para este curso adoptaremos un enfoque ligeramente diferente para la creación de packages, para brindarnos un poco más de flexibilidad y facilidad de uso (especialmente para cosas que haremos más adelante)[^cpp-py-pkg]. Por lo tanto, usaremos una Plantilla de Package ROS 2 disponible en GitHub, y ahora veremos cómo usarla para crear nuevos packages...
 
 [^ros2-pkg-create]: Puedes aprender más sobre todo esto en los [Tutoriales Oficiales de ROS 2](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html){target="_blank"} (si te interesa).
 

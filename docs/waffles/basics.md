@@ -81,7 +81,7 @@ Nuestros Waffles tienen sensores bastante sofisticados que les permiten "ver" el
 1. No debería haber nada ejecutándose en **TERMINAL 3** ahora, después de que cerraste el nodo `teleop_keyboard` (usando ++ctrl+c++) al final del ejercicio anterior. Regresa a esta terminal e ingresa el siguiente comando:
 
     ```bash
-    ros2 launch tuos_tb3_tools rviz.launch.py
+    ros2 launch rigsa_tb3_tools rviz.launch.py
     ```
     
     Esto lanzará una aplicación llamada *RViz*, una herramienta muy útil que nos permite *visualizar* los datos de todos los sensores a bordo de nuestros robots. Cuando RViz se abra, deberías ver algo similar a lo siguiente:
@@ -543,7 +543,7 @@ El Mapeo y Localización Simultáneos (SLAM, por sus siglas en inglés: *Simulta
 1. En **TERMINAL 3** ingresa el siguiente comando para lanzar todos los nodos de SLAM necesarios:
 
     ```bash
-    ros2 launch tuos_tb3_tools slam.launch.py environment:=real
+    ros2 launch rigsa_tb3_tools slam.launch.py environment:=real
     ```
     
     ??? tip

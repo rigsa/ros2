@@ -30,7 +30,7 @@ Usa este código como punto de partida para la Parte A del ejercicio de Seguimie
 
     Filtra la imagen recortada seleccionando valores HSV apropiados para que la línea rosa pueda aislarse del resto de la imagen.
     
-    Es posible que necesites usar el node `tuos_examples\image_colours.py` nuevamente para ayudarte a identificar el rango correcto de valores de Tono y Saturación.
+    Es posible que necesites usar el node `rigsa_examples\image_colours.py` nuevamente para ayudarte a identificar el rango correcto de valores de Tono y Saturación.
 
     Usa `cv2.cvtColor()` para convertir tu `cropped_img` en una representación de color HSV:
 

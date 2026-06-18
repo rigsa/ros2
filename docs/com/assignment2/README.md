@@ -1,13 +1,13 @@
 ---
 title: "Asignación #2: Proyecto de Robótica en Equipo"
-description: Aplica tu conocimiento de ROS 2 a TurtleBot3 Waffles reales en el laboratorio.
+description: Aplica tu conocimiento de ROS 2 a robots del laboratorio en el laboratorio.
 --- 
 
 ## Descripción General
 
 En la Asignación #2 pondrás en práctica todo lo que estás aprendiendo sobre ROS 2 en la Asignación #1, y explorarás las capacidades del framework con mayor profundidad.
 
-Asistirás a una sesión de laboratorio de 2 horas por semana en el laboratorio de robótica durante el semestre completo de 12 semanas. Aquí trabajarás **en equipos** para desarrollar Nodes de ROS para nuestros TurtleBot3 Waffles *reales*, permitiéndoles completar con éxito varias tareas robóticas en un *entorno del mundo real*.
+Asistirás a una sesión de laboratorio de 2 horas por semana en el laboratorio de robótica durante el semestre completo de 12 semanas. Aquí trabajarás **en equipos** para desarrollar Nodes de ROS para nuestros robots de simulación *reales*, permitiéndoles completar con éxito varias tareas robóticas en un *entorno del mundo real*.
 
 La Asignación #2 está dividida en dos partes: **Parte A** y **Parte B**. Completarás la Parte A en la primera mitad del semestre (Semanas 1-6) y luego pasarás a la Parte B en la segunda mitad del semestre (Semanas 7-12).
 
@@ -24,7 +24,7 @@ La Asignación #2 está dividida en dos partes: **Parte A** y **Parte B**. Compl
 
 Como se muestra arriba, hay **tres tareas de programación** y una **Viva de Equipo** que debes completar para la Asignación #2, con un total de **100 puntos** en general. Las fechas límite de entrega exactas se indicarán en la plataforma del curso.
 
-Las tres tareas de programación requerirán que desarrolles nodes de ROS (y un paquete de ROS) para hacer que nuestros robots reales TurtleBot3 Waffle completen ciertos objetivos del mundo real en el arena del laboratorio de robótica. Las tres tareas serán evaluadas según qué tan bien el robot completa cada uno de los objetivos.
+Las tres tareas de programación requerirán que desarrolles nodes de ROS (y un paquete de ROS) para hacer que nuestros robots reales robot de simulación completen ciertos objetivos del mundo real en el arena del laboratorio de robótica. Las tres tareas serán evaluadas según qué tan bien el robot completa cada uno de los objetivos.
 
 ## Evaluación
 

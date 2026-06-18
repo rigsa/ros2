@@ -58,7 +58,7 @@ Para la evaluación de la tarea, tu paquete será construido y desplegado en una
 
 ## Otra Información Importante 
 
-* El [Repositorio del Curso `tuos_ros`](../../course/extras/course-repo.md) estará instalado y actualizado en la Laptop de Robótica que usemos para evaluar tu trabajo.
+* El [Repositorio del Curso `rigsa_ros`](../../course/extras/course-repo.md) estará instalado y actualizado en la Laptop de Robótica que usemos para evaluar tu trabajo.
 
 * La Laptop de Robótica que usemos para la evaluación será seleccionada al azar.
 

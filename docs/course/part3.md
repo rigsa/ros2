@@ -83,13 +83,13 @@ También conviene iniciar VS Code ahora, para que esté listo cuando lo necesite
 En la Parte 1 deberías haber [descargado e instalado el Repositorio del Curso](./part1.md#course-repo) en tu entorno ROS. Esperamos que ya lo hayas hecho, pero si no es así, regresa y hazlo ahora (lo necesitarás para algunos ejercicios aquí). Si ya lo hiciste, vale la pena asegurarte de que esté actualizado, así que ejecuta el siguiente comando ahora:
 
 ```bash
-cd ~/ros2_ws/src/tuos_ros/ && git pull
+cd ~/ros2_ws/src/rigsa_ros/ && git pull
 ```
 
 Luego ejecuta `colcon build` 
 
 ```bash
-cd ~/ros2_ws/ && colcon build --packages-up-to tuos_ros
+cd ~/ros2_ws/ && colcon build --packages-up-to rigsa_ros
 ```
 
 Y finalmente, recarga tu entorno:
@@ -424,7 +424,7 @@ También hemos aprendido algunas técnicas clave de launch files, así que avanc
 
 ## Datos de Desplazamiento Láser y el Sensor LiDAR {#lidar}
 
-Como recordarás de la Parte 2, la odometría es muy importante para la navegación de robots, pero puede estar sujeta a deriva y error acumulado a lo largo del tiempo. Es posible que hayas observado esto en la simulación durante el [Ejercicio 5 de la Parte 2](./part2.md#ex5), y definitivamente lo notarías si hicieras lo mismo en un robot real. Afortunadamente, los Waffles tienen otro sensor a bordo que proporciona información aún más rica sobre el entorno, y podemos usarlo para complementar la información de odometría y mejorar las capacidades de navegación del robot.
+Como recordarás de la Parte 2, la odometría es muy importante para la navegación de robots, pero puede estar sujeta a deriva y error acumulado a lo largo del tiempo. Es posible que hayas observado esto en la simulación durante el [Ejercicio 5 de la Parte 2](./part2.md#ex5), y definitivamente lo notarías si hicieras lo mismo en un robot real. Afortunadamente, el robot de simulación tiene otro sensor a bordo que proporciona información aún más rica sobre el entorno, y podemos usarlo para complementar la información de odometría y mejorar las capacidades de navegación del robot.
 
 ### Introduciendo la Interfaz LaserScan
 
@@ -438,7 +438,7 @@ Como recordarás de la Parte 2, la odometría es muy importante para la navegaci
     ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
     ```
 
-    Ahora debería lanzarse una simulación Gazebo con un TurtleBot3 Waffle en un nuevo entorno:
+    Ahora debería lanzarse una simulación Gazebo con el robot de simulación en un nuevo entorno:
 
     <figure markdown>
       ![](../images/gz/tb3_world.png){width=600px}
@@ -447,7 +447,7 @@ Como recordarás de la Parte 2, la odometría es muy importante para la navegaci
 1. En **TERMINAL 2** ingresa lo siguiente:
 
     ```bash
-    ros2 launch tuos_tb3_tools rviz.launch.py environment:=sim
+    ros2 launch rigsa_tb3_tools rviz.launch.py environment:=sim
     ```
     
     Al ejecutar el comando debería abrirse una nueva ventana:
@@ -515,11 +515,11 @@ Como recordarás de la Parte 2, la odometría es muy importante para la navegaci
 
 ### Interpretando los Datos LaserScan
 
-La interfaz `LaserScan` es una interfaz de mensaje ROS estandarizada (del package `sensor_msgs`) que cualquier robot ROS puede usar para publicar los datos que obtiene de un sensor de desplazamiento láser como el LiDAR del TurtleBot3.  
+La interfaz `LaserScan` es una interfaz de mensaje ROS estandarizada (del package `sensor_msgs`) que cualquier robot ROS puede usar para publicar los datos que obtiene de un sensor de desplazamiento láser como el LiDAR del robot de simulación.  
 
 `ranges` es un arreglo de valores `float32` (los tipos de datos de arreglo tienen el sufijo `[]`). Esta es la parte del mensaje que contiene todas las *mediciones de distancia reales* que está obteniendo el sensor LiDAR (en metros).
 
-<a name="fig_lidar"></a>Considera un ejemplo simplificado aquí, tomado de un TurtleBot3 en un entorno diferente:
+<a name="fig_lidar"></a>Considera un ejemplo simplificado aquí, tomado de un robot de simulación en un entorno diferente:
 
 <figure markdown>
   ![](../images/rviz/lidar_illustrated.png)
@@ -667,7 +667,7 @@ En conjunto, los datos del sensor LiDAR y la odometría del robot (específicame
 1. Ahora vamos a lanzar nuestro robot en *otro* nuevo entorno simulado, ¡del cual crearemos un mapa usando SLAM! Para lanzar la simulación ingresa el siguiente comando en **TERMINAL 1**:
 
     ```bash
-    ros2 launch tuos_simulations nav_world.launch.py
+    ros2 launch rigsa_simulations nav_world.launch.py
     ```
 
     El entorno que se lanza debería verse así:
@@ -679,7 +679,7 @@ En conjunto, los datos del sensor LiDAR y la odometría del robot (específicame
 1. Ahora lanza SLAM para comenzar a construir un mapa de este entorno. En **TERMINAL 2**, lanza SLAM de la siguiente manera:
         
     ```bash
-    ros2 launch tuos_tb3_tools slam.launch.py environment:=sim
+    ros2 launch rigsa_tb3_tools slam.launch.py environment:=sim
     ```
 
     Esto lanzará RViz nuevamente, donde deberías ver una vista desde arriba de un entorno con un modelo del robot, rodeado de algunos puntos que representan los datos LiDAR en tiempo real. 
@@ -780,7 +780,7 @@ En conjunto, los datos del sensor LiDAR y la odometría del robot (específicame
 
 ¿Ves qué fácil fue mapear un entorno en el ejercicio anterior? Esto funciona igual de bien en un robot real en un entorno real también (como observarás en el laboratorio). 
 
-Esto ilustra el poder de ROS: tener acceso a herramientas como SLAM, integradas en el framework ROS, hace que sea muy rápido y fácil para un ingeniero en robótica comenzar a desarrollar aplicaciones robóticas sobre esta base. Nuestro trabajo fue aún más fácil aquí ya que usamos algunos packages que fueron pre-creados por los fabricantes de nuestros robots TurtleBot3 para ayudarnos a lanzar SLAM con las configuraciones correctas para nuestro robot en particular. Si estuvieras desarrollando un robot por tu cuenta, o trabajando con un tipo diferente de robot, podrías necesitar hacer un poco más de trabajo para configurar y ajustar las herramientas SLAM para que funcionen con tu propia aplicación.
+Esto ilustra el poder de ROS: tener acceso a herramientas como SLAM, integradas en el framework ROS, hace que sea muy rápido y fácil para un ingeniero en robótica comenzar a desarrollar aplicaciones robóticas sobre esta base. Nuestro trabajo fue aún más fácil aquí ya que usamos algunos packages pre-configurados para ayudarnos a lanzar SLAM con las configuraciones correctas para el robot de simulación en particular. Si estuvieras desarrollando un robot por tu cuenta, o trabajando con un tipo diferente de robot, podrías necesitar hacer un poco más de trabajo para configurar y ajustar las herramientas SLAM para que funcionen con tu propia aplicación.
 
 ## Conclusión
 

@@ -94,7 +94,7 @@ Dentro de una instancia de terminal WSL-ROS2, necesitarás ejecutar algunos coma
 1. Primero, ejecuta el siguiente comando para intentar usar el soporte nativo de Interfaz Gráfica de Usuario (GUI) (que debería funcionar si seguiste todos [los requisitos previos anteriores](#requisitos-previos)):
 
     ```bash
-    echo "export XSERVER=false" > $HOME/.diamond/xserver.sh
+    echo "export XSERVER=false" > $HOME/.rigsa/xserver.sh
     ```
 
 1. Luego, vuelve a hacer source de tu archivo `.bashrc` para que este cambio surta efecto:
@@ -146,7 +146,7 @@ Si no puedes ejecutar aplicaciones GUI de forma nativa (habiendo completado los 
 1. En una Instancia de Terminal WSL-ROS2, ejecuta lo siguiente:
 
     ```bash
-    echo "export XSERVER=true" > $HOME/.tuos/xserver.sh
+    echo "export XSERVER=true" > $HOME/.rigsa/xserver.sh
     ```
 
 1. Vuelve a hacer source de tu archivo `.bashrc` para que este cambio surta efecto:

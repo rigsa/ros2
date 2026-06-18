@@ -2,24 +2,24 @@
 title: "Tarea 2: Evasión de Obstáculos" 
 ---  
 
-Desarrolla los nodes de ROS para permitir que un TurtleBot3 Waffle real explore de manera autónoma un entorno que contiene varios obstáculos. ¡El robot debe explorar la mayor parte del entorno posible en 90 segundos sin chocar contra nada!
+Desarrolla los nodes de ROS para permitir que un robot real del laboratorio explore de manera autónoma un entorno que contiene varios obstáculos. ¡El robot debe explorar la mayor parte del entorno posible en 90 segundos sin chocar contra nada!
 
 !!! success "Puntos de Control del Curso"
     
     Aspira a haber completado **hasta e incluyendo la [Parte 3 de la Asignación #1](../../../course/part3.md)** para apoyar tu trabajo en esta tarea.
 
-    **Ver También** - [Entendiendo los Waffles](../../../waffles/essentials.md):
+    **Ver También** - [Entendiendo los robots](../../../waffles/essentials.md):
     
     * [ ] Control de Movimiento y Velocidad
     * [ ] Lecturas de Desplazamiento Láser y el Sensor LiDAR 
 
 ## Resumen
 
-La Asignación #1 Parte 3 introduce [el sensor LiDAR del Waffle](../../../course/part3.md#lidar). Este sensor es muy útil, ya que nos dice la distancia a cualquier objeto presente en el entorno del robot. En la [Asignación #1 Parte 5](../../../course/part5.md#explore) veremos cómo estos datos, en combinación con el *framework de Acciones de ROS*, pueden usarse como base para una estrategia de exploración básica que incorpora evasión de obstáculos. Ampliando esto en el [Ejercicio 6 de la Parte 5](../../../course/part5.md#ex6), discutimos cómo esto podría desarrollarse más creando un *cliente* de acción que pudiera hacer llamadas sucesivas al servidor de acción para mantener el robot moviéndose aleatoriamente, e indefinidamente, por un arena mientras evita obstáculos.
+La Asignación #1 Parte 3 introduce [el sensor LiDAR del robot](../../../course/part3.md#lidar). Este sensor es muy útil, ya que nos dice la distancia a cualquier objeto presente en el entorno del robot. En la [Asignación #1 Parte 5](../../../course/part5.md#explore) veremos cómo estos datos, en combinación con el *framework de Acciones de ROS*, pueden usarse como base para una estrategia de exploración básica que incorpora evasión de obstáculos. Ampliando esto en el [Ejercicio 6 de la Parte 5](../../../course/part5.md#ex6), discutimos cómo esto podría desarrollarse más creando un *cliente* de acción que pudiera hacer llamadas sucesivas al servidor de acción para mantener el robot moviéndose aleatoriamente, e indefinidamente, por un arena mientras evita obstáculos.
 
 Este es un enfoque que podrías usar para esta tarea, pero también hay otras formas (y potencialmente más simples) de lograrlo.
 
-Otro aspecto de esta tarea es la *exploración*: tu robot recibirá más puntos por navegar por más partes del entorno. Considera las estrategias de búsqueda como el *"Movimiento Browniano"* y los *"Paseos de Lévy"*. ¿Podría implementarse algo a lo largo de estas líneas en el Waffle?
+Otro aspecto de esta tarea es la *exploración*: tu robot recibirá más puntos por navegar por más partes del entorno. Considera las estrategias de búsqueda como el *"Movimiento Browniano"* y los *"Paseos de Lévy"*. ¿Podría implementarse algo a lo largo de estas líneas en el robot?
 
 ## Detalles
 
@@ -115,14 +115,14 @@ Los puntos se otorgarán de la siguiente manera:
 
 ## Recursos de Simulación
 
-Dentro del paquete `tuos_task_sims` hay un arena de ejemplo que puede usarse para desarrollar y probar los nodes de evasión de obstáculos de tu equipo para esta tarea[^update-course-repo]. [Como se indicó arriba](#env-vars), sin embargo, esto es solo un *ejemplo* de cómo podría verse el entorno del mundo real.
+Dentro del paquete `rigsa_task_sims` hay un arena de ejemplo que puede usarse para desarrollar y probar los nodes de evasión de obstáculos de tu equipo para esta tarea[^update-course-repo]. [Como se indicó arriba](#env-vars), sin embargo, esto es solo un *ejemplo* de cómo podría verse el entorno del mundo real.
 
 [^update-course-repo]: Asegúrate de [revisar si hay actualizaciones al Repositorio del Curso](../../../course/extras/course-repo.md#updating) para garantizar que tengas la versión más actualizada de estas simulaciones.
 
 La simulación puede lanzarse usando el siguiente comando `ros2 launch`:
 
 ```bash
-ros2 launch tuos_task_sims obstacle_avoidance.launch.py
+ros2 launch rigsa_task_sims obstacle_avoidance.launch.py
 ```
 
 <figure markdown>

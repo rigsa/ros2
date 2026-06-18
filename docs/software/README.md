@@ -28,7 +28,7 @@ La opción de Docker funciona *muy bien* en Linux.
 
 ## Ejecútalo en Tu Navegador (Sin Instalación)
 
-¿No quieres instalar nada en absoluto — ni siquiera Docker en tu propia máquina? Si
+¿No quieres instalar nada en absoluto - ni siquiera Docker en tu propia máquina? Si
 alguien (un demostrador, o el laboratorio) tiene un sandbox en ejecución, puedes hacer
 el curso completo en un navegador, con la simulación transmitida directamente a ti.
 

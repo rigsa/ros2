@@ -1,6 +1,6 @@
 ---  
 title: "Parte 2: Odometría y Navegación"  
-description: Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto en lazo abierto como en lazo cerrado a un Waffle. 
+description: Aprende sobre la odometría - posición y orientación del robot en su entorno - y aplica métodos de control de velocidad en lazo abierto y cerrado a un robot diferencial.
 ---
 
 ## Introducción
@@ -17,7 +17,7 @@ En la Parte 2 aprenderemos cómo controlar la **posición** y la **velocidad** d
 
 Al finalizar esta sesión serás capaz de:
 
-1. Interpretar los datos de Odometría publicados por un Robot ROS e identificar las partes de estos mensajes de interfaz que son relevantes para un robot de accionamiento diferencial de dos ruedas (como el TurtleBot3 Waffle).
+1. Interpretar los datos de Odometría publicados por un Robot ROS e identificar las partes de estos mensajes de interfaz que son relevantes para un robot de accionamiento diferencial de dos ruedas.
 1. Desarrollar nodes de Python para obtener datos de Odometría desde una red ROS activa y *traducir* esto en información útil sobre la *pose* de un robot de forma conveniente y legible para humanos.
 1. Implementar *control de velocidad en lazo abierto* de un robot usando herramientas de línea de comandos de ROS.
 1. Desarrollar nodes de Python que usen métodos de control de velocidad en lazo abierto para hacer que un robot siga una trayectoria de movimiento predefinida.
@@ -88,13 +88,13 @@ También vale la pena iniciar VS Code ahora, para que esté listo cuando lo nece
 En la Parte 1 deberías haber [descargado e instalado el Repositorio del Curso](./part1.md#course-repo) en tu entorno ROS. Si aún no lo has hecho, regresa y hazlo ahora. Si *ya* lo hiciste, vale la pena asegurarse de que esté actualizado, así que ejecuta el siguiente comando en **TERMINAL 1** ahora:
 
 ```bash
-cd ~/ros2_ws/src/tuos_ros/ && git pull
+cd ~/ros2_ws/src/rigsa_ros/ && git pull
 ```
 
 Luego compila con Colcon: 
 
 ```bash
-cd ~/ros2_ws/ && colcon build --packages-up-to tuos_ros
+cd ~/ros2_ws/ && colcon build --packages-up-to rigsa_ros
 ```
 
 Y finalmente, recarga tu entorno:
@@ -106,15 +106,15 @@ source ~/.bashrc
 !!! warning
     Si tienes otras instancias de terminal abiertas, deberás ejecutar `source ~/.bashrc` en estas también, para que cualquier cambio realizado por el proceso de compilación de Colcon se propague a estas.
 
-**Paso 5: Inicia una Simulación Waffle**
+**Paso 5: Inicia la Simulación del Robot**
 
-En **TERMINAL 1** ingresa el siguiente comando para iniciar una simulación de un TurtleBot3 Waffle en un mundo vacío:  
+En **TERMINAL 1** ingresa el siguiente comando para iniciar una simulación del robot en un mundo vacío:  
         
 ```bash
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
 
-Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver un TurtleBot3 Waffle en espacio vacío:
+Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver el robot de simulación en espacio vacío:
 
 <figure markdown>
   ![](../images/gz/tb3_empty_world_mid.png){width=700px}
@@ -136,15 +136,15 @@ Habiendo investigado el topic `/cmd_vel` en la Parte 1, veamos ahora otro topic:
 
 ## Odometría {#odometry}
 
-La Odometría es un proceso de monitoreo de la *posición* y *orientación* de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su *pose*. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres *"Ejes Principales"*: `X`, `Y` y `Z`. En el contexto de nuestros TurtleBot3 Waffles, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:
+La Odometría es un proceso de monitoreo de la *posición* y *orientación* de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su *pose*. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres *"Ejes Principales"*: `X`, `Y` y `Z`. En el contexto de nuestro robot de simulación, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:
 
 <a name="principal-axes"></a>
 
 <figure markdown>
-  ![](../images/waffle/principal_axes.svg){width=800}
+  ![Ejes principales del robot diferencial](../images/waffle/principal_axes.svg){width=800}
 </figure>
 
-No todas las posiciones y orientaciones anteriores aplican a nuestros Waffles, y exploraremos esto más adelante.
+No todas las posiciones y orientaciones anteriores aplican a nuestro robot de simulación, y exploraremos esto más adelante.
 
 ### La Odometría en Acción
 
@@ -220,10 +220,10 @@ Habiendo establecido la estructura de datos, exploremos los datos reales ahora, 
     
 1. Presiona ++s++ en **TERMINAL 3** para detener el robot (pero deja corriendo el node `teleop_keyboard`). Luego, presiona ++ctrl+c++ en **TERMINAL 2** para cerrar `rqt`. 
 
-1. Veamos los datos de Odometría de otra manera ahora. Con el robot estacionario, usa `ros2 run` (en **TERMINAL 2**) para ejecutar un node de Python del package `tuos_examples`: 
+1. Veamos los datos de Odometría de otra manera ahora. Con el robot estacionario, usa `ros2 run` (en **TERMINAL 2**) para ejecutar un node de Python del package `rigsa_examples`: 
 
     ```bash
-    ros2 run tuos_examples robot_pose.py
+    ros2 run rigsa_examples robot_pose.py
     ```
         
 1. Ahora (usando el node `teleop_keyboard` en **TERMINAL 3**) conduce tu robot de nuevo, prestando atención a las salidas que imprime el node `robot_pose.py` en **TERMINAL 2** mientras lo haces.
@@ -320,7 +320,7 @@ Es el subcampo `pose` el que más nos interesa aquí, que contiene dos subcampos
 
     Nos dice en qué dirección apunta nuestro robot en su entorno. Se expresa en unidades de **Cuaterniones**, que es una forma matemáticamente conveniente de almacenar datos relacionados con la orientación de un robot (sin embargo, es un poco difícil para nosotros los humanos entender y visualizar esto, así que hablaremos sobre cómo convertirlo a un formato diferente más adelante).
 
-La Pose se define en relación a un punto de referencia arbitrario, típicamente donde estaba el robot cuando fue encendido, o el origen de un mundo simulado. En nuestros robots reales TurtleBot3 Waffle, se determina a partir de:
+La Pose se define en relación a un punto de referencia arbitrario, típicamente donde estaba el robot cuando fue encendido, o el origen de un mundo simulado. En robots de accionamiento diferencial como el de simulación, se determina a partir de:
 
 * Datos de la Unidad de Medición Inercial (IMU) en la tarjeta OpenCR
 * Datos de los encoders de la rueda izquierda y derecha
@@ -358,15 +358,15 @@ Donde $\theta_{z}$ es el ángulo de yaw (en radianes), y $w$, $x$, $y$ y $z$ son
 
 [^auto-addison]: Tomado de [esta publicación del blog Automatic Addison](https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/){target="_blank"}.
 
-### ¿Qué Valores de Pose Aplican a Nuestros Waffles?
+### ¿Qué Valores de Pose Aplican a Nuestro Robot?
 
 Refiriéndonos de nuevo a los tres *ejes principales* de antes: 
 
 <figure markdown>
-  ![](../images/waffle/principal_axes.svg){width=500}
+  ![Ejes principales del robot diferencial](../images/waffle/principal_axes.svg){width=500}
 </figure>
 
-También puedes ver aquí que nuestro TurtleBot3 tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: 
+Como puedes ver, el robot de simulación tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: 
 
 * $x$ & $y$: las coordenadas 2D del robot en el plano **X**-**Y**
 * $\theta_{z}$: el ángulo del robot alrededor del eje **Z** (*yaw*)
@@ -573,21 +573,21 @@ Estos se relacionan con los **seis grados de libertad** (DOFs) de un robot, y lo
 
 </center>
 
-### Los Grados de Libertad de Nuestros Waffles
+### Los Grados de Libertad del Robot
 
-Recuerda (de nuevo) los *"Ejes Principales"* de nuestro robot y el movimiento a su alrededor:
-
-<figure markdown>
-  ![](../images/waffle/principal_axes.svg){width=500}
-</figure>
-
-Como se discutió anteriormente, nuestros Waffles solo tienen dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de *"accionamiento diferencial"*), lo que en última instancia le proporciona un total de **dos grados de libertad** en general, como se destaca a continuación.
+Recuerda (de nuevo) los *"Ejes Principales"* del robot y el movimiento a su alrededor:
 
 <figure markdown>
-  ![](../images/waffle/velocities.svg){width=800}
+  ![Ejes principales del robot diferencial](../images/waffle/principal_axes.svg){width=500}
 </figure>
 
-Al emitir comandos de velocidad a nuestros Waffles, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad **lineal** en el eje **x** (*Adelante/Atrás*) y velocidad **angular** alrededor del eje **z** (*Yaw*).
+Como se discutió anteriormente, el robot de simulación solo tiene dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de *"accionamiento diferencial"*), lo que en última instancia le proporciona un total de **dos grados de libertad** en general, como se destaca a continuación.
+
+<figure markdown>
+  ![Velocidades del robot diferencial](../images/waffle/velocities.svg){width=800}
+</figure>
+
+Al emitir comandos de velocidad al robot, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad **lineal** en el eje **x** (*Adelante/Atrás*) y velocidad **angular** alrededor del eje **z** (*Yaw*).
 
 <center>
 
@@ -602,7 +602,7 @@ Al emitir comandos de velocidad a nuestros Waffles, por lo tanto, solo dos (de l
 <a name="velocity_limits"></a>
 
 !!! note "Límites Máximos de Velocidad"
-    Ten en cuenta (mientras estamos en el tema de la velocidad) que nuestros TurtleBot3 Waffles tienen **límites máximos de velocidad**:
+    Ten en cuenta (mientras estamos en el tema de la velocidad) que el robot de simulación tiene **límites máximos de velocidad**:
 
     <center>
 

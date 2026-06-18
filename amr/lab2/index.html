@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lab 2: Control con Retroalimentación - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/amr/lab2.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/amr/lab2/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Lab 2: Control con Retroalimentación - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/amr/lab2.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -373,7 +388,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1210,6 +1225,8 @@
       
         
       
+        
+      
     
     
     
@@ -1335,6 +1352,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2734,7 +2779,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2756,7 +2801,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -2948,6 +2993,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3016,7 +3067,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -3325,6 +3376,90 @@
     
   
     U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
   
 
     
@@ -3679,10 +3814,10 @@
 <li>Son programas ejecutables (scripts Python, C++) que realizan tareas y operaciones específicas del robot.</li>
 <li>Típicamente, habrá muchos Nodes ejecutándose simultáneamente en un robot para que funcione.</li>
 <li>Podemos crear nuestros propios Nodes sobre lo que ya está en ejecución, para agregar funcionalidades adicionales.</li>
-<li>Recordarás que creamos nuestro propio Node (en Python) para hacer que nuestro TurtleBot3 Waffle siguiera una trayectoria cuadrada.</li>
+<li>Recordarás que creamos nuestro propio Node (en Python) para hacer que el robot de simulación siguiera una trayectoria cuadrada.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ros_network.png" data-desc-position="bottom"><img alt="" src="ros_network.png" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_network.png" width="500px"></a></p>
 </figure>
 <p><strong>Topics e Interfaces de Mensajes</strong></p>
 <ul>
@@ -3692,9 +3827,9 @@
 <li>Cualquier Node puede publicar (<em>escribir</em>) y/o suscribirse a (<em>leer</em>) cualquier Topic de ROS para pasar información o hacer que sucedan cosas.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ros_comms.png" data-desc-position="bottom"><img alt="" src="ros_comms.png" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ros_comms.png" width="500px"></a></p>
 </figure>
-<p>Uno de los Topics de ROS clave con el que trabajamos la vez anterior fue <code>/cmd_vel</code>, que es un topic que comunica comandos de velocidad para hacer mover a un robot. Recordarás que para hacer mover a nuestro TurtleBot3 Waffle publicamos <em>Mensajes de Interface</em> <code>TwistStamped</code> en el topic <code>/cmd_vel</code>. Los mensajes de interface son <em>tipos de datos estructurados</em> definidos en ROS, y recordaremos brevemente la estructura del tipo de dato <code>TwistStamped</code> en breve...</p>
+<p>Uno de los Topics de ROS clave con el que trabajamos la vez anterior fue <code>/cmd_vel</code>, que es un topic que comunica comandos de velocidad para hacer mover a un robot. Recordarás que para hacer mover al robot de simulación publicamos <em>Mensajes de Interface</em> <code>TwistStamped</code> en el topic <code>/cmd_vel</code>. Los mensajes de interface son <em>tipos de datos estructurados</em> definidos en ROS, y recordaremos brevemente la estructura del tipo de dato <code>TwistStamped</code> en breve...</p>
 <p><strong>Control de Lazo Abierto</strong></p>
 <p>Usamos un método basado en tiempo para controlar el movimiento de nuestro robot para que generara una trayectoria cuadrada. Este tipo de control es <em>de lazo abierto</em>: esperábamos que el robot se hubiera movido (o girado) en la cantidad requerida, pero no teníamos <em>retroalimentación</em> para decirnos si esto realmente se había logrado.</p>
 <p><strong>Control de Lazo Cerrado</strong></p>
@@ -3732,7 +3867,7 @@
 <li>
 <p>Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/terminal_icon.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg" width="60px"></a>
 </figure><p></p>
 <p>La llamaremos <strong>TERMINAL 1</strong>.</p>
 </li>
@@ -3750,7 +3885,7 @@
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Este repositorio proviene del curso original de la Universidad de Sheffield. El paquete ROS se llama <code>amr31001_lab2</code> — usa ese nombre en todos los comandos siguientes.</p>
+<p>El paquete ROS se llama <code>amr31001_lab2</code> - usa ese nombre en todos los comandos siguientes.</p>
 </div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cd ~/ros2_ws &amp;&amp; \
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  colcon build --symlink-install \
@@ -3767,7 +3902,7 @@
 <li>
 <p>Cuando se abra VS Code, navega al <em>Explorador de Archivos</em>:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="vscode_explorer_package_xml.png" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
 </figure><p></p>
 <p>... encuentra un archivo llamado <code>package.xml</code> aquí y haz clic en él.</p>
 </li>
@@ -3807,7 +3942,7 @@
 <p>Ingresa la contraseña del robot cuando se te solicite (te la indicaremos en el laboratorio).</p>
 <p>Es posible que veas un mensaje como este durante el proceso de vinculación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ssh_auth.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
 </figure><p></p>
 <p>Si es así, simplemente escribe <code>yes</code> y presiona <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar que deseas continuar.</p>
 </li>
@@ -3824,7 +3959,7 @@
 <hr>
 <p>El texto que había en la terminal debería desaparecer y aparecerá un banner verde en la parte inferior de la ventana:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/tmux.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
 </figure><p></p>
 <p>Esta es una instancia de terminal ejecutándose <strong>en el robot</strong>, y cualquier comando que ingreses aquí se <strong>ejecutará en el robot</strong> (¡no en la laptop!)</p>
 </li>
@@ -3832,7 +3967,7 @@
 <p>Ahora, lanza ROS en el robot ingresando el siguiente comando:</p>
 <hr>
 <p><strong>TERMINAL 1:</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>ros.launch.py
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_tb3_tools<span class="w"> </span>ros.launch.py
 </code></pre></div><p></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -3955,7 +4090,7 @@
 <details class="tip">
 <summary>Recordatorio</summary>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/cli/teleop_keymap.svg" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
 </figure><p></p>
 </details>
 <p>Mientras haces esto, ¡observa cómo los datos de <code>position</code> y <code>orientation</code> cambian en <strong>TERMINAL 3</strong>, en tiempo real!</p>
@@ -3981,7 +4116,7 @@
 <p><strong>Orientación</strong> nos dice hacia dónde apunta el robot en su entorno, expresado en unidades de <em>Cuaterniones</em>; un sistema de orientación de cuatro términos. También deberías haber notado algunos de estos valores cambiando, ¡aunque puede que no haya sido inmediatamente obvio qué significaban los valores! Para los ejercicios adicionales en este laboratorio convertiremos esto a ángulos de Euler (en grados/radianes) para que los datos sean un poco más fáciles de entender.</p>
 <p>En última instancia, la <em>posición</em> de nuestros robots puede cambiar tanto en los ejes <code>X</code> como <code>Y</code> (es decir, el plano del suelo), mientras que su <em>orientación</em> solo puede cambiar alrededor del eje <code>Z</code> (es decir, solo puede "guinear"/yaw):</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/pose.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/pose.svg" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/pose.svg" width="700px"></a></p>
 </figure>
 <h4 id="navegacion-basada-en-odometria">Navegación basada en Odometría<a class="headerlink" href="#navegacion-basada-en-odometria" title="Permanent link">¶</a></h4>
 <p>Podemos usar la odometría de nuestro robot como señal de retroalimentación para informar la navegación del robot e implementar <strong>control de lazo cerrado</strong>. Hay un ejercicio final (opcional) al final de este laboratorio donde puedes explorar esto más a fondo (si tienes tiempo). Por ahora, consideremos otros flujos de datos en el robot y cómo <em>estos</em> podrían usarse para el control de lazo cerrado en su lugar.</p>
@@ -3995,11 +4130,11 @@
 <p>Lanza RViz, para que podamos ver los datos de este sensor en tiempo real:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
 </code></pre></div><p></p>
 <hr>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/real_rviz_vs_arena.png" data-desc-position="bottom"><img alt="" src="../../images/waffle/real_rviz_vs_arena.png" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/real_rviz_vs_arena.png" width="700px"></a></p>
 </figure>
 <p>Los puntos verdes ilustran los datos del LiDAR. Extiende tu mano hacia el robot y observa si puedes verla siendo detectada por el sensor... debería formarse un grupo de puntos verdes en la pantalla para indicar dónde está tu mano en relación con el robot. Mueve tu mano y observa cómo el grupo de puntos se mueve en consecuencia. Acerca y aleja tu mano del robot y observa cómo los puntos también se acercan o alejan del robot en la pantalla.</p>
 <p>Estos datos son realmente útiles y (como observamos durante la sesión de laboratorio anterior) nos permiten construir mapas bidimensionales de un entorno con considerable precisión. También hay muchas otras formas en que podemos usar estos datos, y en el siguiente ejercicio veremos cómo podemos usarlos como señal de retroalimentación para ¡hacer que nuestro robot detecte y siga paredes!</p>
@@ -4047,7 +4182,7 @@
 </code></pre></div>
 <p>Esta clase <code>Lidar</code> divide los datos del sensor LiDAR en varios segmentos para enfocarse en varias zonas distintas alrededor del cuerpo del robot (para hacer que los datos sean un poco más fáciles de manejar). Para cada uno de los segmentos (como se muestra en la figura a continuación) se puede obtener un único valor de distancia, que representa la distancia promedio a cualquier objeto(s) dentro de esa zona angular particular:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="lidar_segments.png" data-desc-position="bottom"><img alt="" src="lidar_segments.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="lidar_segments.png" width="500px"></a>
 </figure><p></p>
 <p>En nuestro código, podemos obtener la medición de distancia (en metros) de cada una de las zonas anteriores de la siguiente manera:</p>
 <ol>
@@ -4070,7 +4205,7 @@
 <p>Esta es una <em>diferencia espacial</em> entre los rayos LiDAR <code>l3</code> y <code>l4</code>, y puede usarse como una medida simple de la pendiente local de la pared o el desplazamiento relativo entre el robot y la pared.</p>
 <p>Si este valor está cerca de cero, entonces el robot y la pared están bien alineados. Si no, entonces el robot está en ángulo con respecto a la pared, y necesita ajustar su velocidad angular para corregir esto:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="wall_slope.png" data-desc-position="bottom"><img alt="" src="wall_slope.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="wall_slope.png" width="500px"></a>
 </figure>  <p></p>
 </li>
 </ol>
@@ -4149,7 +4284,7 @@
 <li>
 <p>Con suerte, siguiendo los pasos anteriores, llegarás al punto en que puedas hacer que el robot siga una pared derecha razonablemente bien, ¡siempre que la pared permanezca razonablemente recta! Sin embargo, considera qué sucedería si el robot se enfrentara a alguna de las siguientes situaciones:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="limitations.png" data-desc-position="bottom"><img alt="" src="limitations.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="limitations.png" width="600px"></a>
 </figure><p></p>
 <p>Es posible que ya hayas observado esto durante tus pruebas... ¿cómo podrías adaptar el código para que tales situaciones puedan manejarse?</p>
 <details class="info">
@@ -4190,7 +4325,7 @@
 <p>Nuestros robots tienen cámaras, dándoles la capacidad de <em>"ver"</em> su entorno. Los datos de la cámara pueden usarse como otra señal de retroalimentación para informar el control de lazo cerrado, que ahora aprovecharemos para implementar el <em>seguimiento de línea</em>. Lograremos esto usando un algoritmo de control bien establecido conocido como <strong>Control PID</strong>, usando los datos de la cámara de nuestro robot y aplicando algunas técnicas de procesamiento de imagen para detectar y <em>localizar</em> una línea de color impresa en el suelo.</p>
 <p>Considera la siguiente imagen obtenida de la cámara de un robot, con una línea verde visible en el suelo:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/overview.png" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="600px"></a></p>
 </figure>
 <p>El Control PID es un algoritmo inteligente que tiene como objetivo minimizar el <strong>Error</strong> entre una <strong>Referencia de Entrada</strong>: una condición deseada que nos gustaría que mantuviera nuestro robot; y una <strong>Señal de Retroalimentación</strong>: la condición en la que se encuentra actualmente el robot (basada en datos del mundo real). El algoritmo PID calcula una <strong>Salida de Control</strong> apropiada para nuestro sistema que (cuando se sintoniza apropiadamente) actuará para minimizar este error.</p>
 <p>Si queremos que nuestro robot siga con éxito una línea de color en el suelo, necesitará mantener esa línea en el centro de su campo visual en todo momento minimizando el <strong>error</strong> entre dónde está actualmente la línea (la <strong>señal de retroalimentación</strong>) y dónde debería estar (la <strong>referencia de entrada</strong>, es decir, el centro de su campo visual). En este caso, el algoritmo PID nos proporciona un comando de velocidad angular (la <strong>salida de control</strong>) para lograr esto.</p>
@@ -4211,7 +4346,7 @@ u(t)=K_{P} e(t)
 <p>Lanza RViz nuevamente en <strong>TERMINAL 3</strong>:</p>
 <hr>
 <p><strong>TERMINAL 3</strong>:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>real
 </code></pre></div><p></p>
 <hr>
 </li>
@@ -4230,14 +4365,14 @@ u(t)=K_{P} e(t)
 <hr>
 <p>Después de una breve pausa, debería abrirse una ventana que muestre un diagrama de dispersión junto con una imagen sin procesar obtenida de la cámara del robot.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/hsv_cam_img.png" data-desc-position="bottom"><img alt="" src="line_following/hsv_cam_img.png" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/hsv_cam_img.png" width="700px"></a>
 </figure><p></p>
 <p>El diagrama de dispersión muestra todos los diferentes colores que están presentes en la imagen de la cámara sin procesar. Estos se representan en términos de los valores de <em>Matiz</em> (Hue) y <em>Saturación</em> de cada píxel en la imagen.</p>
 </li>
 <li>
 <p>En el gráfico, deberías poder identificar un grupo de puntos de datos del mismo color que la línea en el suelo. Del gráfico, toma nota del rango de valores de Matiz y Saturación dentro de los que residen estos puntos.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/hsv_plot.png" data-desc-position="bottom"><img alt="" src="line_following/hsv_plot.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/hsv_plot.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4302,7 +4437,7 @@ u(t)=K_{P} e(t)
 <p>Ejecuta el código nuevamente. Si tus rangos de Matiz y Saturación son correctos y la línea está visible, ahora debería quedar aislada en la imagen (todos los demás píxeles en la transmisión de la cámara deberían ser negros).</p>
 <p>El pequeño círculo azul también debería estar ubicado aproximadamente en el centro de la línea. Si mueves el robot ahora (manteniendo la línea a la vista) el círculo azul debería moverse con la línea, indicando que la línea está siendo detectada exitosamente por tu filtrado y los algoritmos de procesamiento de imagen.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/line_filtered.png" data-desc-position="bottom"><img alt="" src="line_following/line_filtered.png" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/line_filtered.png" width="400px"></a>
 </figure><p></p>
 <p>Si la línea <em>no</em> se aísla exitosamente, <a href="#ex3a">vuelve a la Parte A</a> y ejecuta el node <code>ex3_colour_detection.py</code> nuevamente.</p>
 </li>
@@ -4312,7 +4447,7 @@ u(t)=K_{P} e(t)
 </code></pre></div>
 <p>Considera la figura de antes, nuevamente:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/overview.png" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/overview.png" width="500px"></a>
 </figure><p></p>
 <p>En nuestro código, ahora podemos usar esto para calcular el error posicional actual del robot. Localiza las líneas que dicen:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">reference_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">image_width</span> <span class="o">/</span> <span class="mi">2</span>
@@ -4425,7 +4560,7 @@ u(t)=K_{P} e(t)
 <summary>Pista</summary>
 <p>Considera cómo se monitorea y actualiza el ángulo de giro mientras gira (<code>current_yaw</code>), y adopta un enfoque similar con el desplazamiento lineal (<code>current_distance</code>). Ten en cuenta que necesitarás considerar la <em>distancia euclidiana</em>, que necesitarás calcular basándote en la posición del robot tanto en el eje <code>x</code> como en el <code>y</code>.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="euclidean_distance.png" data-desc-position="bottom"><img alt="" src="euclidean_distance.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="euclidean_distance.png" width="500px"></a>
 </figure><p></p>
 </details>
 <details class="tip">
@@ -4475,7 +4610,7 @@ u(t)=K_{P} e(t)
 </li>
 </ol>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/laptops/ubuntu_poweroff.svg" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
 </figure>
 <p></p><center><p></p>
 <p><strong>¡Lab 2 de Industry 4.0 Completado!</strong></p>
@@ -4496,8 +4631,37 @@ u(t)=K_{P} e(t)
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 17, 2025 14:15:56 UTC"><span class="timeago" datetime="2025-07-17T14:15:56+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 17, 2025 14:15:56 UTC">2025-07-17</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -4566,7 +4730,7 @@ u(t)=K_{P} e(t)
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4596,14 +4760,30 @@ u(t)=K_{P} e(t)
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

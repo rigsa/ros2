@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Define POIs en un archivo YAML y navega a ellos secuencialmente usando odometría y configuración externa.">
+        <meta name="description" content="Define POIs en un archivo YAML y navega a ellos con dos enfoques: controlador P (odometría) y Nav2 (stack completo).">
       
       
       
@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="U8: Puntos de Interés y Navegación con Mapa - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Define POIs en un archivo YAML y navega a ellos con dos enfoques: controlador P (odometría) y Nav2 (stack completo).">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/unitree/u8-navegacion-mapa.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/unitree/u8-navegacion-mapa/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="U8: Puntos de Interés y Navegación con Mapa - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Define POIs en un archivo YAML y navega a ellos con dos enfoques: controlador P (odometría) y Nav2 (stack completo).">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/unitree/u8-navegacion-mapa.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -371,7 +386,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1210,6 +1225,8 @@
       
         
       
+        
+      
     
     
     
@@ -1335,6 +1352,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2420,7 +2465,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2442,7 +2487,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -2636,6 +2681,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2705,7 +2756,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -2987,6 +3038,29 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#enfoque-a-navegacion-manual-con-odometria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enfoque A: Navegación manual con odometría
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enfoque A: Navegación manual con odometría">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cómo funciona?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configuracion-del-sandbox" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2996,12 +3070,111 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#el-controlador-de-posicion" class="md-nav__link">
     <span class="md-ellipsis">
       
         El controlador de posición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitaciones-del-enfoque-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitaciones del Enfoque A
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enfoque-b-navegacion-con-nav2-stack-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enfoque B: Navegación con Nav2 (stack completo)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enfoque B: Navegación con Nav2 (stack completo)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-usar-nav2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo usar Nav2?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisito-mapa-de-u7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisito: mapa de U7
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lanzar-el-stack-nav2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lanzar el stack Nav2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-cliente-nav2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El cliente Nav2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-de-nav2-para-el-unitree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parámetros de Nav2 para el Unitree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuando-usar-cada-enfoque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo usar cada enfoque?
       
     </span>
   </a>
@@ -3013,17 +3186,6 @@
     <span class="md-ellipsis">
       
         Ejercicios
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#para-hardware-real-nav2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Para hardware real: Nav2
       
     </span>
   </a>
@@ -3151,6 +3313,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3218,6 +3464,29 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#enfoque-a-navegacion-manual-con-odometria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enfoque A: Navegación manual con odometría
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enfoque A: Navegación manual con odometría">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cómo funciona?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configuracion-del-sandbox" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3227,12 +3496,111 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#el-controlador-de-posicion" class="md-nav__link">
     <span class="md-ellipsis">
       
         El controlador de posición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitaciones-del-enfoque-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitaciones del Enfoque A
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enfoque-b-navegacion-con-nav2-stack-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enfoque B: Navegación con Nav2 (stack completo)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enfoque B: Navegación con Nav2 (stack completo)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-usar-nav2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo usar Nav2?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisito-mapa-de-u7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisito: mapa de U7
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lanzar-el-stack-nav2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lanzar el stack Nav2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-cliente-nav2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El cliente Nav2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-de-nav2-para-el-unitree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parámetros de Nav2 para el Unitree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuando-usar-cada-enfoque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo usar cada enfoque?
       
     </span>
   </a>
@@ -3244,17 +3612,6 @@
     <span class="md-ellipsis">
       
         Ejercicios
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#para-hardware-real-nav2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Para hardware real: Nav2
       
     </span>
   </a>
@@ -3299,11 +3656,33 @@
 <p>En U6 el robot navegaba hacia un solo objetivo hard-codeado. En un sistema
 industrial real necesitas:</p>
 <ol>
-<li><strong>Definir los POIs externamente</strong> — sin recompilar el código</li>
-<li><strong>Navegar a varios puntos en secuencia</strong> — ruta de inspección/patrulla</li>
+<li><strong>Definir los POIs externamente</strong> - sin recompilar el código</li>
+<li><strong>Navegar a varios puntos en secuencia</strong> - ruta de inspección/patrulla</li>
 <li><strong>Ejecutar una acción específica</strong> en cada punto (inspeccionar, cargar, skip)</li>
 <li><strong>Repetir la rutina</strong> según una programación</li>
 </ol>
+<p>Este módulo presenta <strong>dos enfoques</strong> para lograr eso:</p>
+<table>
+<thead>
+<tr>
+<th>Enfoque</th>
+<th>Tecnología</th>
+<th>Cuándo usarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A - Manual</strong></td>
+<td>Controlador proporcional + odometría</td>
+<td>Aprendizaje, rutas simples, sandbox</td>
+</tr>
+<tr>
+<td><strong>B - Nav2</strong></td>
+<td>Stack completo de navegación ROS 2</td>
+<td>Despliegues industriales reales, entornos complejos</td>
+</tr>
+</tbody>
+</table>
 <h2 id="mundo-unitree_inspection">Mundo <code>unitree_inspection</code><a class="headerlink" href="#mundo-unitree_inspection" title="Permanent link">¶</a></h2>
 <p>El sandbox U8 usa el mundo de inspección con 4 puntos de interés predefinidos:</p>
 <table>
@@ -3350,8 +3729,7 @@ industrial real necesitas:</p>
 <p>En la ventana de <code>sim_lite</code> verás los labels <strong>A</strong>, <strong>B</strong>, <strong>C</strong> y ⚡ sobre cada
 pillar, y el dock en cian.</p>
 <h2 id="configuracion-de-mision-en-yaml-sin-recompilar">Configuración de misión en YAML (sin recompilar)<a class="headerlink" href="#configuracion-de-mision-en-yaml-sin-recompilar" title="Permanent link">¶</a></h2>
-<p>El archivo <code>unitree_waypoint_nav.py</code> carga los POIs desde un YAML. Puedes
-sobreescribir la lista interna apuntando a un archivo externo:</p>
+<p>Ambos enfoques cargan los POIs desde un YAML externo:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># /home/student/ros2_ws/src/mi_mision/config/pois.yaml</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">pois</span><span class="p">:</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Panel</span><span class="nv"> </span><span class="s">A"</span><span class="p p-Indicator">,</span><span class="nt">  x</span><span class="p">:</span><span class="w">  </span><span class="nv">2.5</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span><span class="w">  </span><span class="nv">1.5</span><span class="p p-Indicator">,</span><span class="nt"> aruco_id</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="nt"> action</span><span class="p">:</span><span class="w"> </span><span class="s">"inspect"</span><span class="p p-Indicator">}</span>
@@ -3359,19 +3737,28 @@ sobreescribir la lista interna apuntando a un archivo externo:</p>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Panel</span><span class="nv"> </span><span class="s">C"</span><span class="p p-Indicator">,</span><span class="nt">  x</span><span class="p">:</span><span class="w"> </span><span class="nv">-1.5</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span><span class="w">  </span><span class="nv">2.5</span><span class="p p-Indicator">,</span><span class="nt"> aruco_id</span><span class="p">:</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="nt"> action</span><span class="p">:</span><span class="w"> </span><span class="s">"inspect"</span><span class="p p-Indicator">}</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Dock"</span><span class="p p-Indicator">,</span><span class="nt">     x</span><span class="p">:</span><span class="w"> </span><span class="nv">-3.5</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span><span class="w">  </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="nt"> aruco_id</span><span class="p">:</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="nt"> action</span><span class="p">:</span><span class="w"> </span><span class="s">"charge"</span><span class="p p-Indicator">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">POIS_FILE</span><span class="o">=</span>/home/student/ros2_ws/src/mi_mision/config/pois.yaml<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>ros2<span class="w"> </span>run<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>unitree_waypoint_nav.py
+<hr>
+<h2 id="enfoque-a-navegacion-manual-con-odometria">Enfoque A: Navegación manual con odometría<a class="headerlink" href="#enfoque-a-navegacion-manual-con-odometria" title="Permanent link">¶</a></h2>
+<h3 id="como-funciona">¿Cómo funciona?<a class="headerlink" href="#como-funciona" title="Permanent link">¶</a></h3>
+<p>El nodo <code>unitree_waypoint_nav.py</code> implementa un <strong>controlador proporcional (P-controller)</strong>
+que usa solo la odometría del robot (<code>/odom</code>) para estimar su posición y calcular las
+velocidades necesarias para llegar a cada POI.</p>
+<p>Este enfoque es útil para <strong>entender la teoría de control</strong> - es lo mismo que hace
+Nav2 internamente, pero simplificado para que puedas leerlo y modificarlo.</p>
+<h3 id="configuracion-del-sandbox">Configuración del sandbox<a class="headerlink" href="#configuracion-del-sandbox" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>--symlink-install
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">source</span><span class="w"> </span>install/setup.bash
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>ros2<span class="w"> </span>run<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>unitree_waypoint_nav.py
 </code></pre></div>
-<h2 id="configuracion-del-sandbox">Configuración del sandbox<a class="headerlink" href="#configuracion-del-sandbox" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>--symlink-install
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">source</span><span class="w"> </span>install/setup.bash
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>ros2<span class="w"> </span>run<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>unitree_waypoint_nav.py
+<p>Con un archivo YAML externo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">POIS_FILE</span><span class="o">=</span>/home/student/ros2_ws/src/mi_mision/config/pois.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>ros2<span class="w"> </span>run<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>unitree_waypoint_nav.py
 </code></pre></div>
 <p>El robot visitará las 4 estaciones en orden, ejecutando:
 - <code>hello</code> en las estaciones de inspección
 - <code>dock</code> + espera + <code>undock</code> en el dock</p>
-<h2 id="el-controlador-de-posicion">El controlador de posición<a class="headerlink" href="#el-controlador-de-posicion" title="Permanent link">¶</a></h2>
+<h3 id="el-controlador-de-posicion">El controlador de posición<a class="headerlink" href="#el-controlador-de-posicion" title="Permanent link">¶</a></h3>
 <p>El nodo usa el mismo controlador proporcional del módulo U6, ahora encapsulado
 en <code>_navegar_a()</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">_navegar_a</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_obj</span><span class="p">,</span> <span class="n">y_obj</span><span class="p">,</span> <span class="n">nombre</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -3387,55 +3774,177 @@ en <code>_navegar_a()</code>:</p>
 <p>El radio de llegada (<code>RADIO_LLEGADA = 0.40 m</code>) es lo suficientemente grande
 para que el robot se considere "en el POI" aunque no esté perfectamente centrado.
 En U10 aprenderás a usar ArUco para acercarte más precisamente.</p>
+<h3 id="limitaciones-del-enfoque-a">Limitaciones del Enfoque A<a class="headerlink" href="#limitaciones-del-enfoque-a" title="Permanent link">¶</a></h3>
+<ul>
+<li>La odometría <strong>acumula error</strong> - en rutas largas el robot puede derivar varios centímetros</li>
+<li><strong>No evita obstáculos dinámicos</strong> - si algo bloquea el camino, el robot chocará</li>
+<li>Solo funciona en entornos donde los POIs son accesibles en línea recta</li>
+</ul>
+<hr>
+<h2 id="enfoque-b-navegacion-con-nav2-stack-completo">Enfoque B: Navegación con Nav2 (stack completo)<a class="headerlink" href="#enfoque-b-navegacion-con-nav2-stack-completo" title="Permanent link">¶</a></h2>
+<h3 id="cuando-usar-nav2">¿Cuándo usar Nav2?<a class="headerlink" href="#cuando-usar-nav2" title="Permanent link">¶</a></h3>
+<p>Nav2 es el stack de navegación estándar de ROS 2. Requiere más configuración inicial,
+pero ofrece:</p>
+<ul>
+<li><strong>Planificación global de rutas</strong> - encuentra el camino óptimo usando el mapa de U7</li>
+<li><strong>Evasión de obstáculos</strong> - el costmap detecta y rodea obstáculos en tiempo real</li>
+<li><strong>Localización robusta</strong> - AMCL corrige el error de odometría usando el LiDAR</li>
+<li><strong>Behaviors recuperables</strong> - si el robot se atasca, Nav2 intenta maniobras de recuperación</li>
+</ul>
+<h3 id="prerequisito-mapa-de-u7">Prerequisito: mapa de U7<a class="headerlink" href="#prerequisito-mapa-de-u7" title="Permanent link">¶</a></h3>
+<p>El Enfoque B requiere tener un mapa guardado del módulo U7 (SLAM con slam_toolbox).
+Si no lo tienes, ve a <a href="../u7-slam/">U7 - SLAM</a> y guarda el mapa antes de continuar.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Verificar que tienes el mapa de U7</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ls<span class="w"> </span>/home/student/ros2_ws/src/mapa_inspeccion.*
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Deberías ver: mapa_inspeccion.yaml  mapa_inspeccion.pgm</span>
+</code></pre></div>
+<h3 id="lanzar-el-stack-nav2">Lanzar el stack Nav2<a class="headerlink" href="#lanzar-el-stack-nav2" title="Permanent link">¶</a></h3>
+<p>Abre tres terminales en el sandbox:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Terminal 1 - servir el mapa guardado en U7</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_server<span class="w"> </span>--ros-args<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>-p<span class="w"> </span>yaml_filename:<span class="o">=</span>/home/student/ros2_ws/src/mapa_inspeccion.yaml
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>ros2<span class="w"> </span>lifecycle<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/map_server<span class="w"> </span>configure
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>ros2<span class="w"> </span>lifecycle<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/map_server<span class="w"> </span>activate
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Terminal 2 - Nav2 stack</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>ros2<span class="w"> </span>launch<span class="w"> </span>nav2_bringup<span class="w"> </span>bringup_launch.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span>map:<span class="o">=</span>/home/student/ros2_ws/src/mapa_inspeccion.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span>params_file:<span class="o">=</span>/opt/seed/nav2_params/unitree_nav2_params.yaml
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Terminal 3 - cliente Nav2</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>ros2<span class="w"> </span>run<span class="w"> </span>unitree_u8_navigation<span class="w"> </span>unitree_nav2_client.py
+</code></pre></div>
+<h3 id="el-cliente-nav2">El cliente Nav2<a class="headerlink" href="#el-cliente-nav2" title="Permanent link">¶</a></h3>
+<p>El nodo <code>unitree_nav2_client.py</code> usa la API de alto nivel <code>BasicNavigator</code> para
+enviar los POIs a Nav2 en lugar de calcular velocidades manualmente:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">nav2_simple_commander.robot_navigator</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasicNavigator</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PoseStamped</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">nav</span> <span class="o">=</span> <span class="n">BasicNavigator</span><span class="p">()</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">nav</span><span class="o">.</span><span class="n">waitUntilNav2Active</span><span class="p">()</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">for</span> <span class="n">poi</span> <span class="ow">in</span> <span class="n">pois</span><span class="p">:</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">goal</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">goal</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s2">"map"</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">goal</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">goal</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">poi</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">goal</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">poi</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">goal</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="n">nav</span><span class="o">.</span><span class="n">goToPose</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">nav</span><span class="o">.</span><span class="n">isTaskComplete</span><span class="p">():</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>        <span class="n">feedback</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">getFeedback</span><span class="p">()</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Distancia restante: </span><span class="si">{</span><span class="n">feedback</span><span class="o">.</span><span class="n">distance_remaining</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">getResult</span><span class="p">()</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>    <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">TaskResult</span><span class="o">.</span><span class="n">SUCCEEDED</span><span class="p">:</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>        <span class="n">ejecutar_accion</span><span class="p">(</span><span class="n">poi</span><span class="p">[</span><span class="s2">"action"</span><span class="p">])</span>
+</code></pre></div>
+<p>Nav2 planifica la ruta completa, evita obstáculos, y entrega el control a tu código
+solo cuando el robot llega al objetivo. Tú solo necesitas manejar la lógica de negocio
+(qué hacer en cada POI).</p>
+<h3 id="parametros-de-nav2-para-el-unitree">Parámetros de Nav2 para el Unitree<a class="headerlink" href="#parametros-de-nav2-para-el-unitree" title="Permanent link">¶</a></h3>
+<p>El archivo <code>/opt/seed/nav2_params/unitree_nav2_params.yaml</code> está preconfigurado para:</p>
+<ul>
+<li>Radio del robot: 0.35 m (huella del Go2/B2 con margen)</li>
+<li>Velocidad máxima: 0.6 m/s (lineal), 1.0 rad/s (angular)</li>
+<li>Costmap con inflación de 0.5 m alrededor de obstáculos</li>
+<li>Planner: NavFn (Dijkstra global) + DWB (controller local)</li>
+<li>Tolerancia de llegada: 0.25 m (más estricta que el Enfoque A)</li>
+</ul>
+<hr>
+<h2 id="cuando-usar-cada-enfoque">¿Cuándo usar cada enfoque?<a class="headerlink" href="#cuando-usar-cada-enfoque" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Enfoque A (P-controller)</th>
+<th>Enfoque B (Nav2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Complejidad de setup</td>
+<td>Ninguna - corre directamente</td>
+<td>Requiere mapa previo (U7)</td>
+</tr>
+<tr>
+<td>Precisión</td>
+<td>±0.40 m (deriva odométrica)</td>
+<td>±0.25 m (corrección con LiDAR)</td>
+</tr>
+<tr>
+<td>Evasión de obstáculos</td>
+<td>No</td>
+<td>Sí (costmap dinámico)</td>
+</tr>
+<tr>
+<td>Rutas largas (&gt;10 m)</td>
+<td>Deriva acumulada</td>
+<td>Localización corregida</td>
+</tr>
+<tr>
+<td>Entorno del sandbox</td>
+<td>✅ Ideal</td>
+<td>✅ Funciona</td>
+</tr>
+<tr>
+<td>Despliegue industrial real</td>
+<td>Solo para POC simple</td>
+<td>✅ Recomendado</td>
+</tr>
+<tr>
+<td>Valor pedagógico</td>
+<td>Alto - ves la física del control</td>
+<td>Medio - abstracción mayor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recomendación</strong>: aprende primero el Enfoque A para entender cómo funciona el control
+de posición. Usa el Enfoque B cuando pases a un despliegue real donde la robustez importa.</p>
+<hr>
 <h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">¶</a></h2>
 <div class="admonition note">
-<p class="admonition-title">Ejercicio 1 — Ruta personalizada</p>
+<p class="admonition-title">Ejercicio 1 - Ruta personalizada (Enfoque A)</p>
 <p>Crea un archivo <code>pois.yaml</code> con una ruta diferente (cambia el orden,
 agrega puntos intermedios) y corre la misión con <code>POIS_FILE=...</code>.</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Ejercicio 2 — Ciclos de patrulla</p>
+<p class="admonition-title">Ejercicio 2 - Ciclos de patrulla (Enfoque A)</p>
 <p>Modifica el nodo para que repita la ruta <code>N</code> veces (donde <code>N</code> es
 un argumento de línea de comandos). Al final de cada ciclo, registra
 el tiempo y la batería consumida.</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Ejercicio 3 — Tolerancia de error</p>
+<p class="admonition-title">Ejercicio 3 - Tolerancia de error (Enfoque A)</p>
 <p>El robot a veces llega "cerca" pero no exactamente al POI. Agrega
 lógica para que el robot se detenga dentro de <code>RADIO_LLEGADA</code> y
 luego haga una corrección fina hasta estar a &lt; 0.15 m del objetivo.</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Ejercicio 4 — Acciones parametrizables</p>
+<p class="admonition-title">Ejercicio 4 - Acciones parametrizables (Enfoque A)</p>
 <p>Agrega un campo <code>duracion_s</code> al YAML para que la acción en cada POI
 dure un tiempo configurable:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Panel</span><span class="nv"> </span><span class="s">A"</span><span class="p p-Indicator">,</span><span class="nt"> x</span><span class="p">:</span><span class="w"> </span><span class="nv">2.5</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span><span class="w"> </span><span class="nv">1.5</span><span class="p p-Indicator">,</span><span class="nt"> aruco_id</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">   action</span><span class="p">:</span><span class="w"> </span><span class="s">"inspect"</span><span class="p p-Indicator">,</span><span class="nt"> duracion_s</span><span class="p">:</span><span class="w"> </span><span class="nv">5.0</span><span class="p p-Indicator">}</span>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Panel</span><span class="nv"> </span><span class="s">A"</span><span class="p p-Indicator">,</span><span class="nt"> x</span><span class="p">:</span><span class="w"> </span><span class="nv">2.5</span><span class="p p-Indicator">,</span><span class="nt"> y</span><span class="p">:</span><span class="w"> </span><span class="nv">1.5</span><span class="p p-Indicator">,</span><span class="nt"> aruco_id</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nt">   action</span><span class="p">:</span><span class="w"> </span><span class="s">"inspect"</span><span class="p p-Indicator">,</span><span class="nt"> duracion_s</span><span class="p">:</span><span class="w"> </span><span class="nv">5.0</span><span class="p p-Indicator">}</span>
 </code></pre></div><p></p>
 </div>
-<h2 id="para-hardware-real-nav2">Para hardware real: Nav2<a class="headerlink" href="#para-hardware-real-nav2" title="Permanent link">¶</a></h2>
-<p>En el robot real, para rutas largas o entornos complejos, considera usar
-Nav2 en lugar del controlador proporcional simple:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">nav2_simple_commander.robot_navigator</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasicNavigator</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PoseStamped</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">nav</span> <span class="o">=</span> <span class="n">BasicNavigator</span><span class="p">()</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">nav</span><span class="o">.</span><span class="n">waitUntilNav2Active</span><span class="p">()</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">goal</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">goal</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s2">"map"</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">goal</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">2.5</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">goal</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">1.5</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">nav</span><span class="o">.</span><span class="n">goToPose</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="k">while</span> <span class="ow">not</span> <span class="n">nav</span><span class="o">.</span><span class="n">isTaskComplete</span><span class="p">():</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">feedback</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">getFeedback</span><span class="p">()</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Distancia: </span><span class="si">{</span><span class="n">feedback</span><span class="o">.</span><span class="n">distance_remaining</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
-</code></pre></div>
-<p>Nav2 planifica rutas óptimas evitando obstáculos del mapa. Requiere
-<code>slam_toolbox</code> o AMCL activos (ver U7).</p>
+<div class="admonition note">
+<p class="admonition-title">Ejercicio 5 - Comparar derivas (ambos enfoques)</p>
+<p>Ejecuta la misma ruta de 4 POIs con el Enfoque A y con el Enfoque B.
+Mide la distancia entre la posición estimada por odometría y la posición
+real (usa RViz para visualizar <code>/odom</code> vs. la pose estimada por AMCL en Nav2).
+¿Cuánta diferencia ves al completar los 4 POIs?</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Ejercicio 6 - Recuperación de fallos (Enfoque B)</p>
+<p>Con Nav2 activo, coloca un obstáculo en el camino al POI B directamente
+(usando el panel de sim_lite). Observa cómo Nav2 replanifica la ruta
+automáticamente. Compara qué pasaría con el Enfoque A en la misma situación.</p>
+</div>
 <hr>
-<p>Continúa con <a href="../u9-rutinas-inspeccion/">U9 — Rutinas de Inspección Industrial</a>.</p>
+<p>Continúa con <a href="../u9-rutinas-inspeccion/">U9 - Rutinas de Inspección Industrial</a>.</p>
 
 
 
@@ -3444,8 +3953,37 @@ Nav2 en lugar del controlador proporcional simple:</p>
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 17, 2026 10:51:15 UTC"><span class="timeago" datetime="2026-06-17T10:51:15+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 17, 2026 10:51:15 UTC">2026-06-17</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -3514,7 +4052,7 @@ Nav2 en lugar del controlador proporcional simple:</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -3544,14 +4082,30 @@ Nav2 en lugar del controlador proporcional simple:</p>
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

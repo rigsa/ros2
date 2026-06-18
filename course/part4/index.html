@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parte 4: Services - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Aprende sobre una forma alternativa en que los nodos de ROS pueden comunicarse a través de una red ROS, y las situaciones en las que esto puede ser útil.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part4.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/course/part4/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Parte 4: Services - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Aprende sobre una forma alternativa en que los nodos de ROS pueden comunicarse a través de una red ROS, y las situaciones en las que esto puede ser útil.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part4.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -373,7 +388,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1529,6 +1544,8 @@
       
         
       
+        
+      
     
     
     
@@ -1654,6 +1671,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2739,7 +2784,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2761,7 +2806,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -2953,6 +2998,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3021,7 +3072,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -3330,6 +3381,90 @@
     
   
     U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
   
 
     
@@ -3725,7 +3860,7 @@
 <summary>Usuarios de WSL...</summary>
 <p>Es importante iniciar VS Code dentro de tu entorno ROS usando la extensión "WSL". Recuerda siempre verificar esto: </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../software/figures/code-wsl-ext-on.svg" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
 </figure><p></p>
 </details>
 <p><strong>Paso 4: Asegurarse de que el Repositorio del Curso Esté Actualizado</strong></p>
@@ -3738,7 +3873,7 @@
 <li>El <strong>Server</strong> de Service procesa esa request y envía de vuelta una <strong>Response</strong>.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="topic_vs_service.png" data-desc-position="bottom"><img alt="La diferencia entre la mensajería basada en topics y el protocolo de ROS Service" src="topic_vs_service.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="La diferencia entre la mensajería basada en topics y el protocolo de ROS Service" src="topic_vs_service.png" width="600px"></a></p>
 </figure>
 <p>Esto es similar a una transacción: un nodo solicita algo, y otro nodo cumple esa solicitud y responde. Esto es útil para <strong>tareas rápidas y de corta duración</strong>, por ejemplo:</p>
 <ol>
@@ -3749,12 +3884,12 @@
 </ol>
 <p>Un único service puede tener muchos clients, pero solo puede haber un <em>único</em> Server proporcionando ese service en particular en un momento dado.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="service_clients.png" data-desc-position="bottom"><img alt="" src="service_clients.png"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="service_clients.png"></a>
   </p>
 <figcaption>Múltiples Clients hacia un único Service Server</figcaption>
 </figure>
 <p>Veamos ahora cómo funciona todo esto en la práctica, ¡jugando un juego de números! No necesitamos una simulación en ejecución para este, así que en <strong>TERMINAL 1</strong> usa el siguiente comando para iniciar el Service <em>Adivina el Número</em>: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>number_game.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rigsa_examples<span class="w"> </span>number_game.py
 </code></pre></div>
 <p>Habiendo iniciado el service exitosamente, deberías ver lo siguiente:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[INFO] [#####] [number_game_service]: The '/guess_the_number' service is active.
@@ -3788,11 +3923,11 @@
 </li>
 <li>
 <p>Independientemente del método que hayas usado arriba, deberías haber descubierto que el tipo de interface utilizado por el service <code>/guess_the_number</code> es:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>tuos_interfaces/srv/NumberGame
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rigsa_interfaces/srv/NumberGame
 </code></pre></div>
 <p>Observa cómo (<a href="../part1/#msg-interface-struct">de manera muy similar a las interfaces de tipo message usadas por los <em>topics</em></a>), hay tres campos en esta definición de tipo:</p>
 <ol>
-<li><code>tuos_interfaces</code>: el nombre del package de ROS al que pertenece esta interface.</li>
+<li><code>rigsa_interfaces</code>: el nombre del package de ROS al que pertenece esta interface.</li>
 <li><code>srv</code>: que esto es una interface de tipo <em>service</em>, el segundo tipo de interface que hemos visto (aprenderemos sobre el tercero y último en la Parte 5).</li>
 <li><code>NumberGame</code>: la estructura de datos.</li>
 </ol>
@@ -3808,14 +3943,14 @@
 <p><a name="grep"></a></p>
 </li>
 <li>
-<p>¡Todavía hay bastante ahí, verdad!? Filtremos esto aún más con <a href="https://en.wikipedia.org/wiki/Grep" target="_blank">Grep</a> para identificar <em>solo</em> las interfaces que pertenecen al package <code>tuos_interfaces</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tuos_interfaces
+<p>¡Todavía hay bastante ahí, verdad!? Filtremos esto aún más con <a href="https://en.wikipedia.org/wiki/Grep" target="_blank" rel="noopener">Grep</a> para identificar <em>solo</em> las interfaces que pertenecen al package <code>rigsa_interfaces</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span>-s<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>rigsa_interfaces
 </code></pre></div>
 <p>Con suerte, la interface <code>srv/NumberGame</code> ahora aparece en la lista.</p>
 </li>
 <li>
 <p>Usa el subcomando <code>show</code> para <em>mostrar</em> la estructura del mensaje:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>tuos_interfaces/srv/NumberGame
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>rigsa_interfaces/srv/NumberGame
 </code></pre></div>
 </li>
 </ol>
@@ -3837,7 +3972,7 @@
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>bool success     &lt;-- Response (3 de 3)
 </code></pre></div>
 <p>Para <em>llamar</em> a un service, necesitamos proporcionarle datos en el formato especificado en la sección de <strong>Request</strong> de la interface. El <em>Server</em> del service enviará datos de vuelta al llamante en el formato especificado en la sección de <strong>Response</strong> de la interface.</p>
-<p>La interface de service <code>tuos_interfaces/srv/NumberGame</code> tiene solo <strong>un</strong> parámetro de request:</p>
+<p>La interface de service <code>rigsa_interfaces/srv/NumberGame</code> tiene solo <strong>un</strong> parámetro de request:</p>
 <ol>
 <li><code>guess</code>: un <code>int32</code> (entero de 32 bits)<br>
     ...que es lo único que necesitamos enviar al Service Server <code>/number_game_service</code> para llamarlo.</li>
@@ -3856,11 +3991,11 @@
 <ol>
 <li>
 <p>Para empezar, enviemos una suposición inicial de <code>0</code> y veamos qué sucede:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>tuos_interfaces/srv/NumberGame<span class="w"> </span><span class="s2">"{guess: 0}"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>rigsa_interfaces/srv/NumberGame<span class="w"> </span><span class="s2">"{guess: 0}"</span>
 </code></pre></div>
 <p>La request nos será devuelta como eco, seguida de una response, que probablemente se verá algo así, y que nos muestra el valor de los tres parámetros de response que identificamos arriba:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>response:
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>tuos_interfaces.srv.NumberGame_Response(guesses=1, hint='Higher', success=False)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>rigsa_interfaces.srv.NumberGame_Response(guesses=1, hint='Higher', success=False)
 </code></pre></div>
 <ol>
 <li><code>guesses</code>: nos dice cuántas veces hemos intentado adivinar el número en total (solo una vez hasta ahora)</li>
@@ -3870,7 +4005,7 @@
 </li>
 <li>
 <p>Realiza otra llamada al service, esta vez cambiando el valor de tu <code>guess</code>, por ejemplo:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>tuos_interfaces/srv/NumberGame<span class="w"> </span><span class="s2">"{guess: 10}"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/guess_the_number<span class="w"> </span>rigsa_interfaces/srv/NumberGame<span class="w"> </span><span class="s2">"{guess: 10}"</span>
 </code></pre></div>
 </li>
 <li>
@@ -3995,7 +4130,7 @@
 </ol>
 </li>
 <li>
-<p>Verifiquemos que esto funcionó, usando el CLI de <code>ros2</code> (de la misma manera que hicimos antes cuando interrogamos <code>tuos_interfaces/srv/NumberGame</code>):</p>
+<p>Verifiquemos que esto funcionó, usando el CLI de <code>ros2</code> (de la misma manera que hicimos antes cuando interrogamos <code>rigsa_interfaces/srv/NumberGame</code>):</p>
 <ol>
 <li>
 <p>Primero, <em>lista</em> todas las interfaces de service de ROS disponibles en el sistema (¡recuerda usar <code>-s</code> para filtrar por tipos de interfaces de <em>service</em>!):</p>
@@ -4013,7 +4148,7 @@
 </li>
 </ol>
 <h4 id="ex4"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 4: Adaptar el Server del Juego de Números<a class="headerlink" href="#ex4" title="Permanent link">¶</a></h4>
-<p>Vamos a tomar una copia del nodo server <code>tuos_examples/number_game.py</code> ahora, y adaptarlo para usar la interface de service que creamos arriba.</p>
+<p>Vamos a tomar una copia del nodo server <code>rigsa_examples/number_game.py</code> ahora, y adaptarlo para usar la interface de service que creamos arriba.</p>
 <ol>
 <li>
 <p>Todavía en <strong>TERMINAL 1</strong>, navega hasta el directorio <code>part4_services/scripts</code>:</p>
@@ -4022,7 +4157,7 @@
 </li>
 <li>
 <p>Copia el script <code>number_game.py</code> del repositorio del curso aquí, renombrándolo como <code>my_number_game.py</code> al mismo tiempo:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cp<span class="w"> </span>../../tuos_ros/tuos_examples/scripts/number_game.py<span class="w"> </span>./my_number_game.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cp<span class="w"> </span>../../rigsa_ros/rigsa_examples/scripts/number_game.py<span class="w"> </span>./my_number_game.py
 </code></pre></div>
 <p>Este archivo ya debería tener permisos de <em>ejecución</em>, pero <a href="../part1/#chmod">siempre vale la pena verificarlo</a>...</p>
 </li>
@@ -4053,7 +4188,7 @@
 <p>Abre el nodo <code>my_number_game.py</code> en VS Code y revísalo.</p>
 </li>
 <li>
-<p>Tal como está, el nodo importa la interface de service <code>NumberGame</code> de <code>tuos_interfaces</code>, así que necesitarás cambiar esto para usar la interface de tu propio package ahora:</p>
+<p>Tal como está, el nodo importa la interface de service <code>NumberGame</code> de <code>rigsa_interfaces</code>, así que necesitarás cambiar esto para usar la interface de tu propio package ahora:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">part4_services.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyNumberGame</span>
 </code></pre></div>
 <p>También necesitarás cambiar la definición de <code>srv_type</code>, cuando el service se crea en <code class="highlight"><span class="fm">__init__</span><span class="p">()</span></code>:</p>
@@ -4186,7 +4321,7 @@
 <p>Claramente, los ejemplos con los que hemos estado trabajando hasta ahora han sido bastante triviales: ¡es poco probable que alguna vez necesites programar un robot para jugar el juego de números! Sin embargo, el objetivo ha sido ilustrar cómo funcionan los ROS Services y cómo desarrollar los propios. </p>
 <p>Sin embargo, una aplicación que <em>puede</em> resultarte útil es el <em>guardado de mapas</em>. En la Parte 3 aprendimos sobre SLAM, donde condujimos un robot por un entorno mientras los algoritmos SLAM trabajaban en segundo plano para generar un mapa del mundo usando datos del sensor LiDAR del robot y su sistema de odometría:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/slam_steps.png" data-desc-position="bottom"><img alt="" src="../part3/slam_steps.png" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_steps.png" width="500px"></a></p>
 </figure>
 <p>Habiendo mapeado el entorno, llamamos al nodo <code>map_saver_cli</code> del package <code>nav2_map_server</code>, para guardar una copia de ese mapa en un archivo:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
@@ -4199,18 +4334,18 @@
 </li>
 <li>
 <p>En <strong>TERMINAL 1</strong>, volvamos a iniciar el <em>Nav World</em>, como lo hicimos en la Parte 3:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/nav_world.png" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
 <p>En <strong>TERMINAL 2</strong>, también volvamos a iniciar <em>Cartographer</em> (los algoritmos SLAM):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>slam.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_tb3_tools<span class="w"> </span>slam.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/cartographer_rviz1.png" data-desc-position="bottom"><img alt="" src="../part3/cartographer_rviz1.png" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/cartographer_rviz1.png" width="500px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4279,9 +4414,9 @@
 </ul>
 </li>
 <li>
-<p>Para más orientación <a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services" target="_blank">consulta aquí para un ejemplo de uso</a>.</p>
+<p>Para más orientación <a href="https://github.com/ros-navigation/navigation2/blob/main/nav2_map_server/README.md#services" target="_blank" rel="noopener">consulta aquí para un ejemplo de uso</a>.</p>
 </li>
-<li>El server aplicará <a href="https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html" target="_blank">sus propios valores predeterminados a ciertos atributos de la request</a>, si no son definidos explícitamente por un client.</li>
+<li>El server aplicará <a href="https://docs.nav2.org/configuration/packages/map_server/configuring-map-saver.html" target="_blank" rel="noopener">sus propios valores predeterminados a ciertos atributos de la request</a>, si no son definidos explícitamente por un client.</li>
 </ol>
 </li>
 </ol>
@@ -4293,7 +4428,7 @@
 </code></pre></div>
 <p>... lo que resultó en algo como:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/slam_map.png" data-desc-position="bottom"><img alt="" src="../part3/slam_map.png" width="300px"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_map.png" width="300px"></a>
   </p>
 <figcaption>El archivo <code>MAP_NAME.pgm</code></figcaption>
 </figure>
@@ -4319,7 +4454,7 @@
 <p>Recuerda: también puedes usar el comando <code>wsl_ros restore</code> en cualquier momento.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:tb3_sound">
-<p>En los Waffles reales, existe un service llamado <code>/sound</code>. Échale un vistazo la próxima vez que estés en el laboratorio... Una vez que hayas trabajado toda la Parte 4, sabrás exactamente cómo interrogar este service y aprovechar la funcionalidad que proporciona.&nbsp;<a class="footnote-backref" href="#fnref:tb3_sound" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>En los robots reales del laboratorio, puede existir un service de audio. Échale un vistazo la próxima vez que estés en el laboratorio... Una vez que hayas trabajado toda la Parte 4, sabrás exactamente cómo interrogar services y aprovechar la funcionalidad que proporcionan.&nbsp;<a class="footnote-backref" href="#fnref:tb3_sound" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 <li id="fn:launch-adv">
 <p>¡Puedes! Podemos usar launch files para iniciar <em>otros</em> launch files, <a href="../extras/launch-files/">consulta aquí para más información</a>.&nbsp;<a class="footnote-backref" href="#fnref:launch-adv" title="Jump back to footnote 3 in the text">↩</a></p>
@@ -4340,8 +4475,37 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -4410,7 +4574,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4440,14 +4604,30 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

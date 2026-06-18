@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parte 6: Cámaras, Visión Artificial y OpenCV - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Aprende a trabajar con imágenes de la cámara de un robot. Aprende técnicas para detectar características en estas imágenes y utiliza esto para informar la toma de decisiones del robot.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part6.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/course/part6/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Parte 6: Cámaras, Visión Artificial y OpenCV - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Aprende a trabajar con imágenes de la cámara de un robot. Aprende técnicas para detectar características en estas imágenes y utiliza esto para informar la toma de decisiones del robot.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part6.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -373,7 +388,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1263,15 +1278,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1619,6 +1634,8 @@
       
         
       
+        
+      
     
     
     
@@ -1744,6 +1761,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2829,7 +2874,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2851,7 +2896,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -3043,6 +3088,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3111,7 +3162,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -3433,6 +3484,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3499,15 +3634,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#enlaces-rapidos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
+        Enlaces Rápidos
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Links">
+    <nav class="md-nav" aria-label="Enlaces Rápidos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3867,7 +4002,7 @@
 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19.03 7.39 1.42-1.42c-.45-.51-.9-.97-1.41-1.41L17.62 6c-1.55-1.26-3.5-2-5.62-2a9 9 0 0 0 0 18c5 0 9-4.03 9-9 0-2.12-.74-4.07-1.97-5.61M13 14h-2V7h2zm2-13H9v2h6z"></path></svg></span> <strong>Tiempo Estimado de Finalización</strong>: 2 horas<br>
 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 8 8c0 2.4-1 4.5-2.7 6-1.4-1.3-3.3-2-5.3-2s-3.8.7-5.3 2C5 16.5 4 14.4 4 12a8 8 0 0 1 8-8m-2 2a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m4 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m3.09 2.94c-.13 0-.25.03-.39.06l-3.2 1.32-.27.11c-.56-.43-1.32-.55-1.98-.28a1.99 1.99 0 0 0-1.1 2.6 1.99 1.99 0 0 0 2.6 1.1c.66-.26 1.13-.85 1.25-1.57l.23-.1 3.22-1.3.02-.01c.53-.21.76-.79.56-1.31a1 1 0 0 0-.94-.62M7 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1"></path></svg></span> <strong>Nivel de Dificultad</strong>: Avanzado </p>
 <h3 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">¶</a></h3>
-<p>En esta parte del curso utilizaremos la cámara del Waffle y veremos cómo trabajar con imágenes en ROS. Aquí aprenderemos a construir nodes ROS que capturen y procesen imágenes. Exploraremos algunas formas en que estos datos pueden utilizarse para informar la toma de decisiones en aplicaciones robóticas.  </p>
+<p>En esta parte del curso utilizaremos la cámara del robot y veremos cómo trabajar con imágenes en ROS. Aquí aprenderemos a construir nodes ROS que capturen y procesen imágenes. Exploraremos algunas formas en que estos datos pueden utilizarse para informar la toma de decisiones en aplicaciones robóticas.  </p>
 <h3 id="resultados-de-aprendizaje-esperados">Resultados de Aprendizaje Esperados<a class="headerlink" href="#resultados-de-aprendizaje-esperados" title="Permanent link">¶</a></h3>
 <p>Al finalizar esta sesión serás capaz de:</p>
 <ol>
@@ -3877,7 +4012,7 @@
 <li>Desarrollar nodes de detección de objetos y aprovechar la información generada por estos procesos para controlar la posición de un robot.</li>
 <li>Usar datos de la cámara como señal de retroalimentación para implementar un comportamiento de seguimiento de línea usando control proporcional.</li>
 </ol>
-<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h3>
+<h3 id="enlaces-rapidos">Enlaces Rápidos<a class="headerlink" href="#enlaces-rapidos" title="Permanent link">¶</a></h3>
 <h4 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">¶</a></h4>
 <ul>
 <li><a href="#ex1">Ejercicio 1: Usar el node <code>rqt_image_view</code> mientras se cambia el punto de vista del robot</a></li>
@@ -3902,11 +4037,11 @@
 <p>Verifica que el Repositorio del Curso esté actualizado antes de comenzar estos ejercicios. <a href="../extras/course-repo/#updating">Consulta aquí cómo actualizar</a>. </p>
 <p><strong>Paso 5: Iniciar la Simulación del Robot</strong></p>
 <p>En esta sesión comenzaremos trabajando con el mismo entorno de <em>mundo misterioso</em> de la Parte 5. En <strong>TERMINAL 1</strong>, usa el siguiente comando para cargarlo:</p>
-<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>coloured_pillars.launch.py
+<p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>coloured_pillars.launch.py
 </code></pre></div>
 ...y luego espera a que se abra la ventana de Gazebo:<p></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/gz/coloured_pillars.png" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a></p>
 </figure>
 <h2 id="trabajando-con-camaras-e-imagenes-en-ros">Trabajando con Cámaras e Imágenes en ROS<a class="headerlink" href="#trabajando-con-camaras-e-imagenes-en-ros" title="Permanent link">¶</a></h2>
 <h3 id="topics-de-camara-y-datos">Topics de Cámara y Datos<a class="headerlink" href="#topics-de-camara-y-datos" title="Permanent link">¶</a></h3>
@@ -3958,11 +4093,11 @@
 <h3 id="viz">Visualizando Flujos de Cámara<a class="headerlink" href="#viz" title="Permanent link">¶</a></h3>
 <p>Podemos <em>ver</em> las imágenes que se transmiten al topic de cámara anterior (en tiempo real) de varias maneras diferentes, y exploraremos algunas de ellas ahora.</p>
 <p>Una forma es usar <em>RViz</em>, que puede iniciarse con el siguiente comando <code>ros2 launch</code> en <strong>TERMINAL 2</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_tb3_tools<span class="w"> </span>rviz.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
 <p>Una vez que RViz se inicie, deberías ver un panel de cámara en la esquina inferior izquierda con un flujo en vivo de las imágenes obtenidas de la cámara del robot.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rviz/waffle_antd.svg" data-desc-position="bottom"><img alt="" src="../../images/rviz/waffle_antd.svg" width="800px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Vista de RViz con el robot de simulación y datos de cámara" src="../../images/rviz/waffle_antd.svg" width="800px"></a></p>
 </figure>
 <p>Cierra RViz ingresando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 2</strong>.  </p>
 <h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Usar RQT mientras se cambia el punto de vista del robot<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
@@ -3973,13 +4108,13 @@
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rqt
 </code></pre></div>
 <figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/main.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/main.png" width="600"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/main.png" width="600"></a>
 </figure><p></p>
 </li>
 <li>
 <p>En el menú superior selecciona <code>Plugins</code> &gt; <code>Vizualisation</code> &gt; <code>Image View</code>.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/image_view_antd.svg" data-desc-position="bottom"><img alt="" src="../../images/rqt/image_view_antd.svg" width="500px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/image_view_antd.svg" width="500px"></a>
 </figure><p></p>
 <p>Esto nos permite ver fácilmente imágenes que se están publicando en cualquier topic de cámara en la red ROS. Otra característica útil es la capacidad de guardar estas imágenes (como archivos <code>.jpg</code>) en el sistema de archivos: consulta el botón "Save image" resaltado en la figura anterior. Esto podría ser útil más adelante...</p>
 </li>
@@ -3994,7 +4129,7 @@
 </li>
 </ol>
 <h2 id="opencv">OpenCV y ROS<a class="headerlink" href="#opencv" title="Permanent link">¶</a></h2>
-<p><a href="https://opencv.org/" target="_blank">OpenCV</a> es una biblioteca de visión artificial madura y poderosa diseñada para realizar análisis de imágenes en tiempo real, y por lo tanto es extremadamente útil para aplicaciones robóticas. La biblioteca es multiplataforma y tiene una API de Python (<code>cv2</code>), que usaremos para realizar algunas tareas de visión artificial por nuestra cuenta durante esta sesión de laboratorio. Si bien podemos trabajar con OpenCV usando Python de inmediato (a través de la API), la biblioteca no puede interpretar directamente el formato de imagen nativo utilizado por ROS, por lo que hay una <em>interface</em> que necesitamos usar. La interface se llama <a href="http://wiki.ros.org/cv_bridge" target="_blank">CvBridge</a>, que es un <em>package ROS</em> que maneja la conversión entre los formatos de imagen ROS y OpenCV. Por lo tanto, necesitaremos usar estas dos bibliotecas (OpenCV y CvBridge) de la mano cuando desarrollemos nodes ROS para realizar tareas relacionadas con visión artificial.</p>
+<p><a href="https://opencv.org/" target="_blank" rel="noopener">OpenCV</a> es una biblioteca de visión artificial madura y poderosa diseñada para realizar análisis de imágenes en tiempo real, y por lo tanto es extremadamente útil para aplicaciones robóticas. La biblioteca es multiplataforma y tiene una API de Python (<code>cv2</code>), que usaremos para realizar algunas tareas de visión artificial por nuestra cuenta durante esta sesión de laboratorio. Si bien podemos trabajar con OpenCV usando Python de inmediato (a través de la API), la biblioteca no puede interpretar directamente el formato de imagen nativo utilizado por ROS, por lo que hay una <em>interface</em> que necesitamos usar. La interface se llama <a href="http://wiki.ros.org/cv_bridge" target="_blank" rel="noopener">CvBridge</a>, que es un <em>package ROS</em> que maneja la conversión entre los formatos de imagen ROS y OpenCV. Por lo tanto, necesitaremos usar estas dos bibliotecas (OpenCV y CvBridge) de la mano cuando desarrollemos nodes ROS para realizar tareas relacionadas con visión artificial.</p>
 <h3 id="deteccion-de-objetos">Detección de Objetos<a class="headerlink" href="#deteccion-de-objetos" title="Permanent link">¶</a></h3>
 <p>Una tarea común que a menudo queremos que realice un robot es la <em>detección de objetos</em>, e ilustraremos cómo se puede lograr esto usando herramientas de OpenCV para <em>filtrado de color</em>, para detectar el pilar de color que tu robot debería estar mirando ahora.  </p>
 <h4 id="ex2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 2: Detección de Objetos<a class="headerlink" href="#ex2" title="Permanent link">¶</a></h4>
@@ -4082,7 +4217,7 @@
 </ol>
 <p>El código que acabamos de agregar aquí ha creado un nuevo objeto de imagen llamado <code>cropped_img</code> a partir de un subconjunto del original (<code>cv_img</code>). Esto se logró especificando una <code>crop_height</code> y <code>crop_width</code> deseadas en relación con las dimensiones originales de la imagen (en píxeles). Además, también hemos especificado <em>dónde</em> en la imagen original (en términos de coordenadas de píxeles) queremos que comience este subconjunto, usando <code>crop_y0</code> y <code>crop_z0</code>. Este proceso se ilustra en la figura siguiente:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/od1_cropping.svg" data-desc-position="bottom"><img alt="" src="ex2/od1_cropping.svg" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od1_cropping.svg" width="600px"></a></p>
 </figure>
 <p><a name="img_cropping"></a>La imagen original (<code>cv_img</code>) se recorta usando un proceso llamado <em>"slicing"</em>:</p>
 <p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cropped_img</span> <span class="o">=</span> <span class="n">cv_img</span><span class="p">[</span>
@@ -4092,37 +4227,37 @@
 </code></pre></div>
 Esto puede parecer bastante confuso, pero con suerte la figura a continuación ilustra lo que está sucediendo aquí:<p></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/img_slicing.svg" data-desc-position="bottom"><img alt="" src="ex2/img_slicing.svg" width="500px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/img_slicing.svg" width="500px"></a></p>
 </figure>
 <h5 id="paso-3-enmascaramiento">Paso 3: Enmascaramiento<a class="headerlink" href="#paso-3-enmascaramiento" title="Permanent link">¶</a></h5>
 <p>Como se discutió anteriormente, una imagen es esencialmente una serie de píxeles cada uno con un valor azul, verde y rojo asociado para representar los colores reales de la imagen. De la imagen original que acabamos de obtener y recortar, <em>ahora</em> queremos deshacernos de cualquier color que no esté asociado con el pilar que queremos que el robot detecte. Por lo tanto, necesitamos aplicar un <em>filtro</em> a los píxeles, que usaremos en última instancia para descartar cualquier dato de píxel que no esté relacionado con el pilar de color, mientras retenemos los datos que sí lo están.  </p>
-<p>Este proceso se llama <em>enmascaramiento</em> y, para lograrlo, necesitamos establecer algunos umbrales de color. Esto puede ser difícil de hacer en un espacio de color estándar Azul-Verde-Rojo (BGR) o Rojo-Verde-Azul (RGB), y puedes ver un buen ejemplo de esto en <a href="https://realpython.com/python-opencv-color-spaces/" target="_blank">este artículo de RealPython.com</a>. Aplicaremos algunos pasos discutidos en este artículo para convertir nuestra imagen recortada a un espacio de color <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">Tono-Saturación-Valor (HSV)</a> en su lugar, lo que facilita un poco el proceso de enmascaramiento de color.</p>
+<p>Este proceso se llama <em>enmascaramiento</em> y, para lograrlo, necesitamos establecer algunos umbrales de color. Esto puede ser difícil de hacer en un espacio de color estándar Azul-Verde-Rojo (BGR) o Rojo-Verde-Azul (RGB), y puedes ver un buen ejemplo de esto en <a href="https://realpython.com/python-opencv-color-spaces/" target="_blank" rel="noopener">este artículo de RealPython.com</a>. Aplicaremos algunos pasos discutidos en este artículo para convertir nuestra imagen recortada a un espacio de color <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank" rel="noopener">Tono-Saturación-Valor (HSV)</a> en su lugar, lo que facilita un poco el proceso de enmascaramiento de color.</p>
 <ol>
 <li>
 <p>Primero, analiza los valores de <em>Tono</em> y <em>Saturación</em> de la imagen recortada. Para hacer esto, navega al directorio <code>~/object_detection</code>, donde se están guardando todas las imágenes sin procesar:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cd</span><span class="w"> </span>~/object_detection
 </code></pre></div>
-<p>Luego, ejecuta el siguiente node ROS (del package <code>tuos_examples</code>), proporcionando el nombre de la imagen recortada como argumento adicional:<a name="img_cols_node"></a></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>image_colours.py<span class="w"> </span>step2_cropping.jpg
+<p>Luego, ejecuta el siguiente node ROS (del package <code>rigsa_examples</code>), proporcionando el nombre de la imagen recortada como argumento adicional:<a name="img_cols_node"></a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rigsa_examples<span class="w"> </span>image_colours.py<span class="w"> </span>step2_cropping.jpg
 </code></pre></div>
 </li>
 <li>
 <p>El node debería producir un diagrama de dispersión, ilustrando los valores de Tono y Saturación de cada uno de los píxeles en la imagen. Cada punto de datos en el gráfico representa un solo píxel de la imagen y cada uno está coloreado para coincidir con su valor RGB:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/od2_hs_scatter.png" data-desc-position="bottom"><img alt="" src="ex2/od2_hs_scatter.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od2_hs_scatter.png" width="600px"></a>
 </figure><p></p>
 </li>
 <li>
 <p>Deberías ver en la imagen que todos los píxeles relacionados con el pilar de color que queremos detectar están agrupados juntos. Podemos usar esta información para especificar un rango de valores de Tono y Saturación que se pueden usar para enmascarar nuestra imagen: filtrando cualquier color que esté fuera de este rango y permitiéndonos aislar el pilar en sí. Los píxeles también tienen un <em>Valor</em> (o <em>"Brillo"</em>), que no se muestra en este gráfico. Como regla general, un rango de valores de brillo entre 100 y 255 generalmente funciona bastante bien.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/od3_hs_thresholds.svg" data-desc-position="bottom"><img alt="" src="ex2/od3_hs_thresholds.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od3_hs_thresholds.svg" width="600px"></a>
 </figure><p></p>
 <p>En este caso entonces, seleccionamos los umbrales HSV superior e inferior de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">lower_threshold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">115</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">upper_threshold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
 </code></pre></div>
 <p>Usa el gráfico que has generado tú mismo para determinar tus <em>propios</em> umbrales superior e inferior. <a name="bw_and"></a></p>
-<p>OpenCV contiene una función integrada para detectar qué píxeles de una imagen caen dentro de un rango HSV especificado: <code>cv2.inRange()</code>. Esto produce una matriz, del mismo tamaño y forma que el número de píxeles en la imagen, pero que contiene solo valores <code>True</code> (<code>1</code>) o <code>False</code> (<code>0</code>), que ilustran qué píxeles <em>sí</em> tienen un valor dentro del rango especificado y cuáles no. Esto se conoce como una <em>Máscara Booleana</em> (esencialmente, una serie de unos o ceros). Luego podemos aplicar esta máscara a la imagen, usando una operación <a href="https://en.wikipedia.org/wiki/Bitwise_operation#AND" target="_blank">Bitwise AND</a>, para deshacernos de cualquier píxel de imagen cuyo valor de máscara sea <code>False</code> y mantener cualquiera marcado como <code>True</code> (o <em>dentro del rango</em>).</p>
+<p>OpenCV contiene una función integrada para detectar qué píxeles de una imagen caen dentro de un rango HSV especificado: <code>cv2.inRange()</code>. Esto produce una matriz, del mismo tamaño y forma que el número de píxeles en la imagen, pero que contiene solo valores <code>True</code> (<code>1</code>) o <code>False</code> (<code>0</code>), que ilustran qué píxeles <em>sí</em> tienen un valor dentro del rango especificado y cuáles no. Esto se conoce como una <em>Máscara Booleana</em> (esencialmente, una serie de unos o ceros). Luego podemos aplicar esta máscara a la imagen, usando una operación <a href="https://en.wikipedia.org/wiki/Bitwise_operation#AND" target="_blank" rel="noopener">Bitwise AND</a>, para deshacernos de cualquier píxel de imagen cuyo valor de máscara sea <code>False</code> y mantener cualquiera marcado como <code>True</code> (o <em>dentro del rango</em>).</p>
 </li>
 <li>
 <p>Para hacer esto, primero localiza la siguiente línea en tu node <code>object_detection.py</code>:</p>
@@ -4144,7 +4279,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <p>Como se muestra en la figura a continuación, la tercera imagen debería ser simplemente una representación en blanco y negro de la imagen recortada, donde las regiones blancas deberían indicar las áreas de la imagen donde los valores de píxeles caen dentro del rango HSV especificado anteriormente. </p>
 <p>Observa (en el texto impreso en el terminal) que la imagen recortada y la máscara de imagen tienen las mismas dimensiones, pero el archivo de máscara de imagen tiene un tamaño de archivo significativamente menor. Si bien la máscara contiene el mismo <em>número</em> de píxeles, estos píxeles solo tienen un valor de <code>1</code> o <code>0</code>, mientras que, en la imagen recortada del mismo tamaño en píxeles, cada píxel tiene un valor Rojo, Verde y Azul: cada uno con un rango entre <code>0</code> y <code>255</code>, lo que representa significativamente más datos.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/od4_masking.svg" data-desc-position="bottom"><img alt="" src="ex2/od4_masking.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od4_masking.svg" width="600px"></a>
 </figure><p></p>
 </li>
 </ol>
@@ -4166,13 +4301,13 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <li>
 <p>Ejecuta este node nuevamente, y ahora también debería generarse una cuarta imagen, esta vez mostrando la imagen recortada tomada de la cámara del robot, pero que solo contiene datos relacionados con el pilar de color, con todos los demás datos de imagen de fondo eliminados (y renderizados en negro):</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/od5_filtering.svg" data-desc-position="bottom"><img alt="" src="ex2/od5_filtering.svg" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od5_filtering.svg" width="600px"></a>
 </figure><p></p>
 </li>
 </ol>
 <h3 id="momentos-de-imagen">Momentos de Imagen<a class="headerlink" href="#momentos-de-imagen" title="Permanent link">¶</a></h3>
 <p>Ahora has aislado exitosamente un objeto de interés dentro del campo de visión de tu robot, pero quizás queremos hacer que nuestro robot se mueva hacia él, o, por el contrario, hacer que nuestro robot navegue alrededor de él y evite chocar con él. Por lo tanto, también necesitamos saber la <em>posición</em> del objeto en relación con el punto de vista del robot, y podemos hacer esto usando <strong>momentos de imagen</strong>.</p>
-<p>El trabajo que acabamos de hacer arriba nos llevó a obtener lo que se conoce como un <em>blob de color</em>. OpenCV también tiene herramientas integradas que nos permiten calcular el <em>centroide</em> de un blob de color como este, lo que nos permite determinar exactamente dónde dentro de una imagen se encuentra el objeto de interés (en términos de píxeles). Esto se hace usando el principio de <em>momentos de imagen</em>: esencialmente parámetros estadísticos relacionados con una imagen, que nos indican cómo se distribuye una colección de píxeles (es decir, el blob de color que acabamos de aislar) dentro de ella. <a href="https://theailearner.com/tag/image-moments-opencv-python/" target="_blank">Puedes leer más sobre los Momentos de Imagen aquí</a>. Usando este proceso, las coordenadas centrales de un blob de color se pueden obtener considerando algunos momentos clave de la <em>máscara de imagen</em> que obtuvimos anteriormente del umbralado:</p>
+<p>El trabajo que acabamos de hacer arriba nos llevó a obtener lo que se conoce como un <em>blob de color</em>. OpenCV también tiene herramientas integradas que nos permiten calcular el <em>centroide</em> de un blob de color como este, lo que nos permite determinar exactamente dónde dentro de una imagen se encuentra el objeto de interés (en términos de píxeles). Esto se hace usando el principio de <em>momentos de imagen</em>: esencialmente parámetros estadísticos relacionados con una imagen, que nos indican cómo se distribuye una colección de píxeles (es decir, el blob de color que acabamos de aislar) dentro de ella. <a href="https://theailearner.com/tag/image-moments-opencv-python/" target="_blank" rel="noopener">Puedes leer más sobre los Momentos de Imagen aquí</a>. Usando este proceso, las coordenadas centrales de un blob de color se pueden obtener considerando algunos momentos clave de la <em>máscara de imagen</em> que obtuvimos anteriormente del umbralado:</p>
 <ul>
 <li><span class="arithmatex">\(M_{00}\)</span>: la suma de todos los píxeles no nulos en la máscara de imagen (es decir, el tamaño del blob de color, en píxeles)</li>
 <li><span class="arithmatex">\(M_{10}\)</span>: la suma de todos los píxeles no nulos en el eje horizontal (y), ponderada por el número de <em>fila</em></li>
@@ -4194,23 +4329,23 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <p>Estamos sumando un número muy pequeño al momento <span class="arithmatex">\(M_{00}\)</span> aquí para asegurarnos de que el divisor en las ecuaciones anteriores nunca sea cero y así garantizar que nunca nos sorprenda ningún error de "división por cero". ¿Por qué podría ser esto necesario?</p>
 </div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="ex2/od6_centroid.svg" data-desc-position="bottom"><img alt="" src="ex2/od6_centroid.svg" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od6_centroid.svg" width="600px"></a></p>
 </figure>
 <p>Una vez más, hay una herramienta integrada de OpenCV que podemos usar para agregar un círculo en una imagen para ilustrar la ubicación del centroide dentro del campo de visión del robot: <code>cv2.circle()</code>. Así es como produjimos el círculo rojo que puedes ver en la figura anterior. Puedes ver cómo se implementa esto aquí:</p>
 <p></p><center><a class="md-button" href="object_detection_complete/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Un ejemplo completo del node <code>object_detection.py</code></a></center> <p></p>
 <p>En nuestro caso, en realidad no podemos cambiar la posición de nuestro robot en el eje z, por lo que el componente de centroide <code>cz</code> aquí puede no ser tan importante para nosotros con fines de navegación. Sin embargo, es posible que queramos usar la coordenada de centroide <code>cy</code> para entender dónde se encuentra una característica <em>horizontalmente</em> en el campo de visión de nuestro robot, y usar esta información para girar hacia ella (o alejarse de ella, dependiendo de lo que estemos tratando de lograr). Podemos entonces usar esto como base para un <strong>control de bucle cerrado</strong> real.</p>
 <h4 id="ex3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 3: Usar Momentos de Imagen para el Control del Robot<a class="headerlink" href="#ex3" title="Permanent link">¶</a></h4>
-<p>Dentro del package <code>tuos_examples</code> hay un node que ha sido desarrollado para ilustrar cómo todas las herramientas de OpenCV que has explorado hasta ahora podrían usarse para buscar en un entorno y detener un robot cuando está mirando directamente a un objeto de interés. Todas las herramientas utilizadas en este node deberían resultarte familiares a estas alturas, y en este ejercicio vas a hacer una copia de este node y modificarlo para mejorar su funcionalidad.</p>
+<p>Dentro del package <code>rigsa_examples</code> hay un node que ha sido desarrollado para ilustrar cómo todas las herramientas de OpenCV que has explorado hasta ahora podrían usarse para buscar en un entorno y detener un robot cuando está mirando directamente a un objeto de interés. Todas las herramientas utilizadas en este node deberían resultarte familiares a estas alturas, y en este ejercicio vas a hacer una copia de este node y modificarlo para mejorar su funcionalidad.</p>
 <p>Asegúrate de que el mundo "Coloured Pillars" siga activo y continúa con los siguientes pasos ahora en <strong>TERMINAL 2</strong>.</p>
 <ol>
 <li>
-<p>El node se llama <code>colour_search.py</code>, y se encuentra en la carpeta <code>scripts</code> del package <code>tuos_examples</code>. Cópialo en la carpeta <code>scripts</code> de tu propio package <code>part6_vision</code> asegurándote primero de estar ubicado en la carpeta de destino deseada:</p>
+<p>El node se llama <code>colour_search.py</code>, y se encuentra en la carpeta <code>scripts</code> del package <code>rigsa_examples</code>. Cópialo en la carpeta <code>scripts</code> de tu propio package <code>part6_vision</code> asegurándote primero de estar ubicado en la carpeta de destino deseada:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/part6_vision/scripts
 </code></pre></div>
 </li>
 <li>
 <p>Luego, copia el node <code>colour_search.py</code> usando <code>cp</code> de la siguiente manera:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>cp<span class="w"> </span>~/ros2_ws/src/tuos_ros/tuos_examples/scripts/colour_search.py<span class="w"> </span>./
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>cp<span class="w"> </span>~/ros2_ws/src/rigsa_ros/rigsa_examples/scripts/colour_search.py<span class="w"> </span>./
 </code></pre></div>
 </li>
 <li>
@@ -4245,7 +4380,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <ol>
 <li>Primero es posible que quieras usar algunos de los métodos que usamos para obtener y analizar algunas imágenes de la cámara del robot:<ol>
 <li>Usa el node <code>teleop_keyboard</code> para mover manualmente el robot, haciéndolo mirar a cada pilar de color en la arena individualmente.</li>
-<li>Ejecuta el node <code>object_detection.py</code> que desarrollaste en el ejercicio anterior para capturar una imagen, recortarla, guardarla en el sistema de archivos y luego introducir esta imagen recortada en el node <code>image_colours.py</code> del package <code>tuos_examples</code> (<a href="#img_cols_node">como lo hiciste anteriormente</a>)</li>
+<li>Ejecuta el node <code>object_detection.py</code> que desarrollaste en el ejercicio anterior para capturar una imagen, recortarla, guardarla en el sistema de archivos y luego introducir esta imagen recortada en el node <code>image_colours.py</code> del package <code>rigsa_examples</code> (<a href="#img_cols_node">como lo hiciste anteriormente</a>)</li>
 <li>A partir del gráfico generado por el node <code>image_colours.py</code>, determina algunos umbrales HSV apropiados para aplicar a cada pilar de color en la arena.</li>
 </ol>
 </li>
@@ -4254,24 +4389,24 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 </li>
 </ol>
 <h3 id="pid">Control PID y Seguimiento de Línea<a class="headerlink" href="#pid" title="Permanent link">¶</a></h3>
-<p>¡El seguimiento de línea es una habilidad útil para un robot! Podemos lograrlo en nuestro TurtleBot3 usando su sistema de cámara y las técnicas de procesamiento de imágenes que se han cubierto hasta ahora en esta sesión.</p>
+<p>¡El seguimiento de línea es una habilidad útil para un robot! Podemos lograrlo en el robot de simulación usando su sistema de cámara y las técnicas de procesamiento de imágenes que se han cubierto hasta ahora en esta sesión.</p>
 <p>Un algoritmo bien establecido para el control de bucle cerrado se conoce como <strong>Control PID</strong>, y esto puede usarse para lograr dicho comportamiento de seguimiento de línea.</p>
 <p>En el corazón de esto está el principio del control de <em>Retroalimentación Negativa</em>, que considera una <strong>Entrada de Referencia</strong>, una <strong>Señal de Retroalimentación</strong> y el <strong>Error</strong> entre estas.</p>
 <p><a name="neg_fdbck_ctrl"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="pid/negative_feedback_control.png" data-desc-position="bottom"><img alt="" src="pid/negative_feedback_control.png" width="500"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/negative_feedback_control.png" width="500"></a>
   </p>
 <figcaption>
     Control de Retroalimentación Negativa<br>
     Adaptado de <a href="https://commons.wikimedia.org/wiki/File:PID_en.svg">Arturo Urquizo</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>, via Wikimedia Commons
   </figcaption>
 </figure>
-<p>La <strong>Entrada de Referencia</strong> representa un estado deseado que nos gustaría que nuestro sistema mantuviera. Si queremos que nuestro TurtleBot3 siga exitosamente una línea de color en el suelo, necesitará mantener el blob de color que representa esa línea de color en el centro de su punto de vista en todo momento. El <em>estado deseado</em> sería por lo tanto mantener el centroide <code>cy</code> del blob de color en el centro de su visión.</p>
+<p>La <strong>Entrada de Referencia</strong> representa un estado deseado que nos gustaría que nuestro sistema mantuviera. Si queremos que el robot siga exitosamente una línea de color en el suelo, necesitará mantener el blob de color que representa esa línea de color en el centro de su punto de vista en todo momento. El <em>estado deseado</em> sería por lo tanto mantener el centroide <code>cy</code> del blob de color en el centro de su visión.</p>
 <p>Una <strong>Señal de Retroalimentación</strong> nos informa de cuál es el estado actual real del sistema. En nuestro caso, esta señal de retroalimentación sería la ubicación en tiempo real de la línea de color en las imágenes de cámara en vivo, es decir, su centroide <code>cy</code> (obtenido usando métodos de procesamiento como los cubiertos en el Ejercicio 3 anterior). </p>
 <p>La diferencia entre estas dos cosas es el <strong>Error</strong>, y el algoritmo de control PID nos proporciona un medio para controlar este error y minimizarlo, de modo que el estado <em>actual</em> de nuestro robot coincida con el estado <em>deseado</em>. Es decir: la línea de color siempre está en el centro de su campo de visión.</p>
 <p><a name="pid_terms"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="pid/terms.png" data-desc-position="bottom"><img alt="" src="pid/terms.png" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/terms.png" width="700px"></a></p>
 </figure>
 <p><a name="pid_eqn"></a></p>
 <p>El algoritmo PID es el siguiente:</p>
@@ -4286,12 +4421,12 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 <p>Asegúrate de que todos los procesos ROS del ejercicio anterior estén cerrados ahora, incluido el node <code>colour_search.py</code> y la simulación de Gazebo en <strong>TERMINAL 1</strong>.</p>
 </li>
 <li>
-<p>En <strong>TERMINAL 1</strong> inicia una nueva simulación del package <code>tuos_simulations</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py<span class="w"> </span>tuning:<span class="o">=</span><span class="nb">true</span>
+<p>En <strong>TERMINAL 1</strong> inicia una nueva simulación del package <code>rigsa_simulations</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>line_following.launch.py<span class="w"> </span>tuning:<span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 <p>Tu robot debería ser lanzado en una pista larga y estrecha con una línea rosa pintada en el centro del suelo:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/setup.png" data-desc-position="bottom"><img alt="" src="line_following/setup.png" width="800px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/setup.png" width="800px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4308,7 +4443,7 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 <p>La plantilla contiene tres "TODOs" que debes completar, todos los cuales se explican en detalle en las anotaciones del código, así que léelas cuidadosamente. En última instancia, todo esto lo hiciste en el <a href="#ex2">Ejercicio 2</a>, así que regresa aquí si necesitas un recordatorio de cómo funciona algo. </p>
 <p>Tu objetivo aquí es hacer que el código genere una imagen recortada, con la línea de color aislada y ubicada dentro de ella, así:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/setup_complete.jpg" data-desc-position="bottom"><img alt="" src="line_following/setup_complete.jpg"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/setup_complete.jpg"></a>
 </figure> <p></p>
 </li>
 </ol>
@@ -4320,7 +4455,7 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 <li><strong>Control "PI"</strong>: Se aplican ganancias <em>Proporcional</em> e <em>Integral</em> (<span class="arithmatex">\(K_{P}\)</span> y <span class="arithmatex">\(K_{I}\)</span>), la ganancia Diferencial se establece en cero. </li>
 <li><strong>Control "PID"</strong>: El controlador hace uso de los tres términos de ganancia (<span class="arithmatex">\(K_{P}\)</span>, <span class="arithmatex">\(K_{I}\)</span> y <span class="arithmatex">\(K_{D}\)</span>)</li>
 </ol>
-<p>Para permitir que nuestro TurtleBot3 siga una línea, en realidad solo necesitamos un <strong>Controlador "P"</strong>, por lo que nuestra ecuación de control se vuelve bastante simple, reduciéndose a:</p>
+<p>Para permitir que el robot siga una línea, en realidad solo necesitamos un <strong>Controlador "P"</strong>, por lo que nuestra ecuación de control se vuelve bastante simple, reduciéndose a:</p>
 <div class="arithmatex">\[
 u(t)=K_{P} e(t)
 \]</div>
@@ -4406,7 +4541,7 @@ u(t)=K_{P} e(t)
 <p>Una vez en ejecución, el código <em>debería</em> hacer que el robot se mueva con una velocidad lineal constante de 0.1 m/s en todo momento, mientras que su velocidad angular estará determinada por nuestro controlador proporcional, basado en el error del controlador y el parámetro de ganancia proporcional <code>kp</code>.</p>
 <p>La figura a continuación ilustra los efectos que diferentes valores de ganancia proporcional pueden tener en un sistema.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="pid/kp.png" data-desc-position="bottom"><img alt="" src="pid/kp.png" width="600"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/kp.png" width="600"></a>
   <figcaption>
     Cortesía de Prof. Roger Moore<br>
     Tomado de Clase 6: Control PID
@@ -4455,11 +4590,11 @@ u(t)=K_{P} e(t)
 </li>
 <li>
 <p>Luego, en <strong>TERMINAL 1</strong> inicia uno nuevo:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>line_following.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>line_following.launch.py
 </code></pre></div>
 <p>Tu robot debería ser lanzado a un entorno con una línea más interesante que seguir:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="line_following/advanced.png" data-desc-position="bottom"><img alt="" src="line_following/advanced.png" width="800px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/advanced.png" width="800px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4468,7 +4603,7 @@ u(t)=K_{P} e(t)
 <li>
 <p>A continuación, piensa en condiciones donde la línea inicialmente no puede verse...</p>
 <p>Como sabes, la velocidad angular se determina considerando el componente <code>cy</code> de un blob de color que representa la línea. ¿Qué sucede en situaciones donde el blob de color no está ahí? ¿Qué influencia tendría esto en las Señales de Control que calcula el controlador proporcional? Para considerar esto más a fondo, intenta lanzar el robot en la misma arena pero con una pose de inicio diferente, y piensa cómo podrías abordar esta situación:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2 launch tuos_simulations line_following.launch.py \
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ros2 launch rigsa_simulations line_following.launch.py \
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>    x_pose:=-3 y_pose:=-3 yaw:=-1.57
 </code></pre></div>
 </li>
@@ -4499,8 +4634,37 @@ u(t)=K_{P} e(t)
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 2, 2025 12:39:08 UTC"><span class="timeago" datetime="2025-01-02T12:39:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 2, 2025 12:39:08 UTC">2025-01-02</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -4569,7 +4733,7 @@ u(t)=K_{P} e(t)
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4599,14 +4763,30 @@ u(t)=K_{P} e(t)
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

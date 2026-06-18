@@ -7,7 +7,7 @@ description: "Combina odometría, LiDAR y locomoción en un único nodo que nave
 
 ## Objetivo del módulo
 
-Este módulo integra todos los conceptos aprendidos en U2–U5 en un único sistema
+Este módulo integra todos los conceptos aprendidos en U2-U5 en un único sistema
 autónomo. Al completarlo habrás construido un robot que puede:
 
 1. **Inicializarse** (levantarse con `stand_up`)
@@ -39,13 +39,13 @@ El nodo usa una **máquina de estados finita (FSM)** de 4 estados:
 | `iniciando` | Llama a `/sport/stand_up`, espera 1 s | → `navegando` |
 | `navegando` | Controlador P de dirección + avance | → `evasion` si obstáculo; → `llegado` si llegó |
 | `evasion` | Gira hasta que el frente esté libre | → `navegando` |
-| `llegado` | Detiene el robot, llama a `/sport/hello` | — (terminal) |
+| `llegado` | Detiene el robot, llama a `/sport/hello` | - (terminal) |
 
 ## Configuración del sandbox
 
 Abre el sandbox con **"Unitree U6: Autonomía Integrada"**.
 
-- Mundo: `unitree_obstacles` — 8 obstáculos en la arena
+- Mundo: `unitree_obstacles` - 8 obstáculos en la arena
 - Archivo semilla: `unitree_autonomy.py`
 - El objetivo por defecto es `(2.0, 1.5)` metros
 
@@ -85,13 +85,13 @@ a la orientación en lugar de a la distancia.
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Cambiar el objetivo"
+!!! note "Ejercicio 1 - Cambiar el objetivo"
     Cambia `X_OBJETIVO` y `Y_OBJETIVO` en `unitree_autonomy.py` para navegar a
     diferentes puntos del mapa. Prueba con `(3.0, 0.0)`, `(-2.0, 2.0)` y `(0.0, -3.0)`.
     
     Observa cómo el robot rodea los obstáculos que encuentre en el camino.
 
-!!! note "Ejercicio 2 — Múltiples waypoints"
+!!! note "Ejercicio 2 - Múltiples waypoints"
     Modifica el nodo para navegar por una **lista de objetivos** en secuencia.
     Cuando llegue al primero, el siguiente se convierte en el objetivo activo.
     
@@ -99,14 +99,14 @@ a la orientación en lugar de a la distancia.
     WAYPOINTS = [(2.0, 1.5), (-1.5, 2.0), (0.0, 0.0)]   # regresa al origen
     ```
 
-!!! note "Ejercicio 3 — Evasión con desplazamiento lateral"
+!!! note "Ejercicio 3 - Evasión con desplazamiento lateral"
     El comportamiento de evasión actual solo gira. Mejóralo: si el obstáculo
     está al frente pero hay espacio a la derecha, usa `vy < 0` para deslizarse
     hacia la derecha en lugar de girar. Aprovecha los 3 DOF del Go2/B2.
     
     Para decidir a cuál lado moverse, compara la distancia medida a ±45° del frente.
 
-!!! note "Ejercicio 4 — Comportamiento al llegar"
+!!! note "Ejercicio 4 - Comportamiento al llegar"
     En lugar de solo saludar, haz que el robot:
     1. Se detenga
     2. Gire 360° lentamente (escaneo del entorno)
@@ -116,11 +116,11 @@ a la orientación en lugar de a la distancia.
     
     Este es el núcleo de un comportamiento de "exploración".
 
-!!! note "Ejercicio 5 — Prueba en hardware real"
+!!! note "Ejercicio 5 - Prueba en hardware real"
     Si tienes acceso a un Go2 EDU o B2:
     1. Asegúrate de que `unitree_ros2_bridge.py` esté corriendo
     2. Verifica que `/odom`, `/scan` y `/sport/*` estén publicando/disponibles
-    3. Ejecuta `unitree_autonomy.py` **sin cambios** — debería funcionar igual que en sim
+    3. Ejecuta `unitree_autonomy.py` **sin cambios** - debería funcionar igual que en sim
     4. Empieza con velocidades bajas (`VEL_AVANCE_MAX = 0.15`) en tu primera prueba
 
 ## Limitaciones de la odometría en hardware real
@@ -137,7 +137,7 @@ del SDK del Go2 es suficientemente precisa.
 
 ## ¿Qué sigue?
 
-Con los módulos U1–U6 has construido un sistema de navegación autónomo completo para
+Con los módulos U1-U6 has construido un sistema de navegación autónomo completo para
 robots cuadrúpedos usando ROS 2 estándar. Los pasos siguientes para trabajo avanzado:
 
 - **SLAM + Nav2**: adaptar el stack de autonomía de `unitree_rigsa` (SLAM usando el

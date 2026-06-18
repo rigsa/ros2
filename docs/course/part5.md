@@ -66,12 +66,12 @@ Antes de hablar sobre qué son realmente los actions, vamos a ir directo al gran
 
 #### :material-pen: Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos {#ex1}
 
-Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle en un *entorno misterioso* ahora, y lo haremos lanzando Gazebo en modo *headless*, es decir, Gazebo se ejecutará en segundo plano, pero no habrá Interfaz Gráfica de Usuario (GUI) para mostrarnos cómo es realmente el entorno. Luego, usaremos un *action server* para hacer que nuestro robot escanee el entorno y tome fotos por nosotros, ¡para revelar su entorno!
+Vamos a jugar un pequeño juego aquí. Vamos a lanzar el robot de simulación en un *entorno misterioso* ahora, y lo haremos lanzando Gazebo en modo *headless*, es decir, Gazebo se ejecutará en segundo plano, pero no habrá Interfaz Gráfica de Usuario (GUI) para mostrarnos cómo es realmente el entorno. Luego, usaremos un *action server* para hacer que nuestro robot escanee el entorno y tome fotos por nosotros, ¡para revelar su entorno!
 
-1. Para lanzar el TurtleBot3 Waffle en este *entorno misterioso*, usa el siguiente comando `ros2 launch` en **TERMINAL 1**:
+1. Para lanzar el robot de simulación en este *entorno misterioso*, usa el siguiente comando `ros2 launch` en **TERMINAL 1**:
 
     ```bash
-    ros2 launch tuos_simulations mystery_world.launch.py
+    ros2 launch rigsa_simulations mystery_world.launch.py
     ```
     
     ... ¡aparentemente no ocurrirá *nada* (por ahora)!
@@ -81,7 +81,7 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
     La salida de esto debería confirmar que ROS y nuestro robot están efectivamente activos...
 
     ??? question "¿Cómo?"
-        Cuando el robot está activo, la salida del comando `ros2 topic list` debería proporcionar una larga lista de topics, varios de los cuales hemos estado trabajando a lo largo de este curso, como `cmd_vel`, `odom`, `scan`, y así sucesivamente. Si la simulación del Waffle *no* está activa, se nos presentaría una lista mucho más pequeña, que contiene solo los topics básicos de ROS:
+        Cuando el robot está activo, la salida del comando `ros2 topic list` debería proporcionar una larga lista de topics, varios de los cuales hemos estado trabajando a lo largo de este curso, como `cmd_vel`, `odom`, `scan`, y así sucesivamente. Si la simulación del robot *no* está activa, se nos presentaría una lista mucho más pequeña, que contiene solo los topics básicos de ROS:
 
         ***
         **TERMINAL 2:**
@@ -95,7 +95,7 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
 1. A continuación (aún en **TERMINAL 2**), ejecuta el siguiente comando para lanzar un *Action Server* en la red:
 
     ```bash
-    ros2 run tuos_examples camera_sweep_action_server.py
+    ros2 run rigsa_examples camera_sweep_action_server.py
     ```
     
 1. Ahora, abre *otra* nueva instancia de terminal (**TERMINAL 3**), de manera que puedas ver esta y la **TERMINAL 2** lado a lado. Ingresa el siguiente comando para *listar* todos los actions que están activos en la red de ROS:
@@ -122,7 +122,7 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
     Action: /camera_sweep
     Action clients: 0
     Action servers: 1
-        /camera_sweep_action_server [tuos_interfaces/action/CameraSweep]
+        /camera_sweep_action_server [rigsa_interfaces/action/CameraSweep]
     ```
 
     El argumento `-t` muestra adicionalmente el *tipo* de action frente al node servidor, indicándonos el tipo de *interface* utilizada por el servidor.
@@ -130,13 +130,13 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
 1. Ahora busquemos más información sobre la interface en sí. Al igual que con cualquier interface (mensaje, service o action) podemos usar el comando `ros2 interface` para esto. En **TERMINAL 3** ingresa lo siguiente:
 
     ```bash
-    ros2 interface show tuos_interfaces/action/CameraSweep
+    ros2 interface show rigsa_interfaces/action/CameraSweep
     ```
     
     Lo cual debería presentarnos lo siguiente:
 
     ```txt
-    --8<-- "https://raw.githubusercontent.com/tom-howard/tuos_ros/refs/heads/jazzy/tuos_interfaces/action/CameraSweep.action"
+    --8<-- "https://raw.githubusercontent.com/rigsa/rigsa_ros/refs/heads/jazzy/rigsa_interfaces/action/CameraSweep.action"
     ```
     
     Hay tres partes en una interface de action, y hablaremos sobre estas con más detalle en breve, pero por ahora, todo lo que necesitamos saber es que para *llamar* a un action, necesitamos enviar al action server un **Goal**.
@@ -176,7 +176,7 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
     Sabemos por nuestra investigación anterior con los comandos `ros2 action list`, `info` y `ros2 interface show` cómo proporcionar los datos correctos aquí:
     
     1. `action_name`: `/camera_sweep`
-    1. `action_type`: `tuos_interfaces/action/CameraSweep`
+    1. `action_type`: `rigsa_interfaces/action/CameraSweep`
     1. `goal`: un paquete de datos (en formato YAML) que contiene dos parámetros:
         1. `sweep_angle`: el ángulo (en grados) que el robot rotará en su lugar (es decir, el 'barrido')
         1. `image_count`: el número de imágenes que capturará desde su cámara frontal mientras realiza el 'barrido'
@@ -184,7 +184,7 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
 1. Ahora, de nuevo en **TERMINAL 3**, intenta usar el comando `ros2 action send_goal`, pero vigila la **TERMINAL 2** mientras lo haces:
 
     ``` { .bash .no-copy }
-    ros2 action send_goal /camera_sweep tuos_interfaces/action/CameraSweep \
+    ros2 action send_goal /camera_sweep rigsa_interfaces/action/CameraSweep \
         "{sweep_angle: 0, image_count: 0}"
     ```
 
@@ -235,7 +235,7 @@ Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle 
 1. Hagamos esto una vez más. Cierra la ventana de `eog`, regresa a **TERMINAL 3** y emite el comando `ros2 action send_goal` nuevamente, pero esta vez usa el flag opcional `-f`: <a name="send_goal_cli"></a>
 
     ```bash
-    ros2 action send_goal -f /camera_sweep tuos_interfaces/action/CameraSweep \
+    ros2 action send_goal -f /camera_sweep rigsa_interfaces/action/CameraSweep \
         "{sweep_angle: 0, image_count: 0}" 
     ```
 
@@ -265,11 +265,11 @@ Al igual que los Services, las Interfaces de Action tienen múltiples partes, y 
 Ejecutamos `ros2 interface show` en el ejercicio anterior, para interrogar la interface de action utilizada por el action server `/camera_sweep`:
 
 ```txt
-ros2 interface show tuos_interfaces/action/CameraSweep
+ros2 interface show rigsa_interfaces/action/CameraSweep
 ```
 
 ``` { .txt .no-copy }
---8<-- "https://raw.githubusercontent.com/tom-howard/tuos_ros/refs/heads/jazzy/tuos_interfaces/action/CameraSweep.action"
+--8<-- "https://raw.githubusercontent.com/rigsa/rigsa_ros/refs/heads/jazzy/rigsa_interfaces/action/CameraSweep.action"
 ```
 
 Como sabemos del Ejercicio 1, para llamar a este action server necesitamos enviar un **goal**, y (en este caso) hay **dos** parámetros de goal que deben proporcionarse:
@@ -292,7 +292,7 @@ En el ejercicio anterior *llamamos* a un Action Server preexistente desde la lí
 1. En **TERMINAL 1** lanza la simulación del *mundo misterioso* nuevamente, pero esta vez con un argumento adicional:
 
     ```txt
-    ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
+    ros2 launch rigsa_simulations mystery_world.launch.py with_gui:=true
     ```
 
     Con el switch `with_gui` configurado en `true`, ahora deberíamos poder *ver* realmente el mundo simulado esta vez.
@@ -305,7 +305,7 @@ En el ejercicio anterior *llamamos* a un Action Server preexistente desde la lí
 1. Luego, en **TERMINAL 2**, lanza el Camera Sweep Action Server nuevamente:
 
     ```bash
-    ros2 run tuos_examples camera_sweep_action_server.py
+    ros2 run rigsa_examples camera_sweep_action_server.py
     ```
 
 #### Parte 1: Un Action Client Mínimo
@@ -618,7 +618,7 @@ Hasta ahora hemos visto cómo llamar a un action server preexistente, pero ¿qu�
 Para empezar, echa un vistazo al Action Server con el que has estado trabajando en los ejercicios anteriores. Has estado lanzándolo con el siguiente comando:
 
 ``` { .bash .no-copy }
-ros2 run tuos_examples camera_sweep_action_server.py
+ros2 run rigsa_examples camera_sweep_action_server.py
 ```
 
 !!! question "Preguntas"
@@ -827,7 +827,7 @@ En el Ejercicio 2 creamos el paquete `part5_actions`. Dentro de este paquete aho
 Cuando quieras probar las cosas, ¿por qué no usar el entorno *Nav World* de la Parte 3 (en **TERMINAL 1**)?:
 
 ```bash
-ros2 launch tuos_simulations nav_world.launch.py
+ros2 launch rigsa_simulations nav_world.launch.py
 ```
 
 <figure markdown>

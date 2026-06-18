@@ -11,7 +11,7 @@ Las instrucciones a continuación te guiarán a través de estos primeros pasos 
 
 ## Configurar el Paquete de ROS de tu Equipo
 
-Como se discute en [la Descripción General de la Asignación #2](./README.md), todo lo que tu equipo entregue para esta asignación de laboratorio debe estar contenido dentro de un único paquete de ROS. Dentro de este desarrollarás todos los nodes necesarios para hacer que un TurtleBot3 Waffle complete cada una de las tareas de la asignación, así como alguna documentación para describir tu enfoque. El equipo docente evaluará cada tarea a través de *archivos de lanzamiento* que también debes proporcionar dentro de tu paquete.
+Como se discute en [la Descripción General de la Asignación #2](./README.md), todo lo que tu equipo entregue para esta asignación de laboratorio debe estar contenido dentro de un único paquete de ROS. Dentro de este desarrollarás todos los nodes necesarios para hacer que un robot de simulación complete cada una de las tareas de la asignación, así como alguna documentación para describir tu enfoque. El equipo docente evaluará cada tarea a través de *archivos de lanzamiento* que también debes proporcionar dentro de tu paquete.
 
 Sin embargo, el primer paso es crear el Paquete de ROS de tu equipo.
 

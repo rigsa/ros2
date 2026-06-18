@@ -13,7 +13,7 @@ ROS 2 es un framework de programación robótica de código abierto y estándar 
 
 ROS 2 nos permite programar robots utilizando diferentes lenguajes de programación (incluyendo C++, Java, MATLAB, etc.), pero usaremos Python en estos laboratorios. Además, ROS 2 se ejecuta sobre un sistema operativo Linux llamado *'Ubuntu'*, por lo que también aprenderemos un poco sobre cómo usarlo.
 
-Trabajaremos con robots llamados *'TurtleBot3 Waffles'*, sobre los cuales puedes [encontrar más información aquí](../about/robots.md).
+Trabajaremos con un robot diferencial de simulación. Para más información sobre los robots del laboratorio, visita la [página de robots](../about/robots.md).
 
 !!! warning "Trabajo previo al laboratorio"
     Debes haber completado el test previo al laboratorio antes de comenzar. Este está disponible en la plataforma del curso.
@@ -28,7 +28,7 @@ De aquí en adelante, nos referiremos a ROS 2 simplemente como *"ROS"* por comod
 
 Al finalizar esta sesión serás capaz de:
 
-1. Controlar un robot TurtleBot3 Waffle desde una laptop usando ROS.
+1. Controlar un robot de simulación desde una laptop usando ROS.
 1. Lanzar aplicaciones ROS en la laptop y el robot usando `ros2 launch` y `ros2 run`.
 1. Interrogar una red ROS usando herramientas *de línea de comandos* y *gráficas*.
 1. Usar métodos de comunicación de ROS para publicar mensajes.
@@ -37,7 +37,7 @@ Al finalizar esta sesión serás capaz de:
 ### Acceso rápido
 
 * [Ejercicio 1: Lanzar ROS y hacer mover al robot](#ex1)
-* [Ejercicio 2: ¡Los sensores del Waffle en acción!](#ex2)
+* [Ejercicio 2: ¡Los sensores del robot en acción!](#ex2)
 * [Ejercicio 3: Visualizar la red ROS](#ex3)
 * [Ejercicio 4: Explorar Topics y Mensajes de ROS](#ex4)
 * [Ejercicio 5: Publicar comandos de velocidad en el topic `/cmd_vel`](#ex5)
@@ -119,7 +119,7 @@ Ya deberías tener un robot y una laptop disponibles (¡de hecho, probablemente 
     ***
     **TERMINAL 1:**
     ```bash
-    ros2 launch tuos_tb3_tools ros.launch.py enable_depth:=true
+    ros2 launch rigsa_tb3_tools ros.launch.py enable_depth:=true
     ```
 
     !!! tip
@@ -192,7 +192,7 @@ Los *scripts* le dicen al robot qué hacer y cómo actuar. En ROS, estos scripts
 
 En el Ejercicio 1 lanzaste una amplia variedad de nodes en la red ROS usando los comandos `ros2 launch` y `ros2 run`:
 
-1. `ros2 launch tuos_tb3_tools ros.launch.py ...` (en el *robot*, en **TERMINAL 1**)
+1. `ros2 launch rigsa_tb3_tools ros.launch.py ...` (en el *robot*, en **TERMINAL 1**)
 1. `ros2 run rmw_zenoh_cpp rmw_zenohd` (en la *laptop*, en **TERMINAL 2**)
 1. `ros2 run turtlebot3_teleop teleop_keyboard` (en la *laptop*, en **TERMINAL 3**)
 
@@ -218,7 +218,7 @@ Aquí, **la Parte [1]** es igual que el comando `ros2 launch`, pero **la Parte [
 !!! info "Post-lab"
     ¿Cuáles fueron los nombres de los tres paquetes que invocamos en el Ejercicio 1?
 
-#### :material-pen: Ejercicio 2: ¡Los sensores del Waffle en acción! {#ex2}
+#### :material-pen: Ejercicio 2: ¡Los sensores del robot en acción! {#ex2}
 
 Nuestros Waffles tienen sensores bastante sofisticados que les permiten "ver" el mundo a su alrededor. No los utilizaremos mucho durante este laboratorio, pero este ejercicio te permitirá ver cómo los datos de estos dispositivos podrían usarse para que nuestros robots hagan cosas muy avanzadas (¡con una programación inteligente, por supuesto!)
 
@@ -248,7 +248,7 @@ Nuestros Waffles tienen sensores bastante sofisticados que les permiten "ver" el
     ***
     **TERMINAL 3:**
     ```bash
-    ros2 launch tuos_tb3_tools rviz.launch.py
+    ros2 launch rigsa_tb3_tools rviz.launch.py
     ```
     ***
     
@@ -281,7 +281,7 @@ El sensor LiDAR gira y realiza este proceso continuamente en incrementos de 1°,
     ***
     **TERMINAL 3:**
     ```bash
-    ros2 launch tuos_tb3_tools slam.launch.py
+    ros2 launch rigsa_tb3_tools slam.launch.py
     ```
     ***
 
@@ -452,7 +452,7 @@ Al igual que el comando `ros2 node list`, podemos usar `ros2 topic list` para li
 
 ### Control de Velocidad
 
-El movimiento de cualquier robot móvil se puede definir en términos de sus tres *ejes principales*: `X`, `Y` y `Z`. En el contexto de nuestro TurtleBot3 Waffle, estos ejes (y el movimiento alrededor de ellos) se definen de la siguiente manera:
+El movimiento de cualquier robot móvil se puede definir en términos de sus tres *ejes principales*: `X`, `Y` y `Z`. En el contexto del robot de simulación, estos ejes (y el movimiento alrededor de ellos) se definen de la siguiente manera:
 
 <figure markdown>
   ![](../images/waffle/principal_axes.svg){width=700px}

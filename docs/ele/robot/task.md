@@ -9,18 +9,18 @@ Desarrolla los nodes de ROS para permitir que un TurtleBot3 Waffle explore de ma
 
 Esta tarea se evalúa en un entorno del mundo real, **^^NO^^ en simulación**.
 
-!!! success "Entendiendo los Waffles"
+!!! success "Entiende el hardware del robot"
     
-    Por favor asegúrate de haber leído y entendido las siguientes secciones de la página [**"Entendiendo los Waffles"**](../../waffles/essentials.md), para asegurarte de estar completamente al tanto de cómo funcionan los robots reales:
+    Por favor asegúrate de haber leído y entendido las siguientes secciones de la página [**"Referencia del hardware"**](../../waffles/essentials.md), para asegurarte de estar completamente al tanto de cómo funcionan los robots reales:
 
     * [ ] Control de Movimiento y Velocidad
     * [ ] Lecturas de Desplazamiento Láser y el Sensor LiDAR
 
 ## Descripción General
 
-La Parte 3 del Curso de Lab de Simulación te introduce a [el sensor LiDAR del Waffle](../../course/part3.md#lidar). Este sensor es muy útil, ya que nos dice la distancia a cualquier objeto presente en el entorno del robot. Debes usar esto como base de los algoritmos de exploración y evasión de obstáculos que desarrolles para esta tarea.
+La Parte 3 del Curso de Lab de Simulación te introduce a [el sensor LiDAR del robot](../../course/part3.md#lidar). Este sensor es muy útil, ya que nos dice la distancia a cualquier objeto presente en el entorno del robot. Debes usar esto como base de los algoritmos de exploración y evasión de obstáculos que desarrolles para esta tarea.
 
-Sin embargo, ten en cuenta que el LiDAR puede generar puntos de datos *fuera de rango*, que necesitarán ser filtrados. Considera la Página *"Entendiendo los Waffles"* (vinculada arriba) así como el Ejercicio 4 de la Parte 3 ("[Construyendo una Función de Callback LaserScan](../../course/part3.md#ex4)") para formas de abordar esto. También es posible que quieras segmentar el arreglo `ranges` para poder enfocarte en algunas zonas clave alrededor del robot (por ejemplo, adelante, adelante-izquierda, adelante-derecha), y considerar los inputs/estados clave que podrías observar para diferentes escenarios en el arena y qué acciones tomar...
+Sin embargo, ten en cuenta que el LiDAR puede generar puntos de datos *fuera de rango*, que necesitarán ser filtrados. Considera la Página *"Referencia del hardware"* (vinculada arriba) así como el Ejercicio 4 de la Parte 3 ("[Construyendo una Función de Callback LaserScan](../../course/part3.md#ex4)") para formas de abordar esto. También es posible que quieras segmentar el arreglo `ranges` para poder enfocarte en algunas zonas clave alrededor del robot (por ejemplo, adelante, adelante-izquierda, adelante-derecha), y considerar los inputs/estados clave que podrías observar para diferentes escenarios en el arena y qué acciones tomar...
 
 Algunos conceptos introducidos en las clases del curso también podrían adoptarse para esto. Por ejemplo, la *Máquina de Estado Finito* define explícitamente las acciones a tomar para ciertos inputs y el estado actual. También podrías considerar los *Campos de Potencial Artificial* que mapean directamente los movimientos del robot a su posición relativa con los obstáculos.
 
@@ -66,7 +66,7 @@ Se otorgan puntos adicionales si, mientras tu robot está completando esta tarea
 Para lanzar SLAM en los robots reales debes usar:
 
 ``` bash
-ros2 launch tuos_tb3_tools slam.launch.py environment:=real
+ros2 launch rigsa_tb3_tools slam.launch.py environment:=real
 ```
 
 En la [sección "Extras" del Curso de ROS 2](../../course/extras/launch-files.md#launching-launch-files-from-launch-files) discutimos cómo usar archivos de lanzamiento para lanzar *otros* archivos de lanzamiento. ¡Considera cómo podrías adoptar un enfoque similar para ejecutar SLAM desde tu propio archivo `explore.launch.py`!

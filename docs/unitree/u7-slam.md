@@ -7,7 +7,7 @@ description: "Construye y guarda un mapa 2D del entorno con slam_toolbox usando 
 
 ## ¿Por qué necesitas un mapa?
 
-En el módulo U6 el robot navegaba usando solo odometría — sabía dónde estaba relativo a
+En el módulo U6 el robot navegaba usando solo odometría - sabía dónde estaba relativo a
 su posición inicial, pero no tenía conocimiento del entorno. Para aplicaciones
 industriales reales necesitas que el robot:
 
@@ -24,9 +24,9 @@ Para que `slam_toolbox` funcione necesita un árbol de transformadas (TF) comple
 A partir de esta versión, `sim_lite` publica automáticamente:
 
 ```
-odom → base_footprint   (dinámica, 30 Hz — posición estimada del robot)
-base_footprint → base_scan  (estática — posición del LiDAR respecto al robot)
-base_footprint → camera_link (estática — posición de la cámara)
+odom → base_footprint   (dinámica, 30 Hz - posición estimada del robot)
+base_footprint → base_scan  (estática - posición del LiDAR respecto al robot)
+base_footprint → camera_link (estática - posición de la cámara)
 ```
 
 Esto significa que puedes lanzar `slam_toolbox` directamente contra `sim_lite`
@@ -37,9 +37,9 @@ el TurtleBot3.
 
 Abre el sandbox con **"Unitree U7: SLAM y Mapeo"**.
 
-- Mundo: `unitree_inspection` — 4 pilares + obstáculos (mapa interesante)
+- Mundo: `unitree_inspection` - 4 pilares + obstáculos (mapa interesante)
 
-### Terminal 1 — Lanzar SLAM
+### Terminal 1 - Lanzar SLAM
 
 ```bash
 ros2 launch slam_toolbox online_async_launch.py \
@@ -48,7 +48,7 @@ ros2 launch slam_toolbox online_async_launch.py \
 
 Deberías ver: `[slam_toolbox]: Mapper Parameters Loaded`.
 
-### Terminal 2 — Explorar para construir el mapa
+### Terminal 2 - Explorar para construir el mapa
 
 ```bash
 cd ~/ros2_ws
@@ -60,7 +60,7 @@ ros2 run unitree_u7_slam unitree_slam.py
 El nodo mueve el robot en rectángulos concéntricos. Observa cómo el mapa
 crece en el terminal: `conocidas=X%`.
 
-### Terminal 3 — Visualizar en RViz
+### Terminal 3 - Visualizar en RViz
 
 ```bash
 ros2 run rviz2 rviz2
@@ -72,7 +72,7 @@ En RViz, agrega:
 - **TF** (para ver los frames)
 - **Robot Model** si tienes URDF (opcional)
 
-### Terminal 4 — Guardar el mapa
+### Terminal 4 - Guardar el mapa
 
 ```bash
 ros2 run nav2_map_server map_saver_cli -f /home/student/ros2_ws/src/mi_mapa
@@ -127,7 +127,7 @@ ros2 launch nav2_bringup localization_launch.py \
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Exploración manual"
+!!! note "Ejercicio 1 - Exploración manual"
     En lugar de usar `unitree_slam.py`, explora el mapa **manualmente** usando
     el teclado desde el terminal:
     ```bash
@@ -135,15 +135,15 @@ ros2 launch nav2_bringup localization_launch.py \
     ```
     Intenta cubrir todo el espacio del mundo `unitree_inspection`.
 
-!!! note "Ejercicio 2 — Verificar cobertura"
+!!! note "Ejercicio 2 - Verificar cobertura"
     Modifica `unitree_slam.py` para que imprima el porcentaje de celdas
     conocidas cada 5 s. Detén la exploración automáticamente cuando el
     mapa tenga > 70% de cobertura.
 
-!!! note "Ejercicio 3 — Cargar y comparar mapas"
+!!! note "Ejercicio 3 - Cargar y comparar mapas"
     Guarda mapas en dos ejecuciones distintas y compara los archivos `.pgm`.
     ¿Son idénticos? ¿Por qué podrían ser diferentes?
 
 ---
 
-Continúa con [U8 — Navegación con Mapa y Puntos de Interés](u8-navegacion-mapa.md).
+Continúa con [U8 - Navegación con Mapa y Puntos de Interés](u8-navegacion-mapa.md).

@@ -13,4 +13,4 @@ Los laboratorios del curso de Robótica Móvil están divididos en dos partes:
 
 * [**Asignación en Equipo con Robot Real**: "Exploración en el Mundo Real"](./robot/README.md).
 
-    *Aquí trabajarás en equipos de 3 o 4 personas para completar una tarea robótica del mundo real usando nuestros robots Turtlebot3 Waffle en el laboratorio de robótica.*
+    *Aquí trabajarás en equipos de 3 o 4 personas para completar una tarea robótica del mundo real usando los robots del laboratorio de robótica.*

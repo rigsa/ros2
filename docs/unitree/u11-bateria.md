@@ -137,7 +137,7 @@ ros2 topic echo /battery_state --field percentage
 El bridge lee el estado de batería del SDK de Unitree y lo republica en
 `/battery_state` con el mismo formato, así este módulo funciona sin cambios.
 
-El dock físico del Go2 EDU/B2 usa comunicación por contacto eléctrico —
+El dock físico del Go2 EDU/B2 usa comunicación por contacto eléctrico  - 
 el robot debe estar correctamente alineado para cargar. Para un acoplamiento
 preciso combina este módulo con U10 (ArUco en el dock):
 
@@ -147,24 +147,24 @@ Navega cerca del dock → detecta ArUco #0 → acercamiento fino → /sport/dock
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Monitor en tiempo real"
+!!! note "Ejercicio 1 - Monitor en tiempo real"
     Suscríbete a `/battery_state` e imprime el estado cada 5 s en formato
     de tabla:
     ```
     [14:23:10] batería: 67.3%  voltaje: 24.2V  estado: DESCARGANDO
     ```
 
-!!! note "Ejercicio 2 — Historial de batería"
+!!! note "Ejercicio 2 - Historial de batería"
     Registra el porcentaje de batería junto con la posición `(x, y)` cada
     10 s. Al finalizar, imprime cuál fue la posición del robot cuando la
     batería llegó a su mínimo.
 
-!!! note "Ejercicio 3 — Regreso preventivo"
+!!! note "Ejercicio 3 - Regreso preventivo"
     En lugar de esperar a que la batería llegue al 20% crítico, implementa
     un retorno preventivo: calcula la distancia hasta el dock y estima si
     hay suficiente batería para llegar. Formula: si `batería_actual - batería_para_llegar < 15%`, regresa ahora.
 
-!!! note "Ejercicio 4 — Integración completa"
+!!! note "Ejercicio 4 - Integración completa"
     Combina `unitree_inspection.py` y `unitree_battery.py` en un launch file
     de Python que inicie ambos nodos simultáneamente:
     ```python
@@ -183,4 +183,4 @@ Navega cerca del dock → detecta ArUco #0 → acercamiento fino → /sport/dock
 
 ---
 
-Continúa con [U12 — Logging, Diagnósticos y Reportes](u12-logging.md).
+Continúa con [U12 - Logging, Diagnósticos y Reportes](u12-logging.md).

@@ -12,7 +12,7 @@ Revisa el código (incluyendo las anotaciones) y luego toma una copia de él.
 
 1. Como ya sabes, para desarrollar nodes de ROS usando Python necesitamos importar la librería cliente `rclpy` y la clase `Node` en la que basar nuestro node. Además, aquí también importamos una clase `ActionClient`.
 
-2. Sabemos que el Action Server `/camera_sweep` usa la interface `action` `CameraSweep` del paquete `tuos_interfaces`, así que la importamos aquí también (la cual usamos para hacer una llamada al servidor).
+2. Sabemos que el Action Server `/camera_sweep` usa la interface `action` `CameraSweep` del paquete `rigsa_interfaces`, así que la importamos aquí también (la cual usamos para hacer una llamada al servidor).
 
 3. Práctica estándar al inicializar nodes de ROS: *debemos darles un nombre*.
 
@@ -50,5 +50,5 @@ El action client tiene *dos dependencias clave*, por lo que necesitamos modifica
 
 ```xml title="package.xml"
 <exec_depend>action_msgs</exec_depend>
-<exec_depend>tuos_interfaces</exec_depend>
+<exec_depend>rigsa_interfaces</exec_depend>
 ``` 

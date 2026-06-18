@@ -67,7 +67,7 @@ Los robots se nombran de la siguiente manera:
 Lanza ROS en el robot ingresando el siguiente comando:
 
 ```bash
-ros2 launch tuos_tb3_tools ros.launch.py
+ros2 launch rigsa_tb3_tools ros.launch.py
 ```
 
 Si todo está bien, el robot reproducirá un agradable sonido *"do-re-mi"* y debería aparecer un mensaje como este (entre todo el otro texto):
@@ -106,7 +106,7 @@ ros2 run rmw_zenoh_cpp rmw_zenohd
 
 Ahora deberías tener dos terminales activas:
 
-1. La terminal del *robot* donde ejecutaste la operación `ros2 launch tuos_tb3_tools ros.launch.py` (también conocida como *"el bringup"*) en el [Paso 3](#step3)[^term_recover]
+1. La terminal del *robot* donde ejecutaste la operación `ros2 launch rigsa_tb3_tools ros.launch.py` (también conocida como *"el bringup"*) en el [Paso 3](#step3)[^term_recover]
 1. La terminal de la *laptop* donde acabas de ejecutar el nodo `rmw_zenohd`
 
 [^term_recover]: Si llegaste a cerrar la terminal del *robot*, puedes volver a ella ingresando `waffle X term` desde una nueva instancia de terminal en la laptop.

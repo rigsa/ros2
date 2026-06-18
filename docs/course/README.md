@@ -7,7 +7,7 @@ description: "Un curso individual basado en simulación para enseñarte todo sob
 
 Este es un curso de 6 partes, diseñado para enseñarte todo sobre ROS 2 y cómo utilizarlo. El curso está diseñado para completarse en simulación, por lo que necesitarás acceso a una instalación de ROS 2 que puede instalarse en tu propia máquina o accederse en las computadoras del laboratorio. [Consulta aquí para más información sobre cómo acceder o instalar ROS 2](../software/README.md).
 
-Cada parte del curso comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS, y te introduce a los principios fundamentales del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones robóticas prácticas. Completar este curso (en parte o en su totalidad) te proporcionará las habilidades necesarias para [trabajar con nuestros robots reales TurtleBot3 Waffle](../waffles/README.md) en el laboratorio.  
+Cada parte del curso comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS, y te introduce a los principios fundamentales del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones robóticas prácticas. Completar este curso (en parte o en su totalidad) te proporcionará las habilidades necesarias para [trabajar con los robots del laboratorio (Unitree Go2, AS2, B2)](../about/robots.md) en el laboratorio.  
 
 ## El Curso
 
@@ -17,7 +17,7 @@ Cada parte del curso comprende una serie de instrucciones paso a paso y ejercici
 
 * [Parte 2: Odometría y Navegación](./part2.md)
 
-    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad en lazo abierto y cerrado a un Waffle.*
+    *Aprende sobre la odometría - posición y orientación del robot en su entorno - y aplica métodos de control de velocidad en lazo abierto y cerrado a un robot diferencial.*
 
 * [Parte 3: Más Allá de los Fundamentos](./part3.md)
 

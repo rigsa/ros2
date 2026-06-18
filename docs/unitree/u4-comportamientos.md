@@ -25,7 +25,7 @@ Tu código (cliente de servicio)
 
 En el simulador (`sim_lite`), los mismos servicios están disponibles pero en lugar de
 mover un robot real, muestran el nombre del comportamiento en la ventana de pygame
-durante 2 segundos — útil para verificar que tu secuencia de llamadas es correcta.
+durante 2 segundos - útil para verificar que tu secuencia de llamadas es correcta.
 
 ## Lista completa de comportamientos
 
@@ -47,14 +47,14 @@ durante 2 segundos — útil para verificar que tu secuencia de llamadas es corr
     al menos 2 m al frente, y solo está disponible en el Go2 EDU (no en la
     versión estándar). En el simulador no tiene restricciones.
 
-## `std_srvs/Trigger` — el tipo de servicio
+## `std_srvs/Trigger` - el tipo de servicio
 
 Todos los comportamientos usan el mismo tipo de servicio: `std_srvs/srv/Trigger`.
 
 ```python
 from std_srvs.srv import Trigger
 
-# No tiene campos de solicitud — simplemente "activa" el comportamiento
+# No tiene campos de solicitud - simplemente "activa" el comportamiento
 req = Trigger.Request()   # vacío
 
 # Respuesta
@@ -104,24 +104,24 @@ amarillo durante 2 segundos.
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Secuencia personalizada"
+!!! note "Ejercicio 1 - Secuencia personalizada"
     Modifica la función `_secuencia()` en `unitree_sport.py` para que el robot ejecute:
     ```
     stand_up → balance_stand → dance1 → sit
     ```
     Agrega una pausa de 2 s entre cada comportamiento.
 
-!!! note "Ejercicio 2 — Función genérica"
+!!! note "Ejercicio 2 - Función genérica"
     Escribe una función `ejecutar(nombre: str)` que acepte el nombre del comportamiento
     como string y llame al servicio correcto sin usar un `if/elif` largo.
     
     **Pista**: guarda los clientes en un diccionario `self._clientes[nombre]`.
 
-!!! note "Ejercicio 3 — Robot espera confirmación"
+!!! note "Ejercicio 3 - Robot espera confirmación"
     Modifica el nodo para que espere 3 s entre comportamientos **solo si el servicio
     respondió con `success=True`**. Si falló, reintenta hasta 3 veces antes de continuar.
 
-!!! note "Ejercicio 4 — Combina movimiento y comportamientos"
+!!! note "Ejercicio 4 - Combina movimiento y comportamientos"
     Crea un nuevo nodo que:
     1. Llame a `stand_up`
     2. Avance 1 m (usando `/cmd_vel`)
@@ -133,7 +133,7 @@ amarillo durante 2 segundos.
 
 ## Relación con Servicios y Acciones (Partes 4 y 5)
 
-Los servicios `/sport/*` son clientes de servicio estándar de ROS 2 — exactamente
+Los servicios `/sport/*` son clientes de servicio estándar de ROS 2 - exactamente
 lo que aprendiste en la [Parte 4](../course/part4.md). La única diferencia es que
 aquí el servicio tiene un efecto físico en el robot en lugar de un resultado numérico.
 
@@ -144,4 +144,4 @@ por simplicidad en este módulo los tratamos como servicios sincrónicos.
 
 ---
 
-Continúa con [U5 — LiDAR y Detección de Obstáculos](u5-lidar.md).
+Continúa con [U5 - LiDAR y Detección de Obstáculos](u5-lidar.md).

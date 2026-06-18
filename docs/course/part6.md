@@ -11,7 +11,7 @@ description: Aprende a trabajar con imágenes de la cámara de un robot. Aprende
 
 ### Objetivos
 
-En esta parte del curso utilizaremos la cámara del Waffle y veremos cómo trabajar con imágenes en ROS. Aquí aprenderemos a construir nodes ROS que capturen y procesen imágenes. Exploraremos algunas formas en que estos datos pueden utilizarse para informar la toma de decisiones en aplicaciones robóticas.  
+En esta parte del curso utilizaremos la cámara del robot y veremos cómo trabajar con imágenes en ROS. Aquí aprenderemos a construir nodes ROS que capturen y procesen imágenes. Exploraremos algunas formas en que estos datos pueden utilizarse para informar la toma de decisiones en aplicaciones robóticas.  
 
 ### Resultados de Aprendizaje Esperados
 
@@ -23,7 +23,7 @@ Al finalizar esta sesión serás capaz de:
 1. Desarrollar nodes de detección de objetos y aprovechar la información generada por estos procesos para controlar la posición de un robot.
 1. Usar datos de la cámara como señal de retroalimentación para implementar un comportamiento de seguimiento de línea usando control proporcional.
 
-### Quick Links
+### Enlaces Rápidos
 
 #### Ejercicios
 
@@ -63,7 +63,7 @@ Verifica que el Repositorio del Curso esté actualizado antes de comenzar estos 
 En esta sesión comenzaremos trabajando con el mismo entorno de *mundo misterioso* de la Parte 5. En **TERMINAL 1**, usa el siguiente comando para cargarlo:
 
 ```bash
-ros2 launch tuos_simulations coloured_pillars.launch.py
+ros2 launch rigsa_simulations coloured_pillars.launch.py
 ```
 ...y luego espera a que se abra la ventana de Gazebo:
 
@@ -139,13 +139,13 @@ Podemos *ver* las imágenes que se transmiten al topic de cámara anterior (en t
 Una forma es usar *RViz*, que puede iniciarse con el siguiente comando `ros2 launch` en **TERMINAL 2**:
 
 ```bash
-ros2 launch tuos_tb3_tools rviz.launch.py environment:=sim
+ros2 launch rigsa_tb3_tools rviz.launch.py environment:=sim
 ```
 
 Una vez que RViz se inicie, deberías ver un panel de cámara en la esquina inferior izquierda con un flujo en vivo de las imágenes obtenidas de la cámara del robot.
 
 <figure markdown>
-  ![](../images/rviz/waffle_antd.svg){width=800px}
+  ![Vista de RViz con el robot de simulación y datos de cámara](../images/rviz/waffle_antd.svg){width=800px}
 </figure>
 
 Cierra RViz ingresando ++ctrl+c++ en **TERMINAL 2**.  
@@ -303,10 +303,10 @@ Este proceso se llama *enmascaramiento* y, para lograrlo, necesitamos establecer
     cd ~/object_detection
     ```
     
-    Luego, ejecuta el siguiente node ROS (del package `tuos_examples`), proporcionando el nombre de la imagen recortada como argumento adicional:<a name="img_cols_node"></a>
+    Luego, ejecuta el siguiente node ROS (del package `rigsa_examples`), proporcionando el nombre de la imagen recortada como argumento adicional:<a name="img_cols_node"></a>
     
     ```bash
-    ros2 run tuos_examples image_colours.py step2_cropping.jpg
+    ros2 run rigsa_examples image_colours.py step2_cropping.jpg
     ```
     
 1. El node debería producir un diagrama de dispersión, ilustrando los valores de Tono y Saturación de cada uno de los píxeles en la imagen. Cada punto de datos en el gráfico representa un solo píxel de la imagen y cada uno está coloreado para coincidir con su valor RGB:
@@ -424,11 +424,11 @@ En nuestro caso, en realidad no podemos cambiar la posición de nuestro robot en
 
 #### :material-pen: Ejercicio 3: Usar Momentos de Imagen para el Control del Robot {#ex3}
 
-Dentro del package `tuos_examples` hay un node que ha sido desarrollado para ilustrar cómo todas las herramientas de OpenCV que has explorado hasta ahora podrían usarse para buscar en un entorno y detener un robot cuando está mirando directamente a un objeto de interés. Todas las herramientas utilizadas en este node deberían resultarte familiares a estas alturas, y en este ejercicio vas a hacer una copia de este node y modificarlo para mejorar su funcionalidad.
+Dentro del package `rigsa_examples` hay un node que ha sido desarrollado para ilustrar cómo todas las herramientas de OpenCV que has explorado hasta ahora podrían usarse para buscar en un entorno y detener un robot cuando está mirando directamente a un objeto de interés. Todas las herramientas utilizadas en este node deberían resultarte familiares a estas alturas, y en este ejercicio vas a hacer una copia de este node y modificarlo para mejorar su funcionalidad.
 
 Asegúrate de que el mundo "Coloured Pillars" siga activo y continúa con los siguientes pasos ahora en **TERMINAL 2**.
 
-1. El node se llama `colour_search.py`, y se encuentra en la carpeta `scripts` del package `tuos_examples`. Cópialo en la carpeta `scripts` de tu propio package `part6_vision` asegurándote primero de estar ubicado en la carpeta de destino deseada:
+1. El node se llama `colour_search.py`, y se encuentra en la carpeta `scripts` del package `rigsa_examples`. Cópialo en la carpeta `scripts` de tu propio package `part6_vision` asegurándote primero de estar ubicado en la carpeta de destino deseada:
 
     ```bash
     cd ~/ros2_ws/src/part6_vision/scripts
@@ -437,7 +437,7 @@ Asegúrate de que el mundo "Coloured Pillars" siga activo y continúa con los si
 1. Luego, copia el node `colour_search.py` usando `cp` de la siguiente manera:
 
     ```bash
-    cp ~/ros2_ws/src/tuos_ros/tuos_examples/scripts/colour_search.py ./
+    cp ~/ros2_ws/src/rigsa_ros/rigsa_examples/scripts/colour_search.py ./
     ```
 
 1. Abre el archivo `colour_search.py` en VS Code para ver el contenido. Examínalo y ve si puedes entender cómo funciona. La estructura general debería ser bastante familiar para ti a estas alturas: tenemos una estructura de clase Python, un Subscriber con una función callback, un temporizador con un callback que contiene todo el código de control del robot, y muchas de las herramientas de OpenCV que has explorado hasta ahora en esta parte del curso. Esencialmente este node funciona de la siguiente manera:
@@ -465,13 +465,13 @@ Asegúrate de que el mundo "Coloured Pillars" siga activo y continúa con los si
 1. **Tu tarea** es entonces modificar el node para que se detenga frente a *cada pilar de color* en la arena (hay cuatro en total, cada uno de un color diferente, como sabes). Para esto, es posible que necesites usar algunos de los métodos que has explorado en los ejercicios anteriores.
     1. Primero es posible que quieras usar algunos de los métodos que usamos para obtener y analizar algunas imágenes de la cámara del robot:
         1. Usa el node `teleop_keyboard` para mover manualmente el robot, haciéndolo mirar a cada pilar de color en la arena individualmente.
-        1. Ejecuta el node `object_detection.py` que desarrollaste en el ejercicio anterior para capturar una imagen, recortarla, guardarla en el sistema de archivos y luego introducir esta imagen recortada en el node `image_colours.py` del package `tuos_examples` ([como lo hiciste anteriormente](#img_cols_node))
+        1. Ejecuta el node `object_detection.py` que desarrollaste en el ejercicio anterior para capturar una imagen, recortarla, guardarla en el sistema de archivos y luego introducir esta imagen recortada en el node `image_colours.py` del package `rigsa_examples` ([como lo hiciste anteriormente](#img_cols_node))
         1. A partir del gráfico generado por el node `image_colours.py`, determina algunos umbrales HSV apropiados para aplicar a cada pilar de color en la arena.
     1. Una vez que tengas los umbrales correctos, puedes agregarlos a tu node `colour_search.py` para que tenga la capacidad de detectar *cada* pilar de la misma manera que actualmente detecta el azul.
 
 ### Control PID y Seguimiento de Línea {#pid}
 
-¡El seguimiento de línea es una habilidad útil para un robot! Podemos lograrlo en nuestro TurtleBot3 usando su sistema de cámara y las técnicas de procesamiento de imágenes que se han cubierto hasta ahora en esta sesión.
+¡El seguimiento de línea es una habilidad útil para un robot! Podemos lograrlo en el robot de simulación usando su sistema de cámara y las técnicas de procesamiento de imágenes que se han cubierto hasta ahora en esta sesión.
 
 Un algoritmo bien establecido para el control de bucle cerrado se conoce como **Control PID**, y esto puede usarse para lograr dicho comportamiento de seguimiento de línea.
 
@@ -487,7 +487,7 @@ En el corazón de esto está el principio del control de *Retroalimentación Neg
   </figcaption>
 </figure>
 
-La **Entrada de Referencia** representa un estado deseado que nos gustaría que nuestro sistema mantuviera. Si queremos que nuestro TurtleBot3 siga exitosamente una línea de color en el suelo, necesitará mantener el blob de color que representa esa línea de color en el centro de su punto de vista en todo momento. El *estado deseado* sería por lo tanto mantener el centroide `cy` del blob de color en el centro de su visión.
+La **Entrada de Referencia** representa un estado deseado que nos gustaría que nuestro sistema mantuviera. Si queremos que el robot siga exitosamente una línea de color en el suelo, necesitará mantener el blob de color que representa esa línea de color en el centro de su punto de vista en todo momento. El *estado deseado* sería por lo tanto mantener el centroide `cy` del blob de color en el centro de su visión.
 
 Una **Señal de Retroalimentación** nos informa de cuál es el estado actual real del sistema. En nuestro caso, esta señal de retroalimentación sería la ubicación en tiempo real de la línea de color en las imágenes de cámara en vivo, es decir, su centroide `cy` (obtenido usando métodos de procesamiento como los cubiertos en el Ejercicio 3 anterior). 
 
@@ -515,10 +515,10 @@ Donde $u(t)$ es la **Salida Controlada**, $e(t)$ es el **Error** (como se ilustr
 
 1. Asegúrate de que todos los procesos ROS del ejercicio anterior estén cerrados ahora, incluido el node `colour_search.py` y la simulación de Gazebo en **TERMINAL 1**.
 
-1. En **TERMINAL 1** inicia una nueva simulación del package `tuos_simulations`:
+1. En **TERMINAL 1** inicia una nueva simulación del package `rigsa_simulations`:
 
     ```bash
-    ros2 launch tuos_simulations line_following.launch.py tuning:=true
+    ros2 launch rigsa_simulations line_following.launch.py tuning:=true
     ```
     
     Tu robot debería ser lanzado en una pista larga y estrecha con una línea rosa pintada en el centro del suelo:
@@ -557,7 +557,7 @@ Un Controlador PID puede tomar tres formas diferentes:
 1. **Control "PI"**: Se aplican ganancias *Proporcional* e *Integral* ($K_{P}$ y $K_{I}$), la ganancia Diferencial se establece en cero. 
 1. **Control "PID"**: El controlador hace uso de los tres términos de ganancia ($K_{P}$, $K_{I}$ y $K_{D}$)
 
-Para permitir que nuestro TurtleBot3 siga una línea, en realidad solo necesitamos un **Controlador "P"**, por lo que nuestra ecuación de control se vuelve bastante simple, reduciéndose a:
+Para permitir que el robot siga una línea, en realidad solo necesitamos un **Controlador "P"**, por lo que nuestra ecuación de control se vuelve bastante simple, reduciéndose a:
 
 $$
 u(t)=K_{P} e(t)
@@ -720,7 +720,7 @@ La siguiente tarea entonces es adaptar nuestro node `line_follower.py` para impl
 1. Luego, en **TERMINAL 1** inicia uno nuevo:
 
     ```bash
-    ros2 launch tuos_simulations line_following.launch.py
+    ros2 launch rigsa_simulations line_following.launch.py
     ```
     
     Tu robot debería ser lanzado a un entorno con una línea más interesante que seguir:
@@ -736,7 +736,7 @@ La siguiente tarea entonces es adaptar nuestro node `line_follower.py` para impl
     Como sabes, la velocidad angular se determina considerando el componente `cy` de un blob de color que representa la línea. ¿Qué sucede en situaciones donde el blob de color no está ahí? ¿Qué influencia tendría esto en las Señales de Control que calcula el controlador proporcional? Para considerar esto más a fondo, intenta lanzar el robot en la misma arena pero con una pose de inicio diferente, y piensa cómo podrías abordar esta situación:
 
     ```txt
-    ros2 launch tuos_simulations line_following.launch.py \
+    ros2 launch rigsa_simulations line_following.launch.py \
         x_pose:=-3 y_pose:=-3 yaw:=-1.57
     ```
 

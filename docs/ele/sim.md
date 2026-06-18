@@ -19,7 +19,7 @@ Como se detalla a continuación, **las Partes 1-3 de este curso son esenciales p
 
 * [Parte 2: Odometría y Navegación](../course/part2.md) (**Esencial**)
 
-    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto de lazo abierto como cerrado a un Waffle.*
+    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto de lazo abierto como cerrado al robot de simulación.*
 
 * [Parte 3: Más Allá de los Conceptos Básicos](../course/part3.md) (**Esencial**)
 

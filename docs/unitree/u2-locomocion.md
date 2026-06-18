@@ -31,7 +31,7 @@ En el Go2/B2 las tres componentes se ejecutan **simultáneamente**.
 
 ## Cinemática holonómica vs. diferencial
 
-Un robot de tracción **diferencial** (como el Waffle) para ir a la derecha tiene que:
+Un robot de tracción **diferencial** (de las Partes 1-6 del curso) para ir a la derecha tiene que:
 1. Girar 90° a la derecha
 2. Avanzar la distancia deseada
 3. Girar 90° a la izquierda para recuperar la orientación
@@ -61,9 +61,9 @@ Abre el sandbox con la parte **"Unitree U2: Locomoción Holonómica"**.
 El archivo ya está en tu workspace. Ábrelo desde el explorador de código y léelo antes
 de ejecutar. Contiene una secuencia de tres movimientos:
 
-1. **Avance** — `vx = 0.3 m/s` durante 2 s
-2. **Lateral** — `vy = 0.2 m/s` durante 2 s (¡nuevo!)
-3. **Rotación** — `vyaw = 0.5 rad/s` durante 2 s
+1. **Avance** - `vx = 0.3 m/s` durante 2 s
+2. **Lateral** - `vy = 0.2 m/s` durante 2 s (¡nuevo!)
+3. **Rotación** - `vyaw = 0.5 rad/s` durante 2 s
 
 ### Compilar y ejecutar
 
@@ -80,32 +80,32 @@ ros2 topic echo /odom --field pose.pose.position
 ros2 run unitree_u2_locomotion unitree_move.py
 ```
 
-Observa la ventana de `sim_lite` (la pantalla negra con el robot verde) — deberías ver:
+Observa la ventana de `sim_lite` (la pantalla negra con el robot verde) - deberías ver:
 - El robot moverse hacia adelante dejando una traza verde
 - Luego desplazarse lateralmente (sin girar el cuerpo)
 - Luego girar en su propio eje
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Cuadrado diferencial"
+!!! note "Ejercicio 1 - Cuadrado diferencial"
     Adapta `unitree_move.py` para que el robot trace un cuadrado de 1 m usando solo
     `vx` y `vyaw` (sin `vy`). Esto es equivalente a `move_square.py` de la Parte 2.
     
     **Pista**: necesitas calcular cuánto tiempo mantener `vx` constante para avanzar
     exactamente 1 m, y cuánto mantener `vyaw` para girar exactamente 90°.
 
-!!! note "Ejercicio 2 — Cuadrado holonómico"
+!!! note "Ejercicio 2 - Cuadrado holonómico"
     Traza el mismo cuadrado pero **sin girar el robot** (el frente siempre apunta en
     la misma dirección). Usa solo `vx` y `vy` para los cuatro lados.
     
-    Este movimiento **no es posible en el TurtleBot3** — solo en robots holonómicos.
+    Este movimiento **no es posible en el TurtleBot3** - solo en robots holonómicos.
 
-!!! note "Ejercicio 3 — Círculo"
+!!! note "Ejercicio 3 - Círculo"
     Haz que el robot se mueva en un círculo de radio 1 m aplicando simultáneamente
     `vx` y `vyaw` constantes. Usa la relación `r = vx / vyaw` para calcular los
     valores correctos.
 
-!!! note "Ejercicio 4 — Verificación con odometría"
+!!! note "Ejercicio 4 - Verificación con odometría"
     Agrega un subscriber a `/odom` en tu nodo y haz que el nodo se detenga
     automáticamente cuando haya recorrido exactamente 1 m desde el origen.
     (Pista: usa `math.hypot(x, y) >= 1.0`.)
@@ -123,10 +123,10 @@ Cuando ejecutes `unitree_move.py` en el Go2/B2 real:
 4. **Siempre ten a mano un control remoto** para poder detener el robot manualmente.
 
 !!! warning "Seguridad"
-    En hardware real, empieza con velocidades bajas (0.1–0.2 m/s). Un robot cuadrúpedo
+    En hardware real, empieza con velocidades bajas (0.1-0.2 m/s). Un robot cuadrúpedo
     que choca contra un obstáculo puede volcar o dañar sus actuadores. Confirma que la
     zona de prueba tenga al menos 3 × 3 m despejados.
 
 ---
 
-Continúa con [U3 — Estado y Odometría](u3-odometria.md).
+Continúa con [U3 - Estado y Odometría](u3-odometria.md).

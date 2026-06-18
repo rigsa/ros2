@@ -12,11 +12,11 @@ inspección industrial completa agrega:
 
 - **Confirmación visual**: verificar que estás en la estación correcta (ArUco)
 - **Manejo de fallos**: reintentar si algo sale mal
-- **Parámetros configurables**: velocidad, radio, ciclos — sin recompilar
+- **Parámetros configurables**: velocidad, radio, ciclos - sin recompilar
 - **Logging estructurado**: saber qué pasó, cuándo y dónde
 - **Ciclos repetidos**: la inspección no es un evento único
 
-## ROS 2 Parameters — configurar sin recompilar
+## ROS 2 Parameters - configurar sin recompilar
 
 En lugar de variables hardcodeadas al principio del archivo, el nodo
 `unitree_inspection.py` usa parámetros ROS 2:
@@ -128,23 +128,23 @@ Total: 4 inspecciones  ArUco detectados: 2/3
 
 ## Ejercicios
 
-!!! note "Ejercicio 1 — Parámetros en archivo"
+!!! note "Ejercicio 1 - Parámetros en archivo"
     Crea un archivo `patrol_params.yaml` con 3 ciclos y velocidad reducida.
     Corre la rutina con ese archivo de parámetros. Verifica que los ciclos
     se ejecutan en el log.
 
-!!! note "Ejercicio 2 — Acción configurable por POI"
+!!! note "Ejercicio 2 - Acción configurable por POI"
     Agrega un campo `wait_s` a la estructura `POI` y una acción `"wait"`
     que simplemente espera `wait_s` segundos en el POI (simula tomar una
     lectura de sensor). Añade una estación con `action: "wait", wait_s: 10`.
 
-!!! note "Ejercicio 3 — Alerta de ArUco no detectado"
+!!! note "Ejercicio 3 - Alerta de ArUco no detectado"
     Si 2 o más estaciones en el mismo ciclo fallan la detección ArUco,
     publica un mensaje en `/inspection/alert` (std_msgs/String) con
     `"ALERTA: X estaciones no confirmadas"`. En producción esto podría
     enviar un email o notificación.
 
-!!! note "Ejercicio 4 — Dashboard en terminal"
+!!! note "Ejercicio 4 - Dashboard en terminal"
     Usa la librería `curses` de Python para mostrar un panel en tiempo real:
     ```
     ┌─── INSPECCIÓN EN CURSO ──────────────────┐
@@ -156,4 +156,4 @@ Total: 4 inspecciones  ArUco detectados: 2/3
 
 ---
 
-Continúa con [U10 — Tags ArUco para Identificación Visual](u10-aruco.md).
+Continúa con [U10 - Tags ArUco para Identificación Visual](u10-aruco.md).

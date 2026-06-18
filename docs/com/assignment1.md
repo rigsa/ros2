@@ -7,7 +7,7 @@ description: "Un curso individual basado en simulación para enseñarte todo sob
 
 Para la Asignación #1 completarás [el curso de ROS 2 de 6 partes](../course/README.md) **en su totalidad** y **en orden**. El curso está diseñado para completarse en simulación, por lo que necesitarás acceso a una instalación de ROS 2, que puede instalarse en tu propia máquina o accederse en una variedad de computadoras del laboratorio. [Consulta aquí para más información sobre cómo acceder o instalar ROS 2](../software/README.md).
 
-Cada parte del curso comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS e introducirte a los principios básicos del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones robóticas prácticas. Completar este curso es **esencial** para obtener todas las habilidades necesarias para la [Asignación #2: el *Proyecto de Robótica en Equipo*](./assignment2/README.md), donde trabajarás en equipos para programar nuestros *robots reales TurtleBot3 Waffle*.
+Cada parte del curso comprende una serie de instrucciones paso a paso y ejercicios para enseñarte cómo funciona ROS e introducirte a los principios básicos del framework. Los ejercicios te dan la oportunidad de ver cómo aplicar estos principios a aplicaciones robóticas prácticas. Completar este curso es **esencial** para obtener todas las habilidades necesarias para la [Asignación #2: el *Proyecto de Robótica en Equipo*](./assignment2/README.md), donde trabajarás en equipos para programar nuestros *robots reales robot de simulación*.
 
 ## El Curso
 
@@ -17,7 +17,7 @@ Cada parte del curso comprende una serie de instrucciones paso a paso y ejercici
 
 * [Parte 2: Odometría y Navegación](../course/part2.md)
 
-    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto de lazo abierto como cerrado a un Waffle.*
+    *Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto de lazo abierto como cerrado al robot de simulación.*
 
 * [Parte 3: Más Allá de los Conceptos Básicos](../course/part3.md)
 

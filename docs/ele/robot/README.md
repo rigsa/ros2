@@ -1,11 +1,11 @@
 ---
 title: "La Asignación de Lab con Robot Real"
-description: Aplica tu conocimiento de ROS 2 a TurtleBot3 Waffles reales en el laboratorio.
+description: Aplica tu conocimiento de ROS 2 a robots del laboratorio.
 --- 
 
 ## Descripción General
 
-En las Semanas 8-12 asistirás a sesiones de laboratorio semanales de dos horas en el **laboratorio de robótica**, donde trabajarás **en equipos** con nuestros **Robots TurtleBot3 Waffle Reales** y los programarás para completar una tarea de *"Exploración en el Mundo Real"*. Utilizarás el conocimiento de ROS 2 adquirido a lo largo de los [Labs de Simulación](../sim.md), así como la teoría que estás aprendiendo en las clases del curso de Robótica Móvil para ayudarte con esto.
+En las Semanas 8-12 asistirás a sesiones de laboratorio semanales de dos horas en el **laboratorio de robótica**, donde trabajarás **en equipos** con nuestros **robots del laboratorio (Unitree Go2, AS2, B2)** y los programarás para completar una tarea de *"Exploración en el Mundo Real"*. Utilizarás el conocimiento de ROS 2 adquirido a lo largo de los [Labs de Simulación](../sim.md), así como la teoría que estás aprendiendo en las clases del curso de Robótica Móvil para ayudarte con esto.
 
 En preparación, formarás tus equipos para la Semana 5, y deberías aspirar a trabajar juntos durante el Lab de Simulación en la Semana 6 para empezar a pensar en esta asignación y los algoritmos de control necesarios *en simulación* primero.
 

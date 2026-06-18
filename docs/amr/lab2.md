@@ -11,7 +11,7 @@ En el Lab 1 exploramos cómo funciona ROS 2 y cómo usar este framework para dar
 * Son programas ejecutables (scripts Python, C++) que realizan tareas y operaciones específicas del robot.
 * Típicamente, habrá muchos Nodes ejecutándose simultáneamente en un robot para que funcione.
 * Podemos crear nuestros propios Nodes sobre lo que ya está en ejecución, para agregar funcionalidades adicionales.
-* Recordarás que creamos nuestro propio Node (en Python) para hacer que nuestro TurtleBot3 Waffle siguiera una trayectoria cuadrada.
+* Recordarás que creamos nuestro propio Node (en Python) para hacer que el robot de simulación siguiera una trayectoria cuadrada.
 
 <figure markdown>
   ![](./lab2/ros_network.png){width=500px}
@@ -28,7 +28,7 @@ En el Lab 1 exploramos cómo funciona ROS 2 y cómo usar este framework para dar
   ![](./lab2/ros_comms.png){width=500px}
 </figure>
 
-Uno de los Topics de ROS clave con el que trabajamos la vez anterior fue `/cmd_vel`, que es un topic que comunica comandos de velocidad para hacer mover a un robot. Recordarás que para hacer mover a nuestro TurtleBot3 Waffle publicamos *Mensajes de Interface* `TwistStamped` en el topic `/cmd_vel`. Los mensajes de interface son *tipos de datos estructurados* definidos en ROS, y recordaremos brevemente la estructura del tipo de dato `TwistStamped` en breve...
+Uno de los Topics de ROS clave con el que trabajamos la vez anterior fue `/cmd_vel`, que es un topic que comunica comandos de velocidad para hacer mover a un robot. Recordarás que para hacer mover al robot de simulación publicamos *Mensajes de Interface* `TwistStamped` en el topic `/cmd_vel`. Los mensajes de interface son *tipos de datos estructurados* definidos en ROS, y recordaremos brevemente la estructura del tipo de dato `TwistStamped` en breve...
 
 **Control de Lazo Abierto**
 
@@ -97,7 +97,7 @@ Necesitaremos un paquete ROS para trabajar durante esta sesión de laboratorio. 
     ```
 
     !!! note
-        Este repositorio proviene del curso original de la Universidad de Sheffield. El paquete ROS se llama `amr31001_lab2` — usa ese nombre en todos los comandos siguientes.
+        El paquete ROS se llama `amr31001_lab2` - usa ese nombre en todos los comandos siguientes.
     
     ```txt
     cd ~/ros2_ws && \
@@ -193,7 +193,7 @@ Al igual que la última vez, ahora necesitarás poner en marcha ROS en tu robot.
     ***
     **TERMINAL 1:**
     ```bash
-    ros2 launch tuos_tb3_tools ros.launch.py
+    ros2 launch rigsa_tb3_tools ros.launch.py
     ```
 
     !!! tip
@@ -391,7 +391,7 @@ Lanza RViz, para que podamos ver los datos de este sensor en tiempo real:
 ***
 **TERMINAL 3**:
 ```bash
-ros2 launch tuos_tb3_tools rviz.launch.py environment:=real
+ros2 launch rigsa_tb3_tools rviz.launch.py environment:=real
 ```
 ***
 
@@ -622,7 +622,7 @@ Esto es lo que se denomina un **Controlador "P"**, y la única ganancia que nece
     ***
     **TERMINAL 3**:
     ```bash
-    ros2 launch tuos_tb3_tools rviz.launch.py environment:=real
+    ros2 launch rigsa_tb3_tools rviz.launch.py environment:=real
     ```
     ***
 

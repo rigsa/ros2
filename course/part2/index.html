@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Aprende sobre la Odometría, que nos informa sobre la posición y orientación de un robot en un entorno. Aplica métodos de control de velocidad tanto en lazo abierto como en lazo cerrado a un Waffle.">
+        <meta name="description" content="Aprende sobre la odometría - posición y orientación del robot en su entorno - y aplica métodos de control de velocidad en lazo abierto y cerrado a un robot diferencial.">
       
       
       
@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parte 2: Odometría y Navegación - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Aprende sobre la odometría - posición y orientación del robot en su entorno - y aplica métodos de control de velocidad en lazo abierto y cerrado a un robot diferencial.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part2.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/course/part2/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Parte 2: Odometría y Navegación - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Aprende sobre la odometría - posición y orientación del robot en su entorno - y aplica métodos de control de velocidad en lazo abierto y cerrado a un robot diferencial.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part2.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -373,7 +388,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1296,10 +1311,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#que-valores-de-pose-aplican-a-nuestros-waffles" class="md-nav__link">
+  <a href="#que-valores-de-pose-aplican-a-nuestro-robot" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Qué Valores de Pose Aplican a Nuestros Waffles?
+        ¿Qué Valores de Pose Aplican a Nuestro Robot?
       
     </span>
   </a>
@@ -1363,15 +1378,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#los-grados-de-libertad-de-nuestros-waffles" class="md-nav__link">
+  <a href="#los-grados-de-libertad-del-robot" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Los Grados de Libertad de Nuestros Waffles
+        Los Grados de Libertad del Robot
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Los Grados de Libertad de Nuestros Waffles">
+    <nav class="md-nav" aria-label="Los Grados de Libertad del Robot">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1613,6 +1628,8 @@
       
         
       
+        
+      
     
     
     
@@ -1738,6 +1755,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2823,7 +2868,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2845,7 +2890,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -3037,6 +3082,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3105,7 +3156,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -3427,6 +3478,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3638,10 +3773,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#que-valores-de-pose-aplican-a-nuestros-waffles" class="md-nav__link">
+  <a href="#que-valores-de-pose-aplican-a-nuestro-robot" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ¿Qué Valores de Pose Aplican a Nuestros Waffles?
+        ¿Qué Valores de Pose Aplican a Nuestro Robot?
       
     </span>
   </a>
@@ -3705,15 +3840,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#los-grados-de-libertad-de-nuestros-waffles" class="md-nav__link">
+  <a href="#los-grados-de-libertad-del-robot" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Los Grados de Libertad de Nuestros Waffles
+        Los Grados de Libertad del Robot
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Los Grados de Libertad de Nuestros Waffles">
+    <nav class="md-nav" aria-label="Los Grados de Libertad del Robot">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3859,7 +3994,7 @@
 <h3 id="resultados-de-aprendizaje-esperados">Resultados de Aprendizaje Esperados<a class="headerlink" href="#resultados-de-aprendizaje-esperados" title="Permanent link">¶</a></h3>
 <p>Al finalizar esta sesión serás capaz de:</p>
 <ol>
-<li>Interpretar los datos de Odometría publicados por un Robot ROS e identificar las partes de estos mensajes de interfaz que son relevantes para un robot de accionamiento diferencial de dos ruedas (como el TurtleBot3 Waffle).</li>
+<li>Interpretar los datos de Odometría publicados por un Robot ROS e identificar las partes de estos mensajes de interfaz que son relevantes para un robot de accionamiento diferencial de dos ruedas.</li>
 <li>Desarrollar nodes de Python para obtener datos de Odometría desde una red ROS activa y <em>traducir</em> esto en información útil sobre la <em>pose</em> de un robot de forma conveniente y legible para humanos.</li>
 <li>Implementar <em>control de velocidad en lazo abierto</em> de un robot usando herramientas de línea de comandos de ROS.</li>
 <li>Desarrollar nodes de Python que usen métodos de control de velocidad en lazo abierto para hacer que un robot siga una trayectoria de movimiento predefinida.</li>
@@ -3906,16 +4041,16 @@
 <summary>Usuarios de WSL...</summary>
 <p>Es importante iniciar VS Code dentro de tu entorno WSL usando la extensión "WSL". Recuerda siempre verificar esto:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../software/figures/code-wsl-ext-on.svg" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
 </figure><p></p>
 </details>
 <p><strong>Paso 4: Asegúrate de que el Repositorio del Curso Esté Actualizado</strong></p>
 <p><a name="course-repo"></a></p>
 <p>En la Parte 1 deberías haber <a href="../part1/#course-repo">descargado e instalado el Repositorio del Curso</a> en tu entorno ROS. Si aún no lo has hecho, regresa y hazlo ahora. Si <em>ya</em> lo hiciste, vale la pena asegurarse de que esté actualizado, así que ejecuta el siguiente comando en <strong>TERMINAL 1</strong> ahora:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/tuos_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/rigsa_ros/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 </code></pre></div>
 <p>Luego compila con Colcon: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-up-to<span class="w"> </span>tuos_ros
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-up-to<span class="w"> </span>rigsa_ros
 </code></pre></div>
 <p>Y finalmente, recarga tu entorno:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
@@ -3924,13 +4059,13 @@
 <p class="admonition-title">Warning</p>
 <p>Si tienes otras instancias de terminal abiertas, deberás ejecutar <code>source ~/.bashrc</code> en estas también, para que cualquier cambio realizado por el proceso de compilación de Colcon se propague a estas.</p>
 </div>
-<p><strong>Paso 5: Inicia una Simulación Waffle</strong></p>
-<p>En <strong>TERMINAL 1</strong> ingresa el siguiente comando para iniciar una simulación de un TurtleBot3 Waffle en un mundo vacío:  </p>
+<p><strong>Paso 5: Inicia la Simulación del Robot</strong></p>
+<p>En <strong>TERMINAL 1</strong> ingresa el siguiente comando para iniciar una simulación del robot en un mundo vacío:  </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
 </code></pre></div>
-<p>Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver un TurtleBot3 Waffle en espacio vacío:</p>
+<p>Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver el robot de simulación en espacio vacío:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/gz/tb3_empty_world_mid.png" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_mid.png" width="700px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_mid.png" width="700px"></a></p>
 </figure>
 <h2 id="topics-e-interfaces-de-ros-de-la-parte-1">Topics e Interfaces de ROS (de la Parte 1)<a class="headerlink" href="#topics-e-interfaces-de-ros-de-la-parte-1" title="Permanent link">¶</a></h2>
 <p>En la Parte 1 aprendimos sobre los Topics de ROS, y sobre cómo el node <code>teleop_keyboard</code> puede usarse para publicar mensajes a un topic particular con el fin de controlar la velocidad del robot (y así cambiar su <em>posición</em>).</p>
@@ -3945,12 +4080,12 @@
 <p>Recuerda que los Topics son clave para hacer que las cosas sucedan en un robot: los datos se transmiten entre los Nodes en una red ROS a través de Topics usando estructuras de datos estandarizadas llamadas Interfaces de Mensajes, lo que permite a cada uno de estos nodes tomar decisiones y realizar las tareas necesarias para dar vida al robot.</p>
 <p>Habiendo investigado el topic <code>/cmd_vel</code> en la Parte 1, veamos ahora otro topic: <code>/odom</code>, y consideremos qué significa la información aquí y para qué se usa.</p>
 <h2 id="odometry">Odometría<a class="headerlink" href="#odometry" title="Permanent link">¶</a></h2>
-<p>La Odometría es un proceso de monitoreo de la <em>posición</em> y <em>orientación</em> de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su <em>pose</em>. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres <em>"Ejes Principales"</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto de nuestros TurtleBot3 Waffles, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:</p>
+<p>La Odometría es un proceso de monitoreo de la <em>posición</em> y <em>orientación</em> de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su <em>pose</em>. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres <em>"Ejes Principales"</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto de nuestro robot de simulación, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:</p>
 <p><a name="principal-axes"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="800"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejes principales del robot diferencial" src="../../images/waffle/principal_axes.svg" width="800"></a></p>
 </figure>
-<p>No todas las posiciones y orientaciones anteriores aplican a nuestros Waffles, y exploraremos esto más adelante.</p>
+<p>No todas las posiciones y orientaciones anteriores aplican a nuestro robot de simulación, y exploraremos esto más adelante.</p>
 <h3 id="la-odometria-en-accion">La Odometría en Acción<a class="headerlink" href="#la-odometria-en-accion" title="Permanent link">¶</a></h3>
 <p>Recuerda de la Parte 1 el comando que podemos usar para listar <em>todos</em> los topics disponibles en nuestro robot:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span>list
@@ -3986,7 +4121,7 @@
 <p>Expande el campo <code>pose</code>, y luego el campo <code>pose</code> adicional dentro de él. Esto debería revelar dos campos adicionales: <strong><code>position</code></strong> y <strong><code>orientation</code></strong>. </p>
 <p>Expande ambos para revelar los datos que se publican en los <em>tres</em> valores de posición (<code>x</code>, <code>y</code> y <code>z</code>) y los <em>cuatro</em> valores de orientación (<code>x</code>, <code>y</code>, <code>z</code> y <code>w</code>).</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/rqt/topic_monitor.png" data-desc-position="bottom"><img alt="" src="../../images/rqt/topic_monitor.png" width="600"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/topic_monitor.png" width="600"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4022,8 +4157,8 @@
 <p>Presiona <span class="keys"><kbd class="key-s">S</kbd></span> en <strong>TERMINAL 3</strong> para detener el robot (pero deja corriendo el node <code>teleop_keyboard</code>). Luego, presiona <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 2</strong> para cerrar <code>rqt</code>. </p>
 </li>
 <li>
-<p>Veamos los datos de Odometría de otra manera ahora. Con el robot estacionario, usa <code>ros2 run</code> (en <strong>TERMINAL 2</strong>) para ejecutar un node de Python del package <code>tuos_examples</code>: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>robot_pose.py
+<p>Veamos los datos de Odometría de otra manera ahora. Con el robot estacionario, usa <code>ros2 run</code> (en <strong>TERMINAL 2</strong>) para ejecutar un node de Python del package <code>rigsa_examples</code>: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rigsa_examples<span class="w"> </span>robot_pose.py
 </code></pre></div>
 </li>
 <li>
@@ -4157,7 +4292,7 @@
 <p>Nos dice en qué dirección apunta nuestro robot en su entorno. Se expresa en unidades de <strong>Cuaterniones</strong>, que es una forma matemáticamente conveniente de almacenar datos relacionados con la orientación de un robot (sin embargo, es un poco difícil para nosotros los humanos entender y visualizar esto, así que hablaremos sobre cómo convertirlo a un formato diferente más adelante).</p>
 </li>
 </ol>
-<p>La Pose se define en relación a un punto de referencia arbitrario, típicamente donde estaba el robot cuando fue encendido, o el origen de un mundo simulado. En nuestros robots reales TurtleBot3 Waffle, se determina a partir de:</p>
+<p>La Pose se define en relación a un punto de referencia arbitrario, típicamente donde estaba el robot cuando fue encendido, o el origen de un mundo simulado. En robots de accionamiento diferencial como el de simulación, se determina a partir de:</p>
 <ul>
 <li>Datos de la Unidad de Medición Inercial (IMU) en la tarjeta OpenCR</li>
 <li>Datos de los encoders de la rueda izquierda y derecha</li>
@@ -4183,12 +4318,12 @@
 \theta_{z} = \operatorname{atan2}\left( 2(wz + xy), 1 - 2(y^2 + z^2) \right)
 \]</div>
 <p>Donde <span class="arithmatex">\(\theta_{z}\)</span> es el ángulo de yaw (en radianes), y <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span> y <span class="arithmatex">\(z\)</span> son los componentes de cuaternión de la orientación de un robot (<span class="arithmatex">\(w\)</span> siendo la parte escalar (real) y <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span> y <span class="arithmatex">\(z\)</span> siendo las partes vectoriales)<sup id="fnref:auto-addison"><a class="footnote-ref" href="#fn:auto-addison">2</a></sup>.</p>
-<h3 id="que-valores-de-pose-aplican-a-nuestros-waffles">¿Qué Valores de Pose Aplican a Nuestros Waffles?<a class="headerlink" href="#que-valores-de-pose-aplican-a-nuestros-waffles" title="Permanent link">¶</a></h3>
+<h3 id="que-valores-de-pose-aplican-a-nuestro-robot">¿Qué Valores de Pose Aplican a Nuestro Robot?<a class="headerlink" href="#que-valores-de-pose-aplican-a-nuestro-robot" title="Permanent link">¶</a></h3>
 <p>Refiriéndonos de nuevo a los tres <em>ejes principales</em> de antes: </p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejes principales del robot diferencial" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
 </figure>
-<p>También puedes ver aquí que nuestro TurtleBot3 tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: </p>
+<p>Como puedes ver, el robot de simulación tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: </p>
 <ul>
 <li><span class="arithmatex">\(x\)</span> &amp; <span class="arithmatex">\(y\)</span>: las coordenadas 2D del robot en el plano <strong>X</strong>-<strong>Y</strong></li>
 <li><span class="arithmatex">\(\theta_{z}\)</span>: el ángulo del robot alrededor del eje <strong>Z</strong> (<em>yaw</em>)</li>
@@ -4277,7 +4412,7 @@
 <li>
 <p>Habiendo seguido todos los pasos, la salida de tu node debería ser similar a la que se muestra a continuación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="odom_subscriber.gif" data-desc-position="bottom"><img alt="" src="odom_subscriber.gif" width="700px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="odom_subscriber.gif" width="700px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4444,16 +4579,16 @@
 </tbody>
 </table>
 <p></p></center><p></p>
-<h3 id="los-grados-de-libertad-de-nuestros-waffles">Los Grados de Libertad de Nuestros Waffles<a class="headerlink" href="#los-grados-de-libertad-de-nuestros-waffles" title="Permanent link">¶</a></h3>
-<p>Recuerda (de nuevo) los <em>"Ejes Principales"</em> de nuestro robot y el movimiento a su alrededor:</p>
+<h3 id="los-grados-de-libertad-del-robot">Los Grados de Libertad del Robot<a class="headerlink" href="#los-grados-de-libertad-del-robot" title="Permanent link">¶</a></h3>
+<p>Recuerda (de nuevo) los <em>"Ejes Principales"</em> del robot y el movimiento a su alrededor:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/principal_axes.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejes principales del robot diferencial" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
 </figure>
-<p>Como se discutió anteriormente, nuestros Waffles solo tienen dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de <em>"accionamiento diferencial"</em>), lo que en última instancia le proporciona un total de <strong>dos grados de libertad</strong> en general, como se destaca a continuación.</p>
+<p>Como se discutió anteriormente, el robot de simulación solo tiene dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de <em>"accionamiento diferencial"</em>), lo que en última instancia le proporciona un total de <strong>dos grados de libertad</strong> en general, como se destaca a continuación.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/waffle/velocities.svg" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="800"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Velocidades del robot diferencial" src="../../images/waffle/velocities.svg" width="800"></a></p>
 </figure>
-<p>Al emitir comandos de velocidad a nuestros Waffles, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad <strong>lineal</strong> en el eje <strong>x</strong> (<em>Adelante/Atrás</em>) y velocidad <strong>angular</strong> alrededor del eje <strong>z</strong> (<em>Yaw</em>).</p>
+<p>Al emitir comandos de velocidad al robot, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad <strong>lineal</strong> en el eje <strong>x</strong> (<em>Adelante/Atrás</em>) y velocidad <strong>angular</strong> alrededor del eje <strong>z</strong> (<em>Yaw</em>).</p>
 <p></p><center><p></p>
 <table>
 <thead>
@@ -4485,7 +4620,7 @@
 <p><a name="velocity_limits"></a></p>
 <div class="admonition note">
 <p class="admonition-title">Límites Máximos de Velocidad</p>
-<p>Ten en cuenta (mientras estamos en el tema de la velocidad) que nuestros TurtleBot3 Waffles tienen <strong>límites máximos de velocidad</strong>:</p>
+<p>Ten en cuenta (mientras estamos en el tema de la velocidad) que el robot de simulación tiene <strong>límites máximos de velocidad</strong>:</p>
 <p></p><center><p></p>
 <table>
 <thead>
@@ -4643,7 +4778,7 @@
 <div class="admonition question">
 <p class="admonition-title">Question</p>
 <p>¿Qué le pasa al robot cuando presionas <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> para detener el node <code>move_circle.py</code>?</p>
-<p><strong>Respuesta</strong>: ¡Sigue moviéndose <img alt="😮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f62e.svg" title=":open_mouth:">!</p>
+<p><strong>Respuesta</strong>: ¡Sigue moviéndose <img alt="😮" class="twemoji" src="../../assets/external/cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f62e.svg" title=":open_mouth:">!</p>
 <p>Puedes ejecutar otro node desde dentro de tu package para detenerlo realmente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>part2_navigation<span class="w"> </span>stop_me.py
 </code></pre></div>
@@ -4830,10 +4965,10 @@
 <hr>
 <ol>
 <li id="fn:quaternions">
-<p><a href="https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion" target="_blank">Los Cuaterniones se explican muy bien aquí</a>, si deseas aprender más.&nbsp;<a class="footnote-backref" href="#fnref:quaternions" title="Jump back to footnote 1 in the text">↩</a></p>
+<p><a href="https://automaticaddison.com/how-to-convert-a-quaternion-to-a-rotation-matrix/#What_is_a_Quaternion" target="_blank" rel="noopener">Los Cuaterniones se explican muy bien aquí</a>, si deseas aprender más.&nbsp;<a class="footnote-backref" href="#fnref:quaternions" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:auto-addison">
-<p>Tomado de <a href="https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/" target="_blank">esta publicación del blog Automatic Addison</a>.&nbsp;<a class="footnote-backref" href="#fnref:auto-addison" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>Tomado de <a href="https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/" target="_blank" rel="noopener">esta publicación del blog Automatic Addison</a>.&nbsp;<a class="footnote-backref" href="#fnref:auto-addison" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -4845,8 +4980,37 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 30, 2024 22:16:58 UTC"><span class="timeago" datetime="2024-12-30T22:16:58+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 30, 2024 22:16:58 UTC">2024-12-30</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -4915,7 +5079,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4945,14 +5109,30 @@
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

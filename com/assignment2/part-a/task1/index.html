@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../../../css/timeago.css">
     
       <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tarea 1: Control de Velocidad - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/com/assignment2/part-a/task1.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/com/assignment2/part-a/task1/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Tarea 1: Control de Velocidad - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Laboratorio práctico de robótica con ROS 2, TurtleBot3 Waffle y Go2 EDU.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/com/assignment2/part-a/task1.png">
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../../../assets/tuos.png" alt="logo">
+  <img src="../../../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -373,7 +388,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../../../assets/tuos.png" alt="logo">
+  <img src="../../../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1210,6 +1225,8 @@
       
         
       
+        
+      
     
     
     
@@ -1335,6 +1352,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../course/extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2566,7 +2611,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2588,7 +2633,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -2780,6 +2825,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2848,7 +2899,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -3170,6 +3221,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../unitree/slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3336,7 +3471,7 @@
 
   <h1>Tarea 1: Control de Velocidad</h1>
 
-<p>Desarrolla una aplicación de ROS funcional para hacer que un <em>TurtleBot3 Waffle real</em> siga un perfil de movimiento prescrito, mientras imprime información clave en la terminal.</p>
+<p>Desarrolla una aplicación de ROS funcional para hacer que un <em>robot real del laboratorio</em> siga un perfil de movimiento prescrito, mientras imprime información clave en la terminal.</p>
 <div class="admonition success">
 <p class="admonition-title">Puntos de Control del Curso</p>
 <p>Las siguientes partes del <a href="../../../assignment1/">Curso de ROS 2</a> apoyarán tu trabajo en esta tarea:</p>
@@ -3345,7 +3480,7 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Parte 2</strong>: hasta (e incluyendo) el <a href="../../../../course/part2/#ex5">Ejercicio 5</a>.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> <strong>Parte 3</strong>: <a href="../../../../course/part3/#ex1">Ejercicio 1</a>.</li>
 </ul>
-<p><strong>Ver También</strong> - <a href="../../../../waffles/essentials/">Entendiendo los Waffles</a>:</p>
+<p><strong>Ver También</strong> - <a href="../../../../waffles/essentials/">Entendiendo los robots</a>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"><span class="task-list-indicator"></span></label> Control de Movimiento y Velocidad</li>
 </ul>
@@ -3353,18 +3488,18 @@
 <h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">¶</a></h2>
 <p>El objetivo principal de esta tarea es crear un node de ROS (o múltiples nodes) que hagan que tu robot siga un patrón de <strong>figura ocho</strong> en el suelo del arena robótico. La trayectoria de figura ocho debe generarse siguiendo dos bucles, ambos de 1 metro de diámetro, como se muestra a continuación. <a name="fig-eight"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/task1_motion_path.png" data-desc-position="bottom"><img alt="" src="../../figures/task1_motion_path.png" width="400px"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task1_motion_path.png" width="400px"></a>
   </p>
 <figcaption>La trayectoria de figura ocho para la Tarea 1.</figcaption>
 </figure>
 <p>El Arena Robótico estará configurado de la siguiente manera para esta tarea:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/task1_arena_layout.jpg" data-desc-position="bottom"><img alt="" src="../../figures/task1_arena_layout.jpg" width="500px"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task1_arena_layout.jpg" width="500px"></a>
   </p>
 <figcaption>La configuración del Arena Robótico para la Tarea 1.</figcaption>
 </figure>
 <p>Mientras haces esto, también necesitarás presentar datos de odometría del robot en la terminal a intervalos regulares (<a href="#details">ver abajo para los detalles específicos</a>). Tu node debe generar estos datos como Mensajes de Log de ROS 2 con severidad <code>INFO</code>, es decir, usando llamadas <code class="highlight"><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></code> dentro de uno de tus nodes. Los mensajes de log se usan en muchos de los ejercicios y el código de ejemplo a lo largo de la Asignación #1, por lo que debes consultarlos para orientación si lo necesitas.</p>
-<p>Además, para esta tarea, los mensajes de log deben estar <em>formateados</em> de una manera particular, por lo que quizás quieras consultar la documentación sobre <a href="https://docs.python.org/3/tutorial/inputoutput.html" target="_blank">Formato de Cadenas de Python</a>, y leer los detalles a continuación cuidadosamente para saber qué se espera.</p>
+<p>Además, para esta tarea, los mensajes de log deben estar <em>formateados</em> de una manera particular, por lo que quizás quieras consultar la documentación sobre <a href="https://docs.python.org/3/tutorial/inputoutput.html" target="_blank" rel="noopener">Formato de Cadenas de Python</a>, y leer los detalles a continuación cuidadosamente para saber qué se espera.</p>
 <h2 id="detalles">Detalles<a class="headerlink" href="#detalles" title="Permanent link">¶</a></h2>
 <ol>
 <li>"<strong>Bucle 1</strong>": El robot debe comenzar moviéndose en sentido <strong>antihorario</strong>, siguiendo una trayectoria de movimiento circular de 1 m de diámetro alrededor de la baliza roja <a href="#fig-eight">como se muestra arriba</a>.</li>
@@ -3511,13 +3646,13 @@
 <p>Aunque podrías desarrollar una aplicación de ROS que funcione perfectamente en simulación, esto no significa que funcione igual de bien en el mundo real.</p>
 <p>En última instancia, esta tarea (y de hecho todas las demás tareas de programación de la Asignación #2) será evaluada en robots reales, así que aprovecha al máximo las sesiones de laboratorio y <strong>prueba las cosas en los robots reales <ins>a fondo</ins></strong>.</p>
 </div>
-<p><a href="#fig-eight">Como se muestra arriba</a>, para la evaluación habrá balizas cilíndricas colocadas en el centro de cada uno de los bucles de la figura ocho alrededor de las cuales el robot deberá moverse mientras completa la tarea. Por lo tanto, también hemos creado un entorno de simulación que es representativo del entorno del mundo real. Este está disponible en el paquete <code>tuos_task_sims</code>, que es parte del Repositorio del Curso <code>tuos_ros</code>. Las instrucciones para descargarlo e instalarlo dentro de tu propia instalación local de ROS están <a href="../../../../course/extras/course-repo/">disponibles aquí</a>.</p>
+<p><a href="#fig-eight">Como se muestra arriba</a>, para la evaluación habrá balizas cilíndricas colocadas en el centro de cada uno de los bucles de la figura ocho alrededor de las cuales el robot deberá moverse mientras completa la tarea. Por lo tanto, también hemos creado un entorno de simulación que es representativo del entorno del mundo real. Este está disponible en el paquete <code>rigsa_task_sims</code>, que es parte del Repositorio del Curso <code>rigsa_ros</code>. Las instrucciones para descargarlo e instalarlo dentro de tu propia instalación local de ROS están <a href="../../../../course/extras/course-repo/">disponibles aquí</a>.</p>
 <p>Si ya lo has instalado (quizás como parte de la Asignación #1), vale la pena asegurarse de tener la versión más actualizada (<a href="../../../../course/extras/course-repo/#updating">como se discute aquí</a>).</p>
 <p>Una vez que hayas hecho todo esto, deberías poder lanzar la simulación usando <code>ros2 launch</code> de la siguiente manera:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_task_sims<span class="w"> </span>fig_of_eight.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_task_sims<span class="w"> </span>fig_of_eight.launch.py
 </code></pre></div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../figures/task1.png" data-desc-position="bottom"><img alt="" src="../../figures/task1.png"></a>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../figures/task1.png"></a>
   </p>
 <figcaption>Un entorno de simulación para representar la configuración del arena robótico para la Tarea 1.</figcaption>
 </figure>
@@ -3533,8 +3668,37 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 21, 2025 12:17:07 UTC"><span class="timeago" datetime="2025-05-21T12:17:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 21, 2025 12:17:07 UTC">2025-05-21</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -3603,7 +3767,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -3633,14 +3797,30 @@
     
       <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../../../js/timeago.min.js"></script>
+      
+        <script src="../../../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

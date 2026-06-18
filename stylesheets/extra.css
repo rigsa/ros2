@@ -1,4 +1,35 @@
+/* Rigsa - Laboratorio de Robótica con ROS 2
+   Paleta: verde oscuro como primario, verde claro como acento */
+
 :root {
-  --md-primary-fg-color:        #440099;
-  --md-accent-fg-color:         #9ADBE6;
+  /* Primary: verde oscuro (fondo de nav/header, texto de énfasis) */
+  --md-primary-fg-color:               #1B7A3C;
+  --md-primary-fg-color--light:        #2E9E5A;
+  --md-primary-fg-color--dark:         #145A2E;
+  --md-primary-bg-color:               hsla(0, 0%, 100%, 0.75);
+  --md-primary-bg-color--light:        hsla(0, 0%, 100%, 0.45);
+
+  /* Accent: verde claro (enlaces hover, botones, highlights) */
+  --md-accent-fg-color:                #2E9E5A;
+  --md-accent-fg-color--transparent:   hsla(146, 55%, 40%, 0.1);
+  --md-accent-bg-color:                #FFFFFF;
+}
+
+/* Forzar links de código a usar el verde */
+.md-typeset a code {
+  color: var(--md-accent-fg-color);
+}
+
+/* Ligera diferenciación de color para admonitions tip/note */
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+  border-color: #2E9E5A;
+}
+.md-typeset .admonition.tip > .admonition-title,
+.md-typeset details.tip > summary {
+  background-color: rgba(46, 158, 90, 0.1);
+}
+.md-typeset .admonition.tip > .admonition-title::before,
+.md-typeset details.tip > summary::before {
+  background-color: #2E9E5A;
 }

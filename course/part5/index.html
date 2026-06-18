@@ -19,7 +19,7 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parte 5: Actions - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Aprende sobre otro método de comunicación clave de ROS que es similar a un ROS Service, pero con algunas ventajas clave y casos de uso alternativos.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part5.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/course/part5/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Parte 5: Actions - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Aprende sobre otro método de comunicación clave de ROS que es similar a un ROS Service, pero con algunas ventajas clave y casos de uso alternativos.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/course/part5.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -373,7 +388,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1607,6 +1622,8 @@
       
         
       
+        
+      
     
     
     
@@ -1732,6 +1749,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2817,7 +2862,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2839,7 +2884,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -3031,6 +3076,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3099,7 +3150,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -3408,6 +3459,90 @@
     
   
     U12: Logging, Diagnósticos y Reportes de Misión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitree/slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
   
 
     
@@ -3881,11 +4016,11 @@
 <!-- As you may remember from Part 3, you actually used a ROS Action to make your robot navigate autonomously in [Exercise 3](./part3.md#ex3), by calling an action server from the command-line. We will do a similar thing now, in a different context, and this time we'll also look at what's going on in a bit more detail. -->
 
 <h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Lanzar un Action Server y llamarlo desde la línea de comandos<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
-<p>Vamos a jugar un pequeño juego aquí. Vamos a lanzar nuestro TurtleBot3 Waffle en un <em>entorno misterioso</em> ahora, y lo haremos lanzando Gazebo en modo <em>headless</em>, es decir, Gazebo se ejecutará en segundo plano, pero no habrá Interfaz Gráfica de Usuario (GUI) para mostrarnos cómo es realmente el entorno. Luego, usaremos un <em>action server</em> para hacer que nuestro robot escanee el entorno y tome fotos por nosotros, ¡para revelar su entorno!</p>
+<p>Vamos a jugar un pequeño juego aquí. Vamos a lanzar el robot de simulación en un <em>entorno misterioso</em> ahora, y lo haremos lanzando Gazebo en modo <em>headless</em>, es decir, Gazebo se ejecutará en segundo plano, pero no habrá Interfaz Gráfica de Usuario (GUI) para mostrarnos cómo es realmente el entorno. Luego, usaremos un <em>action server</em> para hacer que nuestro robot escanee el entorno y tome fotos por nosotros, ¡para revelar su entorno!</p>
 <ol>
 <li>
-<p>Para lanzar el TurtleBot3 Waffle en este <em>entorno misterioso</em>, usa el siguiente comando <code>ros2 launch</code> en <strong>TERMINAL 1</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>mystery_world.launch.py
+<p>Para lanzar el robot de simulación en este <em>entorno misterioso</em>, usa el siguiente comando <code>ros2 launch</code> en <strong>TERMINAL 1</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>mystery_world.launch.py
 </code></pre></div>
 <p>... ¡aparentemente no ocurrirá <em>nada</em> (por ahora)!</p>
 </li>
@@ -3894,7 +4029,7 @@
 <p>La salida de esto debería confirmar que ROS y nuestro robot están efectivamente activos...</p>
 <details class="question">
 <summary>¿Cómo?</summary>
-<p>Cuando el robot está activo, la salida del comando <code>ros2 topic list</code> debería proporcionar una larga lista de topics, varios de los cuales hemos estado trabajando a lo largo de este curso, como <code>cmd_vel</code>, <code>odom</code>, <code>scan</code>, y así sucesivamente. Si la simulación del Waffle <em>no</em> está activa, se nos presentaría una lista mucho más pequeña, que contiene solo los topics básicos de ROS:</p>
+<p>Cuando el robot está activo, la salida del comando <code>ros2 topic list</code> debería proporcionar una larga lista de topics, varios de los cuales hemos estado trabajando a lo largo de este curso, como <code>cmd_vel</code>, <code>odom</code>, <code>scan</code>, y así sucesivamente. Si la simulación del robot <em>no</em> está activa, se nos presentaría una lista mucho más pequeña, que contiene solo los topics básicos de ROS:</p>
 <hr>
 <p><strong>TERMINAL 2:</strong>
 </p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
@@ -3906,7 +4041,7 @@
 </li>
 <li>
 <p>A continuación (aún en <strong>TERMINAL 2</strong>), ejecuta el siguiente comando para lanzar un <em>Action Server</em> en la red:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rigsa_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 </li>
 <li>
@@ -3923,13 +4058,13 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Action: /camera_sweep
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Action clients: 0
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Action servers: 1
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    /camera_sweep_action_server [tuos_interfaces/action/CameraSweep]
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    /camera_sweep_action_server [rigsa_interfaces/action/CameraSweep]
 </code></pre></div>
 <p>El argumento <code>-t</code> muestra adicionalmente el <em>tipo</em> de action frente al node servidor, indicándonos el tipo de <em>interface</em> utilizada por el servidor.</p>
 </li>
 <li>
 <p>Ahora busquemos más información sobre la interface en sí. Al igual que con cualquier interface (mensaje, service o action) podemos usar el comando <code>ros2 interface</code> para esto. En <strong>TERMINAL 3</strong> ingresa lo siguiente:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>tuos_interfaces/action/CameraSweep
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>rigsa_interfaces/action/CameraSweep
 </code></pre></div>
 <p>Lo cual debería presentarnos lo siguiente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#goal
@@ -3969,7 +4104,7 @@
 <p>Sabemos por nuestra investigación anterior con los comandos <code>ros2 action list</code>, <code>info</code> y <code>ros2 interface show</code> cómo proporcionar los datos correctos aquí:</p>
 <ol>
 <li><code>action_name</code>: <code>/camera_sweep</code></li>
-<li><code>action_type</code>: <code>tuos_interfaces/action/CameraSweep</code></li>
+<li><code>action_type</code>: <code>rigsa_interfaces/action/CameraSweep</code></li>
 <li><code>goal</code>: un paquete de datos (en formato YAML) que contiene dos parámetros:<ol>
 <li><code>sweep_angle</code>: el ángulo (en grados) que el robot rotará en su lugar (es decir, el 'barrido')</li>
 <li><code>image_count</code>: el número de imágenes que capturará desde su cámara frontal mientras realiza el 'barrido'</li>
@@ -3979,7 +4114,7 @@
 </li>
 <li>
 <p>Ahora, de nuevo en <strong>TERMINAL 3</strong>, intenta usar el comando <code>ros2 action send_goal</code>, pero vigila la <strong>TERMINAL 2</strong> mientras lo haces:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>/camera_sweep<span class="w"> </span>tuos_interfaces/action/CameraSweep<span class="w"> </span><span class="se">\</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>/camera_sweep<span class="w"> </span>rigsa_interfaces/action/CameraSweep<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="s2">"{sweep_angle: 0, image_count: 0}"</span>
 </code></pre></div>
 <p>Después de llamar al action, se te debería presentar un mensaje (en <strong>TERMINAL 3</strong>) indicando que el <code>Goal was rejected.</code> En <strong>TERMINAL 2</strong> (donde se está ejecutando el action server), deberíamos ver información adicional sobre por qué fue así. Lee esto y luego regresa a <strong>TERMINAL 3</strong> e intenta de nuevo enviar un goal al action server, ¡esta vez suministrando entradas válidas!</p>
@@ -4020,7 +4155,7 @@
 </li>
 <li>
 <p>Hagamos esto una vez más. Cierra la ventana de <code>eog</code>, regresa a <strong>TERMINAL 3</strong> y emite el comando <code>ros2 action send_goal</code> nuevamente, pero esta vez usa el flag opcional <code>-f</code>: <a name="send_goal_cli"></a></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>-f<span class="w"> </span>/camera_sweep<span class="w"> </span>tuos_interfaces/action/CameraSweep<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>-f<span class="w"> </span>/camera_sweep<span class="w"> </span>rigsa_interfaces/action/CameraSweep<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="s2">"{sweep_angle: 0, image_count: 0}"</span><span class="w"> </span>
 </code></pre></div>
 <div class="admonition tip">
@@ -4037,13 +4172,13 @@
 <p>En el ejercicio anterior lanzamos un action server y luego lo llamamos desde la línea de comandos usando el sub-comando <code>ros2 action send_goal</code>. De la misma manera que un ROS Service, el action también nos proporcionó un <strong>result</strong> una vez que la tarea se completó.</p>
 <p>Usando el flag <code>-f</code> pudimos pedir al servidor que nos proporcionara <em>feedback en tiempo real</em> sobre cómo iba (en <strong>TERMINAL 3</strong>). El <strong>Feedback</strong> es una de las características clave que diferencia a un ROS Action de un ROS Service: un Action Server proporciona <strong>feedback</strong> a intervalos regulares mientras trabaja hacia su <strong>goal</strong>. Otra característica de los ROS Actions es que pueden <em>cancelarse</em> a mitad de camino (con lo que jugaremos en breve).</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="action_interface.png" data-desc-position="bottom"><img alt="" src="action_interface.png" width="400px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="action_interface.png" width="400px"></a></p>
 </figure>
-<p>En última instancia, los Actions usan una combinación de comunicación basada tanto en Topics <em>como</em> en Services, para crear un protocolo de mensajería más avanzado. Basándose en los ROS Services, los <em>Actions</em> están diseñados para ser usados en <strong>tareas de larga duración</strong>, debido a la provisión de <em>feedback</em> y la capacidad de <em>cancelar</em> un proceso a mitad de camino. Puedes leer más sobre Actions en <a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html" target="_blank">la documentación oficial de ROS 2 aquí</a> (que también incluye una animación muy buena para explicar cómo funcionan).</p>
+<p>En última instancia, los Actions usan una combinación de comunicación basada tanto en Topics <em>como</em> en Services, para crear un protocolo de mensajería más avanzado. Basándose en los ROS Services, los <em>Actions</em> están diseñados para ser usados en <strong>tareas de larga duración</strong>, debido a la provisión de <em>feedback</em> y la capacidad de <em>cancelar</em> un proceso a mitad de camino. Puedes leer más sobre Actions en <a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html" target="_blank" rel="noopener">la documentación oficial de ROS 2 aquí</a> (que también incluye una animación muy buena para explicar cómo funcionan).</p>
 <h3 id="el-formato-de-las-interfaces-de-action">El Formato de las Interfaces de Action<a class="headerlink" href="#el-formato-de-las-interfaces-de-action" title="Permanent link">¶</a></h3>
 <p>Al igual que los Services, las Interfaces de Action tienen múltiples partes, y necesitamos saber qué formato tienen estos mensajes de action para poder usarlos.</p>
 <p>Ejecutamos <code>ros2 interface show</code> en el ejercicio anterior, para interrogar la interface de action utilizada por el action server <code>/camera_sweep</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ros2 interface show tuos_interfaces/action/CameraSweep
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ros2 interface show rigsa_interfaces/action/CameraSweep
 </code></pre></div>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>#goal
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>float32 sweep_angle   # Angular sweep (in degrees) over which to capture images 
@@ -4075,17 +4210,17 @@
 <ol>
 <li>
 <p>En <strong>TERMINAL 1</strong> lanza la simulación del <em>mundo misterioso</em> nuevamente, pero esta vez con un argumento adicional:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2 launch tuos_simulations mystery_world.launch.py with_gui:=true
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ros2 launch rigsa_simulations mystery_world.launch.py with_gui:=true
 </code></pre></div>
 <p>Con el switch <code>with_gui</code> configurado en <code>true</code>, ahora deberíamos poder <em>ver</em> realmente el mundo simulado esta vez.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/gz/coloured_pillars.png" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a>
 </figure>
 <center><em>(¡No es muy emocionante que digamos!)</em></center><p></p>
 </li>
 <li>
 <p>Luego, en <strong>TERMINAL 2</strong>, lanza el Camera Sweep Action Server nuevamente:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rigsa_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 </li>
 </ol>
@@ -4356,7 +4491,7 @@ a solo esto:
 </div>
 <p>Hasta ahora hemos visto cómo llamar a un action server preexistente, pero ¿qué pasa si realmente queremos configurar el nuestro propio, y también usar nuestras propias Interfaces de Action personalizadas?</p>
 <p>Para empezar, echa un vistazo al Action Server con el que has estado trabajando en los ejercicios anteriores. Has estado lanzándolo con el siguiente comando:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>tuos_examples<span class="w"> </span>camera_sweep_action_server.py
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>rigsa_examples<span class="w"> </span>camera_sweep_action_server.py
 </code></pre></div>
 <div class="admonition question">
 <p class="admonition-title">Preguntas</p>
@@ -4577,10 +4712,10 @@ a solo esto:
 </ol>
 <p><strong>Pruebas</strong></p>
 <p>Cuando quieras probar las cosas, ¿por qué no usar el entorno <em>Nav World</em> de la Parte 3 (en <strong>TERMINAL 1</strong>)?:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>tuos_simulations<span class="w"> </span>nav_world.launch.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../part3/nav_world.png" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="600px"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="600px"></a></p>
 </figure>
 <p>No olvides que para lanzar el servidor necesitarás haber construido todo con <code>colcon</code> siguiendo <a href="#colcon-build-steps">el proceso habitual de <strong>tres etapas</strong></a>.</p>
 <p>Haz esto en <strong>TERMINAL 2</strong> y luego podrás ejecutarlo:</p>
@@ -4677,7 +4812,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 <li>ROS Actions.</li>
 </ol>
 <p>A través de este curso has adquirido algo de experiencia práctica usando los tres, pero puede que aún te preguntes cómo seleccionar el apropiado para cierta tarea robótica...</p>
-<p><a href="https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html" target="_blank">Esta página web de ROS.org</a> resume todo esto muy bien (y brevemente), así que deberías leerla para asegurarte de saber qué es qué. En resumen:</p>
+<p><a href="https://docs.ros.org/en/jazzy/How-To-Guides/Topics-Services-Actions.html" target="_blank" rel="noopener">Esta página web de ROS.org</a> resume todo esto muy bien (y brevemente), así que deberías leerla para asegurarte de saber qué es qué. En resumen:</p>
 <ul>
 <li><strong>Topics</strong>: Son más apropiados para transmitir flujos de datos continuos como datos de sensores e información del estado del robot, y para publicar datos que probablemente sean requeridos por una variedad de Nodes en una red de ROS.</li>
 <li><strong>Services</strong>: Son más apropiados para procedimientos muy cortos como cálculos <em>rápidos</em> (cinemática inversa, etc.) y para realizar acciones discretas cortas que es poco probable que salgan mal o que no necesitarán intervención (p. ej., encender un LED de advertencia cuando la batería está baja).</li>
@@ -4707,8 +4842,37 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="January 2, 2025 12:39:08 UTC"><span class="timeago" datetime="2025-01-02T12:39:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="January 2, 2025 12:39:08 UTC">2025-01-02</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -4777,7 +4941,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -4807,14 +4971,30 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

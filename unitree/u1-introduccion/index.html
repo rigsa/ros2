@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Arquitectura del robot, el SDK de Unitree, y el patrón bridge que permite usar ROS 2 estándar en hardware real.">
+        <meta name="description" content="Arquitectura del Go2 EDU, AS2 EDU y B2, el SDK de Unitree, y el patrón bridge para ROS 2 estándar en hardware real.">
       
       
       
@@ -19,12 +19,12 @@
         
       
       
-      <link rel="icon" href="../../assets/tuos_logo.svg">
+      <link rel="icon" href="../../assets/rigsa_favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>U1: Introducción al Unitree Go2/B2 - Laboratorio de Robótica con ROS 2</title>
+        <title>U1: Introducción a los Robots Unitree - Laboratorio de Robótica con ROS 2</title>
       
     
     
@@ -44,11 +44,13 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&amp;display=fallback">
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.c3479dc1.css">
         <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
@@ -58,7 +60,20 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  
+<meta property="og:type" content="website">
+<meta property="og:title" content="U1: Introducción a los Robots Unitree - Laboratorio de Robótica con ROS 2">
+<meta property="og:description" content="Arquitectura del Go2 EDU, AS2 EDU y B2, el SDK de Unitree, y el patrón bridge para ROS 2 estándar en hardware real.">
+<meta property="og:image" content="https://rigsa.github.io/ros2/assets/images/social/unitree/u1-introduccion.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://rigsa.github.io/ros2/unitree/u1-introduccion/">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="U1: Introducción a los Robots Unitree - Laboratorio de Robótica con ROS 2">
+<meta property="twitter:description" content="Arquitectura del Go2 EDU, AS2 EDU y B2, el SDK de Unitree, y el patrón bridge para ROS 2 estándar en hardware real.">
+<meta property="twitter:image" content="https://rigsa.github.io/ros2/assets/images/social/unitree/u1-introduccion.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -87,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#u1-introduccion-al-unitree-go2b2" class="md-skip">
+        <a href="#u1-introduccion-a-los-robots-unitree" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +118,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-header__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -120,7 +135,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              U1: Introducción al Unitree Go2/B2
+              U1: Introducción a los Robots Unitree
             
           </span>
         </div>
@@ -133,9 +148,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -143,9 +158,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
       </label>
     
@@ -371,7 +386,7 @@
   
     
   
-  The Waffles
+  TurtleBot3 (referencia)
 
         </a>
       </li>
@@ -427,7 +442,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Laboratorio de Robótica con ROS 2" class="md-nav__button md-logo" aria-label="Laboratorio de Robótica con ROS 2" data-md-component="logo">
       
-  <img src="../../assets/tuos.png" alt="logo">
+  <img src="../../assets/rigsa_logo.svg" alt="logo">
 
     </a>
     Laboratorio de Robótica con ROS 2
@@ -1210,6 +1225,8 @@
       
         
       
+        
+      
     
     
     
@@ -1335,6 +1352,34 @@
     
   
     Portando a un Unitree Go2/B2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course/extras/gazebo-unitree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulación Gazebo con Unitree (instalación local)
   
 
     
@@ -2420,7 +2465,7 @@
   <span class="md-ellipsis">
     
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
     
@@ -2442,7 +2487,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    The Waffles
+    TurtleBot3 (referencia)
   
 
           </label>
@@ -2636,6 +2681,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2714,7 +2765,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -2732,7 +2783,7 @@
   <span class="md-ellipsis">
     
   
-    U1: Introducción al Unitree Go2/B2
+    U1: Introducción a los Robots Unitree
   
 
     
@@ -2758,10 +2809,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#el-robot-cuadrupedo" class="md-nav__link">
+  <a href="#los-robots-cuadrupedos-del-curso" class="md-nav__link">
     <span class="md-ellipsis">
       
-        El robot cuadrúpedo
+        Los robots cuadrúpedos del curso
       
     </span>
   </a>
@@ -2795,7 +2846,7 @@
   <a href="#sportclient-control-de-movimiento-y-comportamientos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SportClient — control de movimiento y comportamientos
+        SportClient - control de movimiento y comportamientos
       
     </span>
   </a>
@@ -2841,10 +2892,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#el-go2-tiene-3-dof-el-turtlebot3-tiene-2" class="md-nav__link">
+  <a href="#los-robots-unitree-tienen-3-dof-el-robot-diferencial-tiene-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        El Go2 tiene 3 DOF, el TurtleBot3 tiene 2
+        Los robots Unitree tienen 3 DOF; el robot diferencial tiene 2
       
     </span>
   </a>
@@ -3190,6 +3241,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../as2-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AS2 EDU: El robot de inspección con IA embebida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../b2-industrial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B2: Robot Industrial de Inspección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam-avanzado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLAM Avanzado: FAST-LIO2 y 3D Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3224,10 +3359,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#el-robot-cuadrupedo" class="md-nav__link">
+  <a href="#los-robots-cuadrupedos-del-curso" class="md-nav__link">
     <span class="md-ellipsis">
       
-        El robot cuadrúpedo
+        Los robots cuadrúpedos del curso
       
     </span>
   </a>
@@ -3261,7 +3396,7 @@
   <a href="#sportclient-control-de-movimiento-y-comportamientos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SportClient — control de movimiento y comportamientos
+        SportClient - control de movimiento y comportamientos
       
     </span>
   </a>
@@ -3307,10 +3442,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#el-go2-tiene-3-dof-el-turtlebot3-tiene-2" class="md-nav__link">
+  <a href="#los-robots-unitree-tienen-3-dof-el-robot-diferencial-tiene-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        El Go2 tiene 3 DOF, el TurtleBot3 tiene 2
+        Los robots Unitree tienen 3 DOF; el robot diferencial tiene 2
       
     </span>
   </a>
@@ -3372,19 +3507,58 @@
   
 
 
-<h1 id="u1-introduccion-al-unitree-go2b2">U1: Introducción al Unitree Go2/B2<a class="headerlink" href="#u1-introduccion-al-unitree-go2b2" title="Permanent link">¶</a></h1>
-<h2 id="el-robot-cuadrupedo">El robot cuadrúpedo<a class="headerlink" href="#el-robot-cuadrupedo" title="Permanent link">¶</a></h2>
-<p>El <a href="https://www.unitree.com/go2">Unitree Go2 EDU</a> y el <a href="https://www.unitree.com/b2">B2</a>
-son robots cuadrúpedos (cuatro patas) diseñados para investigación y desarrollo.
-A diferencia de los robots de ruedas que usamos en el resto del curso, estos robots:</p>
+<h1 id="u1-introduccion-a-los-robots-unitree">U1: Introducción a los Robots Unitree<a class="headerlink" href="#u1-introduccion-a-los-robots-unitree" title="Permanent link">¶</a></h1>
+<h2 id="los-robots-cuadrupedos-del-curso">Los robots cuadrúpedos del curso<a class="headerlink" href="#los-robots-cuadrupedos-del-curso" title="Permanent link">¶</a></h2>
+<p>Este curso usa tres plataformas cuadrúpedas de Unitree - todas comparten la misma API y el mismo código ROS 2:</p>
+<table>
+<thead>
+<tr>
+<th>Robot</th>
+<th>Peso</th>
+<th>Velocidad</th>
+<th>Conectividad</th>
+<th>LiDAR</th>
+<th>Uso en el curso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.unitree.com/go2"><strong>Go2 EDU</strong></a></td>
+<td>15 kg</td>
+<td>3.5 m/s</td>
+<td>WiFi 5 / Ethernet</td>
+<td>L1 (16-line)</td>
+<td>Fundamentos, laboratorio</td>
+</tr>
+<tr>
+<td><a href="https://www.unitree.com/mobile/As2"><strong>AS2 EDU</strong></a></td>
+<td>18 kg</td>
+<td><strong>5 m/s</strong></td>
+<td><strong>WiFi 6</strong> / Ethernet / 4G</td>
+<td>L2 o 64-128 line</td>
+<td>Inspección + IA embebida</td>
+</tr>
+<tr>
+<td><a href="https://www.unitree.com/b2"><strong>B2</strong></a></td>
+<td>60 kg</td>
+<td>3.3 m/s</td>
+<td>Ethernet</td>
+<td>Hesai AT128 (128-line)</td>
+<td>Inspección industrial pesada</td>
+</tr>
+</tbody>
+</table>
+<p>A diferencia de los robots de ruedas que usamos en el resto del curso, estos robots:</p>
 <ul>
-<li>Se <strong>mueven sobre patas</strong> — tienen una dinámica mucho más compleja que las ruedas</li>
-<li>Son <strong>holonómicos</strong> — pueden moverse en cualquier dirección sin girar primero</li>
+<li>Se <strong>mueven sobre patas</strong> - tienen una dinámica mucho más compleja que las ruedas</li>
+<li>Son <strong>holonómicos</strong> - pueden moverse en cualquier dirección sin girar primero</li>
 <li>Tienen <strong>comportamientos de alto nivel</strong> integrados (sentarse, saludar, bailar, voltear)</li>
-<li>Llevan un <strong>LiDAR 3D</strong> en lugar del LiDAR 2D del TurtleBot3</li>
+<li>Llevan un <strong>LiDAR 3D</strong> en lugar del LiDAR 2D del robot diferencial de las primeras partes del curso</li>
 </ul>
-<p>El Go2 EDU tiene acceso al SDK completo de Unitree. El B2 es la versión más grande e
-industrial y comparte la misma familia de API.</p>
+<p>Los tres comparten el mismo SDK (<code>unitree_sdk2</code>) y el mismo bridge del curso.
+El <strong>AS2 EDU</strong> destaca por su velocidad (hasta 5 m/s), conectividad WiFi 6 nativa
+(sin necesidad de Ethernet) y su CPU de 8 núcleos capaz de ejecutar modelos de IA
+directamente en el robot - orientado a inspección autónoma.</p>
 <h2 id="arquitectura-del-sistema">Arquitectura del sistema<a class="headerlink" href="#arquitectura-del-sistema" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────┐
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                  Tu código ROS 2                         │
@@ -3417,7 +3591,7 @@ un nodo ROS 2 que se ejecuta junto al robot y traduce entre:</p>
 oficial de Unitree para comunicarse con los robots Go2/B2. Usa <strong>CycloneDDS</strong> sobre
 Ethernet para enviar comandos al robot a baja latencia.</p>
 <p>Las API principales del SDK relevantes para este curso son:</p>
-<h3 id="sportclient-control-de-movimiento-y-comportamientos">SportClient — control de movimiento y comportamientos<a class="headerlink" href="#sportclient-control-de-movimiento-y-comportamientos" title="Permanent link">¶</a></h3>
+<h3 id="sportclient-control-de-movimiento-y-comportamientos">SportClient - control de movimiento y comportamientos<a class="headerlink" href="#sportclient-control-de-movimiento-y-comportamientos" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">sport_client</span><span class="o">.</span><span class="n">Move</span><span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vyaw</span><span class="p">)</span>    <span class="c1"># Mover el robot (holonómico)</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">sport_client</span><span class="o">.</span><span class="n">StandUp</span><span class="p">()</span>             <span class="c1"># Levantarse</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">sport_client</span><span class="o">.</span><span class="n">StandDown</span><span class="p">()</span>           <span class="c1"># Bajar</span>
@@ -3434,21 +3608,30 @@ republica como <code>nav_msgs/Odometry</code> en <code>/odom</code>.</p>
 <h3 id="lidar">LiDAR<a class="headerlink" href="#lidar" title="Permanent link">¶</a></h3>
 <p>El LiDAR L1 del Go2 publica una <strong>nube de puntos 3D</strong> en <code>/utlidar/cloud</code>
 (<code>sensor_msgs/PointCloud2</code>). El bridge extrae un corte horizontal a la altura del
-cuerpo y lo convierte a <code>sensor_msgs/LaserScan</code>, idéntico al del TurtleBot3.</p>
+cuerpo y lo convierte a <code>sensor_msgs/LaserScan</code>, idéntico al del robot diferencial del curso.</p>
 <h2 id="diferencias-de-red">Diferencias de red<a class="headerlink" href="#diferencias-de-red" title="Permanent link">¶</a></h2>
-<p>En hardware real, el Go2/B2 se comunica con el PC vía <strong>Ethernet</strong> con CycloneDDS:</p>
+<p>En hardware real, todos los robots Unitree usan CycloneDDS:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Variables de entorno necesarias en el host del robot</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">RMW_IMPLEMENTATION</span><span class="o">=</span>rmw_cyclonedds_cpp
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Go2 EDU / B2 - Ethernet</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>python3<span class="w"> </span>unitree_ros2_bridge.py<span class="w"> </span>--network_interface<span class="w"> </span>eth0
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># AS2 EDU - WiFi 6 (conectado a la red WiFi del robot)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>python3<span class="w"> </span>unitree_ros2_bridge.py<span class="w"> </span>--network_interface<span class="w"> </span>wlan0
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># AS2 EDU - también acepta Ethernet si prefieres conexión cableada</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>python3<span class="w"> </span>unitree_ros2_bridge.py<span class="w"> </span>--network_interface<span class="w"> </span>eth0
 </code></pre></div>
 <p>En el sandbox y en la simulación se usa Fast DDS (el default de ROS 2 Jazzy)
-— no necesitas cambiar nada.</p>
-<h2 id="el-go2-tiene-3-dof-el-turtlebot3-tiene-2">El Go2 tiene 3 DOF, el TurtleBot3 tiene 2<a class="headerlink" href="#el-go2-tiene-3-dof-el-turtlebot3-tiene-2" title="Permanent link">¶</a></h2>
+ -  no necesitas cambiar nada.</p>
+<h2 id="los-robots-unitree-tienen-3-dof-el-robot-diferencial-tiene-2">Los robots Unitree tienen 3 DOF; el robot diferencial tiene 2<a class="headerlink" href="#los-robots-unitree-tienen-3-dof-el-robot-diferencial-tiene-2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
 <th>Velocidad</th>
-<th>TurtleBot3 Waffle</th>
-<th>Unitree Go2/B2</th>
+<th>Robot diferencial (Partes 1-6)</th>
+<th>Go2 EDU / AS2 EDU / B2</th>
 </tr>
 </thead>
 <tbody>
@@ -3469,8 +3652,8 @@ cuerpo y lo convierte a <code>sensor_msgs/LaserScan</code>, idéntico al del Tur
 </tr>
 </tbody>
 </table>
-<p>Tu código del curso base (que solo usa <code>vx</code> y <code>vyaw</code>) <strong>funciona sin cambios</strong> en el
-Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
+<p>Tu código del curso base (que solo usa <code>vx</code> y <code>vyaw</code>) <strong>funciona sin cambios</strong> en
+cualquier robot Unitree - simplemente no estás usando el desplazamiento lateral.</p>
 <h2 id="resumen-lo-que-cambia-vs-lo-que-se-mantiene">Resumen: lo que cambia vs. lo que se mantiene<a class="headerlink" href="#resumen-lo-que-cambia-vs-lo-que-se-mantiene" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -3484,12 +3667,12 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
 <tr>
 <td>Publishers y subscribers de ROS 2</td>
 <td>❌</td>
-<td>Exactamente igual</td>
+<td>Exactamente igual en todos</td>
 </tr>
 <tr>
 <td>Servicios y acciones de ROS 2</td>
 <td>❌</td>
-<td>Exactamente igual</td>
+<td>Exactamente igual en todos</td>
 </tr>
 <tr>
 <td>Nombres de topics</td>
@@ -3499,7 +3682,7 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
 <tr>
 <td>Configuración de red</td>
 <td>Sí (hardware)</td>
-<td>CycloneDDS + Ethernet</td>
+<td>Go2/B2: Ethernet · AS2: WiFi 6 o Ethernet</td>
 </tr>
 <tr>
 <td>Iniciar el robot</td>
@@ -3509,12 +3692,12 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
 <tr>
 <td>Tu código <code>.py</code></td>
 <td>❌</td>
-<td>Cero cambios necesarios</td>
+<td>Sin cambios</td>
 </tr>
 </tbody>
 </table>
 <h2 id="actividad-de-este-modulo">Actividad de este módulo<a class="headerlink" href="#actividad-de-este-modulo" title="Permanent link">¶</a></h2>
-<p>Este módulo es conceptual — no hay ejercicio de código.</p>
+<p>Este módulo es conceptual - no hay ejercicio de código.</p>
 <ol>
 <li>Lee esta página completa.</li>
 <li>Explora la guía de porting:
@@ -3527,7 +3710,7 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
 </code></pre></div>
    Verás <code>/cmd_vel</code>, <code>/odom</code>, <code>/scan</code> y todos los <code>/sport/*</code> listos para usar.</li>
 </ol>
-<p>Cuando termines, continúa con <a href="../u2-locomocion/">U2 — Locomoción Holonómica</a>.</p>
+<p>Cuando termines, continúa con <a href="../u2-locomocion/">U2 - Locomoción Holonómica</a>.</p>
 
 
 
@@ -3536,8 +3719,37 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 17, 2026 03:27:43 UTC"><span class="timeago" datetime="2026-06-17T03:27:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 17, 2026 03:27:43 UTC">2026-06-17</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -3566,7 +3778,7 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Unitree Go2/B2 con ROS 2">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Unitree Go2 / AS2 / B2 con ROS 2">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -3576,7 +3788,7 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Unitree Go2/B2 con ROS 2
+                Unitree Go2 / AS2 / B2 con ROS 2
               </div>
             </div>
           </a>
@@ -3606,7 +3818,7 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../../assets/external/i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br> Adaptado del curso original de <a href="https://github.com/tom-howard/tuos_ros">Tom Howard (Universidad de Sheffield)</a> bajo licencia CC BY-SA 4.0.
 
     </div>
   
@@ -3636,14 +3848,30 @@ Go2 — simplemente no está usando la capacidad de desplazamiento lateral.</p>
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
         <script src="../../javascripts/mathjax.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="../../https:/polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../assets/external/cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
+    try {
+        var img = element.querySelector('img');
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
+        } else {
+            console.log('No img element with src attribute found');
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+});
+const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
 </script></body></html>

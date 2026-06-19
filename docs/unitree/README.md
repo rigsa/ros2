@@ -80,13 +80,21 @@ Todos los módulos se pueden trabajar en el sandbox del curso (en el navegador) 
 Los mismos archivos `.py` funcionan sin cambios en el robot real una vez que
 `unitree_ros2_bridge.py` esté corriendo en el mismo host que el robot.
 
-## Lecturas de referencia
+## Referencia de hardware y plataformas
 
-- [Portando a Unitree (interfaces)](../course/extras/porting-to-unitree.md)  - 
+| Documento | Contenido |
+|---|---|
+| [AS2 EDU](as2-robot.md) | WiFi 6, 5 m/s, CPU 8-core, IA embebida, GPS/4G |
+| [B2 Industrial](b2-industrial.md) | IP67, 60 kg payload, Hesai AT128, 4 h autonomía |
+| [SLAM Avanzado](slam-avanzado.md) | FAST-LIO2 3D mapping para B2 y AS2 con LiDAR de alta densidad |
+| [Go2 EDU — Hardware en profundidad](go2-hardware-profundo.md) | 12 motors, L1 LiDAR specs, SDK2 DDS topics, D1 arm, Go2-W |
+| [Go2 en Isaac Lab](go2-isaac-lab.md) | RL con unitree_rl_lab, sim2real, isaac-go2-ros2 |
+| [G1 EDU: Humanoide](g1-humanoid.md) | 29 DOF, LeRobot, OpenWBT, Isaac Lab, papers |
+| [Papers y Recursos](papers-recursos.md) | Colección curada de papers open-source y proyectos de GitHub |
+
+## Lecturas de referencia adicionales
+
+- [Portando a Unitree (interfaces)](../course/extras/porting-to-unitree.md) —
   mapeo completo de topics del curso base a sus equivalentes en Go2/B2
 - [SDK de Python de Unitree (unitree_sdk2py)](https://github.com/unitreerobotics/unitree_sdk2_python)
-- [Repositorio de autonomía Go2](https://github.com/rigsa/unitree_rigsa)
-  (stack de navegación completo, referencia para trabajos avanzados)
-- [AS2 EDU: IA embebida + WiFi 6](as2-robot.md) - specs, conectividad WiFi, CPU 8-core, inspección autónoma
-- [B2: Robot Industrial de Inspección](b2-industrial.md) - especificaciones, diferencias con Go2 EDU, aplicaciones reales
-- [SLAM Avanzado con FAST-LIO2](slam-avanzado.md) - mapeo 3D con el LiDAR de alta densidad del AS2/B2
+- [awesome-unitree-robots](https://github.com/shaoxiang/awesome-unitree-robots) — lista curada de todos los proyectos open-source Unitree

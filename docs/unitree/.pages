@@ -1,22 +1,26 @@
 nav:
   - README.md
-  - u1-introduccion.md
-  - u2-locomocion.md
-  - u3-odometria.md
-  - u4-comportamientos.md
-  - u5-lidar.md
-  - u6-autonomia.md
-  - u7-slam.md
-  - u8-navegacion-mapa.md
-  - u9-rutinas-inspeccion.md
-  - u10-aruco.md
-  - u11-bateria.md
-  - u12-logging.md
-  - as2-robot.md
-  - b2-industrial.md
-  - slam-avanzado.md
-  - go2-hardware-profundo.md
-  - go2-isaac-lab.md
-  - go2-colab-rl.md
-  - g1-humanoid.md
-  - papers-recursos.md
+  - "Fundamentos (U1-U12)":
+    - u1-introduccion.md
+    - u2-locomocion.md
+    - u3-odometria.md
+    - u4-comportamientos.md
+    - u5-lidar.md
+    - u6-autonomia.md
+    - u7-slam.md
+    - u8-navegacion-mapa.md
+    - u9-rutinas-inspeccion.md
+    - u10-aruco.md
+    - u11-bateria.md
+    - u12-logging.md
+  - "Bloque 1: SDK2 Profesional": sdk2/
+  - "Bloque 2: ROS 2 Aplicado al B2 / H1-2": ros2-b2/
+  - "Referencia de Hardware":
+    - as2-robot.md
+    - b2-industrial.md
+    - slam-avanzado.md
+    - go2-hardware-profundo.md
+    - go2-isaac-lab.md
+    - go2-colab-rl.md
+    - g1-humanoid.md
+    - papers-recursos.md

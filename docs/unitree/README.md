@@ -89,6 +89,7 @@ Los mismos archivos `.py` funcionan sin cambios en el robot real una vez que
 | [SLAM Avanzado](slam-avanzado.md) | FAST-LIO2 3D mapping para B2 y AS2 con LiDAR de alta densidad |
 | [Go2 EDU — Hardware en profundidad](go2-hardware-profundo.md) | 12 motors, L1 LiDAR specs, SDK2 DDS topics, D1 arm, Go2-W |
 | [Go2 en Isaac Lab](go2-isaac-lab.md) | RL con unitree_rl_lab, sim2real, isaac-go2-ros2 |
+| [RL en Google Colab](go2-colab-rl.md) | Entrenar políticas Go2 en Colab Pro con unitree_rl_mjlab, sin GPU propia |
 | [G1 EDU: Humanoide](g1-humanoid.md) | 29 DOF, LeRobot, OpenWBT, Isaac Lab, papers |
 | [Papers y Recursos](papers-recursos.md) | Colección curada de papers open-source y proyectos de GitHub |
 

@@ -192,18 +192,23 @@ gcloud run jobs execute go2-rl-train
 
 ### Google Colab Pro ($10/mes por estudiante)
 
-Para estudiantes que quieren explorar RL sin presupuesto de cloud:
+Para el módulo RL del curso, Colab Pro con `unitree_rl_mjlab` es la **mejor opción**
+(no Isaac Lab — requiere 50 GB y drivers no soportados en Colab):
 - Acceso a A100 / V100 en Colab Pro
-- ~100 compute units/mes ≈ 10-15 horas de A100
-- Suficiente para 5-10 experimentos simples de Go2
+- ~100 compute units/mes ≈ 6.7 horas A100 / 56 horas T4
+- 3 experimentos de Go2 flat (3K iter) consumen solo el 6–7% del presupuesto mensual
 
 ```python
-# En Colab Pro (A100):
-!git clone https://github.com/unitreerobotics/unitree_rl_lab.git
-%cd unitree_rl_lab
-!./unitree_rl_lab.sh -t --task Unitree-Go2-Velocity-v0 --headless --max_iterations 3000
-# ~10 min en A100, ocupa ~1 compute unit
+# En Colab Pro (A100 o T4) — unitree_rl_mjlab (MuJoCo, sin Isaac Sim):
+!git clone --depth 1 https://github.com/unitreerobotics/unitree_rl_mjlab.git
+%cd unitree_rl_mjlab
+!pip install -e . --quiet
+!python scripts/train.py Unitree-Go2-Flat \
+    --env.scene.num-envs=2048 --max_iterations=3000 --headless
+# A100: ~10 min / T4: ~70 min — un experimento ≈ 2 CU
 ```
+
+Ver guía completa: [RL en Google Colab](../unitree/go2-colab-rl.md)
 
 ### RunPod / Vast.ai (A100 spot del mercado)
 
@@ -219,9 +224,9 @@ Para investigación extendida fuera del ecosistema GCP:
 | Escenario | Plataforma recomendada | Costo típico |
 |---|---|---|
 | Curso U1-U12 completo | **Cloud Run** (sin GPU) | $27-31/estudiante/semestre |
-| RL simple (3K iter, curso avanzado) | **Cloud Run Jobs L4** | $1.83/experimento |
-| RL investigación (20K iter) | **CE Spot A100** | $5.54/experimento |
-| Sin presupuesto cloud | **Google Colab Pro** | $10/mes/estudiante |
+| RL módulo del curso (3K iter) | **Google Colab Pro** + unitree_rl_mjlab | $10/mes/estudiante |
+| RL investigación (20K iter) | **CE Spot A100** + Isaac Lab | $5.54/experimento |
+| RL una sola vez, sin suscripción | **Cloud Run Jobs L4** | $1.83/experimento |
 
 **El curso base (U1-U12 con sim_lite) NO requiere GPU en ningún momento.**
 GPU solo se necesita para el módulo opcional de Isaac Lab (go2-isaac-lab.md).

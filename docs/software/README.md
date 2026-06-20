@@ -33,3 +33,10 @@ alguien (un demostrador, o el laboratorio) tiene un sandbox en ejecución, puede
 el curso completo en un navegador, con la simulación transmitida directamente a ti.
 
 * [Ejecutar ROS 2 en Tu Navegador](./browser-ros2.md).
+
+## Costos de la nube (referencia para instructores)
+
+Si eres instructor y quieres entender el costo de operar el sandbox en Google Cloud Run,
+o planeas usar el módulo avanzado de RL con Isaac Lab:
+
+* [Estimación de costos en Cloud Run + GPU](./cloud-costos.md)

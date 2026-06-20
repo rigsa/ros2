@@ -2,350 +2,430 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://rigsa.github.io/ros2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/about/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/about/changelog/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/about/license/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/about/robots/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/amr/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/amr/lab1/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/amr/lab2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment1/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/assessment/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/getting-started/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-c/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/ros-pkg-tips/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-a/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-a/task1/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-a/task2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-b/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-b/ai-declaration/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-b/nav2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-b/task3/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/com/assignment2/part-b/team-viva/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part1/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part3/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part4/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part5/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part6/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/extras/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/extras/course-repo/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/extras/gazebo-unitree/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/extras/launch-files/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/extras/porting-to-unitree/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part1/custom_msg_pub/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part1/publisher/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part1/subscriber/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part2/move_circle/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part2/move_square/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part2/odom_subscriber/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part3/lidar_subscriber/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part3/move_circle/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part4/number_game_client/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part5/explore_server/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part5/minimal_action_client/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part6/line_follower/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part6/object_detection/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/course/part6/object_detection_complete/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/sim/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/robot/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/robot/first-lab/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/robot/getting-started/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/robot/sim/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/robot/submission/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/ele/robot/task/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/browser-ros2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/software/cloud-costos/</loc>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/docker-ros2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/installing-wsl-ros2/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/using-wsl-ros/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/using-wsl-ros/linux-term/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/using-wsl-ros/man-win/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/software/using-wsl-ros/vscode/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/as2-robot/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/b2-industrial/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/g1-humanoid/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/go2-colab-rl/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/go2-hardware-profundo/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/go2-isaac-lab/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/papers-recursos/</loc>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/slam-avanzado/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u1-introduccion/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u10-aruco/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u11-bateria/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u12-logging/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u2-locomocion/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u3-odometria/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u4-comportamientos/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u5-lidar/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u6-autonomia/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u7-slam/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u8-navegacion-mapa/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/unitree/u9-rutinas-inspeccion/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s1-arq-sdk2-ros2/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s2-nodos-lifecycle/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s3-visualizacion/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s4-interfaces-hw/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s5-conexion-pruebas/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s6-simulacion/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/ros2-b2/s7-percepcion-nav/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s1-intro-sdk2/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s2-python-vs-cpp/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s3-acceso-pc2/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s4-bajo-nivel/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s5-alto-nivel/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s6-perifericos/</loc>
+         <lastmod>2026-06-20</lastmod>
+    </url>
+    <url>
+         <loc>https://rigsa.github.io/ros2/unitree/sdk2/s7-caso-integrado/</loc>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/waffles/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/waffles/basics/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/waffles/essentials/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/waffles/intro/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/waffles/launching-ros/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
     <url>
          <loc>https://rigsa.github.io/ros2/waffles/shutdown/</loc>
-         <lastmod>2026-06-18</lastmod>
+         <lastmod>2026-06-20</lastmod>
     </url>
 </urlset>

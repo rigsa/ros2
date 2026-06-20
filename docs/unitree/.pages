@@ -17,5 +17,6 @@ nav:
   - slam-avanzado.md
   - go2-hardware-profundo.md
   - go2-isaac-lab.md
+  - go2-colab-rl.md
   - g1-humanoid.md
   - papers-recursos.md

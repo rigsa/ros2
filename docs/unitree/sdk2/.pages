@@ -1,0 +1,9 @@
+title: "Bloque 1: SDK2 Profesional"
+nav:
+  - "SDK2 Bloque 1 — Introducción": s1-intro-sdk2.md
+  - "S2 — Python vs C++": s2-python-vs-cpp.md
+  - "S3 — Acceso al PC2": s3-acceso-pc2.md
+  - "S4 — Interfaces de Bajo Nivel": s4-bajo-nivel.md
+  - "S5 — Interfaces de Alto Nivel": s5-alto-nivel.md
+  - "S6 — Periféricos y Actuadores": s6-perifericos.md
+  - "S7 — Caso Integrado": s7-caso-integrado.md

@@ -1,0 +1,9 @@
+title: "Bloque 2: ROS 2 Aplicado al B2 / H1-2"
+nav:
+  - "S1 — Arquitectura SDK2 + ROS 2": s1-arq-sdk2-ros2.md
+  - "S2 — Nodos Lifecycle": s2-nodos-lifecycle.md
+  - "S3 — Visualización y Diagnóstico": s3-visualizacion.md
+  - "S4 — Interfaces de Hardware": s4-interfaces-hw.md
+  - "S5 — Conexión y Pruebas": s5-conexion-pruebas.md
+  - "S6 — Simulación Avanzada": s6-simulacion.md
+  - "S7 — Percepción y Navegación": s7-percepcion-nav.md

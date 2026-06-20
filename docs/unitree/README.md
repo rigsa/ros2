@@ -43,6 +43,20 @@ Tu código del curso
    ~150 MB RAM)                 SDK de Unitree)
 ```
 
+## Estructura del curso
+
+El material está organizado en tres niveles de dificultad progresiva:
+
+```
+Fundamentos (U1-U12)     → ROS 2 estándar sobre sim_lite
+Bloque 1 (S1-S7)         → SDK2 Profesional: DDS, LocoClient, LowState
+Bloque 2 (S1-S7)         → ROS 2 Aplicado al B2/H1-2: Nav2, SLAM, lifecycle
+```
+
+Prerrequisito: completar los módulos U1-U6 antes de iniciar los Bloques 1 y 2.
+
+---
+
 ## Módulos de este curso
 
 ### Fundamentos (U1-U6)
@@ -71,7 +85,7 @@ Tu código del curso
 
 Todos los módulos se pueden trabajar en el sandbox del curso (en el navegador) con
 `sim_lite` en modo holonómico. Activa el mundo correcto seleccionando el módulo en el
-[portal del sandbox](../../software/browser-ros2.md):
+[portal del sandbox](../software/browser-ros2.md):
 
 - **U1-U4**: mundo `unitree_empty` - espacio abierto, motor holonómico
 - **U5-U6**: mundo `unitree_obstacles` - campo con obstáculos, motor holonómico
@@ -92,6 +106,49 @@ Los mismos archivos `.py` funcionan sin cambios en el robot real una vez que
 | [RL en Google Colab](go2-colab-rl.md) | Entrenar políticas Go2 en Colab Pro con unitree_rl_mjlab, sin GPU propia |
 | [G1 EDU: Humanoide](g1-humanoid.md) | 29 DOF, LeRobot, OpenWBT, Isaac Lab, papers |
 | [Papers y Recursos](papers-recursos.md) | Colección curada de papers open-source y proyectos de GitHub |
+
+### Bloque 1: SDK2 Profesional (S1-S7)
+
+Acceso directo al SDK2 de Unitree vía DDS nativo. Prerrequisito: U1-U6.
+
+| Módulo | Tema | Archivos |
+|--------|------|----------|
+| [S1 — Intro SDK2](sdk2/s1-intro-sdk2.md) | Arquitectura DDS, Pub/Sub, Req/Resp | `sdk2_bridge_sim.py` |
+| [S2 — Python vs C++](sdk2/s2-python-vs-cpp.md) | Bindings, rendimiento, setup | - |
+| [S3 — Acceso al PC2](sdk2/s3-acceso-pc2.md) | SSH, red, DDS unicast, procesos críticos | `s3_test_conexion.py` |
+| [S4 — Bajo Nivel](sdk2/s4-bajo-nivel.md) | LowState 500 Hz, motores, IMU, LowCmd | `s4_monitor_lowstate.py` |
+| [S5 — Alto Nivel](sdk2/s5-alto-nivel.md) | LocoClient, modos de marcha, holonómico | `s5_loco_client.py` |
+| [S6 — Periféricos](sdk2/s6-perifericos.md) | Cámara, audio, HandClient H1-2, joystick | `s6_camara.py` |
+| [S7 — Caso Integrado](sdk2/s7-caso-integrado.md) | Patrulla autónoma: LiDAR + cámara + log | `s7_patrol_system.py` |
+
+### Bloque 2: ROS 2 Aplicado al B2 / H1-2 (S1-S7)
+
+Integración de SDK2 con el ecosistema ROS 2: SLAM, Nav2, lifecycle, visualización. Prerrequisito: Bloque 1.
+
+| Módulo | Tema | Archivos |
+|--------|------|----------|
+| [S1 — Arquitectura](ros2-b2/s1-arq-sdk2-ros2.md) | Bridge DDS↔ROS 2, mapeo de tópicos | `s1_verificar_bridge.py` |
+| [S2 — Lifecycle](ros2-b2/s2-nodos-lifecycle.md) | Drivers hardware como nodos lifecycle | `s2_b2_lifecycle_driver.py` |
+| [S3 — Visualización](ros2-b2/s3-visualizacion.md) | RViz, TF tree, rqt, PlotJuggler | `s3_diagnostico_viz.py` |
+| [S4 — Interfaces HW](ros2-b2/s4-interfaces-hw.md) | JointState, IMU, ros2_control, batería | `s4_joint_monitor.py` |
+| [S5 — Conexión y Tests](ros2-b2/s5-conexion-pruebas.md) | Health check, integration tests, CI | `s5_health_check.py` |
+| [S6 — Simulación](ros2-b2/s6-simulacion.md) | sim_lite vs Gazebo, escenarios, validación | `s6_scenario_runner.py` |
+| [S7 — Percepción y Nav](ros2-b2/s7-percepcion-nav.md) | SLAM Toolbox, Nav2, misión autónoma | `s7_nav2_mission.py` |
+
+---
+
+## Acceso al robot real
+
+El B2 físico del laboratorio está disponible mediante un sistema de **reserva de turnos de 30 minutos**:
+
+1. Ve a [Cola de Robot](../../robot-queue) en tu sesión
+2. Reserva un slot disponible
+3. Al inicio de tu turno, aparece el panel **"Robot Real"** con acceso por terminal web
+4. Cambia el import en tu script: `sdk2_bridge_sim` → `unitree_sdk2py.b2.loco_client`
+
+Solo un estudiante puede usar el robot a la vez. La cola es de primera reserva, primer servicio.
+
+---
 
 ## Lecturas de referencia adicionales
 

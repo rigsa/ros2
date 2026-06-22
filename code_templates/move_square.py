@@ -70,16 +70,16 @@ class Square(Node):
             self.theta_zref = self.theta_z
 
     def timer_callback(self):
-        # here is where the code to control the motion of the robot 
+        # here is where the code to control the motion of the robot
         # goes. Add code here to make the robot move in a square of
         # dimensions 1 x 1m...
         if self.turn:
             # turn by 90 degrees...
-            
+            pass
 
         else:
             # move forwards by 1m...
-            
+            pass
 
         # publish whatever velocity command has been set above:
         self.vel_pub.publish(self.vel_msg)

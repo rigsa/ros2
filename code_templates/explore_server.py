@@ -41,12 +41,15 @@ class ExploreForwardServer(Node):
         ) # (4)!
 
         ## TASK: create a /cmd_vel publisher
+        # self.create_publisher(msg_type=???, topic="cmd_vel", qos_profile=10)
         self.vel_pub = self.create_publisher(...)
 
-        ## TASK: create an /odom subscriber 
+        ## TASK: create an /odom subscriber
+        # self.create_subscription(msg_type=???, topic="odom", callback=self.odom_callback, qos_profile=10)
         self.odom_sub = self.create_subscription(...)
 
         ## TASK: create a /scan subscriber
+        # self.create_subscription(msg_type=???, topic="scan", callback=self.lidar_callback, qos_profile=10)
         self.lidar_sub = self.create_subscription(...)
 
         # Creating the action server:
@@ -65,11 +68,11 @@ class ExploreForwardServer(Node):
         Callback for the /odom subscriber
         """
         ## TASK: obtain the robot's X and Y position:
-        self.posx = # (5)!
-        self.posy = 
+        self.posx = 0.0  # (5)! Replace with odom_msg x position
+        self.posy = 0.0  # Replace with odom_msg y position
 
         self.await_odom = False
-    
+
     def lidar_callback(self, scan_msg: LaserScan):
         """
         Callback for the /scan subscriber
@@ -77,33 +80,33 @@ class ExploreForwardServer(Node):
         ## TASK: Obtain the front 40 degrees of LiDAR
         # data, filter it and return the average distance
         # (or 'nan'):
-        self.lidar_reading = # (6)!
+        self.lidar_reading = 0.0  # (6)! Replace with filtered scan data
 
         self.await_lidar = False
-        
+
     def goal_callback(self, goal: ExploreForward.Goal):
         """
-        A callback to check that the goal inputs are valid        
+        A callback to check that the goal inputs are valid
         """
         goal_ok = True
         ## TASK: check the 'fwd_velocity' goal parameter is valid
-        # to ensure that the robot moves forward but that it 
+        # to ensure that the robot moves forward but that it
         # doesn't exceed is max velocity limit:
-        if goal.fwd_velocity ...
+        if False:  # Replace with condition on goal.fwd_velocity
 
 
 
             goal_ok = False
-        
+
         ## TASK: check the 'stopping_distance' goal parameter is valid
-        # (it should be at least 0.2m to make sure it doesn't get too 
+        # (it should be at least 0.2m to make sure it doesn't get too
         # close!)
-        if goal.stopping_distance ...
+        if False:  # Replace with condition on goal.stopping_distance
 
 
 
             goal_ok = False
-        
+
         return GoalResponse.ACCEPT if goal_ok else GoalResponse.REJECT
     
     def cancel_callback(self, goal):
@@ -142,7 +145,7 @@ class ExploreForwardServer(Node):
         
         # set the robot's velocity (based on the request):
         vel_cmd = TwistStamped()
-        vel_cmd...
+        ## TASK: set vel_cmd.twist.linear.x = fwd_vel
 
         # Get the robot's current position:
         while self.await_odom or self.await_lidar:
@@ -151,9 +154,9 @@ class ExploreForwardServer(Node):
         ref_posy = self.posy
         dist_travelled = 0.0
         
-        ## TASK: establish a while loop that executes until lidar readings 
+        ## TASK: establish a while loop that executes until lidar readings
         # indicate that an object is closer than the requested stopping distance
-        while SOMETHING > SOMETHING_ELSE:
+        while True:  # Replace with condition: lidar_reading > stop_dist
             
             ## TASK: publish a velocity command to make the robot move forward 
             # at the requested velocity...
@@ -172,8 +175,8 @@ class ExploreForwardServer(Node):
                 return result
             
             ## TASK: calculate the distance travelled so far:
-            dist_travelled = 
-            
+            dist_travelled = 0.0  # Replace with Euclidean distance from ref_posx/ref_posy
+
             feedback.current_distance_travelled = dist_travelled
             goal.publish_feedback(feedback)
 
@@ -206,7 +209,10 @@ def main(args=None):
             "Server shut down with Ctrl+C"
         )
     finally:
-        ## TASK: complete all necessary shutdown operations.
+        ## TASK: call node.on_shutdown() here to stop the robot, then destroy
+        ## the node and shut down rclpy (see waffle_yaw_action_server.py for reference).
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == '__main__':
     main()

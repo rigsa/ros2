@@ -704,12 +704,24 @@ En la Parte 4 hemos aprendido sobre los ROS Services y por qué pueden ser útil
 * Típicamente, un *Caller* de service hará una **request** a un service, y luego esperará una **response** (aunque es posible hacer otras cosas mientras tanto).
 * En general, sin embargo, los Services son útiles para controlar tareas *rápidas*, de *corta duración* o *cálculos*.
 
-### Usuarios de Escritorio Administrado WSL-ROS2: ¡Guarda tu trabajo! {#backup}
+### ¡Guarda tu trabajo! {#backup}
 
-Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier Instancia de Terminal WSL-ROS2 inactiva ahora:
+!!! info "Sandbox del Laboratorio (rigsa.io)"
+    Tu código se guarda en `/home/student/ros2_ws/src` dentro de la sesión.
+    Antes de cerrar la sesión, descárgalo para no perderlo:
 
-```bash
-wsl_ros backup
-```
+    1. En VS Code, haz clic derecho sobre la carpeta `src` en el explorador de archivos → **Descargar…**
+    2. O desde la terminal integrada:
+    ```bash
+    zip -r ~/mi_codigo_parte4.zip ~/ros2_ws/src && echo "¡Listo! ✓"
+    ```
+    Luego descarga el archivo `mi_codigo_parte4.zip` desde el explorador de VS Code.
 
-Luego podrás restaurarlo a un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (`wsl_ros restore`).
+!!! note "WSL-ROS2 (Computadoras del laboratorio con escritorio administrado)"
+    Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:
+
+    ```bash
+    wsl_ros backup
+    ```
+
+    Luego podrás restaurarlo a un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (`wsl_ros restore`).

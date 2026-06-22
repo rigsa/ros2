@@ -204,7 +204,7 @@ Describe la diferencia entre `/home/unitree/unitree_sdk2` y `/home/unitree/unitr
 ## Pasa al robot real
 
 !!! info "Acceso desde el sandbox"
-    1. Reserva un slot en la [cola de robot](../../../robot-queue)
+    1. Reserva un slot en la **Cola de Robot** (panel 🤖 en tu sesión del sandbox)
     2. Cuando tu slot sea activo, el panel "Robot Real" aparecerá en tu sesión
     3. Haz clic en **"Abrir Terminal del Robot"** — esto abre un `ttyd` en el gateway del lab
     4. Desde ahí ejecuta: `ssh unitree@192.168.123.18`
@@ -216,4 +216,4 @@ Describe la diferencia entre `/home/unitree/unitree_sdk2` y `/home/unitree/unitr
 
 - [B2 Networking Guide — Unitree Support](https://support.unitree.com/home/en/developer/about_B2)
 - [CycloneDDS configuration — cyclonedds.io](https://cyclonedds.io/docs/cyclonedds/latest/config/config_file_reference.html)
-- [Configuración de Gateway del Laboratorio](../../../lab-gateway-setup.md)
+- Configuración de Gateway del Laboratorio — disponible en el repositorio `ros2-sandbox` (`lab-gateway-setup.md`)

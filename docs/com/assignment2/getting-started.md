@@ -149,7 +149,9 @@ A continuación, deberás asegurarte de que Git esté correctamente configurado 
     ```
     ...¡reemplazando `tu_dirección_de_correo` con tu dirección de correo real!
 
-2. Si estás trabajando en WSL-ROS2 en una máquina del laboratorio, no olvides ejecutar `wsl_ros backup` para guardar estos cambios en tu archivo de respaldo externo de WSL-ROS2, para que siempre se restauren cuando ejecutes `wsl_ros restore` en una nueva instancia de WSL-ROS2 en otra máquina.
+2. **Si usas el Sandbox del Laboratorio**: tu configuración de Git se resetea al cerrar la sesión. Puedes exportar `.gitconfig` junto con tu código: haz clic derecho sobre él en VS Code → **Descargar…** y vuelve a subirlo en futuras sesiones.
+
+    **Si usas WSL-ROS2 en una máquina del laboratorio**: no olvides ejecutar `wsl_ros backup` para guardar estos cambios en tu archivo de respaldo, para que siempre se restauren cuando ejecutes `wsl_ros restore` en otra máquina.
 
     !!! note
         **¡Todos los miembros del equipo deberán hacer esta parte antes de interactuar con Git!**

@@ -940,12 +940,24 @@ A través de este curso has adquirido algo de experiencia práctica usando los t
 * **Services**: Son más apropiados para procedimientos muy cortos como cálculos *rápidos* (cinemática inversa, etc.) y para realizar acciones discretas cortas que es poco probable que salgan mal o que no necesitarán intervención (p. ej., encender un LED de advertencia cuando la batería está baja).
 * **Actions**: Son más apropiados para tareas de larga duración (como mover un robot), o para operaciones donde *podríamos* necesitar cambiar de opinión y hacer algo diferente o cancelar un comportamiento invocado a mitad de camino.
     
-### Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo! {#backup}
+### ¡Guarda tu trabajo! {#backup}
 
-Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva ahora:
+!!! info "Sandbox del Laboratorio (rigsa.io)"
+    Tu código se guarda en `/home/student/ros2_ws/src` dentro de la sesión.
+    Antes de cerrar la sesión, descárgalo para no perderlo:
 
-```bash
-wsl_ros backup
-```
+    1. En VS Code, haz clic derecho sobre la carpeta `src` en el explorador de archivos → **Descargar…**
+    2. O desde la terminal integrada:
+    ```bash
+    zip -r ~/mi_codigo_parte5.zip ~/ros2_ws/src && echo "¡Listo! ✓"
+    ```
+    Luego descarga el archivo `mi_codigo_parte5.zip` desde el explorador de VS Code.
 
-Luego podrás restaurarlo en un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (`wsl_ros restore`).
+!!! note "WSL-ROS2 (Computadoras del laboratorio)"
+    Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:
+
+    ```bash
+    wsl_ros backup
+    ```
+
+    Luego podrás restaurarlo en un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (`wsl_ros restore`).

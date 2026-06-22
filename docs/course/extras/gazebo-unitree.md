@@ -78,5 +78,5 @@ Una vez que tengas Gazebo/MuJoCo configurado:
 
 1. Tu código de los módulos U1-U12 funciona sin cambios
 2. Para hardware real: conecta el robot y lanza `unitree_ros2_bridge.py`
-3. Consulta [B2: Robot Industrial](../unitree/b2-industrial.md) para specs del hardware
-4. Para SLAM 3D: ver [SLAM Avanzado con FAST-LIO2](../unitree/slam-avanzado.md)
+3. Consulta [B2: Robot Industrial](../../unitree/b2-industrial.md) para specs del hardware
+4. Para SLAM 3D: ver [SLAM Avanzado con FAST-LIO2](../../unitree/slam-avanzado.md)

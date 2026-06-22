@@ -746,12 +746,24 @@ La siguiente tarea entonces es adaptar nuestro node `line_follower.py` para impl
 
 En esta sesión has aprendido a usar datos de la cámara de un robot para extraer más información sobre su entorno. La cámara permite que nuestro robot "vea" y la información que obtenemos de este dispositivo puede permitirnos desarrollar comportamientos robóticos más avanzados como buscar objetos, seguir cosas o, por el contrario, alejarse o evitarlos. Has aprendido a realizar algunas tareas básicas con OpenCV, pero esta es una biblioteca enorme y muy capaz de herramientas de visión artificial, y te animamos a explorar esto más por tu cuenta para mejorar algunos de los principios básicos que te hemos mostrado hoy.
 
-### Usuarios de WSL-ROS2 en computadoras del laboratorio: ¡Guarda tu trabajo! {#backup}
+### ¡Guarda tu trabajo! {#backup}
 
-Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva ahora:
+!!! info "Sandbox del Laboratorio (rigsa.io)"
+    Tu código se guarda en `/home/student/ros2_ws/src` dentro de la sesión.
+    Antes de cerrar la sesión, descárgalo para no perderlo:
 
-```bash
-wsl_ros backup
-```
+    1. En VS Code, haz clic derecho sobre la carpeta `src` en el explorador de archivos → **Descargar…**
+    2. O desde la terminal integrada:
+    ```bash
+    zip -r ~/mi_codigo_parte6.zip ~/ros2_ws/src && echo "¡Listo! ✓"
+    ```
+    Luego descarga el archivo `mi_codigo_parte6.zip` desde el explorador de VS Code.
 
-Luego podrás restaurarlo a un entorno WSL-ROS2 nuevo cuando lo necesites de nuevo (`wsl_ros restore`).
+!!! note "WSL-ROS2 (Computadoras del laboratorio)"
+    Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:
+
+    ```bash
+    wsl_ros backup
+    ```
+
+    Luego podrás restaurarlo a un entorno WSL-ROS2 nuevo cuando lo necesites (`wsl_ros restore`).

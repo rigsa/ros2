@@ -44,6 +44,7 @@ Al finalizar esta sesión serás capaz de:
 
 Si aún no lo has hecho, inicia tu entorno ROS ahora:
 
+1. **Sandbox del Laboratorio (Recomendado)**: inicia una sesión en [rigsa.io](https://rigsa.io) — sin instalación local, acceso directo desde el navegador.
 1. **Usando WSL-ROS2 en una computadora del laboratorio**: sigue [las instrucciones aquí para iniciarlo](../software/using-wsl-ros/man-win.md).
 1. **[Ejecutando WSL-ROS2 en tu propia máquina](../software/installing-wsl-ros2.md)**: inicia el Windows Terminal para acceder a una instancia de terminal WSL-ROS2.
 1. **Usuarios de Docker**: sigue [los pasos correspondientes](../software/docker-ros2.md) para iniciar una instancia de terminal con tu instalación local de ROS.
@@ -790,12 +791,24 @@ En última instancia, un robot necesita información adicional para determinar c
 
 Esta información adicional puede provenir de un sensor LiDAR, del cual hablamos anteriormente. Exploramos dónde se publican estos datos, cómo accedemos a ellos y qué nos dicen sobre el entorno inmediato de un robot. Luego analizamos algunas formas en que los datos de odometría y desplazamiento láser pueden combinarse para realizar funciones robóticas avanzadas, como el mapeo de un entorno. Todo esto es complicado, pero usando ROS podemos aprovechar estas herramientas con relativa facilidad, lo que ilustra cuán poderoso puede ser ROS para desarrollar aplicaciones robóticas de manera rápida y efectiva, ¡sin tener que reinventar la rueda!
 
-### Usuarios de WSL-ROS2 en Escritorio Administrado: ¡Guarda tu trabajo! {#backup}
+### ¡Guarda tu trabajo! {#backup}
 
-Recuerda, el trabajo que has realizado en el entorno WSL-ROS2 durante esta sesión **no se preservará** automáticamente para sesiones futuras ni en diferentes computadoras del laboratorio. Para guardar el trabajo que has realizado hoy debes ejecutar el siguiente script en cualquier instancia de terminal WSL-ROS2 que no esté en uso:
+!!! info "Sandbox del Laboratorio (rigsa.io)"
+    Tu código se guarda en `/home/student/ros2_ws/src` dentro de la sesión.
+    Antes de cerrar la sesión, descárgalo para no perderlo:
 
-```bash
-wsl_ros backup
-```
+    1. En VS Code, haz clic derecho sobre la carpeta `src` en el explorador de archivos → **Descargar…**
+    2. O desde la terminal integrada:
+    ```bash
+    zip -r ~/mi_codigo_parte3.zip ~/ros2_ws/src && echo "¡Listo! ✓"
+    ```
+    Luego descarga el archivo `mi_codigo_parte3.zip` desde el explorador de VS Code.
 
-Esto exportará tu directorio de inicio a tu unidad `U:\`, lo que te permitirá restaurarlo en otra computadora del laboratorio la próxima vez que inicies WSL-ROS2.
+!!! note "WSL-ROS2 (Computadoras del laboratorio con escritorio administrado)"
+    Ejecuta el siguiente script en cualquier instancia de terminal WSL-ROS2 que no esté en uso:
+
+    ```bash
+    wsl_ros backup
+    ```
+
+    Esto exportará tu directorio de inicio a tu unidad `U:\`, lo que te permitirá restaurarlo en otra computadora del laboratorio la próxima vez que inicies WSL-ROS2.

@@ -261,7 +261,7 @@ Modifica `ScenarioRunner` para que al finalizar genere un archivo HTML con los r
 
 ## Referencias
 
-- [sim_lite — descripción del simulador](../../sandbox-guide.md)
+- sim_lite — simulador 2D/3D ligero integrado en el sandbox (`sandbox/scripts/sim_lite.py`)
 - [Gazebo Harmonic + ROS 2 Jazzy](https://gazebosim.org/docs/harmonic/ros2_integration/)
 - [S7: Percepción y Navegación — SLAM con Gazebo](s7-percepcion-nav.md)
 - [Isaac Lab para Go2 — entrenamiento RL](../go2-isaac-lab.md)

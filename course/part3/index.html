@@ -1443,7 +1443,7 @@
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usuarios de WSL-ROS2 en Escritorio Administrado: ¡Guarda tu trabajo!
+        ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -4154,7 +4154,7 @@
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usuarios de WSL-ROS2 en Escritorio Administrado: ¡Guarda tu trabajo!
+        ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -4234,6 +4234,7 @@
 <p><strong>Paso 1: Inicia tu Entorno ROS</strong></p>
 <p>Si aún no lo has hecho, inicia tu entorno ROS ahora:</p>
 <ol>
+<li><strong>Sandbox del Laboratorio (Recomendado)</strong>: inicia una sesión en <a href="https://rigsa.io">rigsa.io</a> — sin instalación local, acceso directo desde el navegador.</li>
 <li><strong>Usando WSL-ROS2 en una computadora del laboratorio</strong>: sigue <a href="../../software/using-wsl-ros/man-win/">las instrucciones aquí para iniciarlo</a>.</li>
 <li><strong><a href="../../software/installing-wsl-ros2/">Ejecutando WSL-ROS2 en tu propia máquina</a></strong>: inicia el Windows Terminal para acceder a una instancia de terminal WSL-ROS2.</li>
 <li><strong>Usuarios de Docker</strong>: sigue <a href="../../software/docker-ros2/">los pasos correspondientes</a> para iniciar una instancia de terminal con tu instalación local de ROS.</li>
@@ -4881,11 +4882,26 @@ Reemplazando <code>MAP_NAME</code> con un nombre de tu elección. <p></p>
 <p>Como aprendimos en la Parte 2, la odometría de un robot se determina mediante la estimación por avance (<em>dead-reckoning</em>) y los algoritmos de control basados únicamente en esto (como el node <code>move_square.py</code>) pueden estar sujetos a deriva y error acumulado. </p>
 <p>En última instancia, un robot necesita información adicional para determinar con precisión su ubicación dentro de un entorno, y así mejorar su capacidad para navegar de manera efectiva y evitar colisiones.</p>
 <p>Esta información adicional puede provenir de un sensor LiDAR, del cual hablamos anteriormente. Exploramos dónde se publican estos datos, cómo accedemos a ellos y qué nos dicen sobre el entorno inmediato de un robot. Luego analizamos algunas formas en que los datos de odometría y desplazamiento láser pueden combinarse para realizar funciones robóticas avanzadas, como el mapeo de un entorno. Todo esto es complicado, pero usando ROS podemos aprovechar estas herramientas con relativa facilidad, lo que ilustra cuán poderoso puede ser ROS para desarrollar aplicaciones robóticas de manera rápida y efectiva, ¡sin tener que reinventar la rueda!</p>
-<h3 id="backup">Usuarios de WSL-ROS2 en Escritorio Administrado: ¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
-<p>Recuerda, el trabajo que has realizado en el entorno WSL-ROS2 durante esta sesión <strong>no se preservará</strong> automáticamente para sesiones futuras ni en diferentes computadoras del laboratorio. Para guardar el trabajo que has realizado hoy debes ejecutar el siguiente script en cualquier instancia de terminal WSL-ROS2 que no esté en uso:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>wsl_ros<span class="w"> </span>backup
+<h3 id="backup">¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Sandbox del Laboratorio (rigsa.io)</p>
+<p>Tu código se guarda en <code>/home/student/ros2_ws/src</code> dentro de la sesión.
+Antes de cerrar la sesión, descárgalo para no perderlo:</p>
+<ol>
+<li>En VS Code, haz clic derecho sobre la carpeta <code>src</code> en el explorador de archivos → <strong>Descargar…</strong></li>
+<li>O desde la terminal integrada:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>zip<span class="w"> </span>-r<span class="w"> </span>~/mi_codigo_parte3.zip<span class="w"> </span>~/ros2_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"¡Listo! ✓"</span>
+</code></pre></div>
+Luego descarga el archivo <code>mi_codigo_parte3.zip</code> desde el explorador de VS Code.</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">WSL-ROS2 (Computadoras del laboratorio con escritorio administrado)</p>
+<p>Ejecuta el siguiente script en cualquier instancia de terminal WSL-ROS2 que no esté en uso:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
 <p>Esto exportará tu directorio de inicio a tu unidad <code>U:\</code>, lo que te permitirá restaurarlo en otra computadora del laboratorio la próxima vez que inicies WSL-ROS2.</p>
+</div>
 
 
 
@@ -4908,7 +4924,7 @@ Reemplazando <code>MAP_NAME</code> con un nombre de tu elección. <p></p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 22, 2026 22:31:17 UTC"><span class="timeago" datetime="2026-06-22T22:31:17+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 22, 2026 22:31:17 UTC">2026-06-22</span>
   </span>
 
     

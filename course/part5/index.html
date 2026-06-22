@@ -1554,7 +1554,7 @@
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo!
+        ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -4264,7 +4264,7 @@
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo!
+        ¡Guarda tu trabajo!
       
     </span>
   </a>
@@ -5156,11 +5156,26 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
 <li><strong>Services</strong>: Son más apropiados para procedimientos muy cortos como cálculos <em>rápidos</em> (cinemática inversa, etc.) y para realizar acciones discretas cortas que es poco probable que salgan mal o que no necesitarán intervención (p. ej., encender un LED de advertencia cuando la batería está baja).</li>
 <li><strong>Actions</strong>: Son más apropiados para tareas de larga duración (como mover un robot), o para operaciones donde <em>podríamos</em> necesitar cambiar de opinión y hacer algo diferente o cancelar un comportamiento invocado a mitad de camino.</li>
 </ul>
-<h3 id="backup">Usuarios de Computadoras del Laboratorio con WSL-ROS2: ¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
-<p>Recuerda guardar el trabajo que has realizado en WSL-ROS2 durante esta sesión para poder restaurarlo en una máquina diferente en una fecha posterior. Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva ahora:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>wsl_ros<span class="w"> </span>backup
+<h3 id="backup">¡Guarda tu trabajo!<a class="headerlink" href="#backup" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Sandbox del Laboratorio (rigsa.io)</p>
+<p>Tu código se guarda en <code>/home/student/ros2_ws/src</code> dentro de la sesión.
+Antes de cerrar la sesión, descárgalo para no perderlo:</p>
+<ol>
+<li>En VS Code, haz clic derecho sobre la carpeta <code>src</code> en el explorador de archivos → <strong>Descargar…</strong></li>
+<li>O desde la terminal integrada:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>zip<span class="w"> </span>-r<span class="w"> </span>~/mi_codigo_parte5.zip<span class="w"> </span>~/ros2_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"¡Listo! ✓"</span>
+</code></pre></div>
+Luego descarga el archivo <code>mi_codigo_parte5.zip</code> desde el explorador de VS Code.</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">WSL-ROS2 (Computadoras del laboratorio)</p>
+<p>Ejecuta el siguiente script en cualquier instancia de Terminal WSL-ROS2 inactiva:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>wsl_ros<span class="w"> </span>backup
 </code></pre></div>
 <p>Luego podrás restaurarlo en un entorno WSL-ROS2 nuevo la próxima vez que lo inicies (<code>wsl_ros restore</code>).</p>
+</div>
 <div class="footnote">
 <hr>
 <ol>
@@ -5194,7 +5209,7 @@ In Part 3 you used SLAM to construct a map of an environment ([Exercise 2](./par
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 18, 2026 15:26:30 UTC"><span class="timeago" datetime="2026-06-18T15:26:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 18, 2026 15:26:30 UTC">2026-06-18</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 22, 2026 22:31:17 UTC"><span class="timeago" datetime="2026-06-22T22:31:17+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 22, 2026 22:31:17 UTC">2026-06-22</span>
   </span>
 
     

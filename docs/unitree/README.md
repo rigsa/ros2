@@ -141,7 +141,7 @@ Integración de SDK2 con el ecosistema ROS 2: SLAM, Nav2, lifecycle, visualizaci
 
 El B2 físico del laboratorio está disponible mediante un sistema de **reserva de turnos de 30 minutos**:
 
-1. Ve a [Cola de Robot](../../robot-queue) en tu sesión
+1. Ve a la **Cola de Robot** en tu sesión del sandbox (icono 🤖 en la barra superior)
 2. Reserva un slot disponible
 3. Al inicio de tu turno, aparece el panel **"Robot Real"** con acceso por terminal web
 4. Cambia el import en tu script: `sdk2_bridge_sim` → `unitree_sdk2py.b2.loco_client`

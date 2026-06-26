@@ -58,7 +58,7 @@ class AutonomousMission(Node):
         self._th = math.atan2(2*(q.w*q.z + q.x*q.y), 1 - 2*(q.y**2 + q.z**2))
 
     def _scan_cb(self, msg):
-        front = [r for r in msg.ranges[0:30] + msg.ranges[-30:] if 0.05 < r < 3.5]
+        front = [r for r in msg.ranges[165:195] if 0.05 < r < 3.5]
         self._front = min(front) if front else 3.5
 
     def _img_cb(self, msg):

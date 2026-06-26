@@ -35,6 +35,8 @@ class State(Enum):
 class AutonomousMission(Node):
     TARGET = (2.0, 0.0)
 
+    DETECT_TIMEOUT = 5.0   # segundos máximos esperando detección YOLO
+
     def __init__(self):
         super().__init__('autonomous_mission')
         self.model  = YOLO('yolov8n.pt')
@@ -44,6 +46,7 @@ class AutonomousMission(Node):
         self._th    = 0.0
         self._front = 3.5
         self._detection = None
+        self._detect_t  = 0.0   # timestamp when DETECT_OBJECT started
 
         self.pub = self.create_publisher(TwistStamped, '/cmd_vel', 10)
         self.create_subscription(Odometry,  '/odom',              self._odom_cb, 10)
@@ -98,11 +101,17 @@ class AutonomousMission(Node):
         if self.state == State.NAVIGATE_TO_TARGET:
             if self._navigate_to(*self.TARGET):
                 self.get_logger().info('¡Llegué al punto de inspección!')
+                self._detect_t = self.get_clock().now().nanoseconds * 1e-9
                 self.state = State.DETECT_OBJECT
 
         elif self.state == State.DETECT_OBJECT:
+            elapsed = self.get_clock().now().nanoseconds * 1e-9 - self._detect_t
             if self._detection:
                 self.get_logger().info(f'Detectado: {self._detection}')
+                self.state = State.REPORT
+            elif elapsed > self.DETECT_TIMEOUT:
+                self.get_logger().warn('Tiempo de detección agotado — nada detectado')
+                self._detection = 'desconocido'
                 self.state = State.REPORT
 
         elif self.state == State.REPORT:

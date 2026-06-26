@@ -1,0 +1,12 @@
+nav:
+  - README.md
+  - b1-introduccion.md
+  - b2-locomocion.md
+  - b3-pubsub.md
+  - b4-articulaciones.md
+  - b5-comportamientos.md
+  - b6-camara.md
+  - b7-yolo.md
+  - b8-lidar.md
+  - b9-robocup.md
+  - b10-mision.md

@@ -10,3 +10,5 @@ nav:
   - b8-lidar.md
   - b9-robocup.md
   - b10-mision.md
+  - b11-launch-params.md
+  - b12-actions.md

@@ -4835,7 +4835,7 @@
 </code></pre></div>
 ...y luego espera a que se abra la ventana de Gazebo:<p></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a></p>
+<p></p>
 </figure>
 <h2 id="trabajando-con-camaras-e-imagenes-en-ros">Trabajando con Cámaras e Imágenes en ROS<a class="headerlink" href="#trabajando-con-camaras-e-imagenes-en-ros" title="Permanent link">¶</a></h2>
 <h3 id="topics-de-camara-y-datos">Topics de Cámara y Datos<a class="headerlink" href="#topics-de-camara-y-datos" title="Permanent link">¶</a></h3>
@@ -4891,7 +4891,7 @@
 </code></pre></div>
 <p>Una vez que RViz se inicie, deberías ver un panel de cámara en la esquina inferior izquierda con un flujo en vivo de las imágenes obtenidas de la cámara del robot.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Vista de RViz con el robot de simulación y datos de cámara" src="../../images/rviz/waffle_antd.svg" width="800px"></a></p>
+<p></p>
 </figure>
 <p>Cierra RViz ingresando <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span> en <strong>TERMINAL 2</strong>.  </p>
 <h4 id="ex1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 1: Usar RQT mientras se cambia el punto de vista del robot<a class="headerlink" href="#ex1" title="Permanent link">¶</a></h4>
@@ -4902,13 +4902,13 @@
 <p></p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rqt
 </code></pre></div>
 <figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/main.png" width="600"></a>
+  
 </figure><p></p>
 </li>
 <li>
 <p>En el menú superior selecciona <code>Plugins</code> &gt; <code>Vizualisation</code> &gt; <code>Image View</code>.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/image_view_antd.svg" width="500px"></a>
+  
 </figure><p></p>
 <p>Esto nos permite ver fácilmente imágenes que se están publicando en cualquier topic de cámara en la red ROS. Otra característica útil es la capacidad de guardar estas imágenes (como archivos <code>.jpg</code>) en el sistema de archivos: consulta el botón "Save image" resaltado en la figura anterior. Esto podría ser útil más adelante...</p>
 </li>
@@ -5011,7 +5011,7 @@
 </ol>
 <p>El código que acabamos de agregar aquí ha creado un nuevo objeto de imagen llamado <code>cropped_img</code> a partir de un subconjunto del original (<code>cv_img</code>). Esto se logró especificando una <code>crop_height</code> y <code>crop_width</code> deseadas en relación con las dimensiones originales de la imagen (en píxeles). Además, también hemos especificado <em>dónde</em> en la imagen original (en términos de coordenadas de píxeles) queremos que comience este subconjunto, usando <code>crop_y0</code> y <code>crop_z0</code>. Este proceso se ilustra en la figura siguiente:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od1_cropping.svg" width="600px"></a></p>
+<p></p>
 </figure>
 <p><a name="img_cropping"></a>La imagen original (<code>cv_img</code>) se recorta usando un proceso llamado <em>"slicing"</em>:</p>
 <p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cropped_img</span> <span class="o">=</span> <span class="n">cv_img</span><span class="p">[</span>
@@ -5021,7 +5021,7 @@
 </code></pre></div>
 Esto puede parecer bastante confuso, pero con suerte la figura a continuación ilustra lo que está sucediendo aquí:<p></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/img_slicing.svg" width="500px"></a></p>
+<p></p>
 </figure>
 <h5 id="paso-3-enmascaramiento">Paso 3: Enmascaramiento<a class="headerlink" href="#paso-3-enmascaramiento" title="Permanent link">¶</a></h5>
 <p>Como se discutió anteriormente, una imagen es esencialmente una serie de píxeles cada uno con un valor azul, verde y rojo asociado para representar los colores reales de la imagen. De la imagen original que acabamos de obtener y recortar, <em>ahora</em> queremos deshacernos de cualquier color que no esté asociado con el pilar que queremos que el robot detecte. Por lo tanto, necesitamos aplicar un <em>filtro</em> a los píxeles, que usaremos en última instancia para descartar cualquier dato de píxel que no esté relacionado con el pilar de color, mientras retenemos los datos que sí lo están.  </p>
@@ -5038,13 +5038,13 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <li>
 <p>El node debería producir un diagrama de dispersión, ilustrando los valores de Tono y Saturación de cada uno de los píxeles en la imagen. Cada punto de datos en el gráfico representa un solo píxel de la imagen y cada uno está coloreado para coincidir con su valor RGB:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od2_hs_scatter.png" width="600px"></a>
+  
 </figure><p></p>
 </li>
 <li>
 <p>Deberías ver en la imagen que todos los píxeles relacionados con el pilar de color que queremos detectar están agrupados juntos. Podemos usar esta información para especificar un rango de valores de Tono y Saturación que se pueden usar para enmascarar nuestra imagen: filtrando cualquier color que esté fuera de este rango y permitiéndonos aislar el pilar en sí. Los píxeles también tienen un <em>Valor</em> (o <em>"Brillo"</em>), que no se muestra en este gráfico. Como regla general, un rango de valores de brillo entre 100 y 255 generalmente funciona bastante bien.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od3_hs_thresholds.svg" width="600px"></a>
+  
 </figure><p></p>
 <p>En este caso entonces, seleccionamos los umbrales HSV superior e inferior de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">lower_threshold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">115</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -5073,7 +5073,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <p>Como se muestra en la figura a continuación, la tercera imagen debería ser simplemente una representación en blanco y negro de la imagen recortada, donde las regiones blancas deberían indicar las áreas de la imagen donde los valores de píxeles caen dentro del rango HSV especificado anteriormente. </p>
 <p>Observa (en el texto impreso en el terminal) que la imagen recortada y la máscara de imagen tienen las mismas dimensiones, pero el archivo de máscara de imagen tiene un tamaño de archivo significativamente menor. Si bien la máscara contiene el mismo <em>número</em> de píxeles, estos píxeles solo tienen un valor de <code>1</code> o <code>0</code>, mientras que, en la imagen recortada del mismo tamaño en píxeles, cada píxel tiene un valor Rojo, Verde y Azul: cada uno con un rango entre <code>0</code> y <code>255</code>, lo que representa significativamente más datos.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od4_masking.svg" width="600px"></a>
+  
 </figure><p></p>
 </li>
 </ol>
@@ -5095,7 +5095,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <li>
 <p>Ejecuta este node nuevamente, y ahora también debería generarse una cuarta imagen, esta vez mostrando la imagen recortada tomada de la cámara del robot, pero que solo contiene datos relacionados con el pilar de color, con todos los demás datos de imagen de fondo eliminados (y renderizados en negro):</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od5_filtering.svg" width="600px"></a>
+  
 </figure><p></p>
 </li>
 </ol>
@@ -5123,7 +5123,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <p>Estamos sumando un número muy pequeño al momento <span class="arithmatex">\(M_{00}\)</span> aquí para asegurarnos de que el divisor en las ecuaciones anteriores nunca sea cero y así garantizar que nunca nos sorprenda ningún error de "división por cero". ¿Por qué podría ser esto necesario?</p>
 </div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="ex2/od6_centroid.svg" width="600px"></a></p>
+<p></p>
 </figure>
 <p>Una vez más, hay una herramienta integrada de OpenCV que podemos usar para agregar un círculo en una imagen para ilustrar la ubicación del centroide dentro del campo de visión del robot: <code>cv2.circle()</code>. Así es como produjimos el círculo rojo que puedes ver en la figura anterior. Puedes ver cómo se implementa esto aquí:</p>
 <p></p><center><a class="md-button" href="object_detection_complete/" target="_blank"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8zm4 18H6V4h7v5h5zm-8.46-4.35 2.09 2.09L10.35 19 7 15.65l3.35-3.35 1.28 1.26zm7.46 0L13.65 19l-1.27-1.26 2.09-2.09-2.09-2.09 1.27-1.26z"></path></svg></span> Un ejemplo completo del node <code>object_detection.py</code></a></center> <p></p>
@@ -5188,7 +5188,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <p>En el corazón de esto está el principio del control de <em>Retroalimentación Negativa</em>, que considera una <strong>Entrada de Referencia</strong>, una <strong>Señal de Retroalimentación</strong> y el <strong>Error</strong> entre estas.</p>
 <p><a name="neg_fdbck_ctrl"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/negative_feedback_control.png" width="500"></a>
+<p>
   </p>
 <figcaption>
     Control de Retroalimentación Negativa<br>
@@ -5200,7 +5200,7 @@ Esto puede parecer bastante confuso, pero con suerte la figura a continuación i
 <p>La diferencia entre estas dos cosas es el <strong>Error</strong>, y el algoritmo de control PID nos proporciona un medio para controlar este error y minimizarlo, de modo que el estado <em>actual</em> de nuestro robot coincida con el estado <em>deseado</em>. Es decir: la línea de color siempre está en el centro de su campo de visión.</p>
 <p><a name="pid_terms"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/terms.png" width="700px"></a></p>
+<p></p>
 </figure>
 <p><a name="pid_eqn"></a></p>
 <p>El algoritmo PID es el siguiente:</p>
@@ -5220,7 +5220,7 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 </code></pre></div>
 <p>Tu robot debería ser lanzado en una pista larga y estrecha con una línea rosa pintada en el centro del suelo:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/setup.png" width="800px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5237,7 +5237,7 @@ u(t)=K_{P} e(t) + K_{I}\int e(t)dt + K_{D}\dfrac{d}{dt}e(t)
 <p>La plantilla contiene tres "TODOs" que debes completar, todos los cuales se explican en detalle en las anotaciones del código, así que léelas cuidadosamente. En última instancia, todo esto lo hiciste en el <a href="#ex2">Ejercicio 2</a>, así que regresa aquí si necesitas un recordatorio de cómo funciona algo. </p>
 <p>Tu objetivo aquí es hacer que el código genere una imagen recortada, con la línea de color aislada y ubicada dentro de ella, así:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/setup_complete.jpg"></a>
+  
 </figure> <p></p>
 </li>
 </ol>
@@ -5335,7 +5335,7 @@ u(t)=K_{P} e(t)
 <p>Una vez en ejecución, el código <em>debería</em> hacer que el robot se mueva con una velocidad lineal constante de 0.1 m/s en todo momento, mientras que su velocidad angular estará determinada por nuestro controlador proporcional, basado en el error del controlador y el parámetro de ganancia proporcional <code>kp</code>.</p>
 <p>La figura a continuación ilustra los efectos que diferentes valores de ganancia proporcional pueden tener en un sistema.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pid/kp.png" width="600"></a>
+  
   <figcaption>
     Cortesía de Prof. Roger Moore<br>
     Tomado de Clase 6: Control PID
@@ -5388,7 +5388,7 @@ u(t)=K_{P} e(t)
 </code></pre></div>
 <p>Tu robot debería ser lanzado a un entorno con una línea más interesante que seguir:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="line_following/advanced.png" width="800px"></a>
+  
 </figure><p></p>
 </li>
 <li>

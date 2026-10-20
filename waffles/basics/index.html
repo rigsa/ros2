@@ -4468,7 +4468,7 @@
 <li>
 <p>Sigue las instrucciones que aparecen en la terminal para conducir el robot utilizando teclas específicas del teclado:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
+  
 </figure><p></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4505,7 +4505,7 @@
 </code></pre></div>
 <p>Esto lanzará una aplicación llamada <em>RViz</em>, una herramienta muy útil que nos permite <em>visualizar</em> los datos de todos los sensores a bordo de nuestros robots. Cuando RViz se abra, deberías ver algo similar a lo siguiente:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz.png" width="700px"></a>
+  
 </figure><p></p>
 <p>Haz clic en la casilla junto a <em>"Camera"</em> en la lista de <em>"Displays"</em> para habilitar la suscripción a la cámara. Luego debería aparecer una transmisión en vivo de la cámara del robot en el panel <em>Camera</em> en la parte inferior izquierda.</p>
 </li>
@@ -4545,7 +4545,7 @@
 </code></pre></div>
 <p>Debería abrirse una ventana:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/main.png" width="600"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -4561,12 +4561,12 @@
 <p>En la ventana que se abre, selecciona <code>Nodes/Topics (active)</code> en el menú desplegable de la parte superior izquierda.</p>
 <p>Lo que deberías ver entonces es un mapa de todos los nodos de la lista anterior (como óvalos) y flechas que ilustran el flujo de información entre ellos. ¡Esta es una representación visual de la red ROS!</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle.png" width="600px"></a>
+  
 </figure><p></p>
 <p>Los elementos con borde rectangular son <em>ROS Topics</em>. Los ROS Topics son esencialmente canales de comunicación, y los Nodos de ROS pueden leer (<em>suscribirse</em>) o escribir (<em>publicar</em>) en estos topics para acceder a datos de sensores, pasar información por la red y hacer que sucedan cosas.</p>
 <p>Si el Nodo <code>teleop_keyboard</code> aún está activo (en <strong>TERMINAL 4</strong>), el gráfico debería mostrarnos que este nodo está publicando mensajes en un topic llamado <code>/cmd_vel</code>, al cual a su vez se suscribe <code>turtlebot3_node</code>.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle_teleop.png" width="600px"></a>
+  
 </figure><p></p>
 <p>Este nodo se ejecuta en el robot y controla su velocidad. Le enviamos instrucciones (publicando en el topic <code>/cmd_vel</code>) para hacer que el robot se mueva.</p>
 </li>
@@ -4706,7 +4706,7 @@
 <h2 id="control-de-velocidad">Control de Velocidad<a class="headerlink" href="#control-de-velocidad" title="Permanent link">¶</a></h2>
 <p>El movimiento de cualquier robot móvil puede definirse en términos de sus tres <em>ejes principales</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto de nuestro TurtleBot3 Waffle, estos ejes (y el movimiento en torno a ellos) se definen de la siguiente manera:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="600"></a></p>
+<p></p>
 </figure>
 <p>En teoría, un robot puede moverse <em>linealmente</em> o <em>angularmente</em> en cualquiera de estos tres ejes, como se muestra con las flechas en la figura. Eso son seis <em>Grados de Libertad</em> (GDL) en total, logrados según el diseño del robot y los actuadores con que cuenta. Vuelve a mirar la salida de <code>ros2 interface show</code> mostrada anteriormente. Esperamos que ahora quede más claro que el subcampo <code>twist</code> de la interfaz <code>TwistStamped</code> está formateado para darle a un programador de ROS la capacidad de <em>pedirle</em> a un robot que se mueva en cualquiera de sus seis GDL.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Vector3  linear
@@ -4720,7 +4720,7 @@
 </code></pre></div>
 <p>¡Nuestro robot TurtleBot3 solo tiene dos motores, por lo que en realidad no tiene seis GDL! Los dos motores pueden controlarse de forma independiente, lo que le da lo que se llama una configuración de <em>"tracción diferencial"</em>, pero aun así solo le permite moverse con <strong>dos grados de libertad</strong> en total, como se ilustra a continuación.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="600"></a></p>
+<p></p>
 </figure>
 <p>Por lo tanto, solo puede moverse <strong>linealmente</strong> en el <strong>eje x</strong> (<em>Adelante/Atrás</em>) y <strong>angularmente</strong> en el <strong>eje z</strong> (<em>Guiñada</em>).</p>
 <h4 id="exSimpleVelCtrl"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 5: Un Nodo de Control de Velocidad en Python<a class="headerlink" href="#exSimpleVelCtrl" title="Permanent link">¶</a></h4>
@@ -4957,7 +4957,7 @@
 </details>
 <p>Esto lanzará una nueva instancia de RViz, mostrando una vista aérea del entorno y puntos de varios colores que representan los datos en tiempo real del LiDAR.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/slam_step0.png" width="600px"></a>
+  
 </figure><p></p>
 <p>SLAM ya habrá comenzado a procesar estos datos para empezar a construir un mapa de los límites actualmente visibles para el Waffle según su ubicación en el entorno.</p>
 </li>
@@ -4969,9 +4969,9 @@
 </div>
 <p><a name="slam-steps"></a></p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/slam_step1.png" width="500px"></a>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/slam_step2.png" width="500px"></a>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/slam_step3.png" width="500px"></a>
+  
+  
+  
 </figure><p></p>
 </li>
 <li>

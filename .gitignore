@@ -3,3 +3,4 @@
 venv/
 TODOs.md
 site/
+__pycache__/

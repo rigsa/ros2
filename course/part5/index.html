@@ -4957,7 +4957,7 @@
 <p>En el ejercicio anterior lanzamos un action server y luego lo llamamos desde la línea de comandos usando el sub-comando <code>ros2 action send_goal</code>. De la misma manera que un ROS Service, el action también nos proporcionó un <strong>result</strong> una vez que la tarea se completó.</p>
 <p>Usando el flag <code>-f</code> pudimos pedir al servidor que nos proporcionara <em>feedback en tiempo real</em> sobre cómo iba (en <strong>TERMINAL 3</strong>). El <strong>Feedback</strong> es una de las características clave que diferencia a un ROS Action de un ROS Service: un Action Server proporciona <strong>feedback</strong> a intervalos regulares mientras trabaja hacia su <strong>goal</strong>. Otra característica de los ROS Actions es que pueden <em>cancelarse</em> a mitad de camino (con lo que jugaremos en breve).</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="action_interface.png" width="400px"></a></p>
+<p></p>
 </figure>
 <p>En última instancia, los Actions usan una combinación de comunicación basada tanto en Topics <em>como</em> en Services, para crear un protocolo de mensajería más avanzado. Basándose en los ROS Services, los <em>Actions</em> están diseñados para ser usados en <strong>tareas de larga duración</strong>, debido a la provisión de <em>feedback</em> y la capacidad de <em>cancelar</em> un proceso a mitad de camino. Puedes leer más sobre Actions en <a href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html" target="_blank" rel="noopener">la documentación oficial de ROS 2 aquí</a> (que también incluye una animación muy buena para explicar cómo funcionan).</p>
 <h3 id="el-formato-de-las-interfaces-de-action">El Formato de las Interfaces de Action<a class="headerlink" href="#el-formato-de-las-interfaces-de-action" title="Permanent link">¶</a></h3>
@@ -4990,7 +4990,7 @@
 </code></pre></div>
 <p>Con el switch <code>with_gui</code> configurado en <code>true</code>, ahora deberíamos poder <em>ver</em> realmente el mundo simulado esta vez.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/coloured_pillars.png" width="600px"></a>
+  
 </figure>
 <center><em>(¡No es muy emocionante que digamos!)</em></center><p></p>
 </li>
@@ -5491,7 +5491,7 @@ a solo esto:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="600px"></a></p>
+<p></p>
 </figure>
 <p>No olvides que para lanzar el servidor necesitarás haber construido todo con <code>colcon</code> siguiendo <a href="#colcon-build-steps">el proceso habitual de <strong>tres etapas</strong></a>.</p>
 <p>Haz esto en <strong>TERMINAL 2</strong> y luego podrás ejecutarlo:</p>

@@ -4711,7 +4711,7 @@
 <summary>Usuarios de WSL...</summary>
 <p>Es importante iniciar VS Code dentro de tu entorno ROS usando la extensión "WSL". Recuerda siempre verificar esto: </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  
 </figure><p></p>
 </details>
 <p><strong>Paso 4: Asegúrate de que el Repositorio del Curso esté Actualizado</strong></p>
@@ -4867,7 +4867,7 @@
 <li>
 <p>Una vez que hayas completado esto, debería ser posible lanzar tanto el publisher como el subscriber nodes (de tu package <code>part1_pubsub</code>) con <code>ros2 launch</code> y el archivo <code>pubsub.launch.py</code>. Verifica esto en <strong>TERMINAL 1</strong> ejecutando el launch file:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="pubsub.gif" width="600px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5019,7 +5019,7 @@
 </code></pre></div>
 <p>Ahora debería lanzarse una simulación Gazebo con el robot de simulación en un nuevo entorno:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_world.png" width="600px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5028,7 +5028,7 @@
 </code></pre></div>
 <p>Al ejecutar el comando debería abrirse una nueva ventana:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rviz/tb3.png" width="600px"></a>
+  
 </figure><p></p>
 <p>Esto es <em>RViz</em>, una herramienta de ROS que nos permite <em>visualizar</em> los datos que está midiendo un robot en tiempo real. </p>
 <p>Los puntos verdes dispersos alrededor del robot representan <em>datos de desplazamiento láser</em> medidos por el sensor LiDAR ubicado en la parte superior del robot, lo que le permite medir la <em>distancia</em> a cualquier obstáculo en sus alrededores. </p>
@@ -5086,7 +5086,7 @@
 <p><code>ranges</code> es un arreglo de valores <code>float32</code> (los tipos de datos de arreglo tienen el sufijo <code>[]</code>). Esta es la parte del mensaje que contiene todas las <em>mediciones de distancia reales</em> que está obteniendo el sensor LiDAR (en metros).</p>
 <p><a name="fig_lidar"></a>Considera un ejemplo simplificado aquí, tomado de un robot de simulación en un entorno diferente:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rviz/lidar_illustrated.png"></a></p>
+<p></p>
 </figure>
 <p><a name="echo_scan_variables"></a>Como se ilustra en la figura, podemos asociar cada punto de datos del arreglo <code>ranges</code> a una <em>posición angular</em> usando los valores <code>angle_min</code>, <code>angle_max</code> y <code>angle_increment</code> que también se proporcionan dentro del mensaje <code>LaserScan</code>. Podemos usar el comando <code>ros2 topic echo</code> para averiguar cuáles son sus valores:</p>
 <p></p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>$ ros2 topic echo /scan --field angle_min --once
@@ -5184,7 +5184,7 @@
 <li>
 <p>Usa la <strong>herramienta Box</strong> en Gazebo para colocar una caja en el entorno. </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/toolbars_antd.png" width="500px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5196,7 +5196,7 @@
 <li>
 <p>Piensa en cómo podrías adaptar la función callback del node <code>lidar_subscriber.py</code> para que detecte más de un subconjunto de <code>LaserScan</code>, de modo que pueda detectar situaciones como esta (por ejemplo):</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="lidar_subscriber_adv.png" width="500px"></a>
+  
 </figure><p></p>
 </li>
 </ol>
@@ -5213,7 +5213,7 @@
 </code></pre></div>
 <p>El entorno que se lanza debería verse así:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="nav_world.png" width="800px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5222,12 +5222,12 @@
 </code></pre></div>
 <p>Esto lanzará RViz nuevamente, donde deberías ver una vista desde arriba de un entorno con un modelo del robot, rodeado de algunos puntos que representan los datos LiDAR en tiempo real. </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cartographer_rviz1.png" width="600px"></a>
+  
 </figure><p></p>
 <p>SLAM ya ha comenzado a construir un mapa de los límites que actualmente son visibles para el robot, basándose en su posición inicial en el entorno. </p>
 <p>Si dejas esto por un minuto, las paredes del espacio comenzarán a hacerse visibles en RViz, y el suelo comenzará a tornarse de un gris más claro. A medida que pase el tiempo, los algoritmos SLAM se volverán más seguros sobre lo que se está observando en el entorno, lo que permitirá definir los límites y el espacio libre.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cartographer_rviz2.png" width="600px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5285,7 +5285,7 @@
 <li>
 <p>Continúa conduciendo el robot hasta que se haya generado un mapa completo del entorno.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="slam_steps.png" width="800px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5313,7 +5313,7 @@ Reemplazando <code>MAP_NAME</code> con un nombre de tu elección. <p></p>
 </code></pre></div>
 <p>Debería abrirse una nueva ventana con el mapa que acabas de crear con SLAM y el node <code>map_saver_cli</code>: </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="slam_map.png" width="300px"></a>
+  
 </figure><p></p>
 <p>Las regiones blancas representan el área que tu robot ha determinado como espacio abierto en el que puede moverse libremente. Las regiones negras, por otro lado, representan límites u objetos que han sido detectados. Cualquier área gris en el mapa representa regiones que permanecen sin explorar o que eran inaccesibles para el robot.</p>
 </li>

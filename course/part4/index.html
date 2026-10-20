@@ -4654,7 +4654,7 @@
 <summary>Usuarios de WSL...</summary>
 <p>Es importante iniciar VS Code dentro de tu entorno ROS usando la extensión "WSL". Recuerda siempre verificar esto: </p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  
 </figure><p></p>
 </details>
 <p><strong>Paso 4: Asegurarse de que el Repositorio del Curso Esté Actualizado</strong></p>
@@ -4667,7 +4667,7 @@
 <li>El <strong>Server</strong> de Service procesa esa request y envía de vuelta una <strong>Response</strong>.</li>
 </ul>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="La diferencia entre la mensajería basada en topics y el protocolo de ROS Service" src="topic_vs_service.png" width="600px"></a></p>
+<p></p>
 </figure>
 <p>Esto es similar a una transacción: un nodo solicita algo, y otro nodo cumple esa solicitud y responde. Esto es útil para <strong>tareas rápidas y de corta duración</strong>, por ejemplo:</p>
 <ol>
@@ -4678,7 +4678,7 @@
 </ol>
 <p>Un único service puede tener muchos clients, pero solo puede haber un <em>único</em> Server proporcionando ese service en particular en un momento dado.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="service_clients.png"></a>
+<p>
   </p>
 <figcaption>Múltiples Clients hacia un único Service Server</figcaption>
 </figure>
@@ -5115,7 +5115,7 @@
 <p>Claramente, los ejemplos con los que hemos estado trabajando hasta ahora han sido bastante triviales: ¡es poco probable que alguna vez necesites programar un robot para jugar el juego de números! Sin embargo, el objetivo ha sido ilustrar cómo funcionan los ROS Services y cómo desarrollar los propios. </p>
 <p>Sin embargo, una aplicación que <em>puede</em> resultarte útil es el <em>guardado de mapas</em>. En la Parte 3 aprendimos sobre SLAM, donde condujimos un robot por un entorno mientras los algoritmos SLAM trabajaban en segundo plano para generar un mapa del mundo usando datos del sensor LiDAR del robot y su sistema de odometría:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_steps.png" width="500px"></a></p>
+<p></p>
 </figure>
 <p>Habiendo mapeado el entorno, llamamos al nodo <code>map_saver_cli</code> del package <code>nav2_map_server</code>, para guardar una copia de ese mapa en un archivo:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>MAP_NAME
@@ -5131,7 +5131,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_simulations<span class="w"> </span>nav_world.launch.py
 </code></pre></div>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/nav_world.png" width="500px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5139,7 +5139,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>rigsa_tb3_tools<span class="w"> </span>slam.launch.py<span class="w"> </span>environment:<span class="o">=</span>sim
 </code></pre></div>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/cartographer_rviz1.png" width="500px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5222,7 +5222,7 @@
 </code></pre></div>
 <p>... lo que resultó en algo como:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../part3/slam_map.png" width="300px"></a>
+<p>
   </p>
 <figcaption>El archivo <code>MAP_NAME.pgm</code></figcaption>
 </figure>

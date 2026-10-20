@@ -4836,7 +4836,7 @@
 <summary>Usuarios de WSL...</summary>
 <p>Es importante iniciar VS Code dentro de tu entorno WSL usando la extensión "WSL". Recuerda siempre verificar esto:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/figures/code-wsl-ext-on.svg" width="400px"></a>
+  
 </figure><p></p>
 </details>
 <p><strong>Paso 4: Asegúrate de que el Repositorio del Curso Esté Actualizado</strong></p>
@@ -4860,7 +4860,7 @@
 </code></pre></div>
 <p>Se debería abrir una ventana de simulación Gazebo y dentro de ella deberías ver el robot de simulación en espacio vacío:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/gz/tb3_empty_world_mid.png" width="700px"></a></p>
+<p></p>
 </figure>
 <h2 id="topics-e-interfaces-de-ros-de-la-parte-1">Topics e Interfaces de ROS (de la Parte 1)<a class="headerlink" href="#topics-e-interfaces-de-ros-de-la-parte-1" title="Permanent link">¶</a></h2>
 <p>En la Parte 1 aprendimos sobre los Topics de ROS, y sobre cómo el node <code>teleop_keyboard</code> puede usarse para publicar mensajes a un topic particular con el fin de controlar la velocidad del robot (y así cambiar su <em>posición</em>).</p>
@@ -4878,7 +4878,7 @@
 <p>La Odometría es un proceso de monitoreo de la <em>posición</em> y <em>orientación</em> de un robot en un entorno, lo cual (como aprenderemos) es esencial para la navegación de robots. La posición y orientación de un robot se denomina su <em>pose</em>. La pose de un robot es tridimensional, y por lo tanto se define en términos de tres <em>"Ejes Principales"</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto de nuestro robot de simulación, estos ejes y el movimiento a su alrededor se definen de la siguiente manera:</p>
 <p><a name="principal-axes"></a></p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejes principales del robot diferencial" src="../../images/waffle/principal_axes.svg" width="800"></a></p>
+<p></p>
 </figure>
 <p>No todas las posiciones y orientaciones anteriores aplican a nuestro robot de simulación, y exploraremos esto más adelante.</p>
 <h3 id="la-odometria-en-accion">La Odometría en Acción<a class="headerlink" href="#la-odometria-en-accion" title="Permanent link">¶</a></h3>
@@ -4916,7 +4916,7 @@
 <p>Expande el campo <code>pose</code>, y luego el campo <code>pose</code> adicional dentro de él. Esto debería revelar dos campos adicionales: <strong><code>position</code></strong> y <strong><code>orientation</code></strong>. </p>
 <p>Expande ambos para revelar los datos que se publican en los <em>tres</em> valores de posición (<code>x</code>, <code>y</code> y <code>z</code>) y los <em>cuatro</em> valores de orientación (<code>x</code>, <code>y</code>, <code>z</code> y <code>w</code>).</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/topic_monitor.png" width="600"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5116,7 +5116,7 @@
 <h3 id="que-valores-de-pose-aplican-a-nuestro-robot">¿Qué Valores de Pose Aplican a Nuestro Robot?<a class="headerlink" href="#que-valores-de-pose-aplican-a-nuestro-robot" title="Permanent link">¶</a></h3>
 <p>Refiriéndonos de nuevo a los tres <em>ejes principales</em> de antes: </p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejes principales del robot diferencial" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
+<p></p>
 </figure>
 <p>Como puedes ver, el robot de simulación tiene dos motores que le permiten moverse. Como resultado de esto, solo puede moverse en un plano 2D y por lo tanto su pose puede representarse completamente con solo 3 términos de odometría en total: </p>
 <ul>
@@ -5207,7 +5207,7 @@
 <li>
 <p>Habiendo seguido todos los pasos, la salida de tu node debería ser similar a la que se muestra a continuación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="odom_subscriber.gif" width="700px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5377,11 +5377,11 @@
 <h3 id="los-grados-de-libertad-del-robot">Los Grados de Libertad del Robot<a class="headerlink" href="#los-grados-de-libertad-del-robot" title="Permanent link">¶</a></h3>
 <p>Recuerda (de nuevo) los <em>"Ejes Principales"</em> del robot y el movimiento a su alrededor:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Ejes principales del robot diferencial" src="../../images/waffle/principal_axes.svg" width="500"></a></p>
+<p></p>
 </figure>
 <p>Como se discutió anteriormente, el robot de simulación solo tiene dos motores. Estos dos motores pueden controlarse de forma independiente (en lo que se conoce como una configuración de <em>"accionamiento diferencial"</em>), lo que en última instancia le proporciona un total de <strong>dos grados de libertad</strong> en general, como se destaca a continuación.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Velocidades del robot diferencial" src="../../images/waffle/velocities.svg" width="800"></a></p>
+<p></p>
 </figure>
 <p>Al emitir comandos de velocidad al robot, por lo tanto, solo dos (de los seis) campos de comando de velocidad son aplicables: velocidad <strong>lineal</strong> en el eje <strong>x</strong> (<em>Adelante/Atrás</em>) y velocidad <strong>angular</strong> alrededor del eje <strong>z</strong> (<em>Yaw</em>).</p>
 <p></p><center><p></p>

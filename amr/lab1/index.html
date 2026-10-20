@@ -4645,7 +4645,7 @@
 <li>
 <p>Abre una instancia de terminal en la laptop, ya sea presionando las teclas <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span> simultáneamente, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/terminal_icon.svg?width=60px"></a>
+  
 </figure><p></p>
 <p>Nos referiremos a esta terminal como <strong>TERMINAL 1</strong>.</p>
 </li>
@@ -4662,7 +4662,7 @@
 <p>Ingresa la contraseña del robot cuando se te solicite (te la indicaremos en el laboratorio).</p>
 <p>Es posible que veas un mensaje como este durante el proceso de vinculación:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ssh_auth.svg" width="600px"></a>
+  
 </figure><p></p>
 <p>Si es así, simplemente escribe <code>yes</code> y presiona <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar que deseas continuar.</p>
 </li>
@@ -4679,7 +4679,7 @@
 <hr>
 <p>El texto que había en la terminal debería desaparecer y aparecerá un banner verde en la parte inferior de la ventana:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/tmux.svg" width="600px"></a>
+  
 </figure><p></p>
 <p>Esta es una instancia de terminal ejecutándose <strong>en el robot</strong>, y cualquier comando que ingreses aquí se <strong>ejecutará en el robot</strong> (¡no en la laptop!)</p>
 </li>
@@ -4734,7 +4734,7 @@
 <li>
 <p>Sigue las instrucciones proporcionadas en la terminal para conducir el robot usando las teclas del teclado:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/cli/teleop_keymap.svg"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -4800,11 +4800,11 @@
 <hr>
 <p>Esto lanzará una aplicación llamada <em>RViz</em>, que es una herramienta útil que nos permite <em>visualizar</em> los datos de todos los sensores a bordo de nuestros robots. Cuando se abra RViz, deberías ver algo similar a lo siguiente:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz.png" width="700px"></a>
+  
 </figure><p></p>
 <p>En el menú "Displays" del lado izquierdo, haz clic en la casilla junto al elemento "DepthCloud".</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_rviz_depth_cloud.png" width="600px"></a>
+  
 </figure><p></p>
 <p>La extraña hoja ondulante de colores que debería aparecer frente al robot es la transmisión de imágenes en vivo de la cámara con profundidad aplicada al mismo tiempo. La cámara puede determinar qué tan lejos está cada píxel de imagen del objetivo de la cámara y luego usa eso para generar esta representación tridimensional.</p>
 </li>
@@ -4828,7 +4828,7 @@
 <hr>
 <p>Se abrirá una nueva pantalla de RViz, esta vez mostrando el robot desde una vista superior, y con los datos del LiDAR representados por puntos multicolores.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/waffle_slam.png" width="700px"></a>
+  
 </figure><p></p>
 <p>Debajo de los puntos del LiDAR deberías notar que se está formando un mapa, con líneas negras que representan objetos fijos en el entorno y áreas blancas que representan espacio libre por el que el robot podría desplazarse. ROS está usando un proceso llamado <em>SLAM</em> (Localización y Cartografía Simultáneas) para generar un mapa del entorno utilizando los datos del sensor LiDAR.</p>
 </li>
@@ -4875,7 +4875,7 @@
 <p>En la ventana que se abre, selecciona <code>Nodes/Topics (active)</code> del menú desplegable en la parte superior izquierda.</p>
 <p>Lo que deberías ver es un mapa de todos los nodes de la lista anterior (como óvalos), y flechas para ilustrar el flujo de información entre ellos. ¡Esta es una representación visual de la red ROS!</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle.png" width="600px"></a>
+  
 </figure><p></p>
 <p>Los elementos con un borde rectangular son <em>ROS Topics</em>. Los Topics de ROS son esencialmente canales de comunicación, y los nodes ROS pueden leer (<em>suscribirse</em>) o escribir (<em>publicar</em>) en estos topics para acceder a datos de sensores, pasar información por la red y hacer que sucedan cosas.</p>
 </li>
@@ -4890,7 +4890,7 @@
 <li>
 <p>Regresa a la ventana de RQT Graph y presiona el ícono de actualización (a la izquierda del menú desplegable <code>Nodes/Topics (active)</code>).</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/graph_waffle_teleop.png" width="600px"></a>
+  
 </figure><p></p>
 <div class="admonition info">
 <p class="admonition-title">Post-lab</p>
@@ -4971,7 +4971,7 @@
 <h3 id="control-de-velocidad">Control de Velocidad<a class="headerlink" href="#control-de-velocidad" title="Permanent link">¶</a></h3>
 <p>El movimiento de cualquier robot móvil se puede definir en términos de sus tres <em>ejes principales</em>: <code>X</code>, <code>Y</code> y <code>Z</code>. En el contexto del robot de simulación, estos ejes (y el movimiento alrededor de ellos) se definen de la siguiente manera:</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/principal_axes.svg" width="700px"></a></p>
+<p></p>
 </figure>
 <p>En teoría, un robot puede moverse <em>linealmente</em> o <em>angularmente</em> alrededor de cualquiera de estos tres ejes, como se muestra por las flechas en la figura. Eso son seis <em>Grados de Libertad</em> (DOFs) en total, logrados según el diseño del robot y los actuadores con los que está equipado. Vuelve a ver la salida de <code>ros2 interface show</code> en <strong>TERMINAL 3</strong>. Esperemos que ahora esté más claro que estos mensajes de topic están formateados para darle a un programador de ROS la capacidad de <em>pedirle</em> a un robot que se mueva en cualquiera de sus seis DOFs.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Vector3  linear
@@ -4985,7 +4985,7 @@
 </code></pre></div>
 <p>¡Nuestro TurtleBot3 solo tiene dos motores, así que en realidad no tiene seis DOFs! Estos dos motores pueden controlarse de forma independiente, en una configuración de <em>"accionamiento diferencial"</em>, pero esto aún solo le permite moverse con <strong>dos grados de libertad</strong> en total, como se ilustra a continuación.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/velocities.svg" width="700px"></a></p>
+<p></p>
 </figure>
 <p>Por lo tanto, la velocidad solo puede aplicarse <strong>linealmente</strong> en el <strong>eje x</strong> (<em>Adelante/Atrás</em>) y <strong>angularmente</strong> en el <strong>eje z</strong> (<em>Guiñada/Yaw</em>).</p>
 <div class="admonition info">
@@ -5003,7 +5003,7 @@
 </code></pre></div><p></p>
 <hr>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub.png" width="600px"></a>
+  
 </figure><p></p>
 </li>
 <li>
@@ -5018,13 +5018,13 @@
 <li>
 <p>En la Tabla de Publicadores, haz clic en el <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> junto a <code>/cmd_vel</code> para expandir el elemento y revelar dos elementos adicionales: <code>header</code> y <code>twist</code>:</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub_cmd_vel.png" width="600px"></a>
+  
 </figure><p></p>
 </li>
 <li>
 <p>Haz clic en el ícono <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> junto a <code>twist</code>, y luego en los íconos <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177"></path></svg></span> subsiguientes junto a los elementos <code>linear</code> y <code>angular</code> que aparecen debajo. Finalmente, verás algunos valores en la columna "<strong>expression</strong>":</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/rqt/msg_pub_cmd_vel_values.png" width="600px"></a>
+  
 </figure><p></p>
 <p>¿Se parece esto a <a href="#show-twist">la definición de la interface que vimos en la terminal antes</a>?</p>
 </li>
@@ -5080,7 +5080,7 @@
 <li>
 <p>Cuando se abra VS Code, deberías ver un <em>Explorador de Archivos</em> en el lado izquierdo que te permite acceder a todos los archivos y carpetas dentro de tu paquete.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_package_xml.png" width="400px"></a>
+  
 </figure><p></p>
 <p>Busca un archivo llamado <code>package.xml</code> aquí y haz clic en él. Esto abrirá este archivo en la ventana principal de VS Code para que puedas editarlo.</p>
 </li>
@@ -5122,7 +5122,7 @@
 <h4 id="ex7"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c-.34.34-.67.67-.68 1-.03.32.31.65.63.96.48.5.95.95.93 1.44s-.53 1-1.04 1.5l-4.13 4.14L15 14.66l4.25-4.24-.96-.96-1.42 1.41-3.75-3.75 3.84-3.83c.39-.39 1.04-.39 1.41 0l2.34 2.34c.39.37.39 1.02 0 1.41M3 17.25l9.56-9.57 3.75 3.75L6.75 21H3z"></path></svg></span> Ejercicio 7: Un node de Python para hacer mover al robot<a class="headerlink" href="#ex7" title="Permanent link">¶</a></h4>
 <p>Regresa a VS Code ahora, y (en el Explorador de Archivos) busca una carpeta llamada <code>scripts</code>. Haz clic en el ícono <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg></span> junto a esta para expandir la carpeta y revelar su contenido. Se debería revelar un archivo llamado <code>basic_velocity_control.py</code>. Haz clic en él para abrirlo en la ventana principal del editor.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="vscode_explorer_scripts.png" width="400px"></a></p>
+<p></p>
 </figure>
 <p>Este es un Node de Python de ROS 2 (bastante) básico que controlará la velocidad del robot. Analicémoslo:</p>
 <ol>
@@ -5346,7 +5346,7 @@ Esto creará una copia llamada <code>alt_velocity_control.py</code><p></p>
 <li>
 <p><strong>AHORA</strong> intenta editarlo para lograr alguno de los perfiles de movimiento más complejos ilustrados a continuación.</p>
 <p></p><figure markdown="">
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="move_alt.png"></a>
+  
 </figure><p></p>
 <ol>
 <li><strong>Perfil (a):</strong> El robot necesita seguir una trayectoria en forma de <em>figura ocho</em>, donde un comando de velocidad lineal y angular se establece simultáneamente para generar movimiento circular. Se deberán definir velocidades para lograr <strong>un diámetro de trayectoria de 1m</strong> para cada uno de los dos bucles. Habiendo establecido las velocidades apropiadamente, necesitarás calcular cuánto tiempo tardaría el robot en completar cada bucle, para poder determinar cuándo el robot habrá regresado a su punto de partida. En ese momento necesitarás cambiar la dirección de giro, para que el robot pase del giro en sentido antihorario al giro en sentido horario.</li>
@@ -5375,7 +5375,7 @@ Esto creará una copia llamada <code>alt_velocity_control.py</code><p></p>
 <p>Necesitarás ingresar <code>y</code> y luego presionar <span class="keys"><kbd class="key-enter">Enter</kbd></span> para confirmar.</p>
 <p>Luego apaga la laptop, lo cual puedes hacer haciendo clic en el ícono de batería en la parte superior derecha del escritorio, haciendo clic en el ícono de energía y seleccionando "Power Off..." en el menú.</p>
 <figure>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/laptops/ubuntu_poweroff.svg" width="300px"></a></p>
+<p></p>
 </figure>
 <p></p><center><p></p>
 <p><strong>¡Lab 1 de Industry 4.0 Completado!</strong><br>

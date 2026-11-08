@@ -4187,7 +4187,7 @@
 <li>
 <p>Abre una instancia de terminal en la laptop, ya sea usando el atajo de teclado <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-t">T</kbd></span>, o haciendo clic en el ícono de la aplicación Terminal en la barra de favoritos del escritorio:</p>
 <p></p><figure markdown="">
-  
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/laptops/terminal_icon.svg" width="60px"></a>
 </figure><p></p>
 </li>
 <li>
@@ -4379,10 +4379,15 @@
 <script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
     try {
         var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
+        if (img) {
+            const imageSrc = img.dataset.src || img.src;
+            if (imageSrc) {
+                element.setAttribute('href', imageSrc);
+            } else {
+                console.log('No img element with src or data-src attribute found');
+            }
         } else {
-            console.log('No img element with src attribute found');
+            console.log('No img element found');
         }
     } catch (error) {
         console.log('Error:', error);

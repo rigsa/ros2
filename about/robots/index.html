@@ -4329,7 +4329,7 @@
 <h4 id="dimensiones">Dimensiones<a class="headerlink" href="#dimensiones" title="Permanent link">¶</a></h4>
 <p>Algunas dimensiones útiles del modelo TurtleBot3 Waffle se muestran a continuación:</p>
 <figure>
-<p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/waffle/dims_and_turning_circle.svg" width="600px"></a>
   </p>
 <figcaption>Adaptado del <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/features/#data-of-turtlebot3-waffle-pi" target="_blank" rel="noopener">Manual electrónico TurtleBot3 de ROBOTIS</a>.</figcaption>
 </figure>
@@ -4498,10 +4498,15 @@ a los robots Unitree del laboratorio.</p>
 <script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
     try {
         var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
+        if (img) {
+            const imageSrc = img.dataset.src || img.src;
+            if (imageSrc) {
+                element.setAttribute('href', imageSrc);
+            } else {
+                console.log('No img element with src or data-src attribute found');
+            }
         } else {
-            console.log('No img element with src attribute found');
+            console.log('No img element found');
         }
     } catch (error) {
         console.log('Error:', error);

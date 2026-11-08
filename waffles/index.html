@@ -4023,7 +4023,7 @@ Para los robots del laboratorio, consulta los <a href="../unitree/">módulos Uni
 <h1 id="trabajando-con-los-turtlebot3-waffles-reales">Trabajando con los TurtleBot3 Waffles Reales<a class="headerlink" href="#trabajando-con-los-turtlebot3-waffles-reales" title="Permanent link">¶</a></h1>
 <p>Esta sección del sitio del curso contiene una serie de recursos para apoyar tu trabajo con los TurtleBot3 Waffles reales en el laboratorio.</p>
 <figure>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/waffle/cr3.jpg" width="800px"></a></p>
 </figure>
 
 
@@ -4177,10 +4177,15 @@ Para los robots del laboratorio, consulta los <a href="../unitree/">módulos Uni
 <script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
     try {
         var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
+        if (img) {
+            const imageSrc = img.dataset.src || img.src;
+            if (imageSrc) {
+                element.setAttribute('href', imageSrc);
+            } else {
+                console.log('No img element with src or data-src attribute found');
+            }
         } else {
-            console.log('No img element with src attribute found');
+            console.log('No img element found');
         }
     } catch (error) {
         console.log('Error:', error);

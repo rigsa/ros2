@@ -4149,7 +4149,7 @@
 </ol>
 <p>El procesamiento de datos se ilustra en la figura a continuación:</p>
 <figure>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../scandata.png" width="600px"></a></p>
 </figure>
 <h2 id="dependencias-del-package">Dependencias del Package<a class="headerlink" href="#dependencias-del-package" title="Permanent link">¶</a></h2>
 <p>Este node tiene dependencias en dos librerías Python externas (además de <code>rclpy</code>): </p>
@@ -4312,10 +4312,15 @@
 <script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
     try {
         var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
+        if (img) {
+            const imageSrc = img.dataset.src || img.src;
+            if (imageSrc) {
+                element.setAttribute('href', imageSrc);
+            } else {
+                console.log('No img element with src or data-src attribute found');
+            }
         } else {
-            console.log('No img element with src attribute found');
+            console.log('No img element found');
         }
     } catch (error) {
         console.log('Error:', error);

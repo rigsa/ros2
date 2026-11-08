@@ -4189,7 +4189,7 @@
 <p>Habiendo definido el radio del círculo, y la velocidad <em>lineal</em> a la que queremos que se mueva el robot, ¿cómo calcularíamos la velocidad <em>angular</em> que debería aplicarse?</p>
 <p>Considera la ecuación de velocidad angular:</p>
 <p></p><figure markdown="">
-  
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../ang_vel_eqn.svg" width="200"></a>
 </figure><p></p>
 <div class="arithmatex">\[
 \omega=\frac{v}{r}
@@ -4377,10 +4377,15 @@
 <script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
     try {
         var img = element.querySelector('img');
-        if (img && img.src) {
-            element.setAttribute('href', img.src);
+        if (img) {
+            const imageSrc = img.dataset.src || img.src;
+            if (imageSrc) {
+                element.setAttribute('href', imageSrc);
+            } else {
+                console.log('No img element with src or data-src attribute found');
+            }
         } else {
-            console.log('No img element with src attribute found');
+            console.log('No img element found');
         }
     } catch (error) {
         console.log('Error:', error);
